@@ -1,0 +1,158 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+  <AJDF:output>include file="header.html"</AJDF:output>
+        
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+              <li><a href="#">Home</a> <span class="divider">/</span></li>
+              <li class="active"> Register </li>
+            </ul>
+           <AJDF:output> $account </AJDF:output></TD>
+   
+        <div class="row-fluid">
+<div class="title_fnt">
+    	<h1>Register</h1>
+        </div>
+        <form class="form-horizontal" name="register_form" action="?do=userregistration&action=addreg" method="POST">
+                <fieldset>
+                  <div class="control-group">
+                    <div class="controls">
+                      <p class="info_fnt">
+                         Fields marked with an <span class="red_fnt">*</span> are required 
+                      </p>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Display Name <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="txtdisname" name="txtdisname" class="input-xlarge" value="<AJDF:output> $val.txtdisname </AJDF:output>"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtdisname </AJDF:output>
+                      </font>
+
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label">First Name <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="txtfname" name="txtfname" value="<AJDF:output> $val.txtfname </AJDF:output>" class="input-xlarge"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtfname </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Last Name <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="txtlname" name="txtlname" value="<AJDF:output> $val.txtlname </AJDF:output>" class="input-xlarge"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtlname </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+		
+		<div class="control-group">
+                    <label for="input01" class="control-label">Email Address <span class="red_fnt">*</span></label>
+                    <div class="controls">
+			    <input type="text" id="txtemail" name="txtemail" value="<AJDF:output> $val.txtemail </AJDF:output>" class="input-xlarge">
+                  <br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtemail </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+
+	 
+
+  		<div class="control-group">
+                    <label for="input01" class="control-label">Password <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="password" id="txtpwd" name="txtpwd" value="<AJDF:output> $val.txtpwd </AJDF:output>" class="input-xlarge"> <br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtpwd </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+  		<div class="control-group">
+                    <label for="input01" class="control-label">Confirm Password <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="password" id="txtrepwd" name="txtrepwd" value="<AJDF:output> $val.txtrepwd </AJDF:output>" class="input-xlarge"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtrepwd </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+	
+
+
+ 		  <div class="control-group">
+                    <label for="input01" class="control-label">Address <span class="red_fnt">*</span> </label>
+                    <div class="controls">
+                     <div id="txtHint"><input type="text" name="txtaddr" id="txtaddr" class="input-xlarge" value="<AJDF:output> $val.txtaddr </AJDF:output>"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtaddr </AJDF:output>
+                      </font></div>
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <label for="input01" class="control-label">City <span class="red_fnt">*</span> </label>
+                    <div class="controls">
+                      <input type="text" name="txtcity" id="txtcity" class="input-xlarge" value="<AJDF:output> $val.txtcity </AJDF:output>"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtcity </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="textarea" class="control-label">State / Province <span class="red_fnt">*</span></label>
+                    <div class="controls">
+ 			<input type="text" name="txtState" id="txtState" value="<AJDF:output> $val.txtState </AJDF:output>" class="input-xlarge"><br><font color="#FF0000"><AJDF:output>$msg.txtState</AJDF:output></font>
+                    </div>
+                  </div>
+
+		<div class="control-group">
+                    <label for="textarea" class="control-label">Zip / Postal Code <span class="red_fnt">*</span> </label>
+                    <div class="controls">
+			<input type="text" name="txtzipcode" id="txtzipcode" value="<AJDF:output> $val.txtzipcode </AJDF:output>" class="input-xlarge"><br><font color="#FF0000"><AJDF:output>$msg.txtzipcode</AJDF:output></font>
+                      </div>
+                  </div>
+
+    		<div class="control-group">
+                    <label for="input01" class="control-label">Country  <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <AJDF:output>$val.selCountry </AJDF:output>
+                    </div>
+                  </div>
+    		
+
+   		 
+		<div class="control-group">
+                    <label for="input01" class="control-label"> </label>
+                    <div class="controls">
+                    <input type="checkbox" align="absmiddle" name="chkterms" id="checkbox" value="1">  I accept the <a href="?do=termsandcondition">User Agreement and </a><a href="?do=privacypolicy">Privacy Policy</a><font color="#FF0000">
+                            <AJDF:output> $msg.chkterms </AJDF:output>
+                            </font>
+                    </div>
+                  </div>
+		
+                  <div class="form-actions">
+                    <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                  </div>
+                </fieldset>
+              </form>
+                </div>
+    </div>
+  
+    <!-- /container -->
+  <AJDF:output>include file="footer.html"</AJDF:output>

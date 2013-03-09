@@ -1,0 +1,37 @@
+	.cf:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+	* html .cf { zoom: 1; }
+	*:first-child+html .cf { zoom: 1; }
+	code { padding: 0 .5em; background: #fff2b2; }
+	.rt { width: 100%; /*12*/  border-collapse: collapse; border-spacing: 0; }
+
+	.rt th,
+	.rt td { margin: 0; padding: 0.4166em;/*10*/ vertical-align: top; border: 1px solid #babcbf; background: #fff; border-collapse:collapse; }
+	.rt th { text-align: left; background: #555; color:#fff }
+
+	@media only screen and (max-width: 40em) { /*640*/
+
+		#rt1 { display: block; position: relative; width: 100%; }
+		#rt1 thead { display: block; float: left; }
+		#rt1 tbody { display: block; width: auto; position: relative; overflow-x: auto; white-space: nowrap; }
+		#rt1 thead tr { display: block; }
+		#rt1 th { display: block; }
+		#rt1 tbody tr { display: inline-block; vertical-align: top; }
+		#rt1 td { display: block; min-height: 1.25em; }
+
+		#rt2 { display: block; position: relative; width: 100%; }
+		#rt2 thead { display: block; float: left; }
+		#rt2 tbody { display: -webkit-box; overflow-x: auto; }
+		#rt2 th,
+		#rt2 tr,
+		#rt2 td { display: block; }
+
+		/* sort out borders */
+
+		.rt th { border-bottom: 0; }
+		.rt td { border-left: 0; border-right: 0; border-bottom: 0; }
+		.rt tbody tr { border-right: 1px solid #babcbf; }
+		.rt th:last-child,
+		.rt td:last-child { border-bottom: 1px solid #babcbf; }
+
+	}
+

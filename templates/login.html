@@ -1,0 +1,77 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output> 
+       
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+              <li><a href="?do=index">Home</a> <span class="divider">/</span></li>
+              <li class="active"> Member Login </li>
+            </ul>
+            
+        <div class="row-fluid">
+<div class="title_fnt">
+    	<h1>Member Login</h1>
+        </div>
+        <div class="row-fluid">
+                    <div class="span6">
+		<form name="loginfrm" method="post" action="?do=login&action=validatelogin" >
+                    	<div id="loginfrm">
+                        		<ul class="loginfourm">
+                                	<li><b>E-mail Address</b></li>
+                                	<li><input type="text" name="txtemail" class="input-large" value="<AJDF:output>$val.txtemail</AJDF:output>"><br /><font color="#FF0000">
+					<AJDF:output>$msg.txtemail</AJDF:output>
+					</font></li>
+                                  	  <li><b>Password</b></li>
+                                	<li><input type="password" name="txtpass" class="input-large"><br /><font color="#FF0000">
+					<AJDF:output>$msg.txtpass</AJDF:output>                          
+					</font></li>
+                                	<li><input type="checkbox"> Remember me?</li>
+                                	<li><input type="submit" value="Login" class="btn btn-danger"> </li>
+                                    <li><a href="?do=forgetpwd"> Forgot password? </a> <span>OR</span> <a href="#">Need help?</a> </li>
+                                </ul>
+                        </div>
+			</form>
+                        </div>
+                    	<div class="span6">
+                         <div class="followus_div"><a class="facebook_btn" href="#"></a><a class="twitter_btn" href="#"></a><a class="google_btn" href="#"></a></div>
+                    <p class="userlogin_fnt"><span>or log in using your username and Password</span></p>
+                        	<div id="signin_acc">
+                        	<ul class="signin-account">
+                            	<li> <h5>SIGN UP FOR AN ACCOUNT</h5></li>
+                                <li> <p>Registration is fast and FREE! </p></li>
+                                <a> <a href="?do=userregistration"><input type="button" value="Register Here" class="btn btn-inverse"></a></li>
+                            </ul>
+                            <b>Account Protection Tips </b>
+                            <ul class="acctips">
+                            	<li>Choose a strong password and change it often.</li>
+                                <li>Avoid using the same password for other accounts.</li>
+                                <li>Create a unique password by using a combination of letters and numbers that are not easily guessed.</li>
+                            </ul>
+                            </div>
+                    </div>
+                        
+                    </div>
+                </div>
+    </div>
+  
+    <!-- /container -->
+    
+  <AJDF:output>include file="footer.html"</AJDF:output>

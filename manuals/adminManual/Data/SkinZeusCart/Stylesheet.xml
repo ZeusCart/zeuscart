@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Stylesheet>
+    <Styles>
+        <Style Name="ToolbarItem">
+            <Classes>
+                <StyleClass Name="AddTopicToFavorites">
+                    <Properties>
+                        <Property Name="Icon">url(AddTopicToFavorites.gif)</Property>
+                        <Property Name="PressedIcon">url(AddTopicToFavorites_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(AddTopicToFavorites_over.gif)</Property>
+                        <Property Name="ControlType">AddTopicToFavorites</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Back">
+                    <Properties>
+                        <Property Name="Icon">url(Back.gif)</Property>
+                        <Property Name="PressedIcon">url(Back_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Back_over.gif)</Property>
+                        <Property Name="ControlType">Back</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="CollapseAll">
+                    <Properties>
+                        <Property Name="Icon">url(Collapse.gif)</Property>
+                        <Property Name="PressedIcon">url(Collapse_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Collapse_over.gif)</Property>
+                        <Property Name="ControlType">CollapseAll</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="ExpandAll">
+                    <Properties>
+                        <Property Name="Icon">url(Expand.gif)</Property>
+                        <Property Name="PressedIcon">url(Expand_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Expand_over.gif)</Property>
+                        <Property Name="ControlType">ExpandAll</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Forward">
+                    <Properties>
+                        <Property Name="Icon">url(Forward.gif)</Property>
+                        <Property Name="PressedIcon">url(Forward_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Forward_over.gif)</Property>
+                        <Property Name="ControlType">Forward</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Home">
+                    <Properties>
+                        <Property Name="Icon">url(Home.gif)</Property>
+                        <Property Name="PressedIcon">url(Home_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Home_over.gif)</Property>
+                        <Property Name="ControlType">Home</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Print">
+                    <Properties>
+                        <Property Name="Icon">url(Print.gif)</Property>
+                        <Property Name="PressedIcon">url(Print_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Print_over.gif)</Property>
+                        <Property Name="ControlType">Print</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="QuickSearch">
+                    <Properties>
+                        <Property Name="Icon">url(QuickSearch.gif)</Property>
+                        <Property Name="PressedIcon">url(QuickSearch_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(QuickSearch_over.gif)</Property>
+                        <Property Name="ControlType">QuickSearch</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Refresh">
+                    <Properties>
+                        <Property Name="Icon">url(Refresh.gif)</Property>
+                        <Property Name="PressedIcon">url(Refresh_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Refresh_over.gif)</Property>
+                        <Property Name="ControlType">Refresh</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="RemoveHighlight">
+                    <Properties>
+                        <Property Name="Icon">url(Highlight.gif)</Property>
+                        <Property Name="PressedIcon">url(Highlight_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Highlight_over.gif)</Property>
+                        <Property Name="ControlType">RemoveHighlight</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectRecentComments">
+                    <Properties>
+                        <Property Name="Icon">url('SelectRecentcomments.gif')</Property>
+                        <Property Name="PressedIcon">url('SelectRecentcomments_selected.gif')</Property>
+                        <Property Name="HoverIcon">url('SelectRecentcomments_over.gif')</Property>
+                        <Property Name="ControlType">SelectRecentComments</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectTopicComments">
+                    <Properties>
+                        <Property Name="Icon">url('SelectTopiccomments.gif')</Property>
+                        <Property Name="PressedIcon">url('SelectTopiccomments_selected.gif')</Property>
+                        <Property Name="HoverIcon">url('SelectTopiccomments_over.gif')</Property>
+                        <Property Name="ControlType">SelectTopicComments</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectBrowseSequence">
+                    <Properties>
+                        <Property Name="Icon">url(SelectBrowsesequence.gif)</Property>
+                        <Property Name="PressedIcon">url(SelectBrowsesequence_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(SelectBrowsesequence_over.gif)</Property>
+                        <Property Name="ControlType">SelectBrowseSequence</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectFavorites">
+                    <Properties>
+                        <Property Name="Icon">url(SelectFavorites.gif)</Property>
+                        <Property Name="PressedIcon">url(SelectFavorites_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(SelectFavorites_over.gif)</Property>
+                        <Property Name="ControlType">SelectFavorites</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectGlossary">
+                    <Properties>
+                        <Property Name="Icon">url(SelectGlossary.gif)</Property>
+                        <Property Name="PressedIcon">url(SelectGlossary_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(SelectGlossary_over.gif)</Property>
+                        <Property Name="ControlType">SelectGlossary</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectIndex">
+                    <Properties>
+                        <Property Name="Icon">url(SelectIndex.gif)</Property>
+                        <Property Name="PressedIcon">url(SelectIndex_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(SelectIndex_over.gif)</Property>
+                        <Property Name="ControlType">SelectIndex</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectSearch">
+                    <Properties>
+                        <Property Name="Icon">url(SelectSearch.gif)</Property>
+                        <Property Name="PressedIcon">url(SelectSearch_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(SelectSearch_over.gif)</Property>
+                        <Property Name="ControlType">SelectSearch</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectTOC">
+                    <Properties>
+                        <Property Name="Icon">url(SelectToc.gif)</Property>
+                        <Property Name="PressedIcon">url(SelectToc_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(SelectToc_over.gif)</Property>
+                        <Property Name="ControlType">SelectTOC</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Stop">
+                    <Properties>
+                        <Property Name="Icon">url(Stop.gif)</Property>
+                        <Property Name="PressedIcon">url(Stop_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(Stop_over.gif)</Property>
+                        <Property Name="ControlType">Stop</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="ToggleNavigationPane">
+                    <Properties>
+                        <Property Name="Icon">url(HideNavigation.gif)</Property>
+                        <Property Name="PressedIcon">url(HideNavigation_selected.gif)</Property>
+                        <Property Name="HoverIcon">url(HideNavigation_over.gif)</Property>
+                        <Property Name="ControlType">ToggleNavigationPane</Property>
+                        <Property Name="CheckedIcon">url(HideNavigation_checked.gif)</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="AccordionTitle">
+                    <Properties>
+                        <Property Name="ControlType">AccordionTitle</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Logo">
+                    <Properties>
+                        <Property Name="ControlType">Logo</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="TopicRatings">
+                    <Properties>
+                        <Property Name="ControlType">TopicRatings</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Separator">
+                    <Properties>
+                        <Property Name="ControlType">Separator</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+        <Style Name="TocEntry">
+            <Properties>
+                <Property Name="TopicIcon">url(Topic.gif)</Property>
+                <Property Name="BookIcon">url(Book.gif)</Property>
+                <Property Name="BookOpenIcon">url(BookOpen.gif)</Property>
+            </Properties>
+        </Style>
+        <Style Name="AccordionItem">
+            <Properties>
+                <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                <Property Name="ItemHeight">28px</Property>
+                <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+            </Properties>
+            <Classes>
+                <StyleClass Name="BrowseSequence">
+                    <Properties>
+                        <Property Name="Icon">url(BrowsesequenceIcon.gif)</Property>
+                        <Property Name="Label">Browse Sequences</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Favorites">
+                    <Properties>
+                        <Property Name="Icon">url(FavoritesIcon.gif)</Property>
+                        <Property Name="Label">Favorites</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Glossary">
+                    <Properties>
+                        <Property Name="Icon">url(GlossaryIcon.gif)</Property>
+                        <Property Name="Label">Glossary</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Index">
+                    <Properties>
+                        <Property Name="Icon">url(IndexIcon.gif)</Property>
+                        <Property Name="Label">Index</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Search">
+                    <Properties>
+                        <Property Name="Icon">url(SearchIcon.gif)</Property>
+                        <Property Name="Label">Search</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="TOC">
+                    <Properties>
+                        <Property Name="Icon">url(TocIcon.gif)</Property>
+                        <Property Name="Label">TOC</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="TopicComments">
+                    <Properties>
+                        <Property Name="Icon">url('TopiccommentsIcon.gif')</Property>
+                        <Property Name="Label">Topic Comments</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="RecentComments">
+                    <Properties>
+                        <Property Name="Icon">url('RecentcommentsIcon.gif')</Property>
+                        <Property Name="Label">Recent Comments</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="IconTray">
+                    <Properties>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                        <Property Name="BackgroundGradientHover">vertical #c2c2c2 #d4d4d2</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                        <Property Name="BorderTop">solid 1px #a8ada7</Property>
+                        <Property Name="BorderBottom">solid 1px #cbccc7</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+        <Style Name="Frame">
+            <Classes>
+                <StyleClass Name="NavigationTopDivider">
+                    <Properties>
+                        <Property Name="BackgroundGradient">vertical #d1d1d1 #f6f6f6</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="NavigationDragHandle">
+                    <Properties>
+                        <Property Name="BackgroundGradient">vertical #f6f6f6 #d1d1d1</Property>
+                        <Property Name="BackgroundGradientPressed">vertical #d1d1d1 #f6f6f6</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Toolbar">
+                    <Properties>
+                        <Property Name="Height">28px</Property>
+                        <Property Name="BackgroundGradient">vertical #e3e3e3 #fdfdfb</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="BodyComments">
+                    <Properties>
+                        <Property Name="Label">Comments</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="RecentComments">
+                    <Properties>
+                        <Property Name="Label">Recent Comments</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+        <Style Name="Control">
+            <Classes>
+                <StyleClass Name="SearchResults">
+                    <Properties>
+                        <Property Name="RankLabel">Rank</Property>
+                        <Property Name="TitleLabel">Title</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="NavigationLinkTop">
+                    <Properties>
+                        <Property Name="Label">Open topic with navigation</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="NavigationLinkBottom">
+                    <Properties>
+                        <Property Name="Label">Open topic with navigation</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+    </Styles>
+    <Resources>
+    </Resources>
+    <ResourcesInfo>
+        <Resource Name="AddTopicToFavorites.gif" Width="23" Height="22" />
+        <Resource Name="AddTopicToFavorites_selected.gif" Width="23" Height="22" />
+        <Resource Name="AddTopicToFavorites_over.gif" Width="23" Height="22" />
+        <Resource Name="Back.gif" Width="23" Height="22" />
+        <Resource Name="Back_selected.gif" Width="23" Height="22" />
+        <Resource Name="Back_over.gif" Width="23" Height="22" />
+        <Resource Name="Collapse.gif" Width="23" Height="22" />
+        <Resource Name="Collapse_selected.gif" Width="23" Height="22" />
+        <Resource Name="Collapse_over.gif" Width="23" Height="22" />
+        <Resource Name="Expand.gif" Width="23" Height="22" />
+        <Resource Name="Expand_selected.gif" Width="23" Height="22" />
+        <Resource Name="Expand_over.gif" Width="23" Height="22" />
+        <Resource Name="Forward.gif" Width="23" Height="22" />
+        <Resource Name="Forward_selected.gif" Width="23" Height="22" />
+        <Resource Name="Forward_over.gif" Width="23" Height="22" />
+        <Resource Name="Home.gif" Width="23" Height="22" />
+        <Resource Name="Home_selected.gif" Width="23" Height="22" />
+        <Resource Name="Home_over.gif" Width="23" Height="22" />
+        <Resource Name="Print.gif" Width="23" Height="22" />
+        <Resource Name="Print_selected.gif" Width="23" Height="22" />
+        <Resource Name="Print_over.gif" Width="23" Height="22" />
+        <Resource Name="QuickSearch.gif" Width="23" Height="22" />
+        <Resource Name="QuickSearch_selected.gif" Width="23" Height="22" />
+        <Resource Name="QuickSearch_over.gif" Width="23" Height="22" />
+        <Resource Name="Refresh.gif" Width="23" Height="22" />
+        <Resource Name="Refresh_selected.gif" Width="23" Height="22" />
+        <Resource Name="Refresh_over.gif" Width="23" Height="22" />
+        <Resource Name="Highlight.gif" Width="23" Height="22" />
+        <Resource Name="Highlight_selected.gif" Width="23" Height="22" />
+        <Resource Name="Highlight_over.gif" Width="23" Height="22" />
+        <Resource Name="SelectBrowsesequence.gif" Width="23" Height="22" />
+        <Resource Name="SelectBrowsesequence_selected.gif" Width="23" Height="22" />
+        <Resource Name="SelectBrowsesequence_over.gif" Width="23" Height="22" />
+        <Resource Name="SelectFavorites.gif" Width="23" Height="22" />
+        <Resource Name="SelectFavorites_selected.gif" Width="23" Height="22" />
+        <Resource Name="SelectFavorites_over.gif" Width="23" Height="22" />
+        <Resource Name="SelectGlossary.gif" Width="23" Height="22" />
+        <Resource Name="SelectGlossary_selected.gif" Width="23" Height="22" />
+        <Resource Name="SelectGlossary_over.gif" Width="23" Height="22" />
+        <Resource Name="SelectIndex_over.gif" Width="23" Height="22" />
+        <Resource Name="SelectIndex.gif" Width="23" Height="22" />
+        <Resource Name="SelectIndex_selected.gif" Width="23" Height="22" />
+        <Resource Name="SelectSearch.gif" Width="23" Height="22" />
+        <Resource Name="SelectSearch_selected.gif" Width="23" Height="22" />
+        <Resource Name="SelectSearch_over.gif" Width="23" Height="22" />
+        <Resource Name="SelectToc.gif" Width="23" Height="22" />
+        <Resource Name="SelectToc_selected.gif" Width="23" Height="22" />
+        <Resource Name="SelectToc_over.gif" Width="23" Height="22" />
+        <Resource Name="Stop.gif" Width="23" Height="22" />
+        <Resource Name="Stop_selected.gif" Width="23" Height="22" />
+        <Resource Name="Stop_over.gif" Width="23" Height="22" />
+        <Resource Name="Topic.gif" Width="16" Height="16" />
+        <Resource Name="Book.gif" Width="16" Height="16" />
+        <Resource Name="BookOpen.gif" Width="16" Height="16" />
+        <Resource Name="BrowsesequenceIcon.gif" Width="16" Height="16" />
+        <Resource Name="FavoritesIcon.gif" Width="16" Height="16" />
+        <Resource Name="GlossaryIcon.gif" Width="16" Height="16" />
+        <Resource Name="IndexIcon.gif" Width="16" Height="16" />
+        <Resource Name="SearchIcon.gif" Width="16" Height="16" />
+        <Resource Name="TocIcon.gif" Width="16" Height="16" />
+        <Resource Name="HideNavigation_selected.gif" Width="23" Height="22" />
+        <Resource Name="HideNavigation.gif" Width="23" Height="22" />
+        <Resource Name="HideNavigation_over.gif" Width="23" Height="22" />
+        <Resource Name="HideNavigation_checked.gif" Width="23" Height="22" />
+        <Resource Name="TopiccommentsIcon.gif" Width="16" Height="16" />
+        <Resource Name="RecentcommentsIcon.gif" Width="16" Height="16" />
+        <Resource Name="SelectRecentcomments.gif" Width="23" Height="22" />
+        <Resource Name="SelectRecentcomments_selected.gif" Width="23" Height="22" />
+        <Resource Name="SelectRecentcomments_over.gif" Width="23" Height="22" />
+        <Resource Name="SelectTopiccomments.gif" Width="23" Height="22" />
+        <Resource Name="SelectTopiccomments_selected.gif" Width="23" Height="22" />
+        <Resource Name="SelectTopiccomments_over.gif" Width="23" Height="22" />
+    </ResourcesInfo>
+</Stylesheet>

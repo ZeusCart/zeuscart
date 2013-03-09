@@ -1,0 +1,126 @@
+/**
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+@charset "utf-8";
+/* CSS Document */
+body, ul, li, input, span, div, p, h1, h2, h3, h4
+{
+padding:0px; margin:0px; border:0px; font-family:Arial, Helvetica, sans-serif; font-size:11px;
+}
+body
+{
+margin:50px 0 0 0;
+}
+#main
+{
+background:url(../images/install_bg.jpg) no-repeat;
+width:645px; height:500px;
+}
+#left
+{
+float:left; width:263px; padding-top:190px;
+}
+#right
+{
+float:right; width:382px; padding-top:50px;
+}
+#display
+{
+height:395px; padding:0 20px 0 10px;
+}
+#button
+{
+height:40px; float:left; display:block; padding:10px 0px 0px 10px;
+}
+.menu
+{
+color:#FFFFFF; font-weight:bold;
+}
+.menu ul
+{
+list-style:none; padding-top:10px; border-top:#FFFFFF 1px solid;
+margin:0 0px 0 12px;
+}
+.menu li
+{
+padding-left:25px;
+text-align:left;
+line-height:30px;
+}
+.menu li h1
+{
+background:url(../images/bullet.gif) no-repeat left;
+padding-left:25px;
+}
+.menu li h2
+{
+background:url(../images/bullet_tick.gif) no-repeat left;
+padding-left:25px;
+}
+.title
+{font-size:12px; color:#225f8b; font-weight:bold; line-height:25px;}
+.text
+{
+font-size:12px; color:#333333; line-height:18px;}
+.installed
+{
+font-size:12px; color:#42c234; line-height:18px;}
+.off_txt
+{
+font-size:12px; color:#ff0000; line-height:18px;}
+.textbox
+{
+font-size:12px; color:#333333; line-height:18px; width:150px; border:#999999 1px solid;}
+div.scroll_txt
+{
+overflow:auto;
+height:380px;
+}
+.pad
+{
+padding:3px 0px;
+}
+.text1
+{
+font-size:14px; color:#666666; line-height:25px;
+}
+.text2
+{
+font-size:14px; color:#215E8B; line-height:25px; font-weight:bold;
+}
+.content
+{
+font-size:11px; color:#333333; line-height:18px;
+}
+.content span
+{
+font-size:12px; font-weight:bold; color:#ff8400; line-height:25px;
+}
+.content a:link, .content a:visited
+{
+color:#0066FF; text-decoration:underline;
+}
+.content a:hover
+{
+color:#333333; text-decoration:underline;
+}
+.textarea
+{
+	font-size:11px; font-family:Arial, Helvetica, sans-serif; color:#333; border:#999 1px solid;
+}

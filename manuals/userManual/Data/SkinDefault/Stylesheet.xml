@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Stylesheet>
+    <Styles>
+        <Style Name="AccordionItem">
+            <Properties>
+                <Property Name="ItemHeight">28px</Property>
+            </Properties>
+            <Classes>
+                <StyleClass Name="IconTray">
+                    <Properties>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="TOC">
+                    <Properties>
+                        <Property Name="Label">TOC</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Index">
+                    <Properties>
+                        <Property Name="Label">Index</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Favorites">
+                    <Properties>
+                        <Property Name="Label">Favorites</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Glossary">
+                    <Properties>
+                        <Property Name="Label">Glossary</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="BrowseSequence">
+                    <Properties>
+                        <Property Name="Label">Browse Sequences</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Search">
+                    <Properties>
+                        <Property Name="Label">Search</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="TopicComments">
+                    <Properties>
+                        <Property Name="Label">Topic Comments</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="RecentComments">
+                    <Properties>
+                        <Property Name="Label">Recent Comments</Property>
+                        <Property Name="ItemHeight">28px</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+        <Style Name="ToolbarItem">
+            <Classes>
+                <StyleClass Name="AccordionTitle">
+                    <Properties>
+                        <Property Name="ControlType">AccordionTitle</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="QuickSearch">
+                    <Properties>
+                        <Property Name="ControlType">QuickSearch</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Logo">
+                    <Properties>
+                        <Property Name="ControlType">Logo</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="ExpandAll">
+                    <Properties>
+                        <Property Name="ControlType">ExpandAll</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="CollapseAll">
+                    <Properties>
+                        <Property Name="ControlType">CollapseAll</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="RemoveHighlight">
+                    <Properties>
+                        <Property Name="ControlType">RemoveHighlight</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Print">
+                    <Properties>
+                        <Property Name="ControlType">Print</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="ToggleNavigationPane">
+                    <Properties>
+                        <Property Name="ControlType">ToggleNavigationPane</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Back">
+                    <Properties>
+                        <Property Name="ControlType">Back</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Forward">
+                    <Properties>
+                        <Property Name="ControlType">Forward</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Home">
+                    <Properties>
+                        <Property Name="ControlType">Home</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Stop">
+                    <Properties>
+                        <Property Name="ControlType">Stop</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Refresh">
+                    <Properties>
+                        <Property Name="ControlType">Refresh</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectTOC">
+                    <Properties>
+                        <Property Name="ControlType">SelectTOC</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectIndex">
+                    <Properties>
+                        <Property Name="ControlType">SelectIndex</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectSearch">
+                    <Properties>
+                        <Property Name="ControlType">SelectSearch</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectFavorites">
+                    <Properties>
+                        <Property Name="ControlType">SelectFavorites</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectGlossary">
+                    <Properties>
+                        <Property Name="ControlType">SelectGlossary</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectBrowseSequence">
+                    <Properties>
+                        <Property Name="ControlType">SelectBrowseSequence</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectTopicComments">
+                    <Properties>
+                        <Property Name="ControlType">SelectTopicComments</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="SelectRecentComments">
+                    <Properties>
+                        <Property Name="ControlType">SelectRecentComments</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="AddTopicToFavorites">
+                    <Properties>
+                        <Property Name="ControlType">AddTopicToFavorites</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="TopicRatings">
+                    <Properties>
+                        <Property Name="ControlType">TopicRatings</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="Separator">
+                    <Properties>
+                        <Property Name="ControlType">Separator</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+        <Style Name="Frame">
+            <Classes>
+                <StyleClass Name="Toolbar">
+                    <Properties>
+                        <Property Name="Height">28px</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="BodyComments">
+                    <Properties>
+                        <Property Name="Label">Comments</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="RecentComments">
+                    <Properties>
+                        <Property Name="Label">Recent Comments</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+        <Style Name="Control">
+            <Classes>
+                <StyleClass Name="SearchResults">
+                    <Properties>
+                        <Property Name="RankLabel">Rank</Property>
+                        <Property Name="TitleLabel">Title</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="NavigationLinkTop">
+                    <Properties>
+                        <Property Name="Label">Open topic with navigation</Property>
+                    </Properties>
+                </StyleClass>
+                <StyleClass Name="NavigationLinkBottom">
+                    <Properties>
+                        <Property Name="Label">Open topic with navigation</Property>
+                    </Properties>
+                </StyleClass>
+            </Classes>
+        </Style>
+    </Styles>
+</Stylesheet>

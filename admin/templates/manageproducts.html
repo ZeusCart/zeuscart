@@ -1,0 +1,123 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<!--<AJDF:output>include file="left.html"</AJDF:output>-->
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
+<script type="text/javascript" src="js/calendar/calendar-en.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
+<link href="css/calendar_styles.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript">
+var xmlHttp;
+function LoadSubcategory(id,divid)
+{
+	if(id!='')
+	{		
+		url = "?do=addcrossproduct&action=showsubcat&id="+id;		
+		ajax(url,divid);
+	}
+ 
+}
+
+function showProducts(subcatid)
+{
+	url ="?do=addcrossproduct&action=showproducts&id=" + subcatid;
+	ajax(url, 'productlist');
+}
+
+function callAjax()
+{
+	//alert('d');
+	//var obj = actb(document.getElementById('tb'),custom2);
+	var word=document.getElementById('tb').value;
+	url ="?do=manageproducts&action=gettitle&word=" + word;
+	var cust=ajax(url, 'titlescheck');
+	//var obj = actb(document.getElementById('tb'),customarray)
+}
+</script>
+<tr><td> 
+<table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="8" align="left"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="content_title" width="80%">Product List</td>
+    <td class="content_title" width="30%" align="right"><a href="javascript:history.back()" class="more_page">Back</a></td>
+  </tr>
+</table>
+</td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+           <tr>
+          
+          <td align="left" class="top_links"><!--<a href="?do=manageproducts">View All Products </a>--></td><td align="right" class="top_links"><a href="?do=productentry" class="add_link">Add Product </a> </td></tr>
+          
+
+<tr>
+<td colspan="2" style="" ><AJDF:output>$updatemsg</AJDF:output>
+<AJDF:output>$deletemsg</AJDF:output>
+<AJDF:output>$updateproduct</AJDF:output>
+</td>
+</tr>
+<tr>
+      <td colspan="3" align="left" >&nbsp;</td>
+</tr>
+<tr>
+
+<td colspan="2" align="center" id=productlist >
+<AJDF:output>$allproducts</AJDF:output><AJDF:output>$searchproduct</AJDF:output>
+</td></tr></table>
+<!--<div ><AJDF:output>$products</AJDF:output></div>-->
+
+
+
+<AJDF:output>include file="footer.html"</AJDF:output>
+<script>
+function call(custom2)
+{
+	//var obj = actb(document.getElementById('tb'),custom2);
+	document.getElementById('tb').value=custom2;
+	document.getElementById('titlescheck').style.display='none';
+}	
+//setTimeout(function(){obj.actb_keywords = custom2;},10000);
+</script>
+
+<script type="text/javascript">
+	var options = {
+		script:"?do=manageproducts&action=autoc&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('title', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=manageproducts&action=autoc&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('title_xml', options_xml);
+</script>
+

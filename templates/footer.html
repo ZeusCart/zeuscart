@@ -1,0 +1,177 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<!--Footer-->
+  <footer>
+      
+    <div id="order_div">
+    	<div class="container">
+        	<div class="row-fluid">
+        	<div class="span7"><h3>Free Shipping on orders over <span>$99</span></h3></div>
+            <div class="span5"><form class="form-inline" style="float:right">
+            <label class="checkbox">
+Sign up for our Newsletter 
+</label>
+<input type="text" class="input-small" placeholder="Enter Email Address">
+<button type="submit" class="btn btn-danger">Submit</button>
+</form></div>
+        </div></div>
+        
+    </div>  
+	<div class="ftr_cnt_area">
+    	<div class="container">
+        	<div class="row-fluid">
+            	<div class="span3">
+                	<h3>My account</h3>
+                   <ul class="ftrlist">
+                    	<li><a href="#">My account</a></li>
+                    	<li><a href="#">Secure Shopping</a></li>
+                    	<li><a href="#">Contact us</a></li>
+                    	<li><a href="#">Advanced Search</a></li>
+                    	<li><a href="#">Addresses</a></li>
+                    	<li><a href="#">Secure Shopping</a></li>
+                    </ul>
+                </div>
+            	<div class="span3">
+                	<h3>Extras</h3>
+                   <ul class="ftrlist">
+                    	<li><a href="#">Brands</a></li>
+                    	<li><a href="#">Gift Vouchers</a></li>
+                    	<li><a href="#">Affiliates</a></li>
+                    	<li><a href="#">Specials</a></li>
+                    	<li><a href="#">Feature Sale</a></li>
+                    	<li><a href="#">Latest Sale</a></li>
+                    </ul>
+                </div>
+            	<div class="span3">
+                	<h3>Information</h3>
+                   <ul class="ftrlist">
+                    	<li><a href="#">Press Room</a></li>
+                    	<li><a href="#">Help</a></li>
+                    	<li><a href="#">Terms & Conditions</a></li>
+                    	<li><a href="#">Personal information</a></li>
+                    	<li><a href="#">Addresses</a></li>
+                    	<li><a href="#">Manufacturers</a></li>
+                    </ul>
+                </div>
+           	  <div class="span3">
+               	<h3>Connect with us</h3>
+                 <ul class="cntwithus">
+               		  <li><img src="assets/img/phone-icn.png" alt="phone"> Call Us +001 555 801</li>
+               		  <li><img src="assets/img/mail-icn.png" alt="phone"> email@example.com</li>
+               		  <li><img src="assets/img/print-icn.png" alt="phone"> Fax +001 555 802</li>
+               		  <li><img src="assets/img/skype-icn.png" alt="phone"> Your Skype name here</li>
+               		  <li><img src="assets/img/map-icn.png" alt="phone"> Location : Bangalore</li>
+                 </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_inbx1" id="cpy_div">
+            <div class="container">
+                <div class="row-fluid">
+                	<div class="span6"><p>Copyright © 2013. All rights reserved.    <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a></p></div>
+                    <div class="span4"><img src="assets/img/payment.png" alt="payment"></div>
+                  <div class="span2">
+                   <ul class="sociallist">
+                   	<li><a href="#" class="in_btn"></a></li>
+                   	<li><a href="#" class="yt_btn"></a></li>
+                     <li><a href="#" class="fb_btn"></a></li>
+                   	<li><a href="#" class="tw_btn"></a></li>
+
+                   </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </footer>                               
+
+        <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="assets/js/google-code-prettify/prettify.js"></script>
+    <script src="assets/js/transition.js"></script>
+    <script src="assets/js/alert.js"></script>
+    <script src="assets/js/modal.js"></script>
+    <script src="assets/js/dropdown.js"></script>
+    <script src="assets/js/scrollspy.js"></script>
+    <script src="assets/js/tab.js"></script>
+    <script src="assets/js/tooltip.js"></script>
+    <script src="assets/js/popover.js"></script>
+    <script src="assets/js/button.js"></script>
+    <script src="assets/js/collapse.js"></script>
+    <script src="assets/js/carousel.js"></script>
+    <script src="assets/js/typeahead.js"></script>
+    <script src="assets/js/application.js"></script>
+
+
+<AJDF:output>if $smarty.get.do ne 'index'</AJDF:output>
+<script type="text/javascript">
+var arr3=["account_id","details_id"];
+function showAccnt(divid)
+{
+	if(document.getElementById(divid).style.display=="none")
+	{
+		for(var i=0;i<arr3.length;i++)
+			{
+				document.getElementById(arr3[i]).style.display="none";
+				document.getElementById(arr3[i]+"1").className="acc_unselect";
+			}
+			viewAccnt(divid);
+	}
+	
+}
+function viewAccnt(div_id)
+{
+	$("#"+ div_id).fadeIn('slow');
+	document.getElementById(div_id+"1").className="acc_select";
+}
+</script>
+
+<AJDF:output>/if</AJDF:output>
+<script type="text/javascript">
+function selectCurrency(id)
+{
+
+$.ajax({
+		type: "GET",
+		url: "?do=changecurrency",
+		data: "id="+id,
+		success: function(result){
+		
+		window.location.href=window.location.href;
+	}
+	});
+}
+</script>
+<AJDF:output>if $smarty.get.do eq 'addtocartfromproductdetail' || $smarty.get.do eq 'addtocart'</AJDF:output>
+<script type="text/javascript" language="javascript">
+function call()
+{
+  window.location= "?do=indexpage";
+}
+
+</script>
+<AJDF:output>/if</AJDF:output>
+</body>
+</html>
+
+
+

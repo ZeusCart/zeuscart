@@ -1,0 +1,33 @@
+<AJDF:output>include file="header.html"</AJDF:output> 
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+              <li><a href="?do=index">Home</a> <span class="divider">/</span></li>
+            
+              <li class="active"> Search</li>
+            </ul>
+            
+        <div class="row-fluid">
+        	<div class="span9">
+            <div class="title_fnt">
+    	<h1>Search Result : <AJDF:output>$countrecords</AJDF:output></h1><span class="pull-right"><a href="?do=search&action=grid&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="grid_icn"></a> <a href="?do=search&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="listview_icn"></a></span>
+        </div>
+            
+            	<!--list view-->
+                <!--<ul class="listviews">
+                	<li>Sort By <select style="width:100px;"><option>Price</option><option>Name</option></select></li>
+                    <li>Show <select style="width:50px;"><option>10</option></select></li>
+                    <li></li>
+                </ul>-->
+
+                <div class="clear"></div>
+
+               <AJDF:output>$keywordsearch</AJDF:output>
+
+        </div>
+                  <AJDF:output>include file="right.html"</AJDF:output>         	
+        </div>
+    </div>
+  
+    <!-- /container -->
+   <AJDF:output>include file="footer.html"</AJDF:output>

@@ -1,0 +1,57 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<table width="97%" border="0" cellspacing="0" cellpadding="">
+  <tr>
+    <td colspan="5" align="left" class="content_title">Export Customer</td>
+  </tr>
+  <tr>
+    <td colspan="3" align="left">&nbsp;</td>
+  </tr>
+ 
+  <tr>
+    <td colspan="3" align="left">&nbsp;</td>
+  </tr>
+  <tr><td>
+  <table cellpadding='8' cellspacing='0' border='0'  class='content_list_bdr' width='100%'>
+  <tr><td  class='content_list_head' align="left">Export Customer</td></tr>
+  <tr><td align="left">
+  <form name="export" method="post" action="?do=excelreport">
+   <table border="0" cellpadding='5' cellspacing='0'>
+  <tr><td align="left" class="content_form" nowrap="nowrap" colspan="2"><b>Select Format</b></td></tr>
+    <tr><td align="left" class="content_form" colspan="2">Note: You can Export customers to the following format on your computer.</td></tr>
+  <tr><td align="left" class="content_form" colspan="2" style="padding-left:50px"><input type="radio" value="excel" id="excel" name="export" checked="checked">
+  <label for="excel">Excel</lable></input></td></tr>	
+  <tr><td align="left" class="content_form" colspan="2" style="padding-left:50px">
+  <input type="radio" value="xml" id="xml" name="export"><label for="xml"> XML</lable></input></td></tr>
+  <tr><td align="left" class="content_form" colspan="2" style="padding-left:50px">
+  <input type="radio" value="csv" id="csv" name="export"><label for="csv"> CSV</lable></input></td></tr>
+  <tr><td align="left" class="content_form" colspan="2" style="padding-left:50px">
+  <input type="radio" value="tab" id="tab" name="export"><label for="tab"> TAB</lable></input></td></tr>
+ <tr><td colspan="2" style="padding-left:50px"><input type="submit" name="btnreport" value="Export" class="all_bttn"></td></tr>
+
+  <tr>
+    <td colspan="2" align="left">&nbsp;</td>
+  </tr>
+  </table></form></td></tr>
+</table></td></tr>
+</table>
+<AJDF:output>include file="footer.html"</AJDF:output>

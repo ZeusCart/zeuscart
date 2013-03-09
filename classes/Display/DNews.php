@@ -1,0 +1,124 @@
+<?php
+class Display_DNews
+{
+	var $arr = array();
+	var $arr1 = array();
+
+     /**
+	* This function is used to Display the News Menu
+	* @name showNewsTitle 
+	* @return string
+ 	*/
+   	function showNewsTitle($arr)
+	{
+	 
+	 	$title=$arr[0]['news_title'];
+		$date=$arr[0]['date'];
+		
+		$output='<div >';
+		 
+	   if(count($arr)>0)
+	   {
+	     for($i=0;$i<count($arr);$i++)
+		 {
+		     
+			 if(strlen($arr[$i]['news_title'])>30)
+			   $title=substr($arr[$i]['news_title'],0,30).'...';
+			 else 
+			   $title=substr($arr[$i]['news_title'],0,30); 
+			 
+			 
+			 
+			 
+			 $output.=' <div class="recentTXT" align="right" valign="bottom" >'.$arr[$i]['date'].'</div>
+		          <div class="newsletterTXT"  style="border-bottom:dotted 1px #999999;padding-bottom:13px">'.$title.'</div>';
+				
+				  
+				
+		          
+				   
+	      }			   
+		 	$output.=' <div align="right" class="more"><a href="?do=morenews">More...</a> </div>';
+		
+		}
+		else
+		{
+		  $output.='<div class="recentTXT" align="right">No News Published</div>';           
+		
+		}  
+		 $output.='</div>' ; 
+		 
+		                  
+		return $output;
+	}
+
+    /**
+	* This function is used to Display the News page
+	* @name showNewsPage
+	* @param mixed $arr
+	* @return string
+ 	*/
+	function showNewsPage($arr,$paging,$prev,$next,$val)
+	{
+		
+		 
+		$output ='
+		<div class="quickview_border" style="margin-top:2px;width:600px;" valign="top">
+		<div class="heading1" style="width:600px;" align="left" ><span class="headingTXT" style="width:600px;" >News</span></div>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding-left:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;">';
+      
+	  $i=0;
+		
+		if((count($arr)>0))
+		{
+			while($i<count($arr))
+			{
+			
+					$output.='<tr>';
+				
+				$style[0]='background:url(images/bg_line1.gif) repeat-y right';
+				$style[1]='';
+				$style[2]='background:url(images/bg_line1.gif) repeat-y right';
+								
+			    $output.='<td  style="'.$style[1].'"><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+				<tr>
+				  <td align="left"    class="serachresult"  >'.$arr[$i]['news_title'].'<br>
+				 
+				<font color="orange" size="2.9"> <small>'.$arr[$i]['date'].'</font> </span></td>
+				 
+				 
+				 <tr> 
+				  <td align="left" class="categoriesList"   >'.$arr[$i]['news_desc'].'  </td>
+				  </tr>
+				   </table></td>';
+		
+	
+					$output.='<tr>
+          <td colspan="2" class="dot_line">&nbsp;</td>
+          </tr>';
+		     $i++;
+				
+			}
+		   $output.='<tr align="right"><td class="content_list_footer" >'.' '.$prev.' ';
+		                    
+							for($i=1;$i<=count($paging);$i++)
+							 $pagingvalues .= $paging[$i]."  ";
+							 
+							 $output .= $pagingvalues.' '.$next.'</td></tr>';
+		
+		}
+		else
+		{
+			 $output.='<tr><td><b>No News Found</b></td></tr>';
+		}
+		
+		
+		
+		
+		$output.='</table></div>';
+		
+		return $output;
+	
+	}
+}
+?>

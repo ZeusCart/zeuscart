@@ -1,0 +1,61 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left" class="content_title">Time Zone </td>
+  </tr>
+  <!--<tr>
+    <td>&nbsp;</td>
+  </tr>-->
+  <tr>
+    <td align="center"  style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$updatezonemsg</AJDF:output></td>
+  </tr>
+  <!--<tr>
+    <td>&nbsp;</td>
+  </tr>-->
+  <tr>
+    <td align="left" class="content_form_bdr"><form name="site" action="?do=timezone&action=update" method="post" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+          <td colspan="2" align="left" class="content_list_head">Select Time Zone</td>
+       </tr>
+	   <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+        <tr>
+          <td width="24%" align="left" class="content_form">Current Time Zone :</td>
+          <td class="content_form"><AJDF:output>$currentzone</AJDF:output></td>
+        </tr>
+        <tr>
+          <td  class="content_form"  align="left"> Set TimeZone to :</td>
+          <td class="content_form"><AJDF:output>$timezone</AJDF:output>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dtzone', 'Time Zone', 'Select your Time zone.')" onmouseout="HideHelp('dtzone');">
+			<div id="dtzone" style="left: 50px; top: 50px;"></div></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center" height="50"><input type="submit" name="button" id="button" value="Set TimeZone" class="all_bttn"  />
+     </td>
+  </tr>
+</table> </form>
+</td>
+</tr>
+</table>
+<AJDF:output>include file="footer.html"</AJDF:output>

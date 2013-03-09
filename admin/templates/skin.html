@@ -1,0 +1,75 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<!--<AJDF:output>$statisticsArea</AJDF:output>-->
+<AJDF:output>include file="left.html"</AJDF:output>
+
+<form name="fm" method="post" action="?do=skin&action=add" enctype="multipart/form-data">
+ <table width="97%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left" class="content_title">Add Skin</td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <!--<td align="left"><AJDF:output>$updatemsg</AJDF:output></td>--><td align="left"><AJDF:output>$addmsg</AJDF:output></td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left" class="content_form_bdr"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td colspan="2" class="content_list_head">Add Skins
+	    	</td>
+		</tr>
+        <tr>
+          <td width="34%" align="right" class="content_form_line">
+
+        Skin Name
+        </td>
+          <td width="66%" class="content_form_line" >
+        <input type="text" name="skinname" class="txt_box250" /> 
+        </td>
+        </tr>
+        <tr>
+          <td align="right" class="content_form_line">Theme Zip File</td>
+          <td class="content_form_line"><input type="file" name="zip_file" id="zip_file" value="<? echo $_POST['zip_file']; ?>"/>
+           &nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dskin', 'Upload CSS', 'Upload your site&acute;s skin as Cascading Style Sheet(CSS) file.')" onmouseout="HideHelp('dskin');">
+			<div id="dskin" style="left: 50px; top: 50px;"></div> <br />
+            </td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="content_form_line" colspan="2" align="center"><input type="submit" name="button" id="button" value="Submit" class="all_bttn"  /></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td align="right" class="content_form_line">List Of Available Skins </td>
+        <td class="content_form_line">
+        <AJDF:output>$showskin</AJDF:output> 
+        </td>
+        </tr>
+</table>
+</td>
+</tr>
+</table></form>
+<AJDF:output>include file="footer.html"</AJDF:output>

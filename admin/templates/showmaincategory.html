@@ -1,0 +1,85 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
+<link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+<AJDF:output>include file="left.html"</AJDF:output>
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left" class="content_title">Main Category List<!--&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dcat', 'Category :', '&nbsp;&nbsp;List of categories in ZeuscartV2.3.')" onmouseout="HideHelp('dcat');">
+			<div id="dcat" style="left: 50px; top: 50px;"></div>--></td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left"><AJDF:output>$updatemiancatmsg</AJDF:output>
+      <AJDF:output>$deletemsg</AJDF:output>
+    </td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right" colspan="2"><a  href="?do=managecategory" class="add_link" >Add Category</a></td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><AJDF:output>$showmaincat</AJDF:output>
+      <AJDF:output>$search</AJDF:output>
+      <!--<script language="javascript">
+		function change(val)
+		{
+			if(val=="Enter keyword")
+			{
+				document.search1.catname.value="";
+				document.search1.catdesc.value="";
+			}
+		}
+
+	</script>-->
+    </td>
+  </tr>
+</table>
+</td>
+</tr>
+</table>
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+<script type="text/javascript">
+	var options = {
+		script:"?do=showmain&action=autoc&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('catname', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=showmain&action=autoc&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('catname_xml', options_xml);
+</script>

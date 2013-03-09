@@ -1,0 +1,78 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+
+
+
+<script type="text/javascript" language="javascript">
+function callContent(value)
+{	
+	//var x= document.getElementById("allcont");
+	//alert(x.selectedIndex);
+	//alert('hi');
+	//alert(dropdownValue);
+	var url= "?do=managecategory&action=preview&id="+value;
+	ajax(url,'htmlPreview');
+}
+</script>
+
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="left" class="content_title">Edit Sub under Sub Category </td>
+            <td class="content_title" width="137" align="right"><a href="javascript:history.back()" class="more_page" onclick="">Back</a></td>
+          </tr>
+          <tr>
+            <td align="left" colspan="3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left" class="content_form_bdr" colspan="3">
+
+<AJDF:output>$editsubcat</AJDF:output>
+</td>
+</tr>
+<tr id="landingContent" >
+            <td align="left" class="content_form" >Select Landing Content : </td>
+            <td class=""  colspan="4">
+	<AJDF:output>$content</AJDF:output> &nbsp;
+                    <a href="?do=contents" name="content" >Add new Html Contents</a> </td>
+                    <td ></td>
+    </tr>
+          <tr>
+            <td align="left" class="content_form" >Preview :</td>
+            <td class="content_form" colspan="3" id='htmlPreview'></td>
+          </tr>
+          <tr>
+                  <td  align="left" class="content_form" valign="top">Select Attributes:</td>
+                
+                  <td align="left" colspan="3"><AJDF:output>$attrib</AJDF:output></td>
+                </tr>
+          </tr>
+	  <tr><td colspan="4">&nbsp;</td></tr>
+   <tr><td class="">&nbsp;</td>
+<td class="">
+<input type="submit" name="btnsubmit" class="all_bttn" align="right"  value="Update Sub Category" id="submit"  />
+</td>
+ </tr>
+ <tr><td colspan="3">&nbsp;</td></tr>
+</table></form>
+</td></tr>
+</table>
+<AJDF:output>include file="footer.html"</AJDF:output>

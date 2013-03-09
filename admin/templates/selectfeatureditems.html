@@ -1,0 +1,74 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+
+<script type="text/javascript">
+var xmlHttp;
+function LoadSubcategory(id,divid)
+{
+	if(id!='')
+	{		
+		url = "?do=selectfeatured&action=showsubcat&id="+id;		
+		ajax(url,divid);
+	}
+ 
+}
+
+function showProducts(subcatid)
+{
+	url ="?do=selectfeatured&action=showproducts&id=" + subcatid;
+	ajax(url, 'productlist');
+}
+
+</script>
+<form name="frmcat" action="?do=selectfeatured&action=updateProducts" method="post">
+  <table width="97%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td colspan="3" align="left" class="content_title">Select Featured Products</td>
+    </tr>
+    <tr>
+      <td colspan="3" align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="3" align="left"><AJDF:output>$msg</AJDF:output></td>
+    </tr>
+    <tr>
+      <td align="left"><table><tr>
+            <td class="label_name" align="left">Main Category</td>
+			<td class="label_name" align="left"><select name="cbocat" id="cbocat" class="combo_box2" 
+      onClick=	"LoadSubcategory(this.value,'subCategory');">
+          <option value="">Select </option>
+          <AJDF:output>$maincategory</AJDF:output>
+        </select></td>&nbsp;<td align="left"  class="label_name"><span id='subCategory'><AJDF:output>$subcategory</AJDF:output></span>
+        </td></tr></table></td>
+    </tr>
+    <tr>
+      <td colspan="3" align="left">&nbsp;</td>
+    </tr>
+    
+    <tr>
+      <td colspan="2" align="center" id=productlist><AJDF:output>$product</AJDF:output>
+      </td>
+    </tr>
+   
+  </table>
+</form>
+<AJDF:output>include file="footer.html"</AJDF:output>

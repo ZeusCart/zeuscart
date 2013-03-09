@@ -1,0 +1,121 @@
+<?php
+/**
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+class Display_DLastViewedProducts
+{
+var $output = array();	
+	/*function LastViewedProducts($arr)
+	{
+		$output .= '<table border="1" width="45%">';
+		//$output.='<th width="100%">Product Name</th><th>Image</th>';
+		//print_r($arr);
+		for ($i=0;$i<count($arr);$i++)
+		{
+			
+			$temp=$arr[$i]['thumb_image'];
+			$img=explode('/',$temp);
+			$output .='<tr><td><img src="uploadedimages/thumb/thumb_'.$img[2].'" name="image1"  id="image1" /></td>';
+			$output .= '<td ><a href="?do=prodetail&action=showprod&id='.$arr[$i]['product_id'].'" name="prodname"> '.$arr[$i]['title'].'</a><div><b>Price: $'.$arr[$i]['msrp'].'</b></div><div><a href="?do=wishlist" >Add to Wishlist</a> </td></tr>';
+		}
+			$output .= '</table>';
+			return $output;	
+	}*/
+	
+ 	/**
+	* This function is used to Display the Recently Viewed Product
+	* @name lastViewedProducts
+	* @param mixed $arr
+	* @param int $r	
+	* @return string
+ 	*/
+	function lastViewedProducts($arr,$r)
+	{
+		//print_r($arr);
+		$cnt =count($arr);
+		$limit = 0;$j=0;
+		
+		for ($i=0;$i<$cnt;$i++)
+		{
+			
+			$rating=ceil($arr[$i]['rating']);
+			$ratepath='';
+			for($r1=0;$r1<5;$r1++)
+			{
+				if($r1<$rating)
+					$ratepath.='<img src="images/starf.png">';
+				else
+					$ratepath.='<img src="images/stare.png">';							
+			}
+		
+			$temp=$arr[$i]['thumb_image'];
+			$img=explode('/',$temp);
+			$output.='<div class="recent">';
+			$output.='<table width="100%" border="0" cellspacing="0" cellpadding="0">';
+			$output .='<tr>
+   		 <td width="36%" align="center"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
+			$filename=$arr[$i]['thumb_image'];
+			if(file_exists($filename))
+				$output.='<img src="'.$arr[$i]['thumb_image'].'" alt="'.addslashes($arr[$i]['title']).'"  width="63"  border="0"/>';
+			else
+				$output.='<img alt="No item" width="63"  border="0" src="images/noimage.jpg" />';	
+			$output.='</a></td>';
+			$output.='<td width="64%" valign="top" class="recentTXT" align="right" style="padding-left:5px"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
+			if(strlen($arr[$i]['title'])>25) 
+			$output.=substr($arr[$i]['title'],0,25).'...'; 
+			else
+			$output.=$arr[$i]['title'];
+			
+			$output.='</a><br/>'.$ratepath.'</td>';
+			$output.='</tr>';
+			$output.='<tr>
+                   <td align="left" style="padding-top:10px">			   
+				   <input title="<b>Quick Information</b>" alt="?do=quickinfo&prodid='.$arr[$i]['product_id'].'?inlineId=myOnPageContent&amp;height=500&amp;width=500" class="thickbox button4" type="button" value="Quick Info" />  
+				   <!--<a href="#" onClick="Lightbox.showBoxByAJAX(\'?do=quickinfo&prodid='.$arr[$i]['product_id'].'\', 478, 478);return false;">-->
+				   <!--<a href="#" onclick=window.open("?do=quickinfo&prodid='.$arr[$i]['product_id'].'","a","height=480,width=490,menubar=0,status=0,toolbar=0,scrollbars=0,location=0,minimize=0,resizable=0")>	
+<input type="submit" value="Quik Info" class="button4" />--></td>
+				
+</a></td>
+                   <td class="recentTXT"><div style="padding-left:10px;"><!--<b>Price : </b><br/>--><span>'.$r[$j]['msrp'].'</span></div></td>
+                  </tr>';
+			$output.='</table>';
+   	 
+			$limit++;
+			$j++;
+			$output.='</div>';
+		}
+		return $output;	
+	}
+	
+ 	/**
+	* This function is used When Recently Viewed Product is Not Available
+	* @name lastViewedProductElse
+	* @return string
+ 	*/
+	function lastViewedProductsElse()
+	{
+		$output = '<div class="recent"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr><td width="36%" align="center"><font color="orange" size=2><b>Products not yet viewed</b></font></td></tr></table></div>';
+		return $output;
+	}
+	
+	
+	
+}	
+	?>

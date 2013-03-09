@@ -1,0 +1,170 @@
+/**
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+/* CSS Document */
+
+body
+{
+margin:0px;
+font-family:Arial, Helvetica, sans-serif;
+}
+.contentBg
+{
+background:url(../images/bg.gif) repeat-y;
+width:634px;
+}
+.title
+{
+background:url(../images/title_bg.gif) repeat-x;
+height:36px;
+padding-left:15px;
+font-size:12px;
+color:#a09583;
+font-weight:bold;
+}
+.text
+{
+font-size:12px;
+color:#a09583;
+font-weight:normal;
+line-height:25px;
+}
+.menu
+{
+width:225px;
+height:25px;
+display:block;
+background-color:#efece5;
+border:#d4d0c7 1px solid;
+margin-bottom:5px;
+}
+.menuText
+{
+background:url(../images/arrow.gif) no-repeat left;
+background-position:10px;
+padding-left:25px;
+font-size:11px;
+color:#8a8066;
+line-height:25px;
+}
+.logout:link
+{
+color:#a70101;
+font-size:11px;
+text-decoration:none;
+}
+.logout:visited
+{
+color:#a70101;
+font-size:11px;
+text-decoration:none;
+}
+.logout:hover
+{
+color:#a70101;
+font-size:11px;
+text-decoration:underline;
+}
+.textbox
+{
+width:180px;
+height:15px;
+font-size:12px;
+color:#a09583;
+font-weight:normal;
+border:#a09583 1px solid;
+}
+
+/* JS */
+
+.admin_menubg
+{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+background-color:#efece5;
+font-size:10px;
+font-weight:bold;
+color:#898989;
+}
+
+.left_navbdr
+{
+border:1px solid #efece5;
+background-color:#efece5;
+}
+
+.pad_img
+{
+border-top:1px solid #d4d0c7;
+}
+
+.left_navselected a:link, .left_navselected a:visited
+{
+display:block;
+background:url(../images/left_navbg.gif) right repeat-y;
+color:#323232;
+font-size:11px;
+font-weight:bold;
+text-decoration:none;
+width:100%;
+padding:7px 0px 7px 10px;
+}
+
+.left_navhead a:link, .left_navhead a:visited
+{
+display:block;
+font-size:11px;
+font-weight:bold;
+color:#8a8066;
+text-decoration:none;
+padding:7px 0px 7px 10px;
+width:100%;
+}
+
+.left_navhead a:hover
+{
+background:url(../images/left_navbg.gif) right repeat-y;
+color:#323232;
+}
+
+.left_navtbdr
+{
+padding:5px 0px 5px 0px;
+background:url(../images/left_navtbdr.gif) top repeat-x;
+}
+
+.div_tree a:link, .div_tree a:visited
+{
+font-family:Arial, Verdana, sans-serif;
+background:url(../images/tree_dot.gif) left center no-repeat;
+padding:3px 0px 3px 35px;
+display:block;
+color:#8a8066;
+font-size:11px;
+font-style:normal;
+line-height:20px;
+white-space:nowrap;
+text-decoration:none;
+}
+
+.errmsg
+{
+font-family:Verdana;
+font-size:12px;
+color:#FF0000;
+}

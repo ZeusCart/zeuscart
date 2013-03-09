@@ -1,0 +1,93 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<form name="fm" method="post" action="?do=catbulkupload&action=upload" enctype="multipart/form-data">
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+            <td align="left"><AJDF:output>$createpagemsg</AJDF:output>
+            <AJDF:output>$deletepage</AJDF:output></td>
+          </tr>
+          <tr>
+            <td align="left" class="content_title">Category Bulk Upload</td>
+          </tr>
+		  <tr>
+            <td align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left"><AJDF:output>$messages</AJDF:output>&nbsp;</td>
+          </tr>
+		   <tr><td>  
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">
+      <tr>
+        <td  align="left" class="content_list_head" valign="top">Category Bulk Upload</td>
+	  </tr>
+          <tr>
+            <td align="left" class=""><table width="100%" border="0" cellspacing="0" cellpadding="0">
+			
+              <tr>
+                <td width="20%" align="left" class="content_form">Category TSV File</td>
+                <td width="66%" class="content_form"><input type="file" name="category_file" id="category_file" value=""/> 
+            &nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dbulkup1', 'Upload TSV', 'Upload Categories in Tab Separated Values(TSV) format.')" onmouseout="HideHelp('dbulkup1');">
+			<div id="dbulkup1" style=" position:fixed"></div><span class="errmsg"><strong></strong></span></td>
+              </tr>
+			  <tr>
+                <td align="left" class="content_form" valign="top">Sample Category TSV File</td>
+                <td width="66%" class="content_form"><a href="?do=catbulkupload&action=download"><img src="images/ico_bulk_doc.png" name="getdoc" id="getdoc" alt="Click Here" border="0"/></a>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dbulkup2', 'Download Sample TSV', 'Click the image to download sample Tab Separated Values(TSV) file for categories.')" onmouseout="HideHelp('dbulkup2');">
+			<div id="dbulkup2" style="left: 50px; top: 50px;"></div></td>
+              </tr>
+             
+        	  
+			  <tr>
+                <td align="center" class="content_form" colspan="2">
+                <input type="submit" name="button" id="button" value="Upload" class="all_bttn" /></td>
+              </tr>
+			  </table></td></tr></table>
+			   <tr>
+            <td align="left">&nbsp;</td>
+          </tr>
+			 <tr><td>  
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">
+      <tr>
+        <td  align="left" class="content_list_head" valign="top">Note : To Upload The Category TSV File</td>
+	  </tr>
+			   <tr>
+                <td align="left" class="content_form" colspan="2">
+				<ol>
+                	<li>Click on the Sample images TSV file to download the zip</li>
+					<li>Extract the zip file.</li>
+					<li>There are two tsv files in the zip archive.</li>
+					<li>Don't Modify Or Delete The First Line Of Category TSV File</li>
+					<li>Modify The Dummy Category Details From The Second Line Of Category TSV File</li>
+					<li>Append The Category Details In The Given Format</li>
+					<li>Enter the Category Ids Correctly Given in the Category Details TSV File</li>
+   					<li>Enter the Type of Category Correctly as Parent or Child (lower case only) in the Category TSV File</li>
+   					<li>Enter the Category_Parent_Id as Zero(0) for Main Category in the Category TSV File</li>
+                    
+				</ol>
+				</td>
+              </tr>
+			  </table></td></tr>
+      
+      </td>
+      </tr>
+      </table>
+    </form>
+<AJDF:output>include file="footer.html"</AJDF:output>

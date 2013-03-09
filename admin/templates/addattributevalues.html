@@ -1,0 +1,83 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<form name="formattribval" action="?do=addattributevalues&action=add"  method="post" >
+  <table width="97%" border="0" cellspacing="0" cellpadding="0">
+  	
+    <tr>
+      <td colspan="5" align="left" class="content_title">Attribute Values</td>
+    </tr>
+    <tr>
+      <td colspan="4" align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="4" align="left"><AJDF:output>$msg</AJDF:output></td>
+      
+    </tr>
+	<tr>
+      
+      <td colspan="2" align="right"><a href="?do=addattributes" class="add_link" >Add Attribute</a></td>
+    </tr>
+    <tr>
+      <td colspan="3" align="left">&nbsp;</td>
+    </tr>
+	<tr><td>
+	<table class="content_list_bdr" width="100%" border="0" >
+    <tr>
+      <td class="content_form" width="24%" align="left" nowrap="nowrap" colspan="3">Add Attribute Values:</td>
+      <td width="21%" align="left">
+        <AJDF:output>$allatt</AJDF:output>
+      </td>
+      <td width="31%" align="center"><input type="text" name="attributevalues" class="txt_box200" id="attrib" value="" /></td>
+      <td width="50%" align="left"><input type="submit" name="btnsubmit" value="Add" id="submit" class="all_bttn"   />
+      </td>
+    </tr>
+    </table></td></tr>
+    <tr>
+      <td colspan="4" align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="4" align="left"><AJDF:output>$showattributevalues</AJDF:output>
+            </td>
+          </tr>
+        </table>
+</form>
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+<script type="text/javascript" language="javascript">
+function  callattribvalues(id)
+{
+	//alert(id);
+	if(confirm("Are you sure want to Delete?"))
+	{
+		window.location = "?do=addattributevalues&action=delete&id="+id;
+	}
+	document.formmaincat.mainindex.value=id;
+
+	//document.formsubcat.submit();
+}
+function edit(id)
+{
+ 
+
+	window.location= "?do=addattributevalues&action=disp&id="+id;
+}
+</script>

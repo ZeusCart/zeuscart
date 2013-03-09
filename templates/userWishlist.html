@@ -1,0 +1,82 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<script language="javascript">
+function showDiv()
+{
+	var obj=document.getElementById('divWishSend');
+	if(obj.style.display=='none')
+	{
+		obj.style.display='block';
+		document.getElementById('hidWishStat').value=1;
+	}	
+	else
+	{
+		obj.style.display='none';		
+		document.getElementById('hidWishStat').value=0;		
+	}	
+}
+</script>
+<div><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="100%" colspan="2" class="serachresult">My Wishlist </td>
+    </tr>
+  
+  <tr>
+    <td colspan="2" valign="top">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top">
+    	<div>
+     	  <AJDF:output>$rows</AJDF:output> 
+		 </div>
+     </td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="">
+            <table border="0" cellspacing="0" cellpadding="0">
+            <tr>		
+                <td class="account_viewlink"><a href="#" onclick="showDiv()">Send to friend</a></td>
+            </tr>	
+            </table>
+        </td>	
+      </tr>
+      <tr>
+        <td align="">
+        	<form name="frmWishSend" action="?do=wishlist&action=send" method="post">
+                <div id="divWishSend" style="display:block;" >
+                	<input type="hidden" name="hidWishStat" id="hidWishStat" value="">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>		
+                        <td bgcolor="#FFFFFF" class="account_tableTXT">Enter E-Mail Id&nbsp;</td><td><input type=text class="txtbox1 w4 TxtC1" size="50" name="txtEmail" value="<AJDF:output>$val.txtEmail</AJDF:output>">&nbsp;</td>
+                        <td><input type="button" class="button button_left"/></td>
+                        <td><input type="submit" value="Send" class="button" /></td>
+                        <td><input type="button" class="button button_right"/></td>
+                    </tr>
+                    <tr><td></td><td><span style="color:red; font-size:12px;"><AJDF:output>$msg.txtEmail</AJDF:output></span></td></tr>	
+                    </table>
+                </div>
+            </form>    
+        </td>	
+      </tr>
+    </table>
+    </div>

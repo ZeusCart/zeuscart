@@ -1,0 +1,65 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<form name="edituser" method="post" action="?do=updatereg&action=update">
+ <table width="97%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="3" align="left" class="content_title">EDIT USER</td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+          
+          <tr>
+            <td colspan="3" align="left"><table width="70%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
+              <tr>
+    <td align="right" class="content_list_txt1" >Display Name</td>
+    <td align="cennter"><input type="text" size="28" name="disname" class="txt_box200" value="<AJDF:output> $val.disname </AJDF:output>"/><br /><font color="#FF0000"><AJDF:output> $msg.disname </AJDF:output></font></td>
+    </tr>
+    
+    <tr><td align="right" class="content_list_txt1">FirstName</td>
+    <td align="cennter">
+    <input type="text" size="28" name="fname"  class="txt_box200" value="<AJDF:output> $val.fname </AJDF:output>"/><br /><font color="#FF0000"><AJDF:output> $msg.fname </AJDF:output></font>
+     </td>
+     </tr>
+     
+     <tr><td align="right" class="content_list_txt1">LastName</td>
+     <td align="cennter"><input size="28" type="text"  class="txt_box200" name="lname" value="<AJDF:output> $val.lname </AJDF:output>"/><br /><font color="#FF0000"><AJDF:output> $msg.lname </AJDF:output></font></td></tr>
+      <tr><td align="right" class="content_list_txt1">Email</td>
+      <td align="cennter"><input size="28" type="text"  class="txt_box200" name="txtemail" value="<AJDF:output> $val.txtemail </AJDF:output>"/><br /><font color="#FF0000"><AJDF:output> $msg.txtemail </AJDF:output></font></td></tr>
+      <tr>
+		  <td colspan="2" align="center">
+          	<input type="hidden" name="id" value="<AJDF:output> $val.id </AJDF:output>">
+          	<input type="submit" forecolor="blue" name="submit" class="all_bttn"  value="Update" onclick="javascript:return confirmdelete()" />
+          </td></tr>
+		</table></form>
+        
+<script language="JavaScript">
+function condelete()
+{
+	var confrm;
+	confrm=window.confirm("Are You sure you want to delete this category");
+	return confrm;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<TABLE WIDTH="97%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  <TR>
+    <TD VALIGN="top">
+    <form name="reg" method="post" action="?do=addUserAccount&action=addreg">
+    <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  <tr>
+    <td colspan="5" align="left" class="content_title">Customer Account</td>
+  </tr>
+  <TR>
+    <TD><AJDF:output> $account </AJDF:output></TD>
+    </TR>
+  <TR>
+    <TD>&nbsp;</TD>
+    </TR>
+	<tr><td>  
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">
+      <tr>
+        <td  align="left" class="content_list_head" valign="top">Create Customer</td>
+	  </tr>
+  <TR>
+    <TD ALIGN="left" class="content_form_bdr" style="padding-left:5px">
+    <TABLE WIDTH="80%" BORDER="0" CELLSPACING="0" CELLPADDING="0" CLASS="checkout_rigistration">
+	<tr><td align="right" colspan="3"><font color="red" size="-1"> * Required Fields</font></td></tr>
+	<TR>
+    <TD>&nbsp;</TD>
+    </TR>
+      <TR>
+        <TD WIDTH="20%" class="content_form">Display Name <font color="red">*</font></TD>
+
+        <TD WIDTH="6%" class="content_form">:</TD>
+        <TD WIDTH="56%" class=""><input name="txtdisname" type="text" class="txt_box250" value="<AJDF:output> $val.txtdisname </AJDF:output>" /><br /><font color="#FF0000" size="-2">
+                      <AJDF:output> $msg.txtdisname </AJDF:output>
+                      </font></TD>
+      </TR>
+      <TR>
+        <TD class="content_form">First Name <font color="red">*</font></TD>
+        <TD class="content_form">:</TD>
+        <TD class=""><input name="txtfname" type="text" class="txt_box250" value="<AJDF:output> $val.txtfname </AJDF:output>"/><br /><font color="#FF0000" size="-2">
+                      <AJDF:output> $msg.txtfname </AJDF:output>
+                      </font> </TD>
+      </TR>
+      <TR>
+        <TD class="content_form">Last Name <font color="red">*</font></TD>
+        <TD class="content_form">:</TD>
+        <TD class=""><input name="txtlname" type="text" class="txt_box250" value="<AJDF:output> $val.txtlname </AJDF:output>"/> <br /><font color="#FF0000" size="-2">
+                      <AJDF:output> $msg.txtlname </AJDF:output>
+                      </font></TD>
+      </TR>
+      <TR>
+        <TD class="content_form">Email Address <font color="red">*</font></TD>
+        <TD class="content_form">:</TD>
+        <TD class=""><input name="txtemail" type="text" class="txt_box250" value="<AJDF:output> $val.txtemail </AJDF:output>"/> <br /><font color="#FF0000" size="-2">
+                      <AJDF:output> $msg.txtemail </AJDF:output>
+                      </font></TD>
+      </TR>
+      <TR>
+        <TD class="content_form">Password <font color="red">*</font></TD>
+        <TD class="content_form">:</TD>
+        <TD class=""><input name="txtpwd" type="password" class="txt_box250" value="<AJDF:output> $val.txtpwd </AJDF:output>"/><br /><font color="#FF0000" size="-2">
+                      <AJDF:output> $msg.txtpwd </AJDF:output>
+                      </font></TD>
+      </TR>
+      <TR>
+        <TD class="content_form">Confirm Password <font color="red">*</font></TD>
+        <TD class="content_form">:</TD>
+        <TD class="" ><input name="txtrepwd" type="password" class="txt_box250" value="<AJDF:output> $val.txtrepwd </AJDF:output>"/>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dpwd2', 'Confirm Password', 'Enter password once again for confirmation.')" onmouseout="HideHelp('dpwd2');">
+			<div id="dpwd2" style="position:fixed" ></div><br /><font color="#FF0000" size="-2">
+                      <AJDF:output> $msg.txtrepwd </AJDF:output>
+                      </font></TD>
+      </TR>
+      <TR>
+        <TD class="content_form">Address <font color="red">*</font></TD>
+        <TD class="content_form">:</TD>
+        <TD><input name="txtaddr" type="text" class="txt_box250" value="<AJDF:output> $val.txtaddr </AJDF:output>"/><br /><font color="#FF0000" size="-2">
+                      <AJDF:output> $msg.txtaddr </AJDF:output>
+                      </font></TD>
+      </TR>
+      
+      <tr>
+             <td class="content_form">City <font color="red">*</font></td>
+             <td class="content_form">:</td>
+             <td><input name="txtcity" type="text" class="txt_box250" id="textfield8" value="<AJDF:output> $val.txtcity </AJDF:output>" /><br /><font color="#FF0000" size="-2">
+                      <AJDF:output> $msg.txtcity </AJDF:output>
+                      </font></td>
+           </tr>
+            <tr>
+			 <td class="content_form">State/Province <font color="red">*</font></td>
+			 <td class="content_form">:</td>
+			 <td><input name="txtState" type="text" class="txt_box250" id="textfield8" value="<AJDF:output> $val.txtState </AJDF:output>"/><br><font color="#FF0000" size="-2"><AJDF:output>$msg.txtState</AJDF:output></font>
+			 </td>
+		   </tr>
+          <tr>
+             <td class="content_form">Zip/Postal Code <font color="red">*</font></td>
+             <td class="content_form">:</td>
+             <td><input name="txtzipcode" type="text" class="txt_box250" id="textfield82" value="<AJDF:output> $val.txtzipcode </AJDF:output>" /><br><font color="#FF0000" size="-2"><AJDF:output>$msg.txtzipcode</AJDF:output></font></td>
+           </tr>
+         <tr>
+             <td class="content_form">Country <font color="red">*</font></td>
+             <td class="content_form">:</td>
+             <td><AJDF:output>$val.selCountry </AJDF:output><!--<br><font color="#FF0000"><AJDF:output>$msg.txtState</AJDF:output></font>--></td>
+           </tr>
+      <!--<TR><TD class="label_name">&nbsp;</TD><TD class="label_name"><input type="checkbox" name="chknewsletter" value="1" /></TD>
+        <TD class="label_name">Subscribe newsletter</TD></TR>-->
+      <TR>
+        <TD COLSPAN="3" STYLE="padding-top:10px;" class="label_name">&nbsp;</TD>
+        </TR>
+
+      <TR>
+        <TD ALIGN="center" colspan="3">
+			<INPUT TYPE="submit" NAME="Submit2" VALUE="Create Account" class="all_bttn"/></TD>
+          </TD>
+      </TR>
+
+      
+    </TABLE></TD>
+    </TR></table></td></tr>
+    
+</TABLE>
+</form>
+</TD>
+  </TR>
+</TABLE>
+
+
+<!--Body Part Ends-->
+<!--Footer-->
+<AJDF:output>include file="footer.html"</AJDF:output>

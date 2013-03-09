@@ -1,0 +1,108 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<!--action="?do=catcreate&action=add"-->
+<script type="text/javascript">
+function selDeSel(a){
+//var mark = a == 'sel' ? 'checked' : '';
+ var inputs = document.getElementsByName('chkattrib[]');
+        var checkboxes = [];		
+        for (var i = 0; i < inputs.length; i++) 
+		{
+              if (inputs[i].type == 'checkbox') 
+			  {
+				inputs[i].checked =true;
+			  }
+		}
+
+}
+
+function selUnDeSel(a){
+//var mark = a == 'sel' ? 'checked' : '';
+ var inputs = document.getElementsByName('chkattrib[]');
+        var checkboxes = [];		
+        for (var i = 0; i < inputs.length; i++) 
+		{
+              if (inputs[i].type == 'checkbox') 
+			  {
+				inputs[i].checked =false;
+			  }
+		}
+
+}
+
+-->
+</script>
+ <form name="formattrib" action="?do=addattributes&action=add"  method="post" >
+ 
+<table width="97%" border="0" cellspacing="0" cellpadding="">
+			
+          <tr>
+            <td colspan="5" align="left" class="content_title">Attributes <!--&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('datt', 'Attributes', 'Add here')" onmouseout="HideHelp('datt');">
+			<div id="datt" style="left: 50px; top: 50px;"></div>--></td>
+          </tr>
+          <tr>
+            <td colspan="7" align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4" align="left"><AJDF:output>$attribmsg</AJDF:output></td>
+          </tr>
+          <tr>
+            <td height="41" colspan="5" align="right"><a href="?do=addattributevalues" class="add_link" >Add Attribute values</a></td>
+          </tr>
+		  <tr><td>
+	<table class="content_list_bdr" width="100%" border="0" >
+          <tr>
+            <td width="17%" align="left" class="content_form">Add Attributes:</td>
+            <td width="26%" align="left">
+<input type="text" name="attributes" id="attrib" class="txt_box200" maxlength="25"  value="<AJDF:output>$val.attributes</AJDF:output>"/></td>
+            <td width="7%" align="center"><input type="submit" name="btnsubmit" value="Add" id="submit" class="all_bttn"  /></td>
+            <td width="50%" colspan="2">&nbsp;</td>
+          </tr>
+          <tr><td></td><td colspan="3"><font color="#FF0000"><AJDF:output>$msg.attributes</AJDF:output></font></td></tr>
+
+		  </table></td></tr>
+		  <tr>
+            <td colspan="4" align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="5" align="left"><AJDF:output>$showattributes</AJDF:output></td>
+</tr>
+</table>
+</form>
+
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+<script type="text/javascript" language="javascript">
+function  callattribs(id)
+{
+	if(confirm("Are you sure want to Delete?"))
+	{
+		window.location = "?do=addattributes&action=delete&id="+id;
+	}
+	document.formmaincat.mainindex.value=id;
+
+}
+function edit(id)
+{
+	window.location= "?do=addattributes&action=disp&id="+id;
+}
+</script>

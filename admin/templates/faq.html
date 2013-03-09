@@ -1,0 +1,53 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<table width="97%" border="0" cellspacing="0" cellpadding="">
+  <tr>
+    <td colspan="5" align="left" class="content_title">Faqs<!--&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dfaq', 'Meta Key', 'Add here')" onmouseout="HideHelp('dfaq');">
+			<div id="dfaq" style="left: 50px; top: 50px;"></div>--></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="left"><AJDF:output>$message</AJDF:output></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="left" style="padding-top:5px;"><AJDF:output>$result</AJDF:output></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="left">&nbsp;</td>
+  </tr>
+</table>
+<AJDF:output>include file="footer.html"</AJDF:output>
+<script type="text/javascript">
+function showDesc(id)
+{
+	count=document.getElementById('hidDiv').value;
+	for(i=1;i<=count;i++)
+	{
+		if(document.getElementById('div'+i)!=null)
+			if(i==id)
+				if(document.getElementById('div'+i).style.display=='none')
+					document.getElementById('div'+id).style.display='block';	
+			else
+				document.getElementById('div'+i).style.display='none';
+	}
+	return false;
+}
+</script>

@@ -1,0 +1,85 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<script type="text/javascript">
+var xmlHttp;
+
+function showSub(subcatid)
+{
+	window.location = "?do=showsub&action=show&id="+subcatid;
+}
+
+</script>
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td colspan="3" align="left" class="content_title">Sub Category List </td>
+    </tr>
+    <tr>
+        <td colspan="3" align="left">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3" align="left">
+	<AJDF:output>$updatemaincat</AJDF:output>
+        <AJDF:output>$deletemsg</AJDF:output>
+	</td>
+    </tr>
+    <tr>
+        <td align="left">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2" align="right"><a href="?do=showmain" class="top_links" >View Main Category</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="?do=managecategory" class="add_link"  >Add Category</a></td>
+    </tr>
+    <tr>
+        <td align="left">&nbsp;</td>
+    </tr>
+	<tr><td>
+	<table class="content_list_bdr" width="100%" border="0" >
+    <tr><td>
+        <AJDF:output>$showmaincat</AJDF:output></td></tr>
+   
+	</table></td></tr>
+	 <tr>
+        <td colspan="3" align="left">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3" align="left" ><AJDF:output>$showsubcat </AJDF:output>
+            <AJDF:output>$updatemsg</AJDF:output>
+            <AJDF:output>$search</AJDF:output>
+            <!--<div ><AJDF:output>$products</AJDF:output></div>-->
+        </td>
+    </tr>
+</table>
+<script type="text/javascript" language="javascript">
+function  callid(id,pid,sub_child)
+{
+
+	if(confirm("Are you sure want to Delete?"))
+	{
+		window.location = "?do=showsub&action=delete&id="+id+"&pid="+pid+"&subchild="+sub_child;
+	}
+}
+function edit(id,mid)
+{
+	//alert(mid);
+	window.location= "?do=showsub&action=disp&id="+id+"&mid="+mid;
+}
+</script>
+<AJDF:output>include file="footer.html"</AJDF:output>

@@ -1,0 +1,167 @@
+<AJDF:output>include file="header.html"</AJDF:output> 
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+             <li><a href="?do=index">Home</a> <span class="divider">/</span></li>
+
+               <AJDF:output>if $smarty.get.cat ne '' && $smarty.get.subcat eq '' && $smarty.get.subundercat eq ''</AJDF:output> 
+              <li><AJDF:output>$smarty.get.cat</AJDF:output> <span class="divider">/</span></li>
+              <AJDF:output>/if</AJDF:output>
+
+             <AJDF:output>if $smarty.get.cat ne '' && $smarty.get.subcat ne '' && $smarty.get.subundercat eq ''</AJDF:output>  
+               <li><a href="?do=viewproducts&action=grid&cat=<AJDF:output>$smarty.get.cat</AJDF:output>"><AJDF:output>$smarty.get.cat</AJDF:output></a> <span class="divider">/</span></li>
+             <li > <AJDF:output>$smarty.get.subcat</AJDF:output> </li><AJDF:output>/if</AJDF:output>
+
+             <AJDF:output>if $smarty.get.cat ne '' && $smarty.get.subcat ne '' && $smarty.get.subundercat ne ''</AJDF:output>  
+               <li><a href="?do=viewproducts&action=grid&cat=<AJDF:output>$smarty.get.cat</AJDF:output>"><AJDF:output>$smarty.get.cat</AJDF:output></a> <span class="divider">/</span></li>
+             <li > <a href="?do=viewproducts&action=grid&cat=<AJDF:output>$smarty.get.cat</AJDF:output>&subcat=<AJDF:output>$smarty.get.subcat</AJDF:output>"><AJDF:output>$smarty.get.subcat</AJDF:output></a> <span class="divider">/</span></li>
+		        <li><AJDF:output>$smarty.get.subundercat</AJDF:output></li>
+            <AJDF:output>/if</AJDF:output>
+            </ul>
+            
+        <div class="row-fluid">
+        	<div class="span9">
+            <div class="title_fnt">
+    	<h1>Woman </h1><span class="pull-right"><a href="?do=viewproducts&action=grid&cat=<AJDF:output>$smarty.get.cat</AJDF:output>&subcat=<AJDF:output>$smarty.get.subcat</AJDF:output>&subundercat=<AJDF:output>$smarty.get.subundercat</AJDF:output>" class="grid_icn"></a> <a href="?do=viewproducts&cat=<AJDF:output>$smarty.get.cat</AJDF:output>&subcat=<AJDF:output>$smarty.get.subcat</AJDF:output>&subundercat=<AJDF:output>$smarty.get.subundercat</AJDF:output>" class="listview_icn"></a></span>
+        </div>
+            
+            <!--gallery-->
+            <div class="selecter">
+			<!--<div class="selecterBtns">
+				<ul class="nolist">
+					<li><a href="#" rel="all" class="active">All</a></li>
+					<li><a href="#" rel="dresses">Dresses</a></li>
+					<li><a href="#" rel="bags"> Bags & Purses </a></li>
+				</ul>
+			</div>-->
+			<div class="selecterContent">
+				<!--<ul class="nolist">
+					<li class="bags">
+                    <div class="galleryImage">
+                    <div class="ribbion_div"><img src="assets/img/ribbion/new.png" alt="new"></div>
+      <img src="assets/img/products/012.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div>
+                    </li>
+					<li class="dresses"><div class="galleryImage">
+                    <div class="ribbion_div"><img src="assets/img/ribbion/sale.png" alt="sale"></div>
+      <img src="assets/img/products/013.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div></li>
+					<li class="bags"><div class="galleryImage">
+      <img src="assets/img/products/012.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div></li>
+					<li class="dresses"><div class="galleryImage">
+      <img src="assets/img/products/013.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div></li>
+					<li class="dresses"><div class="galleryImage">
+      <img src="assets/img/products/012.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div></li>
+					<li class="dresses"><div class="galleryImage">
+      <img src="assets/img/products/013.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div></li>
+					<li class="bags"><div class="galleryImage">
+      <img src="assets/img/products/012.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div></li>
+					<li class="dresses"><div class="galleryImage">
+      <img src="assets/img/products/013.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift Taylor Swift Taylor Swift Taylor Swift Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div></li>
+					<li class="bags"><div class="galleryImage">
+      <img src="assets/img/products/013.jpg"></img>
+      <div class="info">  
+          <h2>Taylor Swift</h2>
+          <p>
+              Taylor Alison Swift (born December 13, 1989) is an American country pop singer-songwriter and actress.
+          </p>
+          <h4>$160.00</h4>
+          <a href="#" class="add_btn"></a>
+      </div>
+    </div></li>
+				</ul>-->	
+
+<AJDF:output>$gridviewproducts</AJDF:output>
+			
+        
+            <!--<div class="pagination">
+    <ul>
+    <li><a href="#">Prev</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">Next</a></li>
+    </ul>
+    </div>-->
+        </div>
+        
+                    <!--gallery end here-->
+
+                <AJDF:output>include file="right.html"</AJDF:output>                 	
+        </div>
+    </div>
+  
+    <!-- /container -->
+   <AJDF:output>include file="footer.html"</AJDF:output>

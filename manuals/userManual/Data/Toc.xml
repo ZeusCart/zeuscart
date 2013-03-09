@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CatapultToc Version="1">
+    <TocEntry Title="Welcome" Link="/Content/Welcome.htm" />
+    <TocEntry Title="Oveview">
+        <TocEntry Title="Comparison Chart" Link="/Content/Comparison Chart.htm" />
+        <TocEntry Title="What If I Run into Problem?" Link="/Content/What If I Run into Problem.htm" />
+    </TocEntry>
+    <TocEntry Title="ZeusCart 2.3 Home Page">
+        <TocEntry Title="Header and Custom Header" Link="/Content/Header and Custom Header.htm" />
+        <TocEntry Title="Left Navigation" Link="/Content/Left Navigation.htm" />
+        <TocEntry Title="Web Page Content" Link="/Content/Web Page Content.htm" />
+        <TocEntry Title="Right Navigation" Link="/Content/Right Navigation.htm" />
+        <TocEntry Title="Footer" Link="/Content/Footer.htm" />
+    </TocEntry>
+    <TocEntry Title="Getting Inside of ZeusCart 2.3">
+        <TocEntry Title="Registration Process" Link="/Content/Registration Process.htm" />
+        <TocEntry Title="Logging in" Link="/Content/Logging in.htm" />
+    </TocEntry>
+    <TocEntry Title="Steps to Chackout a Product">
+        <TocEntry Title="Search Products">
+            <TocEntry Title="Using Keyword Search" Link="/Content/Using Keyword Search.htm" />
+            <TocEntry Title="Browse by Category" Link="/Content/Browse by Category.htm" />
+            <TocEntry Title="Popular Tags" Link="/Content/Popular Tags.htm" />
+            <TocEntry Title="Narrow Search" Link="/Content/Narrow Search.htm" />
+        </TocEntry>
+        <TocEntry Title="Product Detail Page" Link="/Content/Product Detail Page.htm" />
+        <TocEntry Title="Your Shopping Cart" Link="/Content/Your Shopping Cart.htm" />
+        <TocEntry Title="Checkout Process">
+            <TocEntry Title="Quick Checkout as Guest User" Link="/Content/Quick Checkout as Guest User.htm" />
+            <TocEntry Title="Registered User Checkout" Link="/Content/Registered User Checkout.htm" />
+        </TocEntry>
+    </TocEntry>
+    <TocEntry Title="My Account">
+        <TocEntry Title="Account Dashboard" Link="/Content/Account Dashboard.htm" />
+        <TocEntry Title="Account Information" Link="/Content/Account Information.htm" />
+        <TocEntry Title="Address Book" Link="/Content/Address Book.htm" />
+        <TocEntry Title="My Orders" Link="/Content/My Orders.htm" />
+        <TocEntry Title="My Product Reviews" Link="/Content/My Product Reviews.htm" />
+        <TocEntry Title="Newsletter Subscription" Link="/Content/Newsletter Subscription.htm" />
+        <TocEntry Title="My Wishlist" Link="/Content/My Wishlist.htm" />
+    </TocEntry>
+</CatapultToc>

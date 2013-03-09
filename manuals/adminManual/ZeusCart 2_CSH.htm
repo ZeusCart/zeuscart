@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd">
+    <head>
+        <title>WebHelp</title>
+        <script type="text/javascript" src="Content/SkinSupport/MadCapUtilities.js">
+        </script>
+        <script type="text/javascript">
+/* <![CDATA[ */
+var gRootFolder	= FMCGetRootFolder( document.location );
+var gCSHData	= new Object();
+
+ProcessCSH();
+
+function ProcessCSH()
+{
+	CheckStartTopic();
+
+	var skinLayout		= GetSkinLayout( gCSHData.skinName );
+	var currLocation	= document.location;
+	var href			= FMCGetHref( currLocation );
+	var hash			= currLocation.hash;
+	var search			= currLocation.search;
+	var outputFile		= href.substring( href.lastIndexOf( "/" ) + 1, href.lastIndexOf( "." ) - "_CSH".length );
+	var outputSuffix	= href.substring( href.lastIndexOf( "." ) );
+
+	//
+
+	var newHash		= search;
+	var firstParam	= true;
+
+	if ( gCSHData.topic )
+	{
+		newHash += (firstParam ? "#" : "|") + "StartTopic=" + gCSHData.topic;
+		firstParam = false;
+	}
+
+	if ( gCSHData.skinName )
+	{
+		newHash += (firstParam ? "#" : "|") + "SkinName=" + gCSHData.skinName;
+		firstParam = false;
+	}
+	
+	if ( gCSHData.isJS )
+	{
+		newHash += (firstParam ? "#" : "|") + "OpenType=Javascript";
+		firstParam = false;
+	}
+
+	//
+
+	document.location.replace( gRootFolder + outputFile + "_" + skinLayout + outputSuffix + newHash );
+}
+
+function CheckStartTopic()
+{
+    var hash        = document.location.hash;
+    var startTopic  = hash.substring( 1 );
+    
+    if ( startTopic != null && startTopic != "" )
+    {
+		var pos		= startTopic.indexOf( "OpenType=Javascript" );
+		var isJS	= false;
+		
+		if ( pos != -1 )
+		{
+			isJS = true;
+			
+			if ( startTopic.charAt( pos - 1 ) == "|" )
+			{
+				pos--;
+			}
+			
+			startTopic = startTopic.substring( 0, pos );
+		}
+		
+        gCSHData = LookupCSHDataFromMapID( startTopic );
+        
+        if ( isJS )
+        {
+			gCSHData.isJS = true;
+        }
+    }
+}
+
+function GetSkinLayout( skinName )
+{
+	var skinPath		= "Data/Skin" + skinName + "/";
+    var xmlDoc			= CMCXmlParser.GetXmlDoc( skinPath + "Skin.xml", false, null, null );
+    var webHelpOptions	= xmlDoc.getElementsByTagName( "WebHelpOptions" )[0];
+    var skinLayout		= "Left";
+    
+    if ( webHelpOptions )
+    {
+        if ( webHelpOptions.getAttribute( "NavigationPanePosition" ) )
+        {
+            skinLayout = webHelpOptions.getAttribute( "NavigationPanePosition" );
+        }
+    }
+    
+    return skinLayout;
+}
+
+function LookupCSHDataFromMapID( id )
+{
+    var cshShortcutData = new Object();
+    var xmlDoc          = CMCXmlParser.GetXmlDoc( gRootFolder + "Data/Alias.xml", false, null, null );
+	
+    var pipePos	= id.indexOf( "|" );
+    
+    if ( pipePos != -1 )
+    {
+		cshShortcutData.skinName = id.substring( pipePos + 1 );
+		
+		id = id.substring( 0, pipePos );
+    }
+    
+    if ( id.indexOf( "." ) != -1 )
+    {
+        cshShortcutData.topic = id;
+    }
+    else
+    {
+        if ( xmlDoc )
+        {
+            var maps    = xmlDoc.documentElement.getElementsByTagName( "Map" );
+            
+            for ( var i = 0; i < maps.length; i++ )
+            {
+				var currMap	= maps[i];
+				
+                if ( currMap.getAttribute( "Name" ) == id ||
+                     currMap.getAttribute( "ResolvedId" ) == id )
+                {
+                    cshShortcutData.topic = currMap.getAttribute( "Link" );
+                    
+                    if ( !cshShortcutData.skinName )
+                    {
+						var skin	= currMap.getAttribute( "Skin" );
+						
+						if ( skin )
+						{
+							cshShortcutData.skinName = skin.substring( "Skin".length, skin.indexOf( "/" ) );
+						}
+					}
+                    
+                    break;
+                }
+            }
+        }
+        else
+        {
+            alert( "Warning: A topic id was specified but the help system does not contain an alias file. The help system's default starting topic will be used." );
+        }
+    }
+    
+    if ( !cshShortcutData.skinName )
+    {
+        if ( xmlDoc )
+        {
+            cshShortcutData.skinName = xmlDoc.documentElement.getAttribute( "DefaultSkinName" );
+        }
+    }
+    
+    return cshShortcutData;
+}
+/* ]]> */
+</script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<!--<AJDF:output>$statisticsArea</AJDF:output>-->
+<AJDF:output>include file="left.html"</AJDF:output>
+<form name="fm" method="post" action="?do=selectskin&action=update" enctype="multipart/form-data">
+  <table width="97%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left" class="content_title">Available Site Skin</td>
+  </tr>
+  <!--<tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="left"  style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$updatemsg</AJDF:output></td>
+  </tr>
+  <tr>
+    <td align="left">&nbsp;</td>
+  </tr>-->
+ 
+   <tr>
+    <td align="right"  style="padding-top:5px;"><a href="?do=skin" class="add_link">Add New Skin</a></td>
+  </tr>
+  
+  <tr>
+    <td align="left" style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$updatemsg</AJDF:output></td>
+  </tr>
+   <tr>
+    <td align="left" class="content_list_head">Select Site Skin</td>
+  </tr>
+  <tr>
+    <td align="left" class="content_form_bdr"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+    <td align="left">&nbsp;</td>
+  </tr>
+        <tr>
+          <td width="24%" align="left" class="content_form" valign="top"> Current Site Skin:</td>
+          <td  class="content_form" ><AJDF:output>$currentskin</AJDF:output>
+          </td>
+        </tr>
+        <tr>
+          <td width="24%" align="left" valign="top" class="content_form"> List Of Available Skins: </td>
+          <td  class="content_form" ><AJDF:output>$showskin</AJDF:output>
+          </td>
+        </tr>
+        <tr>
+         
+          <td class="content_form" colspan="2" align="center"><input type="submit" class="all_bttn"  name="update" value="Update Site Skin" />
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+      </table>
+</form>
+<AJDF:output>include file="footer.html"</AJDF:output>

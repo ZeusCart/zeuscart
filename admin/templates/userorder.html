@@ -1,0 +1,122 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<TABLE WIDTH="97%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  <tr>
+    <td colspan="5" align="left" class="content_title">Create Order</td>
+  </tr>
+  <TR>
+    <TD><br /><AJDF:output> $message </AJDF:output></TD>
+  </TR>
+  <TR>
+    <TD>&nbsp;</TD>
+  </TR>
+</TABLE>    
+<form name="reg" method="post" action="?do=addUserProduct">
+<table width="95%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr" align="center">
+	<tr>
+	<td colspan="3" align="left" class="content_list_head" style="padding-left:5px;">Select Category</td>
+	</tr>
+	<tr><td>
+    <TABLE WIDTH="70%" BORDER="0" CELLSPACING="0" CELLPADDING="0" align="left" style="padding-top:20px;padding-left:5px">
+      <TR style="line-height:40px;">
+        <TD width="100px">Category</TD><TD width="150px"><AJDF:output>$category1 </AJDF:output></TD>
+        <TD width="100px">Products</TD><TD><div id="divProduct"><AJDF:output>$products </AJDF:output></div></TD>        
+      </TR>
+     <tr>
+      <TD>Sub Category</TD><TD><div id="subCat"><AJDF:output>$subcategory </AJDF:output></div></TD>
+      <TD>Qty</TD><TD nowrap="nowrap" width="10%"><div id="divQty" style="width:100px"><AJDF:output>$qty</AJDF:output>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dqty', 'Quantity', 'Select Products quantity')" onmouseout="HideHelp('dqty');">
+			<div id="dqty" style=" position:fixed"></div></div></TD>            
+	 </tr>
+     <tr>	
+      <TD colspan="3" align="right" ></TD><td style="padding-top:10px;padding-bottom:10px"><br><input type="submit" value="   Add   " class="all_bttn"/></TD>   
+     </tr>
+    </TABLE></td></tr></table>
+</form>    
+<form name="userOrder" method="post" action="?do=addUserOrder&action=create">
+<table align="center" width="97%">
+     <tr>
+      <td  colspan="8" style="padding-left:10px;"><AJDF:output>$orderlist</AJDF:output></td>
+      </tr>
+      <tr>
+      <td  colspan="8">&nbsp;</td>
+      </tr>
+</table><br />
+<table width="95%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr" align="center">
+	<tr>
+	<td colspan="3" align="left" class="content_list_head" style="padding-left:5px;">Address </td>
+	</tr>
+	<tr><td>
+<TABLE WIDTH="97%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+  <TR>
+    <TD VALIGN="top" align="left" style="padding-left:5px">
+
+        <TABLE WIDTH="80%" BORDER="0" CELLSPACING="0" CELLPADDING="0" CLASS="checkout_rigistration">
+          <TR>
+            <TD WIDTH="10%" class="content_form">Customer</TD>
+    
+            <TD WIDTH="6%" class="content_form">:</TD>
+            <TD WIDTH="56%" class="content_form"><AJDF:output> $customer </AJDF:output></TD>
+          </TR>
+          <TR>
+            <TD class="content_form">Paid Through </TD>
+            <TD class="content_form">:</TD>
+            <TD class="content_form"><AJDF:output> $payment </AJDF:output>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dpay', 'Paid Through', 'Select way of pay')" onmouseout="HideHelp('dpay');">
+			<div id="dpay" style=" position:fixed"></div></TD>
+          </TR>
+    <!--      <TR>
+            <TD class="content_form_line">Order Status</TD>
+            <TD class="content_form_line">:</TD>
+            <TD class="content_form_line"><select style="width:127px"><option>Pending</option><option>Processing</option></select></TD>
+          </TR>-->
+          <tr>
+    	      <td colspan="3" align="center">
+              	<AJDF:output> $showShippingDetails </AJDF:output>
+	          </td>
+          </tr>
+          <tr>
+    	      <td colspan="3" align="center" style="padding-top:10px;padding-bottom:10px"><input type="submit" value="Create Order" class="all_bttn" />          </td>
+          </tr>
+        </TABLE>
+     </TD>
+    </TR>
+ </TABLE>
+ </form>
+<!--Body Part Ends-->
+<!--Footer-->
+<script type="text/javascript">
+	function loadSubcat(arg)
+	{
+		url ="?do=loadSubcat&id="+arg;
+		ajax(url,'subCat');
+	}
+	function loadProduct(arg)
+	{
+		url ="?do=loadProduct&id="+arg;
+		ajax(url,'divProduct');
+	}
+	function loadQty(arg)
+	{
+		url ="?do=loadQty&id="+arg;
+		ajax(url,'divQty');
+	}
+</script>
+<AJDF:output>include file="footer.html"</AJDF:output>
