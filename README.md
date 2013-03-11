@@ -1,7 +1,8 @@
-zeuscart
+ZeusCart
 ========
 
 ZeusCart -  PHP - MySQL Based Open Source Shopping Cart
+-------------------------------------------------------
 
 Current Version is V4
 
