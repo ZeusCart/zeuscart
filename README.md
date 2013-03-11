@@ -31,5 +31,6 @@ Key Features
 * Customer Group Management
 * News Management
 * Address Book Management
+* Easy to Install
 
 
