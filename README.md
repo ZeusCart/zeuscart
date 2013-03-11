@@ -14,7 +14,7 @@ Supported by : AJ Square Inc (http://ajsquare.com)
 
 
 Highlights
-==========
+----------
 
 1. Developed with AJDF Framework : AJDF is the simple to learn PHP framework. The framework is the core behind all the ajsquare products
 2. Easy to Customize : We focus on Developers and Build this version as easy to customize
@@ -22,3 +22,12 @@ Highlights
 
  Bootstrap : http://twitter.github.com/bootstrap/index.html 
  
+Key Features
+------------
+
+Attribute Based Catalog
+=======================
+
+Support to Physical Products & Digital Downloads
+================================================
+
