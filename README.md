@@ -25,8 +25,12 @@ Highlights
 Key Features
 ------------
 
-*Attribute Based Catalog
-*Support to Physical Products & Digital Downloads
-*
+* Attribute Based Catalog
+* Support to Physical Products & Digital Downloads
+* Coupon Creation
+* Product Variations
+* Customer Group Management
+* News Management
+* Address Book Management
 
 
