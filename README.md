@@ -25,9 +25,8 @@ Highlights
 Key Features
 ------------
 
-Attribute Based Catalog
-=======================
+*Attribute Based Catalog
+*Support to Physical Products & Digital Downloads
+*
 
-Support to Physical Products & Digital Downloads
-================================================
 
