@@ -19,8 +19,7 @@ Highlights
 1. Developed with AJDF Framework : AJDF is the simple to learn PHP framework. The framework is the core behind all the ajsquare products
 2. Easy to Customize : We focus on Developers and Build this version as easy to customize
 3. Fully Responsive : The current version is build on Twitter Bootstrap and fully responsive
-
- Bootstrap : http://twitter.github.com/bootstrap/index.html 
+   Bootstrap : http://twitter.github.com/bootstrap/index.html 
  
 Key Features
 ------------
