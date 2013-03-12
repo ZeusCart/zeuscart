@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,18 +20,17 @@
 */
 
 /**
- * CPromotionalCodes
+ * This class contains functions to creates and sends promotional codes for the selected users.
  *
- * This class contains functions to creates and sends promotional codes for the selected users. 
- *
- * @package		Core_CPromotionalCodes
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_CPromotionalCodes
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
+
 
 class Core_CPromotionalCodes
 {
@@ -58,10 +57,7 @@ class Core_CPromotionalCodes
 	
 	function sendCouponToSelectedUsers()
 	{
-	   
-	  
-		//echo "<pre>";	
-		//print_r($_POST);
+	
 		
 		$coupon_code=$_POST['couponcode'];
 		$user_ids=$_POST['user_id'];
@@ -153,7 +149,7 @@ class Core_CPromotionalCodes
 	
 	function displayUsersForPromotionalCode()
 	{
-		//print_r($_POST);
+
 		
 		if(isset($_POST['b1']))
 		{
@@ -395,8 +391,7 @@ class Core_CPromotionalCodes
 				
 				foreach($obj_mc->records as $catrecords)
 					 $maincatid_array[]=$catrecords['category_id'];
-				//echo "<pre>";
-				//print_r($maincatid_array);
+			
 			}
 		
 		}
@@ -407,8 +402,7 @@ class Core_CPromotionalCodes
 			$subcatid_array[]=$subcat;
 		}
 		
-		//print_r($maincatid_array);
-		//print_r($subcatid_array);
+	
 		if ( (!(empty($maincategories))) && (!(empty($subcategories))) )
 			$catid_array=array_unique(array_merge($maincatid_array,$subcatid_array));
 		elseif (!(empty($subcategories)))
@@ -416,7 +410,7 @@ class Core_CPromotionalCodes
 		elseif (!(empty($maincategories)))
 			$catid_array=$maincatid_array;
 			
-		//print_r($catid_array);
+
 		 if($days>=0&&$datediff>=0)
 	   {
 	
@@ -457,7 +451,6 @@ class Core_CPromotionalCodes
 	 * @return array
 	 */
 	
-	/*-----------------Random Number Creation------------------------*/
 	function getRandType($lenght){
 			  $a = array();
 			  for($i=0;$i<$lenght;$i++){
@@ -470,29 +463,26 @@ class Core_CPromotionalCodes
 	/**
 	 * Function generates a random value for random number generation 
 	 *
-	 *
+	 * @param array $array
 	 * @param string $arrayType
 	 * @param bool $tolower
-	 * @param array $array
-	 * 
 	 * @return string
 	 */
-		
-		function getRandValue($array,$arrayType,$tolower=false){
-			  if($arrayType<3){
-					$rand = rand(0,25);
-			  }else{
-					$rand = rand(0,9);
-			  }
-		
-			  $retval = $array[$rand];
-		
-			  if($tolower===true){
-					$retval = strtolower($retval);
-			  }
-		
-			  return $retval;
-		}
+	function getRandValue($array,$arrayType,$tolower=false){
+			if($arrayType<3){
+				$rand = rand(0,25);
+			}else{
+				$rand = rand(0,9);
+			}
+	
+			$retval = $array[$rand];
+	
+			if($tolower===true){
+				$retval = strtolower($retval);
+			}
+	
+			return $retval;
+	}
 		
 	/**
 	 * Function generates a random string for random number generation 
@@ -502,33 +492,31 @@ class Core_CPromotionalCodes
 	 * 
 	 * @return string
 	 */
+	function getRandString($lenght){
+	
+			$randTypes = $this->getRandType($lenght);
+	
+			$alphabet = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+	
+			$nums = array("1","2","3","4","5","6","7","8","9","0");
+	
+			$randString="";
+	
+			foreach($randTypes as $type){
+				if($type==1){
+						$randString .= $this->getRandValue($alphabet,1);
+				}elseif($type==2){
+						$randString .= $this->getRandValue($alphabet,2,true);
+				}else{
+						$randString .= $this->getRandValue($nums,3);
+				}
+			}
 		
-		
-		function getRandString($lenght){
-		
-			  $randTypes = $this->getRandType($lenght);
-		
-			  $alphabet = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
-		
-			  $nums = array("1","2","3","4","5","6","7","8","9","0");
-		
-			  $randString="";
-		
-			  foreach($randTypes as $type){
-					if($type==1){
-						  $randString .= $this->getRandValue($alphabet,1);
-					}elseif($type==2){
-						  $randString .= $this->getRandValue($alphabet,2,true);
-					}else{
-						  $randString .= $this->getRandValue($nums,3);
-					}
-			  }
-			
-					
-		
-		
-			  return strtoupper($randString);
-		}
-	/*-----------------Random Number Creation------------------------*/
+				
+	
+	
+			return strtoupper($randString);
+	}
+	
 }
 ?>

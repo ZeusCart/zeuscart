@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,12 +18,27 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * Wish list  related  class
+ *
+ * @package   		Classes
+ * @subpackage  	Model
+ * @category    	Model
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+ * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
+
 class Model_MWishList
 {
 	var $output = array();
 	/**
 	* This function is used to display  add wishlist  page
- 	*/	
+ 	*
+ 	* @return HTML data
+	*/	
 	function addtoWishList()
 	{
 		
@@ -88,7 +103,9 @@ class Model_MWishList
 	
 	/**
 	* This function is used to display  delete wishlist  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function deletefromWishList()
 	{
 				
@@ -152,7 +169,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to display  view wishlist  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function viewWishList()
 	{	
 		
@@ -219,8 +238,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to display  clear wishlist  page
- 	*/
-	
+ 	*
+ 	* @return HTML data
+	*/
 	function clearWishlist()
 	{
 		
@@ -279,7 +299,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to display  View snapshot for wishlist
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function wishlistSnapshot()
 	{	
 		$_SESSION['url']=$_GET['do'];
@@ -294,7 +316,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to display  addtoCompareProduct
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function addtoCompareProduct()
 	{	
 		include('classes/Core/CUserRegistration.php');
@@ -312,7 +336,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to display  CompareProduct
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function viewCompareProduct()
 	{	
 		include_once('classes/Core/CWishList.php');
@@ -354,7 +380,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to delete  CompareProduct
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function deleteCompareProduct()
 	{	
 		$output = array();
@@ -402,7 +430,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to delete  Product
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function deleteProduct()
 	{	
 		include('classes/Core/CWishList.php');
@@ -462,7 +492,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to clear all in compare product snapshot
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function deleteAllItem()
 	{	
 		include('classes/Core/CUserRegistration.php');
@@ -480,7 +512,9 @@ class Model_MWishList
 	}
 	/**
 	* This function is used to delete  compare product from home page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function deleteCompareProductFromHome()
 	{
 		include('classes/Core/CUserRegistration.php');

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,19 +18,18 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
 /**
- * CKeywordSearch
- *
  * This class contains functions to display the search results. 
  *
- * @package		Core_CKeywordSearch
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_CKeywordSearch
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
 
 
 
@@ -39,16 +38,16 @@ class Core_CKeywordSearch
 
 	/**
 	 * Function returns the result of the search query from database. 
-	 * 
-	 * 
+	 * @param string $search
+	 * @param int $sort
+	 * @param int $mode
 	 * @return string
 	 */
 
 
  	 function searchKeyWord($search,$sort,$mode)
 	{
-	   //echo($_POST['page']);
-      // $limitstart=$_POST['strec'];
+	  
 	   $limitstart=0;
 	   $limitend=$_POST['selpage'];
 	   if(empty($_POST['selpage']))
@@ -176,7 +175,7 @@ class Core_CKeywordSearch
 	
 	/**
 	 * Function returns the display rates for the selected product id. 
-	 * 
+	 * @param integer $productid
 	 * 
 	 * @return string
 	 */
@@ -213,9 +212,8 @@ class Core_CKeywordSearch
 	
 	function dispBrandWithCount()
 	{
-	  // $catid=$_POST['id'];
-//	   $catid=$_GET['id'];
-$catid=2;
+	
+		$catid=2;
 	   $sql='Select brand, count(*)as cnt from    products_table where category_id='.$catid.' group by brand having count(*) > 0 ';
 	   	
 	   $obj=new Bin_Query();
@@ -249,9 +247,6 @@ $catid=2;
 				$obj->records[$i]['productCnt']=Core_CKeywordSearch::getProductCount($obj->records[$i]['attrib_value_id'] );
 		}
 		
-		/*$sql2='select count(*)as cnt,b.attrib_value,a.product_id,b.attrib_value_id from product_attrib_values_table a inner join attribute_value_table b on a.attrib_value_id=b.attrib_value_id inner join category_attrib_table c on b.attrib_id=c.attrib_id inner join category_table d on c.subcategory_id=d.category_id where d.category_id='.$id.' group by attrib_value';
-		$obj2=new Bin_Query();
-	    $obj2->executeQuery($sql2);*/
 		
 		return Display_DKeywordSearch::featureList($obj1->records,$obj->records); 
 	   
@@ -261,7 +256,7 @@ $catid=2;
 	
 	/**
 	 * Function returns the no of product count from the database.  
-	 * 
+	 * @param integer $attValId
 	 * 
 	 * @return string
 	 */
@@ -276,10 +271,7 @@ $catid=2;
 		
 		$obj=new Bin_Query();
 	    $obj->executeQuery($sql);
-	/*	echo("<pre>");
-		print_r($obj->records);
-		exit;
-	*/	
+	
 
 /*		foreach($obj->records as $arr)
 			$product_ids[]=$arr['product_id'];
@@ -308,7 +300,7 @@ $catid=2;
 	
 	
 	
-}//end of Class
+}
 
 
 	

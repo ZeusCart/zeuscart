@@ -1,15 +1,15 @@
 <?php
-/**
+ /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,8 +18,27 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * Rich Site Summary  related  class
+ *
+ * @package   		Core_CRss
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Core_CRss
 {
+	/**
+	* This function is used to get the  rss
+	*
+	* .
+	* 
+	* @return XML data
+	*/
 	function showRss()
 	{
 		$sql= " SELECT a.product_id, a.title,a.description, a.thumb_image, a.msrp, a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as
@@ -28,6 +47,13 @@ class Core_CRss
 		$query->executeQuery($sql);
 		return Core_CRss::writeXML($query->records);
 	}
+	/**
+	* This function is used to get the  rss in xml 
+	*
+	* .
+	* 
+	* @return XML data
+	*/
 	function writeXML($result)
 	{
 		date_default_timezone_set('GMT');
@@ -35,7 +61,7 @@ class Core_CRss
 		$output = "<?xml version=\"1.0\"?>
 					<rss version=\"2.0\">
 						<channel>
-			 	<title>Zeuscart V2.1 New Products</title>
+			 	<title>Zeuscart V4 New Products</title>
 				<link>http://www.zeuscart.com/</link>
 				<description>Simple Online shopping</description>
 				<language>en-us</language>
@@ -56,13 +82,10 @@ class Core_CRss
 						</item>";
 		}
 		$output .= "</channel></rss>";
-		//header("Content-Type: application/rss+xml");
-		//echo $output;
+		
 		
 		$fname='New Products.xml';
-		//$name=fopen($fname,"w+");
-		//fwrite($name,$output);
-		//fclose($name);
+		
 		return $output;
 	}
 }

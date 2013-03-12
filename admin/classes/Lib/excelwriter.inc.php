@@ -1,50 +1,78 @@
 <?php
-	
-     /*
-     ###############################################
-     ####                                       ####
-     ####    Author : Harish Chauhan            ####
-     ####    Date   : 31 Dec,2004               ####
-     ####    Updated:                           ####
-     ####                                       ####
-     ###############################################
 
-     */
+/**
+* GNU General Public License.
 
-	 
-	 /*
-	 * Class is used for save the data into microsoft excel format.
-	 * It takes data into array or you can write data column vise.
-	 */
+* This file is part of ZeusCart V4.
 
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
+/**
+ * This class contains functions related to excel writer process
+ *
+ * @package  		Library
+ * @link   		http://www.zeuscart.com
+ * @version  		Version 4.0
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 
 	Class ExcelWriter
 	{
-			
+		/**
+		* Assign the  variable fp in null
+		*
+		* @var integer
+		*/	
 		var $fp=null;
-		var $error;
-		var $state="CLOSED";
-		var $newRow=false;
-		
-		/*
-		* @Params : $file  : file name of excel file to be created.
-		* @Return : On Success Valid File Pointer to file
-		* 			On Failure return false	 
+		/**
+		* Stores the  error output 
+		*
+		* @var string
 		*/
-		 
+		var $error;
+		/**
+		* Assign the status of the files closed
+		*
+		* @var string
+		*/
+		var $state="CLOSED";
+		/**
+		* Assign the new row of the file
+		*
+		* @var bool
+		*/
+		var $newRow=false;
+
+		/**
+		* Function is used to excel writer related process
+		*
+		* @param string $file
+		* @return bool
+		*/
 		function ExcelWriter($file="")
 		{
 			
 			return $this->open($file);
 		}
-		
-		/*
-		* @Params : $file  : file name of excel file to be created.
-		* 			if you are using file name with directory i.e. test/myFile.xls
-		* 			then the directory must be existed on the system and have permissioned properly
-		* 			to write the file.
-		* @Return : On Success Valid File Pointer to file
-		* 			On Failure return false	 
+		/**
+		* Function is used to open the excel file
+		*
+		* @param string $file
+		* @return bool
 		*/
 		function open($file)
 		{
@@ -72,7 +100,9 @@
 			fwrite($this->fp,$this->GetHeader());
 			return $this->fp;
 		}
-		
+		/**
+		* Function is used to close the open of Excel file
+		*/
 		function close()
 		{
 			if($this->state!="OPENED")
@@ -91,11 +121,9 @@
 			$this->state="CLOSED";
 			return ;
 		}
-		/* @Params : Void
-		*  @return : Void
-		* This function write the header of Excel file.
-		*/
-		 							
+		/**
+		* Function is used to write the header of Excel file
+		*/							
 		function GetHeader()
 		{
 			$header = <<<EOH
@@ -107,14 +135,14 @@
 				<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
 				<meta name=ProgId content=Excel.Sheet>
 				<!--[if gte mso 9]><xml>
-				 <o:DocumentProperties>
-				  <o:LastAuthor>HitSpot</o:LastAuthor>
-				  <o:LastSaved>2005-01-02T07:46:23Z</o:LastSaved>
-				  <o:Version>10.2625</o:Version>
-				 </o:DocumentProperties>
-				 <o:OfficeDocumentSettings>
-				  <o:DownloadComponents/>
-				 </o:OfficeDocumentSettings>
+				<o:DocumentProperties>
+				<o:LastAuthor>HitSpot</o:LastAuthor>
+				<o:LastSaved>2005-01-02T07:46:23Z</o:LastSaved>
+				<o:Version>10.2625</o:Version>
+				</o:DocumentProperties>
+				<o:OfficeDocumentSettings>
+				<o:DownloadComponents/>
+				</o:OfficeDocumentSettings>
 				</xml><![endif]-->
 				<style>
 				<!--table
@@ -179,25 +207,25 @@
 				-->
 				</style>
 				<!--[if gte mso 9]><xml>
-				 <x:ExcelWorkbook>
-				  <x:ExcelWorksheets>
-				   <x:ExcelWorksheet>
+				<x:ExcelWorkbook>
+				<x:ExcelWorksheets>
+				<x:ExcelWorksheet>
 					<x:Name>srirmam</x:Name>
 					<x:WorksheetOptions>
-					 <x:Selected/>
-					 <x:ProtectContents>False</x:ProtectContents>
-					 <x:ProtectObjects>False</x:ProtectObjects>
-					 <x:ProtectScenarios>False</x:ProtectScenarios>
+					<x:Selected/>
+					<x:ProtectContents>False</x:ProtectContents>
+					<x:ProtectObjects>False</x:ProtectObjects>
+					<x:ProtectScenarios>False</x:ProtectScenarios>
 					</x:WorksheetOptions>
-				   </x:ExcelWorksheet>
-				  </x:ExcelWorksheets>
-				  <x:WindowHeight>10005</x:WindowHeight>
-				  <x:WindowWidth>10005</x:WindowWidth>
-				  <x:WindowTopX>120</x:WindowTopX>
-				  <x:WindowTopY>135</x:WindowTopY>
-				  <x:ProtectStructure>False</x:ProtectStructure>
-				  <x:ProtectWindows>False</x:ProtectWindows>
-				 </x:ExcelWorkbook>
+				</x:ExcelWorksheet>
+				</x:ExcelWorksheets>
+				<x:WindowHeight>10005</x:WindowHeight>
+				<x:WindowWidth>10005</x:WindowWidth>
+				<x:WindowTopX>120</x:WindowTopX>
+				<x:WindowTopY>135</x:WindowTopY>
+				<x:ProtectStructure>False</x:ProtectStructure>
+				<x:ProtectWindows>False</x:ProtectWindows>
+				</x:ExcelWorkbook>
 				</xml><![endif]-->
 				</head>
 
@@ -206,17 +234,21 @@
 EOH;
 			return $header;
 		}
-
+		/**
+		* Function is used to get the footer of Excel file
+		* @return string
+		*/
 		function GetFooter()
 		{
 			return "</table></body></html>";
 		}
 		
-		/*
-		* @Params : $line_arr: An valid array 
-		* @Return : Void
+		
+		/**
+		* Function is used to get the footer of Excel file
+		* @param array $line_arr
+		* @return void
 		*/
-		 
 		function writeLine($line_arr)
 		{
 			if($this->state!="OPENED")
@@ -234,10 +266,9 @@ EOH;
 				fwrite($this->fp,"<td class=xl24 width=64 ><b>$col</b></td>");
 			fwrite($this->fp,"</tr>");
 		}
-
-		/*
-		* @Params : Void
-		* @Return : Void
+		/**
+		* Function is used to get the footer of Excel file
+		* @return void
 		*/
 		function writeRow()
 		{
@@ -252,10 +283,10 @@ EOH;
 				fwrite($this->fp,"</tr><tr>");
 			$this->newRow=true;	
 		}
-
-		/*
-		* @Params : $value : Coloumn Value
-		* @Return : Void
+		/**
+		* Function is used to get the footer of Excel file
+		* @param intger $value
+		* @return void
 		*/
 		function writeCol($value)
 		{

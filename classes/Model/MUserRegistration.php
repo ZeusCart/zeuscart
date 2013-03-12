@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,12 +18,27 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * User registration  related  class
+ *
+ * @package   		Model_MUserRegistration
+ * @category    	Model
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
+
 class Model_MUserRegistration
 {
 	var $output = array();
 	/**
 	* This function is used to registeration  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function displayRegPage()
 	{
 		include('classes/Core/CUserRegistration.php');
@@ -70,7 +85,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to validate registeration  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showValidateRegPage()
 	{
 		
@@ -112,7 +129,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to show my profile  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showMyProfile()
 	{
 		$_SESSION['url']=$_GET['do'];
@@ -184,7 +203,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to update my profile  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function updateMyProfile()
 	{
 		include('classes/Lib/CheckInputs.php');
@@ -238,7 +259,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to show index  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showIndexPage()
 	{
 
@@ -325,7 +348,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to logout process
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function logoutStatus()
 	{
 		unset($_SESSION['user_id']);
@@ -391,7 +416,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to show login  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showLoginPage()
 	{
 		include("classes/Lib/HandleErrors.php");
@@ -431,7 +458,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to validate the  login  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showValidateLoginPage()
 	{
 
@@ -505,8 +534,10 @@ class Model_MUserRegistration
 			Bin_Template::createTemplate('userIndex.html',$output);
 	}
 	/**
-	* This function is used to display the forget password  page
- 	*/
+	* This function is used to display the forgot password  page
+ 	*
+ 	* @return HTML data
+	*/
 	function displayForgetpwdPage()
 	{
 		include("classes/Lib/HandleErrors.php");
@@ -549,7 +580,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to display  the retrieveforget password  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function retrivePwdPage()
 	{
 		include('classes/Lib/CheckInputs.php');
@@ -593,7 +626,9 @@ class Model_MUserRegistration
 	}
 	/**
 	* This function is used to display  new letter subscription  page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function addNewsletterSubscription()
 	{
 		include_once('classes/Core/CFeaturedItems.php');

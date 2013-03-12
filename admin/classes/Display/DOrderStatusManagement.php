@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,9 +18,27 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions to list and edit order status 
+ *
+ * @package  		Display_DOrderStatusManagement
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
  class Display_DOrderStatusManagement
 {
- 	 function displayOrderStatus($result)
+	/**
+	 * Function  to display   the  order status  
+	 * @param array $result
+	 * @return string
+	 */
+
+ 	function displayOrderStatus($result)
 	{ 
 	     $output='<table cellpadding="4" cellspacing="0" border="0" class="content_list_bdr" width="100%">
 		 <tr><td class="content_list_head" width="25%">StatusID</td>
@@ -49,10 +67,14 @@
 		 }
 		 return $output;
 	}
+	/**
+	 * Function  to display   the  edit order status  
+	 * @param array $result
+	 * @return string
+	 */	
 	function editOrderStatus($result)
 	{
-/*	   print_r($result);
-	   exit;*/
+
 	     if((count($result))>0)
 		 {
 			     $id= $result[0]['orders_status_id'];

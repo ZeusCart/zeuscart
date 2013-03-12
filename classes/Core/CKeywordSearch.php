@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,14 +18,29 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * Keyword search related  class
+ *
+ * @package   		Core_CKeywordSearch
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
  class Core_CKeywordSearch
 {
-
-	/** Function Name SearchKeyWord
-	* To Search Keyoword, Tags, Description, Brand
-	*
-	*/
- 	 function searchKeyWord($search,$sort,$mode)
+	/**
+	 * This function is used to get  the search keyword from  db
+	 * @param string $search
+	 * @param integer $sort
+	 * @param string $mode	
+	 * 
+	 * @return string
+	 */
+	function searchKeyWord($search,$sort,$mode)
 	{
 	  
 
@@ -224,18 +239,33 @@
 		$i=0;
 		
 	}
-//	function countSearch($search)	
+	/**
+	 * This function is used to get  the countSearch
+	 * 
+	 * 
+	 * @return string
+	 */
 	function countSearch()
 	{
 	  		$val=$_SESSION['countsearch'];
 			return Display_DKeywordSearch::displayCountSearch($val);
 	}
-	
+	/**
+	 * This function is used to show  the linkMode
+	 * 
+	 * 
+	 * @return string
+	 */
 	function linkMode()
 	{
 	    return Display_DKeywordSearch::linkMode();
 	}
-	
+	/**
+	 * This function is used to show  the linkMode
+	 * @param integer $productid
+	 * 
+	 * @return string
+	 */
 	function disRates($productid)
 	{
 		$sql='select min(msrp) as msrp from msrp_by_quantity_table where product_id ='.$productid;
@@ -244,13 +274,21 @@
 		$val=$obj->records;
 		return $val[0]['msrp'];
 	}
-	
+	/**
+	 * This function is used to show  the price rang
+	 * 
+	 * @return string
+	 */
 	function priceRange()
 	{
 	    return Display_DKeywordSearch::priceRange();  
 	}
 	
-	
+	/**
+	 * This function is used to show  the brand with count
+	 * 
+	 * @return string
+	 */
 	function dispBrandWithCount()
 	{
 	    $id=$_POST['catsel'];
@@ -280,7 +318,11 @@
 	   return Display_DKeywordSearch::dispBrandWithCount($res,$id);
 	  	   
 	}
-	
+	/**
+	 * This function is used to get  the category name
+	 * @param integer $catid
+	 * @return string
+	 */
 	
 	function categoryName($catid)
 	{
@@ -291,7 +333,12 @@
 	   $catname=$res[0]['category_name'];
 	   return $catname;
 	}
-	
+	/**
+	 * This function is used to find  the narrow search
+	 * @param integer $sort
+	 * @param string $mode
+	 * @return string
+	 */
 	
 	function narrowSearch($sort,$mode)
 	{
@@ -413,8 +460,10 @@
 			$i=0;
 			
 	}
-	
-	
+	/**
+	 * This function is used to get  the featureList
+	 * @return string
+	 */
 	function featureList()
 	{
 		
@@ -466,7 +515,12 @@
 		
    	}
 	
-	
+	/**
+	 * This function is used to get  the product count
+	 * @param integer $attValId
+	 * @param integer $catId
+	 * @return string
+	 */
 	
 	function getProductCount($attValId,$catId)
 	{
@@ -476,7 +530,10 @@
 	   	 $obj->executeQuery($sql);
 		return $obj->totrows;
 	}
-	
+	/**
+	 * This function is used to get  the category for drop down 
+	 * @return string
+	 */
 	function categoryDropDown()
 	{
 		$sql='select * from category_table where category_parent_id=0 and category_status=1 order by category_name';
@@ -484,7 +541,12 @@
 		$obj->executeQuery($sql);
 	    return Display_DKeywordSearch::categoryDropDown($obj->records); 		
 	}
-	
+	/**
+	 * This function is used to find  the price range
+	 * @param integer $sort
+	 * @param string $mode
+	 * @return string
+	 */
 	
 	function priceRangeSearch($sort,$mode)
 	{
@@ -604,7 +666,10 @@
 		$i=0;
 				//return Display_DKeywordSearch::displaySearch($r,$mode);
 	}
-	
+	/**
+	 * This function is used to get  the sub category
+	 * @return string
+	 */
 	
 	function dispSubCategory()
 	{
@@ -615,7 +680,12 @@
 		$obj->executeQuery($sql);
 		return Display_DKeywordSearch::dispSubCategory($obj->records);			
 	}
-	
+	/**
+	 * This function is used to find  the extended search
+	 * @param integer $sort
+	 * @param string $mode
+	 * @return string
+	 */
 
 	function extendedSearch($sort,$mode)
 	{
@@ -727,7 +797,11 @@
 			}
 		
 	}
-	
+	/**
+	 * This function is used to get  the attributes 
+	 * @param integer $id
+	 * @return string
+	 */
 	function getAttribValue($id)
 	{
 	
@@ -738,7 +812,11 @@
 	   $out=$res[0]['attrib_value'];
 	   return $out;	   
 	}
-	
+	/**
+	 * This function is used to insert  the  search tags
+ 	 * @param string $keyword
+	 * @return string
+	 */
 	function insertSearchTags($keyword)
 	{
 		$keyword=htmlentities(trim($keyword));

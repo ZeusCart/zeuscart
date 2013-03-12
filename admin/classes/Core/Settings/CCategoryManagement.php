@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,18 +20,15 @@
 */
 
 /**
- * CCategoryManagement
+ * This class contains functions to show the HTML Content Preview
  *
- * This class contains functions to show the HTML Content Preview 
- *
- * @package		Core_Settings_CCategoryManagement
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Settings_CCategoryManagement
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
 
 class Core_Settings_CCategoryManagement
 {
@@ -61,7 +58,7 @@ class Core_Settings_CCategoryManagement
 
 		$components = new Lib_Components();
 		
-		return $this->data['subcatparent'] = $components->createComponent('combobox',$this->getListValues('category'),'name="category" class="txt_box200" id="category" onchange="callsubChild(this.value);"');
+		return $this->data['subcatparent'] = $components->createComponent('combobox',$this->getListValues('category'),'name="category" class="txt_box200" style="width:260px;" id="category" onchange="callsubChild(this.value);"');
 		$this->makeConstants($this->data);
 
 	}
@@ -83,7 +80,7 @@ class Core_Settings_CCategoryManagement
 		
 		if(count($records)>0)
 		{
-			$output='<select id="subcategory" class="txt_box200" name="subcategory" ><option>select Sub Child</option>';
+			$output='<select id="subcategory" class="txt_box200" name="subcategory" style="width:260px;" ><option>select Sub Child</option>';
 			for($i=0;$i<count($records);$i++)
 			{
 	
@@ -98,7 +95,7 @@ class Core_Settings_CCategoryManagement
 	}
 	/**
 	 * Function gets the values from the HTML Contents table  
-	 * 
+	 * @param string $name
 	 * 
 	 * @return array
 	 */	 	
@@ -176,13 +173,8 @@ class Core_Settings_CCategoryManagement
 	 * @return string
 	 */	 	
 	
-	
-	
 	function addCategory()
 	{
-
-
-
 		$imagetypes=array ('image/jpeg' ,'image/pjpeg' , 'image/bmp' , 'image/gif' , 'image/png','image/x-png');
 		$query = new Bin_Query();
 		

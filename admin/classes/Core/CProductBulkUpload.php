@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,19 +18,18 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
 /**
- * CProductBulkUpload
- *
  * This class contains functions to update the products in an bulk manner into the database
  *
- * @package		Core_CProductBulkUpload
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_CProductBulkUpload
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
 
 
 class Core_CProductBulkUpload
@@ -47,8 +46,7 @@ class Core_CProductBulkUpload
 	
 	function uploadTSVFile()
 	{
-		 //print_r($_FILES['product_file']);
-		// exit();
+		
 		 
 		  //$tsvfilename= $_FILES['product_file']['name'];
 		  $tsvfilename= $_FILES['product_file']['tmp_name'];
@@ -64,7 +62,7 @@ class Core_CProductBulkUpload
 		  {
   		  return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
           	  }		  		
-	      // echo  file_exists($tsvfilename);
+	  
 		   if(file_exists($tsvfilename)>0)
 		   {
 				  // $stpath="uploadedtsvfile/".date("YmdHis").$tsvfilename;
@@ -86,8 +84,7 @@ class Core_CProductBulkUpload
 							$chkfieldsarr=array('category_id','title','description','sku','brand','model','msrp','price',				
 												'weight','dimension','shipping_cost','status','tag','meta_desc', 
 												'meta_keywords'	, 'is_featured','soh','rol');
-								//print_r($chkfieldsarr);
-								
+															
 							$cmp_arr=array_diff($tmpfirst,$chkfieldsarr);
 								
 							if(empty($cmp_arr))
@@ -100,12 +97,11 @@ class Core_CProductBulkUpload
 								
 									$row=str_replace("\n"," ",$row); 
 									$pro=$inv=explode("\t",addslashes(trim($row)));
-									//echo "<pre>";
-									//print_r($pro);
+									
 									
 									$dflt=new Core_CProductBulkUpload();
 									$dflt->checkIsParentCategory($pro[0]);
-									//exit();
+							
 									if ($dflt->checkIsParentCategory($pro[0]))
 									{
 										$pro="'". implode("','",array_splice($pro,0,16))."'";
@@ -255,8 +251,6 @@ class Core_CProductBulkUpload
           	  }		  	
 
 
-		
-	      // echo  file_exists($tsvfilename);
 		   if(file_exists($tsvfilename)>0 && $_FILES['image_file']['type']!='application/octet-stream')
 		   {
 				  // $stpath="uploadedtsvfile/".date("YmdHis").$tsvfilename;
@@ -276,11 +270,10 @@ class Core_CProductBulkUpload
 							$tmpfirst=explode("\t",trim($rowfirst));
 							
 							$chkfieldsarr=array('product_id','image_path','image_type');
-								//print_r($chkfieldsarr);
+						
 								
 							$cmp_arr=array_diff($tmpfirst,$chkfieldsarr);
-							//print_r($cmp_arr);
-							//exit();	
+						
 							if(empty($cmp_arr)&&(count($tmpfirst)==count($chkfieldsarr) ))
 							{
 								$pro_fields= implode(',',$chkfieldsarr);

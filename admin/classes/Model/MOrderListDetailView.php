@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,19 +19,17 @@
 *
 */
 
+
 /**
- * MOrderListDetailView
+ * This class contains functions to display the order list view
  *
- * 
- * @package		Model_MOrderListDetailView
- * @category	Model
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Model_MOrderListDetailView
+ * @category  		Model
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
 
 
 class Model_MOrderListDetailView
@@ -40,10 +38,14 @@ class Model_MOrderListDetailView
 	/**
 	 * Stores the output
 	 *
-	 * @var array $output
+	 * @var array 
 	 */	
 	var $output = array();	
-	
+	/**
+	 * Function to show the order details 
+	 *
+	 * @return array
+	 */	
 	function func()
 	{
 		include('classes/Core/COrderListDetailView.php');

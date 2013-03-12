@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,8 +18,25 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * This class contains functions to display the user order
+ *
+ * @package  		Display_DUserOrder
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
  class Display_DUserOrder
 {
+
+	/**
+	 * Function  to display   the  customer
+	 * @param array $arrUser
+     	* @return string
+	 */	
  	function showCustomer($arrUser)
 	{
 		$opt='<select name="selCustomer" style="width:127px;">';
@@ -34,6 +51,11 @@
 		$opt.='</select>';
 		return $opt;
 	}
+	/**
+	 * Function  to display   the  payment
+	 * @param array $arrUser
+     * @return string
+	 */	
 	function showPayment($arrUser)
 	{
 		$opt='<select name="payOption" style="width:127px;">';
@@ -44,6 +66,11 @@
 		$opt.='</select>';
 		return $opt;
 	}
+	/**
+	 * Function  to display   the  category
+	 * @param array $arrCat
+         * @return string
+	 */	
  	function showCategory($arrCat)
 	{
 		$cat='<select name="selCategory" style="width:110px;" onchange="loadSubcat(this.value)">
@@ -59,6 +86,11 @@
 		$cat.='</select>';
 		return $cat;
 	}
+	/**
+	 * Function  to display   the  sub category
+	 * @param array $arrCat
+     * @return string
+	 */	
  	function showSubCategory($arrCat)
 	{
 		$cat='<select name="selSubCategory" style="width:110px;" onchange="loadProduct(this.value)">
@@ -74,6 +106,11 @@
 		$cat.='</select>';
 		return $cat;
 	}
+	/**
+	 * Function  to display   the  product
+	 * @param array $arrCat
+     * @return string
+	 */	
  	function showProducts($arrCat)
 	{
 		$cat='<select name="selProduct" style="width:110px;" onchange="loadQty(this.value)">
@@ -89,6 +126,11 @@
 		$cat.='</select>';
 		return $cat;
 	}
+	/**
+	 * Function  to display   the  product quantity
+	 * @param array $arrCat
+     * @return string
+	 */	
  	function showQty($arrCat)
 	{
 		
@@ -115,7 +157,11 @@
 			$cat.='Unit Price: '.$_SESSION['currency']['currency_tocken'].number_format($arrCat[0]['msrp'],2);
 		return $cat;
 	}
-
+	/**
+	 * Function  to display   the  list of orders
+	 * @param array $arr
+         * @return string
+	 */	
 	function listOrder($arr)
 	{
 		$output = '<br><br>
@@ -170,7 +216,11 @@
 		return $output;
 		
 	}
-		
+	/**
+	 * Function  to display   the shipping details
+	 * @param array $res
+     * @return string
+	 */	
 		function showShippingDetails($res)
 		{
 			include_once("classes/Lib/HandleErrors.php");

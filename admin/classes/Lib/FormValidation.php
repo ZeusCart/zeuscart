@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,8 +18,30 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions related  to validation 
+ *
+ * @package  		Lib_FormValidation
+ * @subpackage 		Lib_Validation_Handler
+ * @category  		Library
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Lib_FormValidation extends Lib_Validation_Handler 
 {
+
+	/**
+	 * Function checks and invokes the validation module  
+	 * 
+	 * @param string $form
+	 *
+	 * @return void 
+	 */	 	
+	
 	function Lib_FormValidation($form)
 	{
 		if($form=='category')
@@ -53,14 +75,18 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		else if($form=='updatecurrency')
 			$this->validateEditCurrency();
 	}
-	
+	/**
+	 * Function checks the check out process add to cart address and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	 	
 	function validateCheckout()
 	{
-//echo 'welcome';
-//print_r($_POST);exit;
+
 		$message = "Required Field Cannot be blank";
 		$this->Assign("txtname",trim($_POST['txtname']),"noempty",$message);
-	//	$this->Assign("txtcompany",trim($_POST['txtcompany']),"noempty",$message);		
+		//	$this->Assign("txtcompany",trim($_POST['txtcompany']),"noempty",$message);		
 		$this->Assign("txtstreet",trim($_POST['txtstreet']),"noempty",$message);
 		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty",$message);
 		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
@@ -68,7 +94,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("txtstate",trim($_POST['txtstate']),"noempty",$message);
 		
 		$this->Assign("txtsname",trim($_POST['txtsname']),"noempty",$message);
-	//	$this->Assign("txtscompany",trim($_POST['txtscompany']),"noempty",$message);
+		//	$this->Assign("txtscompany",trim($_POST['txtscompany']),"noempty",$message);
 		$this->Assign("txtsstreet",trim($_POST['txtsstreet']),"noempty",$message);
 		$this->Assign("txtscity",trim($_POST['txtscity']),"noempty",$message);
 		$this->Assign("txtszipcode",trim($_POST['txtszipcode']),"noempty",$message);
@@ -76,6 +102,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("txtsstate",trim($_POST['txtsstate']),"noempty",$message);
 		$this->PerformValidation('?do=addUserProduct');
 	}
+	/**
+	 * Function checks the whether the registration process parameter supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	 
 	function validateUserRegister()
 	{
 		
@@ -191,6 +223,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$this->PerformValidation('?do=addUserAccount');
 	}
+	/**
+	 * Function checks the whether the category value  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	 
 	function validateCategory()
 	{
 		$message = "Required Field Cannot be blank/No Special Characters Allowed";
@@ -198,7 +236,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		//$this->Assign("category",trim($_POST['group1']),"noempty/nonumber",$message);
 		$this->PerformValidation('?do=managecategory');
 	}
-	
+	/**
+	 * Function checks the whether the attributes value  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
 	function validateAttributes()
 	{
 		$attrib[] = explode(" ",$_POST['attributes']);
@@ -211,7 +254,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			
 		$this->PerformValidation('?do=addattributes');
 	}
-		
+	/**
+	 * Function checks the whether the login process  parameter  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */		
 	function validatelogin()
 	{
 		$message = "Required Field Cannot be blank";
@@ -265,6 +313,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$this->PerformValidation("?do=adminlogin");
 	}
+	/**
+	 * Function checks the whether the sub admin email  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */		
 	function validateSubAdminEmail()
 	{
 	 	
@@ -282,7 +336,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$message = "Invalid Emails";
  			$this->Assign("subadminemail",'',"noempty",$message);
 		}
-	//		$this->Assign("subadminemail",trim($_POST['subadminemail']),"noempty/emailcheck",$message);
+		//		$this->Assign("subadminemail",trim($_POST['subadminemail']),"noempty/emailcheck",$message);
 		$message = "Required Field Cannot be blank";
 		$this->Assign("subadminpassword",trim($_POST['subadminpassword']),"noempty",$message);
 		$message = "Required Field Cannot be blank/Numeric Value is Not Accepted";
@@ -290,7 +344,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->PerformValidation('?do=subadminmgt');
 		
 	}
-	
+	/**
+	 * Function checks the whether the  admin email  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
 	function validateAdminEmail()
 	{
 	 	
@@ -314,7 +373,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->PerformValidation('?do=adminlogin&action=showpage');
 		
 	}
-	
+	/**
+	 * Function checks the whether the product entry parameter  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
 	
 	function validateEntry()
 	{
@@ -438,7 +502,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 
 		$this->PerformValidation('?do=productentry');
 	}
-	
+	/**
+	 * Function checks the whether the update product entry parameter  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
 	function validateUpdateEntry()
 	{
 		$id=(int)$_GET['prodid'];
@@ -530,20 +599,25 @@ class Lib_FormValidation extends Lib_Validation_Handler
 
 		$this->PerformValidation('?do=manageproducts&action=editprod&prodid='.$id);
 	}
-	
+	/**
+	 * Function checks the email
+	 * @param string $email		 
+	 *
+	 * @return bool 
+	 */	
 	function validateEmailAddress($email) 
 	{
 		// First, we check that there's one @ symbol, and that the lengths are right
-	    if (!ereg("^[^@]{1,64}@[^@]{1,255}$", $email)) 
+	    	if (!ereg("^[^@]{1,64}@[^@]{1,255}$", $email)) 
 		{
     		// Email invalid because wrong number of characters in one section, or wrong number of @ symbols.
 			///echo 'it has more @values ';
 			    return false;
-        }
-    	// Split it into sections to make life easier
-	    $email_array = explode("@", $email);
-    	$local_array = explode(".", $email_array[0]);
-	    for ($i = 0; $i < sizeof($local_array); $i++) 
+		}
+    		// Split it into sections to make life easier
+	    	$email_array = explode("@", $email);
+    		$local_array = explode(".", $email_array[0]);
+	   	 for ($i = 0; $i < sizeof($local_array); $i++) 
 		{
    			if (!ereg("^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!#$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$", $local_array[$i])) 
 			{
@@ -553,39 +627,55 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			
    		}
 		if (!ereg("^\[?[0-9\.]+\]?$", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
-		   $domain_array = explode(".", $email_array[1]);
-  		if (sizeof($domain_array) < 2) 
-		{
-		   return false; // Not enough parts to domain
-   		}
-		for ($i = 0; $i < sizeof($domain_array); $i++) 
-		{
-			   if (!ereg("^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$", $domain_array[$i])) 
-			   {
-				   return false;
-				}
-	    }
-	 }
-   	return true;
-   }
-   
-   function validateFloat($string)
-   {
-   	 $regex = "/^[0-9]+(?:\.[0-9]{2})?$/";
-	    if (preg_match($regex, $string)) {
-	        return true;
-	    }else{
-	        return false;
-	    }
-	}  
-
-function validateimages($val)
-    {
-    	if($val=='image/jpeg' || $val=='image/gif' || $val=='image/png' || $val=='image/x-png' || $val=='image/bmp' || $val=='image/pjpeg')
-		return true;
-	else
-		return false;
-    }
+			$domain_array = explode(".", $email_array[1]);
+			if (sizeof($domain_array) < 2) 
+			{
+			return false; // Not enough parts to domain
+			}
+			for ($i = 0; $i < sizeof($domain_array); $i++) 
+			{
+				if (!ereg("^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$", $domain_array[$i])) 
+				{
+					return false;
+					}
+			}
+	 	}
+   		return true;
+   	}
+  	 /**
+	 * Function checks the float values
+	 *  @param integer $string	 
+	 *
+	 * @return bool 
+	 */	
+	function validateFloat($string)
+	{
+		$regex = "/^[0-9]+(?:\.[0-9]{2})?$/";
+		if (preg_match($regex, $string)) {
+			return true;
+		}else{
+			return false;
+		}
+		}  
+ 	/**
+	 * Function checks the images 
+	 *  @param integer $val		 
+	 *
+	 * @return bool 
+	 */	
+	function validateimages($val)
+   	{
+		if($val=='image/jpeg' || $val=='image/gif' || $val=='image/png' || $val=='image/x-png' || $val=='image/bmp' || $val=='image/pjpeg')
+			return true;
+		else
+			return false;
+   	 }
+    	/**
+	 * Function checks the whether the region wise tax parameter  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
 	function validateRegionwisetaxEntry()
 	{
 	 	
@@ -621,6 +711,12 @@ function validateimages($val)
 		}
 		$this->PerformValidation('?do=taxsettings&action=addregionwisetax');
 	}
+	/**
+	 * Function checks the whether the region wise edit tax parameter  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
 	function validateRegionwisetaxEdit()
 	{
 	 	
@@ -661,6 +757,12 @@ function validateimages($val)
 		}
 		$this->PerformValidation('?do=taxsettings&action=editregionwisetax');
 	}
+	/**
+	 * Function checks the whether the  currency parameter  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
 	function validateCurrency()
 	{
 	 	
@@ -699,6 +801,12 @@ function validateimages($val)
 			
 		$this->PerformValidation('?do=showaddcurrency');
 	}
+	/**
+	 * Function checks the whether the edit currency parameter  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
 	function validateEditCurrency()
 	{
 			$curr_rate=trim($_POST['conversion_rate']);

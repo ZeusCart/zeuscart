@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,20 +19,17 @@
 *
 */
 
+
 /**
- * DOrderManagement
- *
  * This class contains functions to list out the order details available.
  *
- * @package		Display_DOrderManagement
- * @category	Display
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Display_DOrderManagement
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
 
 class Display_DOrderManagement
 {
@@ -43,16 +40,14 @@ class Display_DOrderManagement
 	 * @param integer $paging
 	 * @param integer $prev	 
 	 * @param integer $next	
-	 * @param array $dropupdatedata
 	 * @param integer $dropdown
+	 * @param array $dropupdatedata
 	 * @return string
 	 */
-	
-	
 	function dispOrders($result,$paging,$prev,$next,$dropdown,$dropupdatedata)
 	{
-      $obj=new 	Display_DOrderManagement();
-       $orderst=array('','Pending','Processing','Delivered');
+      		$obj=new 	Display_DOrderManagement();
+      		 $orderst=array('','Pending','Processing','Delivered');
 				$orderstatuslist='<select name=selorderstatus><option value=""></option>';
 				for($i=1;$i<4;$i++)
 				{
@@ -72,10 +67,7 @@ class Display_DOrderManagement
 			}
 			$updrop.="</select>";			
 		}
-		
-		
-		
-//	   print_r($paging);	   print_r($prev);	   print_r($next);exit;
+
 	    $output='<form name="frmorders" method="post"><table cellspacing="0" border="0" width="100%" class="content_list_bdr">
 		<tr >
 		<td colspan=8 align=right valign=top><input type="hidden" name="selection" value="search" /><input type="button" value="Search"  class="all_bttn" onclick="document.frmorders.selection.value=\'Update\';/* document.frmorders.action=\'?do=disporders\'; */document.frmorders.submit(); "/></td>
@@ -174,15 +166,22 @@ class Display_DOrderManagement
 		
 		return $output;
 	}
-	
-	
-	
-	
+	/**
+	 * Function creates a template to display the orders available. 
+	 * @param array $result
+	 * @param integer $paging
+	 * @param integer $prev	 
+	 * @param integer $next	
+	 * @param integer $dropdown
+	 * @param array $dropupdatedata
+	 * @param array  $orderProduct
+	 * @return string
+	 */
 	
 	function displayOrders($result,$paging,$prev,$next,$dropdown,$dropupdatedata,$orderProduct)
 	{
-       $obj=new Display_DOrderManagement();
-       $orderst=array('','Pending','Processing','Delivered','AwaitingPayment');
+       		$obj=new Display_DOrderManagement();
+      		 $orderst=array('','Pending','Processing','Delivered','AwaitingPayment');
 	   $orderstatuslist='<select name="selorderstatus" style="width:70px;"><option value="" >All</option>';
 				for($i=1;$i<5;$i++)
 				{
@@ -202,10 +201,7 @@ class Display_DOrderManagement
 			}
 			$updrop.="</select>";			
 		}
-		
-		
-		
-//	   print_r($paging);	   print_r($prev);	   print_r($next);exit;
+
 	    $output='<form name="frmorders" method="post"><table cellspacing="0" border="0" width="100%" class="content_list_bdr" align="center">
 		<!--<tr >
 		<td colspan=8 align=right valign=top><input type="hidden" name="selection" value="search" /><input type="button" value="Search"  class="all_bttn" onclick="document.frmorders.selection.value=\'Update\';/* document.frmorders.action=\'?do=disporders\'; */document.frmorders.submit(); "/></td>
@@ -318,7 +314,11 @@ class Display_DOrderManagement
 		
 		return $output;
 	}
-	
+	/**
+	 * Function creates a template to display the orders details 
+	 * @param array $result
+	 * @return string
+	 */
 	
 	function dispDetailOrders($result)
 	{
@@ -392,7 +392,12 @@ class Display_DOrderManagement
 			return $output;
 		}
 	}
-	
+	/**
+	 * Function creates a template to display the orders details 
+	 * @param array $result
+	 * @param array	 $cmbStr
+	 * @return string
+	 */
 	function displayDetailOrders($result,$cmbStr)
 	{
 	  if((count($result))>0)
@@ -446,7 +451,7 @@ class Display_DOrderManagement
 					  
 					  $orderclosed_date_time = explode(" ",$orders_date_closed);
 					  $orderclosed_date = explode("-",$orderclosed_date_time[0]);
-					 // echo $orderclosed_date_time[0];
+					 
 					  if($orderclosed_date_time[0]=='0000-00-00')
 					  {
 						   $ordercloseddate="";	  
@@ -525,11 +530,14 @@ class Display_DOrderManagement
 			return $output;
 		}
 	}
-	
+	/**
+	 * Function creates a template to display the transaction details 
+	 * @param array $result
+	 * @return string
+	 */
 	function dispTransactionDetails($result)
 	{
-		//echo "<pre>";
-		//print_r($result);
+	
 	     
 		if($result['shipping_name']!='')
 			 $shippingaddress=$result['shipping_name'];
@@ -588,7 +596,12 @@ class Display_DOrderManagement
             </table>';
 			return $output;
 	}
-	
+	/**
+	 * Function  to select the order status
+	 * @param array $result
+	 * @param  integer 	 $select
+	 * @return string
+	 */
 	function dropdownOrderStatus($result,$select)
 	{
 		$output='';		
@@ -606,15 +619,15 @@ class Display_DOrderManagement
 		return $output;
 	}
 	
-	function updateDropDownOrderStatus($result)
-	{
-		
-	
-	}
-	
+	/**
+	 * Function  to get  the order description 
+	 * @param array $arr
+	 * @param 	array $orderProduct
+	 * @return string
+	 */
 	function getOrderDesc($arr,$orderProduct)
 	{
-	//print_r($arr);
+
 	$shippingCost=0;
 	for($i=0;$i<count($orderProduct);$i++)
 	{
@@ -714,7 +727,12 @@ class Display_DOrderManagement
 return $result;
 
 	}
-	
+	/**
+	 * Function  to display   the  ordered product  
+	 * @param array $result
+	 * @param 	integer $grandtotal
+	 * @return string
+	 */
 	function displayProductsForOrder($result,$grandtotal)
 	{
 

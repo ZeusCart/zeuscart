@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,19 +19,17 @@
 *
 */
 
+
 /**
- * DFooterSettings
- *
  * This class contains functions to list out the footer settings available.
  *
- * @package		Display_DFooterSettings
- * @category	Display
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Display_DFooterSettings
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
 
 class Display_DFooterSettings
 {
@@ -45,8 +43,7 @@ class Display_DFooterSettings
 	function showFooterLink($arr)
 	{
 		$output = "";
-		//echo "<pre>";
-		//print_r ($arr);
+		
 		$output .= '<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
             <tr><td class="link_header" align="center">';
 		for ($i=0;$i<count($arr);$i++)
@@ -112,7 +109,7 @@ class Display_DFooterSettings
 		
 		for ($i=0;$i<count($arr);$i++)
 		{
-		//print_r($arr[$i]['attrib_name']);
+	
 			
 			//$output .= '<tr><td>'.($i+1).'</td><td>'.$arr[$i]['link_name'].'</td><td>'.$arr[$i]['link_url'].'</td>';
 			$output .='<td width="" class="link_header" align="left" style="padding:5px" ><a href="../userpage/'.$arr[$i]['link_url'].'" name="link" >'.$arr[$i]['link_name'].'</a></td>';
@@ -142,7 +139,6 @@ class Display_DFooterSettings
 		
 		for ($i=0;$i<count($arr);$i++)
 		{
-		//print_r($arr[$i]['attrib_name']);
 			
 			//$output .= '<tr><td>'.($i+1).'</td><td>'.$arr[$i]['link_name'].'</td><td>'.$arr[$i]['link_url'].'</td>';
 			$output .='<tr><td width="" class="content_list_txt2" align="left" style="padding:5px" ><a href="../userpage/'.$arr[$i]['link_url'].'" name="link" >'.$arr[$i]['link_name'].'</a></td>';

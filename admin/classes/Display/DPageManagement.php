@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,9 +18,27 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions to list pages
+ *
+ * @package  		Display_DPageManagement
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
  class Display_DPageManagement
 {
- 	 function dispPages($result)
+
+	/**
+	 * Function  to display   the  pages  
+	 * @param array $result
+	 * @return string
+	 */		
+ 	function dispPages($result)
 	{
 	    $output="<form name='frminspage' action='?do=pagemgt&action=insert' method='post'><table  cellspacing='0' width='100%' border='0'  class='content_list_bdr'><tr><td  class='content_list_head'>S.No</td><td class='content_list_head'>Role Id</td><td  class='content_list_head'>Page Name</td><td  class='content_list_head'>Page Action</td><td  class='content_list_head'>Page Description</td><td class='content_list_head'></td></tr><tr><td colspan='6' class='cnt_list_bot_bdr' valign='top'><img src='images/list_bdr.gif' alt='' width='1' height='2' /></td></tr>";
 	    if(count($result)>0)
@@ -47,7 +65,11 @@
 		}
 		return $output;
 	}
-	
+	/**
+	 * Function  to display   the edit pages  
+	 * @param array $result
+	 * @return string
+	 */	
 	function editPages($result)
 	{
 	 	  if(count($result)>0)

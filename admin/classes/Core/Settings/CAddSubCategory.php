@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,19 +20,16 @@
 */
 
 /**
- * CAddSubCategory
- *
  * This class contains functions to add,edit and delete subcategories from the database
  *
- * @package		Core_Settings_CAddSubCategory
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Settings_CAddSubCategory
+ * @subpackage 		Lib_DbConnect
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
 
 class Core_Settings_CAddSubCategory extends Lib_DbConnect
 {
@@ -40,7 +37,7 @@ class Core_Settings_CAddSubCategory extends Lib_DbConnect
 	
 	/**
 	 * Function displays all the categories from the table
-	 * 
+	 * @param $Err comatcins both error messages and error values
 	 * 
 	 * @return string
 	 */	 	
@@ -72,8 +69,7 @@ class Core_Settings_CAddSubCategory extends Lib_DbConnect
 	
 	function addSubCategory()
 	{
-	//print_r($_FILES);
-	
+
 	if($_FILES['caticon']['type'] == 'image/jpeg' || $_FILES['caticon']['type'] == 'image/bmp' || $_FILES['caticon']['type'] == 'image/gif' || $_FILES['caticon']['type'] == 'image/png')	
 		{
 		$uploadfile = "images/caticons/".date("His").$_FILES['caticon']['name'];
@@ -86,15 +82,12 @@ class Core_Settings_CAddSubCategory extends Lib_DbConnect
 		}
 		else
 		{
-		//echo "called c";
-		//echo "<pre>";
-		// print_r($_POST);
-		//echo $uploadfile;
+	
 		 $sql = "INSERT INTO Category_table (category_name,category_parent_id,category_image,category_desc,category_status) VALUES ('".trim($_POST['subcategory'])."','".$_POST['id']."','".$uploadfile."','".trim($_POST['subcategorydesc'])."','".$_POST['group1']."')";
 			
 			$query = new Lib_Query();
 			if($query->updateQuery($sql))
-			//echo "called";
+	
 			$_SESSION['msg']= "Added Successfully";
 	
 		}
@@ -140,9 +133,7 @@ class Core_Settings_CAddSubCategory extends Lib_DbConnect
 	
 	function editSubCategory()
 	{
-	//print_r($_GET);
-	//print_r($_POST);
-	//echo 's';
+	
 	include("classes/Display/DCategorySelection.php");
 	if($_FILES['caticon']['type'] == 'image/jpeg' || $_FILES['caticon']['type'] == 'image/bmp' || $_FILES['caticon']['type'] == 'image/gif' || $_FILES['caticon']['type'] == 'image/png')	
 		{
@@ -171,12 +162,12 @@ category_status = '".$_POST['group1']."' WHERE category_id =".(int)$_GET['id'];
 	
 	function deleteSubCategory()
 	{
-	//print_r($_GET);
+
 	$sql = "DELETE FROM category_table WHERE category_id=".(int)$_GET['id'];
 			
 			$query = new Lib_Query();
 			if($query->updateQuery($sql))
-			//echo "called";
+		
 			//$_SESSION['msg']= "deleted Successfully";
 	}
 	

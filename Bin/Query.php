@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,26 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+/**
+ * AJDF
+ *
+ * An open source application development framework for PHP 5.1.6 or newer
+ *
+ * @package   		AJDF
+ * @author    		AjSquareInc Dev Team
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @link    		http://www.ajsquare.com/ajhome.php
+ * @version  		Version 4.0
+ * @created   		January 15 2013
+ */
+
+/**
+ * This class contains functions related sql query 
+ *
+ * @package  		Bin
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+ */
 class Bin_Query extends Bin_DbConnect 
 {
 	var $rs;

@@ -1,15 +1,15 @@
 <?php
-/**
+ /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,8 +18,38 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+/**
+ * AJDF
+ *
+ * An open source application development framework for PHP 5.1.6 or newer
+ *
+ * @package 		AJDF
+ * @author   	 	AJ Square Inc Dev Team
+ * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @link    		http://www.ajsquare.com/ajhome.php
+ * @version   		Version 4.0
+ * @created   		January 15 2013
+ */
+
+/**
+ * Form validation  related  class
+ *
+ * @package   		Classes
+ * @subpackage  	Library
+ * @category    	Library
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+ */
 class Lib_FormValidation extends Lib_Validation_Handler 
 {
+
+	/**
+	 * Function checks and invokes the validation module  
+	 * 
+	 * @param string $form
+	 *
+	 * @return void 
+	 */	 	
 	function Lib_FormValidation($form)
 	{
 		
@@ -53,7 +83,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateShippingAddress();		
 		
 	}
-
+	/**
+	 * Function checks the check out process shipping address and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validateShippingAddress()
 	{
 		$message = "Required Field Cannot be blank";
@@ -86,6 +121,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 
 
 	}
+	/**
+	 * Function checks the check out process billing address and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validateBillingAddress()
 	{
 		$message = "Required Field Cannot be blank";
@@ -115,6 +156,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->PerformValidation("?do=showcart&action=getaddressdetails");
 
 	}
+	/**
+	 * Function checks the product review  parameter and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validateproductReview()
 	{
 		$message = "Please select one of each of the ratings above";
@@ -126,7 +173,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$this->PerformValidation('?do=productreview&action=showproductreview&prodid='.$_REQUEST['prodid']);
 	}
-	
+	/**
+	 * Function checks the contact us  parameter and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function contactUs()
 	{
 		/*if(empty($_POST['email']))
@@ -152,7 +204,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$this->PerformValidation('?do=contactus');
 	}
-	
+	/**
+	 * Function checks the profile page parameter  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validatemyprofile()
 	{
 		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
@@ -196,7 +253,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->PerformValidation('?do=myprofile');
 	}
 	
-	
+	/**
+	 * Function checks the login page parameter  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validatelogin()
 	{
 		
@@ -278,7 +340,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$this->PerformValidation('?do=login');
 	}
-	
+	/**
+	 * Function checks the register page parameter  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validateRegister()
 	{
 		
@@ -396,7 +463,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		}
 		$this->PerformValidation('?do=userregistration');
 	}
-	
+	/**
+	 * Function checks the forgotpassword page parameter  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validatemail()
 	{
 		
@@ -416,10 +488,14 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->PerformValidation('?do=forgetpwd');
 	}
 	
-	
+	/**
+	 * Function to validate email
+	 *
+	 * @return void 
+	 */	
 	 function email($email, $check_domain = false)
     {
-		//echo'email';exit;
+		
         if($check_domain){
 
         }
@@ -478,7 +554,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
    	return true;
    }
 	*/
-	
+	/**
+	 * Function checks the check out prcocess address  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validateCheckout()
 	{
 
@@ -500,14 +581,24 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("txtsstate",trim($_POST['txtsstate']),"noempty",$message);
 		$this->PerformValidation('?do=showcart&action=getaddressdetails');
 	}
-	
+	/**
+	 * Function checks the add to wishlist parameter address  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
 	function validateWishlist()
 	{
 		$message = "Required Field Cannot be blank/Invalid Email Id";
 		$this->Assign("txtEmail",trim($_POST['txtEmail']),"noempty/emailcheck",$message);
 		$this->PerformValidation('?do=wishlist');
 	}
-	
+	/**
+	 * Function checks the user account information page parameter  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */
 	function validateUserAccount()
 	{
 		$message = "Required Field Cannot be blank";
@@ -548,6 +639,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	$this->PerformValidation('?do=accountinfo');
 
 	}
+	/**
+	 * Function checks the user address  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */
 	function validateAddress()
 	{
 		$message = "Required Field Cannot be blank";
@@ -588,7 +685,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->PerformValidation('?do=addaddress');
 
 	}
-	
+	/**
+	 * Function checks the  user register page in checkout process  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */
 	function validateQuickReg()
 	{
 	

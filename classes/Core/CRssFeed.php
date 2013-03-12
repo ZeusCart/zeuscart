@@ -1,15 +1,15 @@
 <?php
-/**
+ /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,10 +18,28 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * Rich Site Summary Feed related  class
+ *
+ * @package   		Core_CRssFeed
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Core_CRssFeed
 {
 	var $output = array();
-	
+	/**
+	* This function is used to show the rss feed
+	*
+	* .
+	* 
+	* @return XML data
+	*/
 	function showRssFeed()
 	{
 			$sqlselect = "SELECT title, description, brand, price, thumb_image FROM products_table WHERE status=1 ORDER BY (product_id) DESC ";
@@ -34,7 +52,7 @@ class Core_CRssFeed
 			{
 				//$fp=fopen("rssfeed/rss.xml","w") ;
 				$op ="<?xml version='1.0' encoding='utf-8'?>\n";
-				$op.="<rss version='2.0'>\n<channel>\n";
+				$op.="<rss version='4.0'>\n<channel>\n";
 				$op.="<title>Welcome to ".$sitename."</title>\n";
 				$op.="<link>$sitepath"."/index.php</link>\n";
 				$op.="<description>New Products</description>\n";
@@ -72,12 +90,17 @@ class Core_CRssFeed
 			}
 			
 		
-   }
-   
-   function showCategoryRssFeed()
+   	}
+   	/**
+	* This function is used to show the category rss feed
+	*
+	* .
+	* 
+	* @return XML data
+	*/
+  	 function showCategoryRssFeed()
 	{
-		//print_r($_POST['selcat']);exit;
-			//$categoryid = $_POST['selcat'];
+		
 			$sqlselect = "SELECT title, description, brand, price, thumb_image FROM products_table where category_id=5 ORDER BY (product_id) DESC";
 			$sitename = "Zeus Cart";
 			$sitepath = "http://www.zeuscart.com";
@@ -114,10 +137,7 @@ class Core_CRssFeed
 				header ("content-type: text/xml");
 				echo $op;
 				exit;
-				/*fwrite($fp,$op);
-				fclose($fp);
-				header("location:rssfeed/rss.xml");
-				exit('<meta http-equiv="refresh" content="0;url=rssfeed/categoryrss.xml">');*/
+				
 			}
 			else
 			{
@@ -126,14 +146,17 @@ class Core_CRssFeed
 			}
 	
 		
-   }
-   
-   function showSearchQueryRssFeed()
+   	}
+   	/**
+	* This function is used to show the search query rss feed
+	*
+	* .
+	* 
+	* @return XML data
+	*/
+  	function showSearchQueryRssFeed()
 	{
-		//print_r($_POST['selcat']);exit;
-			//$categoryid = $_POST['selcat'];
-			//echo 'janu';exit;
-			//print_r($_SESSION['searchquery']);exit;
+		
 		if($_SESSION['searchquery']!='')
 		{
 			$sqlselect = $_SESSION['searchquery'];
@@ -172,10 +195,7 @@ class Core_CRssFeed
 				header ("content-type: text/xml");
 				echo $op;
 				exit;
-				/*fwrite($fp,$op);
-				fclose($fp);
-				header("location:rssfeed/rss.xml");
-				exit('<meta http-equiv="refresh" content="0;url=rssfeed/categoryrss.xml">');*/
+				
 			}
 			else
 			{

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,34 +19,31 @@
 *
 */
 
+
 /**
- * CAddAttributes
+ * This class contains functions to edit and delete attributes from the database.
  *
- * This class contains functions to edit and delete attributes from the database
- *
- * @package		Core_Settings_CAddAttributes
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Settings_CAddAttributes
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
 class Core_Settings_CAddAttributes 
 {
 	
 	
 	/**
 	 * Function displays all the attributes from the table
-	 * 
+	 * @param $Err contain both error message and error values
 	 * 
 	 * @return string
 	 */	 	
 	
 	function showAttributes($Err)
-    {
-        include("classes/Display/DAddAttributes.php");
+        {
+            include("classes/Display/DAddAttributes.php");
 				
 		$pagesize=25;
 	   if(isset($_GET['page']))

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,20 +20,15 @@
 */
 
 /**
- * CCategorySelection
- *
  * This class contains functions to show and update products in a particular category
  *
- * @package		Core_Category_CCategorySelection
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Category_CCategorySelection
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
-
 
 class Core_Category_CCategorySelection 
 {
@@ -41,25 +36,22 @@ class Core_Category_CCategorySelection
 	/**
 	 * Stores the output
 	 *
-	 * @var array $data
+	 * @var array 
 	 */		
-	
 	var $data = array();
 	/**
 	 * Stores the error messages
 	 *
-	 * @var array $errormessages
+	 * @var array 
 	 */		
 	var $errormessages = array();
 		
 	/**
 	 * Function displays all the categories from the table
-	 * 
+	 * @param array $Err
 	 * 
 	 * @return array
 	 */
-	 	
-	
 	function displayCategory($Err)
 	{
 		include("classes/Display/DCategorySelection.php");
@@ -132,8 +124,7 @@ class Core_Category_CCategorySelection
 	function updateProducts()
 	{
 		//include("classes/Display/DCategorySelection.php");
-		//echo "<pre>";
-		 
+				 
 		$temparray = array();
 		$temparray = $_POST['checkbox'];
 		$checkboxvalue = implode(",",$temparray);

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,18 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * Featured items  related  class
+ *
+ * @package   		Core_CFeaturedItems
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Core_CFeaturedItems
 {
 var $output = array();	
@@ -26,7 +38,7 @@ var $output = array();
 	 * This function is used to show the main category landing page
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showMainCatLanding()
 	{		
@@ -53,7 +65,7 @@ var $output = array();
 	 * This function is used to get the main category 
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function getMaincatlandContent()
@@ -72,7 +84,7 @@ var $output = array();
 	 * This function is used to get the sub  category 
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function getSubcatlandContent()
    	{
@@ -90,7 +102,7 @@ var $output = array();
 	 * This function is used to show the main category 
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showMainCategory()
 	{
@@ -110,7 +122,7 @@ var $output = array();
 	 * This function is used to show the main category  featured product
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showMaincatFeaturedProduct()
 	{	
@@ -180,9 +192,9 @@ var $output = array();
 	}
 	/**
 	 * This function is used to show the  featured product
+	 * @param string $skin
 	 * 
-	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showFeaturedProduct($skin)
 	{
@@ -221,8 +233,7 @@ var $output = array();
 	/**
 	 * This function is used to show the  featured product in iphone and so on
 	 * 
-	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function featuredProductsHidden()
 	{
@@ -258,9 +269,9 @@ var $output = array();
 	}
 	/**
 	 * This function is used to show the  show products of sub category
+	 * @param string $skin
 	 * 
-	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function showProducts($skin)
@@ -300,7 +311,7 @@ var $output = array();
 	 * This function is used to show select all featured product from all main category & show it in index page
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function featuredProducts()
 	{	
@@ -362,9 +373,9 @@ var $output = array();
 	}
 	/**
 	 * This function is used to show rating
+	 * @param integer $productid
 	 * 
-	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function disRates($productid)
 	{
@@ -378,7 +389,7 @@ var $output = array();
 	 * This function is used to select the sub category
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function selectFeaturedSubCategory()
@@ -400,7 +411,7 @@ var $output = array();
 	 * This function is used to get main category bread crumb
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function maincatBreadCrumb()
@@ -414,7 +425,7 @@ var $output = array();
 	 * This function is used to get sub category bread crumb
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function subcatBreadCrumb()
 	{
@@ -427,7 +438,7 @@ var $output = array();
 	 * This function is used to show the best selling product
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showBestSellingProducts()
 	{
@@ -450,7 +461,7 @@ var $output = array();
 	 * This function is used to show search page
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function dispSearch()
 	{
@@ -488,7 +499,7 @@ var $output = array();
 	 * This function is used to show the narrow search
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function dispNarrow()
 	{
@@ -562,7 +573,7 @@ var $output = array();
 	 * This function is used to show the price narrow search
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function dispPriceNarrow()
 	{
@@ -609,7 +620,7 @@ var $output = array();
 	 * This function is used to show the brand narrow search
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function dispBrandNarrow()
 	{
@@ -637,7 +648,7 @@ var $output = array();
 	 * This function is used to show the view product
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function viewProducts()
@@ -712,7 +723,12 @@ var $output = array();
 		
 	}
 	
-	
+	/**
+	 * This function is used to evaluate the product
+	 * @param integer $id
+	 * 
+	 * @return string
+	 */
 	function evaluate($id)
 	{
 		$searchoption=$_SESSION['search_option'];
@@ -783,6 +799,13 @@ var $output = array();
 		
 		
 	}
+	/**
+	 * This function is used to find the array
+	 * @param array $array
+	 * @param array $key 	
+	 * 
+	 * @return string
+	 */	
 	
 	function inArray($array, $key)
 	{
@@ -806,7 +829,11 @@ var $output = array();
 	    return $r;
 	  }
 	}
-	
+	/**
+	 * This function is used to get the tag clouds
+	 * 
+	 * @return string
+	 */	
 	function displayTagClouds()
 	{
 		$sql='select search_tag as keyword,search_count as cnt from search_tags_table order by search_count desc' ;

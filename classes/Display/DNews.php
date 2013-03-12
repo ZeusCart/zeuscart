@@ -1,10 +1,41 @@
 <?php
+/**
+* GNU General Public License.
+
+* This file is part of ZeusCart V4.
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
+
+/**
+ * New products  related  class
+ *
+ * @package   		Display_DNews
+ * @category    	Display
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Display_DNews
 {
 	var $arr = array();
 	var $arr1 = array();
 
-     /**
+        /**
 	* This function is used to Display the News Menu
 	* @name showNewsTitle 
 	* @return string
@@ -17,42 +48,38 @@ class Display_DNews
 		
 		$output='<div >';
 		 
-	   if(count($arr)>0)
-	   {
-	     for($i=0;$i<count($arr);$i++)
-		 {
-		     
-			 if(strlen($arr[$i]['news_title'])>30)
-			   $title=substr($arr[$i]['news_title'],0,30).'...';
-			 else 
-			   $title=substr($arr[$i]['news_title'],0,30); 
-			 
-			 
-			 
-			 
-			 $output.=' <div class="recentTXT" align="right" valign="bottom" >'.$arr[$i]['date'].'</div>
-		          <div class="newsletterTXT"  style="border-bottom:dotted 1px #999999;padding-bottom:13px">'.$title.'</div>';
+		if(count($arr)>0)
+		{
+			for($i=0;$i<count($arr);$i++)
+				{
 				
-				  
-				
-		          
-				   
-	      }			   
-		 	$output.=' <div align="right" class="more"><a href="?do=morenews">More...</a> </div>';
-		
+					if(strlen($arr[$i]['news_title'])>30)
+					$title=substr($arr[$i]['news_title'],0,30).'...';
+					else 
+					$title=substr($arr[$i]['news_title'],0,30); 
+					
+					
+					
+					
+					$output.=' <div class="recentTXT" align="right" valign="bottom" >'.$arr[$i]['date'].'</div>
+					<div class="newsletterTXT"  style="border-bottom:dotted 1px #999999;padding-bottom:13px">'.$title.'</div>';
+						
+				}			   
+				$output.=' <div align="right" class="more"><a href="?do=morenews">More...</a> </div>';
+			
 		}
 		else
 		{
-		  $output.='<div class="recentTXT" align="right">No News Published</div>';           
+		$output.='<div class="recentTXT" align="right">No News Published</div>';           
 		
 		}  
-		 $output.='</div>' ; 
+		$output.='</div>' ; 
 		 
 		                  
 		return $output;
 	}
 
-    /**
+   	 /**
 	* This function is used to Display the News page
 	* @name showNewsPage
 	* @param mixed $arr
@@ -67,7 +94,7 @@ class Display_DNews
 		<div class="heading1" style="width:600px;" align="left" ><span class="headingTXT" style="width:600px;" >News</span></div>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding-left:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;">';
       
-	  $i=0;
+	 	 $i=0;
 		
 		if((count($arr)>0))
 		{
@@ -94,8 +121,8 @@ class Display_DNews
 		
 	
 					$output.='<tr>
-          <td colspan="2" class="dot_line">&nbsp;</td>
-          </tr>';
+		<td colspan="2" class="dot_line">&nbsp;</td>
+		</tr>';
 		     $i++;
 				
 			}

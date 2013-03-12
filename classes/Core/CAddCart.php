@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,17 +19,39 @@
 *
 */
 
+/**
+ * Add to cart related  class
+ *
+ * @package   		Core_CAddCart
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		  http://www.zeuscart.com
+ * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
+
 class Core_CAddCart 
 {
-var $output = array();	
-var $arr = array();
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
+	 var $output = array();	
+	 /**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
+	var $arr = array();
 
 	/**
 	 * This function is used to add the cart item  from home page
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	function addCart()
 	{
@@ -158,7 +180,7 @@ var $arr = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	function addCartFromProductDetail()
 	{
@@ -654,7 +676,7 @@ var $arr = array();
 	
 	/**
 	 * This function is used to get product price
-	 *
+	 * @param integer $qty
 	 * 
 	 * 
 	 * @return array 
@@ -714,7 +736,11 @@ var $arr = array();
 		return $output;
 		
 	}
-
+	/**
+	 * This function is used for merging the cart data with session
+	 * 
+	 * @return string
+	 */	
 	function mergeSessionWithCartDatabase()
 	{
 	
@@ -744,8 +770,7 @@ var $arr = array();
 		
 			foreach ($_SESSION['mycart'] as $key=>$val)
 			{
-				//echo $val['product_id'];
-			
+							
 				
 				$sql='select soh from product_inventory_table where product_id='.$val['product_id'];
 				$query = new Bin_Query();
@@ -791,45 +816,75 @@ var $arr = array();
 		}
 	
 	} 
-	
+	/**
+	 * This function is used for quick registration in user guest
+	 *
+	 * @param array $Err
+	 * 
+	 * @return string
+	 */	
 	function showQuickRegistration($Err)
 	{
-		if($_SESSION['user_id']=='') //-----------------For Guest User-------------------
+		if($_SESSION['user_id']=='') 
 		{						
 			return Display_DAddCart::showQuickRegistration('',$Err->messages);
 		}
 
 	}
+	/**
+	 * This function is used for payment page for authorizenet
+	 *
+	 * 
+	 * @return string
+	 */		
 	function showPaymentPageForAuthorizenet()
 	{
-		if($_SESSION['user_id']!='') //-----------------For  User-------------------
+		if($_SESSION['user_id']!='') 
 		{
 			return Display_DAddCart::showPaymentPageForAuthorizenet();
 		}
 
 	}
+	/**
+	 * This function is used for payment page for world pay
+	 *
+	 * 
+	 * @return string
+	 */	
 	function showPaymentPageForWorldPay()
 	{
-		if($_SESSION['user_id']!='') //-----------------For  User-------------------
+		if($_SESSION['user_id']!='')
 		{
 			Core_CPaymentGateways::manualSuccess(7);
 			return Display_DAddCart::showPaymentPageForWorldPay($_POST);
 		}
 
 	}
+	/**
+	 * This function is used for payment page for checkout
+	 *
+	 * 
+	 * @return string
+	 */	
 	function showPaymentPageFor2Checkout()
 	{
-		if($_SESSION['user_id']!='') //-----------------For  User-------------------
+		if($_SESSION['user_id']!='')
 		{
 			Core_CPaymentGateways::manualSuccess(6);
 			return Display_DAddCart::showPaymentPageFor2Checkout($_POST);
 		}
 
 	}
+	/**
+	 * This function is used for payment for authorizenet for guest user
+	 *
+	 * 
+	 * @return string
+	 */	
 	function doPaymentForAuthorizenet()
 	{
-		if($_SESSION['user_id']!='') //-----------------For Guest User-------------------
-		{
+		if($_SESSION['user_id']!='') 
+			{
 			$ccardno=$_POST['txtCardNumber'];
 			$ccardexpry=$_POST['txt_cem'].$_POST['txt_cey'];
 			
@@ -915,7 +970,12 @@ var $arr = array();
 
 	}
 	
-		
+	/**
+	 * This function is used for payment for bluepay for  user
+	 *
+	 * 
+	 * @return string
+	 */		
 	function showPaymentPageForBluepay()
 	{
 		if($_SESSION['user_id']!='') //-----------------For  User-------------------
@@ -926,10 +986,15 @@ var $arr = array();
 	}
 	
 	
-	
+	/**
+	 * This function is used for quick registration for guest user
+	 *
+	 * 
+	 * @return string
+	 */
 	function doQuickRegistration()
 	{
-		if($_SESSION['user_id']=='') //-----------------For Guest User-------------------
+		if($_SESSION['user_id']=='') 
 		{
 			
 			$displayname = substr($_POST['txtregemail'],0,strpos($_POST['txtregemail'],'@'));
@@ -1001,9 +1066,9 @@ var $arr = array();
 	/**
 	 * This function is used to get the billin address.
 	 *
-	  * @param   object  Err   contains both error messages and values
+	  * @param   array  $Err   contains both error messages and values
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 
 	function showBillingDetails($Err)
@@ -1023,9 +1088,9 @@ var $arr = array();
 	/**
 	 * This function is used to get the shipping address.
 	 *
-	  * @param   object  Err   contains both error messages and values 
+	  * @param   array  $Err   contains both error messages and values 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	function showShippingDetails($Err)
 	{
@@ -1045,9 +1110,9 @@ var $arr = array();
 	/**
 	 * This function is used to get the shipping method
 	 *
-	  * @param   object  Err   contains both error messages and values 
+	  * @param   array  $Err   contains both error messages and values 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showShippingMethod($Err)
 	{
@@ -1088,9 +1153,7 @@ var $arr = array();
 		}
 		}
 			
-			$default=new Core_CAddCart();
-			$addrbook=$default->showAddressBookForShippingAddress('getValuesFormAddressBook');
-			$addrbookshipping=$default->showAddressBookForShippingAddress('getValuesFormAddressBookForShipping');
+			
 			return Display_DAddCart::showShippingMethod($obj3->records,$err,$addrbook,$addrbookshipping);
 		}
 
@@ -1098,9 +1161,9 @@ var $arr = array();
 	/**
 	 * This function is used to show the order confirmation
 	 *
-	  * @param   $message   contains both error messages and values 
+	  * @param  string  $message   contains both error messages and values 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showOrderConfirmation($message='')
 	{
@@ -1201,7 +1264,7 @@ var $arr = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function insertShipping()
 	{
@@ -1232,7 +1295,7 @@ var $arr = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function displayPaymentGateways()
 	{
@@ -1262,7 +1325,7 @@ var $arr = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function validateCoupon()
 	{
@@ -1331,7 +1394,13 @@ var $arr = array();
 		}
 
 	}
-	
+	/**
+	 * This function is used to get product   redeem  coupon from db.
+	 * @param array $arr
+	 * 
+	 * 
+	 * @return string
+	 */
 	function redeemCoupon($arr)
 	{
 		
@@ -1407,7 +1476,7 @@ var $arr = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function getCartData()
 	{
@@ -1483,7 +1552,13 @@ var $arr = array();
 			
 		}
 	}
-	
+	/**
+	 * This function is used to get product   category id from db.
+	 *
+	 * 
+	 * 
+	 * @return string
+	 */
 	function getCategoryIdByProductId($productid)
 	{
 		if ($productid!='')
@@ -1495,7 +1570,13 @@ var $arr = array();
 			return $categoryid=$qry->records[0]['category_id'];
 		}
 	}
-	
+	/**
+	 * This function is used to get product   quantity from db.
+	 *
+	 * 
+	 * 
+	 * @return string
+	 */
 	function getProductQtyForProduct()
 	{
 		if($_SESSION['user_id']!='')
@@ -1535,7 +1616,13 @@ var $arr = array();
 		return $dispproduct;
 	}
 	
-	
+	/**
+	 * This function is used to get tax settings  .
+	 *
+	 * 
+	 * 
+	 * @return string
+	 */
 	function getTaxSettings()
 	{
 		$sqlgettaxtype="SELECT id FROM tax_master_table WHERE status=1";
@@ -1588,25 +1675,30 @@ var $arr = array();
 		}
 		
 	}
-	
+	/**
+	 * This function is used to get payment gateway  .
+	 * @param integer $id
+	 * 
+	 * 
+	 * @return string
+	 */
 	function getPaymentGatewaySettings($id)
 	{
-		     $sql = 'select * from paymentgateways_settings_table where gateway_id='.$id;
-		 	 $obj = new Bin_Query();
-			 if($obj->executeQuery($sql))
-			 {				 
-			 	return($obj->records); 
-				}	
-		
-	}
+		$sql = 'select * from paymentgateways_settings_table where gateway_id='.$id;
+		$obj = new Bin_Query();
+		if($obj->executeQuery($sql))
+		{				 
+			return($obj->records); 
+		}	
 	
+	}
 	
 	/**
 	 * This function is used to insert the billing address.
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function insertBillingAddress()
 	{
@@ -1629,7 +1721,7 @@ var $arr = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function insertShippingAddress()
 	{

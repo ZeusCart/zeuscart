@@ -1,16 +1,15 @@
 <?php
-
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,12 +18,28 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * This class contains functions to display the sub category related process.
+ *
+ * @package  		Display_DShowSubCategory
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Display_DShowSubCategory
 {
+	/**
+	 * Function  to  display the category
+	 * @param array $arr
+	 * @param   integer $flag
+	 * @return string
+	 */	
 	function showCategory($arr,$flag)
 	{
-
-		
+	
 		$output.='<form name="search" method="post" action="?do=showsub&action=search&id='.(int)$_GET['id'].'" > <table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
               <tr>
                 <!--<td width="2%" class="content_list_head" align="center">S.no.</td>-->
@@ -133,7 +148,11 @@ class Display_DShowSubCategory
 			$output .= '</table>';
 			return $output;
 	}
-	
+	/**
+	 * Function  to  display the main category
+	 * @param array $arr
+	 * @return string
+	 */	
 	function showMainCategory($arr)
 	{
 		
@@ -163,7 +182,12 @@ class Display_DShowSubCategory
 			$output .= '</tr>';
 			return $output;
 	}
-	
+	/**
+	 * Function  to  get the category name
+	 * @param integer $id
+	 * 
+	 * @return array
+	 */	
 	function getCategoryname($id)
 	{
 		$sql = "SELECT category_name FROM category_table where category_id=".$id;
@@ -171,13 +195,18 @@ class Display_DShowSubCategory
 		$query->executeQuery($sql);
 		return $query->records[0]['category_name'];
 	}	
-	
+	/**
+	 * Function  to  display the sub category 
+	 * @param array $arr
+	 * 
+	 * @return string
+	 */	
 	function displaySubCategory($arr)
 	{
 		$output ="";
 		$temp=$arr[0]['category_image'];
 		//$img=explode('/',$temp);
-		//print_r( $img[2]);
+		
 		$output.='<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr><td class="content_list_head" colspan="2">Edit Sub Category</td></tr><tr><td>';
 		$output.='<form name="formsubcatedit" action="?do=showsub&action=edit&id='.(int)$_GET['mid'].'&subid='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">';
@@ -225,9 +254,15 @@ class Display_DShowSubCategory
 		$output.='</tr>';
 		return $output;
 	}
-
+	/**
+	 * Function  to  display the sub under subcategory 
+	 * @param array $arr
+	 * 
+	 * @return string
+	 */	
 	function displaySubUnderSubCategory($arr)
 	{
+
 		$output ="";
 		$temp=$arr[0]['category_image'];
 		

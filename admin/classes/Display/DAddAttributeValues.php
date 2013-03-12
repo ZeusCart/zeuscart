@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,19 +18,18 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
 /**
- * DAttributeValueSelection
- *
  * This class contains functions to list out the attributes values.
  *
- * @package		Display_DAttributeValueSelection
- * @category	Display
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Display_DAttributeValueSelection
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
 class Display_DAttributeValueSelection
 {
 
@@ -68,8 +67,7 @@ class Display_DAttributeValueSelection
 	function listAttributeValue($arr,$paging,$prev,$next,$val)
 	{
 		$output = "";
-		//echo "<pre>";
-		//print_r($arr);
+		
 		$output .= '<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
           <td colspan="2"><tr>
                 <td width="5%" class="content_list_head" align="center">S.No</td>
@@ -110,20 +108,20 @@ class Display_DAttributeValueSelection
 	 */
 	function displayAttributeValues($arr)
 	{
-	$output = "";
-	for ($i=0;$i<count($arr);$i++)
+		$output = "";
+		for ($i=0;$i<count($arr);$i++)
 		{
 			$output.='<form name="formsubcatedit" action="?do=addattributevalues&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
 			<tr>
             <td colspan="3" align="left">&nbsp;</td>
           </tr>
 			<tr>
-<td width="20%" align="left" class="content_form"> Attribute Values:</td>
+			<td width="20%" align="left" class="content_form"> Attribute Values:</td>
 
-<td width="31%" align="center" class="content_form"><input type="text" name="attributevalues" class="txt_box200" id="attrib" value="'.$arr[0]['attrib_value'].'" /></td>
-<td width="50%" align="left"><input type="submit" class="all_bttn" name="btnsubmit" value="Update" id="submit"  /></td>
-</tr>
-</form>';
+			<td width="31%" align="center" class="content_form"><input type="text" name="attributevalues" class="txt_box200" id="attrib" value="'.$arr[0]['attrib_value'].'" /></td>
+			<td width="50%" align="left"><input type="submit" class="all_bttn" name="btnsubmit" value="Update" id="submit"  /></td>
+			</tr>
+			</form>';
 		}
 		return $output;
 	}	

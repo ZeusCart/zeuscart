@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,18 +20,16 @@
 */
 
 /**
- * CAdminProductReview
- *
  * This class contains functions to show and search the review details.
  *
- * @package		Core_CAdminProductReview
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_CAdminProductReview
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
 
 
 class Core_CAdminProductReview
@@ -39,10 +37,15 @@ class Core_CAdminProductReview
 	/**
 	 * Stores the output
 	 *
-	 * @var array $output
+	 * @var array 
 	 */		
-	var $output = array();		
-	var $val = array();
+	var $output = array();	
+	/**
+	 * Stores the value
+	 *
+	 * @var array 
+	 */	
+	 var $val = array();
 	
 	/**
 	 * Function gets the review details from multiple tables. 
@@ -65,16 +68,16 @@ class Core_CAdminProductReview
 			}
 			return $output;
 		
-   }
+  	}
    
-   /**
+  	 /**
 	 * Function gets the search results for the review details from multiple tables. 
 	 * 
 	 * 
 	 * @return string
 	 */
    
-   function searchReviewDetails()
+   	function searchReviewDetails()
 	{
 		
 			include('classes/Display/DAdminProductReview.php');
@@ -144,23 +147,23 @@ class Core_CAdminProductReview
 	 * @return string
 	 */
   
-  function acceptReview()
-   {
-		$prodid = $_GET['prodid'];
-		$userid = $_GET['usrid'];
-		$sql = "update product_reviews_table set review_status=1 where product_id=".$prodid." and user_id=".$userid;
-		$obj = new Bin_Query();
-		if($obj->updateQuery($sql))
-			$output = '<div class="success_msgbox">Successfully Activated</div>';
-		else
-			$output = '<div class="success_msgbox">Not Activated</div>';
+	function acceptReview()
+	{
+			$prodid = $_GET['prodid'];
+			$userid = $_GET['usrid'];
+			$sql = "update product_reviews_table set review_status=1 where product_id=".$prodid." and user_id=".$userid;
+			$obj = new Bin_Query();
+			if($obj->updateQuery($sql))
+				$output = '<div class="success_msgbox">Successfully Activated</div>';
+			else
+				$output = '<div class="success_msgbox">Not Activated</div>';
+				
+			//$output .= $this->showReviewDetails();
+			return $output;
 			
-		//$output .= $this->showReviewDetails();
-		return $output;
-		
-   }
-   
-   /**
+	}
+	
+   	/**
 	 * Function updates the review status in the prodcut_review_table 
 	 * 
 	 * 
@@ -168,22 +171,22 @@ class Core_CAdminProductReview
 	 */
    
    
-   function denyReview()
-   {
-		$prodid = $_GET['prodid'];
-		$userid = $_GET['usrid'];
-		$sql = "update product_reviews_table set review_status=0 where product_id=".$prodid." and user_id=".$userid;
-		$obj = new Bin_Query();
-		if($obj->updateQuery($sql))
-			$output = '<div class="success_msgbox">Successfully Inactivated</div></br>';
-		else
-			$output = "<font color='orange'><b>Not Inactivated</b></font>";
-			
-		//$output .= $this->showReviewDetails();
-		return $output;
-   }
+	function denyReview()
+	{
+			$prodid = $_GET['prodid'];
+			$userid = $_GET['usrid'];
+			$sql = "update product_reviews_table set review_status=0 where product_id=".$prodid." and user_id=".$userid;
+			$obj = new Bin_Query();
+			if($obj->updateQuery($sql))
+				$output = '<div class="success_msgbox">Successfully Inactivated</div></br>';
+			else
+				$output = "<font color='orange'><b>Not Inactivated</b></font>";
+				
+			//$output .= $this->showReviewDetails();
+			return $output;
+	}
    
-   /**
+   	/**
 	 * Function generates a product review report in the file format. 
 	 * @param string $sql
 	 * 
@@ -191,181 +194,181 @@ class Core_CAdminProductReview
 	 */
    
    
-   function productReviewReport($sql)
-   {
-   		if($_POST['export'] =='excel')
-		{
-			include("classes/Lib/excelwriter.inc.php");   
-			$excel=new ExcelWriter("Product_Review.xls");
-			
-			if($excel==false)	
-				echo $excel->error;
-			$myArr=array("Id","User Name","Title","Review Summary","Review","Review Date");
-			$excel->writeLine($myArr);
+	function productReviewReport($sql)
+	{
+			if($_POST['export'] =='excel')
+			{
+				include("classes/Lib/excelwriter.inc.php");   
+				$excel=new ExcelWriter("Product_Review.xls");
 				
-			$obj = new Bin_Query();
-			if($obj->executeQuery($sql))
-			{
-				$cnt=count($obj->records);
-				for($i=0;$i<$cnt;$i++)
-				{
-					$product_id = $obj->records[$i]['product_id'];
-					$display_name = $obj->records[$i]['user_display_name'];
-					$title = $obj->records[$i]['title'];
-					$reviewsummary = $obj->records[$i]['review_txt'];
-					$review =  $obj->records[$i]['review_caption'];
-					$reviewdate =  $obj->records[$i]['review_date'];
+				if($excel==false)	
+					echo $excel->error;
+				$myArr=array("Id","User Name","Title","Review Summary","Review","Review Date");
+				$excel->writeLine($myArr);
 					
-					$excel->writeRow();
-					$excel->writeCol($product_id);
-					$excel->writeCol($display_name );
-					$excel->writeCol($title);
-					$excel->writeCol($reviewsummary);
-					$excel->writeCol($review);
-					$excel->writeCol($reviewdate);
+				$obj = new Bin_Query();
+				if($obj->executeQuery($sql))
+				{
+					$cnt=count($obj->records);
+					for($i=0;$i<$cnt;$i++)
+					{
+						$product_id = $obj->records[$i]['product_id'];
+						$display_name = $obj->records[$i]['user_display_name'];
+						$title = $obj->records[$i]['title'];
+						$reviewsummary = $obj->records[$i]['review_txt'];
+						$review =  $obj->records[$i]['review_caption'];
+						$reviewdate =  $obj->records[$i]['review_date'];
+						
+						$excel->writeRow();
+						$excel->writeCol($product_id);
+						$excel->writeCol($display_name );
+						$excel->writeCol($title);
+						$excel->writeCol($reviewsummary);
+						$excel->writeCol($review);
+						$excel->writeCol($reviewdate);
+					}
+					$excel->close();
 				}
-				$excel->close();
-			}
-			if(strpos($_SERVER['USER'],'MSIE'))
-			{
-				// IE cannot download from sessions without a cache
-				header('Cache-Control: public');
-			}
-			else
-			{
-				//header("Cache-Control: no-cache, must-revalidate");
-				header("Cache-Control: no-cache");
-			}
-			$file="Product_Review.xls";
-			//chmod ($file, 0755);
-			header("Pragma: no-cache");
-			header("Content-Type: php/doc/xml/html/htm/asp/jpg/JPG/sql/txt/jpeg/gif/bmp/png/xls/csv/x-ms-asf\n");
-			header("Connection: close");
-			header("Content-Disposition: attachment; filename=".$file."\n");
-			header("Content-Transfer-Encoding: binary\n");
-			header("Content-length: ".(string)(filesize("$file")));
-			$fd=fopen($file,"rb");
-			fpassthru($fd);
-		
-			}
-			else if($_POST['export'] =='xml')
-			{
+				if(strpos($_SERVER['USER'],'MSIE'))
+				{
+					// IE cannot download from sessions without a cache
+					header('Cache-Control: public');
+				}
+				else
+				{
+					//header("Cache-Control: no-cache, must-revalidate");
+					header("Cache-Control: no-cache");
+				}
+				$file="Product_Review.xls";
+				//chmod ($file, 0755);
+				header("Pragma: no-cache");
+				header("Content-Type: php/doc/xml/html/htm/asp/jpg/JPG/sql/txt/jpeg/gif/bmp/png/xls/csv/x-ms-asf\n");
+				header("Connection: close");
+				header("Content-Disposition: attachment; filename=".$file."\n");
+				header("Content-Transfer-Encoding: binary\n");
+				header("Content-length: ".(string)(filesize("$file")));
+				$fd=fopen($file,"rb");
+				fpassthru($fd);
+			
+				}
+				else if($_POST['export'] =='xml')
+				{
+						//$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
+						$obj = new Bin_Query();
+						if($obj->executeQuery($sql))
+						{
+							header("Content-Type: text/xml");
+							header("Pragma: public");
+							header("Expires: 0");
+							header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+							header("Content-Type: xml/force-download");
+							header("Content-Type: xml/octet-stream");
+							header("Content-Type: xml/download");
+							header("Content-Disposition: attachment;filename=product_review_report.xml"); 
+							header("Content-Transfer-Encoding: binary ");
+							echo("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+							echo("<productreviewdetails>\n");
+							$cnt=count($obj->records);
+							for($i=0;$i<$cnt;$i++)
+							{
+								/*echo ("<user id=\"". $obj->records[$i]['user_id'] ."\">\n");
+								echo ("<firstname=\"". $obj->records[$i]['user_fname'] ."\">\n");
+								echo ("<lastname=\"". $obj->records[$i]['user_lname'] ."\">\n");
+								echo ("<displayname=\"". $obj->records[$i]['user_display_name'] ."\">\n");
+								echo ("<email=\"". $obj->records[$i]['user_email'] ."\">\n");
+								echo ("<userdoj=\"". $obj->records[$i]['user_doj'] ."\">\n");*/
+								
+								echo ("<productid>".$obj->records[$i]['product_id']."<\productid>\n");
+								echo ("<username>". $obj->records[$i]['user_display_name'] ."<\username>\n");
+								echo ("<title>". $obj->records[$i]['title'] ."<\title>\n");
+								echo ("<reviewsummary>". $obj->records[$i]['review_txt'] ."<\reviewsummary>\n");
+								echo ("<review>". $obj->records[$i]['review_caption'] ."<\review>\n");
+								echo ("<reviewdate>". $obj->records[$i]['review_date'] ."<\reviewdate>\n");
+							}
+							echo("</productreviewdetails>\n");
+					}
+				}
+				
+				else if($_POST['export'] =='csv')
+				{
+						header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+						header("Content-Length: " . strlen($out));
+						header("Content-type: text/x-csv");			
+						header("Content-Disposition: attachment; filename=product_review_report.csv");
+						$csv_terminated = "\n";
+						$csv_separator = ",";
+						$csv_enclosed = '"';
+						$csv_escaped = "\\";
 					//$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
 					$obj = new Bin_Query();
 					if($obj->executeQuery($sql))
 					{
-						header("Content-Type: text/xml");
-						header("Pragma: public");
-						header("Expires: 0");
-						header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-						header("Content-Type: xml/force-download");
-						header("Content-Type: xml/octet-stream");
-						header("Content-Type: xml/download");
-						header("Content-Disposition: attachment;filename=product_review_report.xml"); 
-						header("Content-Transfer-Encoding: binary ");
-						echo("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
-						echo("<productreviewdetails>\n");
-						$cnt=count($obj->records);
-						for($i=0;$i<$cnt;$i++)
-						{
-							/*echo ("<user id=\"". $obj->records[$i]['user_id'] ."\">\n");
-							echo ("<firstname=\"". $obj->records[$i]['user_fname'] ."\">\n");
-							echo ("<lastname=\"". $obj->records[$i]['user_lname'] ."\">\n");
-							echo ("<displayname=\"". $obj->records[$i]['user_display_name'] ."\">\n");
-							echo ("<email=\"". $obj->records[$i]['user_email'] ."\">\n");
-							echo ("<userdoj=\"". $obj->records[$i]['user_doj'] ."\">\n");*/
+							$schema_insert  = $csv_enclosed.Id.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.UserName.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.Title.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.ReviewSummary.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.Review.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.ReviewPostedDate.$csv_enclosed;
 							
-							echo ("<productid>".$obj->records[$i]['product_id']."<\productid>\n");
-							echo ("<username>". $obj->records[$i]['user_display_name'] ."<\username>\n");
-							echo ("<title>". $obj->records[$i]['title'] ."<\title>\n");
-							echo ("<reviewsummary>". $obj->records[$i]['review_txt'] ."<\reviewsummary>\n");
-							echo ("<review>". $obj->records[$i]['review_caption'] ."<\review>\n");
-							echo ("<reviewdate>". $obj->records[$i]['review_date'] ."<\reviewdate>\n");
-						}
-						echo("</productreviewdetails>\n");
-				   }
-			  }
-			  
-			  else if($_POST['export'] =='csv')
-			  {
-			  		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-					header("Content-Length: " . strlen($out));
-					header("Content-type: text/x-csv");			
-					header("Content-Disposition: attachment; filename=product_review_report.csv");
-					$csv_terminated = "\n";
-					$csv_separator = ",";
-					$csv_enclosed = '"';
-					$csv_escaped = "\\";
-				   //$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
-				   $obj = new Bin_Query();
-				   if($obj->executeQuery($sql))
-				   {
-						$schema_insert  = $csv_enclosed.Id.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.UserName.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.Title.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.ReviewSummary.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.Review.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.ReviewPostedDate.$csv_enclosed;
-						
-					   $cnt=count($obj->records);
-						for ($i = 0; $i < $cnt; $i++)
-						{
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['product_id']. $csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed.$obj->records[$i]['user_display_name'].$csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['title'].$csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['review_txt'].$csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['review_caption'].$csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['review_date'].$csv_enclosed;
-						}
-						$out .= $schema_insert;
-						$out .= $csv_terminated;
-				 }
-				echo $out;
-				exit;
-			 }
-			  else if($_POST['export'] =='tab')
-			  {
-					  	header("Pragma: public");
-						header("Expires: 0");
-						header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-						header("Content-Length: " . strlen($out));
-						header("Content-Type: tab/force-download");
-						header("Content-Type: tab/octet-stream");
-						header("Content-Type: tab/download");
-						header("Content-Disposition: attachment;filename=product_review_report.tab"); 
-						header("Content-Transfer-Encoding: binary ");
-					$tab_terminated = "\n";
-					$tab_separator = "->";
-					$tab_enclosed = '"';
-					$tab_escaped = "\\";
-				   //$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
-				   $obj = new Bin_Query();
-				   if($obj->executeQuery($sql))
-				   {
-						$schema_insert  = $tab_enclosed.Id.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.UserName.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.Title.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.ReviewSummary.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.Review.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.ReviewPostedDate.$tab_enclosed;
-						
-					   $count=count($obj->records);
-						for ($i = 0; $i < $count; $i++)
-						{
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['product_id']. $tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed.$obj->records[$i]['user_display_name'].$tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['title'].$tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['review_txt'].$tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['review_caption'].$tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['review_date'].$tab_enclosed;
-						}
-						$out .= $schema_insert;
-						$out .= $tab_terminated;
-				 }
+						$cnt=count($obj->records);
+							for ($i = 0; $i < $cnt; $i++)
+							{
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['product_id']. $csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed.$obj->records[$i]['user_display_name'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['title'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['review_txt'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['review_caption'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['review_date'].$csv_enclosed;
+							}
+							$out .= $schema_insert;
+							$out .= $csv_terminated;
+					}
 					echo $out;
 					exit;
-			}				
-    }
+				}
+				else if($_POST['export'] =='tab')
+				{
+							header("Pragma: public");
+							header("Expires: 0");
+							header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+							header("Content-Length: " . strlen($out));
+							header("Content-Type: tab/force-download");
+							header("Content-Type: tab/octet-stream");
+							header("Content-Type: tab/download");
+							header("Content-Disposition: attachment;filename=product_review_report.tab"); 
+							header("Content-Transfer-Encoding: binary ");
+						$tab_terminated = "\n";
+						$tab_separator = "->";
+						$tab_enclosed = '"';
+						$tab_escaped = "\\";
+					//$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
+					$obj = new Bin_Query();
+					if($obj->executeQuery($sql))
+					{
+							$schema_insert  = $tab_enclosed.Id.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.UserName.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.Title.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.ReviewSummary.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.Review.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.ReviewPostedDate.$tab_enclosed;
+							
+						$count=count($obj->records);
+							for ($i = 0; $i < $count; $i++)
+							{
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['product_id']. $tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed.$obj->records[$i]['user_display_name'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['title'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['review_txt'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['review_caption'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['review_date'].$tab_enclosed;
+							}
+							$out .= $schema_insert;
+							$out .= $tab_terminated;
+					}
+						echo $out;
+						exit;
+				}				
+	}
 	
 	 /**
 	 * Function selects the data from the table need for generating auto complete popup window. 
@@ -382,8 +385,7 @@ class Core_CAdminProductReview
 		$sql="SELECT a.product_id,a.review_caption, a.review_txt, a.review_date,a.review_status,b.user_display_name, a.user_id, c.title FROM product_reviews_table a INNER JOIN users_table b ON a.user_id = b.user_id INNER JOIN products_table c where a.product_id = c.product_id";
 		$obj =  new Bin_Query();
 		$obj->executeQuery($sql);
-		//echo "<pre>";
-		//print_r($obj->records);
+	
 		$count=count($obj->records);
 		if($count!=0)
 		{

@@ -1,15 +1,15 @@
 <?php
-/**
+ /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,18 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * Add to cart  related  class
+ *
+ * @package   		Model_MAddCart
+ * @category    	Model
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 
 class Model_MAddCart
 {
@@ -39,7 +51,6 @@ var $output = array();
 		if(!isset($_SESSION['user_id']))
 		{
 			$prodid = $_GET['prodid'];
-			
 			
 			include_once('classes/Core/CAddCart.php');
 			include('classes/Core/CUserRegistration.php');
@@ -79,8 +90,6 @@ var $output = array();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
-		
-			
 			
 		}
 		else
@@ -182,8 +191,6 @@ var $output = array();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
-		
-			
 			
 		}
 		else
@@ -952,9 +959,7 @@ var $output = array();
 		{
 			$prodid = $_GET['prodid'];
 			$_SESSION['RequestUrl'] = '?do=showcart';
-			//header("Location:?do=login");
-			
-			
+		
 			include_once('classes/Core/CAddCart.php');
 			include_once('classes/Display/DAddCart.php');
 			include('classes/Core/CUserRegistration.php');

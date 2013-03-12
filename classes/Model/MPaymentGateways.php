@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,12 +18,27 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * Payment gateway related  class
+ *
+ * @package   		Model_MPaymentGateways
+ * @category    	Model
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
+
 class Model_MPaymentGateways
 {
 	var $output = array();	
 	/**
 	* This function is used to Display the PaymentMode
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function optPaymentMode()
 	{
 	
@@ -47,7 +62,6 @@ class Model_MPaymentGateways
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
-		//$output['signup']=Display_DUserRegistration::signUp();
 		$output['skinname']=Core_CHome::skinName();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();	
 		$output['footer']=Core_CHome::footer();
@@ -56,7 +70,9 @@ class Model_MPaymentGateways
 	}
 	/**
 	* This function is used to Display the success page after orderconfirmation and payment process
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function success()
 	{
 		
@@ -90,7 +106,9 @@ class Model_MPaymentGateways
 	}
 	/**
 	* This function is used to Display the failure page after orderconfirmation and payment process
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function failure()
 	{
 		include('classes/Core/CUserRegistration.php');

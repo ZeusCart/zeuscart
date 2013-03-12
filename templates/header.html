@@ -1,8 +1,27 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>:: Welcome to our Site ::</title>
+    <title>::  <AJDF:output>$pagetitle</AJDF:output>::</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -166,7 +185,7 @@ $(document).ready(function() {
   	<!--logo-->
     <div id="logo_div">
     	<div class="row-fluid">
-        	<div class="span3"><a href="?do=index"><img src="assets/img/logo.gif" alt="logo"></a></div>
+        	<div class="span3"><a href="?do=index"><img src="<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
 	 <div class="span3">
             	<!--<div id="shopping_cnt">
             <h3>8(802)234-5678</h3><span>Call us Monday - Saturday:8:30am- 6.00 pm</span>

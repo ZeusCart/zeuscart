@@ -1,15 +1,15 @@
 <?php
-/**
+ /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,17 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * Wishlist related  class
+ *
+ * @package   		Core_CWishList
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Core_CWishList
 {
   	 /**
@@ -102,7 +113,6 @@ class Core_CWishList
 				if($obj->records[0]['temp']>0)
 				{
 					
-					//$output['wishlist'] = $this->viewWishList();
 					$output['success'] = '<div class="success_msgbox">Selected product is already added in your wishlist</div></br>';
 				}
 				else
@@ -287,13 +297,12 @@ class Core_CWishList
 					$_SESSION['catid'] = $newobj->records[0]['catid'];
 					$cnt=count($_SESSION['compareProductId']);
 					
-					//if(!in_array($_GET['prodid'],$_SESSION['compareProductId']))
+					
 					if((!in_array($_GET['prodid'],$_SESSION['compareProductId']))&& ($cnt < 4) && ($_GET['do']=='compareproduct') ) //for accepting 4 items
 						$_SESSION['compareProductId'][$cnt] = $_GET['prodid'];
 					else
 					{
-						//echo "exceeded";
-						//exit();
+						
 					}
 					$cnt=count($_SESSION['compareProductId']);
 					for($i=0;$i<$cnt;$i++)
@@ -323,7 +332,7 @@ class Core_CWishList
 				if(!isset($_SESSION['compareProductId'][0]))
 					$_SESSION['compareProductId']=array();
 				$cnt=count($_SESSION['compareProductId']);
-				//if(!in_array($_GET['prodid'],$_SESSION['compareProductId']))
+			
 				if(!in_array($_GET['prodid'],$_SESSION['compareProductId']) && ($cnt < 4) && ($_GET['do']=='compareproduct') )  //for accepting 4 items
 					$_SESSION['compareProductId'][$cnt] = $_GET['prodid'];
 				$cnt=count($_SESSION['compareProductId']);
@@ -334,7 +343,6 @@ class Core_CWishList
 				$output['viewProducts']['a']='<div style="padding-left:30px;"><font color="orange" style="font-size:11px"><b>No Product(s) Found</b></font></div>';
 		if($_SESSION['compareProductId']!='')
 		{
-			//print_r($_SESSION['compareProductId']);exit;
 			$product_ids='"'.implode('","',$_SESSION['compareProductId']).'"';
 			
 			if($product_ids != '')

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,24 +18,45 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
- class Display_DProductFeatures
+
+
+/**
+ * This class contains functions to list out the featured product
+ *
+ * @package  		Display_DProductFeatures
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */ 
+class Display_DProductFeatures
 {
-function findCategoryid($productid)
-{
-	$sql='select category_id from products_table where product_id='.$productid;
-	$obj=new Bin_Query();
-	$obj->executeQuery($sql);
-	$val=$obj->records[0]['category_id'];
-	return $val;
-}
-function dispProductFeatures($dropdownattribname,$dropdownattribvalues,$res,$result)
+
+	/**
+	 * Function  to find the    category id
+	 * @param integer $productid
+	 * @return string
+	 */	
+	function findCategoryid($productid)
+	{
+		$sql='select category_id from products_table where product_id='.$productid;
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$val=$obj->records[0]['category_id'];
+		return $val;
+	}
+	/**
+	 * Function  to display   the   product features
+	 * @param array $dropdownattribname
+	 * @param array $dropdownattribvalues
+	 * @param array $res
+	 * @param array $result	 	 
+	 * @return string
+	 */	
+	function dispProductFeatures($dropdownattribname,$dropdownattribvalues,$res,$result)
 	{
 	
-	//print_r($dropdownattribname);exit;
-	//print_r($dropdownattribvalues);exit;
-	//print_r($dropdown);exit;
-	  //print_r($result);exit;
-	// print_r($res);exit;
 	  
 	   $title= $res[1];
 	   $productid=$res[0];

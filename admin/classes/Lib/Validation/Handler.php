@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,16 +18,67 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * This class contains functions related error hander
+ *
+ * @package  		Lib_Validation_Handler
+ * @subpackage 		Lib_Validation_Methods
+ * @category  		Library
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Lib_Validation_Handler extends Lib_Validation_Methods 
 {
-var $mCheckArray = array();
-var $mMessageArray = array();
-var $mValueArray = array();
-var $mErrors = array();
-var $mFields = array();
-var $mErrorValues = array();
-var $mValidations = array();
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
+	var $mCheckArray = array();
+	/**
+	 * Stores the  message array
+	 *
+	 * @var array 
+	 */	
+	var $mMessageArray = array();
+	/**
+	 * Stores the  value array
+	 *
+	 * @var array 
+	 */	
+	var $mValueArray = array();
+	/**
+	 * Stores the error 
+	 *
+	 * @var array 
+	 */	
 
+	var $mErrors = array();
+	/**
+	 * Stores the fields name
+	 *
+	 * @var array 
+	 */	
+	var $mFields = array();
+	/**
+	 * Stores the error values
+	 *
+	 * @var array
+	 */	
+	var $mErrorValues = array();
+	/**
+	 * Stores the validation array
+	 *
+	 * @var array 
+	 */	
+	var $mValidations = array();
+
+	/**
+	 *Funtion Lib_Validation_Handler
+	*/	
 	function Lib_Validation_Handler()
 	{
 	}	
@@ -48,7 +99,14 @@ var $mValidations = array();
 		$this->mMessageArray = array_merge($this->mMessageArray,array("$message"));
 		$this->mFields  = array_merge($this->mFields,array("$field"));
 	}
-	
+	/**
+	 * Stores multi Fieldnames, Values, Validationlist, Errormessages
+	 *
+	 * @param string $field
+	 * @param string $value
+	 * @param string $check_for
+	 * @param string $message
+	 */
 	function MultiAssign($field,$value,$check_for,$message)
 	{
 		

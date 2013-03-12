@@ -1,16 +1,16 @@
 <?php 
 
-/**
+ /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,19 +20,38 @@
 *
 */
 
- class Core_CPaymentGateways 
+
+/**
+ * Payment gateway related  class
+ *
+ * @package   		Core_CPaymentGateways
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
+
+class Core_CPaymentGateways 
 {
-    	function insertShipping()
+
+		/**
+		* This function is used to get  the  user insert the shipping address in session
+		*
+		* .
+		* 
+		* @return HTML data
+		*/
+    		function insertShipping()
 		{
-		    $orderdetails=array();		
-//			print_r($_POST);exit;
+		    	$orderdetails=array();		
+
 			$orderdetails['txtname']=$_POST['txtname'];
 			$orderdetails['txtcompany']=$_POST['txtcompany'];
 			$orderdetails['txtstreet']=$_POST['txtstreet'];
 			$orderdetails['txtcity']=$_POST['txtcity'];
 			$orderdetails['txtsuburb']=$_POST['txtsuburb'];
 			$orderdetails['txtzipcode']=$_POST['txtzipcode'];
-			//$orderdetails['txtcountry']=$_POST['txtcountry'];
 			$orderdetails['txtcountry']=$_POST['selbillcountry'];
 			$orderdetails['txtstate']=$_POST['txtstate'];
 			$orderdetails['txtsname']=$_POST['txtsname'];
@@ -42,18 +61,20 @@
 			$orderdetails['txtssuburb']=$_POST['txtssuburb'];
 			$orderdetails['txtszipcode']=$_POST['txtszipcode'];
 			$orderdetails['txtscountry']=$_POST['selshipcountry'];
-//			$orderdetails['txtscountry']=$_POST['txtscountry'];
 			$orderdetails['txtsstate'] =$_POST['txtsstate'];
 			$_SESSION['orderdetails']=$orderdetails;		
 		}
+		/**
+		* This function is used to get  the option payment mode
+		*
+		* .
+		* 
+		* @return HTML data
+		*/
 		function optPaymentMode()
 		{
 		   $paymentgateway=$_POST['paymentBy'];
-		  // $_SESSION['quantity']=5;
-		   //echo $_SESSION['grandtotal'];
-		  // echo $_SESSION['quantity'];
-		  /* print_r($paymentgateway);
-		   exit;*/
+		  
 		   if($paymentgateway=='paypal')
 		   {
 		       $obj=new Core_CPaymentGateways();
@@ -102,12 +123,16 @@
 		   }
 		   
 		}
-		
+		/**
+		* This function is used to view the success page after payment finished
+		*
+		* .
+		* 
+		* @return HTML data
+		*/
 		function success()
 		{
-				/*echo "<pre>";
-				print_r($_POST);
-				print_r($_GET);*/
+				
 				
 				if($_GET['pay_type']=='1')
 				{
@@ -196,7 +221,7 @@
 				{
 					$order_total=$_SESSION['checkout_amount'];
 					//$order_total=number_format($_POST['AMOUNT'],2);
-  	    			$ipn_id=$_POST['TRANSACTION_ID'];
+  	    				$ipn_id=$_POST['TRANSACTION_ID'];
 					$orders_status=1;		
 				}
 				elseif($_GET['pay_type']=='15')
@@ -241,25 +266,11 @@
 				$trans_date=date('Y-m-d H:i:s');	
 				$date_purchased=$trans_date;
 				$payment_method=$_GET['pay_type'];
-		        //echo 'amount:';
-				// $amount=$_SESSION['amount'];
-				//$order_total=$_SESSION['amount'];
-				
-				//echo 'paidamount:';
-				//$order_total=$_POST['mc_gross'];
-				//echo 'transaction id';
-				//$batch_number=$_POST['txn_id'];	
-				//$ipn_id=$_POST['txn_id'];	
-				//echo 'transaction date';
-				//$trans_date=date('d-M-y h:i:s a');	
-			/*   $sql="insert into orders_table(orders_id, customers_id, shipping_name, shipping_company, shipping_street_address,   shipping_suburb, shipping_city, shipping_postcode, shipping_state, shipping_country, billing_name, billing_company, billing_street_address, billing_suburb, billing_city, billing_postcode, billing_state, billing_country, payment_method,    shipping_method, coupon_code, cc_type, cc_owner, cc_number, cc_expires, cc_cvv, date_purchased, orders_date_closed, orders_status, order_total, order_tax, ipn_id, ip_address) values('".$orders_id."','".$customers_id."','". $shipping_name."','". $shipping_company."','".$shipping_street_address."','". $shipping_suburb."','". $shipping_city."','". $shipping_postcode."','". $shipping_state."','".$shipping_country."','". $billing_name."','". $billing_company."','". $billing_street_address."','".    $billing_suburb."','". $billing_city."','". $billing_postcode."','". $billing_state."','". $billing_country."','".    $payment_method."','". $shipping_method."','". $coupon_code."','". $cc_type."','". $cc_owner."','". $cc_number."','". $cc_expires."','". $cc_cvv."','". $date_purchased."','". $orders_date_closed."','". $orders_status."','". $order_total."','". $order_tax."','". $ipn_id."','". $ip_address.")";			 
-   				$obj=new Bin_Query(); 
-			    $obj->updateQuery($sql);	*/
+		     
 				
 			$customers_id=$_SESSION['user_id'];
 			$orderdetails=$_SESSION['orderdetails'];
-			//print_r($orderdetails);
-
+			
 			$billing_name  =$orderdetails['txtname'];
 			$billing_company  =$orderdetails['txtcompany'];
 			$billing_street_address  =$orderdetails['txtstreet'];
@@ -276,12 +287,9 @@
 			$shipping_postcode  =$orderdetails['txtszipcode'];
 			$shipping_country  =$orderdetails['txtscountry'];
 			$billing_state =$orderdetails['txtsstate'];
-			
-			//print_r($_SESSION['orderdetails']);
-			
+						
 			if((((int)$customers_id!=0) || ($customers_id!='')) && ($_SESSION['checkout_amount']!=''))
 			{
-					//$orders_status=1;
 					$sql="insert into orders_table
 					( customers_id, shipping_name, shipping_company, shipping_street_address, 
 					shipping_suburb, shipping_city, shipping_postcode, shipping_state, shipping_country, 
@@ -291,14 +299,13 @@
 					order_tax, ipn_id, ip_address)
 					values
 					('".$customers_id."','".$shipping_name."','".$shipping_company."','".$shipping_street_address."','".$shipping_suburb."','".$shipping_city."','".$shipping_postcode."','".$shipping_state."','".$shipping_country."','".$billing_name."','".$billing_company."','".$billing_street_address."','".$billing_suburb."','".$billing_city."','".$billing_postcode."','".$billing_state."','".$billing_country."','".$payment_method."','".$shipping_method."','".$coupon_code."','".$date_purchased."','".$orders_date_closed."','".$orders_status."','".$order_total."','".$order_tax."','".$ipn_id."','".$ip_address."')";
-					//exit;
-					
+									
 					$obj=new Bin_Query();
 					if($obj->updateQuery($sql))
 					{
-							//print_r($obj);
+						
 							$orderid=$obj->insertid;
-							//exit();
+							
 							
 							$sql_insert_payment="INSERT INTO payment_transactions_table (payment_gateway_id ,paid_amount ,transaction_id ,transaction_date,order_id) VALUES (".$payment_method.",".$order_total.",'".$ipn_id."','".$trans_date."',".$orderid.")";
 							$obj_insert_payment=new Bin_Query();
@@ -314,8 +321,7 @@
 							$obj4=new Bin_Query();
 							$obj4->executeQuery($sql4);
 							$res4=$obj4->records;
-							//print_r($res4);
-							//if(count($res4)>0)
+							
 							$val=$res4[0]['cart_id'];
 								$cartid=$val;
 							
@@ -359,7 +365,6 @@
 									
 								}
 								$res1=$obj2->records;
-							//	$cartid=$res1[0]['cart_id'];
 								if(count($res)>0)
 								{
 							$sql2="delete from shopping_cart_products_table where cart_id = ".$cartid;				
@@ -388,6 +393,13 @@
 			}	
 					
 		}
+		/**
+		* This function is used to view the manual success page after payment finished
+		*
+		* .
+		* 
+		* @return HTML data
+		*/
 		function manualSuccess($paytype)
 		{
 				
@@ -408,25 +420,11 @@
 				$trans_date=date('Y-m-d H:i:s');	
 				$date_purchased=$trans_date;
 				$payment_method=$paytype;
-		        //echo 'amount:';
-				// $amount=$_SESSION['amount'];
-				//$order_total=$_SESSION['amount'];
-				
-				//echo 'paidamount:';
-				//$order_total=$_POST['mc_gross'];
-				//echo 'transaction id';
-				//$batch_number=$_POST['txn_id'];	
-				//$ipn_id=$_POST['txn_id'];	
-				//echo 'transaction date';
-				//$trans_date=date('d-M-y h:i:s a');	
-			/*   $sql="insert into orders_table(orders_id, customers_id, shipping_name, shipping_company, shipping_street_address,   shipping_suburb, shipping_city, shipping_postcode, shipping_state, shipping_country, billing_name, billing_company, billing_street_address, billing_suburb, billing_city, billing_postcode, billing_state, billing_country, payment_method,    shipping_method, coupon_code, cc_type, cc_owner, cc_number, cc_expires, cc_cvv, date_purchased, orders_date_closed, orders_status, order_total, order_tax, ipn_id, ip_address) values('".$orders_id."','".$customers_id."','". $shipping_name."','". $shipping_company."','".$shipping_street_address."','". $shipping_suburb."','". $shipping_city."','". $shipping_postcode."','". $shipping_state."','".$shipping_country."','". $billing_name."','". $billing_company."','". $billing_street_address."','".    $billing_suburb."','". $billing_city."','". $billing_postcode."','". $billing_state."','". $billing_country."','".    $payment_method."','". $shipping_method."','". $coupon_code."','". $cc_type."','". $cc_owner."','". $cc_number."','". $cc_expires."','". $cc_cvv."','". $date_purchased."','". $orders_date_closed."','". $orders_status."','". $order_total."','". $order_tax."','". $ipn_id."','". $ip_address.")";			 
-   				$obj=new Bin_Query(); 
-			    $obj->updateQuery($sql);	*/
+		      
 				
 			$customers_id=$_SESSION['user_id'];
 			$orderdetails=$_SESSION['orderdetails'];
-			//print_r($orderdetails);
-
+			
 			$billing_name  =$orderdetails['txtname'];
 			$billing_company  =$orderdetails['txtcompany'];
 			$billing_street_address  =$orderdetails['txtstreet'];
@@ -444,11 +442,11 @@
 			$shipping_country  =$orderdetails['txtscountry'];
 			$billing_state =$orderdetails['txtsstate'];
 			
-			//print_r($_SESSION['orderdetails']);
+			
 			
 			if((((int)$customers_id!=0) || ($customers_id!='')) && ($_SESSION['checkout_amount']!=''))
 			{
-					//$orders_status=1;
+					
 					$sql="insert into orders_table
 					( customers_id, shipping_name, shipping_company, shipping_street_address, 
 					shipping_suburb, shipping_city, shipping_postcode, shipping_state, shipping_country, 
@@ -458,14 +456,13 @@
 					order_tax, ipn_id, ip_address)
 					values
 					('".$customers_id."','".$shipping_name."','".$shipping_company."','".$shipping_street_address."','".$shipping_suburb."','".$shipping_city."','".$shipping_postcode."','".$shipping_state."','".$shipping_country."','".$billing_name."','".$billing_company."','".$billing_street_address."','".$billing_suburb."','".$billing_city."','".$billing_postcode."','".$billing_state."','".$billing_country."','".$payment_method."','".$shipping_method."','".$coupon_code."','".$date_purchased."','".$orders_date_closed."','".$orders_status."','".$order_total."','".$order_tax."','".$ipn_id."','".$ip_address."')";
-					//exit;
-					//exit();
+					
 					$obj=new Bin_Query();
 					if($obj->updateQuery($sql))
 					{
-							//print_r($obj);
+							
 							$orderid=$obj->insertid;
-							//exit();
+							
 							
 							$sql_insert_payment="INSERT INTO payment_transactions_table (payment_gateway_id ,paid_amount ,transaction_id ,transaction_date,order_id) VALUES (".$payment_method.",".$order_total.",'".$ipn_id."','".$trans_date."',".$orderid.")";
 							$obj_insert_payment=new Bin_Query();
@@ -481,8 +478,7 @@
 							$obj4=new Bin_Query();
 							$obj4->executeQuery($sql4);
 							$res4=$obj4->records;
-							//print_r($res4);
-							//if(count($res4)>0)
+							
 							$val=$res4[0]['cart_id'];
 								$cartid=$val;
 							
@@ -526,7 +522,7 @@
 									
 								}
 								$res1=$obj2->records;
-							//	$cartid=$res1[0]['cart_id'];
+							
 								if(count($res)>0)
 								{
 							$sql2="delete from shopping_cart_products_table where cart_id = ".$cartid;				
@@ -555,28 +551,30 @@
 			}	
 					
 		}
-		function failure()
-		{
 		
-//		    $userid=
-		}
-		
+		/**
+		* This function is used toget merchant id
+		*
+		* .
+		* 
+		* @return HTML data
+		*/
 		function getMerchantId($gateway)
 		{
-		   $sql="select merchant_id from paymentgateways_table where gateway_name='".$gateway."'";
-		   $obj=new Bin_Query();
-		   $obj->executeQuery($sql);
-		   
-		   
-		   if(((int)$obj->totrows)>0)
-		   {
-		       $rec=$obj->records[0]['merchant_id'];
-		       return $rec;
-		   }
-		   else
-		   {
-		      return 'No Merchant id was found on this '.$gateway.' Payment Gateway ';
-		   }
+			$sql="select merchant_id from paymentgateways_table where gateway_name='".$gateway."'";
+			$obj=new Bin_Query();
+			$obj->executeQuery($sql);
+			
+			
+			if(((int)$obj->totrows)>0)
+			{
+			$rec=$obj->records[0]['merchant_id'];
+			return $rec;
+			}
+			else
+			{
+			return 'No Merchant id was found on this '.$gateway.' Payment Gateway ';
+			}
 		}
 		
 }

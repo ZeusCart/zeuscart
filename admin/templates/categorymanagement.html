@@ -1,14 +1,14 @@
 <AJDF:output>
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -97,7 +97,7 @@ function callContent(value)
 			<table width="67%" border="0" style="display:none" id='subChild'>
 			  <tr>
 				<td width="25%" align="left" nowrap="nowrap">Select Child : </td>
-				<td width="75%" style="padding-left:110px"><span id="subchildcontent"></span></td>
+				<td width="75%" style="padding-left:115px"><span id="subchildcontent"></span></td>
 			  </tr>
 			</table>
 
@@ -230,14 +230,15 @@ function callContent(value)
 	
 	function callChild()
 	{
-		//alert(';');
+
+
 		//toggle('ParentContainer', 'ParentContainer'); 
 		var contd = document.getElementById("ParentContainer");
 		$(contd).slideDown(1000);
 			
 		document.getElementById('attribContainer').style.display='';
 		document.getElementById('ImageContainer').style.display='';
-		document.getElementById('subchildcontent').style.display='none';
+		document.getElementById('subchildcontent').innerHTML='';
 		document.getElementById('subParent').style.display='none';
 		document.getElementById('lcontents').style.display='none'
 	}
@@ -252,7 +253,7 @@ function callContent(value)
 		document.getElementById('attribContainer').style.display='none';
 		document.getElementById('ImageContainer').style.display='none';
 		document.getElementById('subParent').style.display='none';
-		document.getElementById('subchildcontent').style.display='none';
+		document.getElementById('subchildcontent').innerHTML='';
 		document.getElementById('lcontents').style.display='block'
 	}
 
@@ -271,7 +272,9 @@ function callContent(value)
 
 	function callsubChild(parentid)
 	{
+		
 
+		document.getElementById('subchildcontent').innerHTML='';
 		var contd = document.getElementById("subChild");
 		$(contd).slideDown(1000);
 		$.ajax({
@@ -279,8 +282,9 @@ function callContent(value)
 		url: "?do=managecategory&action=selectsubchild",
 		data: "parentid="+parentid,
 		success: function(result){
+		document.getElementById('ParentContainer').style.display='none'; 
 		document.getElementById('subchildcontent').innerHTML=result;
-		
+		document.getElementById('subchildcontent').style.display='block';
 		}
 		});
 

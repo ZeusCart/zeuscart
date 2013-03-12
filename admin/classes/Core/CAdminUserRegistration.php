@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,20 +19,17 @@
 *
 */
 
+
 /**
- * CAdminUserRegistration
- *
  * This class contains functions to display the user details from the users_table. 
  *
- * @package		Core_CAdminUserRegistration
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_CAdminUserRegistration
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
 
 
 class Core_CAdminUserRegistration
@@ -317,289 +314,289 @@ class Core_CAdminUserRegistration
 		
    }
    
-   /**
+  	 /**
 	 * Function updates (inactive) the user status in the users_table. 
 	 * 
 	 * 
 	 * @return string
 	 */		
    
-   function denyAccount()
-   {
-		$userid = $_GET['id'];
-		$sqldeny = "update users_table set user_status=0 where user_id=".$userid;
-		$obj = new Bin_Query();
-		if($obj->updateQuery($sqldeny))
-			$output = '<div class="success_msgbox">Successfully Inactivated </div>';
-		else
-			$output = "Not Denied";
+	function denyAccount()
+	{
+			$userid = $_GET['id'];
+			$sqldeny = "update users_table set user_status=0 where user_id=".$userid;
+			$obj = new Bin_Query();
+			if($obj->updateQuery($sqldeny))
+				$output = '<div class="success_msgbox">Successfully Inactivated </div>';
+			else
+				$output = "Not Denied";
+				
+			//$output .= $this->showAccount();
 			
-		//$output .= $this->showAccount();
-		
-		return $output;
-		
-   }
+			return $output;
+			
+	}
    	
 	 /**
 	 * Function gets the details of the user account from the users_table. 
-	 * 
+	 * @param array $Err contains both error messages and error values
 	 * 
 	 * @return string
 	 */		
    
-    function editAccount($Err)
-    {
-   		$userid = $_GET['id'];
-		if(count($Err->messages) > 0)
-		{
-			 $output['val']['id'] = $userid;
-			 $output['val'] = $Err->values;
-			 $output['msg'] = $Err->messages;
-		}
-		else
-		{
-			$sqlselect = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table where user_id=".$userid;
-			
-			$obj = new Bin_Query();
-			if($obj->executeQuery($sqlselect))
+	function editAccount($Err)
+	{
+			$userid = $_GET['id'];
+			if(count($Err->messages) > 0)
 			{
 				$output['val']['id'] = $userid;
-				$output['val']['disname'] = $obj->records[0]['user_display_name'];
-				$output['val']['fname'] = $obj->records[0]['user_fname'];
-				$output['val']['lname'] = $obj->records[0]['user_lname'];
-				$output['val']['txtemail'] = $obj->records[0]['user_email'];
-				//$output['val']['msg'] = '<div class="success_msgbox">Updated Successfully</div>';
+				$output['val'] = $Err->values;
+				$output['msg'] = $Err->messages;
 			}
 			else
-				$output = "No Record Found";
-		}
-		return $output;
-		
-   }
+			{
+				$sqlselect = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table where user_id=".$userid;
+				
+				$obj = new Bin_Query();
+				if($obj->executeQuery($sqlselect))
+				{
+					$output['val']['id'] = $userid;
+					$output['val']['disname'] = $obj->records[0]['user_display_name'];
+					$output['val']['fname'] = $obj->records[0]['user_fname'];
+					$output['val']['lname'] = $obj->records[0]['user_lname'];
+					$output['val']['txtemail'] = $obj->records[0]['user_email'];
+					//$output['val']['msg'] = '<div class="success_msgbox">Updated Successfully</div>';
+				}
+				else
+					$output = "No Record Found";
+			}
+			return $output;
+			
+	}
    
-   /**
+  	 /**
 	 * Function updates the changes made in the user account into the users_table. 
 	 * 
 	 * 
 	 * @return string
 	 */		
    
-   function updateAccount()
-   {
-	   	if($_GET['id'] != '')
-			$userid = $_GET['id'];
-		else if($_POST['id'] != '')
-			$userid = $_POST['id'];
-	
-		$sqlupdate ="update users_table set user_display_name ='".$_POST['disname']."',user_fname='".$_POST['fname'].             			"',user_lname='" .$_POST['lname']."',user_email='".$_POST['txtemail']."' where user_id=".$userid;
-		$obj = new Bin_Query();
+	function updateAccount()
+	{
+			if($_GET['id'] != '')
+				$userid = $_GET['id'];
+			else if($_POST['id'] != '')
+				$userid = $_POST['id'];
 		
-		if($obj->updateQuery($sqlupdate))
-			$output = '<div class="success_msgbox">Successfully Updated</div>';
-		else
-			$output = "Not Updated";
-		
-		//$output = $this->showAccount();
-		return $output;
-		
-   }
+			$sqlupdate ="update users_table set user_display_name ='".$_POST['disname']."',user_fname='".$_POST['fname'].             			"',user_lname='" .$_POST['lname']."',user_email='".$_POST['txtemail']."' where user_id=".$userid;
+			$obj = new Bin_Query();
+			
+			if($obj->updateQuery($sqlupdate))
+				$output = '<div class="success_msgbox">Successfully Updated</div>';
+			else
+				$output = "Not Updated";
+			
+			//$output = $this->showAccount();
+			return $output;
+			
+	}
    	
 	
 	 /**
 	 * Function generates a report in the file format. 
-	 * 
+	 * @param array  $sql
 	 * 
 	 * @return file
 	 */		
 	
-   function createReport($sql)
-   {
-   		
-		if($_POST['export'] =='excel')
-		{			
-			include("classes/Lib/excelwriter.inc.php");   
-			$excel=new ExcelWriter("User_Detail.xls");
+	function createReport($sql)
+	{
 			
-			if($excel==false)	
-				echo $excel->error;
-			$myArr=array("No","First Name","Last Name","Display Name","Email");
-			$excel->writeLine($myArr);
-			 $j=1;
-			$sql ='select user_fname,user_lname,user_display_name,user_email,user_doj from users_table';
-			$obj = new Bin_Query();
-			if($obj->executeQuery($sql))
-			{
-				$cnt=count($obj->records);
-				for($i=0;$i<$cnt;$i++)
-				{
-					$first_name = $obj->records[$i]['user_fname'];
-					$last_name = $obj->records[$i]['user_lname'];
-					$display_name = $obj->records[$i]['user_display_name'];
-					$email = $obj->records[$i]['user_email'];
-					//$doj =  $obj->records[$i]['user_doj'];
-					
-					$excel->writeRow();
-					$excel->writeCol($j);
-					$excel->writeCol($first_name );
-					$excel->writeCol($last_name);
-					$excel->writeCol($display_name);
-					$excel->writeCol($email);
-					//$excel->writeCol($doj);
-					$j++;
-				}
-				$excel->close();
-			}
-			if(strpos($_SERVER['USER'],'MSIE'))
-			{
-				// IE cannot download from sessions without a cache
-				header('Cache-Control: public');
-			}
-			else
-			{
-				//header("Cache-Control: no-cache, must-revalidate");
-				header("Cache-Control: no-cache");
-			}
-			$file="User_Detail.xls";
-			//chmod ($file, 0755);
-			header("Pragma: no-cache");
-			header("Content-Type: php/doc/xml/html/htm/asp/jpg/JPG/sql/txt/jpeg/gif/bmp/png/xls/csv/x-ms-asf\n");
-			header("Connection: close");
-			header("Content-Disposition: attachment; filename=".$file."\n");
-			header("Content-Transfer-Encoding: binary\n");
-			header("Content-length: ".(string)(filesize("$file")));
-			$fd=fopen($file,"rb");
-			fpassthru($fd);	
-		
-			}
-			else if($_POST['export'] =='xml')
-			{
-				$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
+			if($_POST['export'] =='excel')
+			{			
+				include("classes/Lib/excelwriter.inc.php");   
+				$excel=new ExcelWriter("User_Detail.xls");
+				
+				if($excel==false)	
+					echo $excel->error;
+				$myArr=array("No","First Name","Last Name","Display Name","Email");
+				$excel->writeLine($myArr);
+				$j=1;
+				$sql ='select user_fname,user_lname,user_display_name,user_email,user_doj from users_table';
 				$obj = new Bin_Query();
-				if($obj->executeQuery($sqlselect))
+				if($obj->executeQuery($sql))
+				{
+					$cnt=count($obj->records);
+					for($i=0;$i<$cnt;$i++)
 					{
-						header("Content-Type: text/xml");
-						header("Pragma: public");
-						header("Expires: 0");
-						header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-						header("Content-Type: xml/force-download");
-						header("Content-Type: xml/octet-stream");
-						header("Content-Type: xml/download");
-						header("Content-Disposition: attachment;filename=user_report.xml"); 
-						header("Content-Transfer-Encoding: binary ");
-						echo("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
-						echo("<userdetails>\n");
+						$first_name = $obj->records[$i]['user_fname'];
+						$last_name = $obj->records[$i]['user_lname'];
+						$display_name = $obj->records[$i]['user_display_name'];
+						$email = $obj->records[$i]['user_email'];
+						//$doj =  $obj->records[$i]['user_doj'];
+						
+						$excel->writeRow();
+						$excel->writeCol($j);
+						$excel->writeCol($first_name );
+						$excel->writeCol($last_name);
+						$excel->writeCol($display_name);
+						$excel->writeCol($email);
+						//$excel->writeCol($doj);
+						$j++;
+					}
+					$excel->close();
+				}
+				if(strpos($_SERVER['USER'],'MSIE'))
+				{
+					// IE cannot download from sessions without a cache
+					header('Cache-Control: public');
+				}
+				else
+				{
+					//header("Cache-Control: no-cache, must-revalidate");
+					header("Cache-Control: no-cache");
+				}
+				$file="User_Detail.xls";
+				//chmod ($file, 0755);
+				header("Pragma: no-cache");
+				header("Content-Type: php/doc/xml/html/htm/asp/jpg/JPG/sql/txt/jpeg/gif/bmp/png/xls/csv/x-ms-asf\n");
+				header("Connection: close");
+				header("Content-Disposition: attachment; filename=".$file."\n");
+				header("Content-Transfer-Encoding: binary\n");
+				header("Content-length: ".(string)(filesize("$file")));
+				$fd=fopen($file,"rb");
+				fpassthru($fd);	
+			
+				}
+				else if($_POST['export'] =='xml')
+				{
+					$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
+					$obj = new Bin_Query();
+					if($obj->executeQuery($sqlselect))
+						{
+							header("Content-Type: text/xml");
+							header("Pragma: public");
+							header("Expires: 0");
+							header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+							header("Content-Type: xml/force-download");
+							header("Content-Type: xml/octet-stream");
+							header("Content-Type: xml/download");
+							header("Content-Disposition: attachment;filename=user_report.xml"); 
+							header("Content-Transfer-Encoding: binary ");
+							echo("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+							echo("<userdetails>\n");
+							$count=count($obj->records);
+							for($i=0;$i<$count;$i++)
+							{							
+								echo ("<userid>".$obj->records[$i]['user_id']."</userid>\n");
+								echo ("<firstname>". $obj->records[$i]['user_fname'] ."</firstname>\n");
+								echo ("<lastname>". $obj->records[$i]['user_lname'] ."</lastname>\n");
+								echo ("<displayname>". $obj->records[$i]['user_display_name'] ."</displayname>\n");
+								echo ("<email>". $obj->records[$i]['user_email'] ."</email>\n");
+								echo ("<userdoj>". $obj->records[$i]['user_doj'] ."</userdoj>\n");
+							}
+							echo("</userdetails>\n");
+							exit();
+					}
+				}
+				
+				else if($_POST['export'] =='csv')
+				{
+						$csv_terminated = "\n";
+						$csv_separator = ",";
+						$csv_enclosed = '"';
+						$csv_escaped = "\\";
+					$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
+					$obj = new Bin_Query();
+					if($obj->executeQuery($sqlselect))
+					{
+							$schema_insert = '';
+							$schema_insert  .= $csv_enclosed.No.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.FirstName.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.LastName.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.DisplayName.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.Email.$csv_enclosed.$csv_separator;
+							$schema_insert  .= $csv_enclosed.DateofJoin.$csv_enclosed;
+							
 						$count=count($obj->records);
-						for($i=0;$i<$count;$i++)
-						{							
-							echo ("<userid>".$obj->records[$i]['user_id']."</userid>\n");
-							echo ("<firstname>". $obj->records[$i]['user_fname'] ."</firstname>\n");
-							echo ("<lastname>". $obj->records[$i]['user_lname'] ."</lastname>\n");
-							echo ("<displayname>". $obj->records[$i]['user_display_name'] ."</displayname>\n");
-							echo ("<email>". $obj->records[$i]['user_email'] ."</email>\n");
-							echo ("<userdoj>". $obj->records[$i]['user_doj'] ."</userdoj>\n");
-						}
-						echo("</userdetails>\n");
-						exit();
-				   }
-			  }
-			  
-			  else if($_POST['export'] =='csv')
-			  {
-					$csv_terminated = "\n";
-					$csv_separator = ",";
-					$csv_enclosed = '"';
-					$csv_escaped = "\\";
-				   $sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
-				   $obj = new Bin_Query();
-				   if($obj->executeQuery($sqlselect))
-				   {
-						$schema_insert = '';
-						$schema_insert  .= $csv_enclosed.No.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.FirstName.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.LastName.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.DisplayName.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.Email.$csv_enclosed.$csv_separator;
-						$schema_insert  .= $csv_enclosed.DateofJoin.$csv_enclosed;
-						
-					   $count=count($obj->records);
-						for ($i = 0; $i < $count; $i++)
-						{
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['user_id']. $csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed.$obj->records[$i]['user_fname'].$csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['user_lname'].$csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['user_display_name'].$csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['user_email'].$csv_enclosed.$csv_separator;
-							$schema_insert .= $csv_enclosed .$obj->records[$i]['user_doj'].$csv_enclosed;
-						}
-						$out .= $schema_insert;
-						$out .= $csv_terminated;
-				 }
-					header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-					header("Content-Length: " . strlen($out));
-					// Output to browser with appropriate mime type, you choose ;)
-					header("Content-type: text/x-csv");
-					//header("Content-type: text/csv");
-					//header("Content-type: application/csv");
-					header("Content-Disposition: attachment; filename=user_report.csv");
-					echo $out;
-					exit;
-					 
-			  }
-			  
-			  else if($_POST['export'] =='tab')
-			  {
-					$tab_terminated = "\n";
-					$tab_separator = "->";
-					$tab_enclosed = '"';
-					$tab_escaped = "\\";
-				   $sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
-				   $obj = new Bin_Query();
-				   if($obj->executeQuery($sqlselect))
-				   {
-						$schema_insert = '';
-						$schema_insert  .= $tab_enclosed.No.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.FirstName.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.LastName.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.DisplayName.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.Email.$tab_enclosed.$tab_separator;
-						$schema_insert  .= $tab_enclosed.DateofJoin.$tab_enclosed;
-						
-					   $count=count($obj->records);
-						for ($i = 0; $i < $count; $i++)
-						{
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['user_id']. $tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed.$obj->records[$i]['user_fname'].$tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['user_lname'].$tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['user_display_name'].$tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['user_email'].$tab_enclosed.$tab_separator;
-							$schema_insert .= $tab_enclosed .$obj->records[$i]['user_doj'].$tab_enclosed;
-						}
-						$out .= $schema_insert;
-						$out .= $tab_terminated;
-				 }
-					/*header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-					header("Content-Length: " . strlen($out));
-					// Output to browser with appropriate mime type, you choose ;)
-					header("Content-type: application/tab");
-					//header("Content-type: text/csv");
-					//header("Content-type: application/csv");
-					header("Content-Disposition: attachment; filename=user_report.tab");*/
-					
-					header("Pragma: public");
-						header("Expires: 0");
+							for ($i = 0; $i < $count; $i++)
+							{
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_id']. $csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed.$obj->records[$i]['user_fname'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_lname'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_display_name'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_email'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_doj'].$csv_enclosed;
+							}
+							$out .= $schema_insert;
+							$out .= $csv_terminated;
+					}
 						header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 						header("Content-Length: " . strlen($out));
-						header("Content-Type: tab/force-download");
-						header("Content-Type: tab/octet-stream");
-						header("Content-Type: tab/download");
-						header("Content-Disposition: attachment;filename=user_report.tab"); 
-						header("Content-Transfer-Encoding: binary ");
-					
-					echo $out;
-					exit;
-					 
-			  }				
-    }
+						// Output to browser with appropriate mime type, you choose ;)
+						header("Content-type: text/x-csv");
+						//header("Content-type: text/csv");
+						//header("Content-type: application/csv");
+						header("Content-Disposition: attachment; filename=user_report.csv");
+						echo $out;
+						exit;
+						
+				}
+				
+				else if($_POST['export'] =='tab')
+				{
+						$tab_terminated = "\n";
+						$tab_separator = "->";
+						$tab_enclosed = '"';
+						$tab_escaped = "\\";
+					$sqlselect = "select user_id,user_fname,user_lname,user_display_name,user_email,user_doj from users_table";
+					$obj = new Bin_Query();
+					if($obj->executeQuery($sqlselect))
+					{
+							$schema_insert = '';
+							$schema_insert  .= $tab_enclosed.No.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.FirstName.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.LastName.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.DisplayName.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.Email.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.DateofJoin.$tab_enclosed;
+							
+						$count=count($obj->records);
+							for ($i = 0; $i < $count; $i++)
+							{
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_id']. $tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed.$obj->records[$i]['user_fname'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_lname'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_display_name'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_email'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_doj'].$tab_enclosed;
+							}
+							$out .= $schema_insert;
+							$out .= $tab_terminated;
+					}
+						/*header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+						header("Content-Length: " . strlen($out));
+						// Output to browser with appropriate mime type, you choose ;)
+						header("Content-type: application/tab");
+						//header("Content-type: text/csv");
+						//header("Content-type: application/csv");
+						header("Content-Disposition: attachment; filename=user_report.tab");*/
+						
+						header("Pragma: public");
+							header("Expires: 0");
+							header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+							header("Content-Length: " . strlen($out));
+							header("Content-Type: tab/force-download");
+							header("Content-Type: tab/octet-stream");
+							header("Content-Type: tab/download");
+							header("Content-Disposition: attachment;filename=user_report.tab"); 
+							header("Content-Transfer-Encoding: binary ");
+						
+						echo $out;
+						exit;
+						
+				}				
+	}
 	
 	 /**
 	 * Function create a new user account in the users_table. 
@@ -809,6 +806,11 @@ class Core_CAdminUserRegistration
 		}
 					
 	}
+	/**
+	 * Function is user to get the  country list from db
+	 * @param array $arr1
+	 * @return xml
+	 */
 	function getCountry($arr1)
 	{
 		$query = new Bin_Query(); 

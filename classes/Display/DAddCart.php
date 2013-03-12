@@ -3,14 +3,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,15 +20,26 @@
 *
 */
 
+
+/**
+ * Add to cart  related  class
+ *
+ * @package   		Display_DAddCart
+ * @category    	Display
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
+
+
 class Display_DAddCart 
 {
 	/**
 	 * This function is used to show the cart item.
-	 *
+	 * @name showCart
 	 * @param   array  	$arr	    array of items
 	 * @param   array  	$result      array of country
-	 * 
-	 *
 	 * @return HTML data
 	 */	
 	function showCart($arr,$result)
@@ -150,7 +161,7 @@ class Display_DAddCart
 	
 	/**
 	 * This function is used to show the cart snap shot
-	 *
+	 * @name cartSnapShot
 	 * @param   int  	$grandtotal	   total amount
 	 * @param   int  	$cnt              count of item
 	 * 
@@ -169,7 +180,7 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the country drop down
-	 *
+	 * @name loadCountryDropDown
 	 * @param   array  	$result	      array of country
 	 * @param   string  	$name         name of the select box
 	 * @param    string     $selected      selected country code
@@ -197,8 +208,7 @@ class Display_DAddCart
 
 	/**
 	 * This function is used to show the cart snap shot if no item found
-	 *
-	 
+	 * @name cartSnapShotElse
 	 *
 	 * @return HTML data
 	 */
@@ -211,7 +221,7 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the quick registration
-	 *
+	 * @name showQuickRegistration
 	 * @param   array  	$result	
 	 * @param   object    $err    contains both error messages and values 
 	 *
@@ -221,8 +231,7 @@ class Display_DAddCart
 	function showQuickRegistration($result,$err)
 	{		
 	
-	
-	 $output='<div class="row-fluid">
+	       $output='<div class="row-fluid">
         	<ul class="steps">
 
 			<li class="act"><a href="#"><span>1. Email Login</span></a></li>		
@@ -276,7 +285,7 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the PaymentPageForAuthorizenet
-	 *
+	 * @name showPaymentPageForAuthorizenet
 	 *
 	 * @return HTML data
 	 */
@@ -374,7 +383,7 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to showPaymentPageForBluepay
-	 *
+	 * @name showPaymentPageForAuthorizenet
 	 *
 	 * @return HTML data
 	 */
@@ -525,8 +534,8 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to showPaymentPageForWorldPay
-	 *
-	 *
+	 * @name showPaymentPageForWorldPay
+	 * @param   array  	$arr	
 	 * @return HTML data
 	 */
 	
@@ -621,8 +630,8 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to showPaymentPageFor2Checkout
-	 *
-	 *
+	 * @name showPaymentPageFor2Checkout
+	 * @param $arr array
 	 * @return HTML data
 	 */
 	function showPaymentPageFor2Checkout($arr)
@@ -713,10 +722,10 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the Billing address.
-	 *
+	 * @name showBillingDetails
 	 * @param   array  	$records	array of address
-	 * @param   array  	$result	        array of country 
-	 * @param   object  Err   contains both error messages and values
+	 * @param   array       $result	        array of country 
+	 * @param   object      $Err             contains both error messages and values
 	 *
 	 * @return HTML data
 	 */	
@@ -854,10 +863,10 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the shipping address.
-	 *
+	 * @name showShippingDetails
 	 * @param   array  	$records	array of address
 	 * @param   array  	$result	        array of country 
-	 * @param   object  Err   contains both error messages and values
+	 * @param   object      $Err            contains both error messages and values
 	 *
 	 * @return HTML data
 	 */	
@@ -992,6 +1001,13 @@ class Display_DAddCart
 		
 		return $output;
 	}
+	/**
+	 * This function is used to show the shipping method.
+	 * @name showShippingMethod
+	 *
+	 *
+	 * @return HTML data
+	 */
 	function showShippingMethod()
 	{
 		$output='<div class="row-fluid">
@@ -1161,439 +1177,20 @@ class Display_DAddCart
 		return $output;
 
 	}
-	function showShippingDetails_new($result,$output,$addrbook,$addrbookshipping)
-	{
-		
-		
-		
-		if($Err->messages>0)
-		{
-			$output['val']=$Err->values;
-			$output['msg']=$Err->messages;
-		}
-		//print_r($output['val']);
-				
-		
-
-		$obj=new Display_DAddCart();
-		$res=$obj->loadCountryDropDown($result,'selbillcountry',$output['val']['selbillcountry']);
-		$resship=$obj->loadCountryDropDown($result,'selshipcountry',$output['val']['selshipcountry']);
-
-		$output='<div id="detail"><form name="frmship" method="post" action="?do=showcart&action=showorderconfirmation">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="roundbox_top" ></td>
-  </tr>
-  <tr>
-    <td valign="top" class="detailBG"><div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="100%" colspan="2" class="serachresult">Your Shopping Cart</td>
-    </tr>
-  
-  <tr>
-    <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>
-		<div class="checkout_tab2">Account Details</div>
-		<div class="checkout_tab1">Address Details</div>
-		<div class="checkout_tab2">Order Confirmation</div>
-
-		<div class="checkout_tab2">Payment Details</div>
-		</td>
-      </tr>
-	  
-      <tr>
-        <td valign="top" style="border:#CCCCCC 1px solid; padding:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr><td class="checkout_rigistration"><table class="checkout_rigistration"><tr><td>Billing Address</td></tr></table></td></tr>
-          <tr><td class="checkout_rigistration"><table class="checkout_rigistration" border=0 width="100%"><tr><td><input type="radio" name="addressbook" onClick="document.getElementById(\'addressbook\').style.display=\'block\';document.getElementById(\'billingentry\').style.display=\'none\';"></td><td><div>Use Address From Address Book</div></td><td><input type="radio" name="addressbook" onClick=" window.open(\'?do=showcart&action=addnewaddressfromshipping\',\'a\',\'height=529,width=490,menubar=0,status=0,toolbar=0,scrollbars=0,location=0,minimize=0,resizable=0\');document.getElementById(\'addressbook\').style.display=\'none\';document.getElementById(\'billingentry\').style.display=\'block\';clearBillingValues();"></td><td><div>Use A New Address</div></td></tr></table></td></tr>
-		  <tr>
-            <td align="left" valign="top">
-			<table width="80%"  border="0" cellspacing="0" cellpadding="0" class="" id="addressbook" style="display:none">
-                <tr>
-                  <td colspan="3">
-				  	<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-                    	<!--<tr>
-                		  <td><table class="checkout_rigistration"><tr><td>Billing Address</td></tr></table></td>
-               			</tr>-->
-						<tr>
-                      		<td valign="top"><div>'.$addrbook.'</div></td>
-						</tr>
-					</table>
-				  </td>
-                </tr>
-             	 <tr>
-                  <td colspan="3"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="checkout_rigistration">
-                   <!-- <tr>
-                      <td valign="top"><div>
-                          <input type="checkbox" name="chkall2" id="chkall2" value="checkbox" onClick="javascript:getValues();" />
-                        Use Billing Address as Shipping Address </div></td>
-                    </tr>-->
-            </table></td>
-                </tr>
-            </table>
-			
-			<table width="80%" border="0" cellspacing="0" cellpadding="0" class="checkout_rigistration" id="billingentry" style="display:block">
-                <tr>
-                  <td><!--Billing Address--></td>
-                  <td>&nbsp;</td>
-                  <td><span class="checkout_required" style="padding-left:200px;">* Required Fields</span></td>
-                </tr>
-                <tr>
-                  <td width="26%">Name <span>*</span></td>
-                  <td width="4%">:</td>
-                  <td width="70%"><input name="txtname" type="text" class="txtbox1 w4 TxtC1" id="txtname" value="'.$output["val"]["txtname"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtname"].'</span></td>
-                </tr>
-                
-                <tr>
-                  <td>Company</td>
-                  <td>:</td>
-                  <td><input name="txtcompany" type="text" class="txtbox1 w4 TxtC1" id="txtcompany" value="'.$output["val"]["txtcompany"].'" /></td>
-                </tr>
-                <tr>
-                  <td>Address <span>*</span></td>
-                  <td>:</td>
-                  <td><input name="txtstreet" type="text" class="txtbox1 w4 TxtC1" id="txtstreet" value="'.$output["val"]["txtstreet"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtstreet"].'</span></td>
-                </tr>
-                <tr>
-                  <td>City <span>*</span></td>
-                  <td>:</td>
-                  <td><input name="txtcity" type="text" class="txtbox1 w4 TxtC1" id="txtcity" value="'.$output["val"]["txtcity"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtcity"].'</span></td>
-                </tr>
-				 <tr>
-                  <td>SubUrb <span><!--*--></span></td>
-                  <td>:</td>
-                  <td><input name="txtsuburb" type="text" class="txtbox1 w4 TxtC1" id="txtsuburb" value="'.$output["val"]["txtsuburb"].'"/></td>
-                </tr>
-                <tr>
-                  <td>State/Province <span>*</span></td>
-                  <td>:</td>
-                  <td><input name="txtstate" type="text" class="txtbox1 w4 TxtC1" id="txtstate" value="'.$output["val"]["txtstate"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtstate"].'</span></td>
-                </tr>
-				<tr>
-                  <td>Country <span>*</span></td>
-                  <td>:</td>
-                  <td>'.$res.'<!--<select name="selbillcountry" id="selbillcountry" class="listbox1 w4a TxtC1">
-                      <option>State / Province</option>
-                  </select>--><span style="color:#FF0000"> '.$output["msg"]["selbillcountry"].'</span></td>
-                </tr>
-                <tr>
-                  <td>Zip/Postal Code <span>*</span></td>
-                  <td>:</td>
-                  <td><input name="txtzipcode" type="text" class="txtbox1 w4 TxtC1" id="txtzipcode" value="'.$output["val"]["txtzipcode"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtzipcode"].'</span></td>
-                </tr>
-                
-               
-               <!-- <tr>
-                  <td colspan="3" style="padding-top:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td valign="top"><div>
-                          <input type="radio" name="chkall1" id="chkall1" value="checkbox" onClick="javascript:getValues();" />
-                        Use Billing Address as Shipping Address </div></td>
-                    </tr>
-                  </table></td>
-                </tr>-->
-
-            </table>			</td>
-          </tr>
-		  <tr><td align="left"><table class="checkout_rigistration"><tr><td>Shipping Address</td></tr></table></td></tr>
-		  <tr>
-		  	<td align="left"><table class="checkout_rigistration" border=0 width="100%"><tr><td><input type="radio" name="ship_addressbook" onClick="document.getElementById(\'shipaddressbook\').style.display=\'none\';document.getElementById(\'shippingentry\').style.display=\'block\';getSameAddress()" value=""></td><td><div>Use Billing Address as Shipping Address</div></td><td><input type="radio" name="ship_addressbook" onClick="document.getElementById(\'shipaddressbook\').style.display=\'block\';document.getElementById(\'shippingentry\').style.display=\'none\';document.frmship.ship_addressbook[0].value=\'\';" value="fromaddressbook"></td><td><div>Use Address From Address Book</div></td><td><input type="radio" name="ship_addressbook" onClick="document.getElementById(\'shipaddressbook\').style.display=\'none\';document.getElementById(\'shippingentry\').style.display=\'block\';document.frmship.ship_addressbook[0].value=\'\';clearShippingValues();" value="new" checked="checked"></td><td><div>Use A New Address</div></td></tr></table>
-			</td>
-		  </tr>
-          <tr>
-            <td align="left"><table width="80%"  border="0" cellspacing="0" cellpadding="0" class="" id="shipaddressbook" style="display:none">
-                <tr>
-                  <td colspan="3">
-				  	<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-                    	<!--<tr>
-                		  <td><table class="checkout_rigistration"><tr><td>Billing Address</td></tr></table></td>
-               			</tr>-->
-						<tr>
-                      		<td valign="top"><div>'.$addrbookshipping.'</div></td>
-						</tr>
-					</table>
-				  </td>
-                </tr>
-             	 <tr>
-                  <td colspan="3"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="checkout_rigistration">
-                   <!-- <tr>
-                      <td valign="top"><div>
-                          <input type="checkbox" name="chkall2" id="chkall2" value="checkbox" onClick="javascript:getValues();" />
-                        Use Billing Address as Shipping Address </div></td>
-                    </tr>-->
-            </table></td>
-                </tr>
-            </table><table width="80%" border="0" cellspacing="0" cellpadding="0" class="checkout_rigistration" id="shippingentry">
-              <tr>
-                <td><!--Shipping Address--></td>
-                <td>&nbsp;</td>
-                <td style="padding-left:200px;"><span class="checkout_required">* Required Fields</span></td>
-              </tr>
-              <tr>
-                <td width="26%">Name <span>*</span></td>
-                <td width="4%">:</td>
-                <td width="70%"><input name="txtsname" type="text" class="txtbox1 w4 TxtC1" id="txtsname" value="'.$output["val"]["txtsname"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtsname"].'</span></td>
-              </tr>
-              
-              <tr>
-                <td>Company</td>
-                <td>:</td>
-                <td><input name="txtscompany" type="text" class="txtbox1 w4 TxtC1" id="txtscompany" value="'.$output["val"]["txtscompany"].'"/></td>
-              </tr>
-              <tr>
-                <td>Address <span>*</span></td>
-                <td>:</td>
-                <td><input name="txtsstreet" type="text" class="txtbox1 w4 TxtC1" id="txtsstreet" value="'.$output["val"]["txtsstreet"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtsstreet"].'</span></td>
-              </tr>
-              <tr>
-                <td>City <span>*</span></td>
-                <td>:</td>
-                <td><input name="txtscity" type="text" class="txtbox1 w4 TxtC1" id="txtscity" value="'.$output["val"]["txtscity"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtscity"].'</span></td>
-              </tr>
-			   <tr>
-                <td>SubUrb <span><!--*--></span></td>
-                <td>:</td>
-                <td><input name="txtssuburb" type="text" class="txtbox1 w4 TxtC1" id="txtssuburb" value="'.$output["val"]["txtssuburb"].'"/></td>
-              </tr>
-              <tr>
-                <td>State/Province <span>*</span></td>
-                <td>:</td>
-                <td><input name="txtsstate" type="text" class="txtbox1 w4 TxtC1" id="txtsstate" value="'.$output["val"]["txtsstate"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtsstate"].'</span></td>
-              </tr>
-              
-              <tr>
-                <td>Country <span>*</span></td>
-                <td>:</td>
-                <td>'.$resship.'<!--<select name="selshipcountry" id="selshipcountry" class="listbox1 w4a TxtC1">
-                    <option>State / Province</option>
-                </select>--><span style="color:#FF0000"> '.$output["msg"]["selshipcountry"].'</span></td>
-              </tr>
-             <tr>
-                <td>Zip/Postal Code <span>*</span></td>
-                <td>:</td>
-                <td><input name="txtszipcode" type="text" class="txtbox1 w4 TxtC1" id="txtszipcode" value="'.$output["val"]["txtszipcode"].'"/><span style="color:#FF0000"> '.$output["msg"]["txtszipcode"].'</span></td>
-              </tr>
-
-            </table>
-			
-			</td>
-          </tr>
-          <tr>
-            <td align="center" class="dot_line"><table width="80%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td align="right"><!--<span class="checkout_required">* Required Fields</span>--><br />
-                      <table border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                          <td align="right" class="button_left" ></td>
-                          <td><input type="submit" name="Submit2" value="Continue" class="button" /></td>
-                          <td class="button_right" ></td>
-                        </tr>
-                    </table></td>
-                </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-    </table></td>
-    </tr>
-  
-</table>
-</div>
-	</td>
-  </tr>
-  <tr>
-    <td class="roundbox_bottom" ></td>
-  </tr>
-</table></form>
-</div><script> 
-			function getValues()
-			{
-			  var bname=document.frmship.txtname;
-			  var bcompany=document.frmship.txtcompany;
-			  var bstreet=document.frmship.txtstreet;
-			  var bcity=document.frmship.txtcity;
-			  var bsuburb=document.frmship.txtsuburb;
-  			  var bzipcode=document.frmship.txtzipcode;	
-   			  
-			  document.frmship.selshipcountry.selectedIndex=document.frmship.selbillcountry.selectedIndex;
-
-			  		  		  
-   			  var bstate=document.frmship.txtstate;			  		  
-			  
-			  
-			  var  sname=document.frmship.txtsname;
-			  var scompany= document.frmship.txtscompany;
-			  var sstreet= document.frmship.txtsstreet;
-			  var scity=document.frmship.txtscity;
-			  var ssuburb=document.frmship.txtssuburb;
-   			  var szipcode=document.frmship.txtszipcode;
-  			  var scountry=document.frmship.selshipcountry;
-
-   			  
-   			  var sstate=document.frmship.txtsstate;			  		  		  
-			  
-			  var chkstatus1=document.frmship.chkall1;
-			  var chkstatus2=document.frmship.chkall2;
-			  //alert(chkstatus1.checked+chkstatus2.checked);
-			  if(chkstatus1.checked || chkstatus2.checked)
-			  {
-				  sname.value=bname.value;
-				  scompany.value=bcompany.value;
-				  sstreet.value=bstreet.value;
-				  scity.value=bcity.value;
-				  ssuburb.value=bsuburb.value;
-				  szipcode.value=bzipcode.value;
-				
-				  sstate.value=bstate.value;
-			  }
-			  else
-			  {
-			      sname.value="";
-				  scompany.value="";
-				  sstreet.value="";
-				  scity.value="";
-				  ssuburb.value="";
-				  szipcode.value="";
-				  scountry.value="";
-				  sstate.value="";
-			  }
-	 
-			}
-			
-			function getSameAddress()
-			{
-			  document.frmship.ship_addressbook[0].value="same";
-			  var bname=document.frmship.txtname;
-			  var bcompany=document.frmship.txtcompany;
-			  var bstreet=document.frmship.txtstreet;
-			  var bcity=document.frmship.txtcity;
-			  var bsuburb=document.frmship.txtsuburb;
-  			  var bzipcode=document.frmship.txtzipcode;	
-   			  
-			  document.frmship.selshipcountry.selectedIndex=document.frmship.selbillcountry.selectedIndex;
-
-			  		  		  
-   			  var bstate=document.frmship.txtstate;			  		  
-			  
-			  
-			  var  sname=document.frmship.txtsname;
-			  var scompany= document.frmship.txtscompany;
-			  var sstreet= document.frmship.txtsstreet;
-			  var scity=document.frmship.txtscity;
-			  var ssuburb=document.frmship.txtssuburb;
-   			  var szipcode=document.frmship.txtszipcode;
-  			  var scountry=document.frmship.selshipcountry;
-
-   			  
-   			  var sstate=document.frmship.txtsstate;			  		  		  
-			  
-			  sname.value=bname.value;
-			  scompany.value=bcompany.value;
-			  sstreet.value=bstreet.value;
-			  scity.value=bcity.value;
-			  ssuburb.value=bsuburb.value;
-			  szipcode.value=bzipcode.value;
-			
-			  sstate.value=bstate.value;
-			  
-	 
-			}
-			
-			function clearShippingValues()
-			{
-			  var bname=document.frmship.txtname;
-			  var bcompany=document.frmship.txtcompany;
-			  var bstreet=document.frmship.txtstreet;
-			  var bcity=document.frmship.txtcity;
-			  var bsuburb=document.frmship.txtsuburb;
-  			  var bzipcode=document.frmship.txtzipcode;	
-   			  
-			  document.frmship.selshipcountry.selectedIndex=document.frmship.selbillcountry.selectedIndex;
-
-			  		  		  
-   			  var bstate=document.frmship.txtstate;			  		  
-			  
-			  
-			  var  sname=document.frmship.txtsname;
-			  var scompany= document.frmship.txtscompany;
-			  var sstreet= document.frmship.txtsstreet;
-			  var scity=document.frmship.txtscity;
-			  var ssuburb=document.frmship.txtssuburb;
-   			  var szipcode=document.frmship.txtszipcode;
-  			  var scountry=document.frmship.selshipcountry;
-
-   			  
-   			  var sstate=document.frmship.txtsstate;			  		  		  
-			  
-			  
-			  sname.value="";
-			  scompany.value="";
-			  sstreet.value="";
-			  scity.value="";
-			  ssuburb.value="";
-			  szipcode.value="";
-			  scountry.value="";
-			  sstate.value="";
-			  
-	 
-			}
-			
-			function clearBillingValues()
-			{
-			 
-			  document.frmship.txtname.value="";
-			  document.frmship.txtcompany.value="";
-			  document.frmship.txtstreet.value="";
-			  document.frmship.txtcity.value="";
-			  document.frmship.txtsuburb.value="";
-  			  document.frmship.txtzipcode.value="";	
-   			  document.frmship.selbillcountry.value="";
-	  		  document.frmship.txtstate.value="";
-			  //alert(document.frmship.ship_addressbook[0].value);
-			  if (document.frmship.ship_addressbook[0].value=="same")
-			  	getSameAddress();			
-			}
-			
-			function getValuesFormAddressBook(str)
-			{
-			  arr=str.split("~");
-			  //alert(arr[0]);
-			  document.frmship.txtname.value=arr[2]+" "+arr[3];
-			  document.frmship.txtcompany.value=arr[4];
-			  document.frmship.txtstreet.value=arr[6];
-			  document.frmship.txtcity.value=arr[7];
-			  document.frmship.txtsuburb.value=arr[8];
-  			  document.frmship.txtzipcode.value=arr[11];	
-   			  document.frmship.selbillcountry.value=arr[10];
-	  		  document.frmship.txtstate.value=arr[9];
-			  //alert(document.frmship.ship_addressbook[0].value);
-			  if (document.frmship.ship_addressbook[0].value=="same")
-			  	getSameAddress();			
-			}
-			function getValuesFormAddressBookForShipping(str)
-			{
-			  arr=str.split("~");
-			  //alert(arr[0]);
-			  document.frmship.txtsname.value=arr[2]+" "+arr[3];
-			  document.frmship.txtscompany.value=arr[4];
-			  document.frmship.txtsstreet.value=arr[6];
-			  document.frmship.txtscity.value=arr[7];
-			  document.frmship.txtssuburb.value=arr[8];
-  			  document.frmship.txtszipcode.value=arr[11];	
-   			  document.frmship.selshipcountry.value=arr[10];
-	  		  document.frmship.txtsstate.value=arr[9];	
-			  
-			 				
-			}
-			</script>';
-		return $output;
-	}
+	
+	/**
+	 * This function is used to show the order confirmation.
+	 * @name showOrderConfirmation
+	 * @param   array  	$arr	     array of items
+	 * @param   array  	$result      array of country
+	 * @param   array  	$taxarray     array of tax
+	 * @param  string 	$message      
+	 *
+	 * @return HTML data
+	 */	
 	function showOrderConfirmation($arr,$result,$taxarray,$message='')
 	{
-		//echo "<pre>";
-		//print_r($arr);
-		//exit();
-	 		 
+		
 	  $out='<div class="row-fluid">
         	<ul class="steps">
 
@@ -1683,8 +1280,14 @@ class Display_DAddCart
 	
 	
 	}
-	
-	function displayPaymentGateways($arr,$domain)
+	/**
+	 * This function is used to show the order confirmation.
+	 * @name displayPaymentGateways
+	 * @param   array  	$arr	     array of items
+	 *
+	 * @return HTML data
+	 */
+	function displayPaymentGateways($arr)
 	{
 	
 		
@@ -1726,7 +1329,14 @@ class Display_DAddCart
           </div>';
 		return $output;
 	}
-	
+	/**
+	 * This function is used to show the order confirmation.
+	 * @name getPaymentGatewayForms
+	 * @param   array  	$arr	     array of records
+	 * @param   string  	$domain	     domain name
+	 *
+	 * @return HTML data
+	 */
 	function getPaymentGatewayForms($arr,$domain)
 	{
 		

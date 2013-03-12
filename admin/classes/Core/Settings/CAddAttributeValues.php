@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,21 +19,17 @@
 *
 */
 
+
 /**
- * CAddAttributeValues
+ * This class contains functions to show and update the attribute values
  *
- * This class contains functions to show and update the attribute values 
- *
- * @package		Core_Settings_CAddAttributeValues
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Settings_CAddAttributeValues
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
-
 
 class Core_Settings_CAddAttributeValues 
 {
@@ -68,8 +64,8 @@ class Core_Settings_CAddAttributeValues
 	 */
 	
 	
-	function showAttributeValues()
-    {
+	   function showAttributeValues()
+       {
        	
 		$pagesize=25;
 	  	if(isset($_GET['page']))
@@ -180,14 +176,12 @@ class Core_Settings_CAddAttributeValues
 	
 	function editAttributeValues()
 	{
-	//print_r($_GET);
-	//print_r($_POST);
-	//echo 's';
+	
 		$sql = "UPDATE attribute_value_table SET attrib_value = '".$_POST['attributevalues']."' WHERE attrib_value_id =".(int)$_GET['id'];
 			
 		$query = new Bin_Query();
 		if($query->updateQuery($sql))
-			//echo "called";
+		
 		return '<div class="success_msgbox">Attribute Value <b> '.$_POST['attributevalues'].'</b> Updated Successfully</div>';
 		
 	}
@@ -202,11 +196,11 @@ class Core_Settings_CAddAttributeValues
 	
 	function deleteAttributeValues()
 	{
-			//print_r($_GET);
+		
 			$sql = "DELETE FROM attribute_value_table WHERE attrib_value_id=".(int)$_GET['id'];
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
-			//echo "called";
+		
 			return '<div class="success_msgbox">Deleted Successfully</div>';
 	}	
 	

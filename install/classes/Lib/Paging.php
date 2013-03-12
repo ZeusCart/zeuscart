@@ -15,8 +15,7 @@ class Lib_Paging
 	
 	function doClassicPaging($par = array(),$cssstyle)
 	{
-	//   print_r($par);exit;
-//	   echo $cssstyle;exit;
+
 		if(count($par)>0)
 		{
 			

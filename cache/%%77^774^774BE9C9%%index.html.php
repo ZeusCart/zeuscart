@@ -1,11 +1,12 @@
 <?php 
- ob_start(); ?><?php /* Smarty version 2.6.19, created on 2013-03-06 10:51:30
+ ob_start(); ?><?php /* Smarty version 2.6.19, created on 2013-03-11 10:20:46
 compiled from index.html */ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>:: Welcome to our Site ::</title>
+<title>::  <?php echo $this->_tpl_vars['pagetitle']; ?>
+::</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -120,7 +121,8 @@ thumbnails: <?php echo $this->_tpl_vars['slideshowparameter']->thumbnails; ?>
 <!--logo-->
 <div id="logo_div">
 <div class="row-fluid">
-<div class="span3"><a href="?do=index"><img src="assets/img/logo.gif" alt="logo"></a></div>
+<div class="span3"><a href="?do=index"><img src="<?php echo $this->_tpl_vars['sitelogo']; ?>
+" alt="logo"></a></div>
 <div class="span3">
 <!--<div id="shopping_cnt">
 <h3>8(802)234-5678</h3><span>Call us Monday - Saturday:8:30am- 6.00 pm</span>

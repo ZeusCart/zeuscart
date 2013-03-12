@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,18 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * User account related  class
+ *
+ * @package   		Display_DUserAccount
+ * @category    	Display
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Display_DUserAccount
 {
  	/**
@@ -28,49 +40,49 @@ class Display_DUserAccount
  	*/
 	function showNewsLetter($arr)
 	{
-	include_once('classes/Core/CUserNewsLetter.php');
-	$value=0;
-	
-		$value=$arr[0]['subsciption_id'];
+		include_once('classes/Core/CUserNewsLetter.php');
+		$value=0;
 		
-	$status='';
-	if($arr[0]['status']==1)
-		$status='checked=checked';
+			$value=$arr[0]['subsciption_id'];
+			
+		$status='';
+		if($arr[0]['status']==1)
+			$status='checked=checked';
+			
+		$output='<form name="frmNewsSub" method="post" action="?do=newsletter&action=add">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td width="100%" colspan="2" class="serachresult">Newsletter Subscriptions </td>
+		</tr>
 		
-	$output='<form name="frmNewsSub" method="post" action="?do=newsletter&action=add">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="100%" colspan="2" class="serachresult">Newsletter Subscriptions </td>
-            </tr>
-          
-          <tr>
-            <td colspan="2" valign="top" class="checkout_title1">&nbsp;</td>
-          </tr>
-          <tr>
-            <td colspan="2" valign="top" class="checkout_title1">
-            <div>
-              <input type="checkbox" name="chkNewsSub" '.$status.' />
-			  <input type="hidden" name="subId" value="'.$value.'" />
-              <strong>General Subscription</strong></div>	</td>
-          </tr>
-          <tr>
-            <td align="center" class="dot_line">
-			<table width="80%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td align="right"><span class="checkout_required"></span><br /><br />
-                <table border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td align="right" class="button_left"></td>
-                    <td><input type="submit" value="Save" class="button" /></td>
-                    <td class="button_right"></td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-          
-        </table></form>';
-		return $output;
+		<tr>
+		<td colspan="2" valign="top" class="checkout_title1">&nbsp;</td>
+		</tr>
+		<tr>
+		<td colspan="2" valign="top" class="checkout_title1">
+		<div>
+		<input type="checkbox" name="chkNewsSub" '.$status.' />
+				<input type="hidden" name="subId" value="'.$value.'" />
+		<strong>General Subscription</strong></div>	</td>
+		</tr>
+		<tr>
+		<td align="center" class="dot_line">
+				<table width="80%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align="right"><span class="checkout_required"></span><br /><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+			<tr>
+			<td align="right" class="button_left"></td>
+			<td><input type="submit" value="Save" class="button" /></td>
+			<td class="button_right"></td>
+			</tr>
+			</table></td>
+		</tr>
+		</table></td>
+		</tr>
+		
+		</table></form>';
+			return $output;
 	}
 
  	/**
@@ -410,10 +422,7 @@ class Display_DUserAccount
 			 $output.='<tr><td bgcolor="#FFFFFF" class="account_tableTXT" style="padding-left:15px;" colspan=3>No Products Found</td></tr>';
 		}	 
 		 $output.='</table>';
-		  /*$output.='<tr align="center"><td class="content_list_footer" >'.' '.$prev.' ';
-			for($i=1;$i<=count($paging);$i++)
-			 $pagingvalues .= $paging[$i]."  ";
-					$output .= $pagingvalues.' '.$next.'</td></tr>';*/
+		 
 		
 		$_SESSION['wishList']=$output;			
 		return $output;
@@ -464,7 +473,6 @@ class Display_DUserAccount
  	*/
 	function showMyOrder($arr,$paging,$prev,$next,$val)
 	{
-	//print_r($arr);
 		$output='
             <div class="title_fnt">
     	<h1>My Orders</h1>
@@ -697,8 +705,7 @@ class Display_DUserAccount
  	*/
 	function showAllNew($arr,$paging,$prev,$next,$val)
 	{
-	//print_r($arr);
-	//print_r($val);
+	
 	$output.='
 	<div><table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -746,7 +753,7 @@ class Display_DUserAccount
 				$mode='none';		
 				if($arr[$k]['product_id']!='')	
 					$mode='block';
-				//{	
+					
 					
 					$output.='<td width="25%" align="center" style="';
 					if($j<3 && $mode=='block')
@@ -776,7 +783,7 @@ class Display_DUserAccount
 							  </form>
 						</div>
 					</div></td>';
-				//}	
+				
 				$k++;
 			}
 			  $output.='</tr>
@@ -867,7 +874,7 @@ class Display_DUserAccount
 				$mode='none';		
 				if($arr[$k]['product_id']!='')	
 					$mode='block';
-				//{	
+				
 					
 					$output.='<td width="25%" align="center" style="';
 					if($j<3 && $mode=='block')
@@ -895,7 +902,7 @@ class Display_DUserAccount
 							  </table>
 						<a href="#"></a></div>
 					</div></td>';
-				//}	
+				
 				$k++;
 			}
 			  $output.='</tr>

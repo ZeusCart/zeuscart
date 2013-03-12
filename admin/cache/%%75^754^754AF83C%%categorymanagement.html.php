@@ -1,5 +1,5 @@
 <?php 
- ob_start(); ?><?php /* Smarty version 2.6.19, created on 2013-03-02 11:50:51
+ ob_start(); ?><?php /* Smarty version 2.6.19, created on 2013-03-09 09:51:13
 compiled from categorymanagement.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.html", 'smarty_include_vars' => array()));
@@ -89,7 +89,7 @@ document.getElementById('prev').style.display='block';
 <table width="67%" border="0" style="display:none" id='subChild'>
 <tr>
 <td width="25%" align="left" nowrap="nowrap">Select Child : </td>
-<td width="75%" style="padding-left:110px"><span id="subchildcontent"></span></td>
+<td width="75%" style="padding-left:115px"><span id="subchildcontent"></span></td>
 </tr>
 </table>
 </td>
@@ -221,13 +221,12 @@ flv=0;
 }
 function callChild()
 {
-//alert(';');
 //toggle('ParentContainer', 'ParentContainer');
 var contd = document.getElementById("ParentContainer");
 $(contd).slideDown(1000);
 document.getElementById('attribContainer').style.display='';
 document.getElementById('ImageContainer').style.display='';
-document.getElementById('subchildcontent').style.display='none';
+document.getElementById('subchildcontent').innerHTML='';
 document.getElementById('subParent').style.display='none';
 document.getElementById('lcontents').style.display='none'
 }
@@ -239,7 +238,7 @@ $(conts).slideUp(1000);
 document.getElementById('attribContainer').style.display='none';
 document.getElementById('ImageContainer').style.display='none';
 document.getElementById('subParent').style.display='none';
-document.getElementById('subchildcontent').style.display='none';
+document.getElementById('subchildcontent').innerHTML='';
 document.getElementById('lcontents').style.display='block'
 }
 function callsubChildParent()
@@ -253,6 +252,7 @@ document.getElementById('ParentContainer').style.display='none';
 }
 function callsubChild(parentid)
 {
+document.getElementById('subchildcontent').innerHTML='';
 var contd = document.getElementById("subChild");
 $(contd).slideDown(1000);
 $.ajax({
@@ -260,7 +260,9 @@ type: "GET",
 url: "?do=managecategory&action=selectsubchild",
 data: "parentid="+parentid,
 success: function(result){
+document.getElementById('ParentContainer').style.display='none';
 document.getElementById('subchildcontent').innerHTML=result;
+document.getElementById('subchildcontent').style.display='block';
 }
 });
 }

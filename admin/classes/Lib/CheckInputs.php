@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,8 +18,28 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions related check inputs
+ *
+ * @package  		Lib_CheckInputs
+ * @category  		Library
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Lib_CheckInputs
 {
+
+	/**
+	 * Function checks and invokes the validation module  
+	 * 
+	 * @param string $module
+	 *
+	 * @return void 
+	 */	
 	function Lib_CheckInputs($module)
 	{
 		
@@ -52,11 +72,17 @@ class Lib_CheckInputs
 		else if($module=='updatecurrency')
 			$this->validateEditCurrency();
 	}
-	
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validateCheckout()
 	{
 	
-	   // print_r($_POST);exit;
+	
 		include('classes/Lib/FormValidation.php');
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
@@ -74,7 +100,13 @@ class Lib_CheckInputs
 
 		}
 	}
-	
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validateUserRegister()
 	{
 		include('classes/Lib/FormValidation.php');
@@ -84,7 +116,7 @@ class Lib_CheckInputs
 			   or $_POST['txtpwd']=='' or $_POST['txtdisname']!='' or $_POST['txtlname']!='' or $_POST['txtfname']!='' 
 			   or $_POST['txtemail']!='' or $_POST['txtpwd']!='')
 			{
-				//echo 'hi';exit;
+				
 				$obj = new Lib_FormValidation('useraccregister');
 			}
 			else 
@@ -94,6 +126,13 @@ class Lib_CheckInputs
 			}
 		}
 	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function checkAddCategory()
 	{
 		include('classes/Lib/FormValidation.php');
@@ -110,12 +149,18 @@ class Lib_CheckInputs
 			}
 		}
 	}
-	
+		/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	
 	function validatelogin()
 	{	
 		include('classes/Lib/FormValidation.php');
-		//print_r($_POST);
+	
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
 			if($_POST['username']!='' or $_POST['password']!='' or $_POST['username']=='' or $_POST['password']=='')
@@ -129,11 +174,17 @@ class Lib_CheckInputs
 			}
 		}
 	}
-	
+		/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validateAttributes()
 	{	
 		include('classes/Lib/FormValidation.php');
-		//print_r($_POST);
+		
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
 			if($_POST['attributes']!='' or $_POST['attributes']=='')
@@ -147,6 +198,13 @@ class Lib_CheckInputs
 			}
 		}
 	}
+		/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validatSubAdminEmail()
 	{
 		
@@ -164,6 +222,13 @@ class Lib_CheckInputs
 			}
 		}
 	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validateAdminEmail()
 	{
 		
@@ -181,7 +246,13 @@ class Lib_CheckInputs
 			}
 		}
 	}
-	
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validateEntry()
 	{
 		include('classes/Lib/FormValidation.php');
@@ -202,6 +273,13 @@ class Lib_CheckInputs
 		}
 	
 	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	
 	function validateEntryUpdate()
 	{
@@ -226,6 +304,13 @@ class Lib_CheckInputs
 		}
 	
 	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	
 	function validateRegionwisetaxEntry()
 	{
@@ -236,6 +321,13 @@ class Lib_CheckInputs
 			$obj = new Lib_FormValidation('regionwisetax');
 		}
 	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validateRegionwisetaxEdit()
 	{
 		include('classes/Lib/FormValidation.php');
@@ -245,7 +337,13 @@ class Lib_CheckInputs
 			$obj = new Lib_FormValidation('regionwisetaxedit');
 		}
 	}
-
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validateCurrency()
 	{
 		include('classes/Lib/FormValidation.php');
@@ -263,6 +361,13 @@ class Lib_CheckInputs
 			}
 		}	
 	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
 	function validateEditCurrency()
 	{
 		include('classes/Lib/FormValidation.php');

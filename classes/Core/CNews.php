@@ -1,11 +1,46 @@
 <?php
- 
+ /**
+* GNU General Public License.
+
+* This file is part of ZeusCart V4.
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
+
+/**
+ * News page related  class
+ *
+ * @package   		Core_CNews
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Core_CNews
 {
-   
-   function showNewsMenu()
+   	/**
+	 * This function is used to get  the news menu
+	 * 
+	 * 
+	 * @return HTML data
+	 */
+   	function showNewsMenu()
 	{
-		//var $arr = array();
+	
 	    	$query = new Bin_Query(); 
 		 $sql = "SELECT news_title ,DATE_FORMAT(news_date,'%d %b %Y') AS date FROM `news_table` order by news_id desc limit 0,2";
 		if($query->executeQuery($sql))
@@ -18,7 +53,12 @@ class Core_CNews
 		}		
 		return $output;
 	}
-   
+   	/**
+	 * This function is used to get  the all news from db
+	 * 
+	 * 
+	 * @return HTML data
+	 */
 	function showNewsPage()
 	{
 		$pagesize=5;

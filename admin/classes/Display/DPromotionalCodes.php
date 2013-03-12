@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,9 +18,24 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * This class contains  promotional codes related process. 
+ *
+ * @package  		Display_DPromotionalCodes
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Display_DPromotionalCodes
 {
-	
+	/**
+	 * Function  to  display the   promotional code
+	 * 
+	 * @return string
+	 */	
 	function selectMethodToSendPromotionalCode()
 	{
 		
@@ -62,7 +77,13 @@ class Display_DPromotionalCodes
 		
 	}
 
-	
+	/**
+	 * Function  to  display the   promotional code for user
+	 * @param array $arr
+	 * @param integer $flag
+	 * @param integer $couponcode
+	 * @return string
+	 */	
 	function displayUsersForPromotionalCode($arr,$flag,$couponcode)
 	{
 		
@@ -118,7 +139,12 @@ class Display_DPromotionalCodes
 			
 	
 	}
-	
+	/**
+	 * Function  to  create the   promotional code 
+	 * @param array $arr
+	 * @param integer $rstr
+	 * @return string
+	 */	
 	function createPromotionalCodes($arr,$rstr)
 	{
 		$output ='<form name="fm" method="post" action="?do=createpromotionalcodes&action=insert" enctype="multipart/form-data">
@@ -201,7 +227,7 @@ class Display_DPromotionalCodes
                 <td width="66%" class="content_form">';
 				$output .= '<div id="catids" style=" border:solid 1px;overflow:auto;height: 156px; width: 253px; "  >';
 		$output .= '<ul style="list-style:none">';
-		//print_r($arr);
+	
 			
 		for ($i=0;$i<count($arr);$i++)
 		{
@@ -228,12 +254,17 @@ class Display_DPromotionalCodes
     </form>';
 			return $output;	
 	}
-	
+	/**
+	 * Function  to  create the   promotional code 
+	 * @param array $result
+	 * @param integer $paging
+ 	 * @param integer $prev
+ 	 * @param integer $next
+	 * @return string
+	 */	
 	function displayPromotionalCodes($result,$paging,$prev,$next)
 	{
-		//echo "<pre>";
-		//print_r($result);
-
+		
 	    $output='<div align="right" style="padding:3px;"><a href="?do=createpromotionalcodes" class="add_link">Create Coupon </a></div><form name="frmorders" method="post"><table cellspacing="0" border="0" width="100%" class="content_list_bdr">
 		'.(isset($_GET['msg'])? '<div align="center" style="padding:3px;"><font color="green"><b>'.$_GET['msg'].'</b></font></span>' : "" ).'
 		

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,12 +18,29 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions to display tax settings related process
+ *
+ * @package  		Display_DTaxSettings
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Display_DTaxSettings
 {
+
+	/**
+	 * Function  to  display the tax settings
+	 * @param array $arr
+	 * @param array $uniqarr
+	 * @return string
+	 */	
 	function showTaxSettings($arr,$uniqarr)
 	{
-		//echo "<pre>";
-		//print_r($uniqarr);
 		
 		$output = '<table width="100%" class="" border="0" cellspacing="0" cellpadding="0">
           <tr>
@@ -111,10 +128,17 @@ class Display_DTaxSettings
 		return $output;
 			
 	}
+	/**
+	 * Function  to display   the  country wise tax list
+	 * @param array $result
+	 * @param integer $paging
+	 * @param integer $prev	 
+	 * @param integer $next
+	 * @return string
+	 */	
 	function showCountrywiseTaxList($result,$paging,$prev,$next)
 	{
-		//echo "<pre>";
-		//print_r($result);
+
 		
 		$output = '<table class="content_list_bdr" cellspacing="0" border="0" width="100%">
 	<tr><td width="300" class="content_list_head">Tax Name</td>
@@ -148,6 +172,12 @@ class Display_DTaxSettings
 		return $output;
 			
 	}
+	/**
+	 * Function  to display   the  add country wise tax 
+	 * @param array $countryarr
+	 * @param array $Err
+	 * @return string
+	 */	
 	function addCountrywiseTax($countryarr,$Err)
 	{
 		if(count($Err->messages) > 0)
@@ -155,9 +185,7 @@ class Display_DTaxSettings
 			 $values = $Err->values;
 			 $messages = $Err->messages;
 		}
-		//print_r($messages);
-		//echo "<pre>";
-		//print_r($countryarr);
+		
 		$countrylist='<select size="5" name="taxratecountry" id="taxratecountry"   onchange="" style="width:180px;">';
 		//$countrylist.='<option selected="selected" value="all">-- All Countries --</option>';
 		foreach($countryarr as $country)
@@ -225,6 +253,13 @@ class Display_DTaxSettings
 			
 		return $output;
 	}
+	/**
+	 * Function  to display   the  edit country wise tax 
+	 * @param array $arr
+	 * @param array $countryarr
+	 * @param array $Err
+	 * @return string
+	 */	
 	function editCountrywiseTax($arr,$countryarr,$Err)
 	{
 		if(count($Err->messages) > 0)
@@ -234,9 +269,7 @@ class Display_DTaxSettings
 		}
 		else
 			$values =$arr[0];
-		//print_r($values);
-		//echo "<pre>";
-		//print_r($countryarr);
+		
 		$countrylist='<select size="15" name="taxratecountry" id="taxratecountry"   onchange="" style="width:180px;">';
 		//$countrylist.='<option selected="selected" value="all">-- All Countries --</option>';
 		foreach($countryarr as $country)

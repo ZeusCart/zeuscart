@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,18 +20,16 @@
 */
 
 /**
- * CCategoryBulkUpload
- *
  * This class contains functions that generates a sample TSV file and exports the categories into the table from a excel file. 
  *
- * @package		Core_CCategoryBulkUpload
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_CCategoryBulkUpload
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
 
 class Core_CCategoryBulkUpload
 {
@@ -82,26 +80,25 @@ class Core_CCategoryBulkUpload
 							
 							$rowfirst=str_replace("\n","",$rowfirst);
 							$tmpfirst=explode("\t",trim($rowfirst));
-							//print_r($tmpfirst);
-							//print_r($rowfirst);
+					
 							
 							$chkfieldsarr=array('category_name','description','type','category_parent_id');
-							//print_r($chkfieldsarr);
+						
 							
 							$cmp_arr=array_diff($tmpfirst,$chkfieldsarr);							
 							if(empty($cmp_arr))
 							{
 								$pro_fields= implode(',',$chkfieldsarr);
-								//echo $pro_fields;								
+														
 								$pro_cnt=0;
 								$fail_cnt=0;
 								while($row=fgets($fp))
 								{
 								
-									//echo $row;
+								
 									$row=str_replace("\n"," ",$row); 
 									$pro=$inv=explode("\t",addslashes(trim($row)));
-									//echo "<pre>";									
+																
 									$check = new Core_CCategoryBulkUpload();
 									$check->checkCatExists($pro[0],$pro[3]);
 									if($check->checkCatExists($pro[0],$pro[3]))

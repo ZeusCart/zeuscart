@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,19 +18,19 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
 /**
- * CTaxSettings
- *
  * This class contains functions to get and update the tax settings from the database 
  *
- * @package		Core_Settings_CTaxSettings
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Settings_CTaxSettings
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
 class Core_Settings_CTaxSettings
 {
 	/**
@@ -58,7 +58,7 @@ class Core_Settings_CTaxSettings
 		$queryunique = new Bin_Query();
 		$queryunique->executeQuery($sqlunique);
 		
-		//print_r($query->records);
+	
 		return Display_DTaxSettings::showTaxSettings($query->records,$queryunique->records);
 	
 	}
@@ -72,8 +72,7 @@ class Core_Settings_CTaxSettings
 	
 	function updateTaxSettings()
 	{
-		//echo "<pre>";
-		//print_r($_POST);
+	
 		if(is_numeric($_POST['SingleTaxRate']))
 		{
 		if((int)$_POST['TaxSetting']==3)
@@ -140,7 +139,7 @@ class Core_Settings_CTaxSettings
 				$this->data['prev'] =$tmp->prev;
 				$this->data['next'] = $tmp->next;
 				$sql1 =$sql." LIMIT ".$start.",".$end;
-				//	echo $sql1;exit;
+			
 				$query = new Bin_Query();
 				//$sql1="select orders_status_id,orders_status_name from orders_status_table";
 				$obj1=new Bin_Query();
@@ -205,8 +204,7 @@ class Core_Settings_CTaxSettings
 	
 	function insertCountrywiseTax()
 	{
-		//echo "<pre>";
-		//print_r($_POST);
+		
 		$taxname=$_POST['taxratename'];
 		$basedonamt=$_POST['taxratebasedon'];
 		$countrycode=$_POST['taxratecountry'];
@@ -240,8 +238,7 @@ class Core_Settings_CTaxSettings
 	
 	function updateCountrywiseTax()
 	{
-		//echo "<pre>";
-		//print_r($_POST);
+		
 		//$taxid=(int)$_POST['taxid'];
 		if(isset( $_SESSION['edittaxid']))
 			$taxid=$_SESSION['edittaxid'];

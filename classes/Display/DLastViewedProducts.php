@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,26 +18,21 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * Last viewed products related  class
+ *
+ * @package   		Display_DLastViewedProducts
+ * @category    	Display
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Display_DLastViewedProducts
 {
 var $output = array();	
-	/*function LastViewedProducts($arr)
-	{
-		$output .= '<table border="1" width="45%">';
-		//$output.='<th width="100%">Product Name</th><th>Image</th>';
-		//print_r($arr);
-		for ($i=0;$i<count($arr);$i++)
-		{
-			
-			$temp=$arr[$i]['thumb_image'];
-			$img=explode('/',$temp);
-			$output .='<tr><td><img src="uploadedimages/thumb/thumb_'.$img[2].'" name="image1"  id="image1" /></td>';
-			$output .= '<td ><a href="?do=prodetail&action=showprod&id='.$arr[$i]['product_id'].'" name="prodname"> '.$arr[$i]['title'].'</a><div><b>Price: $'.$arr[$i]['msrp'].'</b></div><div><a href="?do=wishlist" >Add to Wishlist</a> </td></tr>';
-		}
-			$output .= '</table>';
-			return $output;	
-	}*/
-	
+		
  	/**
 	* This function is used to Display the Recently Viewed Product
 	* @name lastViewedProducts
@@ -47,7 +42,7 @@ var $output = array();
  	*/
 	function lastViewedProducts($arr,$r)
 	{
-		//print_r($arr);
+		
 		$cnt =count($arr);
 		$limit = 0;$j=0;
 		
@@ -89,9 +84,9 @@ var $output = array();
 				   <input title="<b>Quick Information</b>" alt="?do=quickinfo&prodid='.$arr[$i]['product_id'].'?inlineId=myOnPageContent&amp;height=500&amp;width=500" class="thickbox button4" type="button" value="Quick Info" />  
 				   <!--<a href="#" onClick="Lightbox.showBoxByAJAX(\'?do=quickinfo&prodid='.$arr[$i]['product_id'].'\', 478, 478);return false;">-->
 				   <!--<a href="#" onclick=window.open("?do=quickinfo&prodid='.$arr[$i]['product_id'].'","a","height=480,width=490,menubar=0,status=0,toolbar=0,scrollbars=0,location=0,minimize=0,resizable=0")>	
-<input type="submit" value="Quik Info" class="button4" />--></td>
-				
-</a></td>
+		<input type="submit" value="Quik Info" class="button4" />--></td>
+						
+		</a></td>
                    <td class="recentTXT"><div style="padding-left:10px;"><!--<b>Price : </b><br/>--><span>'.$r[$j]['msrp'].'</span></div></td>
                   </tr>';
 			$output.='</table>';
@@ -118,4 +113,5 @@ var $output = array();
 	
 	
 }	
-	?>
+
+?>

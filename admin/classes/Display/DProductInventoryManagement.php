@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,9 +18,30 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions to list out the product inventory.
+ *
+ * @package  		Display_DProductInventoryManagement
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
  class Display_DProductInventoryManagement
 {
- 	 function dispInventory($result,$paging,$prev,$next)
+
+	/**
+	 * Function  to display   the    inventory
+	 * @param array $result
+	 * @param integer $paging
+	 * @param integerinteger $prev	 
+	 * @param integer $next
+	 * @return string
+	 */	
+ 	function dispInventory($result,$paging,$prev,$next)
 	{
 	     $output='<form method="post" action="?do=productinventory&action=insert"><table cellpadding="4" cellspacing="0" border="0" width="100%"  class="content_list_bdr"><tr><td  class="content_list_head">S.No</td><td  class="content_list_head">Product Name</td><td class="content_list_head">Re-Order Level</td><td  class="content_list_head">Stock on Hand</td><td class="content_list_head">Status</td><td  class="content_list_head">Edit</td><tr><td colspan="8" class="cnt_list_bot_bdr" valign="top"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td></tr>';
 	   $i=1;
@@ -65,7 +86,11 @@
 		}
 		 return $output;
 	}
-	
+	/**
+	 * Function  to display   the   edit inventory
+	 * @param array $result
+	 * @return string
+	 */	
 	function editInventory($result)
 	{
 	   $invid=$result[0]['inventory_id'];

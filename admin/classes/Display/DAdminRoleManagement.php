@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,19 +19,19 @@
 *
 */
 
+
 /**
- * DAdminRoleManagement
- *
  * This class contains functions to set the sub admin's limitation.
  *
- * @package		Display_DAdminRoleManagement
- * @category	Display
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Display_DAdminRoleManagement
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
+
 
  class Display_DAdminRoleManagement
 {
@@ -89,63 +89,63 @@
 	 */
 	function displaySubAdminRoleOld($result,$dropdowndata,$cou,$id,$val4)
 	{
-	  $subid=$id;
-	  $co=$cou[0]['count'];
-  $out='';
-	    $output=(isset($_GET['msg'])? '<table border="0" width="98%" align="center" ><tr><td colspan="2"><div class="success_msgbox"  width="100%" style="width:644px;" >'.$_GET['msg'].'</div></td></tr></table>' : "" )."<table cellpadding='8' cellspacing='0' border='0'  class='content_list_bdr' width='100%'><tr><td  class='content_list_head'>S.No</td><td  class='content_list_head'>Sub Admin Name</td><td  class='content_list_head'>Page Description</td><td  class='content_list_head'>Sub Status</td><td class='content_list_head' colspan=2 align=center>Action</td></td></tr><!--<tr><td colspan='9' class='cnt_list_bot_bdr' valign='top'><img src='images/list_bdr.gif' alt='' width='1' height='2' /></td></tr>-->";
-		$i=1;
+		  $subid=$id;
+		  $co=$cou[0]['count'];
+	 		 $out='';
+		    $output=(isset($_GET['msg'])? '<table border="0" width="98%" align="center" ><tr><td colspan="2"><div class="success_msgbox"  width="100%" style="width:644px;" >'.$_GET['msg'].'</div></td></tr></table>' : "" )."<table cellpadding='8' cellspacing='0' border='0'  class='content_list_bdr' width='100%'><tr><td  class='content_list_head'>S.No</td><td  class='content_list_head'>Sub Admin Name</td><td  class='content_list_head'>Page Description</td><td  class='content_list_head'>Sub Status</td><td class='content_list_head' colspan=2 align=center>Action</td></td></tr><!--<tr><td colspan='9' class='cnt_list_bot_bdr' valign='top'><img src='images/list_bdr.gif' alt='' width='1' height='2' /></td></tr>-->";
+			$i=1;
 
-	if(count($dropdowndata)>0)
-	{
-			$out.="<select name='selectpagename'>";
-			  foreach($dropdowndata as $row)
-				{
-				    $desc=$row['page_description'];
-				    $pageid=$row['page_id'];
-					$pagename=$row['page_name'];
-					$pageaction=$row['page_action'];
-					$out.="<option value='".$pageid."'>".$desc."</option>";
-				}
-				$out.="</select>";
-	}
-	$out.='';
-	
-	if(count($result)>0)
-	{
-	$i=1;
- 	  foreach($result as $row)
+		if(count($dropdowndata)>0)
 		{
-		   $subroleid=$row['subadmin_role_id'];
-	  	   $subadmin_name=$row['subadmin_name'];
-		   $page_description= $row['page_description'];
-		   $page_name=$row['page_name'];
-   		   $page_action= $row['page_action'];
-  		   $status= $row['subadmin_rights']; 
-			   if($status)
-			   {
-				  $status="Checked='checked'";
-			   }
-			   else
-			   {
-				  $status='';
-			   }
-				if($i%2==0)
-				{
-					$output.="<tr  ><td  class='content_list_txt1'>$i</td><td  class='content_list_txt1'>$subadmin_name</td><td class='content_list_txt1'>$page_description</td><td  class='content_list_txt1'><input type='checkbox' ".$status."  disabled='disabled' /></td><td  class='content_list_txt1'><a href='?do=subadminrole&action=edit&id=$subroleid&subid=$subid' class='edit_bttn'>&nbsp;<!--Edit--></a></td><td  class='content_list_txt1'><a href='?do=subadminrole&action=delete&id=$subroleid&subid=$subid'  onclick='return confirm(\"Do you want to delete\");' class='delete_bttn'>&nbsp;<!--Delete--></a></td></tr>";
-				 }
-				 else
-				 {
-					 $output.="<tr  ><td  class='content_list_txt2'>$i</td><td  class='content_list_txt2'>$subadmin_name</td><td  class='content_list_txt2'>$page_description</td><td  class='content_list_txt2'><input type='checkbox' ".$status."  disabled='disabled' /></td><td  class='content_list_txt2'><a href='?do=subadminrole&action=edit&id=$subroleid&subid=$subid' class='edit_bttn'>&nbsp;<!--Edit--></a></td><td  class='content_list_txt2'><a href='?do=subadminrole&action=delete&id=$subroleid&subid=$subid' onclick='return confirm(\"Do you want to delete\");' class='delete_bttn'>&nbsp;<!--Delete--></a></td></tr>";
-				 }
-				 $i++;
-			   }
+				$out.="<select name='selectpagename'>";
+				  foreach($dropdowndata as $row)
+					{
+					    $desc=$row['page_description'];
+					    $pageid=$row['page_id'];
+						$pagename=$row['page_name'];
+						$pageaction=$row['page_action'];
+						$out.="<option value='".$pageid."'>".$desc."</option>";
+					}
+					$out.="</select>";
 		}
+		$out.='';
 		
-		
-	$output.="<tr class='content_list_txt1'><td class='content_list_txt1'></td><td class='content_list_txt1'><input type='hidden' value=".$id." name='subadminid'/><input type='hidden' value='".$subadmin_name."' name='adminname' />".$val4."</td><td class='content_list_txt1'>".$out."</td><td class='content_list_txt1'><input type='checkbox' name='status'/></td><td class='content_list_txt1' colspan=2 align=center><input type='submit' name='insertsub' value='Insert' class='all_bttn' /></td></tr>";
-		$output.="<tr><td colspan='6'><a href='?do=subadminmgt'>Back To SubAdmin Management</a></td></tr>";
-		$output.="</table>";
-		return $output;
+		if(count($result)>0)
+		{
+			$i=1;
+	 	 	foreach($result as $row)
+			{
+				   $subroleid=$row['subadmin_role_id'];
+			  	   $subadmin_name=$row['subadmin_name'];
+				   $page_description= $row['page_description'];
+				   $page_name=$row['page_name'];
+		   		   $page_action= $row['page_action'];
+		  		   $status= $row['subadmin_rights']; 
+				   if($status)
+				   {
+					  $status="Checked='checked'";
+				   }
+				   else
+				   {
+					  $status='';
+				   }
+					if($i%2==0)
+					{
+						$output.="<tr  ><td  class='content_list_txt1'>$i</td><td  class='content_list_txt1'>$subadmin_name</td><td class='content_list_txt1'>$page_description</td><td  class='content_list_txt1'><input type='checkbox' ".$status."  disabled='disabled' /></td><td  class='content_list_txt1'><a href='?do=subadminrole&action=edit&id=$subroleid&subid=$subid' class='edit_bttn'>&nbsp;<!--Edit--></a></td><td  class='content_list_txt1'><a href='?do=subadminrole&action=delete&id=$subroleid&subid=$subid'  onclick='return confirm(\"Do you want to delete\");' class='delete_bttn'>&nbsp;<!--Delete--></a></td></tr>";
+					 }
+					 else
+					 {
+						 $output.="<tr  ><td  class='content_list_txt2'>$i</td><td  class='content_list_txt2'>$subadmin_name</td><td  class='content_list_txt2'>$page_description</td><td  class='content_list_txt2'><input type='checkbox' ".$status."  disabled='disabled' /></td><td  class='content_list_txt2'><a href='?do=subadminrole&action=edit&id=$subroleid&subid=$subid' class='edit_bttn'>&nbsp;<!--Edit--></a></td><td  class='content_list_txt2'><a href='?do=subadminrole&action=delete&id=$subroleid&subid=$subid' onclick='return confirm(\"Do you want to delete\");' class='delete_bttn'>&nbsp;<!--Delete--></a></td></tr>";
+					 }
+					 $i++;
+			}
+		}
+			
+			
+		$output.="<tr class='content_list_txt1'><td class='content_list_txt1'></td><td class='content_list_txt1'><input type='hidden' value=".$id." name='subadminid'/><input type='hidden' value='".$subadmin_name."' name='adminname' />".$val4."</td><td class='content_list_txt1'>".$out."</td><td class='content_list_txt1'><input type='checkbox' name='status'/></td><td class='content_list_txt1' colspan=2 align=center><input type='submit' name='insertsub' value='Insert' class='all_bttn' /></td></tr>";
+			$output.="<tr><td colspan='6'><a href='?do=subadminmgt'>Back To SubAdmin Management</a></td></tr>";
+			$output.="</table>";
+			return $output;
 	}
 	
 	/**

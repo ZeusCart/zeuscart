@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,10 +18,37 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions related error hander
+ *
+ * @package  		Lib_Validation_ErrorHandler
+ * @category  		Library
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Lib_Validation_ErrorHandler
 {
+	/**
+	 * Stores the output
+	 *
+	 * @var integer 
+	 */	
 	var $totalvalidation;
+	/**
+	 * Stores the validation array
+	 *
+	 * @var array 
+	 */	
 	var $mValidations=array();
+	/**
+	 * Function to form error handler array
+	 * @param integer  $tot
+	 * @return void 
+	 */
 	function Lib_Validation_ErrorHandler($tot)
 	{
 		$this->totalvalidation=$tot;
@@ -30,7 +57,14 @@ class Lib_Validation_ErrorHandler
 									"match:","emailcheck","ifselected",
 									"checkfile:","datecheck");		
 	}
-	
+	/**
+	 * Function to check  error 
+	 * @param integer  $field
+	 * @param  integer  @value
+	 * @param  string  @check_for
+	 * @param  string  @message
+	 * @return void 
+	 */
 	function CheckError($field,$value,$check_for,$message)
 	{
 		for($s=0;$s<count($tmp=split("/",$check_for));$s++)
@@ -116,7 +150,15 @@ class Lib_Validation_ErrorHandler
 					$this->DisplayError($field,$value,$check_for,$message,15);
 			}
 	}
-	
+	/**
+	 * Function to display  error 
+	 * @param integer  $field
+	 * @param  integer  @value
+	 * @param  string  @check_for
+	 * @param  string  @message
+         * @param integer $id
+	 * @return void 
+	 */
 	function DisplayError($field,$value,$check_for,$message,$id)
 	{
 		if($id==0)

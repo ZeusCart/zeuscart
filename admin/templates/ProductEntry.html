@@ -1,14 +1,14 @@
 <AJDF:output>
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -96,7 +96,9 @@ function assignSubCat(id)
 	var url='?do=productentry&action=displaySubUnderCategory&id='+ id;
 	ajax(url,'subcatsunder');
 	var url1='?do=productentry&action=displayAttributes&id='+ id;
-	ajax(url1,'attributes');	
+alert(url1);
+		ajax(url1,'attributes');
+			
    }
 }
 function checkInputs()
@@ -406,7 +408,7 @@ function removeTier(divNum)
                             </tr>
                             <tr>
                                 <td class="content_form" align="left">SKU <font color="#FF0000">*</font></td>
-                                <td colspan="3" id="subcats" align="left"><input name="sku" id="sku" type="text" value="<AJDF:output>$val.sku</AJDF:output>"/>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dsku', 'SKU', 'Stock Keeping Unit for a product')" onmouseout="HideHelp('dsku');">
+                                <td colspan="3" id="sku" align="left"><input name="sku" id="sku" type="text" value="<AJDF:output>$val.sku</AJDF:output>"/>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dsku', 'SKU', 'Stock Keeping Unit for a product')" onmouseout="HideHelp('dsku');">
 			<div id="dsku" style="left: 50px; top: 50px;"></div>
                                     <div style="color:#FF0000">
                                         <AJDF:output>$msg.sku</AJDF:output>

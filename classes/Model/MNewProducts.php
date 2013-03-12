@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,12 +18,25 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * New products related  class
+ *
+ * @package   		Model_MNewProducts
+ * @category    	Model
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Model_MNewProducts
 {
 var $output = array();	
  	/**
 	* This function is used to Display the New Product Page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function newProducts()
 	{
 		include_once('classes/Core/CNewProducts.php');
@@ -51,11 +64,14 @@ var $output = array();
 		$default=new Core_CNewProducts();
 		$output['newproducts']=$default->newProducts();
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
+		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		Bin_Template::createTemplate('products.html',$output);
 	}
 	/**
 	* This function is used to Display the  Product list  Page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function viewProducts()
 	{
 		if($_GET['action']=='')
@@ -81,6 +97,7 @@ var $output = array();
 			$output['timezone']=Core_CHome::setTimeZone();	
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
@@ -114,6 +131,7 @@ var $output = array();
 			$output['timezone']=Core_CHome::setTimeZone();	
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();

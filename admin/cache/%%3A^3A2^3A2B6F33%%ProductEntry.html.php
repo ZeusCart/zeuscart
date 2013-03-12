@@ -1,5 +1,5 @@
 <?php 
- ob_start(); ?><?php /* Smarty version 2.6.19, created on 2013-03-02 11:38:08
+ ob_start(); ?><?php /* Smarty version 2.6.19, created on 2013-03-09 10:43:31
 compiled from ProductEntry.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.html", 'smarty_include_vars' => array()));
@@ -71,6 +71,7 @@ document.getElementById('subcat').value=id;
 var url='?do=productentry&action=displaySubUnderCategory&id='+ id;
 ajax(url,'subcatsunder');
 var url1='?do=productentry&action=displayAttributes&id='+ id;
+alert(url1);
 ajax(url1,'attributes');
 }
 }
@@ -369,7 +370,7 @@ d.removeChild(olddiv);
 </tr>
 <tr>
 <td class="content_form" align="left">SKU <font color="#FF0000">*</font></td>
-<td colspan="3" id="subcats" align="left"><input name="sku" id="sku" type="text" value="<?php echo $this->_tpl_vars['val']['sku']; ?>
+<td colspan="3" id="sku" align="left"><input name="sku" id="sku" type="text" value="<?php echo $this->_tpl_vars['val']['sku']; ?>
 "/>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dsku', 'SKU', 'Stock Keeping Unit for a product')" onmouseout="HideHelp('dsku');">
 <div id="dsku" style="left: 50px; top: 50px;"></div>
 <div style="color:#FF0000">

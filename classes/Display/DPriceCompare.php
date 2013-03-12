@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,17 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * Price comparison related  class
+ *
+ * @package   		Display_DPriceCompare
+ * @category    	Display
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Display_DPriceCompare
 {
 	var $arr = array();
@@ -35,7 +46,7 @@ class Display_DPriceCompare
 		$server_ip=$_SERVER['SERVER_ADDR'];
 		$pr_error=0; // pricerunner error flag
 		
-		//$fname='http://cgi.vcss.search123.uk.com/cgi-bin/prfeed.cgi?aid=821&amp;cp1=query&amp;co=us&amp;query="sx10"&amp;ip=4.2.2.4';
+		
 		$fname='http://cgi.vcss.search123.uk.com/cgi-bin/prfeed.cgi?aid="'.$pricerunnerid .'"&amp;cp1=query&amp;co=us&amp;query="'.$keyword.'"&amp;ip='.$server_ip;
 
 		$data=@file($fname);

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,18 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ *Wish list related  class
+ *
+ * @package   		Display_DWishList
+ * @category    	Display
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 $arr = array();
 $arr1 = array();
 $output = array();
@@ -29,7 +41,7 @@ class Display_DWishList
 	* @param mixed $arr
 	* @param int $totalitem
 	* @param mixed $r
-	* @return string
+	* @return  HTML data
  	*/
 	function wishlistSnapshot($arr,$totalitem,$r)
 	{
@@ -85,7 +97,11 @@ class Display_DWishList
 		$output.='</div>';
 		return $output;
 	}
-	
+	/**
+	* This function is used to Display the Wishlist snapshot else part
+	*
+	* @return string
+ 	*/
 	function wishlistSnapshotElse()
 	{
 		$output ='<div id="viewcart"><div id="compare_tit">MY WISHLIST</div><table width="100%" border="0" cellspacing="0" cellpadding="0">';
@@ -107,7 +123,7 @@ class Display_DWishList
 	* @name viewWishList
 	* @param mixed $arr
 	* @param mixed $r
-	* @return string
+	* @return  HTML data
  	*/
 	function viewWishList($arr,$r)
 	{
@@ -198,7 +214,11 @@ class Display_DWishList
 		
 		return $output;
 	}
-
+	/**
+	* This function is used to Display the Wishlist snapshot else part
+	* @name viewWishListElse
+	* @return  HTML data
+ 	*/
 	function viewWishListElse()
 	{
 		$result = "You have no items in your wishlist.";
@@ -238,7 +258,11 @@ class Display_DWishList
 			$output.='</table>';
 			return $output;
 	}
-	
+	/**
+	* This function is used to Display the  add wishlist snapshot else part
+	* @name addtoWishListElse
+	* @return  HTML data
+ 	*/
 	
 	function addtoWishListElse()
 	{
@@ -262,7 +286,7 @@ class Display_DWishList
 	* This function is used to Display Wishlist Products
 	* @name viewProduct
 	* @param mixed $arr
-	* @return string
+	* @return  HTML data
  	*/
 	function viewProduct($arr)
 	{
@@ -291,7 +315,11 @@ class Display_DWishList
 		
 		 return $output;
 	}
-	
+	/**
+	* This function is used to Display the product else part
+	* @name viewProductElse
+	* @return string
+ 	*/
 	function viewProductElse()
 	{
 		$output['a'] .=' <tr><td class="border1" align="center">';
@@ -308,7 +336,7 @@ class Display_DWishList
 	* @param mixed $arr
 	* @param mixed $arr1
 	* @param int $product_ids
-	* @return string
+	* @return  HTML data
  	*/
 	function viewCompareProduct($arr,$arr1,$product_ids)
 	{
@@ -467,7 +495,14 @@ class Display_DWishList
 			
 		return $output;
 	}
-	
+	/**
+	* This function is used to Display the Compared Product
+	* @name snapshotForHome
+	* @param mixed $arr
+	* @param array $totalitem
+	* @param int $r
+	* @return  HTML data
+ 	*/
 	function snapshotForHome($arr,$totalitem,$r)
 	{
 		$limit = 0;
@@ -510,7 +545,12 @@ class Display_DWishList
     </div>';
 	return $output;
 	}
-	
+	/**
+	* This function is used to Display the snap shot in page 
+	* @name snapshotElseForHome
+	* 
+	* @return HTML data
+ 	*/
 	function snapshotElseForHome()
 	{
 		$output='<div style="margin-top:14px"><table width="100%" border="0" cellspacing="0" cellpadding="0">

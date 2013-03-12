@@ -1,16 +1,15 @@
 <?php 
-
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,17 +18,35 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * This class contains functions to list out the product
+ *
+ * @package  		Display_DProductEntry
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
  class Display_DProductEntry
 {
+
+	/**
+	 * Function  to display   the  category 
+	 * @param array $result
+	 * @param integer $selected
+	 * @return string
+	 */		
  	function displayCategory($result,$selected='')
 	{
 		
 		if((count($result))>0)
 		{
-		    //echo $selected;
+		  
 			$output='<select name="selcatgory" onchange="showSubCat(this.value);" id="selcatgory"><option value="">Select</option>';
 			if(count($result)>0)
-			//while(list($id,$name)=$row)
+			
 		    foreach($result as $row) 			
 			{
 			   $id=$row['category_id'];
@@ -44,7 +61,11 @@
 		
 		return $output;
 	}
-	
+	/**
+	 * Function  to display   the  sub category 
+	 * @param array $result
+	 * @return string
+	 */		
 	function displaySubCategory($result)
 	{
 	     if((count($result))>0)
@@ -63,6 +84,11 @@
 			 $output='<select name="selsubcatgory" onchange="assignSubCat(this.value);"><option value="">Select</option></select>';
 		return $output;
 	}
+	/**
+	 * Function  to display   the  sub under sub category 
+	 * @param array $result
+	 * @return string
+	 */		
 	function displaySubUnderCategory($result)
 	{
 	     if((count($result))>0)
@@ -81,7 +107,11 @@
 			 $output='<select name="selsubundersubcatgory" onchange="assignSubUnderCat(this.value);"><option value="">Select</option></select>';
 		return $output;
 	}
-	
+	/**
+	 * Function  to display   the  add more msrp link
+	 * @param array $result
+	 * @return string
+	 */	
 	function addMoreMsrpLink($result)
 	{
 	   if((count($result))>0)
@@ -91,6 +121,11 @@
 		
 		return $output;	  
 	}
+	/**
+	 * Function  to display   the  add more features link
+	 * @param array $result
+	 * @return string
+	 */	
 	
 	function addMoreFeaturesLink($result)
 	{
@@ -101,10 +136,15 @@
 		
 		return $output;	  
 	}
-	
+	/**
+	 * Function  to display   the  product brand
+	 * @param array $result
+	 * @param integer $selected	
+	 * @return string
+	 */	
 	function dispBrand($result,$selected='')
 	{
-	  // print_r($result);exit;
+	
 	   if((count($result))>0)
 		{
 		   $output="<select name='selbrand'><option value=''>Select</option>";
@@ -114,11 +154,15 @@
 		   return $output;
 		}
 	}
-	
+	/**
+	 * Function  to display   the  product brand
+	 * @param array $result
+	 * @param integer $val	
+	 * @return string
+	 */	
 	function corBrand($result,$val)
 	{
-	/*	echo "<pre>";
-	  print_r($result);exit;*/
+	
 	   if((count($result))>0)
 		{
 		   $output="<select name='selbrand'><option value=''>Select</option>";
@@ -138,7 +182,16 @@
 		   return $output;
 		}
 	}
-	
+	/**
+	 * Function  to display   the  all product 
+	 * @param array $arr
+	 * @param integer $flag
+	 * @param integer $paging
+	 * @param integer $prev	 
+	 * @param integer $next
+	 * @param integer $start	 	 
+	 * @return string
+	 */	
 	function showAllProducts($arr,$flag,$paging,$prev,$next,$start)
 	{	
 		
@@ -210,7 +263,16 @@
 		}
 	
 	}
-	
+	/**
+	 * Function  to display   the  search product 
+	 * @param array $arr
+	 * @param integer $flag
+	 * @param integer $paging
+	 * @param integer $prev	 
+	 * @param integer $next
+	 * @param integer $start	 	 
+	 * @return string
+	 */	
 	function searchProducts($arr,$flag,$paging,$prev,$next,$start)
 	{
 			
@@ -258,7 +320,11 @@
 		return $output;
 	
 	}
-	
+	/**
+	 * Function  to  display the attributed
+	 * @param array $result
+	 * @return string
+	 */	
 	function displayAttributes($result)
 	{
 		

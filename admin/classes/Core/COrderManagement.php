@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,28 +19,22 @@
 *
 */
 
+
 /**
- * COrderManagement
- *
  * This class contains functions to get the order details from the database.
  *
- * @package		Core_COrderManagement
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_COrderManagement
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
 
  class Core_COrderManagement
 {
-     /*function checkPrivillage()
-	 {
-			include('classes/Core/CRoleChecking.php');
-			$status=Core_CRoleChecking::checkRoles();
-			return $status;
-	 }*/
+   
 	 
 	 
 	 /**
@@ -117,10 +111,7 @@
 			{
 			   $sql.=' order by a.date_purchased desc';
 			}
-		
-		
-		
-		//echo $sql;
+	
 		
 		$sqlOrderProduct="select a.order_id,a.product_id,c.title,c.brand,a.product_qty,a.product_unit_price,
 a.product_qty*a.product_unit_price as amt,a.shipping_cost from order_products_table a,orders_table b,products_table c where a.order_id=b.orders_id and a.product_id=c.product_id order by a.order_id";
@@ -141,7 +132,7 @@ a.product_qty*a.product_unit_price as amt,a.shipping_cost from order_products_ta
 					$sql1 =$sql." LIMIT ".$start.",".$end;
 				else
 					$sql1 =$sql;
-				//	echo $sql1;exit;
+			
 				$query = new Bin_Query();
 				//$sql1="select orders_status_id,orders_status_name from orders_status_table";
 				$obj1=new Bin_Query();
@@ -192,8 +183,7 @@ a.product_qty*a.product_unit_price as amt,a.shipping_cost from order_products_ta
 	{
 	   
 	     $arr=$_POST['chkorder'];	  
-		 
-//		 echo ($_POST);print_r($arr);exit;	 		
+		
 		 $i=0;	 
 		 $status=$_POST['selupdatedropdown'];
 		 $myobj=new Core_COrderManagement();
@@ -367,8 +357,7 @@ a.product_qty*a.product_unit_price as amt,a.shipping_cost from order_products_ta
 		 $sql='select a.orders_id,b.user_display_name as Name,a.billing_name,a.shipping_name from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status inner join country_table d on d.cou_code=a.billing_country inner join country_table e on e.cou_code=a.shipping_country inner join 	paymentgateways_table f on f.gateway_id=a.payment_method left join shipments_master_table g on g.shipment_id=a.shipment_id_selected';
 		$obj =  new Bin_Query();
 		$obj->executeQuery($sql);
-		//echo "<pre>";
-		//print_r($obj->records);
+		
 		$count=count($obj->records);
 		if($count!=0)
 		{
@@ -476,7 +465,7 @@ a.product_qty*a.product_unit_price as amt,a.shipping_cost from order_products_ta
 			{
 			   $arrval[]=$r['subtotal'];
 			}
-			//echo array_sum($arrval);exit;
+
 			return  Display_DOrderManagement::displayProductsForOrder($obj->records,array_sum($arrval));
 		}	
 	}

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,17 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * Home page related  class
+ *
+ * @package   		Core_CHome
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Core_CHome
 {
 
@@ -25,7 +36,7 @@ class Core_CHome
 	 * This function is used to get  the site logo from  db
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function getLogo()
    	{
@@ -52,7 +63,7 @@ class Core_CHome
 	 * This function is used to get  the site banner from  db
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function getBanner()
    	{
@@ -77,7 +88,7 @@ class Core_CHome
 	 * This function is used to get  the site title from  db
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function pageTitle()
 	{
@@ -98,7 +109,7 @@ class Core_CHome
 	 * This function is used to get  the skin name from  db
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function skinName()
 	{
@@ -115,12 +126,12 @@ class Core_CHome
 			}
 			return $output;
 	}
-   
-	/**
-	* Function name : setTimeZone 
-	* Description : Set the time zone assigned in the admin settings 
-	*/
-	
+   /**
+	 * This function is used to Set the time zone assigned in the admin settings 
+	 * 
+	 * 
+	 * @return string
+	 */
 	function  setTimeZone()
 	{
 			$sql = "SELECT set_value FROM admin_settings_table WHERE set_name='Time Zone'";
@@ -132,7 +143,7 @@ class Core_CHome
 	 * This function is used to get  the google analytic code from  db
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function getGoogleAnalyticsCode()
 	{
@@ -153,7 +164,7 @@ class Core_CHome
 	 * This function is used to get  the google ad  from  db
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function getGoogleAd()
 	{
@@ -174,7 +185,7 @@ class Core_CHome
 	 * This function is used to get  the footer content from  db
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function footer()
 	{

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,71 +18,22 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * Product review related  class
+ *
+ * @package   		Display_DProductReview
+ * @category    	Display
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 $arr = array();
 $output = array();
 class Display_DProductReview
 {
-	/*function showProductReview($arr,$Err,$totreview)
-	{
-		if($Err->messages>0)
-		{
-			$output['val']=$Err->values;
-			$output['msg']=$Err->messages;
-		}
-		$a='Add to Compare';
-		$b='Add to Wishlist';
-		$quality = 'Rating';
-		
-		$out = '<div><table cellspacing="0"><tbody><tr><td><img src="'.$arr[0]['thumb_image'].'" width="200" height="190"/></td><td><table cellspacing="0"><tr><td><h3>'.$arr[0]['title'].'</h3></td></tr><tr><td><strong>'.$quality.'</strong></td></tr>';
-		if($totreview == 0)
-			$out .= '</tbody></table><font color="blue"><small>To be first to add Review(s)</small></font>';
-		else
-			$out .= '</tbody></table><font color="blue"><small>'.$totreview.' Review(s)</small></font>';
-    	$out .= '<div><a href="?do=wishlist&action=viewwishlist&id='.$arr[0]['product_id'].'"style="color:#0033FF">'.$b.'</a><br /><a href="?do=compareproduct&action=addCompareProduct&prodid='.$arr[0]['product_id'].'" "style="color:#0033FF">'.$a.'</a></div></div></table>';
-		$cnt = count($arr);
-		if($totreview > 0)
-		{
-			$out .='<hr><div><h3>Customer Review</h3></div>';
-			for($i=0;$i<$cnt;$i++)
-			{
-				$rate = $arr[$i]['rating'];
-				$out .='<table><tr><td><b>'.$arr[$i]['review_txt'].'</b> Review by '.$arr[$i]['user_display_name'].'</td></tr>';
-				$out .='<tr><td><b>Rating&nbsp;&nbsp;</b>';
-				if($rate==1)
-					$out .='<img src="UploadedImages/star1.jpg"/></td></tr>';
-				else if($rate==2)
-					$out .='<img src="UploadedImages/star2.jpg"/></td></tr>';
-				else if($rate==3)
-					$out .='<img src="UploadedImages/star3.jpg"/></td></tr>';
-				else if($rate==4)
-					$out .='<img src="UploadedImages/star4.jpg"/></td></tr>';
-				else if($rate==5)
-					$out .='<img src="UploadedImages/star5.jpg"/></td></tr>';
-				$out .='<tr><td>'.$arr[$i]['review_caption'].'(Posted on '.$arr[$i]['review_date'].')</td></tr></table><br>'; 
-			}
-		}
-		$out .='<hr><div><h3>Write Your Own Review</h3></div><h4>You are reviewing: '.$arr[0]['title'].'</h4>
-<form action="?do=productreview&action=addproductreview&prodid='.$arr[0]['product_id'].'" method="post" id="review-form"><div><strong>How do you rate this product?</strong><font color="red">*</font></div><br>';
-		$out .='<table cellspacing="0" border="1" width="50%" height="50%">
-        <thead>
-            <tr>
-                <th>Stars</th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-            </tr>
-        </thead> <tbody><tr><td align="center">
-               <strong>'.$quality.'</strong></td><td align="center"><input type="radio" title="1star" name="ratings" id="Quality_1" value="1" /></td><td align="center"><input type="radio" title="2star" name="ratings" id="Quality_2" value="2" /></td><td align="center"><input type="radio" title="3star" name="ratings" id="Quality_3" value="3" /></td><td align="center"><input type="radio" title="4star" name="ratings" id="Quality_4" value="4" /></td><td align="center"><input type="radio" name="ratings" title="5star" id="Quality_5" value="5" /></td></tr></tbody></table><font color="red">'.$output['msg']['ratings'].'</font><br>';
-			  
-			   $out .='<div><strong>Summary of your overview</strong><font color="red">*</font><br><input type="text" name="reviewtxt" width="400px" value="'.$output['val']['reviewtxt'].'"><font color="red">'.$output['msg']['reviewtxt'].'</font><br><strong>Review</strong><font color="red">*</font>
-			   <br /><textarea name="detail" id="review_field" value="'.$output['val']['detail'].'" cols="53" rows="10" style="width: 450px;"></textarea><font color="red">'.$output['msg']['detail'].'</font><br><br>';
-		
-			$out .='<div align="center"><input type="submit" value="Add Review" name="review"></div></div></form>';
-		return $out;
-	}
-	*/
 	
 	
  	/**

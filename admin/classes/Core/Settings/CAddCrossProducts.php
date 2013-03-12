@@ -1,15 +1,16 @@
 <?php
+
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,20 +19,17 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
 /**
- * CAddCrossProducts
- *
  * This class contains functions to show and update products in a particular category
  *
- * @package		Core_Settings_CAddCrossProducts
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Settings_CAddCrossProducts
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
 
 class Core_Settings_CAddCrossProducts
 {
@@ -155,15 +153,14 @@ class Core_Settings_CAddCrossProducts
 		$query = new Bin_Query();
 		$query->executeQuery($sql);
 		$flag=$query->totrows;
-		//print_r($flag);
-		
+				
 		if($flag=='')
 		{	
 			$sql = "insert into cross_products_table (product_id,cross_product_ids) values('".$prodid."','".$checkboxvalue."')";
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
 			{
-				//echo 's'.$prodid=$_SESSION['prodid']; <a href="?do=prodetail&action=showprod&prodid='.$prodid.'>show</a>
+				
 				return '<b>Cross Products added Successfully</b>';
 			}
 			else
@@ -182,24 +179,21 @@ class Core_Settings_CAddCrossProducts
 			$temparray = $_POST['checkbox'];
 			//$checkboxvalue =array();
 			$checkboxvalue = implode(",",$temparray);
-			//print_r($checkboxvalue);
+		
 			$newprodid['newprodid']=$checkboxvalue;
 			
 			$sample1 = array_values($prevprod[0]);
 			$sample2 = $newprodid['newprodid'];	
-			//echo "<pre>";
+		
 			$sample1 = explode(",",$sample1[0]);
 			$sample2 = explode(",",$sample2);
-			//echo "sample1";
-			//print_r($sample1);
-			//echo "sample2";
-			//print_r($sample2);
+			
 			if(count($sample1)>0 && count($sample2)>0)
 				$sample3 = array_merge($sample2,$sample1);
 				$sample3 = array_unique($sample3);
-			//print_r($sample3);
+	
 			$mergeprod=implode(",",$sample3);
-			//print_r($mergeprod);
+		
 							
 			$sql = "UPDATE cross_products_table SET cross_product_ids='".$mergeprod."' WHERE product_id='".$prodid."'";
 			$query = new Bin_Query();

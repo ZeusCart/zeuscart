@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,18 +20,15 @@
 */
 
 /**
- * CCurrencySettings
- *
  * This class contains functions to add, edit and delete the existing currency settings
  *
- * @package		Core_Settings_CCurrencySettings
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Settings_CCurrencySettings
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
 
 class Core_Settings_CCurrencySettings
 {
@@ -72,7 +69,6 @@ class Core_Settings_CCurrencySettings
 					
 		$sql='SELECT a.id,a.currency_name,a.currency_code,a.country_code,a.conversion_rate,a.currency_tocken,a.status,a.default_currency,b.cou_name FROM currency_master_table a LEFT JOIN country_table b ON a.country_code=b.cou_code ';
 						
-		//print_r(mysql_fetch_array(mysql_query($sql) or die(mysql_error())));
 	  
 		$obj=new Bin_Query();
   	    if($obj->executeQuery($sql))
@@ -84,7 +80,7 @@ class Core_Settings_CCurrencySettings
 				$this->data['prev'] =$tmp->prev;
 				$this->data['next'] = $tmp->next;
 				$sql1 =$sql." LIMIT ".$start.",".$end;
-				//	echo $sql1;exit;
+				
 				$query = new Bin_Query();
 				//$sql1="select orders_status_id,orders_status_name from orders_status_table";
 				$obj1=new Bin_Query();
@@ -176,7 +172,7 @@ class Core_Settings_CCurrencySettings
 	/**
 	 * Function displays the selected currency for updation   
 	 * 
-	 * 
+	 * @param array $Err
 	 * @return string
 	 */	 			
 	

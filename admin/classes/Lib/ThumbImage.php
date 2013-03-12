@@ -1,62 +1,100 @@
 <?php
+/**
+* GNU General Public License.
+
+* This file is part of ZeusCart V4.
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+*/
+
+
+/**
+ * This class contains functions related to thumb image process
+ *
+ * @package  		Lib_ThumbImage
+ * @category  		Library
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Lib_ThumbImage
 {
 
 	/**
 	 * Stores function type's name
 	 *
-	 * @var string $type
+	 * @var string 
 	 */	 
-	private $type;
+	 private $type;
+
 	/**
 	 * Flag for error
 	 *
-	 * @var boolean $error
+	 * @var boolean 
 	 */	
 	private $error;	
+
 	/**
 	 * Stores error numbers and description
 	 *
-	 * @var array $debug
+	 * @var array 
 	 */	
 	public $debug = array();
+
 	/**
 	 * Stores the output
 	 *
-	 * @var string $result
+	 * @var string 
 	 */	
 	 public $result;
+
 	 /**
 	 * source image file path
 	 *
-	 * @var string $srcPath
+	 * @var string 
 	 */	
 	 private $srcPath;	
+
 	 /**
 	 * destination path
 	 *
-	 * @var string $destPath
+	 * @var string 
 	 */	
-	 private $destPath;	
+	 private $destPath;
+	
 	 /**
 	 * width of output image
 	 *
-	 * @var integer $width
+	 * @var integer 
 	 */	
-	 private $width;		
+	 private $width;
+		
 	/**
 	 * the thumbnail quality
 	 *
-	 * @var integer $quality
+	 * @var integer 
 	 */ 
-    private $quality = 100;
+   	 private $quality = 100;
 
 	/**
 	 * the prefix of the image
 	 *
-	 * @prefix integer $quality
+	 * @var integer
 	 */ 
-    private $prefix='';
+    	 private $prefix='';
 
 	
 	/**
@@ -67,7 +105,7 @@ class Lib_ThumbImage
 	 * @param string $srcPath
 	 * @param string $destPath	 	 
 	 * @param integer $width	 
-	 * @return Lib_ThumbImage
+	 * @return string
 	 */
 	 
 	public function Lib_ThumbImage($type,$srcPath,$destPath,$width)
@@ -137,54 +175,54 @@ class Lib_ThumbImage
 	{
 		$source_image=$this->srcPath;
 		$thumb_width=$this->width;
-        $supported_types = array(1, 2, 3, 7);
-        list($width_orig, $height_orig, $image_type) = getimagesize($source_image);
-        if(!in_array($image_type, $supported_types))
-        {
-			$this->error = 1;
-			$this->debug['errinfo'] = array(1001=>'Unsupported Image Type: ' . $image_type);
-			return false;
-        }
-        else
-        {
-            $path_parts = pathinfo($source_image);
-            $filename = $this->prefix.$path_parts['filename'];
-			$dirname = $path_parts['dirname'];
-			
-            $aspect_ratio = (float) $height_orig/$width_orig;			
-            //$thumb_width = round($thumb_height * $aspect_ratio);				
+		$supported_types = array(1, 2, 3, 7);
+		list($width_orig, $height_orig, $image_type) = getimagesize($source_image);
+		if(!in_array($image_type, $supported_types))
+		{
+				$this->error = 1;
+				$this->debug['errinfo'] = array(1001=>'Unsupported Image Type: ' . $image_type);
+				return false;
+		}
+		else
+		{
+		$path_parts = pathinfo($source_image);
+		$filename = $this->prefix.$path_parts['filename'];
+				$dirname = $path_parts['dirname'];
 				
-            $thumb_height = round($thumb_width*$aspect_ratio);
-			
-            $source = imagecreatefromstring(file_get_contents($source_image));
-            $thumb = imagecreatetruecolor($thumb_width,$thumb_height);
-            imagecopyresampled($thumb, $source, 0, 0, 0, 0, $thumb_width,$thumb_height, $width_orig, $height_orig);
-            imagedestroy($source);
-            switch ( $image_type )
-            {
-                case 1:
-                    $thumbnail = $this->destPath.'/'.$filename . '.gif';
-					imagegif($thumb, $thumbnail);
-                    break;
-
-                case 2:
-                    $thumbnail = $this->destPath.'/'.$filename . '.jpg';
-                    imagejpeg($thumb, $thumbnail, $this->quality);
-                    break;
-
-                case 3:
-                    $thumbnail = $this->destPath.'/'.$filename . '.png';
-                    imagepng($thumb, $thumbnail);
-                    break;
-
-                case 7:
-                    $thumbnail = $this->destPath.'/'.$filename . '.bmp';
-					imagewbmp($thumb, $thumbnail);
-                    break;
-            }
-			$this->result="true";
-			return true;
-        }
+		$aspect_ratio = (float) $height_orig/$width_orig;			
+		//$thumb_width = round($thumb_height * $aspect_ratio);				
+					
+		$thumb_height = round($thumb_width*$aspect_ratio);
+				
+		$source = imagecreatefromstring(file_get_contents($source_image));
+		$thumb = imagecreatetruecolor($thumb_width,$thumb_height);
+		imagecopyresampled($thumb, $source, 0, 0, 0, 0, $thumb_width,$thumb_height, $width_orig, $height_orig);
+		imagedestroy($source);
+		switch ( $image_type )
+		{
+			case 1:
+			$thumbnail = $this->destPath.'/'.$filename . '.gif';
+						imagegif($thumb, $thumbnail);
+			break;
+	
+			case 2:
+			$thumbnail = $this->destPath.'/'.$filename . '.jpg';
+			imagejpeg($thumb, $thumbnail, $this->quality);
+			break;
+	
+			case 3:
+			$thumbnail = $this->destPath.'/'.$filename . '.png';
+			imagepng($thumb, $thumbnail);
+			break;
+	
+			case 7:
+			$thumbnail = $this->destPath.'/'.$filename . '.bmp';
+						imagewbmp($thumb, $thumbnail);
+			break;
+		}
+				$this->result="true";
+				return true;
+		}
 	 }
 	
 }

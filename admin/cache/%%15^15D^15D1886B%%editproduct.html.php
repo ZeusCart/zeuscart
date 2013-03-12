@@ -1,5 +1,5 @@
 <?php 
- ob_start(); ?><?php /* Smarty version 2.6.19, created on 2013-03-04 15:15:10
+ ob_start(); ?><?php /* Smarty version 2.6.19, created on 2013-03-09 10:42:20
 compiled from editproduct.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.html", 'smarty_include_vars' => array()));
@@ -398,7 +398,7 @@ value="<?php echo $this->_tpl_vars['product_title']; ?>
 </tr>
 <tr>
 <td class="content_form" align="left">SKU <font color="#FF0000">*</font></td>
-<td colspan="3" id="subcats" align="left"><input name="sku" id="sku" type="text" value="<?php echo $this->_tpl_vars['sku']; ?>
+<td colspan="3" id="sku" align="left"><input name="sku" id="sku" type="text" value="<?php echo $this->_tpl_vars['sku']; ?>
 "/>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dsku', 'SKU', 'Stock Keeping Unit for a product')" onmouseout="HideHelp('dsku');">
 <div id="dsku" style="left: 50px; top: 50px;">
 <div style="color:#FF0000">

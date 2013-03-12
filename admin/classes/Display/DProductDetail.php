@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,14 +18,36 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions to display the product details 
+ *
+ * @package  		Display_DProductDetail
+ * @category  		Display
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Display_DProductDetail
 {
-var $output = array();	
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
+	var $output = array();
+	/**
+	 * Function  to display   the  products 
+	 * @param array $arr
+	 * @return string
+	 */			
 	function showProducts($arr)
 	{
 		$output .= '<table border="1" width="100%">';
 		$output.='<th>S.no.</th><th width="100%">Product Name</th><th>Image</th>';
-		//print_r($arr);
+	
 		for ($i=0;$i<count($arr);$i++)
 		{
 			$temp=$arr[$i]['thumb_image'];
@@ -37,7 +59,13 @@ var $output = array();
 			$output .= '</table>';
 			return $output;	
 	}
-	
+	/**
+	 * Function  to display   the  products  detail page
+	 * @param array $arr
+	 * @param integer $rating
+	 * @param integer $reviewCount
+	 * @return string
+	 */	
 	function productDetail($arr,$rating,$reviewCount)
 	{
 		//$output .= '<table border="1" width="100%">';
@@ -58,7 +86,7 @@ var $output = array();
 		$saveprice.='<th width="100%">Features</th>';	
 		for($i=0;$i<$cnt;$i++)
 		{
-		//print_r($arr[$i]['quantity']);
+	
 		if($arr[$i]['quantity']>0)
 		{
 			$qty=$arr[$i]['quantity'];
@@ -209,20 +237,30 @@ $output.='
 ';*/
 
  	}
+
+ 	/**
+	 * Function  to display   the  review rating
+	 * @param array $arr
+	 * @return string
+	 */	
 	function reviewRating($arr)
 	{
 		$cnt=count($arr);
-		//print_r($cnt);
+	
 		$rate = round($arr[0]['rating']+ $arr[0]['rating']/$cnt);
 		if($rate>0)
 			return '<img src="../images/star'.$rate.'.jpg"/>';
 	}
-	
+	/**
+	 * Function  to display   the  attribute list 
+	 * @param array $arr
+	 * @return string
+	 */	
 	function attributeList($arr)
 	{
 		//$output .= '<table border="0" width="">';
 		//$output.=' <td colspan="2"><h4>Special Attributes</h4></td>';
-		//print_r($arr);
+		
 		for ($i=0;$i<count($arr);$i++)
 		{
 			if($i % 2 == 0)
@@ -245,7 +283,11 @@ $output.='
 			$output .= '</tbody></table>';
 			return $output;	
 	}
-	
+	/**
+	 * Function  to display   the  related product list 
+	 * @param array $arr
+	 * @return string
+	 */	
 	function relatedProducts($arr)
 	{
 	$i=0;

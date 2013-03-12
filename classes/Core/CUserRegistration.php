@@ -1,15 +1,15 @@
 <?php
-/**
+ /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,6 +18,17 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * User registration  related  class
+ *
+ * @package   		Core_CUserRegistration
+ * @category    	Core
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Core_CUserRegistration
 {
 	/**
@@ -121,7 +132,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return array data
 	 */
   	function showMyProfile()
    	{
@@ -187,6 +198,14 @@ class Core_CUserRegistration
 	 */
   	function getPassword()
 	{
+
+		if($_POST['email']=='')
+		{
+			$result = '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				Please enter email address
+				</div>';
+		}
 		$email =$_POST['email'];
 		if($email != '')
 		{
@@ -203,12 +222,18 @@ class Core_CUserRegistration
 				$mail_content = 'Your Password is '.$password;
 				
 				Core_CUserRegistration::sendingMail($email,$title,$mail_content);
-				$result = "<div class='success_msgbox'>Password has been sent to your mail successfully</div><br/>";
+				$result = '<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				Password has been sent to your mail successfully
+				</div>';
 				
 			}
 			else
 			{
-				$result = '<div class="exc_msgbox">Invalid User</div><br/>';
+				$result = '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				Invalid User
+				</div>';
 				
 			}
 		}
@@ -219,7 +244,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function sendingMail($to_mail,$title,$mail_content)
@@ -248,7 +273,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string data
 	 */
 	function loginStatus()
 	{
@@ -287,7 +312,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return  string
 	 */
 	function logoutStatus()
 	{
@@ -300,7 +325,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showHeaderMenu()
 	{
@@ -316,7 +341,13 @@ class Core_CUserRegistration
 			$output='No Category Found';
 		return $output;
 	}
-	
+	/**
+	 * This function is used to get header text from db  
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
 	function showHeaderText()
 	{
     		$query = new Bin_Query();		
@@ -354,7 +385,13 @@ class Core_CUserRegistration
 		return $output;
 	}
    
-   
+   	/**
+	 * This function is used to get sub header menu from db  
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
 	function showSubHeaderMenu()
 	{
 		$id=$_GET['maincatid'];
@@ -370,6 +407,13 @@ class Core_CUserRegistration
 		
 		return $output;
 	}
+	/**
+	 * This function is used to get  header main menu from db  
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
 	function showHeaderMainMenu()
 	{
 		$query = new Bin_Query(); 
@@ -382,6 +426,13 @@ class Core_CUserRegistration
 			$output = '<div id="chromemenu"><ul><li><a href="?do=indexpage">Home</a></li></ul></div>';
 		return $output;
 	}
+	/**
+	 * This function is used to get  google adsense code from db  
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
 	function adSense()
 	{
 		$query = new Bin_Query(); 
@@ -390,6 +441,13 @@ class Core_CUserRegistration
 		$output = $query->records[0]['set_value'];
 		return $output;
 	}
+	/**
+	 * This function is used to get  custom header  from db  
+	 *
+	 * .
+	 * 
+	 * @return HTML data
+	 */
 	function getCustomHeader()
 	{
 		$query = new Bin_Query(); 
@@ -403,6 +461,13 @@ class Core_CUserRegistration
 		<div class="flash_News">'.$output.'</div>
 		</div>';
 	}
+	/**
+	 * This function is used to get  contry list from db  
+	 *
+	 * .
+	 * 
+	 * @return array
+	 */
 	function getCountry($arr)
 	{
 		$query = new Bin_Query(); 
@@ -433,7 +498,7 @@ class Core_CUserRegistration
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return array
 	 */
 	function getSlideShowParameter()
 	{

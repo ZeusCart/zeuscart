@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,19 +19,18 @@
 *
 */
 
+
 /**
- * MCurrencySettings
- *
  * This class contains functions to add, edit and delete a tax rate for the list of currencies available 
- * 
- * @package		Model_MCurrencySettings
- * @category	Model
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ *
+ * @package  		Model_MCurrencySettings
+ * @category  		Model
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
-// ------------------------------------------------------------------------
 
 class Model_MCurrencySettings
 {
@@ -109,6 +108,12 @@ class Model_MCurrencySettings
 		}
 	}
 
+	/**
+	 * Function displays a template for adding  currency  
+	 * 
+	 * 
+	 * @return array
+	 */	
 	
 	
 	function addCurrency()
@@ -120,6 +125,12 @@ class Model_MCurrencySettings
 		$_SESSION['rtsinsmsg'] = $default->addNewCurrency();
 		header("Location:?do=showcurrencylist");
 	}
+	/**
+	 * Function displays a template for edit  currency  
+	 * 
+	 * 
+	 * @return array
+	 */	
 	
 	function showEditCurrency()
 	{
@@ -145,6 +156,13 @@ class Model_MCurrencySettings
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
 	}
+	/**
+	 * Function is used to update currency  
+	 * 
+	 * 
+	 * @return array
+	 */	
+	
 	function updateCurrency()
 	{	
 		include('classes/Lib/CheckInputs.php');
@@ -154,6 +172,12 @@ class Model_MCurrencySettings
 		$_SESSION['rtsinsmsg'] = $default->updateCurrency();
 		header("Location:?do=showcurrencylist");
 	}
+	/**
+	 * Function is used to delete currency  
+	 * 
+	 * 
+	 * @return array
+	 */	
 	function deleteCurrency()
 	{
 		include('classes/Core/Settings/CCurrencySettings.php');

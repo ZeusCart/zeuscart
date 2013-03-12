@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,11 +18,40 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+/**
+ * AJDF
+ *
+ * An open source application development framework for PHP 5.1.6 or newer
+ *
+ * @package 		AJDF
+ * @author   	 	AJ Square Inc Dev Team
+ * @copyright 	    Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @link    		http://www.ajsquare.com/ajhome.php
+ * @version   		Version 4.0
+ * @created   		January 15 2013
+ */
+
+/**
+ * installation process the  related  class
+ *
+ * @package   		install
+ * @subpackage  	Model
+ * @category    	Model
+ * @author    		AJ Square Inc Dev Team
+ * @link   		  http://www.zeuscart.com
+ */
 class Model_MInstall
 {
 	
 	public $config = array();
-	
+	/**
+	 * This function is used to show the index  in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function indexPage()
 	{
 			$shownavigation =3;
@@ -39,7 +68,13 @@ class Model_MInstall
 		$template = 'homepage.php';
 		include('templates/home.php');
 	}
-	
+	/**
+	 * This function is used to show the terms page  in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function termsPage()
 	{		
 		$menus='<ul>
@@ -56,7 +91,13 @@ class Model_MInstall
 			$template = 'terms.html';
 		include('templates/home.php');	
 	}
-
+	/**
+	 * This function is used to show the configuration page  in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function showConfig()
 	{
 		$menus='<ul>
@@ -77,7 +118,13 @@ class Model_MInstall
 			$template = 'chkconfig.php';			
 		include('templates/home.php');		
 	}
-	
+	/**
+	 * This function is used to show the db configuration  in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function showDbConfig()
 	{
 		$menus='<ul>
@@ -95,7 +142,13 @@ class Model_MInstall
 			$template = 'dbconfig.php';
 		include('templates/home.php');	
 	}
-	
+	/**
+	 * This function is used to insert the db   in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function insertDatabase()
 	{
 			if($this->chkDbConnection())
@@ -106,7 +159,13 @@ class Model_MInstall
 				header('Location:?do=admdts');
 			}
 	}
-	
+	/**
+	 * This function is used to write in cahce  in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function writeCache()
 	{
 		 include("../admin/classes/Lib/Configuration.php");
@@ -115,7 +174,13 @@ class Model_MInstall
 		 include("../admin/classes/Lib/CacheSettings.php");
 		 $obj=new Lib_CacheSettings('all');
 	}
-	
+	/**
+	 * This function is used to check the directory in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function checkDir()
 	{
 		$path='../uploadedimages/test/best_sell2.jpg';
@@ -138,6 +203,13 @@ class Model_MInstall
 		}
  
 	}
+	/**
+	 * This function is used to insert the db   in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function showAdmin()
 	{
 		$menus='<ul>
@@ -155,6 +227,13 @@ class Model_MInstall
 			$template = 'admconfig.php';
 		include('templates/home.php');		
 	}
+	/**
+	 * This function is used to show the store in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function showStore()
 	{
 		$menus='<ul>
@@ -194,6 +273,13 @@ class Model_MInstall
 			$template = 'storeset.php';
 		include('templates/home.php');		
 	}
+	/**
+	 * This function is used to show finish page in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function finish()
 	{
 			if(!isset($_POST['email']) || !isset($_POST['uname']) || !isset($_POST['pass']) || !isset($_POST['cpass'])|| !isset($_POST['domain']))
@@ -314,7 +400,13 @@ $result=mysql_query($sql);
 $this->complete();
 	}
 	
-	
+	/**
+	 * This function is used to show the complete page in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	public function complete()
 	{
 		$menus='<ul>
@@ -329,6 +421,13 @@ $this->complete();
 			$template = "templates/finish.php";		
 			include('templates/home.php');	
 	}
+	/**
+	 * This function is used to write db details in congiguration in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	private function writeDbDetails()
 	{
 		$dbfile="../Bin/Configuration.php";
@@ -355,6 +454,13 @@ $this->complete();
 			@chmod($dbfile,0644);			
 		}	
 	}
+	/**
+	 * This function is used to check db details in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	private function chkDbConnection()
 	{
 		if(!isset($_POST['host']) || !isset($_POST['uname']) || !isset($_POST['pass']) || !isset($_POST['dbname']))
@@ -391,7 +497,13 @@ $this->complete();
 		}
 		
 	}
-	
+	/**
+	 * This function is used to check configuration in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
 	private function chkConfig()
 	{
 		$this->config['configok'] = 1;

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -20,31 +20,27 @@
 */
 
 /**
- * CAddMainCategory
- *
  * This class contains functions to add, edit and delete categories from the database
  *
- * @package		Core_Settings_CAddMainCategory
- * @category	Core
- * @author		ZeusCart Team
- * @link		http://www.zeuscart.com
- * @version 	2.3
+ * @package  		Core_Settings_CAddMainCategory
+ * @category  		Core
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
-
-// ------------------------------------------------------------------------
-
 
 class Core_Settings_CAddMainCategory
 {
 	/**
 	 * Function displays all the categories from the table
-	 * 
+	 * @param $Err comatcins both error messages and error values
 	 * 
 	 * @return string
 	 */	 	
 		
 	function showMainCategory($Err)
-    {
+    	{
         include("classes/Display/DCategorySelection.php");
 		$sql = "SELECT * FROM category_table where category_parent_id=0";
 		$query = new Bin_Query();
@@ -124,19 +120,17 @@ class Core_Settings_CAddMainCategory
 	
 	function editMainCategory()
 	{
-	//print_r($_GET);
-	//print_r($_POST);
-	//echo 's';
-	include("classes/Display/DCategorySelection.php");
-	if($_FILES['caticon']['type'] == 'image/jpeg' || $_FILES['caticon']['type'] == 'image/bmp' || $_FILES['caticon']['type'] == 'image/gif' || $_FILES['caticon']['type'] == 'image/png')	
+	
+		include("classes/Display/DCategorySelection.php");
+		if($_FILES['caticon']['type'] == 'image/jpeg' || $_FILES['caticon']['type'] == 'image/bmp' || $_FILES['caticon']['type'] == 'image/gif' || $_FILES['caticon']['type'] == 'image/png')	
 		{
-		$uploadfile = "images/caticons/".date("His").$_FILES['caticon']['name'];
-		move_uploaded_file($_FILES['caticon']['tmp_name'],$uploadfile);
-			 $sql = "UPDATE category_table SET category_name = '".$_POST['category']."',
-category_image = '".$uploadfile."',
-category_desc = '".$_POST['categorydesc']."',
-category_status = '".$_POST['group1']."' WHERE category_id =".(int)$_GET['id'];
-			
+			$uploadfile = "images/caticons/".date("His").$_FILES['caticon']['name'];
+			move_uploaded_file($_FILES['caticon']['tmp_name'],$uploadfile);
+				 $sql = "UPDATE category_table SET category_name = '".$_POST['category']."',
+			category_image = '".$uploadfile."',
+			category_desc = '".$_POST['categorydesc']."',
+			category_status = '".$_POST['group1']."' WHERE category_id =".(int)$_GET['id'];
+						
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
 			//echo "called";
@@ -155,7 +149,7 @@ category_status = '".$_POST['group1']."' WHERE category_id =".(int)$_GET['id'];
 	
 	function deleteMainCategory()
 	{
-	//print_r($_GET);
+			
 			$sql = "DELETE FROM category_table WHERE category_id=".(int)$_GET['id'];
 			
 			$query = new Bin_Query();

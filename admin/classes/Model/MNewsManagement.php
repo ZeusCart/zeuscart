@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,9 +18,33 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions to display the newa management
+ *
+ * @package  		Model_MNewsManagement
+ * @category  		Model
+ * @author    		AjSquareInc Dev Team
+ * @link   		    http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Model_MNewsManagement
 {
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
 	var $output = array();		
+	/**
+	 * Function displays the new News
+	 * 
+	 * 
+	 * @return array
+	 */
 	
 	function newNews()
 	{
@@ -61,6 +85,12 @@ class Model_MNewsManagement
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
 	}	
+	/**
+	 * Function displays the add News
+	 * 
+	 * 
+	 * @return array
+	 */
 	function addNews()
 	{
 	 	include('classes/Core/CRoleChecking.php');
@@ -103,7 +133,12 @@ class Model_MNewsManagement
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
 	}
-	
+	/**
+	 * Function displays the  News page
+	 * 
+	 * 
+	 * @return array
+	 */
 	function showNewsPage()
 	{
 	 	
@@ -150,7 +185,12 @@ class Model_MNewsManagement
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
 	}
-	
+	/**
+	 * Function displays the  view news page
+	 * 
+	 * 
+	 * @return array
+	 */
 	function viewNews()
 	{
 		include('classes/Core/CRoleChecking.php');
@@ -191,7 +231,12 @@ class Model_MNewsManagement
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
 	}	
-	
+	/**
+	 * Function displays the  edit news 
+	 * 
+	 * 
+	 * @return array
+	 */
 	function editNews()
 	{
 	 	include('classes/Core/CRoleChecking.php');
@@ -234,7 +279,12 @@ class Model_MNewsManagement
 			Bin_Template::createTemplate('Errors.html',$output);
 		}*/
 	}	 
-	
+	/**
+	 * Function is used to delete news
+	 * 
+	 * 
+	 * @return array
+	 */
 	function deleteNews()
 	{
 	 	/*include('classes/Core/CRoleChecking.php');
@@ -278,7 +328,12 @@ class Model_MNewsManagement
 			Bin_Template::createTemplate('Errors.html',$output);
 		}*/
 	}	 
-	
+	/**
+	 * Function is used to change the status of the news
+	 * 
+	 * 
+	 * @return array
+	 */
 	function statusNews()
 	{
 	 	include('classes/Core/CRoleChecking.php');

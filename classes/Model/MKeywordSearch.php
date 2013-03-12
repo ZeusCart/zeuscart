@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,13 +18,28 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+
+/**
+ * Keyword search related  class
+ *
+ * @package   		Model_MKeywordSearch
+ * @category    	Model
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
 class Model_MKeywordSearch
 {
 	var $output = array();	
 	
  	/**
 	* This function is used to Display the Keyword Search Page
- 	*/
+ 	*
+	* @return HTML data
+	*/
 	function keywordsearch()
 	{
 		include('classes/Core/CFeaturedItems.php');
@@ -121,7 +136,9 @@ class Model_MKeywordSearch
 	
  	/**
 	* This function is used to Display the Header Categories
- 	*/
+ 	*
+	* @return HTML data
+	*/
 	function headerCategories()
 	{
 		include('classes/Core/CKeywordSearch.php');
@@ -136,7 +153,9 @@ class Model_MKeywordSearch
 	
  	/**
 	* This function is used to Display the Narrow Search Page
- 	*/
+ 	*
+	* @return HTML data
+	*/
 	function narrowSearch()
 	{
 		include('classes/Core/CFeaturedItems.php');
@@ -212,7 +231,9 @@ class Model_MKeywordSearch
 	
  	/**
 	* This function is used to Display the Price Range Search Page
- 	*/
+ 	*
+	* @return HTML data
+	*/
 	function priceRangeSearch()
 	{
 		include('classes/Core/CFeaturedItems.php');
@@ -284,7 +305,9 @@ class Model_MKeywordSearch
 	
  	/**
 	* This function is used to Display the Extended Search Page
- 	*/
+ 	*
+	* @return HTML data
+	*/
 	function extendedSearch()
 	{
 		include_once('classes/Core/CFeaturedItems.php');

@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,14 +18,39 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * This class contains functions related error methods
+ *
+ * @package  		Lib_Validation_Methods
+ * @category  		Library
+ * @author    		AjSquareInc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
+ */
 class Lib_Validation_Methods 
 {
+	/**
+	 * Stores the file error
+	 *
+	 * @var array 
+	 */	
+	
 	var $fileerror;
+	/**
+	 * Assign total validation
+	 *
+	 * @var integer 
+	 */	
 	var $totalvalidation=0;
-   /**
-    * @param string $str
-    * @return boolean
-    */	
+
+	/** 
+	* Function to check the string length  is empty or not
+	* @param string $str
+	* @return bool
+	*/	
 	function IsEmpty($str)
 	{
 		if(strlen(trim($str)) == 0)
@@ -34,11 +59,12 @@ class Lib_Validation_Methods
 			
 	}	
 
-   /**
-    * @param string $str
-    * @param string $exp
-    * @return boolean
-    */		
+	/**
+	* Function to check the string special charactor  or not
+	* @param string $str
+	* @param string $exp
+	* @return bool
+	*/		
 	function IsThereSpecial($str,$exp)
 	{
 		for($i=0;$i<strlen(trim($str));$i++)
@@ -52,10 +78,11 @@ class Lib_Validation_Methods
 		}	
 	}
 	
-   /**
-    * @param string $str
-    * @return boolean
-    */			
+	/**
+	* Function to check the string is numeric charactor  or not
+	* @param string $str
+	* @return bool
+	*/			
 	function IsNumeric($str)
 	{
 		for($i=0;$i<strlen(trim($str));$i++)
@@ -67,10 +94,11 @@ class Lib_Validation_Methods
 		}		
 	}
 
-   /**
-    * @param string $str
-    * @return boolean
-    */			
+	/**
+	* Function to check the string is numeric start  or not
+	* @param string $str
+	* @return bool
+	*/			
 	function IsNumericStart($str)
 	{
 		$chr = ord(substr($str,0,1));
@@ -79,32 +107,35 @@ class Lib_Validation_Methods
 	
 	}
 	
-   /**
-    * @param string $str
-    * @param integer $con
-    * @return boolean
-    */	
+	/**
+	* Function to check the string is minimum   or not
+	* @param string $str
+	* @param integer $con
+	* @return bool
+	*/	
 	function IsMinimum($str,$con)
 	{
 		if(strlen(trim($str)) < $con)
 			return true;
 	}
 	
-   /**
-    * @param string $str
-    * @param string $str1
-    * @return boolean
-    */			
+	/**
+	* Function to check the string is equal with required output  or not
+	* @param string $str
+	* @param string $str1
+	* @return bool
+	*/			
 	function IsEqual($str,$str1)
 	{
 		if(strcmp(strtolower(trim($str)),strtolower(trim($str1))) != 0)
 			return true;	
 	}
 	
-   /**
-    * @param string $str
-    * @return boolean
-    */			
+	/**
+	* Function to check the email
+	* @param string $email
+	* @return bool
+	*/			
 	function IsInvalidEmail($email)
 	{
 		if (!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email))
@@ -114,10 +145,11 @@ class Lib_Validation_Methods
 		
 	}
 
-   /**
-    * @param string $str
-    * @return boolean
-    */			
+	/**
+	* Function to check the string
+	* @param string $str
+	* @return bool
+	*/			
 	function IsString($str)
 	{
 		for($i=0;$i<strlen($str);$i++)
@@ -128,22 +160,24 @@ class Lib_Validation_Methods
 		}
 	}
 
-   /**
-    * @param string $str
-    * @param string $with
-    * @return boolean
-    */			
+	/**
+	* Function to check the is invalid or not 
+	* @param string $str
+	* @param string $with
+	* @return bool
+	*/			
 	function IsInvalidSelect($str,$with)
 	{	
 		if(trim($str)==$with)
 			return true;
 	}
-   /**
-    * @param string $field
-    * @param string $ext
-    * @param integer $size   
-    * @return boolean
-    */
+	/**
+	* Function to check the is invalidfile or not 
+	* @param string $field
+	* @param string $ext
+	* @param integer $size   
+	* @return bool
+	*/
    	function IsInvalidFile($field,$ext,$size)
 	{
 		if($_FILES[$field]["size"]>0)
@@ -177,10 +211,10 @@ class Lib_Validation_Methods
 	}	
 
 	/**
-	 * Enter description here...
+	 * function to check the date is valid or not
 	 *
 	 * @param array $dat
-	 * @return boolean
+	 * @return bool
 	 */
 	function IsInvalidDate($dat)
 	{

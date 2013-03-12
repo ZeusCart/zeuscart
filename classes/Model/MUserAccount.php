@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -18,12 +18,27 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
+
+/**
+ * User account  related  class
+ *
+ * @package   		Model_MUserAccount
+ * @category    	Model
+ * @author    		AJ Square Inc Dev Team
+ * @link   		http://www.zeuscart.com
+  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
+ */
+
 class Model_MUserAccount
 {
 	var $output = array();
 	/**
 	* This function is used to Show news letter page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showNewsLetter($result='')
 	{
 		$this->checkLogin();
@@ -64,7 +79,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to Show account dashboard after login
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showDashBoard()
 	{
 		$this->checkLogin();	
@@ -104,7 +121,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to Show account information  after login
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showAccountInfo($result='')
 	{
 		$this->checkLogin();	
@@ -145,7 +164,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to edit account information  after login
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function editAccountInfo()
 	{
 		include('classes/Lib/CheckInputs.php');
@@ -162,7 +183,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  product review  after login
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showProductReview()
 	{
 		$this->checkLogin();	
@@ -202,7 +225,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  product wishlist  after login
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showWishList($result='')
 	{
 		$this->checkLogin();	
@@ -250,7 +275,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  send wish list   after login
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function sendWishlist()
 	{
 		include('classes/Lib/CheckInputs.php');
@@ -266,7 +293,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  add new letter 
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function addNewsLetter()
 	{
 		include_once('classes/Core/CUserNewsLetter.php');
@@ -279,7 +308,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  my order list page 
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showMyOrder()
 	{
 		$this->checkLogin();	
@@ -318,7 +349,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  my order details page
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showOrderDetails()
 	{
 		$this->checkLogin();	
@@ -356,7 +389,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  all new product
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showAllNew()
 	{
 		include('classes/Core/CKeywordSearch.php');
@@ -393,7 +428,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  all featured product
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showAllFeatured()
 	{
 		include('classes/Core/CKeywordSearch.php');
@@ -423,7 +460,7 @@ class Model_MUserAccount
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		//$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
+				
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CAllFeatured::showAllFeatured();
@@ -432,7 +469,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  my address book
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showMyAddressBook()
 	{
 		$this->checkLogin();
@@ -473,7 +512,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show add  address book
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showAddAddress($result='')
 	{
 		$this->checkLogin();
@@ -516,7 +557,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show add  address book
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function showAddress()
 	{
 		$this->checkLogin();
@@ -558,7 +601,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to insert the  address 
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function addAddress()
 	{
 		include('classes/Lib/CheckInputs.php');
@@ -576,7 +621,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to edit  address 
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function editAddress()
 	{
 		include('classes/Lib/CheckInputs.php');
@@ -593,7 +640,9 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to delete  address 
- 	*/
+ 	*
+ 	* @return HTML data
+	*/
 	function delAddress()
 	{
 		include('classes/Core/CUserAddressBook.php');
@@ -604,7 +653,11 @@ class Model_MUserAccount
 		$result=Core_CUserAddressBook::delAddress();	
 		$this->showMyAddressBook();
 	}
-	
+	/**
+	* This function is used to check  user login session  id
+ 	*
+ 	*
+	*/
 	function checkLogin()
 	{
 		if(!isset($_SESSION['user_id']))
