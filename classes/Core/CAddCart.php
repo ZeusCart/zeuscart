@@ -25,8 +25,8 @@
  * @package   		Core_CAddCart
  * @category    	Core
  * @author    		AJ Square Inc Dev Team
- * @link   		  http://www.zeuscart.com
- * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @link   		    http://www.zeuscart.com
+ * @copyright 	    Copyright (c) 2008 - 2013, AJ Square, Inc.
  * @version   		Version 4.0
  */
 
@@ -978,7 +978,7 @@ class Core_CAddCart
 	 */		
 	function showPaymentPageForBluepay()
 	{
-		if($_SESSION['user_id']!='') //-----------------For  User-------------------
+		if($_SESSION['user_id']!='') 
 		{
 			return Display_DAddCart::showPaymentPageForBluepay($_POST);
 		}
@@ -1554,10 +1554,10 @@ class Core_CAddCart
 	}
 	/**
 	 * This function is used to get product   category id from db.
-	 *
+	 * @param integer $productid
 	 * 
 	 * 
-	 * @return string
+	 * @return int
 	 */
 	function getCategoryIdByProductId($productid)
 	{
@@ -1575,7 +1575,7 @@ class Core_CAddCart
 	 *
 	 * 
 	 * 
-	 * @return string
+	 * @return void
 	 */
 	function getProductQtyForProduct()
 	{
@@ -1698,7 +1698,7 @@ class Core_CAddCart
 	 *
 	 * 
 	 * 
-	 * @return string
+	 * @return void
 	 */
 	function insertBillingAddress()
 	{
@@ -1721,7 +1721,7 @@ class Core_CAddCart
 	 *
 	 * 
 	 * 
-	 * @return string
+	 * @return void
 	 */
 	function insertShippingAddress()
 	{

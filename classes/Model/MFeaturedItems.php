@@ -32,12 +32,18 @@
  */
 class Model_MFeaturedItems
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();	
 	
  	/**
 	* This function is used to Display the Main Category Landing Content Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function showMainCatLanding()
 	{
@@ -106,7 +112,7 @@ class Model_MFeaturedItems
  	/**
 	* This function is used to Display the Featured Product of Main category
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function showMaincatFeaturedProduct()
 	{
@@ -170,7 +176,7 @@ class Model_MFeaturedItems
  	/**
 	* This function is used to Display the Featured Product Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function showFeaturedProduct()
 	{
@@ -294,7 +300,7 @@ class Model_MFeaturedItems
  	/**
 	* This function is used to Display the Featured Items
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function showFeaturedItems()
 	{

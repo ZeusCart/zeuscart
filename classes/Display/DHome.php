@@ -33,7 +33,6 @@ class Display_DHome
 {
  	/**
 	* This function is used to Display the Footer links
-	* @name footer
 	* @param mixed $arr
 	* @return string
  	*/
@@ -55,7 +54,6 @@ class Display_DHome
 
  	/**
 	* This function is used to Display the Home Page Banner
-	* @name getBanner
 	* @param mixed $arr
 	* @return string
  	*/

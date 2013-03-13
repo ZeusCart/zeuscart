@@ -18,36 +18,37 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package   		AJDF
- * @author    		AjSquareInc Dev Team
- * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version  		Version 4.0
- * @created   		January 15 2013
- */
 
 /**
  * This class contains functions related error methods
  *
- * @package  		Classes
- * @subpackage 		Library
+ * @package  		Lib_Validation_Methods
  * @category  		Library
  * @author    		AjSquareInc Dev Team
- * @link   		http://www.zeuscart.com
+ * @link   		    http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 class Lib_Validation_Methods 
 {
+	/**
+	 * Stores the file error
+	 *
+	 * @var array 
+	 */	
+	
 	var $fileerror;
+	/**
+	 * Assign total validation
+	 *
+	 * @var integer 
+	 */	
 	var $totalvalidation=0;
-   /**
-    * @param string $str
-    * @return boolean
-    */	
+   /** 
+	* Function to check the string length  is empty or not
+	* @param string $str
+	* @return bool
+	*/
 	function IsEmpty($str)
 	{
 		if(strlen(trim($str)) == 0)
@@ -56,11 +57,12 @@ class Lib_Validation_Methods
 			
 	}	
 
-   /**
-    * @param string $str
-    * @param string $exp
-    * @return boolean
-    */		
+  /**
+	* Function to check the string special charactor  or not
+	* @param string $str
+	* @param string $exp
+	* @return bool
+	*/	
 	function IsThereSpecial($str,$exp)
 	{
 		for($i=0;$i<strlen(trim($str));$i++)
@@ -74,10 +76,11 @@ class Lib_Validation_Methods
 		}	
 	}
 	
-   /**
-    * @param string $str
-    * @return boolean
-    */			
+  /**
+	* Function to check the string is numeric charactor  or not
+	* @param string $str
+	* @return bool
+	*/		
 	function IsNumeric($str)
 	{
 		for($i=0;$i<strlen(trim($str));$i++)
@@ -89,10 +92,11 @@ class Lib_Validation_Methods
 		}		
 	}
 
-   /**
-    * @param string $str
-    * @return boolean
-    */			
+  /**
+	* Function to check the string is numeric start  or not
+	* @param string $str
+	* @return bool
+	*/		
 	function IsNumericStart($str)
 	{
 		$chr = ord(substr($str,0,1));
@@ -102,31 +106,34 @@ class Lib_Validation_Methods
 	}
 	
    /**
-    * @param string $str
-    * @param integer $con
-    * @return boolean
-    */	
+	* Function to check the string is minimum   or not
+	* @param string $str
+	* @param integer $con
+	* @return bool
+	*/	
 	function IsMinimum($str,$con)
 	{
 		if(strlen(trim($str)) < $con)
 			return true;
 	}
 	
-   /**
-    * @param string $str
-    * @param string $str1
-    * @return boolean
-    */			
+  	/**
+	* Function to check the string is equal with required output  or not
+	* @param string $str
+	* @param string $str1
+	* @return bool
+	*/		
 	function IsEqual($str,$str1)
 	{
 		if(strcmp(strtolower(trim($str)),strtolower(trim($str1))) != 0)
 			return true;	
 	}
 	
-   /**
-    * @param string $str
-    * @return boolean
-    */			
+  	/**
+	* Function to check the email
+	* @param string $email
+	* @return bool
+	*/	
 	function IsInvalidEmail($str)
 	{
 		if($this->IsThereSpecial($str,"@._"))
@@ -147,10 +154,11 @@ class Lib_Validation_Methods
 			return true;
 	}
 
-   /**
-    * @param string $str
-    * @return boolean
-    */			
+  /**
+	* Function to check the string
+	* @param string $str
+	* @return bool
+	*/				
 	function IsString($str)
 	{
 		for($i=0;$i<strlen($str);$i++)
@@ -162,21 +170,23 @@ class Lib_Validation_Methods
 	}
 
    /**
-    * @param string $str
-    * @param string $with
-    * @return boolean
-    */			
+	* Function to check the is invalid or not 
+	* @param string $str
+	* @param string $with
+	* @return bool
+	*/	
 	function IsInvalidSelect($str,$with)
 	{	
 		if(trim($str)==$with)
 			return true;
 	}
    /**
-    * @param string $field
-    * @param string $ext
-    * @param integer $size   
-    * @return boolean
-    */
+	* Function to check the is invalidfile or not 
+	* @param string $field
+	* @param string $ext
+	* @param integer $size   
+	* @return bool
+	*/
    	function IsInvalidFile($field,$ext,$size)
 	{
 		if($_FILES[$field]["size"]>0)
@@ -210,10 +220,10 @@ class Lib_Validation_Methods
 	}	
 
 	/**
-	 * Enter description here...
+	 * function to check the date is valid or not
 	 *
 	 * @param array $dat
-	 * @return boolean
+	 * @return bool
 	 */
 	function IsInvalidDate($dat)
 	{

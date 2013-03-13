@@ -34,7 +34,6 @@ class Display_DSiteMap
 {
  	/**
 	* This function is used to Display SiteMap
-	* @name showMap
 	* @param mixed $arr
 	* @return string
  	*/

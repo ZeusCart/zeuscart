@@ -34,8 +34,16 @@
 
 class Model_MCaptcha
 {
+
+	/**
+	 * Stores the output records
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
-	
+	/**
+	 * This function is used to show the captcha.
+	 */
 	function showCaptcha()
 	{		
 		include('classes/Lib/Captcha.php');	

@@ -36,7 +36,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function addAccount()
 	{
@@ -132,7 +132,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return array data
+	 * @return array 
 	 */
   	function showMyProfile()
    	{
@@ -159,7 +159,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
    
   	function updateMyProfile()
@@ -194,7 +194,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
   	function getPassword()
 	{
@@ -241,8 +241,9 @@ class Core_CUserRegistration
 	}
 	/**
 	 * This function is used to send  the  user password recovery
-	 *
-	 * .
+	 * @param string  $to_mail
+	 * @param string  $title
+	 * @param string  $mail_content
 	 * 
 	 * @return string
 	 */
@@ -366,7 +367,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function addNewsletterSubscription()
 	{
@@ -446,7 +447,7 @@ class Core_CUserRegistration
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function getCustomHeader()
 	{
@@ -463,7 +464,7 @@ class Core_CUserRegistration
 	}
 	/**
 	 * This function is used to get  contry list from db  
-	 *
+	 *  @param array $arr
 	 * .
 	 * 
 	 * @return array
@@ -482,7 +483,7 @@ class Core_CUserRegistration
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function viewSlideShow()
 	{
@@ -517,7 +518,7 @@ class Core_CUserRegistration
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showCurrencySettings()
 	{

@@ -34,7 +34,7 @@ class Core_CUserAccInfo
 {
 	/**
 	* This function is used to assign  the errors in this->data 
-	* @param array $Err contain both error values and error message
+	* @param array $Err 
 	* @return array
  	*/
 	function Ulogin($Err)
@@ -55,7 +55,7 @@ class Core_CUserAccInfo
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showAccInfo()
 	{
@@ -77,7 +77,7 @@ class Core_CUserAccInfo
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function updateAcc()
 	{ 

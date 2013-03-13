@@ -18,43 +18,71 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package   		AJDF
- * @author    		AjSquareInc Dev Team
- * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version  		Version 4.0
- * @created   		January 15 2013
- */
+
 
 /**
  * This class contains functions related cache
  *
- * @package  		Classes
- * @subpackage 		Library
+ * @package  		Lib_Cache
  * @category  		Library
  * @author    		AjSquareInc Dev Team
- * @link   		http://www.zeuscart.com
+ * @link   		    http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 class Lib_Cache
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $vars = array();
+	/**
+	 * Stores the output variable expiry data in array
+	 *
+	 * @var array 
+	 */	
 	var $var_expires = array();
-	var $is_modified = false;
 
+	/**
+	 * Stores the output variable is modified or not 
+	 *
+	 * @var bool 
+	 */	
+	var $is_modified = false;
+	/**
+	 * Stores the output sql table rowset
+	 *
+	 * @var array 
+	 */	
 	var $sql_rowset = array();
+	/**
+	 * Stores the output  sql row pointer
+	 *
+	 * @var array 
+	 */	
 	var $sql_row_pointer = array();
+	/**
+	 * Declare the  varible  
+	 *
+	 * @var string 
+	 */	
 	var $cache_dir = '';
-	
+	/** 
+	* Function is user to cache related process
+	* @param string $cdir
+	* 
+	*/
 	function Lib_Cache($cdir)
 	{
 		$this->cache_dir = $cdir;	
 	}
-	
+	/** 
+	* Function is used to check the  file name
+	* @param string $var_name
+	* @return bool
+	*/
 	function get($var_name)
 	{	
 

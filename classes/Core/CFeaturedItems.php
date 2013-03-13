@@ -724,7 +724,7 @@ var $output = array();
 	}
 	
 	/**
-	 * This function is used to evaluate the product
+	 * This function is used to evaluate the product with search  option
 	 * @param integer $id
 	 * 
 	 * @return string

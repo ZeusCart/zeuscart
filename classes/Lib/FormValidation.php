@@ -19,26 +19,15 @@
 *
 */
 /**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package 		AJDF
- * @author   	 	AJ Square Inc Dev Team
- * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version   		Version 4.0
- * @created   		January 15 2013
- */
-
-/**
  * Form validation  related  class
  *
- * @package   		Classes
- * @subpackage  	Library
+ * @package   		Lib_FormValidation
+ * @subpackage  	Lib_Validation_Handler
  * @category    	Library
  * @author    		AJ Square Inc Dev Team
- * @link   		http://www.zeuscart.com
+ * @link   			http://www.zeuscart.com
+ * @copyright 	    Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
  */
 class Lib_FormValidation extends Lib_Validation_Handler 
 {
@@ -295,11 +284,11 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		/*$message = "Characters should match the above image";
 		$code = $_SESSION['security_code'];	*/	
-// 		if(!empty($_POST['txtcaptcha']) && !(strtolower(trim($_POST['txtcaptcha']))==strtolower($code)))
-// 		{
-// 			$this->Assign("txtcaptcha","","noempty",$message);	
-// 			$this->PerformValidation('?do=login');
-// 		}
+		// 		if(!empty($_POST['txtcaptcha']) && !(strtolower(trim($_POST['txtcaptcha']))==strtolower($code)))
+		// 		{
+		// 			$this->Assign("txtcaptcha","","noempty",$message);	
+		// 			$this->PerformValidation('?do=login');
+		// 		}
 		if(trim($useremail) != '' and trim($pswd) != '' )
 		{
 			
@@ -490,10 +479,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	
 	/**
 	 * Function to validate email
+	 * @param string $email
+	 * @param bool 	 $check_domain	 
 	 *
 	 * @return void 
 	 */	
-	 function email($email, $check_domain = false)
+	function email($email, $check_domain = false)
     {
 		
         if($check_domain){
@@ -565,17 +556,17 @@ class Lib_FormValidation extends Lib_Validation_Handler
 
 		$message = "Required Field Cannot be blank";
 		$this->Assign("txtname",trim($_POST['txtname']),"noempty",$message);
-	//	$this->Assign("txtcompany",trim($_POST['txtcompany']),"noempty",$message);		
+		//	$this->Assign("txtcompany",trim($_POST['txtcompany']),"noempty",$message);		
 		$this->Assign("txtstreet",trim($_POST['txtstreet']),"noempty",$message);
-	//	$this->Assign("txtsuburb",trim($_POST['txtsuburb']),"noempty",$message);
+		//	$this->Assign("txtsuburb",trim($_POST['txtsuburb']),"noempty",$message);
 		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
 		$this->Assign("selbillcountry",trim($_POST['selbillcountry']),"noempty",$message);
 		$this->Assign("txtstate",trim($_POST['txtstate']),"noempty",$message);
 		
 		$this->Assign("txtsname",trim($_POST['txtsname']),"noempty",$message);
-	//	$this->Assign("txtscompany",trim($_POST['txtscompany']),"noempty",$message);
+		//	$this->Assign("txtscompany",trim($_POST['txtscompany']),"noempty",$message);
 		$this->Assign("txtsstreet",trim($_POST['txtsstreet']),"noempty",$message);
-	//	$this->Assign("txtssuburb",trim($_POST['txtssuburb']),"noempty",$message);
+		//	$this->Assign("txtssuburb",trim($_POST['txtssuburb']),"noempty",$message);
 		$this->Assign("txtszipcode",trim($_POST['txtszipcode']),"noempty",$message);
 		$this->Assign("selshipcountry",trim($_POST['selshipcountry']),"noempty",$message);
 		$this->Assign("txtsstate",trim($_POST['txtsstate']),"noempty",$message);
@@ -591,6 +582,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	{
 		$message = "Required Field Cannot be blank/Invalid Email Id";
 		$this->Assign("txtEmail",trim($_POST['txtEmail']),"noempty/emailcheck",$message);
+
 		$this->PerformValidation('?do=wishlist');
 	}
 	/**
@@ -716,10 +708,10 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->Assign("txtregemail",trim($_POST['txtregemail']),"emailcheck",$message);
 		}
 		
-// 		$message = "Characters should match the above image";
-// 		$code = $_SESSION['security_code'];
-// 		if(!empty($_POST['txtcaptcha']) && !(strtolower(trim($_POST['txtcaptcha']))==strtolower($code)))
-// 				$this->Assign("txtcaptcha","","noempty",$message);	
+		// 		$message = "Characters should match the above image";
+		// 		$code = $_SESSION['security_code'];
+		// 		if(!empty($_POST['txtcaptcha']) && !(strtolower(trim($_POST['txtcaptcha']))==strtolower($code)))
+		// 				$this->Assign("txtcaptcha","","noempty",$message);	
 	
 
 		$useremail = $_POST['txtregemail'];

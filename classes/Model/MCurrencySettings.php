@@ -32,6 +32,12 @@
  */
 class Model_MCurrencySettings
 {
+
+	/**
+	 * Stores the output records
+	 *
+	 * @var array 
+	 */	
 	var $output = array();	
 	
  	/**

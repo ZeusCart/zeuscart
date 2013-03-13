@@ -40,9 +40,9 @@ class Core_CPaymentGateways
 		*
 		* .
 		* 
-		* @return HTML data
+		* @return string
 		*/
-    		function insertShipping()
+    	function insertShipping()
 		{
 		    	$orderdetails=array();		
 
@@ -69,7 +69,7 @@ class Core_CPaymentGateways
 		*
 		* .
 		* 
-		* @return HTML data
+		* @return string
 		*/
 		function optPaymentMode()
 		{
@@ -128,7 +128,7 @@ class Core_CPaymentGateways
 		*
 		* .
 		* 
-		* @return HTML data
+		* @return string
 		*/
 		function success()
 		{
@@ -395,10 +395,10 @@ class Core_CPaymentGateways
 		}
 		/**
 		* This function is used to view the manual success page after payment finished
-		*
+		* @param string $paytype
 		* .
 		* 
-		* @return HTML data
+		* @return string
 		*/
 		function manualSuccess($paytype)
 		{
@@ -554,10 +554,8 @@ class Core_CPaymentGateways
 		
 		/**
 		* This function is used toget merchant id
-		*
-		* .
-		* 
-		* @return HTML data
+		* @param string $gateway
+		* @return string
 		*/
 		function getMerchantId($gateway)
 		{

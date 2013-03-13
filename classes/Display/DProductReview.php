@@ -30,15 +30,25 @@
   * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
  * @version   		Version 4.0
  */
-$arr = array();
-$output = array();
+
+
 class Display_DProductReview
 {
-	
-	
+
+	/**
+	 * Stores the output records
+	 *
+	 * @var array 
+	 */	
+	$arr = array();
+		/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */
+	 $output = array();	
  	/**
 	* This function is used to Display the Product Review Page
-	* @name showProductReview
 	* @param mixed $arr
 	* @param mixed $Err	
 	* @param int $totreview
@@ -246,7 +256,6 @@ class Display_DProductReview
 	
  	/**
 	* This function is used to Display the Bread Crumb
-	* @name breadCrumb
 	* @param mixed $arr
 	* @return string
  	*/

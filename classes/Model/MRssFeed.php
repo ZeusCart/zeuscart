@@ -31,6 +31,11 @@
  */
 class Model_MRssFeed
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to Show rss feed for new product

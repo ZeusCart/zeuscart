@@ -35,7 +35,6 @@
 		
  	/**
 	* This function is used to Display the form for zcheckout
-	* @name twoCheckOut
 	* @return string
  	*/
 	function twoCheckOut()
@@ -68,7 +67,6 @@
 		
  	/**
 	* This function is used to Display the form for eGold
-	* @name eGold
 	* @return string
  	*/
 	function eGold()
@@ -104,7 +102,6 @@
 	
  	/**
 	* This function is used to Display the form for stormPay
-	* @name stormPay
 	* @return string
  	*/
 	function stromPay()
@@ -139,7 +136,6 @@
 	
  	/**
 	* This function is used to Display the form for money bookers
-	* @name moneyBookers
 	* @return string
  	*/
 	function moneyBookers()
@@ -166,7 +162,6 @@
 		
  	/**
 	* This function is used to Display the form for eBullion
-	* @name eBullion
 	* @return string
  	*/
 	function eBullion()
@@ -204,7 +199,6 @@
 		
  	/**
 	* This function is used to Display the form for intGold
-	* @name intGold
 	* @return string
  	*/
 	function intGold()
@@ -237,7 +231,6 @@
 		
  	/**
 	* This function is used to Display the form for securepay
-	* @name securePay
 	* @return string
  	*/
 	function securePay()
@@ -275,7 +268,6 @@
 	}
  	/**
 	* This function is used to Display the form for Secure BluePay
-	* @name secureBluePay
 	* @return string
  	*/
 	function secureBluePay()
@@ -311,7 +303,6 @@
 	
  	/**
 	* This function is used to Display the form for Google Pay
-	* @name google Pay
 	* @return string
  	*/
 	function googlePay()
@@ -348,7 +339,6 @@
 	
  	/**
 	* This function is used to Display the form for paypal
-	* @name paypal
 	* @param int $business
 	* @return string
  	*/
@@ -386,7 +376,6 @@
 		
  	/**
 	* This function is used to Display the Success URL
-	* @name success
 	* @return string
  	*/
 	function success()
@@ -398,7 +387,6 @@
 		
  	/**
 	* This function is used to Display the Failu
-	* @name eGold
 	* @return string
  	*/
 	function failure()

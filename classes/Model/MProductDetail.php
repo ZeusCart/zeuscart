@@ -31,11 +31,16 @@
  */
 class Model_MProductDetail
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to Display the product page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showProducts()
 	{
@@ -57,7 +62,7 @@ class Model_MProductDetail
 	/**
 	* This function is used to Display the last view viewed product page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function lastViewedProducts()
 	{
@@ -84,7 +89,7 @@ class Model_MProductDetail
 	/**
 	* This function is used to Display the product detail page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/	
 	function productDetail()
 	{
@@ -153,7 +158,7 @@ class Model_MProductDetail
 	/**
 	* This function is used to Display the large view of image of product
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showLargeview()
 	{

@@ -18,36 +18,45 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package 		AJDF
- * @author   	 	AJ Square Inc Dev Team
- * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version   		Version 1.0
- * @created   		January 15 2013
- */
 
 /**
  * Paging  related  class
  *
- * @package   		AJDF
- * @subpackage  	Library
+ * @package   		Lib_Paging
  * @category    	Library
  * @author    		AJ Square Inc Dev Team
  * @link   		http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
 class Lib_Paging
 {
 	
+	/**
+	 * Stores the ouptut
+	 *
+	 * @var array 
+	 */	 
 	var $output=array();
+	/**
+	 * Stores the previous page number 
+	 *
+	 * @var integer 
+	 */
 	var $prev;
+	/**
+	 * Stores the next page number
+	 *
+	 * @var integer 
+	 */
 	var $next;
-	
+	/**
+	 * Function is used in pagination related process 
+	 * @param string $model
+	 * @param array  $par
+	 * @param  string $cssstyle	
+	 */
 	function Lib_Paging($model,$par,$cssstyle)
 	{
 		if($model='classic')
@@ -55,7 +64,11 @@ class Lib_Paging
 		if($model='default')
 			$this->doDefaultPaging($par,$cssstyle);
 	}
-	
+	/**
+	 * Function is used in classic pagination related process 
+	 * @param array  $par
+	 * @param  string $cssstyle	
+	 */
 	function doClassicPaging($par = array(),$cssstyle)
 	{
 
@@ -131,11 +144,14 @@ class Lib_Paging
 			}			
 		}
 	}
-	
+	/**
+	 * Function is used in default pagination related process 
+	 * @param array  $par
+	 * @param  string $cssstyle	
+	 */
 	function doDefaultPaging($par = array(),$cssstyle)
 	{
-	/*  print_r($par);exit;
-	   echo $cssstyle;exit*/;
+
 		if(count($par)>0)
 		{
 			

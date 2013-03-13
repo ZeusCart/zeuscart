@@ -33,8 +33,8 @@ class Display_DQuickInfo
 {
  	/**
 	* This function is used to Display the Product Quick Info Page
-	* @name showInfo
 	* @param mixed $arr
+	* @param array $r
 	* @return string
  	*/
 	function showInfo($arr,$r)

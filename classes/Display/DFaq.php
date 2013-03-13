@@ -34,8 +34,7 @@ class Display_DFaq
 {
  	/**
 	* This function is used to Display All FAQs
-	* @name listFaq
-	* @param mixed $result
+	* @param mixed $arr
 	* @param int $paging
 	* @param int $prev
 	* @param int $next

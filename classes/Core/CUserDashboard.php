@@ -37,7 +37,7 @@ class Core_CUserDashboard
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showDashboard()
 	{

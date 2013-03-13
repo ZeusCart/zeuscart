@@ -18,38 +18,68 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package   		AJDF
- * @author    		AjSquareInc Dev Team
- * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version  		Version 4.0
- * @created   		January 15 2013
- */
 
 /**
  * This class contains functions related error hander
  *
- * @package  		Classes
- * @subpackage 		Library
+ * @package  		Lib_Validation_Handler
+ * @subpackage  	Lib_Validation_Methods
  * @category  		Library
  * @author    		AjSquareInc Dev Team
- * @link   		http://www.zeuscart.com
+ * @link   		    http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 class Lib_Validation_Handler extends Lib_Validation_Methods 
 {
-var $mCheckArray = array();
-var $mMessageArray = array();
-var $mValueArray = array();
-var $mErrors = array();
-var $mFields = array();
-var $mErrorValues = array();
-var $mValidations = array();
+  /**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
+	var $mCheckArray = array();
+	/**
+	 * Stores the  message array
+	 *
+	 * @var array 
+	 */	
+	var $mMessageArray = array();
+	/**
+	 * Stores the  value array
+	 *
+	 * @var array 
+	 */	
+	var $mValueArray = array();
+	/**
+	 * Stores the error 
+	 *
+	 * @var array 
+	 */	
 
+	var $mErrors = array();
+	/**
+	 * Stores the fields name
+	 *
+	 * @var array 
+	 */	
+	var $mFields = array();
+	/**
+	 * Stores the error values
+	 *
+	 * @var array
+	 */	
+	var $mErrorValues = array();
+	/**
+	 * Stores the validation array
+	 *
+	 * @var array 
+	 */	
+	var $mValidations = array();
+
+
+	/**
+	 *Funtion Lib_Validation_Handler
+	*/
 	function Lib_Validation_Handler()
 	{
 	}	
@@ -70,7 +100,14 @@ var $mValidations = array();
 		$this->mMessageArray = array_merge($this->mMessageArray,array("$message"));
 		$this->mFields  = array_merge($this->mFields,array("$field"));
 	}
-	
+	/**
+	 * Stores multi Fieldnames, Values, Validationlist, Errormessages
+	 *
+	 * @param string $field
+	 * @param string $value
+	 * @param string $check_for
+	 * @param string $message
+	 */
 	function MultiAssign($field,$value,$check_for,$message)
 	{
 		

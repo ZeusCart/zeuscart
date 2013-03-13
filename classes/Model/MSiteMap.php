@@ -32,6 +32,11 @@
  */
 class Model_MSiteMap
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to Show map

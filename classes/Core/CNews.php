@@ -57,7 +57,7 @@ class Core_CNews
 	 * This function is used to get  the all news from db
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showNewsPage()
 	{

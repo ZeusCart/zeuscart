@@ -35,9 +35,9 @@ class Core_CProductReview
 	/**
 	 * This function is used to get the product review .
 	 *
-	 * @param Err Object of Error.
+	 * @param array $Err
 	 * 
-	 * @return array result
+	 * @return array 
 	 */
 
 	function showProductReview($Err)
@@ -75,7 +75,7 @@ class Core_CProductReview
 	 *
 	 * .
 	 * 
-	 * @return array result
+	 * @return array 
 	 */
 	function addProductReview()
 	{
@@ -120,7 +120,7 @@ class Core_CProductReview
 	 *
 	 * .
 	 * 
-	 * @return array result
+	 * @return array 
 	 */
 	function breadCrumb()
 	{

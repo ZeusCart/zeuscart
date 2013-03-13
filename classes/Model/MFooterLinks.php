@@ -31,11 +31,17 @@
  */
 class Model_MFooterLinks
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output=array();
  	/**
 	* This function is used to Display the Terms & Condition Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function termsCondition()
 	{
@@ -75,7 +81,7 @@ class Model_MFooterLinks
  	/**
 	* This function is used to Display the Privacy Ploicy Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function privacyPolicy()
 	{
@@ -115,7 +121,7 @@ class Model_MFooterLinks
  	/**
 	* This function is used to Display the Contact Us Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function showContactUs()
 	{
@@ -160,7 +166,7 @@ class Model_MFooterLinks
  	/**
 	* This function is used to Display the Validation Result of Cotact Us Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function showValidateContactUs()
 	{
@@ -202,7 +208,7 @@ class Model_MFooterLinks
  	/**
 	* This function is used to Display the about us Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function aboutUs()
 	{

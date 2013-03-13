@@ -39,7 +39,7 @@ class Core_COrderHistory
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
  	function dispOrderHistory()
 	{

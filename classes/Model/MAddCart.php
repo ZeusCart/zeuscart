@@ -40,7 +40,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function addCart()
 	{
@@ -140,7 +140,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function addCartFromProductDetail()
 	{
@@ -241,7 +241,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showCart() 
 	{
@@ -340,7 +340,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */		
 	
 	function deleteCart()
@@ -386,7 +386,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function updateCart()
 	{
@@ -436,7 +436,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showQuickRegistration() 
 	{
@@ -504,7 +504,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function doQuickRegistration() 
 	{
@@ -573,7 +573,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showBillingDetails()
 	{
@@ -636,7 +636,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showShippingDetails()
 	{
@@ -700,7 +700,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showShippingMethod()
 	{
@@ -764,7 +764,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	function showOrderConfirmation() 
 	{
@@ -823,7 +823,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	
 	function displayPaymentGateways()
@@ -885,7 +885,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function validateCoupon()
 	{
@@ -943,7 +943,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showPaymentPageForAuthorizenet() 
 	{
@@ -1004,7 +1004,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showPaymentPageForWorldPay() 
 	{
@@ -1066,7 +1066,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showPaymentPageFor2Checkout() 
 	{
@@ -1128,7 +1128,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showPaymentPageForBluepay() 
 	{
@@ -1190,7 +1190,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function doPaymentForAuthorizenet() 
@@ -1251,7 +1251,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function validateBillingAddress()
 	{
@@ -1312,7 +1312,7 @@ var $output = array();
 	 *
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function validateShippingAddress()
 	{

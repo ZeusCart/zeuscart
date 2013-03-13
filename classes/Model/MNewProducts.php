@@ -31,11 +31,17 @@
  */
 class Model_MNewProducts
 {
-var $output = array();	
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
+	var $output = array();	
  	/**
 	* This function is used to Display the New Product Page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function newProducts()
 	{
@@ -70,7 +76,7 @@ var $output = array();
 	/**
 	* This function is used to Display the  Product list  Page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function viewProducts()
 	{

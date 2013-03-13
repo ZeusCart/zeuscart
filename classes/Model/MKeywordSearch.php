@@ -33,12 +33,18 @@
  */
 class Model_MKeywordSearch
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();	
 	
  	/**
 	* This function is used to Display the Keyword Search Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function keywordsearch()
 	{

@@ -33,11 +33,16 @@
 
 class Model_MUserRegistration
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to registeration  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function displayRegPage()
 	{
@@ -86,7 +91,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to validate registeration  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showValidateRegPage()
 	{
@@ -130,7 +135,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to show my profile  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showMyProfile()
 	{
@@ -204,7 +209,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to update my profile  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function updateMyProfile()
 	{
@@ -260,7 +265,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to show index  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showIndexPage()
 	{
@@ -349,7 +354,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to logout process
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function logoutStatus()
 	{
@@ -417,7 +422,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to show login  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showLoginPage()
 	{
@@ -459,7 +464,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to validate the  login  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showValidateLoginPage()
 	{
@@ -536,7 +541,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to display the forgot password  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function displayForgetpwdPage()
 	{
@@ -581,7 +586,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to display  the retrieveforget password  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function retrivePwdPage()
 	{
@@ -627,7 +632,7 @@ class Model_MUserRegistration
 	/**
 	* This function is used to display  new letter subscription  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function addNewsletterSubscription()
 	{

@@ -32,12 +32,23 @@
  */
 class Display_DNews
 {
+
+	/**
+	 * Stores the output records in array format
+	 *
+	 * @var array 
+	 */	
 	var $arr = array();
+	/**
+	 * Stores the output records in array format
+	 *
+	 * @var array 
+	 */	
 	var $arr1 = array();
 
         /**
 	* This function is used to Display the News Menu
-	* @name showNewsTitle 
+	* @param array $arr
 	* @return string
  	*/
    	function showNewsTitle($arr)
@@ -79,10 +90,13 @@ class Display_DNews
 		return $output;
 	}
 
-   	 /**
+    /**
 	* This function is used to Display the News page
-	* @name showNewsPage
 	* @param mixed $arr
+	* @param int $paging
+	* @param int $prev
+	* @param int $next	
+	* @param int $val
 	* @return string
  	*/
 	function showNewsPage($arr,$paging,$prev,$next,$val)

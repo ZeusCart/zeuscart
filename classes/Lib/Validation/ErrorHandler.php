@@ -19,31 +19,34 @@
 *
 */
 /**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package   		AJDF
- * @author    		AjSquareInc Dev Team
- * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version  		Version 4.0
- * @created   		January 15 2013
- */
-
-/**
  * This class contains functions related error hander
  *
- * @package  		Classes
- * @subpackage 		Library
+ * @package  		Lib_Validation_ErrorHandler
  * @category  		Library
  * @author    		AjSquareInc Dev Team
- * @link   		http://www.zeuscart.com
+ * @link   		    http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 class Lib_Validation_ErrorHandler
 {
+	/**
+	 * Stores the output
+	 *
+	 * @var integer 
+	 */
 	var $totalvalidation;
+	/**
+	 * Stores the validation array
+	 *
+	 * @var array 
+	 */
 	var $mValidations=array();
+	/**
+	 * Function to form error handler array
+	 * @param integer  $tot
+	 * @return void 
+	 */
 	function Lib_Validation_ErrorHandler($tot)
 	{
 		$this->totalvalidation=$tot;
@@ -52,7 +55,14 @@ class Lib_Validation_ErrorHandler
 									"match:","emailcheck","ifselected",
 									"checkfile:","datecheck");		
 	}
-	
+	/**
+	 * Function to check  error 
+	 * @param integer  $field
+	 * @param  integer  @value
+	 * @param  string  @check_for
+	 * @param  string  @message
+	 * @return void 
+	 */
 	function CheckError($field,$value,$check_for,$message)
 	{
 		for($s=0;$s<count($tmp=split("/",$check_for));$s++)
@@ -138,7 +148,15 @@ class Lib_Validation_ErrorHandler
 					$this->DisplayError($field,$value,$check_for,$message,15);
 			}
 	}
-	
+	/**
+	 * Function to display  error 
+	 * @param integer  $field
+	 * @param  integer  @value
+	 * @param  string  @check_for
+	 * @param  string  @message
+     * @param integer $id
+	 * @return void 
+	 */
 	function DisplayError($field,$value,$check_for,$message,$id)
 	{
 		if($id==0)

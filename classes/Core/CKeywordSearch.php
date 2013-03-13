@@ -798,7 +798,7 @@
 		
 	}
 	/**
-	 * This function is used to get  the attributes 
+	 * This function is used to get  the attributes from db
 	 * @param integer $id
 	 * @return string
 	 */
@@ -813,7 +813,7 @@
 	   return $out;	   
 	}
 	/**
-	 * This function is used to insert  the  search tags
+	 * This function is used to insert or update the  search tags
  	 * @param string $keyword
 	 * @return string
 	 */

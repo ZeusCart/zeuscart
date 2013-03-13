@@ -36,7 +36,6 @@ class Display_DNewProducts
 	
  	/**
 	* This function is used to Display the New all Products
-	* @name newProducts
 	* @param mixed $arr
 	* @param int $r	
 	* @return string
@@ -94,6 +93,13 @@ class Display_DNewProducts
 			}
 
 		}
+		else
+		{
+			$output.='<div class="alert alert-info">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			<strong>No Products Found</strong> 
+			</div>';
+		}
 			$output.='</ul>
 			</div>';
 
@@ -102,7 +108,6 @@ class Display_DNewProducts
 
  	/**
 	* This function is used When New Products is unavailable
-	* @name newProductElse
 	* @return string
  	*/
 	function newProductsElse()
@@ -164,6 +169,13 @@ class Display_DNewProducts
 				}
 
 			}
+			else
+			{
+			$output.='<div class="alert alert-info">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			<strong>No Products Found</strong> 
+			</div>';
+			}
 			
 
                 $output.='</ul>';
@@ -207,7 +219,13 @@ class Display_DNewProducts
 
 			$output.='</ul>	</div></div>';
 			}
-
+			else
+			{
+			$output.='<div class="alert alert-info">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			<strong>No Products Found</strong> 
+			</div></div></div>';
+			}
 
 		}
 		$output.='<div class="pagination">

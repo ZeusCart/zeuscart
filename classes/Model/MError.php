@@ -34,6 +34,12 @@
 
 class Model_MError
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	
  	/**

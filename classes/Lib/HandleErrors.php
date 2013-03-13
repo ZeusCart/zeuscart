@@ -18,32 +18,37 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package 		AJDF
- * @author   	 	AJ Square Inc Dev Team
- * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version   		Version 4.0
- * @created   		January 15 2013
- */
 
 /**
  * error handle  related  class
  *
- * @package   		Classes
- * @subpackage  	Library
+ * @package   		Lib_HandleErrors
  * @category    	Library
  * @author    		AJ Square Inc Dev Team
- * @link   		http://www.zeuscart.com
+ * @link   		    http://www.zeuscart.com
+ * @copyright 	    Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @version   		Version 4.0
  */
 class Lib_HandleErrors
 {
+	/**
+	 * Stores the error  messages
+	 *
+	 * @var array 
+	 */
 	var $messages = array();
+
+	/**
+	 * Stores the error  values
+	 *
+	 * @var array 
+	 */
 	var $values = array();
+	/**
+	 * Function is used to handle the error 
+	 *
+	 * @return void 
+	 */
 	function Lib_HandleErrors()
 	{
 		if(isset($_SESSION["Errors"]))
@@ -55,7 +60,11 @@ class Lib_HandleErrors
 			unset($_SESSION["ErrorValues"]);					
 		}
 	}
-	
+	/**
+	 * Function is used to display the error  values
+	 * @param string $field
+	 * @return string|void
+	 */
 	function DisplayValue($field)
 	{
 		if(count($this->values)>0)
@@ -63,7 +72,11 @@ class Lib_HandleErrors
 		else 
 			return "";
 	}
-	
+	/**
+	 * Function is used to display the error  message
+	 * @param string $field
+	 * @return string|void
+	 */
 	function DisplayMessage($field)
 	{
 		if(count($this->messages)>0)

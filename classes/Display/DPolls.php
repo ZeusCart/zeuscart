@@ -36,7 +36,6 @@ class Display_DPolls
 	
  	/**
 	* This function is used to Display the Category List
-	* @name showCatList
 	* @return string
  	*/
 	function showCatList()
@@ -72,7 +71,6 @@ class Display_DPolls
 	}
 	/**
 	* This function is used to Display the topics List
-	* @name showTopicsList
 	* @return string
  	*/
 	function showTopicsList()
@@ -109,7 +107,7 @@ class Display_DPolls
 	}
 	/**
 	* This function is used to Display the polls list
-	* @name showTopicsList
+	* @param array $arr
 	* @return string
  	*/
 	function showPollsList($arr='')

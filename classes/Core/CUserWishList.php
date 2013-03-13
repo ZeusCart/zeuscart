@@ -52,10 +52,10 @@ class Core_CUserWishList
 	}
 	/**
 	 * This function is used to get wishlist 
-	 *
+	 *  @param array $result
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showWishList($result='')
 	{
@@ -100,11 +100,12 @@ class Core_CUserWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function sendWishlist()
 	{
+
 		include_once('classes/Core/CHome.php');
 		include_once('classes/Display/DUserAccount.php');
 		$skin = Core_CHome::skinName();
@@ -121,10 +122,10 @@ class Core_CUserWishList
 		$result=$data.$content;
 
 		//Get User Mail Address
-		$sqlselect="SELECT b.email FROM `users_table` a,newsletter_subscription_table b where a.user_email=b.email and a.user_status=1 and a.user_id=".$_SESSION['user_id'];
+		$sqlselect="SELECT b.email FROM `users_table` a,newsletter_subscription_table b where  a.user_status=1 and a.user_id=".$_SESSION['user_id'];
 		$obj->executeQuery($sqlselect);
 
-		$from=$obj->records[0]['email'];	
+		$from=$obj->records[0]['email']; 
 		
 		$to_addr=$_POST['txtEmail'];
 		$title=$_SESSION['user']."Wishlsit";
@@ -137,9 +138,14 @@ class Core_CUserWishList
 		$mail->To($to_addr); 
 		$mail->Subject($title);
 		$mail->Body($mail_content);
+
+
 		$mail->Send();
 
-		return "<div style='padding-bottom:10px'><div class='success_msgbox'>Mail has been send!</div></div>";
+		return '<div class="alert alert-success">
+		<button data-dismiss="alert" class="close" type="button">×</button>
+		Mail has been send!
+		</div>';
 	}
 	/**
 	 * This function is used to get status for wishlist 

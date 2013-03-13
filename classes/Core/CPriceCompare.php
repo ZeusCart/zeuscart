@@ -42,7 +42,7 @@ class Core_CPriceCompare
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string 
 	 */
 	function showPriceComparePage()
 	{

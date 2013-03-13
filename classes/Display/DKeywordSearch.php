@@ -35,7 +35,6 @@ class Display_DKeywordSearch
  	
  	/**
 	* This function is used to Display the Searched Result
-	* @name displaySearch
 	* @param mixed $result
 	* @param int $mode	
 	* @param int $paging
@@ -252,7 +251,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Searched Item Count
-	* @name displayCountSearch
 	* @param mixed $result
 	* @return string
  	*/
@@ -264,7 +262,6 @@ class Display_DKeywordSearch
 
  	/**
 	* This function is used to Display the Paging Size
-	* @name displayPageSize
 	* @return string
  	*/
 	function displayPageSize()
@@ -279,7 +276,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Sort by Mode(0-9,9-0,A-Z,Z-A)
-	* @name dsortBy
 	* @return string
  	*/
 	function sortBy()
@@ -295,7 +291,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Searched Result Caption
-	* @name searchResultFor
 	* @param mixed $search
 	* @return string
  	*/
@@ -307,7 +302,11 @@ class Display_DKeywordSearch
 		   return $res;
 	   }
 	}
-	
+	/**
+	* This function is used to Display the Searched Result session
+	* @param mixed $search
+	* @return string
+ 	*/
 	function searchSession($search)
 	{
 	   return $search;
@@ -315,7 +314,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Mode of Display(Grid,List)
-	* @name linkMode
 	* @return string
  	*/
 	function linkMode()
@@ -332,36 +330,33 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Price Range
-	* @name priceRange
 	* @return string
  	*/
 	function priceRange()
 	{
 		 $output='<form name="pricerange" action="?do=search&action=pricerange" method="post">
-<table cellpadding="0" cellspacing="0"  border="0" width="100%">
-<tr>
-<td colspan="4"><ul>
-<span> Price Range </span>
-</ul></td>
-</tr>
-<tr>
-<td style="padding-left:5px;padding-top:10px"><input type="text" name="txtminmsrp" size="5"></td>
-<td style="padding-top:10px" align="left"><ul>To</ul></td>
-<td style="padding-top:10px"><input type="text" size="5" name="txtmaxmsrp"></td>
-<td style="padding-top:10px;" align=center><input type="submit" class="gobutton" name="pricerange" value="Go" onclick="checkTextBox();" style="cursor:pointer" /></td></tr> 
-<tr><td style="padding-bottom:10px" colspan=4></td></tr>
-</table>
-</form>
-<script>function checkTextBox(){var minval=document.getElementById(\'txtminmsrp\'); var maxval=document.getElementById(\'txtmaxmsrp\'); if(minval>maxval) alert(\'The values are not correct\');}</script>';
+	<table cellpadding="0" cellspacing="0"  border="0" width="100%">
+	<tr>
+	<td colspan="4"><ul>
+	<span> Price Range </span>
+	</ul></td>
+	</tr>
+	<tr>
+	<td style="padding-left:5px;padding-top:10px"><input type="text" name="txtminmsrp" size="5"></td>
+	<td style="padding-top:10px" align="left"><ul>To</ul></td>
+	<td style="padding-top:10px"><input type="text" size="5" name="txtmaxmsrp"></td>
+	<td style="padding-top:10px;" align=center><input type="submit" class="gobutton" name="pricerange" value="Go" onclick="checkTextBox();" style="cursor:pointer" /></td></tr> 
+	<tr><td style="padding-bottom:10px" colspan=4></td></tr>
+	</table>
+	</form>
+	<script>function checkTextBox(){var minval=document.getElementById(\'txtminmsrp\'); var maxval=document.getElementById(\'txtmaxmsrp\'); if(minval>maxval) alert(\'The values are not correct\');}</script>';
 		 return $output;
 		 
 	}
 	
 	
-	
  	/**
 	* This function is used to Display the Brand with Count in Searched Page
-	* @name dispBrandWithCount
 	* @param mixed $result
 	* @param int $id	
 	* @return string
@@ -388,7 +383,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Brand if it is unavailable
-	* @name dispBrandWithCountElsePart
 	* @param mixed $result
 	* @return string
  	*/
@@ -413,7 +407,6 @@ class Display_DKeywordSearch
 
  	/**
 	* This function is used to Display the Featured List
-	* @name featureList
 	* @param mixed $head
 	* @param int $cnt	
 	* @param mixed $att
@@ -443,7 +436,6 @@ class Display_DKeywordSearch
 
  	/**
 	* This function is used to Display the Narrow Searched Result
-	* @name narrowSearch
 	* @param mixed $result
 	* @param int $mode	
 	* @param int $paging
@@ -596,7 +588,9 @@ class Display_DKeywordSearch
 	
 			
 	}
-	
+	/**
+	* This function is used to store the session msrp
+	*/
 	function selectedSearchList()
 	{
 			$_SESSION['msrp']=$val;
@@ -604,7 +598,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Extended Searched Result
-	* @name extendedSearch
 	* @param mixed $result
 	* @param int $mode	
 	* @param int $paging
@@ -754,7 +747,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Searched Result within Price Range
-	* @name priceRangeSearch
 	* @param mixed $result
 	* @param int $mode	
 	* @param int $paging
@@ -915,7 +907,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Clear all Search Session
-	* @name removeAllSearchSession
  	*/
 	function removeAllSearchSession()
 	{
@@ -924,7 +915,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Narrow Searched Result with Session
-	* @name narrowSearchSession
 	* @return string
  	*/
 	function narrowSearchSession()
@@ -933,12 +923,11 @@ class Display_DKeywordSearch
          $result=$_SESSION['arr'];
 		$tot=array_count_values($result);
 		 $brand=$_GET['brand'];
-		// echo $tot;
-//		 print_r($result);exit;
+		
 		 if(count($result)>0)
 		 {
 			  $output="<table cellpadding='0' cellspacing='0' border='0' width='100%'><tr><td colspan='2' width='100%'> Narrow Search</td></tr>";
-			 // print_r($result);
+			
 			 $i=0;
 		      foreach($result as $row)
 			  {
@@ -960,7 +949,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Main Category Dropdown
-	* @name categoryDropDown
 	* @param mixed $result
 	* @return string
  	*/
@@ -991,7 +979,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Sub Category Dropdown
-	* @name dispSubCategory
 	* @param mixed $result
 	* @return string
  	*/
@@ -1027,7 +1014,6 @@ class Display_DKeywordSearch
 	
  	/**
 	* This function is used to Display the Selected Brand
-	* @name displaySelection
 	* @return string
  	*/
 	function displaySelection()

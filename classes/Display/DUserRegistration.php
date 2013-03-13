@@ -32,12 +32,21 @@
  */
 class Display_DUserRegistration
 {
+	/**
+	 * Stores the output records
+	 *
+	 * @var array 
+	 */	
 	var $arr = array();
+	/**
+	 * Stores the output records
+	 *
+	 * @var array 
+	 */	
 	var $arr1 = array();
 		
  	/**
 	* This function is used to Display the Header Menus
-	* @name showHeaderMenu
 	* @param mixed $arr
 	* @return string
  	*/
@@ -93,7 +102,6 @@ class Display_DUserRegistration
 
  	/**
 	* This function is used to Display the Sub Header menu
-	* @name showSubHeaderMenu
 	* @param mixed $arr
 	* @return string
  	*/
@@ -112,7 +120,6 @@ class Display_DUserRegistration
 	
  	/**
 	* This function is used to Display the User Profile
-	* @name showMyProfile
 	* @param mixed $arr
 	* @return string
  	*/
@@ -199,7 +206,6 @@ class Display_DUserRegistration
 	
  	/**
 	* This function is used to Display the Header Text
-	* @name showHeaderText
 	* @param mixed $arr
 	* @return string
  	*/
@@ -214,7 +220,6 @@ class Display_DUserRegistration
 	
  	/**
 	* This function is used to Display the Signup Info
-	* @name signUp
 	* @return string
  	*/
 	function signUp()
@@ -230,7 +235,6 @@ class Display_DUserRegistration
 	}
  	/**
 	* This function is used to Display the Sub Category Heading
-	* @name showSubCat
 	* @return string
  	*/
 	function showSubCat()
@@ -240,7 +244,6 @@ class Display_DUserRegistration
 
  	/**
 	* This function is used to Display the Main category Heading
-	* @name showMainCat
 	* @return string
  	*/
 	function showMainCat()
@@ -250,7 +253,6 @@ class Display_DUserRegistration
 
  	/**
 	* This function is used to Display the User's left Menu
-	* @name showUserLeftMenu
 	* @return string
  	*/
 	function showUserLeftMenu()
@@ -278,7 +280,7 @@ class Display_DUserRegistration
 			{
 				$output.='<li><a href="?do=accountinfo" class="unselect"><i class="icon-chevron-right"></i> Account Information</a></li>';
 			}	
-                    	if($_GET['do']=='addressbook')
+                    	if($_GET['do']=='addressbook' || $_GET['do']=='addaddress')
 			{
 				$output.='<li><a href="?do=addressbook" class="select"><i class="icon-chevron-right"></i> Address Book</a></li>';
 
@@ -287,7 +289,7 @@ class Display_DUserRegistration
 			{
 				$output.='<li><a href="?do=addressbook" class="unselect"><i class="icon-chevron-right"></i> Address Book</a></li>';
 			}
-                    	if($_GET['do']=='myorder')
+                    	if($_GET['do']=='myorder' || $_GET['do']=='orderdetail')
 			{
 				$output.='<li><a href="?do=myorder" class="select"><i class="icon-chevron-right"></i> My Orders</a></li>';
 
@@ -305,7 +307,23 @@ class Display_DUserRegistration
 			{
 				$output.='<li><a href="?do=orders" class="unselect"><i class="icon-chevron-right"></i> My Product Reviews</a></li>';
 			}
-                   
+ 
+			if($_GET['do']=='newsletter')
+			{
+			$output.='<li><a href="?do=newsletter" class="select"><i class="icon-circle-arrow-right"></i>Newsletter Subscriptions</a></li>';
+			}
+			else
+			{	
+			$output.='<li><a href="?do=newsletter" class="unselect"><i class="icon-circle-arrow-right"></i>Newsletter Subscriptions</a></li>';
+			}
+			if($_GET['do']=='wishlist')
+			{
+			$output.='<li><a href="?do=wishlist" class="select"><i class="icon-circle-arrow-right"></i>My Wishlist</a></li>';
+			}
+			else
+			{
+			$output.='<li><a href="?do=wishlist" class="unselect"><i class="icon-circle-arrow-right"></i>My Wishlist</a></li>';
+			}
                    $output.=' </ul>
             </div>
               </div>';
@@ -314,7 +332,6 @@ class Display_DUserRegistration
 
  	/**
 	* This function is used to Display the Main Menu in Header
-	* @name showHaederMainMenu
 	* @param mixed $arr
 	* @return string
  	*/
@@ -339,6 +356,11 @@ class Display_DUserRegistration
 		$output.='</div>';
 	   return $output;
 	}
+	/**
+	* This function is used to Display the country
+	* @param mixed $arrCountry
+	* @return string
+ 	*/
 	function dispCountry($arrCountry)
 	{
 		$output1='<select name="selCountry" id="select3" class="listbox1 w4a TxtC1">';

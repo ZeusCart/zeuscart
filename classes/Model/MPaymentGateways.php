@@ -33,11 +33,16 @@
 
 class Model_MPaymentGateways
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();	
 	/**
 	* This function is used to Display the PaymentMode
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function optPaymentMode()
 	{
@@ -71,7 +76,7 @@ class Model_MPaymentGateways
 	/**
 	* This function is used to Display the success page after orderconfirmation and payment process
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function success()
 	{
@@ -107,7 +112,7 @@ class Model_MPaymentGateways
 	/**
 	* This function is used to Display the failure page after orderconfirmation and payment process
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function failure()
 	{

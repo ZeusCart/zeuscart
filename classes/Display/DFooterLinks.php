@@ -38,7 +38,6 @@ class Display_DFooterLinks
 {
  	/**
 	* This function is used to Display the Terms and Condition
-	* @name termsCondition
 	* @param mixed $arr
 	* @return string
  	*/
@@ -87,7 +86,6 @@ class Display_DFooterLinks
 	
  	/**
 	* This function is used When No Terms and Conditions Available
-	* @name termsConditionElse
 	* @return string
  	*/
 	function termsConditionElse()
@@ -135,7 +133,6 @@ class Display_DFooterLinks
 	
  	/**
 	* This function is used to Display the Privacy Policy
-	* @name privacyPolicy
 	* @param mixed $arr
 	* @return string
  	*/
@@ -185,7 +182,6 @@ class Display_DFooterLinks
 
  	/**
 	* This function is used When No Privacy Policy is Available
-	* @name privacyPolicyElse
 	* @return string
  	*/
 	function privacyPolicyElse()
@@ -234,7 +230,6 @@ class Display_DFooterLinks
 	
  	/**
 	* This function is used to Display the Contact Us Form
-	* @name showContactUs
 	* @param mixed $Err
 	* @return string
  	*/
@@ -296,7 +291,6 @@ class Display_DFooterLinks
 	
  	/**
 	* This function is used to Display the About Us
-	* @name aboutUs
 	* @param mixed $arr
 	* @return string
  	*/

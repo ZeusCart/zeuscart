@@ -34,7 +34,7 @@ class Core_CUserAddressBook
 
 	/**
 	* This function is used to assign  the errors in this->data 
-	* @param array $Err contain both error values and error message
+	* @param array $Err 
 	* @return array
  	*/
 	function Ulogin($Err)
@@ -55,7 +55,7 @@ class Core_CUserAddressBook
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showAddress()
 	{
@@ -74,7 +74,7 @@ class Core_CUserAddressBook
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showAddressBook()
 	{
@@ -95,8 +95,56 @@ class Core_CUserAddressBook
 		}
 		$total = 0;
 		
-		$sqlselect="SELECT a.*,b.cou_name from addressbook_table a,country_table b where a.country=b.cou_code and a.user_id=".$userid." order by a.contact_name";
-		
+		$sqlselect="SELECT a.*,b.cou_name from addressbook_table a,country_table b where a.country=b.cou_code and a.user_id=".$userid." ";
+		if(isset($_GET['schltr']))
+		{
+			$searchletter=trim($_GET['schltr']);
+			if(strtolower($searchletter)!='all')
+			$sqlselect.=" and a.contact_name like '".$searchletter."%'";
+		}
+		if(isset($_GET['gname'])&&$_GET['gname']!='')
+		{
+			$searchletter=trim($_GET['gname']);
+			if(strtolower($searchletter)!='')
+			$sqlselect.=" and a.contact_name like '".$searchletter."%'";
+		}
+		if(isset($_GET['fname'])&&$_GET['fname']!='')
+		{
+			$searchletter=trim($_GET['fname']);
+			if(strtolower($searchletter)!='')
+			$sqlselect.=" and a.first_name like '".$searchletter."%'";
+		}
+		if(isset($_GET['lname'])&&$_GET['lname']!='')
+		{
+			$searchletter=trim($_GET['lname']);
+			if(strtolower($searchletter)!='')
+			$sqlselect.=" and a.last_name like '".$searchletter."%'";
+		}
+		if(isset($_GET['comp'])&&$_GET['company']!='')
+		{
+			$searchletter=trim($_GET['comp']);
+			if(strtolower($searchletter)!='')
+			$sqlselect.=" and a.company like '".$searchletter."%'";
+		}
+		if(isset($_GET['city'])&&$_GET['city']!='')
+		{
+			$searchletter=trim($_GET['city']);
+			if(strtolower($searchletter)!='')
+			$sqlselect.=" and a.city like '".$searchletter."%'";
+		}
+		if(isset($_GET['email'])&&$_GET['email']!='')
+		{
+			$searchletter=trim($_GET['email']);
+			if(strtolower($searchletter)!='')
+			$sqlselect.=" and a.email like '".$searchletter."%'";
+		}
+		if(isset($_GET['state'])&&$_GET['state']!='')
+		{
+			$searchletter=trim($_GET['state']);
+			if(strtolower($searchletter)!='')
+			$sqlselect.=" and a.state like '".$searchletter."%'";
+		}
+		$sqlselect.=" order by a.contact_name";
 		$query = new Bin_Query();
 		$query->executeQuery($sqlselect);
 		
@@ -107,18 +155,15 @@ class Core_CUserAddressBook
 		$this->data['prev'] =$tmp->prev;
 		$this->data['next'] = $tmp->next;	
 		
-		$sqlselect="SELECT a.*,b.cou_name from addressbook_table a,country_table b where a.country=b.cou_code and user_id=".$userid." order by a.contact_name LIMIT $start,$end";
-		
-		$obj = new Bin_Query();
-		$obj->executeQuery($sqlselect);
-		return Display_DUserAccount::showAddressBook($obj->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
+
+		return Display_DUserAccount::showAddressBook($query->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
 	}
 	/**
 	 * This function is used to show  the  add address for user after login
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showAddAddress()
 	{
@@ -145,7 +190,7 @@ class Core_CUserAddressBook
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showAddAddressFromCheckout()
 	{
@@ -172,7 +217,7 @@ class Core_CUserAddressBook
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function addAddress()
 	{
@@ -195,7 +240,7 @@ class Core_CUserAddressBook
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function addAddressFromCheckout()
 	{
@@ -218,7 +263,7 @@ class Core_CUserAddressBook
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function editAddress()
 	{
@@ -227,14 +272,18 @@ class Core_CUserAddressBook
 		$sql="update addressbook_table set contact_name='".$_POST['txtGName']."',first_name='".$_POST['txtFName']."',last_name='".$_POST['txtLName']."',company='".$_POST['txtCompany']."',email='".$_POST['txtEMail']."',address='".$_POST['txtAddress']."',city='".$_POST['txtCity']."',suburb='".$_POST['txtSuburb']."',state='".$_POST['txtState']."',country='".$_POST['selCountry']."',zip='".$_POST['txtZip']."',phone_no='".$_POST['txtPhone']."',fax='".$_POST['txtFax']."' where user_id='".$userid."' and contact_name='".$_POST['hidGroup']."'";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
-			return "<div class='success_msgbox'>Updated!</div></br>";
+
+			return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Your Contact Successfully  Updated!
+			</div>';
 	}
 	/**
 	 * This function is used to delete  the   address for user after login
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function delAddress()
 	{
@@ -243,7 +292,12 @@ class Core_CUserAddressBook
 		$sql="delete from addressbook_table where user_id='".$userid."' and contact_name='".$_GET['id']."'";
 		$query = new Bin_Query();
 		$query->executeQuery($sql);
-		return "<div class='success_msgbox'>Deleted!</div></br>";
+
+
+		return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Your Contact Successfully  Deleted!
+			</div>';
 	}
 
 }

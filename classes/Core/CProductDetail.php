@@ -32,12 +32,18 @@
  */
 class Core_CProductDetail
 {
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
 	var $output = array();	
 	/**
 	 * This function is used to get   the product 
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	function showProducts()
 	{
@@ -53,7 +59,12 @@ class Core_CProductDetail
 		}
 		
 	}
-	
+	/**
+	 * This function is used to get   the product page information
+	 * 
+	 * 
+	 * @return string
+	 */	
 	function pageInfo()
 	{
 		$sql= "SELECT product_id,title,meta_desc,meta_keywords FROM products_table where product_id= ".(int)$_GET['prodid']." and status=1";
@@ -72,7 +83,7 @@ class Core_CProductDetail
 	 * This function is used to get   the product  details
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	function productDetail()
 	{
@@ -241,7 +252,7 @@ class Core_CProductDetail
 	 * This function is used to get   the breadcrumb
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	function breadCrumb()
 	{
@@ -256,7 +267,7 @@ class Core_CProductDetail
 	 * This function is used to get   the review rating
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	
 	function reviewRating()
 	{
@@ -272,7 +283,7 @@ class Core_CProductDetail
 	 * This function is used to get   the review rating count
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function reviewCount()
@@ -288,9 +299,9 @@ class Core_CProductDetail
 	}
 	/**
 	 * This function is used to get   the last viewed product
+	 *  @param integer @id
 	 * 
-	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function lastViewedProducts($id)
@@ -305,7 +316,7 @@ class Core_CProductDetail
 	 * This function is used to get   the attribute list
 	 * 
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function attributeList()
 	{
@@ -456,7 +467,7 @@ class Core_CProductDetail
 	 *
 	 * 
 	 * 
-	 * @return array result
+	 * @return array 
 	 */
 
 	function showCategoryTree()

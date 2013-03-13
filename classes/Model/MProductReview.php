@@ -31,11 +31,16 @@
  */
 class Model_MProductReview
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to Display the product review page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showProductReview()
 	{	
@@ -104,7 +109,7 @@ class Model_MProductReview
 	/**
 	* This function is used to Display the add review to the selected product
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 
 	function addProductReview()
@@ -169,7 +174,7 @@ class Model_MProductReview
 	/**
 	* This function is used to Display the compare product  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function compareProduct()
 	{	

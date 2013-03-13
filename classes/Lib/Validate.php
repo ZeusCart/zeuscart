@@ -18,6 +18,20 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+/**
+ * validation  related  class
+ *
+ * @package         Validate
+ * @category        Library
+ * @author          AJ Square Inc Dev Team
+ * @link            http://www.zeuscart.com
+ * @copyright       Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version         Version 4.0
+ */
+
+/**
+* Get validation  variable  and assign it
+*/
 
 define('VALIDATE_NUM',          '0-9');
 define('VALIDATE_SPACE',        '\s');
@@ -34,7 +48,7 @@ define('VALIDATE_STREET',       VALIDATE_NAME . "/\\��");
 class Validate
 {
     /**
-     * Validate a number
+     * Function is used to validate a number
      *
      * @param string    $number     Number to validate
      * @param array     $options    array where:
@@ -43,6 +57,7 @@ class Validate
      *                              'dec_prec'  Number of allowed decimals
      *                              'min'       minimun value
      *                              'max'       maximum value
+     * @return bool
      */
     function number($number, $options)
     {
@@ -71,10 +86,11 @@ class Validate
     }
 
     /**
-     * Validate a email
+     * Function is used tovalidate a email
      *
      * @param string    $email          URL to validate
      * @param boolean   $domain_check   Check or not if the domain exists
+     * @return bool
      */
     function email($email, $check_domain = false)
     {
@@ -99,7 +115,7 @@ class Validate
     }
 
     /**
-     * Validate a string using the given format 'format'
+     * Function is used to validate a string using the given format 'format'
      *
      * @param string    $string     String to validate
      * @param array     $options    Options array where:
@@ -107,6 +123,7 @@ class Validate
      *                                  Ex: VALIDATE_NUM . VALIDATE_ALPHA (see constants)
      *                              'min_length' minimum length
      *                              'max_length' maximum length
+     * @return bool
      */
     function string($string, $options)
     {
@@ -128,10 +145,11 @@ class Validate
     }
 
     /**
-     * Validate a URL
+     *  FUnction is used to validate a URL
      *
      * @param string    $url            URL to validate
      * @param boolean   $domain_check   Check or not if the domain exists
+     * @return bool
      */
     function url($url, $domain_check = false)
     {
@@ -358,7 +376,13 @@ class Validate
             return true;
         }
     }
-
+    /**
+     * Function is used in sub string related process 
+     * @param array   $data  
+     * @param integer  $num
+     * @param  bool $opt 
+     * @return  array
+     */
     function _substr(&$date, $num, $opt = false)
     {
         if ($opt && strlen($date) >= $opt && preg_match('/^[0-9]{'.$opt.'}/', $date, $m)) {
@@ -369,7 +393,12 @@ class Validate
         $date = substr($date, strlen($ret));
         return $ret;
     }
-
+     /**
+     * Function is used in chage the value of the variable if function exists related process 
+     * @param integer   $val  
+     * @param integer  $div
+     * @return  integer
+     */
     function _modf($val, $div) {
         if( function_exists('bcmod') ){
             return bcmod($val,$div);

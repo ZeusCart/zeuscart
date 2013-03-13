@@ -28,14 +28,13 @@
  * @category    	Display
  * @author    		AJ Square Inc Dev Team
  * @link   		http://www.zeuscart.com
-  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
  * @version   		Version 4.0
  */
 class Display_DCurrencySettings
 {
  	/**
 	* This function is used to Display All Enabled Currencies
-	* @name displayEnabledCurrencies
 	* @param mixed $arr
 	* @return string
  	*/

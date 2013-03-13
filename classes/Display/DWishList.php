@@ -30,18 +30,34 @@
   * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
  * @version   		Version 4.0
  */
-$arr = array();
-$arr1 = array();
-$output = array();
+	/**
+	 * Stores the output records
+	 *
+	 * @var array 
+	 */	
+     	$arr = array();
+    	 /**
+	 * Stores the output records
+	 *
+	 * @var array 
+	 */	
+	$arr1 = array();
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
+	$output = array();
+
 class Display_DWishList
 {
+	
  	/**
 	* This function is used to Display the Wishlist Snapshot
-	* @name wishlistSnapshot
 	* @param mixed $arr
 	* @param int $totalitem
 	* @param mixed $r
-	* @return  HTML data
+	* @return  string
  	*/
 	function wishlistSnapshot($arr,$totalitem,$r)
 	{
@@ -120,7 +136,6 @@ class Display_DWishList
 
  	/**
 	* This function is used to Display the Wishlist Products
-	* @name viewWishList
 	* @param mixed $arr
 	* @param mixed $r
 	* @return  HTML data
@@ -216,7 +231,6 @@ class Display_DWishList
 	}
 	/**
 	* This function is used to Display the Wishlist snapshot else part
-	* @name viewWishListElse
 	* @return  HTML data
  	*/
 	function viewWishListElse()
@@ -260,8 +274,7 @@ class Display_DWishList
 	}
 	/**
 	* This function is used to Display the  add wishlist snapshot else part
-	* @name addtoWishListElse
-	* @return  HTML data
+	* @return  string
  	*/
 	
 	function addtoWishListElse()
@@ -284,9 +297,8 @@ class Display_DWishList
 	
  	/**
 	* This function is used to Display Wishlist Products
-	* @name viewProduct
 	* @param mixed $arr
-	* @return  HTML data
+	* @return  string
  	*/
 	function viewProduct($arr)
 	{
@@ -317,7 +329,6 @@ class Display_DWishList
 	}
 	/**
 	* This function is used to Display the product else part
-	* @name viewProductElse
 	* @return string
  	*/
 	function viewProductElse()
@@ -332,11 +343,10 @@ class Display_DWishList
 
  	/**
 	* This function is used to Display the Compared Product
-	* @name viewCompareProduct
 	* @param mixed $arr
 	* @param mixed $arr1
 	* @param int $product_ids
-	* @return  HTML data
+	* @return  string
  	*/
 	function viewCompareProduct($arr,$arr1,$product_ids)
 	{
@@ -497,11 +507,10 @@ class Display_DWishList
 	}
 	/**
 	* This function is used to Display the Compared Product
-	* @name snapshotForHome
 	* @param mixed $arr
 	* @param array $totalitem
 	* @param int $r
-	* @return  HTML data
+	* @return  string
  	*/
 	function snapshotForHome($arr,$totalitem,$r)
 	{
@@ -547,7 +556,6 @@ class Display_DWishList
 	}
 	/**
 	* This function is used to Display the snap shot in page 
-	* @name snapshotElseForHome
 	* 
 	* @return HTML data
  	*/

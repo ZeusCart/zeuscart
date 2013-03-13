@@ -33,7 +33,6 @@ class Core_CTagClouds
 {
 	/**
 	* This function is used to Display the search tag 
-	
 	* @return string
  	*/
 	function displayTagClouds()

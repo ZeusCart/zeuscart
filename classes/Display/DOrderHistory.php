@@ -31,7 +31,10 @@
  * @version   		Version 4.0
  */
  class Display_DOrderHistory
-{
+{	
+	/**
+	* This function is used to Display the order history
+	*/
  	 function func2()
 	{
 	}

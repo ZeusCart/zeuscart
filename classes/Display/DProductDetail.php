@@ -32,11 +32,16 @@
 
 class Display_DProductDetail
 {
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
 	var $output = array();	
 	
  	/**
 	* This function is used to Display the Products
-	* @name showProducts
 	* @param mixed $arr
 	* @return string
  	*/
@@ -60,7 +65,6 @@ class Display_DProductDetail
 	
  	/**
 	* This function is used to Display the Page Info
-	* @name pageInfo
 	* @param mixed $arr
 	* @return string
  	*/
@@ -73,12 +77,9 @@ class Display_DProductDetail
 			return $output;	
 	}
 	
-	
-	
-	
+
  	/**
 	* This function is used to Display the Product Detail Page
-	* @name productDetail
 	* @param mixed $arr
 	* @param string $diffrate
 	* @param string $features
@@ -255,7 +256,6 @@ class Display_DProductDetail
 	}
  	/**
 	* This function is used to Display the Review Rating
-	* @name reviewRating
 	* @param mixed $arr
 	* @return string
  	*/
@@ -275,7 +275,6 @@ class Display_DProductDetail
 	}
  	/**
 	* This function is used to Display the breadCrumb
-	* @name breadCrumb
 	* @param mixed $arr
 	* @return string
  	*/
@@ -292,7 +291,6 @@ class Display_DProductDetail
 
  	/**
 	* This function is used to Display the attribute List of Product
-	* @name attributeList
 	* @param mixed $arr
 	* @return string
  	*/
@@ -319,10 +317,9 @@ class Display_DProductDetail
 	
  	/**
 	* This function is used to Display the related Products
-	* @name relatedProducts
 	* @param mixed $arr
 	* @param int $flag
-	* @param int $r
+	* @param array $r
 	* @return string
  	*/
 	function relatedProducts($arr,$flag,$r)
@@ -402,7 +399,6 @@ class Display_DProductDetail
 	
  	/**
 	* This function is used to Display the Related Products
-	* @name dispRelatedProduct
 	* @param mixed $arr
 	* @return string
  	*/
@@ -433,7 +429,6 @@ class Display_DProductDetail
 	
  	/**
 	* This function is used to Display the Product in Large View
-	* @name showLargeView
 	* @param mixed $arr
 	* @param int $paging
 	* @param int $prev
@@ -466,9 +461,9 @@ class Display_DProductDetail
 	/**
 	 * This function is used to display the category list .
 	 *
-	  * @param   array  	arr	array of items
+	  * @param   array  	$arr	array of items
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 
 	function showCategoryTree($arr)

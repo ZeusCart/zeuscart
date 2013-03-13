@@ -49,7 +49,7 @@ class Core_CRss
 	}
 	/**
 	* This function is used to get the  rss in xml 
-	*
+	* @param array $result
 	* .
 	* 
 	* @return XML data

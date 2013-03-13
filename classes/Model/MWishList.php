@@ -33,11 +33,16 @@
 
 class Model_MWishList
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to display  add wishlist  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/	
 	function addtoWishList()
 	{
@@ -104,7 +109,7 @@ class Model_MWishList
 	/**
 	* This function is used to display  delete wishlist  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function deletefromWishList()
 	{
@@ -170,7 +175,7 @@ class Model_MWishList
 	/**
 	* This function is used to display  view wishlist  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function viewWishList()
 	{	
@@ -239,7 +244,7 @@ class Model_MWishList
 	/**
 	* This function is used to display  clear wishlist  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function clearWishlist()
 	{
@@ -300,7 +305,7 @@ class Model_MWishList
 	/**
 	* This function is used to display  View snapshot for wishlist
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function wishlistSnapshot()
 	{	
@@ -317,7 +322,7 @@ class Model_MWishList
 	/**
 	* This function is used to display  addtoCompareProduct
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function addtoCompareProduct()
 	{	
@@ -337,7 +342,7 @@ class Model_MWishList
 	/**
 	* This function is used to display  CompareProduct
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function viewCompareProduct()
 	{	
@@ -381,7 +386,7 @@ class Model_MWishList
 	/**
 	* This function is used to delete  CompareProduct
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function deleteCompareProduct()
 	{	
@@ -431,7 +436,7 @@ class Model_MWishList
 	/**
 	* This function is used to delete  Product
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function deleteProduct()
 	{	
@@ -493,7 +498,7 @@ class Model_MWishList
 	/**
 	* This function is used to clear all in compare product snapshot
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function deleteAllItem()
 	{	
@@ -513,7 +518,7 @@ class Model_MWishList
 	/**
 	* This function is used to delete  compare product from home page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function deleteCompareProductFromHome()
 	{

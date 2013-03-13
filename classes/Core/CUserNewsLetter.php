@@ -38,13 +38,13 @@ class Core_CUserNewsLetter
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showNewsLetter()
 	{
 		include('classes/Display/DUserAccount.php');
 		
-		$sqlselect="SELECT user_id,b.status,b.subsciption_id FROM `users_table` a,newsletter_subscription_table b where a.user_email=b.email and a.user_status=1 and a.user_id=".$_SESSION['user_id'];
+		$sqlselect="SELECT user_id,b.status,b.subsciption_id FROM `users_table` a,newsletter_subscription_table b where  a.user_status=1 and a.user_id=".$_SESSION['user_id']; 
 		
 		$obj = new Bin_Query();
 
@@ -60,7 +60,7 @@ class Core_CUserNewsLetter
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function addNewsLetter()
 	{
@@ -74,9 +74,18 @@ class Core_CUserNewsLetter
 			$obj = new Bin_Query();
 
 			if($obj->updateQuery($sqlselect))
-				return "<div class='success_msgbox'>Updated!</div></br>";
+
+
+				return '<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				Your Request for News Letter Subscription was updated successfully. 
+				</div>';
 			else
-				return "<div class='exc_msgbox'>Could not Updated!!</div></br>";
+	
+				return '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				Your Request for News Letter Subscription was not updated 
+				</div>';
 		}
 	}	
 

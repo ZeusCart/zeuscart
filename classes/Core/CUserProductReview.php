@@ -37,7 +37,7 @@ class Core_CUserProductReview
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showProductReview()
 	{

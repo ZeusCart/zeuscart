@@ -26,13 +26,29 @@
  * @category    	Display
  * @author    		AJ Square Inc Dev Team
  * @link   		http://www.zeuscart.com
-  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
  * @version   		Version 4.0
  */
 class Display_DFeaturedItems
 {
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
 	var $output = array();	
+	/**
+	 * Stores the output records in array format
+	 *
+	 * @var array 
+	 */	
 	var $arr = array();
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
 	var $arr1 = array();
 
  	/**
@@ -51,7 +67,6 @@ class Display_DFeaturedItems
 
  	/**
 	* This function is used to Display the Landing Content of Sub Category
-	* @name showMainCatLanding
 	* @param mixed $arr
 	* @return string
  	*/
@@ -102,7 +117,6 @@ class Display_DFeaturedItems
 
  	/**
 	* This function is used to Display the Main Category
-	* @name showMainCategory
 	* @param mixed $arr
 	* @return string
  	*/
@@ -150,7 +164,6 @@ class Display_DFeaturedItems
 
  	/**
 	* This function is used to Display the Sub Category
-	* @name showSubCategory
 	* @param mixed $arr
 	* @return string
  	*/
@@ -166,8 +179,9 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Featured Product
-	* @name showFeaturedItems
 	* @param mixed $arr
+	* @param integer $flag
+	* @param array $r
 	* @return string
  	*/
 	function showFeaturedItems($arr,$flag,$r)
@@ -248,8 +262,9 @@ class Display_DFeaturedItems
 	}
 	/**
 	* This function is used to Display the Featured Product Hidden Desktop
-	* @name showFeaturedItems
 	* @param mixed $arr
+	* @param integer $flag
+	* @param array $r
 	* @return string
  	*/
 
@@ -287,8 +302,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to When No Featured Product is available
-	* @name showFeaturedItemsElse
-	* @param mixed $arr
 	* @return string
  	*/
 	function showFeaturedItemsElse()
@@ -305,8 +318,10 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Featured Product of Sub Category
-	* @name showSubCatFeaturedItems
 	* @param mixed $arr
+	* @param string $skin
+	* @param integer $flag
+	* @param array $r
 	* @return string
  	*/
 	function showSubCatFeaturedItems($arr,$skin,$flag,$r)
@@ -409,8 +424,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used When No Featured Product of Sub Category is Available
-	* @name showSubCatFeaturedItemsElse
-	* @param mixed $arr
 	* @return string
  	*/
 	function showSubCatFeaturedItemsElse()
@@ -426,7 +439,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Main Category Bread Crumb
-	* @name maincatBreadCrumb
 	* @param mixed $arr
 	* @return string
  	*/
@@ -439,7 +451,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Sub Category Bread Crumb
-	* @name subcatBreadCrumb
 	* @param mixed $arr
 	* @return string
  	*/
@@ -453,7 +464,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Best Selling Product
-	* @name showBestSellingProducts
 	* @param mixed $arr
 	* @return string
  	*/
@@ -511,7 +521,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Narrow Search Result
-	* @name displayNarrow
 	* @param mixed $arr
 	* @return string
  	*/
@@ -543,7 +552,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Narrow Search Result by Price
-	* @name displayPriceNarrow
 	* @param mixed $arr
 	* @param mixed @range
 	* @return string
@@ -580,7 +588,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Narrow Search Result by Brand
-	* @name displayBrandNarrow
 	* @param mixed $arr
 	* @return string
  	*/
@@ -610,7 +617,6 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Searched Product
-	* @name viewProducts
 	* @param mixed $arr
 	* @return string
  	*/
@@ -693,10 +699,9 @@ class Display_DFeaturedItems
 	
  	/**
 	* This function is used to Display the Searched Criterias
-	* @name dispSearch
 	* @param mixed $arr
 	* @param string $brand
-	* @param string $price		
+	* @param integer $price		
 	* @return string
  	*/
 	function dispSearch($arr,$brand,$price)

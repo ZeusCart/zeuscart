@@ -33,11 +33,17 @@
 
 class Model_MOrderHistory
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
  	/**
 	* This function is used to Display the Order History Page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function dispOrderHistory()
 	{

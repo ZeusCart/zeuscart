@@ -35,7 +35,7 @@ class Model_MHome
  	/**
 	* This function is used to Display the Home Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function homePage()
 	{

@@ -18,31 +18,27 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package 		AJDF
- * @author   	 	AJ Square Inc Dev Team
- * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version   		Version 1.0
- * @created   		January 15 2013
- */
 
 /**
  * Tag clouds  related  class
  *
- * @package   		Classes
- * @subpackage  	Library
+ * @package   		Lib_TagClouds
  * @category    	Library
  * @author    		AJ Square Inc Dev Team
  * @link   		http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 
 class Lib_TagClouds
 {
+
+	/**
+	 * Function is used in pagination related process 
+	 * @param array $tags
+	 * @param string  $onClick
+	 * @return string
+	 */
 	function displayTagClouds($tags,$onClick='')
 	{
 		$res='';

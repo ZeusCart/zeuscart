@@ -18,38 +18,42 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package 		AJDF
- * @author   	 	AJ Square Inc Dev Team
- * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version   		Version 4.0
- * @created   		January 15 2013
- */
 
 /**
  * image function  related  class
  *
- * @package   		Classes
- * @subpackage  	Library
+ * @package   		Lib_ImageFunctions
  * @category    	Library
  * @author    		AJ Square Inc Dev Team
  * @link   		http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 class Lib_ImageFunctions
 {
-
+	/**
+	 * Stores the GD value in variable
+	 *
+	 * @var string 
+	 */
 	var $gdavailable;
-	
+	/**
+	 * Function is used to assign gd name in varible
+	 *
+	 */	
 	function Lib_ImageFunctions()
 	{
 		$this->gdavailable=(extension_loaded('GD') ? 1 : 0);			
 	}
-	
+	/**
+	 * Function is used to reduce the image size
+	 * @param string $fname
+	 * @param integer $newwidth
+	 * @param  integer $newheight
+	 * @param string  $thumbpath	
+	 *
+	 * @return bool 
+	 */	
 	function reduceImage($file,$filewidth,$fileheight,$file_path)
 	{
 		if($this->gdavailable)

@@ -36,7 +36,7 @@ class Core_CUserOrder
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showOrder()
 	{
@@ -83,7 +83,7 @@ class Core_CUserOrder
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function showOrderDetails()
 	{

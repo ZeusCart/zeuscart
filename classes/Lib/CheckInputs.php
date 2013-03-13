@@ -18,27 +18,16 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package 		AJDF
- * @author   	 	AJ Square Inc Dev Team
- * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version   		Version 1.0
- * @created   		January 15 2013
- */
 
 /**
  * Check inputs  related  class
  *
- * @package   		Classes
- * @subpackage  	Lib
- * @category    	Lib
+ * @package   		Lib_CheckInputs
+ * @category    	Library
  * @author    		AJ Square Inc Dev Team
- * @link   		http://www.zeuscart.com
+ * @link   		    http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 class Lib_CheckInputs
 {
@@ -321,10 +310,11 @@ class Lib_CheckInputs
 	 */	 
 	function validateWishlist()
 	{
+
 		include('classes/Lib/FormValidation.php');
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
-			if($_POST['txtEmail']!='')
+			if($_POST['txtEmail']!='' or $_POST['txtEmail']=='' )
 			{
 				$obj = new Lib_FormValidation('frmWishSend');
 			}

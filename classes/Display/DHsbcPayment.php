@@ -34,7 +34,6 @@
 {
  	/**
 	* This function is used to Display the Payment Details
-	* @name dispGetDetails
 	* @return string
  	*/
  	function dispGetDetails()

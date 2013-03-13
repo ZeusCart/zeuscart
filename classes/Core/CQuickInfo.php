@@ -31,44 +31,50 @@
  */
 class Core_CQuickInfo
 {
+/**
+ * This function is used to get  the   quick information 
+ *
+ * .
+ * 
+ * @return array 
+ */
+function showInfo()
+{
+	include('classes/Display/DQuickInfo.php');
+	
+	 $sqlselect="SELECT a.product_id,a.title,a.price,case when a.status=1 then 'Yes' else 'No' end as status,a.shipping_cost,a.description,a.cse_enabled,a.sku,b.rating,a.image,a.msrp from products_table a left join product_reviews_table b on a.product_id=b.product_id where a.status=1 AND  a.product_id=".(int)$_GET['prodid']." LIMIT 0,1";
+	
+	$obj = new Bin_Query();
+
+	if($obj->executeQuery($sqlselect))
+	{
+				$j=0;			
+				foreach($obj->records as $row)
+				{
+					$r[$j]=$row;
+					$prid=$row['product_id'];
+					$minval=Core_CQuickInfo::disRates($prid);
+					if($minval > 0  or $minval!='')
+					{
+						
+						$r[$j]['msrp']= $_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($row['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).' - '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($minval*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2);
+					}
+					else
+						$r[$j]['msrp']= $_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($row['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2);							
+					$j++;
+				}
+				return  Display_DQuickInfo::showInfo($obj->records[0],$r);
+			}			 
+		 
+		
+	}	
 	/**
-	 * This function is used to get  the   quick information 
-	 *
+	 * This function is used to get the rating from db
+	 * @param integer $productid
 	 * .
 	 * 
-	 * @return array result
+	 * @return array 
 	 */
-	function showInfo()
-	{
-		include('classes/Display/DQuickInfo.php');
-		
-		 $sqlselect="SELECT a.product_id,a.title,a.price,case when a.status=1 then 'Yes' else 'No' end as status,a.shipping_cost,a.description,a.cse_enabled,a.sku,b.rating,a.image,a.msrp from products_table a left join product_reviews_table b on a.product_id=b.product_id where a.status=1 AND  a.product_id=".(int)$_GET['prodid']." LIMIT 0,1";
-		
-		$obj = new Bin_Query();
-
-		if($obj->executeQuery($sqlselect))
-		{
-					$j=0;			
-					foreach($obj->records as $row)
-					{
-						$r[$j]=$row;
-						$prid=$row['product_id'];
-						$minval=Core_CQuickInfo::disRates($prid);
-						if($minval > 0  or $minval!='')
-						{
-							
-							$r[$j]['msrp']= $_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($row['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).' - '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($minval*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2);
-						}
-						else
-							$r[$j]['msrp']= $_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($row['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2);							
-						$j++;
-					}
-					return  Display_DQuickInfo::showInfo($obj->records[0],$r);
-				}			 
-			 
-			
-		}	
-		
 	function disRates($productid)
 	{
 		$sql='select min(msrp) as msrp from msrp_by_quantity_table where product_id ='.$productid;

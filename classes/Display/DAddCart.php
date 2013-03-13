@@ -37,10 +37,9 @@ class Display_DAddCart
 {
 	/**
 	 * This function is used to show the cart item.
-	 * @name showCart
 	 * @param   array  	$arr	    array of items
 	 * @param   array  	$result      array of country
-	 * @return HTML data
+	 * @return string
 	 */	
 	function showCart($arr,$result)
 	{
@@ -161,12 +160,10 @@ class Display_DAddCart
 	
 	/**
 	 * This function is used to show the cart snap shot
-	 * @name cartSnapShot
 	 * @param   int  	$grandtotal	   total amount
 	 * @param   int  	$cnt              count of item
 	 * 
-	 *
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function cartSnapShot($grandtotal,$cnt)
@@ -180,7 +177,6 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the country drop down
-	 * @name loadCountryDropDown
 	 * @param   array  	$result	      array of country
 	 * @param   string  	$name         name of the select box
 	 * @param    string     $selected      selected country code
@@ -208,9 +204,8 @@ class Display_DAddCart
 
 	/**
 	 * This function is used to show the cart snap shot if no item found
-	 * @name cartSnapShotElse
 	 *
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function cartSnapShotElse()
@@ -221,11 +216,10 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the quick registration
-	 * @name showQuickRegistration
 	 * @param   array  	$result	
-	 * @param   object    $err    contains both error messages and values 
+	 * @param   array    $err    contains both error messages and values 
 	 *
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function showQuickRegistration($result,$err)
@@ -285,9 +279,8 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the PaymentPageForAuthorizenet
-	 * @name showPaymentPageForAuthorizenet
 	 *
-	 * @return HTML data
+	 * @return string
 	 */
 	function showPaymentPageForAuthorizenet()
 	{
@@ -383,9 +376,8 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to showPaymentPageForBluepay
-	 * @name showPaymentPageForAuthorizenet
 	 *
-	 * @return HTML data
+	 * @return string
 	 */
 	function showPaymentPageForBluepay()
 	{
@@ -534,9 +526,8 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to showPaymentPageForWorldPay
-	 * @name showPaymentPageForWorldPay
 	 * @param   array  	$arr	
-	 * @return HTML data
+	 * @return string
 	 */
 	
 	function showPaymentPageForWorldPay($arr)
@@ -630,9 +621,8 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to showPaymentPageFor2Checkout
-	 * @name showPaymentPageFor2Checkout
 	 * @param $arr array
-	 * @return HTML data
+	 * @return string
 	 */
 	function showPaymentPageFor2Checkout($arr)
 	{
@@ -722,12 +712,11 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the Billing address.
-	 * @name showBillingDetails
 	 * @param   array  	$records	array of address
 	 * @param   array       $result	        array of country 
-	 * @param   object      $Err             contains both error messages and values
+	 * @param   array      $Err             contains both error messages and values
 	 *
-	 * @return HTML data
+	 * @return string
 	 */	
 	function showBillingDetails($records,$result,$Err)
 	{
@@ -763,7 +752,7 @@ class Display_DAddCart
                                         <p>'.$records[$i]['city'].'</p>
 					 <p>'.$records[$i]['state'].'</p>
 					 <p>'.$records[$i]['zip'].'</p>	
-                                        <a href="#"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
+                                        <a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$i]['id'].'"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
                                     	</address></li>';
 				}
 
@@ -863,12 +852,11 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the shipping address.
-	 * @name showShippingDetails
 	 * @param   array  	$records	array of address
 	 * @param   array  	$result	        array of country 
-	 * @param   object      $Err            contains both error messages and values
+	 * @param   array      $Err            contains both error messages and values
 	 *
-	 * @return HTML data
+	 * @return string
 	 */	
 	function showShippingDetails($records,$result,$Err)
 	{
@@ -904,7 +892,7 @@ class Display_DAddCart
                                         <p>'.$records[$i]['city'].'</p>
 					 <p>'.$records[$i]['state'].'</p>
 					 <p>'.$records[$i]['zip'].'</p>	
-                                        <a href="#"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
+                                        <a href="?do=showcart&action=getshippingmethod&ship_add_id='.$records[$i]['id'].'"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
                                     	</address></li>';
 				}
 
@@ -1003,10 +991,9 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the shipping method.
-	 * @name showShippingMethod
 	 *
 	 *
-	 * @return HTML data
+	 * @return string
 	 */
 	function showShippingMethod()
 	{
@@ -1022,156 +1009,23 @@ class Display_DAddCart
 				        
 	</ul>
         </div><div class="row-fluid">
-                    <div class="span4">
+                    <div class="span12">
                          
-                      <p class="billing_title">Select from previous address</p>
+                      <p class="billing_title">Transportation Details</p>
                       
                       <ul class="addresslist">
                       	<li><address>
-                                    	<h5>Karthik Kumar</h5>
+                                    	<h5>KPN</h5>
                                         <p>132, Annamalai Street, Madurai - 20.</p>
                                         <p>Tamil Nadu.</p>
-                                        <a href="#"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
+                                        <a href="?do=showcart&action=showorderconfirmation"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
                                     </address></li>
-                      	<li><address>
-                                    	<h5>Karthik Kumar</h5>
-                                        <p>132, Annamalai Street, Madurai - 20.</p>
-                                        <p>Tamil Nadu.</p>
-                                        <a href="#"><img src="assets/img/close-icn.gif" alt="click"></a>
-                                    </address></li>
-                      	<li><address>
-                                    	<h5>Karthik Kumar</h5>
-                                        <p>132, Annamalai Street, Madurai - 20.</p>
-                                        <p>Tamil Nadu.</p>
-                                        <a href="#"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
-                                    </address></li>
-                      	<li><address>
-                                    	<h5>Karthik Kumar</h5>
-                                        <p>132, Annamalai Street, Madurai - 20.</p>
-                                        <p>Tamil Nadu.</p>
-                                        <a href="#"><img src="assets/img/close-icn.gif" alt="click"></a>
-                                    </address></li>
+
+
                       </ul>
-                                	
-                                    
+
           </div>	
-                    <div class="span8">
-                     
-                    
-                    <div id="myaccount_div">
-                    <div class="or_ribbion"><img src="assets/img/or.png" width="38" height="300" alt="or"></div>
-                    <p class="billing_title">Enter a new shipping address</p>
-                    	<form method="POST" action="?do=showcart&action=showorderconfirmation" name="register_form" class="form-horizontal">
-                <fieldset>
-                  <div class="control-group">
-                    <div class="controls">
-                      <p class="info_fnt">
-                         Fields marked with an <span class="error_fnt">*</span> are required 
-                      </p>
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="input01">First Name <span class="error_fnt">*</span></label>
-                    <div class="controls">
-                      <input type="text" value="" class="input-xlarge" name="first_name" id="first_name">
-
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="input01">Last Name</label>
-                    <div class="controls">
-                      <input type="text" class="input-xlarge" value="" name="last_name" id="last_name">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="input01">Email Address <span class="error_fnt">*</span></label>
-                    <div class="controls">
-                      <input type="text" class="input-xlarge" value="" name="email" id="email">
-                    </div>
-                  </div>
-		
-		<div class="control-group">
-                    <label class="control-label" for="input01"> </label>
-                    <div class="controls">
-                    <p class="info_txt">Note:A Valid email address is required to complete registration <br>
-                  Example: demo@example.com</p>
-                    </div>
-                  </div>
-
-	  <div class="control-group">
-                    <label class="control-label" for="input01">Re-enter Email <span class="error_fnt">*</span></label>
-                    <div class="controls">
-                      <input type="text" class="input-xlarge" value="" name="remail" id="remail">
-                    </div>
-                  </div>
-
-  		<div class="control-group">
-                    <label class="control-label" for="input01">Password <span class="error_fnt">*</span></label>
-                    <div class="controls">
-                      <input type="password" class="input-xlarge" value="" name="pwd" id="pwd">
-                    </div>
-                  </div>
-  		<div class="control-group">
-                    <label class="control-label" for="input01">Confirm Password <span class="error_fnt">*</span></label>
-                    <div class="controls">
-                      <input type="password" class="input-xlarge" value="" name="cpwd" id="cpwd">
-                    </div>
-                  </div>
-	
-
-                  
-
-                   
-
- 		  <div class="control-group">
-                    <label class="control-label" for="input01">State </label>
-                    <div class="controls">
-                     <div id="txtHint"><input type="text" value="" class="input-xlarge" id="state" name="state"></div>
-                    </div>
-                  </div>
-
-                  <div class="control-group">
-                    <label class="control-label" for="input01">City </label>
-                    <div class="controls">
-                      <input type="text" value="" class="input-xlarge" id="city" name="city">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="textarea">Address 1</label>
-                    <div class="controls">
- 			<input type="text" class="input-xlarge" value="" id="address" name="address">
-                    </div>
-                  </div>
-
-		<div class="control-group">
-                    <label class="control-label" for="textarea">Address 2</label>
-                    <div class="controls">
-			<input type="text" class="input-xlarge" value="" id="address2" name="address2">
-                      </div>
-                  </div>
-
-    		<div class="control-group">
-                    <label class="control-label" for="input01">Zipcode </label>
-                    <div class="controls">
-                      <input type="text" class="input-xlarge" value="" id="zcode" name="zcode">
-                    </div>
-                  </div>
-    		<div class="control-group">
-                    <label class="control-label" for="input01">Phone Number </label>
-                    <div class="controls">
-                      <input type="text" class="input-xlarge" value="" id="pnumber" name="pnumber">
-                    </div>
-                  </div>
-
-   		
-		
-                  <div class="form-actions">
-                    <button type="submit" class="btn btn-large btn-inverse">Submit</button>
-                  </div>
-                </fieldset>
-              </form>
-		</div>
-                        </div>
+ 
           </div>';
 
 		return $output;
@@ -1180,13 +1034,12 @@ class Display_DAddCart
 	
 	/**
 	 * This function is used to show the order confirmation.
-	 * @name showOrderConfirmation
 	 * @param   array  	$arr	     array of items
 	 * @param   array  	$result      array of country
 	 * @param   array  	$taxarray     array of tax
 	 * @param  string 	$message      
 	 *
-	 * @return HTML data
+	 * @return string
 	 */	
 	function showOrderConfirmation($arr,$result,$taxarray,$message='')
 	{
@@ -1282,10 +1135,9 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the order confirmation.
-	 * @name displayPaymentGateways
-	 * @param   array  	$arr	     array of items
+	 * @param   array  	$arr	    array of items
 	 *
-	 * @return HTML data
+	 * @return string
 	 */
 	function displayPaymentGateways($arr)
 	{
@@ -1331,11 +1183,10 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the order confirmation.
-	 * @name getPaymentGatewayForms
 	 * @param   array  	$arr	     array of records
 	 * @param   string  	$domain	     domain name
 	 *
-	 * @return HTML data
+	 * @return string
 	 */
 	function getPaymentGatewayForms($arr,$domain)
 	{

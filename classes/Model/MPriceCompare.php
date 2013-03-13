@@ -32,11 +32,17 @@
  */
 class Model_MPriceCompare
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to Display the price compare page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showPriceComparePage()
 	{

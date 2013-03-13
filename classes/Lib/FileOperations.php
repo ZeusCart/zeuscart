@@ -34,26 +34,29 @@
 /**
  * file operations related  class
  *
- * @package   		Classes
- * @subpackage  	Lib
- * @category    	Lib
+ * @package   		Bin_FileOperations
+ * @category    	Library
  * @author    		AJ Square Inc Dev Team
  * @link   		http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @version  		Version 4.0
  */
 class Bin_FileOperations
  {
  	/**
 	 * Function is used to upload the file
-	 * 
-	 * 
+	 * @param array $spath
+	 * @param string $dpath
 	 *
 	 * @return void 
-	 */	 
+	 */	
  	function uploadFile($spath,$dpath)
-		{
-			if (file_exists($dpath))
-      			echo '<br>'. $dpath ."<b> already exists.</b><br />";
-    		else
-	      		return move_uploaded_file($spath,$dpath);
-		}
+	{
+		if (file_exists($dpath))
+  			echo '<br>'. $dpath ."<b> already exists.</b><br />";
+		else
+      		return move_uploaded_file($spath,$dpath);
+	}
  }
+
+ ?>

@@ -31,12 +31,21 @@
  */
 class Display_DPriceCompare
 {
+	/**
+	 * Stores the output records
+	 *
+	 * @var array 
+	 */	
 	var $arr = array();
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	
  	/**
 	* This function is used to Display the Price Compare Page
-	* @name showPriceComparePage
 	* @param int $pricerunnerid
 	* @return string
  	*/
@@ -158,7 +167,6 @@ class Display_DPriceCompare
 	
  	/**
 	* This function is used to parse the XML Content
-	* @name readCSEContent
 	* @param mixed $data
 	* @return string
  	*/

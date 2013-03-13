@@ -33,11 +33,17 @@
 
 class Model_MQuickInfo
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to Display the quick information of product  page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showQuickInfo()
 	{

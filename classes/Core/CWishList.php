@@ -36,7 +36,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
    	function wishlistSnapshot()
@@ -91,7 +91,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	
    	function addtoWishList()
@@ -140,7 +140,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
   	 function deletefromWishList()
 	{
@@ -166,7 +166,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */	 
 
    	 function viewWishList()
@@ -223,10 +223,10 @@ class Core_CWishList
     }
 	 /**
 	 * This function is used to get the product msrp 
-	 *
+	 * @param integer  $productid
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function disRates($productid)
 	{
@@ -241,7 +241,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function clearWishlist()
 	{
@@ -261,7 +261,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function addtoCompareProduct()
 	{
@@ -373,7 +373,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function viewCompareProduct()
 	{
@@ -414,7 +414,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function deleteCompareProduct()
 	{
@@ -435,7 +435,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function deleteProduct()
 	{
@@ -465,7 +465,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function deleteAllItem()
 	{
@@ -491,7 +491,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function deleteCompareProductFromHome()
 	{
@@ -529,7 +529,7 @@ class Core_CWishList
 	 *
 	 * .
 	 * 
-	 * @return HTML data
+	 * @return string
 	 */
 	function snapshotForHome()
 	{

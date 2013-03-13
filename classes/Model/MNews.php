@@ -33,12 +33,17 @@
 
 class Model_MNews
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	
  	/**
 	* This function is used to Display the News Page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showNewsPage()
 	{

@@ -31,11 +31,17 @@
  */
 class Model_MHsbcPayment
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();	
  	/**
 	* This function is used to Display the Payment Method Page
  	*
-	* @return HTML data
+	* @return string
 	*/
 	function dispGetDetails()
 	{

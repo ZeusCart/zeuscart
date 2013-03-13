@@ -34,7 +34,6 @@ class Display_DUserAccount
 {
  	/**
 	* This function is used to Display the News Letter Subscription Page
-	* @name showNewsLetter
 	* @param mixed $arr
 	* @return string
  	*/
@@ -49,45 +48,30 @@ class Display_DUserAccount
 		if($arr[0]['status']==1)
 			$status='checked=checked';
 			
-		$output='<form name="frmNewsSub" method="post" action="?do=newsletter&action=add">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td width="100%" colspan="2" class="serachresult">Newsletter Subscriptions </td>
-		</tr>
-		
-		<tr>
-		<td colspan="2" valign="top" class="checkout_title1">&nbsp;</td>
-		</tr>
-		<tr>
-		<td colspan="2" valign="top" class="checkout_title1">
-		<div>
-		<input type="checkbox" name="chkNewsSub" '.$status.' />
-				<input type="hidden" name="subId" value="'.$value.'" />
-		<strong>General Subscription</strong></div>	</td>
-		</tr>
-		<tr>
-		<td align="center" class="dot_line">
-				<table width="80%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-			<td align="right"><span class="checkout_required"></span><br /><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-			<tr>
-			<td align="right" class="button_left"></td>
-			<td><input type="submit" value="Save" class="button" /></td>
-			<td class="button_right"></td>
-			</tr>
-			</table></td>
-		</tr>
-		</table></td>
-		</tr>
-		
-		</table></form>';
+		$output='<div class="title_fnt">
+		<h1>Newsletter Subscriptions </h1>
+		</div>
+	
+		<div id="myaccount_div">
+		<form name="frmNewsSub" method="post" action="?do=newsletter&action=add">
+		<div class="control-group">
+		<label for="inputPassword" class="control-label"></label>
+		<div class="controls">
+		<input type="checkbox" name="chkNewsSub" '.$status.' /> <input type="hidden" name="subId" value="'.$value.'" />&nbsp;<strong>General Subscription</strong>
+		</div>
+		</div>
+		<div class="control-group">
+		<div class="controls">
+			<button class="btn btn-danger" type="submit">Submit</button>
+		</div>
+		</div>
+		</form>
+	        </div>';
 			return $output;
 	}
 
  	/**
 	* This function is used to Display the User Dashboard
-	* @name showDashboard
 	* @param mixed $arr
 	* @param mixed $arrUser	
 	* @param int $status
@@ -104,81 +88,61 @@ class Display_DUserAccount
 			$newsStatus='You are currently subscribed to newsletter.';
 		
 		$output='
-            <div class="title_fnt">
-    	<h1>My Account</h1>
-        </div>
-            
-   
-           <div id="myaccount_div">
-           <div class="myacc_detail">
-           	<h4>Hello, revathi!</h4>
-           <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
-           	<p class="pull-right"><a href="#" class="btn btn-inverse">View All</a></p>
-            <div class="clear"></div>
-            <h4>Recent Order</h4>
-           </div>
-           <table class="rt cf" id="rt1">
-		<thead class="cf">
-			<tr>
-				<th>Order</th>
-				<th>Ship to</th>
-				<th>Order Total</th>
-				<th>Status</th>
-				<th>Detail</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>#1</td>
-				<td>Karthik Kumar</td>
-				<td>INR  1,100.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#2</td>
-				<td>Satheesh</td>
-				<td>INR  500.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#3</td>
-				<td>Vinith Kumar</td>
-				<td>INR  300.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#4</td>
-				<td>Mani Mala</td>
-				<td>INR  15,100.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#5</td>
-				<td>Seetha Lakshmi</td>
-				<td>INR  3,300.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#6</td>
-				<td>Bala</td>
-				<td>INR  1,100.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-		</tbody>
-	</table>
-           </div>
-      ';
-		return $output;
+            	<div class="title_fnt">
+    		<h1>My Account</h1>
+        	</div>
+
+		<div id="myaccount_div">
+		<div class="myacc_detail">
+			<h4>Hello,'.$_SESSION['user_name'].'</h4>
+		<p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
+			<p class="pull-right"><a href="?do=myorder" class="btn btn-inverse">View All</a></p>
+		<div class="clear"></div>
+		<h4>Recent Order</h4>
+		</div>
+		<table class="rt cf" id="rt1">
+			<thead class="cf">
+				<tr>
+					<th>Order</th>
+					<th>Date</th>
+					<th>Ship to</th>
+					<th>Order Total</th>
+					<th>Status</th>
+					<th>Detail</th>
+				</tr>
+			</thead>
+			<tbody>';
+	
+			if(count($arr)>0)  
+			{
+				for($i=0;$i<count($arr);$i++)			  
+				{
+					$output.='<tr>
+					<td>#'.$arr[$i]['orders_id'].'</td>
+					<td>'.$arr[$i]['pdate'].'</td>
+					<td>'.$arr[$i]['user_display_name'].'</td>
+					<td>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['total']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</td>
+					<td> <span class="label label-success">'.$arr[$i]['orders_status_name'].'</span></td>
+					<td><a href="?do=orderdetail&id='.$arr[$i]['orders_id'].'" class="btn btn-mini">View Order</a></td>
+					</tr>';
+				}
+			}
+			else
+			{
+				$output.='<tr><td colspan="6"><div class="alert alert-info">
+					<button data-dismiss="alert" class="close" type="button">×</button>
+					<strong>No Products Found</strong> 
+					</div></td></tr>';
+	
+			}
+				
+			$output.='</tbody>
+				</table>
+				</div>';
+			return $output;
 	}
 	/**
 	* This function is used to Display the User Account Information
-	* @name showAccountInfo
 	* @param mixed $arr
 	* @return string
  	*/
@@ -221,67 +185,60 @@ class Display_DUserAccount
 			//$hidcpwd=$output['val']['hidCPwd'];
 			$hidsubid=$output['val']['hidsubid'];;
 		}
-		$out='
-            <div class="title_fnt">
-    	<h1>Edit Account Information</h1>
-        </div>
-            
-            	<!--My Account-->
-           <div id="myaccount_div">
-	<form class="form-horizontal">
-
-	<h3 class="accinfo_fnt">Account Information</h3>
-            <div class="control-group">
-              <label for="inputEmail" class="control-label">Name  <i class="red_fnt">*</i></label>
-              <div class="controls">
-                <input type="text" placeholder="Email" id="inputEmail">
-              </div>
-            </div>
-            <div class="control-group">
-              <label for="inputPassword" class="control-label">Email Address <i class="red_fnt">*</i></label>
-              <div class="controls">
-                <input type="password" placeholder="Password" id="inputPassword">
-              </div>
-            </div>
-            <div class="control-group">
-              <label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
-              <div class="controls">
-                <input type="password" placeholder="Password" id="inputPassword">
-              </div>
-            </div>
-            <div class="control-group">
-              <label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
-              <div class="controls">
-                <input type="password" placeholder="Password" id="inputPassword">
-              </div>
-            </div>
-	<h3 class="accinfo_fnt">Account Information</h3>
-            <div class="control-group">
-              <label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
-              <div class="controls">
-                <input type="password" placeholder="Password" id="inputPassword">
-              </div>
-            </div>
-            <div class="control-group">
-              <label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
-              <div class="controls">
-                <input type="password" placeholder="Password" id="inputPassword">
-              </div>
-            </div>
-            <div class="control-group">
-              <label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
-              <div class="controls">
-                <input type="password" placeholder="Password" id="inputPassword">
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="controls">
-                <button class="btn btn-danger" type="submit">Sign in</button>
-              </div>
-            </div>
-          </form>           </div>
-            
-        ';
+		$out=' <div class="title_fnt">
+		<h1>Edit Account Information</h1>
+		</div>
+		
+			
+		<div id="myaccount_div">
+		<form class="form-horizontal">
+		
+		<h3 class="accinfo_fnt">Account Information</h3>
+		'.$output['result'].'
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">First Name   <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input name="txtFName" type="text"  id="txtFName" value="'.$fname.'" /><br/><span style="color:#ff0000">'.$output['msg']['txtFName'].'</span>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Last Name <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input name="txtLName" type="text"  id="txtLName" value="'.$lname.'" /><br/><span style="color:#ff0000">'.$output['msg']['txtLName'].'</span>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Email Address  <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input name="txtEmail" type="text"  id="txtEmail" value="'.$email.'" /><br/><span style="color:#ff0000">'.$output['msg']['txtEmail'].'</span>
+		</div>
+		</div>
+		
+		<h3 class="accinfo_fnt">Change Password</h3>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<input type="password" placeholder="Password" id="inputPassword">
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<input type="password" placeholder="Password" id="inputPassword">
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<input type="password" placeholder="Password" id="inputPassword">
+		</div>
+		</div>
+		<div class="control-group">
+		<div class="controls">
+			<button class="btn btn-danger" type="submit">Sign in</button>
+		</div>
+		</div>
+		</form>           </div>';
 
 
 		return $out;
@@ -289,7 +246,6 @@ class Display_DUserAccount
 	
  	/**
 	* This function is used to Display the User Product's Review
-	* @name showProductReview
 	* @param mixed $arr
 	* @param int $paging
 	* @param int $prev
@@ -300,81 +256,95 @@ class Display_DUserAccount
 	function showProductReview($arr,$paging,$prev,$next,$val)
 	{
 
+		$showpages='';	
+		if(count($arr>0))
+		{
+		//changepagesize
+			$showpages='	<ul class="listviews"><li><span class="label label-success">'.count($arr).' </span> item(s) </li> <li style="float:right">Show 
+					<select name="select2" style="width:50px;" onchange="changepagesize(\'review\',this.value);">';
+					$showpages.='<option ';
+						if(isset($_GET['totrec'])&&$_GET['totrec']==10)
+						$showpages.='selected';
+						$showpages.=' value="10" >10</option>';
+						$showpages.='<option ';
+						if(isset($_GET['totrec'])&&$_GET['totrec']==20)
+						$showpages.='selected';
+						$showpages.=' value="20" >20</option>';
+						$showpages.='<option ';
+						if(isset($_GET['totrec'])&&$_GET['totrec']==30)
+						$showpages.='selected';
+						$showpages.=' value="30" >30</option>';
+					$showpages.='</select>
+					per page</li>';	
+		}
+
+
 		$output='<div class="title_fnt">
-    	<h1>My Account</h1>
-        </div>
-            
-   
-           <div id="myaccount_div">
-           <div class="myacc_detail">
-           	<h4>Hello, revathi!</h4>
-           <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
-           	<p class="pull-right"><a href="#" class="btn btn-inverse">View All</a></p>
-            <div class="clear"></div>
-            <h4>Recent Order</h4>
-           </div>
-           <table class="rt cf" id="rt1">
-		<thead class="cf">
-			<tr>
-				<th>Order</th>
-				<th>Ship to</th>
-				<th>Order Total</th>
-				<th>Status</th>
-				<th>Detail</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>#1</td>
-				<td>Karthik Kumar</td>
-				<td>INR  1,100.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#2</td>
-				<td>Satheesh</td>
-				<td>INR  500.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#3</td>
-				<td>Vinith Kumar</td>
-				<td>INR  300.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#4</td>
-				<td>Mani Mala</td>
-				<td>INR  15,100.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#5</td>
-				<td>Seetha Lakshmi</td>
-				<td>INR  3,300.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-			<tr>
-				<td>#6</td>
-				<td>Bala</td>
-				<td>INR  1,100.00</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-			</tr>
-		</tbody>
-	</table>
-           </div>';
+		<h1>My Product Reviews</h1>
+		</div>
+		<div id="myaccount_div">
+		<ul class="listviews">
+		'.$showpages.'
+		<li></li>
+		</ul>	
+		<div class="myacc_detail">
+		<div class="clear"></div>
+		</div>
+		<table class="rt cf" id="rt1">
+			<thead class="cf">
+				<tr>
+					<th>Date</th>
+					<th>Product</th>
+					<th>Reviews</th>
+					<th>Rating</th>
+					<th>Status </th>
+					<th>Details</th>	
+				</tr>
+			</thead>
+			<tbody>';			
+                	if(count($arr)>0)	  
+			{
+			   	 for($i=0;$i<count($arr);$i++)
+				  {
+
+					if($arr[$i]['rating']>0)
+							$rating='<img src="assets/img/star'.$arr[$i]['rating'].'.jpg"/>';
+						else
+							$rating='No Rating';
+
+				        $output.='<tr>
+					<td>'.$arr[$i]['rdate'].'</td>
+					<td><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
+                  			<td>'.$arr[$i]['review_caption'].'</td>
+					<td>'.$rating.'</td>
+					<td>'.$arr[$i]['rstatus'].'</td>
+					 <td><div class="btn-toolbar">
+					<div class="btn-group">
+					<a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="btn ">View Details </a>';
+              
+					$output.='</div>
+					</div></td>
+					</tr>
+					</tr>';
+				  }
+			}
+			else
+			{
+				$output.='<tr><td colspan="6"><div class="alert alert-info">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				<strong>No Products Found</strong> 
+				</div></td></tr>';
+
+			}	
+				
+			$output.='</tbody>
+				</table>
+				</div>';
 			
 			return $output;
 	}
  	/**
 	* This function is used to Display the User Wishlist
-	* @name showWishlist
 	* @param mixed $arr
 	* @param int $paging
 	* @param int $prev
@@ -385,43 +355,69 @@ class Display_DUserAccount
  	*/
 	function showWishList($arr,$paging,$prev,$next,$val,$result)
 	{
-		$output.=$result.'<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#cac7c7">
-			<tr>
-			  <td width="71%" bgcolor="#FFFFFF" class="viewcartTITLE" style="padding-left:15px;">Product Name</td>
-			  <td width="15%" align="center" bgcolor="#FFFFFF" class="viewcartTITLE" >Added On </td>
-			  <td width="14%" align="center" bgcolor="#FFFFFF" class="viewcartTITLE" >&nbsp;</td>
-			 </tr>';
-
-		if(count($arr)>0)
-		{
-			 for($i=0;$i<count($arr);$i++)
-			  {
-			  if(file_exists($arr[$i]['image']))
-			  	$img=$arr[$i]['image'];
-			  else
-			  	$img="images/noimage.jpg";	
-				
-				$output.='<tr>
-				  <td colspan="5" align="center" bgcolor="#FFFFFF" style="padding:15px 0px">
-				  <table width="100%" border="0" cellpadding="0" cellspacing="0">
-					  <tr>
-						<td width="43" align="left" style="padding-left:10px;"><a href="?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'"><img src="images/bullet.jpg" alt="remove" width="14" height="14" style="border:none"/></a></td>
-						<td width="52" align="left"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">
-							<img src="'.$img.'" alt="" width="52" height="52" style="border:none" /></a></td>
-						<td width="350" align="center" class="viewcartTXT1"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br /><!--$-->
-						  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</a></td>
-						<td width="93" align="center" class="viewcart_price">'.$arr[$i]['adate'].'</td>
-						<td width="86" align="center" class="viewcart_price"><a href="?do=addtocart&prodid='.$arr[$i]['product_id'].'">Add to Cart </a></td>
-						</tr>
-				  </table></td>
-				</tr>';
-			 }
-		}	 
-		else
-		{
-			 $output.='<tr><td bgcolor="#FFFFFF" class="account_tableTXT" style="padding-left:15px;" colspan=3>No Products Found</td></tr>';
-		}	 
-		 $output.='</table>';
+		$output.=$result.'<div class="title_fnt">
+		<h1>My Wishlist </h1>
+		</div>
+		
+	
+		<div id="myaccount_div">
+		
+		<table class="rt cf" id="rt1">
+			<thead class="cf">
+				<tr>
+					<th>Order</th>
+					<th>Ship to</th>
+					<th>Order Total</th>
+					<th>Status</th>
+					<th>Detail</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>#1</td>
+					<td>Karthik Kumar</td>
+					<td>INR  1,100.00</td>
+					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
+					<td><a href="#" class="btn btn-mini">View Order</a></td>
+				</tr>
+				<tr>
+					<td>#2</td>
+					<td>Satheesh</td>
+					<td>INR  500.00</td>
+					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
+					<td><a href="#" class="btn btn-mini">View Order</a></td>
+				</tr>
+				<tr>
+					<td>#3</td>
+					<td>Vinith Kumar</td>
+					<td>INR  300.00</td>
+					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
+					<td><a href="#" class="btn btn-mini">View Order</a></td>
+				</tr>
+				<tr>
+					<td>#4</td>
+					<td>Mani Mala</td>
+					<td>INR  15,100.00</td>
+					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
+					<td><a href="#" class="btn btn-mini">View Order</a></td>
+				</tr>
+				<tr>
+					<td>#5</td>
+					<td>Seetha Lakshmi</td>
+					<td>INR  3,300.00</td>
+					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
+					<td><a href="#" class="btn btn-mini">View Order</a></td>
+				</tr>
+				<tr>
+					<td>#6</td>
+					<td>Bala</td>
+					<td>INR  1,100.00</td>
+					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
+					<td><a href="#" class="btn btn-mini">View Order</a></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>';
 		 
 		
 		$_SESSION['wishList']=$output;			
@@ -430,7 +426,6 @@ class Display_DUserAccount
 
  	/**
 	* This function is used to get the User wishlist to send to the friend
-	* @name getWishList
 	* @param mixed $arr
 	* @return string
  	*/
@@ -463,7 +458,6 @@ class Display_DUserAccount
 	
  	/**
 	* This function is used to Display the User's Order info
-	* @name showMyOrder
 	* @param mixed $arr
 	* @param int $paging
 	* @param int $prev
@@ -473,229 +467,235 @@ class Display_DUserAccount
  	*/
 	function showMyOrder($arr,$paging,$prev,$next,$val)
 	{
+
+		$showpages='';	
+		if(count($arr>0))
+		{
+		//changepagesize
+			$showpages='	<ul class="listviews"><li><span class="label label-success">'.count($arr).' </span> item(s) </li> <li style="float:right">Show 
+					<select name="select2" style="width:50px;" onchange="changepagesize(\'review\',this.value);">';
+					$showpages.='<option ';
+						if(isset($_GET['totrec'])&&$_GET['totrec']==10)
+						$showpages.='selected';
+						$showpages.=' value="10" >10</option>';
+						$showpages.='<option ';
+						if(isset($_GET['totrec'])&&$_GET['totrec']==20)
+						$showpages.='selected';
+						$showpages.=' value="20" >20</option>';
+						$showpages.='<option ';
+						if(isset($_GET['totrec'])&&$_GET['totrec']==30)
+						$showpages.='selected';
+						$showpages.=' value="30" >30</option>';
+					$showpages.='</select>
+					per page</li>';	
+		}
+
+
 		$output='
-            <div class="title_fnt">
-    	<h1>My Orders</h1>
-        </div>
-            
-            	<!--My Account-->
-           <div id="myaccount_div">
-           <ul class="listviews">
-                	<li><span class="label label-success">10</span> items By <select style="width:100px;"><option>2012-2013</option><option>2012-2011</option></select></li>
-                    <li style="float:right" >Show <select style="width:50px;"><option>10</option></select></li>
-                    <li></li>
-             </ul>
-             <div class="clear"></div>
-           <table class="rt cf" id="rt1">
+           	 <div class="title_fnt">
+    		<h1>My Orders</h1>
+        	</div><div id="myaccount_div">
+               <ul class="listviews">
+                	'.$showpages.'
+              </ul>
+              <div class="clear"></div>
+             <table class="rt cf" id="rt1">
 		<thead class="cf">
 			<tr>
 				<th>Order</th>
-				<th>Ship to</th>
+				<th>Date</th>
 				<th>Order Total</th>
-                <th>Track Id</th>
-				<th>Invoice</th>
+               			<th>Track Id</th>
 				<th>Status</th>
-				<th>Detail</th>
+				<th>Action</th>
 				
 			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>#1</td>
-				<td>Karthik Kumar</td>
-				<td>INR  1,100.00</td>
-                <td>#12</td>
-				<td>dfd</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
+			</thead>
+			<tbody>';
+			 if(count($arr)>0)	  
+			{
+				for($i=0;$i<count($arr);$i++)
+				{
+					$output.='<tr>
+					<td><a href="?do=orderdetail&id='.$arr[$i]['orders_id'].'">#'.$arr[$i]['orders_id'].'</a></td>
+					<td>'.$arr[$i]['pdate'].'</td>
+					<td>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['total']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</td>
+					
+					<td>'.$arr[$i]['shipment_track_id'].'</td>
+					<td><span class="label label-important">'.$arr[$i]['orders_status_name'].'</span></td>
+					<td><a href="?do=orderdetail&id='.$arr[$i]['orders_id'].'" class="btn btn-mini">View Order</a></td>
+					</tr>';
+				}
+			}
+			else
+			{
+
+			$output.='<tr><td colspan="6"><strong>No orders Found</strong></td></tr>';
+			}
+			
+			
+		$output.='</tbody>
+			</table>
+			</div>';
+
+
+		$output.='<div class="pagination">
+			<ul>';
+			if($prev!='')
+			{
+				$output .='<li> '.$prev.' </li>';
+			}
+			for($i=1;$i<=count($paging);$i++)
+			{
+				$output .='<li>'.$paging[$i].'</li>';
+			}
+			if($next!='')
+			{
+				$output .='<li>'.$next.'</li>';
+			}
 				
-			</tr>
-			<tr>
-				<td>#1</td>
-				<td>Karthik Kumar</td>
-				<td>INR  1,100.00</td>
-                <td>#12</td>
-				<td>dfd</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
+			$output .='</ul>
+			</div>';	
 				
-			</tr>
-			<tr>
-				<td>#1</td>
-				<td>Karthik Kumar</td>
-				<td>INR  1,100.00</td>
-                <td>#12</td>
-				<td>dfd</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-				
-			</tr>
-			<tr>
-				<td>#1</td>
-				<td>Karthik Kumar</td>
-				<td>INR  1,100.00</td>
-                <td>#12</td>
-				<td>dfd</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-				
-			</tr>
-			<tr>
-				<td>#1</td>
-				<td>Karthik Kumar</td>
-				<td>INR  1,100.00</td>
-                <td>#12</td>
-				<td>dfd</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-				
-			</tr>
-			<tr>
-				<td>#1</td>
-				<td>Karthik Kumar</td>
-				<td>INR  1,100.00</td>
-                <td>#12</td>
-				<td>dfd</td>
-				<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-				<td><a href="#" class="btn btn-mini">View Order</a></td>
-				
-			</tr>
-		</tbody>
-	</table>
-           </div>
-                <div class="pagination">
-    <ul>
-    <li><a href="#">Prev</a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">Next</a></li>
-    </ul>
-    </div>
-        ';
 		return $output;
 	}
 	
  	/**
 	* This function is used to Display the Order info
-	* @name showOrderDetails
 	* @param mixed $arr
 	* @return string
  	*/
 	function showOrderDetails($arr)
 	{
-		$output='<div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-			  <tr>
-				<td class="serachresult">Order Details </td>
-				</tr>
-			  
-			  <tr>
-				<td align="left" valign="top">
-				<div>
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				  <tr>
-					<td colspan="2" class="account_title">Order #'.$arr[0]['orders_id'].'</td>
-				  </tr>
-				  <tr>
-					<td width="18%" valign="top" class="checkout_text">Order Status<br />
-					  Order Recipient<br />
-					  Order Total<br />
-					  Order Date<br />
-					  Close Date </td>
-					<td width="82%" valign="top" class="checkout_text">: '.$arr[0]['orders_status_name'].'<br />
-					  : '.$arr[0]['shipping_name'].'<br />
-					  : $'.$arr[0]['order_total'].' USD<br />
-					  : '.$arr[0]['purDate'].'<br />
-					  : '.$arr[0]['closeDate'].'</td>
-				  </tr>
-				  
-				  <tr>
-					<td colspan="2" class="account_title">Payment Details</td>
-				  </tr>
-				  <tr>
-					<td valign="top" class="checkout_text">Paid Through<br />
-					  Paypal</td>
-					<td valign="top" class="checkout_text">: '.$arr[0]['gateway_name'].'<br />
-					  : '.$arr[0]['merchant_id'].'</td>
-				  </tr>
-				  
-				  <tr>
-					<td colspan="2" class="line">&nbsp;</td>
-				  </tr>
-				  <tr>
-					<td colspan="2"><div>
-						<table width="100%" border="0" cellspacing="0" cellpadding="0">
-						  <tr>
-							<td width="50%" valign="top" class="account_address"><strong style="color:#333333">Primary Billing Address</strong><br />
-							  '.$arr[0]['billing_name'].'<br />
-							  '.$arr[0]['billing_company'].'<br />
-							  '.$arr[0]['billing_street_address'].'<br />
-							  '.$arr[0]['billing_city'].' '.$arr[0]['billing_postcode'].' '.$arr[0]['billing_state'].'<br />
-							  '.$arr[0]['billcountry'].'<br />
-							  </td>
-							<td width="50%" class="account_address"><strong style="color:#333333">Primary Shipping Address</strong><br />
-							  '.$arr[0]['shipping_name'].'<br />
-							  '.$arr[0]['shipping_company'].'<br />
-							  '.$arr[0]['shipping_street_address'].'<br />
-							  '.$arr[0]['shipping_city'].' '.$arr[0]['shipping_postcode'].' '.$arr[0]['shipping_state'].'<br />
-							  '.$arr[0]['shipcountry'].'</td>
-						  </tr>
-						</table>
-					</div></td>
-				  </tr>
-				  <tr>
-					<td colspan="2" class="line">&nbsp;</td>
-				  </tr>
-				  <tr>
-					<td colspan="2">&nbsp;</td>
-				  </tr>
-				  <tr>
-					<td colspan="2" class="account_title">Order #'.$arr[0]['orders_id'].' Contains the Following Items:</td>
-				  </tr>
-				  <tr>
-					<td colspan="2" valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#cccccc">
-						<tr>
-						  <td width="37%" bgcolor="#cccccc" class="viewcartTITLE" style="padding-left:10px;">Item Details</td>
-						  <td width="15%" align="left" bgcolor="#cccccc" class="viewcartTITLE" style="padding-left:10px;">Price</td>
-						  <td width="12%" align="left" bgcolor="#cccccc" class="viewcartTITLE" style="padding-left:10px;">Quantity</td>
-						  <td width="18%" align="left" bgcolor="#cccccc" class="viewcartTITLE" style="padding-left:10px;">Shipping Charge </td>
-						  <td width="18%" align="left" bgcolor="#cccccc" class="viewcartTITLE" style="padding-left:10px;">Total</td>
-						</tr>';
-						$grand=0;
-						for($i=0;$i<count($arr);$i++)
-						{
-							$total=($arr[$i]['product_unit_price']*$arr[$i]['product_qty'])+$arr[$i]['shipping_cost'];
-							$output.='<tr>
-							  <td align="left" bgcolor="#FFFFFF" class="order_TXT">'.$arr[$i]['title'].'</td>
-							  <td align="right" bgcolor="#FFFFFF" class="order_Price1">$'.number_format($arr[$i]['product_unit_price'],2).'</td>
-							  <td align="right" bgcolor="#FFFFFF" class="order_Price1">'.$arr[$i]['product_qty'].'</td>
-							  <td align="right" bgcolor="#FFFFFF" class="order_Price1">$'.number_format($arr[$i]['shipping_cost'],2).'</td>
-							  <td align="right" bgcolor="#FFFFFF" class="order_Price">$'.number_format($total,2).'</td>
-							</tr>';
-							$grand+=$total;
-						}
-						$output.='<tr>
-						  <td colspan="4" align="right" style="background:url(images/viewcart_bg.jpg) repeat-x top #FFFFFF" class="viewcartTXT2">Grand Total </td>
-						  <td align="left" style="background:url(images/viewcart_bg.jpg) repeat-x top #FFFFFF" class="viewcart_total">$'.number_format($grand,2).'</td>
-						</tr>
-						
-					</table></td>
-				  </tr>
-				</table>
-				</div>
-				</td>
-			  </tr>
-			  
-			  
+		$output=' <div class="title_fnt">
+		<h1>Order Details</h1>
+		</div>
+		
+		<div id="myaccount_div">
+		<div class="myacc_detail">
+				<div class="clear"></div>
+				<div class="row-fluid">
+				<div class="span6"><h4>Order Information</h4>
+			<table class="table table-striped table-bordered">
+			<tr>
+			<td>Order Id</td>
+			<th>#'.$arr[0]['orders_id'].'</th>
+			</tr>
+			<tr>
+			<td>Order Status </td>
+			<th><span class="label label-success">'.$arr[0]['orders_status_name'].'</span></th>
+			</tr>
+			<tr>
+			<td> Order Total</td>
+			<th>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['order_total'].'</th>
+			</tr>
+			<tr>
+			<td>Order Date</td>
+			<th>'.$arr[0]['purDate'].'</th>
+			</tr>
+			<tr>
+			<td>Close Date</td>
+			<th>'.$arr[0]['closeDate'].'</th>
+			</tr>
 			</table>
-			</div>';
+				
+			</div>
+				<div class="span6"><h4>Payment Details </h4>
+				<table class="table table-striped table-bordered">
+			<tr>
+			<td>Paid Through</td>
+			<th>'.$arr[0]['gateway_name'].'</th>
+			</tr>
+			
+			</table>
+			</div>
+			</div>
+           		<div class="row-fluid">
+           		  <div class="span6"><h4>Billing Address</h4><ul class="addresslist">
+			<li><address>
+			
+			<p>'.$arr[0]['billing_name'].'</p>
+			<p>'.$arr[0]['billing_company'].'</p>
+			<p> '.$arr[0]['billing_street_address'].'</p>
+			<p>'.$arr[0]['billing_city'].'</p>
+			
+			<p>'.$arr[0]['billing_postcode'].'</p>
+			
+			<p>'.$arr[0]['billing_state'].'</p>
+			
+			<p>'.$arr[0]['billcountry'].'</p>
+			</address></li></ul>
+
+                 	 </div>
+                        <div class="span6"><h4>Shipping Address</h4>
+				<ul class="addresslist">
+			<li><address>
+			<p>'.$arr[0]['shipping_name'].'</p>
+			
+			<p>'.$arr[0]['shipping_company'].'</p>
+			
+			<p> '.$arr[0]['shipping_street_address'].'</p>
+			
+			<p>'.$arr[0]['shipping_city'].'</p>
+			
+			<p>'.$arr[0]['shipping_postcode'].'</p>
+		
+			<p>'.$arr[0]['shipping_state'].'</p>
+			
+			<p>'.$arr[0]['shipcountry'].'</p>
+			</address></li></ul>
+				</div>
+			</div>
+				
+		
+			<h4>Item Details</h4>
+			
+			<div class="clear"></div>
+			</div>
+			<table class="rt cf" id="rt1">
+			<thead class="cf">
+			<tr>
+				<th>Item Details</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Shipping Charge</th>
+				<th>Total</th>
+			</tr>
+			</thead>
+			<tbody>';
+			$grand=0;
+			for($i=0;$i<count($arr);$i++)
+			{
+				$total=($arr[$i]['product_unit_price']*$arr[$i]['product_qty'])+$arr[$i]['shipping_cost'];
+				$output.='<tr>
+					<td>'.$arr[$i]['title'].'</td>
+					<td>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price'],2).'</td>
+					<td>'.$arr[$i]['product_qty'].'</td>
+					<td>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['shipping_cost'],2).'</td>
+					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
+				</tr>';
+				$grand+=$total;
+			}
+				$output.='<tr>
+				<td colspan="3" rowspan="3">&nbsp;</td>
+				<td>Sub Total</td>
+				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grand).'</span>	</td>
+			</tr>
+				<tr>
+				<td>Shipping Amount</td>
+				<td><span class="label label-inverse">INR  0</span></td>
+			</tr>
+				<tr>
+				<td>Grand Total</td>
+				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grand).'</span></td>
+			</tr>
+			</tbody>
+		</table>
+		</div>';
 		return $output;	
 	}
  	/**
 	* This function is used to Display the All New Products
-	* @name showAllNew
 	* @param mixed $arr
 	* @param int $paging
 	* @param int $prev
@@ -706,26 +706,26 @@ class Display_DUserAccount
 	function showAllNew($arr,$paging,$prev,$next,$val)
 	{
 	
-	$output.='
-	<div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="serachresult">All New Products </td>
-    </tr>
-  
-  <tr>
-    <td align="left" valign="top">
-	<div>
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-      
-      <tr align="right"><td class="content_list_footer" colspan=2 ><div>'.' '.$prev.' ';
-					for($i=1;$i<=count($paging);$i++)
-					 $pagingvalues .= $paging[$i]."  ";
-							$output .= $pagingvalues.' '.$next.'</div></td></tr>
-      <tr>
-        <td colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td width="800%" colspan="2">';
+			$output.='
+			<div><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td class="serachresult">All New Products </td>
+		</tr>
+		
+		<tr>
+		<td align="left" valign="top">
+			<div>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		
+		<tr align="right"><td class="content_list_footer" colspan=2 ><div>'.' '.$prev.' ';
+							for($i=1;$i<=count($paging);$i++)
+							$pagingvalues .= $paging[$i]."  ";
+									$output .= $pagingvalues.' '.$next.'</div></td></tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="800%" colspan="2">';
 		
 		$k=0;
 		for($i=0;$i<count($arr)/4;$i++)
@@ -816,7 +816,6 @@ class Display_DUserAccount
 	
  	/**
 	* This function is used to Display the All Featured product
-	* @name showAllFeatured
 	* @param mixed $arr
 	* @param int $paging
 	* @param int $prev
@@ -827,27 +826,25 @@ class Display_DUserAccount
 	function showAllFeatured($arr,$paging,$prev,$next,$val)
 	{
 	
-	$output.='
-	<div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="serachresult">All Featured Products </td>
-    </tr>
-  
-  <tr>
-    <td align="left" valign="top">
-	<div>
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-      
-      <tr align="right"><td class="content_list_footer" >'.' '.$prev.' ';
-					for($i=1;$i<=count($paging);$i++)
-					 $pagingvalues .= $paging[$i]."  ";
-							$output .= $pagingvalues.' '.$next.'</td></tr>
-      <tr>
-        <td colspan="2">&nbsp;</td>
-      </tr>
-      <tr>
-        <td width="800%" colspan="2">';
+		$output.='<div><table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td class="serachresult">All Featured Products </td>
+		</tr>
+		<tr>
+		<td align="left" valign="top">
+			<div>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		
+		<tr align="right"><td class="content_list_footer" >'.' '.$prev.' ';
+							for($i=1;$i<=count($paging);$i++)
+							$pagingvalues .= $paging[$i]."  ";
+									$output .= $pagingvalues.' '.$next.'</td></tr>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="800%" colspan="2">';
+				
 		$k=0;
 		for($i=0;$i<count($arr)/4;$i++)
 		{
@@ -934,8 +931,7 @@ class Display_DUserAccount
 	}
 	/**
 	* This function is used to Display the  Address
-	* @name showAddress
-	
+	* @param array $arr
 	* @return string
  	*/
 	function showAddress($arr)
@@ -982,60 +978,59 @@ class Display_DUserAccount
 	}
 	/**
 	* This function is used to Display the All Address
-	* @name showAddressBook
-	
+	* @param mixed $arr
+	* @param int $paging
+	* @param int $prev
+	* @param int $next	
+	* @param int $val
 	* @return string
  	*/
 	function showAddressBook($arr,$paging,$prev,$next,$val)
 	{
-	$output.='<div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-		  <tr>
-			<td class="serachresult">Address Book  </td><td align="right" class="account_address"><a href="?do=addaddress" class="categoryList">Add Contact</a>
-			</td>
-		  </tr>
-		  <tr>
-			<td align="left" valign="top" colspan=2>
-			<div>
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">';
-			$k=0;
-			for($i=0;$i<5;$i++)
-			{
-			  $output.='<tr>';
-			  	for($j=0;$j<2;$j++)
-				{
-					$output.='<td width="50%" valign="top" class="account_address">';
-					if($arr[$k]['contact_name']!='')
-					{
-						$output.='
-						<div class="addressbook address_left">
-						<h1>'.$arr[$k]['contact_name'].'</h1>
-						<h4>'.$arr[$k]['first_name'].' '.$arr[$k]['last_name'].'</h4>
-						<h2><a href="mailto:'.$arr[$k]['email'].'">&nbsp;'.$arr[$k]['email'].'</a></h2>
-						'.$arr[$k]['city'].', '.$arr[$k]['state'].'
-						<h3><a href="?do=addressbook&action=view&id='.$arr[$k]['contact_name'].'">View Contact</a></h3>
-						</div>';
-					}	  
-  				    $output.='</td>';
-					  $k++; 
-				}	  
-			  $output.='</tr>';
-			} 
-			
-			$output.='</table>
+		
+		$output='<div class="title_fnt">
+		<h1>Address Book </h1>
+		</div>';
+
+		$srhlist='';
+		foreach(range('A', 'Z') as $letter) {
+   		 $srhlist.='<a href="?do=addressbook&schltr='.$letter.'" class="btn">'.$letter.'</a>';
+		}
+		$srhlist.='&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="?do=addressbook&schltr=All"class="btn">All</a>';
+		$output.='<div class="span11">
+			'.$errnsg.'
+		<div>
+		<a href="?do=addaddress" class="btn">Add New Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div>&nbsp;</div>';
+			if(!isset($_GET['gname']))
+			$output.='<div style="margin: 0;" class="btn-toolbar">
+			<div class="btn">'.$srhlist.' 
 			</div>
-			</td>
-		  </tr>
-		   <tr align="right"><td class="content_list_footer" colspan=2>'.' '.$prev.' ';
-				for($i=1;$i<=count($paging);$i++)
-				 $pagingvalues1 .= $paging[$i]."  ";
-						$output .= $pagingvalues1.' '.$next.'</td></tr>
-		</table>
-	</div>';
+			</div>';
+		
+		$output.="<div>&nbsp;</div>";
+
+		for($k=0;$k<count($arr);$k++)	
+		{
+			$output.='<div class="span5"><ul class="addresslist"><li><address>
+                                    	<h5>'.$arr[$k]['contact_name'].'</h5>
+                                        <p>'.$arr[$k]['first_name'].' '.$arr[$k]['last_name'].'</p>
+                                        <p><a href="mailto:'.$arr[$k]['email'].'">&nbsp;'.$arr[$k]['email'].'</a></p>
+					 <p>'.$arr[$k]['city'].', '.$arr[$k]['state'].'</p>
+					 <p>625108</p>	
+					<p><a class="btn btn-success " href="?do=addaddress&id='.$arr[$k]['contact_name'].'">Edit</a><a class="btn btn-danger " onclick="return confirm(\'Are you Sure to delete?\');" href="?do=deladdress&id='.$arr[$k]['contact_name'].'">Delete</a></p>
+                                       
+                                    	</address></li></ul>
+
+         `		 </div>';
+
+		}
+
+		$output.='</div>';
 		return $output;
 	}
 	/**
 	* This function is used to Display the Add Address
-	* @name showAddAddress
 	* @param  array $arrCountry
 	* @param  array $arrAdd
 	* @return string
@@ -1101,68 +1096,75 @@ class Display_DUserAccount
 		}
 
 
-	$output1.='
-	    <form name="frmAddress" method="post" action="?do=addaddress&action='.$action.'">
+		$output1.='<div class="title_fnt">
+		<h1>Address Book</h1>
+		</div>
+	
+		<div id="myaccount_div">
+		<form class="form-horizontal" method="post" action="?do=addaddress&action='.$action.'" name="frmAddress">
 		<input type="hidden" name="hidStatus" value="'.$status.'">
 		<input type="hidden" name="hidGroup" value="'.$group.'">
-		<div align="center">
-		 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="checkout_rigistration" align="center">
-		 	<tr>
-			<td class="serachresult">Address Book</td>
-			<td colspan=2></td>
-			<td align="right" class="account_address" nowrap><a href="?do=addressbook" class="categoryList">View Contacts</a>
-			</td>
-			</tr>
-		   <tr>
-			 <td width="26%"><b>Group Name</b> <span>*</span></td>
-			 <td width="4%">:</td>
-			 <td width="70%"><input name="txtGName" type="text" class="txtbox1 w4 TxtC1" id="textfield9" value="'.$gName.'" /><h1><AJDF:output>'.$output['msg']['txtGName'].'</AJDF:output></h1></td>
-		   </tr>
-		   <tr>
-			 <td width="26%" align="top">First Name <span>*</span></td>
-			 <td width="4%">:</td>
-			 <td width="70%"><input name="txtFName" type="text" class="txtbox1 w4 TxtC1" id="textfield9" value="'.$fName.'" /><h1><AJDF:output>'.$output['msg']['txtFName'].'</AJDF:output></h1></td>
-		   </tr>
-		   <tr>
-			 <td valign="top">Last Name <span>*</span></td>
-			 <td valign=top>:</td>
-			 <td><input name="txtLName" type="text" class="txtbox1 w4 TxtC1" id="textfield2" value="'.$lName.'"/><h1><AJDF:output>'.$output['msg']['txtLName'].'</AJDF:output></h1></td>
-		   </tr>
-		   <tr>
-			 <td>Company</td>
-			 <td>:</td>
-			 <td><input name="txtCompany" type="text" class="txtbox1 w4 TxtC1" id="textfield3" value="'.$company.'"/></td>
-		   </tr>
-		   <tr>
-			 <td>Email Address</td>
-			 <td>:</td>
-			 <td><input name="txtEMail" type="text" class="txtbox1 w4 TxtC1" id="textfield4" value="'.$eMail.'"/><h1><AJDF:output>'.$output['msg']['txtEMail'].'</AJDF:output></h1></td>
-		   </tr>
-		   <tr>
-			 <td>Address <span>*</span></td>
-			 <td>:</td>
-			 <td><input name="txtAddress" type="text" class="txtbox1 w4 TxtC1" id="textfield7" value="'.$address.'"/><h1><AJDF:output>'.$output['msg']['txtAddress'].'</AJDF:output></h1></td>
-		   </tr>
-		   <tr>
-			 <td>City <span>*</span></td>
-			 <td>:</td>
-			 <td><input name="txtCity" type="text" class="txtbox1 w4 TxtC1" id="textfield8" value="'.$city.'"/><h1><AJDF:output>'.$output['msg']['txtCity'].'</AJDF:output></h1></td>
-		   </tr>
-		   <tr>
-			 <td>Sub Urb </td>
-			 <td>:</td>
-			 <td><input name="txtSuburb" type="text" class="txtbox1 w4 TxtC1" id="textfield8" value="'.$suburb.'"/></td>
-		   </tr>
-		   <tr>
-			 <td>State/Province <span>*</span></td>
-			 <td>:</td>
-			 <td><input name="txtState" type="text" class="txtbox1 w4 TxtC1" id="textfield8" value="'.$state.'"/><br><h1><AJDF:output>'.$output['msg']['txtState'].'</AJDF:output></h1>
-			 </td>
-		   </tr>
-		   <tr>
-			 <td>Country <span>*</span></td>
-			 <td>:</td>
-			 <td><select name="selCountry" id="select3" class="listbox1 w4a TxtC1">';
+		
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">Group Name <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="txtGName" id="txtGName" value="'.$gName.'"><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtGName'].'</AJDF:output></font>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">First Name <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<input name="txtFName" type="text"  id="txtFName" value="'.$fName.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtFName'].'</AJDF:output></font>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Last Name <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input name="txtLName" type="text"  id="txtLName" value="'.$lName.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtLName'].'</AJDF:output></font>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Company </label>
+		<div class="controls">
+		<input name="txtCompany" type="text"  id="txtCompany" value="'.$company.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtCompany'].'</AJDF:output></font>
+		</div>
+		</div>
+		
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Email Address</label>
+		<div class="controls">
+		<input name="txtEMail" type="text"  id="txtEMail" value="'.$eMail.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtEMail'].'</AJDF:output></font>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Address <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input name="txtAddress" type="text"  id="txtAddress" value="'.$address.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtAddress'].'</AJDF:output></font>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">City <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<input name="txtCity" type="text"  id="txtCity" value="'.$city.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtCity'].'</AJDF:output></font>
+		</div>
+		</div>
+
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Sub Urb  </label>
+		<div class="controls">
+		<input name="txtSuburb" type="text"  id="txtSuburb" value="'.$suburb.'"/>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">State/Province <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input name="txtState" type="text" " id="txtState" value="'.$state.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtState'].'</AJDF:output></font>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Country <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<select name="selCountry" id="select3" >';
 				 for($i=0;$i<count($arrCountry);$i++)
 				 {
 				 	 $sel='';
@@ -1171,46 +1173,39 @@ class Display_DUserAccount
 						
 					 $output1.='<option value="'.$arrCountry[$i]['cou_code'].'" '.$sel.'>'.$arrCountry[$i]['cou_name'].'</option>';
 				 }
-			 $output1.='</select></td>
-		   </tr>
-		   <tr>
-			 <td>Zip/Postal Code <span>*</span></td>
-			 <td>:</td>
-			 <td><input name="txtZip" type="text" class="txtbox1 w4 TxtC1" id="textfield82" value="'.$zip.'"/><h1><AJDF:output>'.$output['msg']['txtZip'].'</AJDF:output></h1></td>
-		   </tr>
-		   <tr>
-			 <td>Telephone </td>
-			 <td>:</td>
-			 <td><input name="txtPhone" type="text" class="txtbox1 w4 TxtC1" id="textfield822" value="'.$telephone.'"/></td>
-		   </tr>
-		   <tr>
-			 <td>Fax</td>
-			 <td>:</td>
-			 <td><input name="txtFax" type="text" class="txtbox1 w4 TxtC1" id="textfield823" value="'.$fax.'"/></td>
-		   </tr>
-		   <tr>
-			 <td colspan=2></td><td style="padding-top:10px;" align="right"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-				 <tr>
-				   <td valign="top"><div>
-					   <table border="0" cellspacing="0" cellpadding="0">
-						 <tr>
-						   <td align="right" class="button_left"> </td>
-						   <td><input type="submit" name="Submit2" value="'.$buttonCaption.'" class="button" /></td>
-						   <td class="button_right" ></td>
-						 </tr>
-					   </table>
-				   </div></td>
-				 </tr>
-			 </table></td>
-		   </tr>
-		 </table>
-	   </div>
-	   </form>';
+			 $output1.='</select>
+		</div>
+		</div>
+
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Zip/Postal Code  <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input name="txtZip" type="text"  id="txtZip" value="'.$zip.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtZip'].'</AJDF:output></font>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Telephone  </label>
+		<div class="controls">
+		<input name="txtPhone" type="text"  id="txtPhone" value="'.$telephone.'"/>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Fax  </label>
+		<div class="controls">
+		<input name="txtFax" type="text"  id="txtFax" value="'.$fax.'"/>
+		</div>
+		</div>
+		<div class="control-group">
+		<div class="controls">
+		<button class="btn btn-danger" type="submit">Submit</button>&nbsp;<a onclick="history.go(-1);" href="javascript:void(0);"><button type="button" class="btn">Cancel</button></a>
+		</div>
+		</div>
+		</form>
+	        </div>';
 	   return $output1;
 	}
 	/**
 	* This function is used to Display the Add Address from check out
-	* @name showAddAddressFromCheckout
 	* @param  array $arrCountry
 	* @param  array $arrAdd
 	* @return string

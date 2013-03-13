@@ -32,12 +32,18 @@
  */
 class Model_MFaq
 {
+
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	
  	/**
 	* This function is used to Display the FAQ Page
 	*
-	* @return HTML data
+	* @return string
 	*/
 	function showFaq()
 	{

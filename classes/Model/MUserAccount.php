@@ -33,11 +33,16 @@
 
 class Model_MUserAccount
 {
+	/**
+	 * Stores the output 
+	 *
+	 * @var array 
+	 */	
 	var $output = array();
 	/**
 	* This function is used to Show news letter page
  	*
- 	* @return HTML data
+ 	* @return string 
 	*/
 	function showNewsLetter($result='')
 	{
@@ -80,7 +85,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to Show account dashboard after login
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showDashBoard()
 	{
@@ -121,8 +126,8 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to Show account information  after login
- 	*
- 	* @return HTML data
+ 	* @param array  $result
+ 	* @return string
 	*/
 	function showAccountInfo($result='')
 	{
@@ -165,7 +170,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to edit account information  after login
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function editAccountInfo()
 	{
@@ -184,7 +189,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to show  product review  after login
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showProductReview()
 	{
@@ -225,8 +230,8 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  product wishlist  after login
- 	*
- 	* @return HTML data
+ 	* @param  string $result
+ 	* @return string
 	*/
 	function showWishList($result='')
 	{
@@ -276,7 +281,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to show  send wish list   after login
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function sendWishlist()
 	{
@@ -294,7 +299,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to show  add new letter 
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function addNewsLetter()
 	{
@@ -309,7 +314,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to show  my order list page 
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showMyOrder()
 	{
@@ -350,7 +355,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to show  my order details page
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showOrderDetails()
 	{
@@ -390,7 +395,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to show  all new product
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showAllNew()
 	{
@@ -429,7 +434,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to show  all featured product
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showAllFeatured()
 	{
@@ -469,10 +474,10 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show  my address book
- 	*
- 	* @return HTML data
+ 	* @param string $result
+ 	* @return string
 	*/
-	function showMyAddressBook()
+	function showMyAddressBook($result='')
 	{
 		$this->checkLogin();
 		include('classes/Core/CKeywordSearch.php');
@@ -512,8 +517,8 @@ class Model_MUserAccount
 	}
 	/**
 	* This function is used to show add  address book
- 	*
- 	* @return HTML data
+ 	* @param string $result
+ 	* @return string
 	*/
 	function showAddAddress($result='')
 	{
@@ -558,7 +563,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to show add  address book
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function showAddress()
 	{
@@ -602,7 +607,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to insert the  address 
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function addAddress()
 	{
@@ -622,7 +627,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to edit  address 
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function editAddress()
 	{
@@ -641,7 +646,7 @@ class Model_MUserAccount
 	/**
 	* This function is used to delete  address 
  	*
- 	* @return HTML data
+ 	* @return string
 	*/
 	function delAddress()
 	{
@@ -651,7 +656,7 @@ class Model_MUserAccount
 		Core_CCurrencySettings::getDefaultCurrency();
 
 		$result=Core_CUserAddressBook::delAddress();	
-		$this->showMyAddressBook();
+		$this->showMyAddressBook($result);
 	}
 	/**
 	* This function is used to check  user login session  id

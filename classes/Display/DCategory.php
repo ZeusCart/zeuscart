@@ -35,7 +35,6 @@ class Display_DCategory
 {	
  	/**
 	* This function is used to Display the Sub Category
-	* @name loadSubCategories
 	* @param mixed $result
 	* @return string
  	*/

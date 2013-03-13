@@ -35,7 +35,6 @@ var $output = array();
 		
  	/**
 	* This function is used to Display the Recently Viewed Product
-	* @name lastViewedProducts
 	* @param mixed $arr
 	* @param int $r	
 	* @return string
@@ -100,7 +99,6 @@ var $output = array();
 	
  	/**
 	* This function is used When Recently Viewed Product is Not Available
-	* @name lastViewedProductElse
 	* @return string
  	*/
 	function lastViewedProductsElse()
