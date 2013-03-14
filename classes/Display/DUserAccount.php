@@ -148,8 +148,6 @@ class Display_DUserAccount
  	*/
 	function showAccountInfo($arr)
 	{
-
-
 		include("classes/Lib/HandleErrors.php");		
 		
 	
@@ -169,20 +167,21 @@ class Display_DUserAccount
 
 		if(count($output['val'])==0)	
 		{
-			$fname=$arr[0]['user_name'];
-			$email=$arr[0]['user_email'];	
-			$mobile=$arr[0]['user_mobile'];			
+			$fname=$arr[0]['user_fname'];
+			$lname=$arr[0]['user_lname'];
+			$email=$arr[0]['user_email'];
+			$hidcpwd=base64_decode($arr[0]['user_pwd']);
 			$hidsubid=$arr[0]['subsciption_id'];;
 		}
 		else
 		{
-			$fname=$arr[0]['user_name'];;
-			$email=$arr[0]['user_email'];	
-			$mobile=$arr[0]['user_mobile'];	
-			$cpwd=$output['val']['txtCPwd'];
+			$fname=$output['val']['txtFName'];
+			$lname=$output['val']['txtLName'];
+			$email=$output['val']['txtEmail'];
+			//$cpwd=$output['val']['txtCPwd'];
 			$npwd=$output['val']['txtNPwd'];
 			$cnpwd=$output['val']['txtCNPwd'];
-			//$hidcpwd=$output['val']['hidCPwd'];
+			$hidcpwd=$output['val']['hidCPwd'];
 			$hidsubid=$output['val']['hidsubid'];;
 		}
 		$out=' <div class="title_fnt">
@@ -191,7 +190,7 @@ class Display_DUserAccount
 		
 			
 		<div id="myaccount_div">
-		<form class="form-horizontal">
+		<form class="form-horizontal" name="frmAcc" method="post" action="?do=accountinfo&action=add">
 		
 		<h3 class="accinfo_fnt">Account Information</h3>
 		'.$output['result'].'
@@ -210,32 +209,32 @@ class Display_DUserAccount
 		<div class="control-group">
 		<label for="inputPassword" class="control-label">Email Address  <i class="red_fnt">*</i></label>
 		<div class="controls">
-		<input name="txtEmail" type="text"  id="txtEmail" value="'.$email.'" /><br/><span style="color:#ff0000">'.$output['msg']['txtEmail'].'</span>
+		<input name="txtEmail" type="text"  id="txtEmail" value="'.$email.'" /><br/><span style="color:#ff0000">'.$output['msg']['txtEmail'].'</span><input type="hidden" name="hidsubid" value="'.$hidsubid.'"/>	
 		</div>
 		</div>
 		
 		<h3 class="accinfo_fnt">Change Password</h3>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">Current Password  <i class="red_fnt">*</i></label>
 		<div class="controls">
-			<input type="password" placeholder="Password" id="inputPassword">
+			<input name="txtCPwd" type="password"  id="txtCPwd"  value="'.$cpwd.'"/><br/><span style="color:#ff0000">'.$output['msg']['txtCPwd'].'</span>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">New Password <i class="red_fnt">*</i></label>
 		<div class="controls">
-			<input type="password" placeholder="Password" id="inputPassword">
+		<input name="txtNPwd" type="password"  id="txtNPwd"  value="'.$npwd.'"/><br/><span style="color:#ff0000">'.$output['msg']['txtNPwd'].'</span>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Mobile Number <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">Confirm New Password  <i class="red_fnt">*</i></label>
 		<div class="controls">
-			<input type="password" placeholder="Password" id="inputPassword">
+		<input name="txtCNPwd" type="password"  id="txtCNPwd"  value="'.$cnpwd.'"/>&nbsp;<br/><span style="color:#ff0000">'.$output['msg']['txtCNPwd'].'</span>
 		</div>
 		</div>
 		<div class="control-group">
 		<div class="controls">
-			<button class="btn btn-danger" type="submit">Sign in</button>
+		<button class="btn btn-danger" type="submit">Submit</button>&nbsp;<a href="javascript:void(0);" onclick="history.go(-1);"><button class="btn" type="button">Cancel</button></a>
 		</div>
 		</div>
 		</form>           </div>';
@@ -358,64 +357,44 @@ class Display_DUserAccount
 		$output.=$result.'<div class="title_fnt">
 		<h1>My Wishlist </h1>
 		</div>
-		
-	
 		<div id="myaccount_div">
 		
 		<table class="rt cf" id="rt1">
 			<thead class="cf">
 				<tr>
-					<th>Order</th>
-					<th>Ship to</th>
-					<th>Order Total</th>
-					<th>Status</th>
-					<th>Detail</th>
+					<th></th>
+					<th>Product Image</th>
+					<th>Product </th>
+					<th>Added On </th>
+					<th>Action</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>#1</td>
-					<td>Karthik Kumar</td>
-					<td>INR  1,100.00</td>
-					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-					<td><a href="#" class="btn btn-mini">View Order</a></td>
-				</tr>
-				<tr>
-					<td>#2</td>
-					<td>Satheesh</td>
-					<td>INR  500.00</td>
-					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-					<td><a href="#" class="btn btn-mini">View Order</a></td>
-				</tr>
-				<tr>
-					<td>#3</td>
-					<td>Vinith Kumar</td>
-					<td>INR  300.00</td>
-					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-					<td><a href="#" class="btn btn-mini">View Order</a></td>
-				</tr>
-				<tr>
-					<td>#4</td>
-					<td>Mani Mala</td>
-					<td>INR  15,100.00</td>
-					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-					<td><a href="#" class="btn btn-mini">View Order</a></td>
-				</tr>
-				<tr>
-					<td>#5</td>
-					<td>Seetha Lakshmi</td>
-					<td>INR  3,300.00</td>
-					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-					<td><a href="#" class="btn btn-mini">View Order</a></td>
-				</tr>
-				<tr>
-					<td>#6</td>
-					<td>Bala</td>
-					<td>INR  1,100.00</td>
-					<td><span class="label label-important">Pending</span> <span class="label label-success">Finished</span></td>
-					<td><a href="#" class="btn btn-mini">View Order</a></td>
-				</tr>
-			</tbody>
+			<tbody>';
+			if(count($arr)>0)
+			{
+				for($i=0;$i<count($arr);$i++)
+				{
+					if(file_exists($arr[$i]['image']))
+						$img=$arr[$i]['image'];
+					else
+						$img="images/noimage.jpg";
+	
+					$output.='<tr>
+					<td><a href="?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'"><img src="assets/img/bullet.gif" alt="remove" width="14" height="14" style="border:none"/></td>
+					<td><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">
+					<img src="'.$img.'" alt="" width="52" height="52" style="border:none" /></a></td><td><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br /><!--$-->
+						  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</a></td>
+					<td>'.$arr[$i]['adate'].'</td>
+					<td><a class="btn btn-mini" href="?do=addtocart&prodid='.$arr[$i]['product_id'].'">Add to Cart </a></td>
+					</tr>';
+				}
+
+			}
+				
+				
+				
+				
+			$output.='</tbody>
 		</table>
 		</div>';
 		 

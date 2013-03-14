@@ -237,7 +237,7 @@ var $output = array();
 		
 	}
 	/**
-	 * This function is used to view the add to cart from product detalis page.
+	 * This function is used to view the cart items.
 	 *
 	 * 
 	 * 
@@ -245,12 +245,14 @@ var $output = array();
 	 */
 	function showCart() 
 	{
+
 	
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
 		if(!isset($_SESSION['user_id']))
 		{
+
 			$prodid = $_GET['prodid'];
 			$_SESSION['RequestUrl'] = '?do=showcart';
 		
@@ -741,7 +743,7 @@ var $output = array();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
 			$default=new Core_CAddCart();
-			$output['showcart']=$default->showShippingMethod($output);
+			$output['showcart']=$default->showShippingMethod($Err);
 			
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
@@ -768,7 +770,8 @@ var $output = array();
 	 */	
 	function showOrderConfirmation() 
 	{
-		
+
+				
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -889,6 +892,7 @@ var $output = array();
 	 */
 	function validateCoupon()
 	{
+
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -1368,5 +1372,32 @@ var $output = array();
 		}
 
 	}
+	/**
+	 * This function is used to validate the shipping method.
+	 *
+	 * 
+	 * 
+	 * @return string
+	 */
+	function validateShippingMethod()
+	{	
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+		include_once('classes/Core/CAddCart.php');
+		include("classes/Lib/CheckInputs.php");
+		$obj = new Lib_CheckInputs('shippingmethod');
+		
+		if(!isset($_SESSION['user_id']))
+		{	
+			header('Location:?do=index');
+		}
+		else
+		{
+			$_SESSION['shipment_id_selected']=$_POST['shipment_id'];
+			header('Location:?do=showcart&action=showorderconfirmation');
+		}
+	
+
+	}	
 }
 ?>

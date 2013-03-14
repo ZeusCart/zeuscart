@@ -66,7 +66,37 @@ class Lib_CheckInputs
 		else if($module=='billingaddress')
 			$this->validateBillingAddress();
 		else if($module=='shippingaddress')
-			$this->validateShippingAddress();			
+			$this->validateShippingAddress();	
+		else if($module=='shippingmethod')
+			$this->validateShippingMethod();		
+
+	}
+
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateShippingMethod()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+
+			if($_POST['shipment_id']!='' or $_POST['shipment_id']=='')
+			{
+				
+				$obj = new Lib_FormValidation('shippingmethod');
+			}
+			else 
+			{
+				header("Location:?do=showcart&action=validateShippingMethod");
+				exit();
+			}
+		}
+
 
 	}
 	/**

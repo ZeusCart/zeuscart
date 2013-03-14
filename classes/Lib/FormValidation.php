@@ -64,13 +64,26 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateAddress();			
 		else if($form=='checkQuickregister')
 			$this->validateQuickReg();
-
 		else if($form=='billingaddress')
 			$this->validateBillingAddress();	
-			
 		else if($form=='shippingaddress')
-			$this->validateShippingAddress();		
+			$this->validateShippingAddress();
+		else if($form=='shippingmethod')
+			$this->validateShippingMethod();		
 		
+	}
+	/**
+	 * Function checks the check out process shipping method and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateShippingMethod()
+	{
+		$message = "Required Field Cannot be blank";
+		$this->Assign("shipment_id",trim($_POST['shipment_id']),"noempty",$message);
+
+		$this->PerformValidation("?do=showcart&action=getshippingmethod");
 	}
 	/**
 	 * Function checks the check out process shipping address and assign an error
@@ -201,6 +214,8 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	
 	function validatemyprofile()
 	{
+
+
 		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
 		$this->Assign("firstname",trim($_POST['firstname']),"noempty/nonumber/nospecial''",$message);
 		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
@@ -485,27 +500,27 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 * @return void 
 	 */	
 	function email($email, $check_domain = false)
-    {
-		
-        if($check_domain){
-
-        }
-
-        if (ereg('^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+'.'@'.
-                 '[-!#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.'.
-                 '[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$', $email))
-        {
-            if ($check_domain && function_exists('checkdnsrr')) {
-                list (, $domain)  = explode('@', $email);
-                if (checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A')) {
-                    return true;
-                }
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
+    	{
+			
+		if($check_domain){
+	
+		}
+	
+		if (ereg('^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+'.'@'.
+			'[-!#$%&\'*+\\/0-9=?A-Z^_`a-z{|}~]+\.'.
+			'[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$', $email))
+		{
+		if ($check_domain && function_exists('checkdnsrr')) {
+			list (, $domain)  = explode('@', $email);
+			if (checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A')) {
+			return true;
+			}
+			return false;
+		}
+		return true;
+		}
+		return false;
+    	}
 	
 	/*function validateEmailAddress($email) 
 	{
@@ -607,28 +622,56 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("txtNPwd",trim($_POST['txtNPwd']),"noempty",$message);
 		$this->Assign("txtCNPwd",trim($_POST['txtCNPwd']),"noempty",$message);
 
+		$sql="select user_pwd from users_table where user_status=1 and user_id=".$_SESSION['user_id'];	
+		$obj = new Bin_Query();
+		if($obj->executeQuery($sql))
+		{
+			$cpwd=$obj->records[0]['user_pwd'];
+		}
+		else
+		$cpwd='';
 
-		if($_POST['txtNPwd']!=''&& $_POST['txtCNPwd']!='')
+				
+		if($_POST['txtCPwd']!='')
+		{
+			if(base64_encode(trim($_POST['txtCPwd']))!=$cpwd)
+			{	
+				$message = "Invalid Current Password";
+				$this->Assign("txtCPwd","","noempty",$message);
+			}
+		}
+			
+		if($_POST['txtNPwd']!='')
 		{
 			$pwdlength =strlen($_POST['txtNPwd']);
 			if($pwdlength<6)
 			{
 				$message = "Password minimum length is 6";
 				$this->Assign("txtNPwd","","noempty",$message);
-			}
-			else if(trim($_POST['txtNPwd'])!=trim($_POST['txtCNPwd']))	
+			}					
+		}
+
+		if($_POST['txtCNPwd']!='')
+		{
+			$pwdlength =strlen($_POST['txtCNPwd']);
+			if($pwdlength<6)
+			{
+				$message = "Password minimum length is 6";
+				$this->Assign("txtCNPwd","","noempty",$message);
+			}					
+		}
+
+
+		if($_POST['txtNPwd']!=''&& $_POST['txtCNPwd']!='')
+		{
+			if(trim($_POST['txtNPwd'])!=trim($_POST['txtCNPwd']))	
 			{
 				$message = "Password mismatch";
 				$this->Assign("txtCNPwd","","noempty",$message);
-			}
-			else if(trim($_POST['txtCPwd'])!=trim($_POST['hidCPwd']))
-			{
-				$message = "Invalid Password";
-				$this->Assign("txtCPwd","","noempty",$message);
-			}
-		}	
+			}			
+		}
 		
-	$this->PerformValidation('?do=accountinfo');
+		$this->PerformValidation('?do=accountinfo');
 
 	}
 	/**

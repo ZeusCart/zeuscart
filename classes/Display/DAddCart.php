@@ -44,8 +44,8 @@ class Display_DAddCart
 	function showCart($arr,$result)
 	{
 
-	  if (!(empty($arr)))
-	  {
+		if (!(empty($arr)))
+		{
 		   if($Err->messages>0)
 			{
 				$output['val']=$Err->values;
@@ -152,8 +152,12 @@ class Display_DAddCart
 				</div>';
 		}
 		else
-			$out='<table class="product_header" width="78%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox" >No Prodcuts Available in Your Shopping Cart</div></td></tr></table>';
+			$out='<div class="alert alert-info">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			No Prodcuts Available in Your Shopping Cart.
+			</div>';
 		
+
 		return $out;	
 	
 	}
@@ -229,11 +233,11 @@ class Display_DAddCart
         	<ul class="steps">
 
 			<li class="act"><a href="#"><span>1. Email Login</span></a></li>		
-					<li class="inact"><a href="#"><span>2. Billing Address</span></a></li>
-				<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
-				<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
-				<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
-				<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
+			<li class="inact"><a href="#"><span>2. Billing Address</span></a></li>
+			<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
+			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
+			<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
 				        
 			</ul>
        			 </div><div class="row-fluid">
@@ -285,91 +289,43 @@ class Display_DAddCart
 	function showPaymentPageForAuthorizenet()
 	{
 		
-				$output='<div id="detail">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td class="roundbox_top" ></td>
-		</tr>
-		<tr>
-		<td valign="top" class="detailBG"><div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td width="100%" colspan="2" class="serachresult">Your Shopping Cart</td>
-		</tr>
-		<tr>
-		<td width="100%" colspan="2" class="" align="center"></td>
-		</tr>
-		<tr>
-		<td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+		$output='<div id="myaccount_div">
+
+		<form name="f1" method="post" action="?do=showcart&action=doauthorizenetpayment"  class="form-horizontal">
 		
-		<tr>
-			<td valign="top" style="border:#CCCCCC 1px solid; padding:10px;"><table width="100%" border="0" cellpadding="0" cellspacing="0">
-			<tr>
-			<td width="100%" valign="top" style=""><div class="checkout_rigisterBox" style="width:100%">
-			<form name="f1" method="post" action="?do=showcart&action=doauthorizenetpayment">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td class="checkout_title">Authorize.net Payment Information</td>
-		</tr>
-		<tr>
-		<td align="left" class="checkout_text1">Credit Card Information</td>
-		</tr>
-		<tr>
-		<td align="left" class="checkout_title1">Please enter details below:</td>
-		</tr>
-		<tr>
-		<td align="center">
-			
-				<table width="75%" border="0">
-					<tr>
-						<td width="32%">Credit Card Number</td>
-						<td width="68%"><input type="text" name="txtCardNumber" class="txtbox1 TxtC1" size="18"/></td>
-					</tr>
-					<tr>
-						<td>Expiration Date</td><td>
-						<select name="txt_cem" style="border:#99600c solid 1px;"> 
-							<option value="01">01</option>
-							<option value="02">02</option>
-							<option value="03">03</option>
-							<option value="04">04</option>
-							<option value="05">05</option>  <option value="06">06</option>  <option value="07">07</option>  <option value="08">08</option>  <option value="09">09</option>  <option value="10">10</option>  <option value="11">11</option>  <option value="12">12</option>  </select>  	
-			&nbsp;&nbsp;&nbsp;&nbsp;<select name="txt_cey" style="border:#99600c solid 1px;">  <option value="07">2007</option>  <option value="08">2008</option>  <option value="09">2009</option>  <option value="10">2010</option>  <option value="11">2011</option>  <option value="12">2012</option>  <option value="13">2013</option>  <option value="14">2014</option>  <option value="15">2015</option>  <option value="16">2016</option>  <option value="17">2017</option>  <option value="18">2018</option>  <option value="19">2019</option>  <option value="20">2020</option>  <option value="21">2021</option>  <option value="22">2022</option>  <option value="23">2023</option>  <option value="24">2024</option>  <option value="25">2025</option>  <option value="26">2026</option>  <option value="27">2027</option>  <option value="28">2028</option>  <option value="29">2029</option>  <option value="30">2030</option>  </select>
-		</td>
-					</tr>
-				</table>
-				
-			</td>
-		</tr>
-		<tr>
-		<td style="padding:8px 0;"><table border="0" cellspacing="0" cellpadding="0" align="center">
-		<tr>
-			<td align="left" class="button_left" ></td>
-			<td><input type="submit" name="Submit2" value="Continue" class="button" /></td>
-			<td class="button_right"></td>
-		</tr>
-		</table></td>
-		</tr>
-		</table>
-			</form>
-			</div></td>
-			
-			</tr>
-			</table></td>
-		</tr>
-		</table></td>
-		</tr>
+		<h3 class="accinfo_fnt">Authorize.net Payment Information</h3>
 		
-		<tr>
-		<td colspan="2">&nbsp;</td>
-		</tr>
-		</table>
+		<h4 class="red_fnt">Credit Card Information</h3>
+
+		<h3 class="accinfo_fnt">Please enter details below:</h3>
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">Credit Card Number  <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<input type="text" name="txtCardNumber"  />
 		</div>
-			</td>
-		</tr>
-		<tr>
-		<td class="roundbox_bottom" ></td>
-		</tr>
-		</table>
-		</div>';
+		</div>
+		<div class="control-group">
+		<label for="inputPassword" class="control-label">Expiration Date<i class="red_fnt">*</i></label>
+		<div class="controls">
+			<select name="txt_cem" style="border:#99600c solid 1px;"> 
+								<option value="01">01</option>
+								<option value="02">02</option>
+								<option value="03">03</option>
+								<option value="04">04</option>
+								<option value="05">05</option>  <option value="06">06</option>  <option value="07">07</option>  <option value="08">08</option>  <option value="09">09</option>  <option value="10">10</option>  <option value="11">11</option>  <option value="12">12</option>  </select>  	
+				&nbsp;&nbsp;&nbsp;&nbsp;<select name="txt_cey" style="border:#99600c solid 1px;">  <option value="07">2007</option>  <option value="08">2008</option>  <option value="09">2009</option>  <option value="10">2010</option>  <option value="11">2011</option>  <option value="12">2012</option>  <option value="13">2013</option>  <option value="14">2014</option>  <option value="15">2015</option>  <option value="16">2016</option>  <option value="17">2017</option>  <option value="18">2018</option>  <option value="19">2019</option>  <option value="20">2020</option>  <option value="21">2021</option>  <option value="22">2022</option>  <option value="23">2023</option>  <option value="24">2024</option>  <option value="25">2025</option>  <option value="26">2026</option>  <option value="27">2027</option>  <option value="28">2028</option>  <option value="29">2029</option>  <option value="30">2030</option>  </select>
+		</div>
+		</div>
+		
+	
+		
+		<div class="control-group">
+		<div class="controls">
+			<button class="btn btn-danger" type="submit">Submit</button>
+		</div>
+		</div>
+		</form>      </div>';
 
 		return $output;
 
@@ -390,89 +346,88 @@ class Display_DAddCart
 		
 
 		
-				$output='<div id="detail">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td class="roundbox_top" ></td>
-		</tr>
-		<tr>
-		<td valign="top" class="detailBG"><div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td width="100%" colspan="2" class="serachresult">Your Shopping Cart</td>
-		</tr>
-		<tr>
-		<td width="100%" colspan="2" class="" align="center"></td>
-		</tr>
-		<tr>
-		<td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+				$output='<div id="myaccount_div">
+
+		<form action="https://secure.bluepay.com/interfaces/bp10emu" method=POST class="form-horizontal">
 		
-		<tr>
-			<td valign="top" style="border:#CCCCCC 1px solid; padding:10px;"><table width="100%" border="0" cellpadding="0" cellspacing="0">
-			<tr>
-			<td width="100%" valign="top" style=""><div class="checkout_rigisterBox" style="width:100%">
-			<form action="https://secure.bluepay.com/interfaces/bp10emu" method=POST>
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td class="checkout_title"> Blue Pay Payment Information</td>
-		</tr>
-		<tr>
-		<td align="left" class="checkout_text1">Credit Card Information</td>
-		</tr>
-		<tr>
-		<td align="left" class="checkout_title1">Please enter details below:</td>
-		</tr>
-		<tr>
-		<td align="center">		
-				
-				<table width="75%" border="0">
+		<h3 class="accinfo_fnt">Blue Pay Payment Information</h3>
 		
-					<tr>
-						<td width="32%">Name On the Card</td>
-						<td width="68%"><input type="text" name="NAME" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>
-					
-					<tr>
-						<td width="32%">Credit Card Number</td>
-						<td width="68%"><input type="text" name="CC_NUM" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>
-					
-					<tr>
-						<td width="32%">Expiration Date (mm/yy)</td>
-						<td width="68%"><input type="text" name="CC_EXPIRES" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>		
-					
-					
-					<tr>
-						<td width="32%">CVV2</td>
-						<td width="68%"><input type="text" name="CVCCVV2" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>
-					
-					<!--<tr>
-						<td width="32%">Address</td>
-						<td width="68%"><input type="text" name="ADDR1" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>
-					<tr>
-						<td width="32%">City</td>
-						<td width="68%"><input type="text" name="CITY" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>
-					<tr>
-						<td width="32%">State</td>
-						<td width="68%"><input type="text" name="STATE" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>
-					<tr>
-						<td width="32%">ZipCode</td>
-						<td width="68%"><input type="text" name="ZIPCODE" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>
-					<tr>
-						<td width="32%">Phone</td>
-						<td width="68%"><input type="text" name="PHONE" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>
-					<tr>
-						<td width="32%">Email</td>
-						<td width="68%"><input type="text" name="EMAIL" class="txtbox1 TxtC1" size="25"/></td>
-					</tr>-->
-					
-					<input type=hidden name=MERCHANT value="'.$merchantid.'">
+		<h4 class="red_fnt">Credit Card Information</h3>
+
+		<h3 class="accinfo_fnt">Please enter details below:</h3>
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">Name On the Card  <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<input type="text" name="NAME"  size="25"/>
+		</div>
+		</div>
+
+		
+
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">Credit Card Number <i class="red_fnt">*</i></label>
+		<div class="controls">
+			<input type="text" name="CC_NUM" />
+		</div>
+		</div>
+
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">Expiration Date (mm/yy) <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="CC_EXPIRES"/>
+		</div>
+		</div>
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">CVV2 <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="CVCCVV2" />
+		</div>
+		</div>
+
+		<!--<div class="control-group">
+		<label for="inputEmail" class="control-label">Address <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="ADDR1" />
+		</div>
+		</div>
+	
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">City <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="CITY" />
+		</div>
+		</div>
+		
+
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">State<i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="STATE" />
+		</div>
+		</div>
+
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">ZipCode<i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="ZIPCODE" />
+		</div>
+		</div>
+
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">Phone <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="PHONE" />
+		</div>
+		</div>
+		
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">Email <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="EMAIL" />
+		</div>
+		</div>-->
+
+		<input type=hidden name=MERCHANT value="'.$merchantid.'">
 					<input type=hidden name=TRANSACTION_TYPE value="AUTH">
 					<input type=hidden name=TAMPER_PROOF_SEAL value="adfc2d7799ffa98fc18c301bd4476ab9">
 					<input type=hidden name=APPROVED_URL value="'.$sucess_url.'&pay_type=17">
@@ -485,41 +440,16 @@ class Display_DAddCart
 					<input type=hidden name=REB_AMOUNT   value="">
 					<input type=hidden name=REB_EXPR     value="">
 					<input type=hidden name=REB_FIRST_DATE value="">   
-					<input type=hidden name=AMOUNT value="'.round($_SESSION['checkout_amount']).'">				   		
-				</table>		
-			</td>
-		</tr>
-		<tr>
-		<td style="padding:8px 0;"><table border="0" cellspacing="0" cellpadding="0" align="center">
-		<tr>
-			<td align="left" class="button_left" ></td>
-			<td><input type="submit" name="Submit2" value="Continue" class="button" /></td>
-			<td class="button_right"></td>
-		</tr>
-		</table></td>
-		</tr>
-		</table>
-			</form>
-			</div></td>
-			
-			</tr>
-			</table></td>
-		</tr>
-		</table></td>
-		</tr>
+					<input type=hidden name=AMOUNT value="'.round($_SESSION['checkout_amount']).'">	
 		
-		<tr>
-		<td colspan="2">&nbsp;</td>
-		</tr>
-		</table>
+	
+		
+		<div class="control-group">
+		<div class="controls">
+			<button class="btn btn-danger" type="submit">Submit</button>
 		</div>
-			</td>
-		</tr>
-		<tr>
-		<td class="roundbox_bottom" ></td>
-		</tr>
-		</table>
-		</div>';
+		</div>
+		</form>      </div>';
 
 		return $output;
 
@@ -532,89 +462,39 @@ class Display_DAddCart
 	
 	function showPaymentPageForWorldPay($arr)
 	{
+
+			$output='<div id="myaccount_div">
+
+		<form  action="https://select.worldpay.com/wcc/purchase" method=POST  class="form-horizontal">
 		
-				$output='<div id="detail">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td class="roundbox_top" ></td>
-		</tr>
-		<tr>
-		<td valign="top" class="detailBG"><div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td width="100%" colspan="2" class="serachresult">Your Shopping Cart</td>
-		</tr>
-		<tr>
-		<td width="100%" colspan="2" class="" align="center"></td>
-		</tr>
-		<tr>
-		<td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-		
-		<tr>
-			<td valign="top" style="border:#CCCCCC 1px solid; padding:10px;"><table width="100%" border="0" cellpadding="0" cellspacing="0">
-			<tr>
-			<td width="100%" valign="top" style=""><div class="checkout_rigisterBox" style="width:100%">
-			<form action="https://select.worldpay.com/wcc/purchase" method=POST>
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td class="checkout_title">WorldPay Payment Confirmation</td>
-		</tr>
-		<tr>
-		<td align="left" class="checkout_title1">Please enter details below:</td>
-		</tr>
-		<tr>
-		<td align="center">
 			
-				<table width="75%" border="0">
-					<tr>
-						<td width="68%">Your Checkout Amount is $ '.$arr['amount'].'</td>
-						<td width="32%"></td>
-					</tr>
-					
-				</table>
-				
-			</td>
-		</tr>
-		<tr>
-		<td style="padding:8px 0;"><table border="0" cellspacing="0" cellpadding="0" align="center">
-		<tr>
-			<td align="left" class="button_left" ></td>
-			<td>
-							<input type=hidden name="instId" value="'.$arr['instId'].'">
-							<input type=hidden name="cartId" value=" 122 "> 
-							<input type=hidden name="amount" value="'.$arr['amount'].'">
-							<input type=hidden name="currency" value="USD">
-							<input type=hidden name="desc" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'">
-							<input type=hidden name="testMode" value="100"> 
-							<input type="hidden" name="MC_callback" value="'.$arr['MC_callback'].'" />
-							
-									
-				<input type="submit" name="Submit2" value="Continue" class="button" /></td>
-			<td class="button_right"></td>
-		</tr>
-		</table></td>
-		</tr>
-		</table>
-			</form>
-			</div></td>
-			
-			</tr>
-			</table></td>
-		</tr>
-		</table></td>
-		</tr>
+		<h3 class="accinfo_fnt">WorldPay Payment Confirmation</h3>
 		
-		<tr>
-		<td colspan="2">&nbsp;</td>
-		</tr>
-		</table>
+		<h4 class="red_fnt">WorldPay Payment Information</h3>
+
+		<h3 class="accinfo_fnt">Please enter details below:</h3>
+
+
+		 <span class="label label-info">Your Checkout Amount is  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr['amount'].'</span>
+		
+		
+			<input type=hidden name="instId" value="'.$arr['instId'].'">
+					<input type=hidden name="cartId" value=" 122 "> 
+					<input type=hidden name="amount" value="'.$arr['amount'].'">
+					<input type=hidden name="currency" value="USD">
+					<input type=hidden name="desc" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'">
+					<input type=hidden name="testMode" value="100"> 
+					<input type="hidden" name="MC_callback" value="'.$arr['MC_callback'].'" />
+		
+		
+	
+		
+		<div class="control-group">
+		<div class="controls">
+			<button class="btn btn-danger" type="submit">Submit</button>
 		</div>
-			</td>
-		</tr>
-		<tr>
-		<td class="roundbox_bottom" ></td>
-		</tr>
-		</table>
-		</div>';
+		</div>
+		</form>      </div>';
 
 		return $output;
 
@@ -626,86 +506,34 @@ class Display_DAddCart
 	 */
 	function showPaymentPageFor2Checkout($arr)
 	{
-				$output='<div id="detail">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td class="roundbox_top" ></td>
-		</tr>
-		<tr>
-		<td valign="top" class="detailBG"><div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td width="100%" colspan="2" class="serachresult">Your Shopping Cart</td>
-		</tr>
-		<tr>
-		<td width="100%" colspan="2" class="" align="center"></td>
-		</tr>
-		<tr>
-		<td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+				$output='<div id="myaccount_div">
+
+		<form   id="form2co" name="form2co" method="post" 						action="https://www.2checkout.com/2co/buyer/purchase"  class="form-horizontal">
 		
-		<tr>
-			<td valign="top" style="border:#CCCCCC 1px solid; padding:10px;"><table width="100%" border="0" cellpadding="0" cellspacing="0">
-			<tr>
-			<td width="100%" valign="top" style=""><div class="checkout_rigisterBox" style="width:100%">
-			<form id="form2co" name="form2co" method="post" 		
-							action="https://www.2checkout.com/2co/buyer/purchase">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-		<td class="checkout_title">2Checkout Payment Confirmation</td>
-		</tr>
-		
-		<tr>
-		<td align="center">
 			
-				<table width="75%" border="0">
-					<tr>
-						<td width="68%">Your Checkout Amount is $ '.$arr['total'].'</td>
-						<td width="32%"></td>
-					</tr>
-					
-				</table>
-				
-			</td>
-		</tr>
-		<tr>
-		<td style="padding:8px 0;"><table border="0" cellspacing="0" cellpadding="0" align="center">
-		<tr>
-			<td align="left" class="button_left" ></td>
-			<td>
+		<h3 class="accinfo_fnt">2Checkout Payment Confirmation</h3>
+		
+	
+		 <span class="label label-info">Your Checkout Amount is  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].' '.$arr['total'].'</span>
+		
+		
+		<input type="hidden" name="sid" value="'.$arr['sid'].'" />
+		<input type="hidden" name="cart_order_id" value="100" />
+		<input type="hidden" name="total" value="'.$arr['total'].'" /><input type="hidden" name="demo" value="Y" />
+		<input type="hidden" name="fixed" value="Y" /><input type="hidden" name="return_url" value="'.$arr['return_url'].'" />
+		<input type="hidden" name="lang" value="en" />
+		<input type="hidden" name="card_holder_name" value="" />			
 							
-				<input type="hidden" name="sid" value="'.$arr['sid'].'" />
-				<input type="hidden" name="cart_order_id" value="100" />
-				<input type="hidden" name="total" value="'.$arr['total'].'" /><input type="hidden" name="demo" value="Y" />
-				<input type="hidden" name="fixed" value="Y" /><input type="hidden" name="return_url" value="'.$arr['return_url'].'" />
-				<input type="hidden" name="lang" value="en" />
-				<input type="hidden" name="card_holder_name" value="" />			
-									
-				<input type="submit" name="Submit2" value="Continue" class="button" /></td>
-			<td class="button_right"></td>
-		</tr>
-		</table></td>
-		</tr>
-		</table>
-			</form>
-			</div></td>
-			
-			</tr>
-			</table></td>
-		</tr>
-		</table></td>
-		</tr>
 		
-		<tr>
-		<td colspan="2">&nbsp;</td>
-		</tr>
-		</table>
+		
+	
+		
+		<div class="control-group">
+		<div class="controls">
+			<button class="btn btn-danger" type="submit">Submit</button>
 		</div>
-			</td>
-		</tr>
-		<tr>
-		<td class="roundbox_bottom" ></td>
-		</tr>
-		</table>
-		</div>';
+		</div>
+		</form>      </div>';
 
 		return $output;
 
@@ -726,9 +554,17 @@ class Display_DAddCart
 			
 
 		$output='<div class="row-fluid">
-        		<ul class="steps">
-			<li class="inact"><a href="#"><span>1. Email Login</span></a></li>		
-			<li class="act"><a href="#"><span>2. Billing Address</span></a></li>
+        		<ul class="steps">';
+			if($_SESSION['user_id']!='')
+			{	
+	
+				$output.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+			}	
+			else
+			{
+				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+			}		
+			$output.='<li class="act"><a href="#"><span>2. Billing Address</span></a></li>
 			<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
 			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
 			<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
@@ -739,30 +575,48 @@ class Display_DAddCart
                        <div class="span4">
                          
                       <p class="billing_title">Select from previous address</p>
-                      
+
                       <ul class="addresslist">';
 
 			if(count($records)>0)
-			{
-				for($i=0;$i<count($records);$i++)
+			{	
+				$i=0;
+				while ($i < 4)
 				{
                       			$output.='<li><address>
                                     	<h5>'.$records[$i]['contact_name'].'</h5>
                                         <p>'.$records[$i]['address'].'</p>
                                         <p>'.$records[$i]['city'].'</p>
-					 <p>'.$records[$i]['state'].'</p>
-					 <p>'.$records[$i]['zip'].'</p>	
+					<p>'.$records[$i]['state'].'</p>
+					<p>'.$records[$i]['zip'].'</p>	
                                         <a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$i]['id'].'"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
                                     	</address></li>';
+					$i++;
+				
 				}
+				$j=4;
+				while ($j < count($records))
+				{
+                      			$output.='<div style="display:none;" id="more_bill_addr"><li><address>
+                                    	<h5>'.$records[$j]['contact_name'].'</h5>
+                                        <p>'.$records[$j]['address'].'</p>
+                                        <p>'.$records[$j]['city'].'</p>
+					<p>'.$records[$j]['state'].'</p>
+					<p>'.$records[$j]['zip'].'</p>	
+                                        <a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$j]['id'].'"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
+                                    	</address></li></div>';
+					$j++;
+				
+				}
+				if(count($records)>4)
+				{
+					$output.='<div style="display:block;" style=""id="more_bill_addr_button"><a onclick="viewMoreBillAddress();" href="javascript:void(0);" >More addresses</a></div>';
 
+				}
 			}
 	
-                      $output.='</ul>
-
-         `		 </div>	
-                    <div class="span8">
-
+                      $output.='</ul></div>
+		 <div class="span8">
                     <div id="myaccount_div">
                     <div class="or_ribbion"><img src="assets/img/or.png" width="38" height="300" alt="or"></div>
                     <p class="billing_title">Enter a new billing address</p>
@@ -803,7 +657,7 @@ class Display_DAddCart
                     </div>
                   </div>
 
-	  <div class="control-group">
+	 	 <div class="control-group">
                     <label class="control-label" for="input01">SubUrb
 			</label>
                     <div class="controls">
@@ -865,17 +719,24 @@ class Display_DAddCart
 		$resship=$obj->loadCountryDropDown($result,'selshipcountry',$Err->values['selshipcountry']);
 
 		$output='<div class="row-fluid">
-        	<ul class="steps">
-
-			<li class="inact"><a href="#"><span>1. Email Login</span></a></li>		
-					<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-				<li class="act"><a href="#"><span>3. Shipping Address</span></a></li>
-				<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
-				<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
-				<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
+        	<ul class="steps">';
+			if($_SESSION['user_id']!='')
+			{	
+	
+				$output.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+			}	
+			else
+			{
+				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+			}		
+			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
+			<li class="act"><a href="#"><span>3. Shipping Address</span></a></li>
+			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
+			<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
 				        
-	</ul>
-        </div><div class="row-fluid">
+		</ul>
+       		 </div><div class="row-fluid">
                     <div class="span4">
                          
                       <p class="billing_title">Select from previous address</p>
@@ -942,7 +803,7 @@ class Display_DAddCart
                     </div>
                   </div>
 
-	  <div class="control-group">
+	  	<div class="control-group">
                     <label class="control-label" for="input01">SubUrb
 			</label>
                     <div class="controls">
@@ -995,37 +856,72 @@ class Display_DAddCart
 	 *
 	 * @return string
 	 */
-	function showShippingMethod()
+	function showShippingMethod($records,$Err)
 	{
+
 		$output='<div class="row-fluid">
-        	<ul class="steps">
-
-			<li class="inact"><a href="#"><span>1. Email Login</span></a></li>		
-					<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-				<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-				<li class="act"><a href="#"><span>4. Shipping Method</span></a></li>
-				<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
-				<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
-				        
-	</ul>
-        </div><div class="row-fluid">
+        	<ul class="steps">';
+			if($_SESSION['user_id']!='')
+			{	
+	
+				$output.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+			}	
+			else
+			{
+				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+			}		
+			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
+			<li class="act"><a href="?do=showcart&action=getshippingaddressdetails"><span>3. Shipping Address</span></a></li>
+			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
+			<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
+		</ul>
+		</div><div class="row-fluid">
+                   
                     <div class="span12">
-                         
-                      <p class="billing_title">Transportation Details</p>
-                      
-                      <ul class="addresslist">
-                      	<li><address>
-                                    	<h5>KPN</h5>
-                                        <p>132, Annamalai Street, Madurai - 20.</p>
-                                        <p>Tamil Nadu.</p>
-                                        <a href="?do=showcart&action=showorderconfirmation"><img src="assets/img/click-btn-hov.gif" alt="click"></a>
-                                    </address></li>
 
+                    <div id="myaccount_div">
+             
+                    <p class="billing_title">Select Shipping Method</p>';
 
-                      </ul>
+		if($Err->messages['shipment_id']!='')
+		{
+				$output.='<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			'.$Err->messages['shipment_id'].'
+			</div>';
+		}
+                    	$output.='<form method="POST" action="?do=showcart&action=validateshippingmethod" name="register_form" class="form-horizontal">
+                <fieldset>
+                  <div class="control-group">
+                    <div class="controls">
+                     
+                    </div>
+                  </div>';
 
-          </div>	
- 
+			if(count($records)>0)
+			{
+				for($i=0;$i<count($records);$i++)
+				{
+			
+					$output.='<div class="control-group">
+					<label class="control-label" for="input01">'.$records[$i]['shipment_name'].' </label>
+					<div class="controls">
+					<input type="radio"  class="input-xlarge" name="shipment_id" id="shipment_id" value='.$records[$i]['shipment_id'].'>
+					</div>
+					</div>';
+				}
+			}
+                
+   		
+		
+                  $output.='<div class="form-actions">
+                    <button type="submit" class="btn btn-large btn-inverse" name="shipping_method">Submit</button>
+                  </div>
+                </fieldset>
+              </form>
+		</div>
+                        </div>
           </div>';
 
 		return $output;
@@ -1043,87 +939,145 @@ class Display_DAddCart
 	 */	
 	function showOrderConfirmation($arr,$result,$taxarray,$message='')
 	{
-		
-	  $out='<div class="row-fluid">
-        	<ul class="steps">
 
-			<li class="inact"><a href="#"><span>1. Email Login</span></a></li>		
-				<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-				<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-				<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li>
-				<li class="act"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
-				<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
+		
+	 	 $out='<div class="row-fluid">
+        	<ul class="steps">';
+			if($_SESSION['user_id']!='')
+			{	
+	
+				$out.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+			}	
+			else
+			{
+				$out.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+			}		
+			$out.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
+			<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
+			<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li>
+			<li class="act"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
+			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
 				        
 		</ul>
-		</div><div id="myaccount_div">
-            <table class="rt cf" id="rt1">
+		</div>'.$message.'<div id="myaccount_div">
+           	 <table class="rt cf" id="rt1">
 		<thead class="cf">
 			<tr>
 				<th>Gallery View</th>
 				<th>Product Name</th>
-				<th>Qty</th>
+				<th>Unit Price</th>
+				<th>Quantity</th>
 				<th>Sub Total</th>
 				
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a>			  <div class="showcart_box"><img src="assets/img/products/012.jpg" alt="01"></div></td>
-			  <td ><a href="#">ORGANIC SEAWEED EXTRACT FERTILIZER</a></td>
-				<td>1</td>
-				<td><span class="label label-inverse">INR  1,500.00</span></td>
-			</tr>
-			<tr>
-				<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a>			  <div class="showcart_box"><img src="assets/img/products/012.jpg" alt="01"></div></td>
-			  <td ><a href="#">ORGANIC SEAWEED EXTRACT FERTILIZER</a></td>
-				<td>1</td>
-				<td><span class="label label-inverse">INR  1,500.00</span></td>
-			</tr>
-			<tr>
-				<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a>			  <div class="showcart_box"><img src="assets/img/products/012.jpg" alt="01"></div></td>
-			  <td ><a href="#">ORGANIC SEAWEED EXTRACT FERTILIZER</a></td>
-				<td>1</td>
-				<td><span class="label label-inverse">INR  1,500.00</span></td>
-			</tr>
-			<tr>
-				<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a>			  <div class="showcart_box"><img src="assets/img/products/012.jpg" alt="01"></div></td>
-			  <td ><a href="#">ORGANIC SEAWEED EXTRACT FERTILIZER</a></td>
-				<td>1</td>
-				<td><span class="label label-inverse">INR  1,500.00</span></td>
-			</tr>
-			<tr>
-				<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a>			  <div class="showcart_box"><img src="assets/img/products/012.jpg" alt="01"></div></td>
-			  <td ><a href="#">ORGANIC SEAWEED EXTRACT FERTILIZER</a></td>
-				<td>1</td>
-				<td><span class="label label-inverse">INR  1,500.00</span></td>
-			</tr>
-			<tr>
-				<td colspan="2" rowspan="5">&nbsp;</td>
+		<tbody>';
+
+		$cnt=count($arr);
+		for ($i=0;$i<$cnt;$i++)
+		{
+			
+			$prqty=$arr[$i]['product_qty'];
+			
+			if ($arr[$i]['soh']<=0)
+				$prqty=0;
+				
+
+			$original_price=$arr[$i]['product_unit_price'];
+			
+			if($arr[$i]['product_unit_price']!=0.00)
+				$msrp=$arr[$i]['product_unit_price']; 
+			elseif($arr[$i]['msrp']!=0.00)
+				$msrp=$arr[$i]['msrp']; //$msrp calculated unitpirce
+			else
+				$msrp=$arr[$i]['msrp1'];
+			
+			$subtotal[]=$prqty*$msrp;
+			
+			$total=array_sum($subtotal);
+						
+			$shippingcost[]=$arr[$i]['shipingamount'];
+			$shipping=array_sum($shippingcost);
+			
+			/*-------------Tax Calculation-------------*/
+			
+			if ($taxarray['based_on_amount']!='')
+			{
+				if ($taxarray['based_on_amount']=='subtotal')
+				{
+					$tax=($taxarray['tax_rate_percent']*$total)/100;
+				}
+				elseif ($taxarray['based_on_amount']=='subtotal_and_shipping')
+				{
+					$tax=($taxarray['tax_rate_percent']*($total+$shipping))/100;
+				}
+			}
+			else
+			{
+				$tax=0;
+			}
+			
+			/*-------------Tax Calculation-------------*/		
+			
+			$_SESSION['total']=$total;
+			$thumbimage=$arr[$i]['thumb_image'];
+			$temp=$arr[$i]['thumb_image'];
+			$img=explode('/',$temp);
+
+		
+
+			$out.='<tr>
+
+			<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a>			  <div class="showcart_box">';
+
+			if(file_exists($thumbimage))
+			  $out.='<img src="'.$thumbimage.'" alt="'.$arr[$i]['title'].'" />';
+		 	else	  
+		  	$out.='<img src="images/noimage.jpg" alt="'.$arr[$i]['title'].'"/>';
+
+			$out.='</div></td>
+			 <td ><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" name="prodname">'.$arr[$i]['title'].'</a></td>
+
+
+			<td><span class="label label-important"><span class="label label-important"> '.($arr[$i]['product_unit_price']<$arr[$i]['msrp1'] ? '<span>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp1']).'</span><br />' : ''.'
+			'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($msrp)).'</span></td>
+
+
+			<td>'.$arr[$i]['product_qty'].'</td>
+			<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($subtotal[$i]).'</span></td>
+			<input type="hidden" name="cartid[]"  value="'.$arr[$i]['cart_id'].'" />
+			<input type="hidden" name="prodid[]" value='.$arr[$i]['product_id'].' />
+			</tr>';
+		}
+			
+		$grandtotal=$total+$shipping+$tax;
+		$_SESSION['grandtotal']=$grandtotal;
+			
+		
+			$out.='<tr>
+				<td colspan="3" rowspan="4">&nbsp;</td>
 			  <td><strong>Sub Total</strong></td>
-				<td><span class="label label-success">INR  1,500.00</span></td>
+				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($total*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			</tr>
 			<tr>
 			  <td><strong>Shipping Amount</strong></td>
-				<td><span class="label label-inverse">INR  1,500.00</span></td>
+				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($shipping*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			</tr>
+			
 			<tr>
-			  <td><strong>Tax Applied</strong></td>
-				<td><span class="label label-important">INR  1,500.00</span></td>
-			</tr>
-			<tr>
-			  <td><strong>Sub Total</strong></td>
-				<td><span class="label label-info">INR  1,500.00</span></td>
+			  <td><strong>'.$taxarray['tax_name'].' Tax Applied</strong></td>
+				<td><span class="label label-important"><!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($tax*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			</tr>
 			<tr>
 			  <td><strong>Grand Total</strong></td>
-				<td><span class="label label-warning">INR  1,500.00</span></td>
+				<td><span class="label label-warning"><!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			</tr>
 			<tr>
-			  <td colspan="2">
+			  <td colspan="3"><form name="cart" action="?do=showcart&action=validatecoupon"  method="post">
               <h4>Coupon Code</h4>
               <p>If you have a coupon code enter it in the box below and click \'Go\'.</p>
-             <p> <input type="text"></p>
-              <a href="#" class="btn btn-danger">Go</a></td>
+             <p> <input type="text" name="coupon_code"></p>
+            <input type="submit" name="Submit3" value="Go"  class="btn btn-danger"/></td></form>
 			  <td colspan="2" align="center" valign="middle"><a href="?do=showcart&action=displaypaymentgateways" class="btn btn-inverse">Proceed Checkout</a></td>
 		  </tr>
 		</tbody>
@@ -1135,24 +1089,32 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the order confirmation.
-	 * @param   array  	$arr	    array of items
+	 * @param   array  	$onlinearr	 
+	 * @param array 	$offlinearr
+	 * @param string  $domain
 	 *
 	 * @return string
 	 */
-	function displayPaymentGateways($arr)
+	function displayPaymentGateways($onlinearr,$offlinearr,$domain)
 	{
-	
-		
+			
 	
 		$output='<div class="row-fluid">
-        	<ul class="steps">
-
-			<li class="inact"><a href="#"><span>1. Email Login</span></a></li>		
-				<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-				<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-				<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li>
-				<li class="inact"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
-				<li class="act"><a href="#"><span>6. Payment Details</span></a></li>
+        	<ul class="steps">';
+			if($_SESSION['user_id']!='')
+			{	
+	
+				$output.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+			}	
+			else
+			{
+				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+			}		
+			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
+			<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
+			<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li>
+			<li class="inact"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
+			<li class="act"><a href="#"><span>6. Payment Details</span></a></li>
 				        
 		</ul>
 		</div><div class="row-fluid">
@@ -1162,23 +1124,43 @@ class Display_DAddCart
                       
                       <div id="myaccount_div">
                       <span class="label label-info">Your Checkout Amount is    INR &nbsp;105.00</span>
-                       <ul id="paymentlist">
-                        	<li><h6 onClick="showFaq(\'faq_id1\');">Online Payment Gateways</h6>
-                            <p style="display:block;" id="faq_id1">
-                            <a href="#"><img src="assets/img/payment/gc.gif"  alt="google"></a> <a href="#"><img src="assets/img/payment/pp.gif" alt="paypal"></a> <a href="#"><img src="assets/img/payment/lb.gif" alt="liberty"></a> <a href="#"><img src="assets/img/payment/pz.gif" alt="epayza"></a></p></li>
-                        	<li><h6 onClick="showFaq(\'faq_id2\');">Offline Payment Gateway</h6>
-                            <p style="display:block;" id="faq_id2">
-                            <a href="#"><img src="assets/img/payment/cash-dep.gif" alt="cash deposit"></a>
-                            <a href="#"><img src="assets/img/payment/che-dep.gif" alt="check Deposit"></a>
-                            <a href="#"><img src="assets/img/payment/neft.gif" alt="neft"></a>
-                            <a href="#"><img src="assets/img/payment/rtgs.gif" alt="rtgs"></a>
-                            </p></li></ul>
+                      <div id="paymentid">
+                      <h6>Online Payment Gateways</h6>
+                       <ul class="payment_det">';
+			if(count($onlinearr)>0)
+			{
+				$cnt=count($onlinearr);
+				for ($i=0;$i<$cnt;$i++)
+				{
+                        	$output.='<li><a>';
+				$output.=Display_DAddCart::getPaymentGatewayForms($onlinearr[$i],$domain);
+				$output.='</a></li>';
+				}
+
+			}
+                        	$output.='</ul>
+                            <div class="clear"></div>
+                            </div>
+                      <div id="paymentid">
+                      <h6>Offline Payment Gateways</h6>
+                       <ul class="payment_det">';
+			if(count($offlinearr)>0)
+			{
+				$cnt=count($offlinearr);
+				for ($i=0;$i<$cnt;$i++)
+				{
+				$output.='<li><a>';
+				$output.=Display_DAddCart::getPaymentGatewayForms($offlinearr[$i],$domain);
+				$output.='</a></li>';
+				}
+
+			}
+			
+                        	$output.='</ul>
+                            <div class="clear"></div>
+                            </div>
                       </div>
-                                	
-                                    
-          </div>	
-                    
-          </div>';
+        	     </div> </div>';
 		return $output;
 	}
 	/**
@@ -1195,8 +1177,8 @@ class Display_DAddCart
 		//$cancel_url='http://'.$_SERVER['SERVER_NAME'].'/zeuscartv21/?do=paymentgateway&action=failure';
 		
 		
-		$sucess_url=$domain.'?do=paymentgateway&action=success';
-		$cancel_url=$domain.'?do=paymentgateway&action=failure';				
+		$sucess_url='?do=paymentgateway&action=success';
+		$cancel_url='?do=paymentgateway&action=failure';				
 		
 		
 		$getMerchantId = new Core_CAddCart();
@@ -1213,7 +1195,7 @@ class Display_DAddCart
 		//$amount=$_SESSION['checkout_amount'];
 		$amount=$_SESSION['checkout_amount']*$_SESSION['currencysetting']['default_currency']['conversion_rate']; //to covert into equivalent dollar values
 		
-		$payment_html['PayPal']='<!--<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">-->
+		$payment_html['PayPal']='
 					<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 					<input name="cmd" value="_xclick" type="hidden">
                     <input name="business" value="'.$merchantid.'" type="hidden">
@@ -1261,7 +1243,7 @@ class Display_DAddCart
 					<input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
 					<input type="hidden" name="BAGGAGE_FIELDS" value="PROGL">
 					<input type="hidden" name="PROGL" value="01">
-					<input type=image src="images/payment/egold.jpg" style="height:40">
+					<input type=image src="images/payment/egold.jpg" style="height:30;width:100px;">
 					</form>	';
 				
 					
@@ -1312,14 +1294,14 @@ class Display_DAddCart
 					<input type="hidden" name="fixed" value="Y" /><input type="hidden" name="return_url" value="'.$sucess_url.'" 
 					/>
 					<input type="hidden" name="lang" value="en" />
-					<input type="hidden" name="card_holder_name" value="" /><input type="image" src="images/payment/2checkout.gif" 
-					name="submit" alt="2checkout" />
+					<input type="hidden" name="card_holder_name" value="" /><input type="image" src="assets/img/payment/2checkout.gif" 
+					name="submit" alt="2checkout" style="height:30;width:100px;"/>
 					</form>';
 					
 					$payment_html['Authorize.net']=' <form id="form2co" name="form2co" method="post" 		
 					action="?do=showcart&action=showauthorizenet">
-					<input type="image" src="images/payment/authorize.gif" 
-					name="submit" alt="Authorize.net" />
+					<input type="image" src="assets/img/payment/authorize.gif" 
+					name="submit" alt="Authorize.net" style="height:30;width:100px;" />
 					</form>';
 					
 					$payment_html['worldpay']=' <form id="worldpay" name="worldpay" method="post" 		
@@ -1332,7 +1314,7 @@ class Display_DAddCart
 					<!--<input type=hidden name="testMode" value="100"> -->
 					<input type="hidden" name="MC_callback" value="'.$sucess_url.'" />
 					
-					<input type="image" src="images/payment/worldpay.gif" name="submit" alt="WorldPay">
+					<input type="image" src="assets/img/payment/worldpay.gif" name="submit" alt="WorldPay" style="height:30;width:100px;">
 					</form>';
 					
 					/*$payment_html['worldpay']=' <form action="https://select.worldpay.com/wcc/purchase" method=POST>
@@ -1353,7 +1335,7 @@ class Display_DAddCart
 					<input type=hidden name="amount" value="'.$amount.'">
 					<input type=hidden name="currency" value="USD">
 					<input type=hidden name="desc" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'">
-					<input type="image" src="images/payment/payinstore.gif" name="submit" alt="Pay in Store">
+					<input type="image" src="assets/img/payment/payinstore.gif" name="submit" alt="Pay in Store" style="height:30;width:100px;">
 					</form>
 					';
 					$payment_html['Cash on Delivery']=' <form action="'.$sucess_url.'&pay_type=9" method=POST>
@@ -1361,7 +1343,7 @@ class Display_DAddCart
 					<input type=hidden name="amount" value="'.$amount.'">
 					<input type=hidden name="currency" value="USD">
 					<input type=hidden name="desc" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'">
-					<input type="image" src="images/payment/cashondelivery.gif" name="submit" alt="Cash On Delivery">
+					<input type="image" src="assets/img/payment/cashondelivery.gif" name="submit" alt="Cash On Delivery" style="height:30;width:100px;">
 					</form>
 					';
 					
@@ -1373,7 +1355,7 @@ class Display_DAddCart
 					<input type="hidden"  name="ref" value="'.$_SERVER['SERVER_NAME'].' Check out">			
 					<input type="hidden"  name="return" value="'.$sucess_url.'&pay_type=10">
 					<input type="hidden"  name="popup" value="'.$cancel_url.'">
-					<input type="image" src="images/payment/paymate.gif" name="submit" alt="Pay with Paymate Express">
+					<input type="image" src="assets/img/payment/paymate.gif" name="submit" alt="Pay with Paymate Express" style="height:30;width:100px;">
 					</form>';
 					
 					
@@ -1385,7 +1367,7 @@ class Display_DAddCart
 					<input type="hidden" name="language" value="EN">
 					<input type="hidden" name="amount" value="'.$amount.'">
 					<input type="hidden" name="currency" value="USD">
-					<input type="image" src="images/payment/moneybookers.jpg" name="submit" alt="Money Bookers">
+					<input type="image" src="images/payment/moneybookers.jpg" name="submit" alt="Money Bookers" style="height:30;width:100px;">
 					</form>';
 						
 					
@@ -1397,7 +1379,7 @@ class Display_DAddCart
 					<!--<INPUT TYPE=hidden NAME="TestResult" VALUE="1">-->					
 					<INPUT TYPE=hidden NAME="OrderID" VALUE="">
 					<INPUT TYPE=hidden NAME="SubTotal" VALUE="'.$amount.'">
-					<input type="image" src="images/payment/psigate.gif" name="submit" alt="PSI Gate">
+					<input type="image" src="assets/img/payment/psigate.gif" name="submit" alt="PSI Gate" style="height:30;width:100px;">
 					</FORM>';	
 					
 					$payment_html['Strompay']='<form method="post" action="https://www.stormpay.com/stormpay/handle_gen.php">
@@ -1412,7 +1394,7 @@ class Display_DAddCart
 					<input type="hidden" name="return_URL" value="'.$sucess_url.'&pay_type=13">
 					<input type="hidden" name="cancel_URL" value="'.$cancel_url.'">
 					<input type="hidden" name="subject_matter" value="Cart Payment">
-					<input type=image src="images/payment/strompay.jpg"  alt="Strompay" style="width:75;height:30">
+					<input type=image src="assets/img/payment/strompay.jpg"  alt="Strompay" style="height:30;width:100px;">
 					</form>';
 					
 					/*$payment_html['Alertpay']='<form action="https://www.alertpay.com/PayProcess.aspx" method="post">
@@ -1434,7 +1416,7 @@ class Display_DAddCart
 					<input type='hidden'  name='ap_itemname' value='PTYW'>
 					<input type='hidden'  name='ap_currency' value='USD'>
 					<input type='hidden'  name='ap_returnurl' value='".$sucess_url."&pay_type=14'>
-					<input type='image' src='images/payment/alertpay.jpeg' >
+					<input type='image' src='assets/img/payment/alertpay.jpeg' style='height:30;width:100px;'>
 					<input type='hidden'  name='ap_quantity' value='1'>
 					<input type='hidden' name='ap_description' value='PTYW'>
 					<input type='hidden'  name='ap_amount' value='".$amount."'>
@@ -1460,7 +1442,7 @@ class Display_DAddCart
 					<input type="hidden" name="storename" value="'.$merchantid.'">
 					<input type="hidden" name="txntype" value="sale">
 					<input type="hidden" name="comments" value="'.$domain.'-Buy cart">
-					<input type="image" src="images/payment/yourpay.jpeg" alt="Yourpay">
+					<input type="image" src="assets/img/payment/yourpay.jpeg" alt="Yourpay" style="height:30;width:100px;">
 					<!--<input type="submit" name="btnup" value="Yourpay">-->
 					</form>';
 					
@@ -1483,14 +1465,14 @@ class Display_DAddCart
 					<input type="hidden" name="phone" value="34343434"/>
 					<input type="hidden" name="country" value="USA"/>
 					<input type="hidden" name="email" value="'.$merchantid.'"/>
-					<input type="image" src="images/payment/itransact.gif" alt="submit securely" />
+					<input type="image" src="assets/img/payment/itransact.gif" alt="submit securely"  style="height:30;width:100px;"/>
 					</form>';							
 					
 					
 					
 					$payment_html['Bluepay']=' <form id="formbluepay" name="formbluepay" method="post" 		
 					action="?do=showcart&action=showbluepay">					
-					<input type="image" src="images/payment/bluepay.jpeg" name="submit" alt="BluePay" />
+					<input type="image" src="assets/img/payment/bluepay.jpeg" name="submit" alt="BluePay" style="height:30;width:100px;"/>
 					</form>';			
 					if($arr['gateway_id'] == '17')
 					$_SESSION['bluepaydetails'] = $merchantid.'|'.$sucess_url.'|'.$cancel_url;	
@@ -1513,7 +1495,7 @@ class Display_DAddCart
               		<input type="hidden" name="iquantity" value="">
              		<input type="hidden" name="imultiplyPurchase" value="y">
               		<input type="hidden" name="colortheme" value="LightBlueYellow">
-              		<input type="image" src="images/payment/safepay.gif" alt="Pay through SafePay Solutions">
+              		<input type="image" src="assets/img/payment/safepay.gif" alt="Pay through SafePay Solutions" style="height:30;width:100px;">
 		            </form>';							
 					
 					

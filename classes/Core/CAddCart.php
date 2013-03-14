@@ -410,7 +410,10 @@ class Core_CAddCart
 					$flag=$query->totrows;
 					if($flag==0)
 					{
-						return '<div class="exc_msgbox">No Products Available in Shopping Cart</div>';
+						return '<div class="alert alert-info">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						No Prodcuts Available in Your Shopping Cart.
+						</div>';
 					}
 					else
 					{
@@ -436,7 +439,10 @@ class Core_CAddCart
 					$flag=$query->totrows;
 					if($flag==0)
 					{
-						return '<table class="product_header" width="78%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox" >No Prodcuts Available in Your Shopping Cart</div></td></tr></table>' ;
+						return '<div class="alert alert-info">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						No Prodcuts Available in Your Shopping Cart.
+						</div>' ;
 					}
 					else
 					{
@@ -450,7 +456,10 @@ class Core_CAddCart
 			}
 			else
 			{
-				return '<table class="product_header" width="78%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox" >No Prodcuts Available in Your Shopping Cart</div></td></tr></table>';
+				return '<div class="alert alert-info">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				No Prodcuts Available in Your Shopping Cart.
+				</div>';
 			}
 		}
 				
@@ -490,7 +499,11 @@ class Core_CAddCart
 						
 						if($flag==0)
 						{
-							return '<table class="product_header" width="78%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox" >No Prodcuts Available in Your Shopping Cart</div></td></tr></table>';
+							return '<div class="alert alert-info">
+							<button data-dismiss="alert" class="close" type="button">×</button>
+							No Prodcuts Available in Your Shopping Cart.
+							</div>';
+
 						}
 						//else
 						elseif ($query->records[0]['soh']!=0)
@@ -507,7 +520,10 @@ class Core_CAddCart
 			}
 			else
 			{
-				return '<table class="product_header" width="78%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox" >No Prodcuts Available in Your Shopping Cart</div></td></tr></table>';
+				return '<div class="alert alert-info">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			No Prodcuts Available in Your Shopping Cart.
+			</div>';
 			}
 	
 
@@ -1103,6 +1119,14 @@ class Core_CAddCart
 		$sql="select * from addressbook_table where user_id='".$_SESSION['user_id']."' limit 4";
 		$obj->executeQuery($sql);
 		$records=$obj->records;
+		
+		if($_GET['bill_add_id']!='')
+		{
+			$obj1=new Bin_Query();
+			$sql1="UPDATE users_table SET billing_address_id='".$_GET['bill_add_id']."' WHERE user_id='".$_SESSION['user_id']."'";
+			$obj1->updateQuery($sql1);
+
+		}
 
 		return Display_DAddCart::showShippingDetails($records ,$obj3->records,$Err);
 
@@ -1116,46 +1140,22 @@ class Core_CAddCart
 	 */
 	function showShippingMethod($Err)
 	{
-		if($_SESSION['user_id']!='') 
+			
+		$sql="SELECT * FROM shipments_master_table WHERE status=1";		
+	 	$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+
+
+		if($_GET['ship_add_id']!='')
 		{
-			$sql3="select cou_code,cou_name from country_table";
-			$obj3=new Bin_Query();
-			$obj3->executeQuery($sql3);
-		
-		$userid = $_SESSION['user_id'];
-		$date = date('Y-m-d');
-		$proid =$_SESSION['prowishlist'];
-		if(isset($_SESSION['prowishlist'])&&isset($_GET['chk'])&&$_GET['chk']==1)
-		{
-		$prdarr=array();
-		$prdarr=explode(',',$proid);
-		for($i=0;$i<count($prdarr);$i++)
-		{
-		$productid=$prdarr[$i];
-		if($productid != '')
-		{
-			
-			$obj = new Bin_Query();
-			$sqlselect = "select count(*) as temp from wishlist_table where user_id=".$userid." and product_id=".$prdarr[$i];
-			
-			
-			if($obj->executeQuery($sqlselect))
-			{
-				
-				if($obj->records[0]['temp']==0)
-				{
-				  $sqlinsert = "insert into wishlist_table (user_id,product_id,date_added) values(".$userid.",".$prdarr[$i].",'"                                    .$date."')";
-							
-				  $obj->updateQuery($sqlinsert);
-				}
-			}
+			$obj1=new Bin_Query();
+			$sql1="UPDATE users_table SET shipping_address_id='".$_GET['ship_add_id']."' WHERE user_id='".$_SESSION['user_id']."'";
+			$obj1->updateQuery($sql1);
+
 		}
-		}
-		}
-			
-			
-			return Display_DAddCart::showShippingMethod($obj3->records,$err,$addrbook,$addrbookshipping);
-		}
+
+		return Display_DAddCart::showShippingMethod($obj->records,$Err);
+	
 
 	}
 	/**
@@ -1167,7 +1167,6 @@ class Core_CAddCart
 	 */
 	function showOrderConfirmation($message='')
 	{
-		
 		
 		if($_SESSION['user_id']!='') 
 		{	
@@ -1301,20 +1300,21 @@ class Core_CAddCart
 	{
 		if($_SESSION['user_id']!='') 
 		{	
-			$sql="SELECT gateway_id,gateway_name,merchant_id FROM paymentgateways_table WHERE gateway_status=1";
-			$query = new Bin_Query();
-			
+			$sqlonline="SELECT gateway_id,gateway_name,merchant_id FROM paymentgateways_table WHERE gateway_status=1 and gateway_id!=8 and gateway_id!=9  ";
+			$queryonline = new Bin_Query();
+			$queryonline->executeQuery($sqlonline);
+
+			$sqloffline="SELECT gateway_id,gateway_name,merchant_id FROM paymentgateways_table WHERE gateway_id in(8,9) and gateway_status=1";
+			$queryoffline = new Bin_Query();		
+			$queryoffline->executeQuery($sqloffline);
+
 			$sql_domain='select set_value from admin_settings_table where set_id =16';
 			$query_domain = new Bin_Query();
 			$query_domain->executeQuery($sql_domain);		
 			$domain=$query_domain->records[0]['set_value'];
 			
-			if($rows=$query->executeQuery($sql))
-			{
-				$output=Display_DAddCart::displayPaymentGateways($query->records,$domain);
-			}
-			else
-		   		$output= '<table class="product_header" width="78%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">No Payment Gateways Available</div></td></tr></table>';
+		
+			$output=Display_DAddCart::displayPaymentGateways($queryonline->records,$queryoffline->records,$domain);
 			
 			return $output;
 		}			
@@ -1371,27 +1371,55 @@ class Core_CAddCart
 								
 								}
 								else
-									return $output= '<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">Sorry. You Have Exceeded Your Coupon Using Limit</div></td></tr></table>';
+									return $output= '<div class="alert alert-info">
+									<button data-dismiss="alert" class="close" type="button">×</button>
+									Sorry. You Have Exceeded Your Coupon Using Limit.
+									</div>';			
 							}
 							else
-								return $output= '<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">Sorry. Purchase Amount Is Too Low To Use Your Coupon</div></td></tr></table>';
+								return $output= '<div class="alert alert-info">
+								<button data-dismiss="alert" class="close" type="button">×</button>
+								Sorry. Purchase Amount Is Too Low To Use Your Coupon.
+								</div>';
 						}
 						else
-							return $output= '<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">Coupon Not Eligible For You</div></td></tr></table>';
+							return $output= '<div class="alert alert-info">
+							<button data-dismiss="alert" class="close" type="button">×</button>
+							Coupon Not Eligible For You.
+							</div>';
+
 					}
 					else
-						return $output= '<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">Coupon Code Expired</div></td></tr></table>';
+						return $output= '<div class="alert alert-info">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						Coupon Code Expired.
+						</div>';
+
 				}
 				else
-					return $output= '<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">Coupon Code Is Not Active</div></td></tr></table>';
+					return $output= '<div class="alert alert-info">
+					<button data-dismiss="alert" class="close" type="button">×</button>
+					Coupon Code Is Not Active.
+					</div>';
+
 			}
 			else
-		   		return $output= '<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">Invalid Coupon Code</div></td></tr></table>';
+		   		return $output= '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				Invalid Coupon Code.
+				</div>';
+
+
 		}
 		else
 		{
-			return $output='<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">Please Login To Use Your Coupon</div></td></tr></table>';
+			return $output='<div class="alert alert-info">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Please Login To Use Your Coupon.
+			</div>';
 		}
+
+
 
 	}
 	/**
@@ -1445,8 +1473,11 @@ class Core_CAddCart
 									$update_coupon_query = new Bin_Query();
 									
 									if ($update_coupon_query->updateQuery($update_coupon_sql))
-										$output='<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="success_msgbox" align="center">Coupon Redeemed Successfully</div></td></tr></table>';
-									
+										$output='<div class="alert alert-success">
+										<button data-dismiss="alert" class="close" type="button">×</button>
+										Coupon Redeemed Successfully.
+										</div>';
+								
 								}
 						
 							}
@@ -1456,7 +1487,11 @@ class Core_CAddCart
 						
 					}
 					if ($cartflag==0)
-						return $output='<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">No Categories In Your Shopping Cart Matches With The Coupon Categories</div></td></tr></table>';
+						return $output='<div class="alert alert-info">
+						<button data-dismiss="alert" class="close" type="button">×</button>
+						No Categories In Your Shopping Cart Matches With The Coupon Categories.
+						</div>';
+
 								
 					else
 						return $output;
@@ -1465,7 +1500,12 @@ class Core_CAddCart
 			}
 			else
 			{
-				return $output='<table class="product_header" width="100%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox">No Categories Are Applicable For The Coupon</div></td></tr></table>';
+				return $output='<div class="alert alert-info">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				No Categories Are Applicable For The Coupon.
+				</div>';
+
+
 			}
 		}
 
@@ -1739,5 +1779,6 @@ class Core_CAddCart
 
 
 	}
+	
 }
 ?>
