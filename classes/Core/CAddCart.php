@@ -56,123 +56,141 @@ class Core_CAddCart
 	function addCart()
 	{
 	
-		if($_GET['prodid']!='')
+		if(isset($_POST['addtocart']))
 		{
-			if($_SESSION['user_id']!='')
+	
+			if($_GET['prodid']!='')
 			{
-				// check wheter  cart is exists for the user
-				$cartid=$this->getCartIdOfUser();
-							
-				if( $cartid!=0) // if cart available for the user
+				if($_SESSION['user_id']!='')
 				{
-				
-					$sql="UPDATE shopping_cart_table SET cart_date='".date('Y-m-d')."' WHERE cart_id='".$cartid."'";
-					$query = new Bin_Query();
-					$query->updateQuery($sql);
+					// check wheter  cart is exists for the user
+					$cartid=$this->getCartIdOfUser();
 					
-					//check the product id and cart id available in the scpt 
-					$sql="SELECT product_id,cart_id,product_qty FROM shopping_cart_products_table WHERE product_id='".(int)$_GET['prodid']."' and cart_id='".$cartid."'";
-											
-					//if(yes)
-					if($query->executeQuery($sql))
+			
+					if( $cartid!=0) // if cart available for the user
 					{
+					
+						$sql="UPDATE shopping_cart_table SET cart_date='".date('Y-m-d')."' WHERE cart_id='".$cartid."'";
+						$query = new Bin_Query();
+						$query->updateQuery($sql);
 						
-						$req_qty=$query->records[0]['product_qty'];
-						$sql_soh='select soh from product_inventory_table where product_id='.(int)$_GET['prodid'];
-						$query_soh = new Bin_Query();
-						$query_soh->executeQuery($sql_soh);		
-						$soh_product=$query_soh->records[0]['soh'];
-						
-						
+						//check the product id and cart id available in the scpt 
+						$sql="SELECT product_id,cart_id,product_qty FROM shopping_cart_products_table WHERE product_id='".(int)$_GET['prodid']."' and cart_id='".$cartid."'";
+												
+						//if(yes)
+						if($query->executeQuery($sql))
+						{
+							
+							$req_qty=$query->records[0]['product_qty'];
+	
+							$sql_soh='select soh from product_inventory_table where product_id='.(int)$_GET['prodid'];
+							$query_soh = new Bin_Query();
+							$query_soh->executeQuery($sql_soh);		
+							$soh_product=$query_soh->records[0]['soh'];
+							
+							
+							$sql_originalprice='SELECT msrp from products_table where product_id='.$_GET['prodid'];
+							$query_originalprice = new Bin_Query();
+		
+							$query_originalprice->executeQuery($sql_originalprice);		
+							$originalprice=$query_originalprice->records[0]['msrp']; 
+							
+							//insert the cart id , product id , product qty(1) 
+							if($soh_product > $req_qty)
+							{
+								//update the scpt with qty and date added fields
+								$sql="UPDATE shopping_cart_products_table SET date_added='".date('Y-m-d')."',product_qty='".$req_qty."' ,product_unit_price=".$originalprice." WHERE product_id='".(int)$_GET['prodid']."' AND cart_id='".$cartid."'"; 
+								$query->updateQuery($sql);
+								//update scpt set product_qty = product_qty+ 1 where cart_id = $cartid
+							}
+						}
+						else
+						{
+							//check Soh for product
+							$sql='select soh from product_inventory_table where product_id='.(int)$_GET['prodid'];
+							$query = new Bin_Query();
+							$query->executeQuery($sql);		
+							$soh=$query->records[0]['soh'];
+							//insert the cart id , product id , product qty(1) 
+							if($soh!=0)
+							{
+								$sql_originalprice='SELECT msrp from products_table where product_id='.$_GET['prodid'];
+								$query_originalprice = new Bin_Query();
+			
+								$query_originalprice->executeQuery($sql_originalprice);		
+								$originalprice=$query_originalprice->records[0]['msrp']; 
+	
+								$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price) values (".$cartid.','. $_GET['prodid'].",1,'".date('Y-m-d')."',".$originalprice.")";
+								$query->updateQuery($sql);
+							}	
+						}
+					}
+					
+					else // if cart is not available for the user  cnt ==0
+					{
 						$sql_originalprice='SELECT msrp from products_table where product_id='.$_GET['prodid'];
 						$query_originalprice = new Bin_Query();
 	
 						$query_originalprice->executeQuery($sql_originalprice);		
-						$originalprice=$query_originalprice->records[0]['msrp'];
-						
-						//insert the cart id , product id , product qty(1) 
-						if($soh_product > $req_qty)
-						{
-							//update the scpt with qty and date added fields
-							$sql="UPDATE shopping_cart_products_table SET date_added='".date('Y-m-d')."',product_qty= product_qty+ 1 ,product_unit_price=".$originalprice." WHERE product_id='".(int)$_GET['prodid']."' AND cart_id='".$cartid."'";
+						$originalprice=$query_originalprice->records[0]['msrp']; 
+	
+						$sql ="insert into shopping_cart_table (user_id , cart_date) values ('". $_SESSION['user_id']."','".date('Y-m-d')."')";
+							$query = new Bin_Query();
 							$query->updateQuery($sql);
-							//update scpt set product_qty = product_qty+ 1 where cart_id = $cartid
+							$cartid=$this->getCartIdOfUser();
+						$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added,product_unit_price ) values (".$cartid.','. $_GET['prodid'].",1,'".date('Y-m-d')."',".$originalprice.")";
+							$query = new Bin_Query();
+							$query->updateQuery($sql);
+						
+					}
+					
+				}		
+				else
+				{
+			
+					$mycart=array();
+					$product_id=$_GET['prodid'];
+					
+					if (!(empty($_SESSION['mycart'])))
+					{
+					
+						$flg=0;
+					
+						foreach ($_SESSION['mycart'] as $key=>$val)
+						{
+								
+							if ($key==$product_id)
+							{
+								$_SESSION['mycart'][$product_id]['qty']=$val['qty']+1;
+								$flg=1;
+							}
+							else
+							{		
+							}
 						}
+						
+						if ($flg==0)
+						{
+							$mycart['product_id']=$product_id;
+							$mycart['qty']= 1;
+							$_SESSION['mycart'][$product_id]=$mycart;
+						}
+						
+						
 					}
 					else
 					{
-						//check Soh for product
-						$sql='select soh from product_inventory_table where product_id='.(int)$_GET['prodid'];
-						$query = new Bin_Query();
-						$query->executeQuery($sql);		
-						$soh=$query->records[0]['soh'];
-						//insert the cart id , product id , product qty(1) 
-						if($soh!=0)
-						{
-							$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ) values (".$cartid.','. $_GET['prodid'].",1,'".date('Y-m-d')."')";
-							$query->updateQuery($sql);
-						}	
-					}
-				}
-				
-				else // if cart is not available for the user  cnt ==0
-				{
-					$sql ="insert into shopping_cart_table (user_id , cart_date) values ('". $_SESSION['user_id']."','".date('Y-m-d')."')";
-						$query = new Bin_Query();
-						$query->updateQuery($sql);
-						$cartid=$this->getCartIdOfUser();
-					$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ) values (".$cartid.','. $_GET['prodid'].",1,'".date('Y-m-d')."')";
-						$query = new Bin_Query();
-						$query->updateQuery($sql);
-					
-				}
-				
-			}		
-			else //----------------------For a guest user
-			{
 			
-				$mycart=array();
-				$product_id=$_GET['prodid'];
-				
-				if (!(empty($_SESSION['mycart'])))
-				{
-				
-					$flg=0;
-				
-					foreach ($_SESSION['mycart'] as $key=>$val)
-					{
-							
-						if ($key==$product_id)
-						{
-							$_SESSION['mycart'][$product_id]['qty']=$val['qty']+1;
-							$flg=1;
-						}
-						else
-						{		
-						}
-					}
-					
-					if ($flg==0)
-					{
 						$mycart['product_id']=$product_id;
 						$mycart['qty']= 1;
 						$_SESSION['mycart'][$product_id]=$mycart;
 					}
 					
-					
-				}
-				else
-				{
-		
-					$mycart['product_id']=$product_id;
-					$mycart['qty']= 1;
-					$_SESSION['mycart'][$product_id]=$mycart;
-				}
 				
+				}	
+				
+			}
 	
-			
-			}	
-				
 		}
 	}
 	/**
@@ -279,7 +297,7 @@ class Core_CAddCart
 				}
 			
 			}		
-			else //----------------------For a guest user
+			else
 			{
 
 	
@@ -372,7 +390,7 @@ class Core_CAddCart
 	{
 
 		include_once('classes/Display/DAddCart.php');
-		if($_SESSION['user_id']!='') 
+		if($_SESSION['user_id']!='' && $_SESSION['mycart']=='') 
 		{	
 			$cartid=Core_CAddCart::getCartIdOfUser();	
 			
@@ -465,8 +483,8 @@ class Core_CAddCart
 				
 		else //-----------------For Guest User-------------------
 		{
-				
-					
+		
+			
 				if($cartid =='' && isset($_SESSION['mycart']) && $_SESSION['mycart']!='')
 				{
 					$sql3="select cou_code,cou_name from country_table";
@@ -676,6 +694,8 @@ class Core_CAddCart
 	 */	
 	function deleteCart()
 	{
+
+	
 		if($_SESSION['user_id']!='') 
 		{
 		
@@ -686,8 +706,16 @@ class Core_CAddCart
 		}
 		else
 		{
+			
+			
 			unset($_SESSION['mycart'][$_GET['prodid']]);
+			
 		}
+	
+			$output='<div class="alert alert-info">
+			<button type="button" class="close" data-dismiss="alert">×</button>Products Deleted Successfully From Your Cart!</div>';
+
+		return $output;
 	}
 	
 	/**
@@ -1098,7 +1126,14 @@ class Core_CAddCart
 		$sql3="select cou_code,cou_name from country_table";
 		$obj3=new Bin_Query();
 		$obj3->executeQuery($sql3);
-		return Display_DAddCart::showBillingDetails($records ,$obj3->records,$Err);
+
+		$obj_add=new Bin_Query();
+		$sql_add="SELECT * FROM users_table WHERE user_id ='".$_SESSION['user_id']."'";
+		$obj_add->executeQuery($sql_add);
+		$billing_addess_id=$obj_add->records[0]['billing_address_id'];
+			
+
+		return Display_DAddCart::showBillingDetails($records,$obj3->records,$Err,$billing_addess_id);
 		
 	}
 	/**
@@ -1116,7 +1151,7 @@ class Core_CAddCart
 		$obj3->executeQuery($sql3);
 
 		$obj=new Bin_Query();
-		$sql="select * from addressbook_table where user_id='".$_SESSION['user_id']."' limit 4";
+		$sql="select * from addressbook_table where user_id='".$_SESSION['user_id']."'";
 		$obj->executeQuery($sql);
 		$records=$obj->records;
 		
@@ -1128,7 +1163,12 @@ class Core_CAddCart
 
 		}
 
-		return Display_DAddCart::showShippingDetails($records ,$obj3->records,$Err);
+		$obj_add=new Bin_Query();
+		$sql_add="SELECT * FROM users_table WHERE user_id ='".$_SESSION['user_id']."'";
+		$obj_add->executeQuery($sql_add);
+		$shipping_address_id=$obj_add->records[0]['shipping_address_id'];
+
+		return Display_DAddCart::showShippingDetails($records ,$obj3->records,$Err,$shipping_address_id);
 
 	}
 	/**
@@ -1167,24 +1207,22 @@ class Core_CAddCart
 	 */
 	function showOrderConfirmation($message='')
 	{
-		
-		if($_SESSION['user_id']!='') 
+
+
+		if($_SESSION['user_id']!='' && $_SESSION['mycart']=='') 
 		{	
+
 			
 			Core_CAddCart::insertShipping();
 			$cartid=Core_CAddCart::getCartIdOfUser();	
 			
-			
-			if ($_POST['saveaddress']='saveaddress' || isset($_POST['saveaddress']))
-			{
-				Core_CUserAddressBook::addAddressFromCheckout();
-			}
-			
+						
 			$taxarray=Core_CAddCart::getTaxSettings();
 
 			
 			if($cartid !='')
 			{
+
 				$sql3="select cou_code,cou_name from country_table";
 				$obj3=new Bin_Query();
 				$obj3->executeQuery($sql3);
@@ -1203,7 +1241,7 @@ class Core_CAddCart
 					{
 					
 
-						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp as msrp1,shopping_cart_products_table.product_unit_price AS msrp, pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. *
+						 $sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp as msrp1,shopping_cart_products_table.product_unit_price AS msrp, pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. *
 						FROM (
 						products_table pt
 						INNER JOIN shopping_cart_products_table ON pt.product_id = shopping_cart_products_table.product_id
@@ -1216,7 +1254,10 @@ class Core_CAddCart
 						$query->executeQuery($sql);
 						$flag=$query->totrows;
 						if($flag==0)
-							return '<table class="product_header" width="78%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox" >No Prodcuts Available in Your Shopping Cart</div></td></tr></table>';
+							return '<div class="alert alert-info">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							No Products Available in Your Shopping Cart 
+							</div>';
 						else
 				        	return Display_DAddCart::showOrderConfirmation($query->records,$obj3->records,$taxarray,$message);
 					}
@@ -1225,21 +1266,24 @@ class Core_CAddCart
 					{
 
 						$query = new Bin_Query();
-						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost as shipingamount, pt.sku, shopping_cart_products_table.product_unit_price AS msrp, pt.msrp as msrp1, pt.image, pt.thumb_image, pinv.soh,shopping_cart_products_table. * , shopping_cart_table. *
+						 $sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost as shipingamount, pt.sku, shopping_cart_products_table.product_unit_price AS msrp, pt.msrp as msrp1, pt.image, pt.thumb_image, pinv.soh,shopping_cart_products_table. * , shopping_cart_table. *
 						FROM (
 						products_table pt
 						INNER JOIN shopping_cart_products_table ON pt.product_id = shopping_cart_products_table.product_id
 						)
 						LEFT JOIN shopping_cart_table ON shopping_cart_products_table.cart_id = shopping_cart_table.cart_id
 						INNER JOIN product_inventory_table AS pinv ON pinv.product_id = shopping_cart_products_table.product_id
-						WHERE shopping_cart_table.user_id ='. $_SESSION['user_id'] .'';
+						WHERE shopping_cart_table.user_id ='. $_SESSION['user_id'] .'';  
 			 
 					
 						$query->executeQuery($sql);
 						$flag=$query->totrows;
 						if($flag==0)
 						{
-							return '<table class="product_header" width="78%" align="center"><tr><td class="msg" align="center"><div class="exc_msgbox" >No Prodcuts Available in Your Shopping Cart</div></td></tr></table>' ;
+							return '<div class="alert alert-info">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							No Products Available in Your Shopping Cart 
+							</div>' ;
 						}
 						else
 						{
@@ -1253,8 +1297,103 @@ class Core_CAddCart
 			}
 			else
 			{
-				return '<table class="product_header"><tr><td class="msg" align="center">No Products Available in Shopping Cart</td></tr></table>';
+				return '<div class="alert alert-info">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				No Products Available in Your Shopping Cart 
+				</div>';
 			}
+		}
+
+		else //-----------------For Guest User-------------------
+		{
+		
+			
+				if($cartid =='' && isset($_SESSION['mycart']) && $_SESSION['mycart']!='')
+				{
+
+					Core_CAddCart::insertShipping();
+
+					$sql ="insert into shopping_cart_table (user_id,cart_date) values ('".$_SESSION['user_id']."','".date('Y-m-d')."')";
+					$query = new Bin_Query();
+					if($query->updateQuery($sql)){
+	
+					$cartid=mysql_insert_id();
+						
+				
+					foreach ($_SESSION['mycart'] as $key=>$val)
+					{
+									
+							$obj_pri=new Bin_Query();
+							$sql_pri="select * from  products_table where product_id='".$val['product_id']."'";
+							$obj_pri->executeQuery($sql_pri);
+							$product_unit_prince=$obj_pri->records[0]['msrp'];
+							$shippingcost=($val['qty']*$obj_pri->records[0]['shipping_cost']);							
+
+							$sql ="insert into shopping_cart_products_table (cart_id,product_id,product_qty, date_added,product_unit_price,shipping_cost) values ('".$cartid."','".$val['product_id']."','".$val['qty']."','".date('Y-m-d')."','".$product_unit_prince."','".$shippingcost."')";  
+							$query = new Bin_Query();
+							$query->updateQuery($sql);
+		
+						} 
+			
+					}
+
+
+					$sql3="select cou_code,cou_name from country_table";
+					$obj3=new Bin_Query();
+					$obj3->executeQuery($sql3);
+					
+				
+			
+					$qty=$_SESSION['mycart'];
+					$cnt=count($qty);
+				
+					foreach ($_SESSION['mycart'] as $key=>$val)
+					{
+						
+					
+						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, pt.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.image, pt.thumb_image, pinv.soh
+						FROM products_table pt
+						LEFT JOIN product_inventory_table AS pinv ON pt.product_id = pinv.product_id
+						WHERE pt.product_id ='.$val['product_id'];
+									
+										$query = new Bin_Query();
+						$query->executeQuery($sql);
+						$flag=$query->totrows;
+						
+						
+						$query->records[0]['soh']=(int)$query->records[0]['soh'];
+						$query->records[0]['product_qty']=$val['qty'];
+						$query->records[0]['shipingamount']=$val['qty']*$query->records[0]['shipingamount']; //calculating shipping cost
+						
+						
+						if($flag==0)
+						{
+							return '<div class="alert alert-info">
+							<button data-dismiss="alert" class="close" type="button">×</button>
+							No Prodcuts Available in Your Shopping Cart.
+							</div>';
+
+						}
+						elseif ($query->records[0]['soh']!=0)
+						{
+							$productarray[]=$query->records[0];
+						}
+					
+				}
+			
+		
+				
+				return Display_DAddCart::showOrderConfirmation($productarray,$obj3->records);
+			
+			}
+			else
+			{
+				return '<div class="alert alert-info">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				No Prodcuts Available in Your Shopping Cart.
+				</div>';
+			}
+		
 		}
  	
 	}
@@ -1267,27 +1406,52 @@ class Core_CAddCart
 	 */
 	function insertShipping()
 	{
+		
+		// select billing and shipping address
+		$sql="SELECT * FROM users_table WHERE user_id='".$_SESSION['user_id']."'";
+		$obj=new Bin_Query();	
+		$obj->executeQuery($sql);
+		$records=$obj->records;
+		$billing_address_id=$records[0]['billing_address_id'];
+		$shipping_address_id=$records[0]['shipping_address_id'];
+
+
+		//billing address
+		$obj_bill=new Bin_Query();
+		$sql_bill="select * from addressbook_table where user_id='".$_SESSION['user_id']."' and id='".$billing_address_id."'";
+		$obj_bill->executeQuery($sql_bill);
+
+
+		//shipping address
+		$obj_ship=new Bin_Query();
+		$sql_ship="select * from addressbook_table where user_id='".$_SESSION['user_id']."' and id='".$shipping_address_id."'";
+		$obj_ship->executeQuery($sql_ship);
+
+		
+
+
 		$orderdetails=array();		
+		$orderdetails['txtname']=$obj_bill->records[0]['contact_name'];
+		$orderdetails['txtcompany']=$obj_bill->records[0]['company'];
+		$orderdetails['txtstreet']=$obj_bill->records[0]['address'];
+		$orderdetails['txtcity']=$obj_bill->records[0]['city'];
+		$orderdetails['txtsuburb']=$obj_bill->records[0]['state'];
+		$orderdetails['txtzipcode']=$obj_bill->records[0]['zip'];
+		$orderdetails['txtcountry']=$obj_bill->records[0]['country'];
+		$orderdetails['txtstate']=$obj_bill->records[0]['state'];
 
-		$orderdetails['txtname']=$_POST['txtname'];
-		$orderdetails['txtcompany']=$_POST['txtcompany'];
-		$orderdetails['txtstreet']=$_POST['txtstreet'];
-		$orderdetails['txtcity']=$_POST['txtcity'];
-		$orderdetails['txtsuburb']=$_POST['txtsuburb'];
-		$orderdetails['txtzipcode']=$_POST['txtzipcode'];
+		$orderdetails['txtsname']=$obj_ship->records[0]['contact_name'];
+		$orderdetails['txtscompany']=$obj_ship->records[0]['company'];
+		$orderdetails['txtsstreet'] =$obj_ship->records[0]['address'];
+		$orderdetails['txtscity']=$obj_ship->records[0]['city'];
+		$orderdetails['txtssuburb']=$obj_ship->records[0]['state'];
+		$orderdetails['txtszipcode']=$obj_ship->records[0]['zip'];
+		$orderdetails['txtscountry']=$obj_bill->records[0]['country'];
+		$orderdetails['txtsstate'] =$obj_ship->records[0]['state'];
 
-		$orderdetails['txtcountry']=$_POST['selbillcountry'];
-		$orderdetails['txtstate']=$_POST['txtstate'];
-		$orderdetails['txtsname']=$_POST['txtsname'];
-		$orderdetails['txtscompany']=$_POST['txtscompany'];
-		$orderdetails['txtsstreet'] =$_POST['txtsstreet'];
-		$orderdetails['txtscity']=$_POST['txtscity'];
-		$orderdetails['txtssuburb']=$_POST['txtssuburb'];
-		$orderdetails['txtszipcode']=$_POST['txtszipcode'];
-		$orderdetails['txtscountry']=$_POST['selshipcountry'];
 
-		$orderdetails['txtsstate'] =$_POST['txtsstate'];
-		$_SESSION['orderdetails']=$orderdetails;		
+		$_SESSION['orderdetails']=$orderdetails;
+	
 	}
 	/**
 	 * This function is used to get payment gate way from db
@@ -1778,6 +1942,53 @@ class Core_CAddCart
 		}
 
 
+	}
+	/**
+	 * This function is used to get  the cart  count amount.
+	 *
+	 * 
+	 * 
+	 * @return array
+	 */
+	function countCart()
+	{
+
+	if(!isset($_SESSION['user_id'])&& isset($_SESSION['mycart']) )
+		{
+
+				$sum=0;
+				if(count($_SESSION['mycart'])>0)
+				{
+					sort($_SESSION['mycart']);
+					for($i=0;$i<count($_SESSION['mycart']);$i++)
+					{
+						
+						 $sum=$sum+$_SESSION['mycart'][$i]['qty'];
+					}
+				}
+				$carts=count($_SESSION['mycart']);
+				return $carts;
+		}
+		
+		else if(isset($_SESSION['user_id']))
+		{
+			$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.msrp as msrp1,pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. * FROM (
+			products_table pt INNER JOIN shopping_cart_products_table ON pt.product_id = shopping_cart_products_table.product_id) LEFT JOIN shopping_cart_table ON shopping_cart_products_table.cart_id = shopping_cart_table.cart_id INNER JOIN product_inventory_table AS pinv ON pinv.product_id = shopping_cart_products_table.product_id WHERE shopping_cart_table.user_id ='. $_SESSION['user_id'];
+				 
+					$query = new Bin_Query();
+					$query->executeQuery($sql);
+					$sum=0;
+					if($query->totrows>0)
+					for($i=0;$i<$query->totrows;$i++)
+						$sum=$sum+$query->records[$i]['product_qty'];
+					$carts=count($query->records);
+					return $carts;
+		}
+		else 
+ 		{
+			return '0';
+		}
+	
 	}
 	
 }

@@ -983,7 +983,8 @@ legend + .control-group {
 	float: left;
 	width: 200px;
 	padding-top: 5px;
-	text-align: right;
+	text-align: left;
+*margin-left: 0;
 }
 .form-horizontal .controls {
  *display: inline-block;
@@ -1824,6 +1825,45 @@ button.close {
 	display: inline-block;
  *display: inline;
 	padding: 4px 10px 4px;
+	margin-bottom: 0;
+ *margin-left: .3em;
+	font-size: 13px;
+	line-height: 18px;
+ *line-height: 20px;
+	color: #333333;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #f5f5f5;
+ *background-color: #e6e6e6;
+	background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	border: 1px solid #cccccc;
+ *border: 0;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-bottom-color: #b3b3b3;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+ filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+ filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+ *zoom: 1;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn_address {
+	display: inline-block;
+ *display: inline;
+	padding: 4px 6px 4px;
 	margin-bottom: 0;
  *margin-left: .3em;
 	font-size: 13px;
@@ -3804,10 +3844,14 @@ a {
 	font-weight:bold;
 	font-size:13px;
 	text-transform:uppercase;
-	width:100px;
+	width:150px;
+	height: 50px;	
 	margin:auto;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	margin-top:10px;
+	border:0;
+	outline:none;
+
 }
 #welcome_div {
 	margin-bottom:15px;
@@ -3875,7 +3919,7 @@ a {
 	top:0;
 	width:20px;
 	height:41px;
-	z-index:9999;
+	z-index:1;
 }
 .left_arrow {
 	background:url(../img/left-arrow1.png) left top no-repeat;

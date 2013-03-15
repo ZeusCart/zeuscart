@@ -239,17 +239,18 @@ class Display_DFeaturedItems
 				$subuncat=$objsubun->records[0]['category_name'];
 
 				$output.='<span class="ribbion_div">'.$imagetag.'</span>
-				<div class="product_box"><img src="'.$arr[$i]['image'].'" alt="'.$arr[$i]['title'].'"></div>
+				<form name="product" method="post" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'"><div class="product_box"><img src="'.$arr[$i]['image'].'" alt="'.$arr[$i]['title'].'"></div>
 				<article class="da-animate da-slideFromRight" style="display: block;">
 					<h3>'.$arr[$i]['title'].'</h3>
-					<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <span class="link_post"><a href="?do=viewproducts&cat='.$cat.'&subcat='.$subcat.'&subundercat='.$subuncat.'"></a></span> <span class="zoom"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></a></span>
-					<a href="?do=addtocart&prodid='.$arr[$i]['product_id'].'" class="add_to_cart">Add to Cart</a>
+					<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <span class="link_post"><a href="?do=viewproducts&cat='.$cat.'&subcat='.$subcat.'&subundercat='.$subuncat.'"></a></span> <span class="zoom"><a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="popup"></a></span>
+					<input type="hidden" name="addtocart">
+					<button class="add_to_cart" type="submit" >Add to Cart</button>
 					</article>
 				</li>';
 				
 				
 			}
-		$output.='</ul></div>';
+		$output.='</ul></div></form>';
 		}
 		
 		$output.='  </div>

@@ -102,7 +102,7 @@ class Display_DProductDetail
 		
 
 		$output.='<div class="title_fnt">
-		<h1>'.$arr[0]['title'].'</h1><span class="pull-right"><a href="#" class="share_icn"></a> <a href="#" class="campare_icn"></a></span>
+		<h1>'.$arr[0]['title'].'</h1>
 		</div>
 		<div id="gallery_div">
 		<div class="row-fluid">';
@@ -114,12 +114,7 @@ class Display_DProductDetail
 			</a>
 			</div>
 			<br/>';
-			$output.=' <div class="clearfix" >
-			<ul id="thumblist" class="clearfix" >
-			<li><a class="zoomThumbActive" href="javascript:void(0);" rel="{gallery: "gal1", smallimage: "'.$arr[0]['image'].'",largeimage: "'.$arr[0]['large_image_path'].'" }"><img src="'.$arr[0]['thumb_image'].'"></a></li>
-			';
-			$output.=' </ul>
-			</div>';
+			
 		$output.=' </div></div><div class="span6">
 				<div class="gallery_detail">
 				
@@ -522,6 +517,72 @@ class Display_DProductDetail
 
 		return $output;
 
+
+	}
+	/**
+	* This function is used to get the pop up  of image of product 
+ 	* @param array $records
+ 	* @return string
+	*/
+	function showPopupProducts($arr)
+	{
+		
+		 $output='<div class="container">
+			<div class="row-fluid">
+				<div class="span9">
+			<div class="title_fnt">
+			<h1><a href="?do=prodetail&action=showprod&prodid='.$arr[0]['product_id'].'" target="_parent">'.$arr[0]['title'].'</a></h1>
+			</div>
+			<div id="gallery_div">
+				<div class="row-fluid">';
+				$output.='<div class="span6"><div class="clearfix" id="content" >
+			<div class="clearfix">
+			<a href="'.$arr[0]['large_image_path'].'" class="jqzoom" rel="gal1"   title="'.$arr[0]['title'].'" >
+			<img src="'.$arr[0]['image'].'"  title="'.$arr[0]['title'].'"  style="border: 4px solid #ccc;">
+			</a>
+			</div>
+			<br/>';
+				$output.=' </div></div><div class="span6">
+				<div class="gallery_detail">
+				
+				<ul class="detaillist">
+				<li>
+			
+				<img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star-gray.png" width="16" height="16" alt="star"></li>
+				<li><table width="100%" border="0">
+		<tr>
+		<td align="left" valign="top"><h4>Product code: 1</h4><span>Availability: In stock</span></td>
+		<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['msrp'].'</h1></td>
+		</tr>
+		</table></li>
+		<li><h2>Quick Overview:</h2><p>This midi dress has been made from stretch jersey. The details include: a scoop neckline and sleeveless styling with an open back and latticed deatiling. The dress has been cut with a bodycon fit.</p></li>
+		<li><form method="post"	action="?do=addtocartfromproductdetail&prodid='.$arr[0]['product_id'].'" name="frmcart" target="_parent">
+		<table width="100%" border="0">
+		<tr>
+		<td align="left" valign="top"> Quantity ';
+		$output.='<select name="qty[]" style="width:60px;">';
+		if($arr[0]['soh']==0)
+			$output.='<option value="0">0</option>';
+		
+		for($s=1;$s<=$arr[0]['soh'];$s++)
+			$output.='<option value="'.$s.'">'.$s.'</option>';
+		$output.='</select></td>
+		<td align="left" valign="top"><input type="image" name="Submit2" src="assets/img/add-to-cart-btn.png"  style="width:150px;height:40px;	display:block;cursor:pointer;border:0;outline:none;"></td>
+		</tr>
+		</table>
+		</form>
+		</li>
+		</ul>
+		</div>
+		</div>
+		</div>
+		<div class="clear"></div>
+		</div>
+		</div>
+		</div>
+		</div>';
+
+	return $output;
 
 	}
 	

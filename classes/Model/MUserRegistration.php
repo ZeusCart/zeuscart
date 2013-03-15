@@ -48,9 +48,7 @@ class Model_MUserRegistration
 	{
 		include('classes/Core/CUserRegistration.php');
 		include("classes/Lib/HandleErrors.php");	
-		
-		
-		
+
 		$output['val']=Core_CUserRegistration::getCountry($Err->values);
 		$output['msg']=$Err->messages;
 		include_once('classes/Display/DUserRegistration.php');
@@ -62,8 +60,7 @@ class Model_MUserRegistration
 		include_once('classes/Display/DLastViewedProducts.php');
 		include('classes/Core/CNews.php');
 		include('classes/Display/DNews.php');
-		
-		
+		include_once('classes/Core/CAddCart.php');		
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -82,9 +79,11 @@ class Model_MUserRegistration
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['cartcount']=Core_CAddCart::countCart();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['newstitle'] = Core_CNews::showNewsMenu();
+		$output['cartcount']=Core_CAddCart::countCart();
 		
 		Bin_Template::createTemplate('signup.html',$output);
 	}
@@ -104,11 +103,9 @@ class Model_MUserRegistration
 		include('classes/Core/CKeywordSearch.php');
   		include('classes/Display/DKeywordSearch.php');
 		include('classes/Core/CHome.php');
-
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
-		
+		include_once('classes/Core/CAddCart.php');		
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -130,6 +127,8 @@ class Model_MUserRegistration
 		$output['account'] = Core_CUserRegistration::addAccount();
 		$output['val']=Core_CUserRegistration::getCountry($Err->values);
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
+		$output['cartcount']=Core_CAddCart::countCart();
+
 		Bin_Template::createTemplate('signup.html',$output);
 	}
 	/**
@@ -158,19 +157,18 @@ class Model_MUserRegistration
 			include('classes/Core/CHome.php');
 			include("classes/Lib/HandleErrors.php");
 			include('classes/Core/CAddCart.php');
-		include('classes/Display/DAddCart.php');
-		include_once('classes/Core/CLastViewedProducts.php');
-		include_once('classes/Display/DLastViewedProducts.php');
-		include('classes/Core/CNews.php');
-		include('classes/Display/DNews.php');
-		
-		
-		include_once('classes/Core/CCurrencySettings.php');
-		Core_CCurrencySettings::getDefaultCurrency();
-		
-		$output['signup']=Display_DUserRegistration::signUp();
-		$default=new Core_CLastViewedProducts();
-		$output['lastviewedproducts']=$default->lastViewedProducts();
+			include('classes/Display/DAddCart.php');
+			include_once('classes/Core/CLastViewedProducts.php');
+			include_once('classes/Display/DLastViewedProducts.php');
+			include('classes/Core/CNews.php');
+			include('classes/Display/DNews.php');
+			
+			include_once('classes/Core/CCurrencySettings.php');
+			Core_CCurrencySettings::getDefaultCurrency();
+			
+			$output['signup']=Display_DUserRegistration::signUp();
+			$default=new Core_CLastViewedProducts();
+			$output['lastviewedproducts']=$default->lastViewedProducts();
 			if(count($Err->messages) > 0)
 			{
 				$output['val'] = $Err->values;
@@ -202,7 +200,7 @@ class Model_MUserRegistration
 				$output['viewProducts']['viewProducts'] = Display_DWishList::viewProductElse();
 			else
 				$output['viewProducts']=Core_CWishList::addtoCompareProduct();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			Bin_Template::createTemplate('myprofile.html',$output);
 		}
 	}
@@ -260,6 +258,8 @@ class Model_MUserRegistration
 			$output['viewProducts']=Core_CWishList::addtoCompareProduct();
 		$output['message'] = Core_CUserRegistration::updateMyProfile();
 		$output['val'] = Core_CUserRegistration::showMyProfile();
+		$output['cartcount']=Core_CAddCart::countCart();
+
 		Bin_Template::createTemplate('myprofile.html',$output);
 	}
 	/**
@@ -269,8 +269,7 @@ class Model_MUserRegistration
 	*/
 	function showIndexPage()
 	{
-
-		
+	
 		include_once('classes/Core/CFeaturedItems.php');
 		include_once('classes/Display/DFeaturedItems.php');
 		include('classes/Core/CUserRegistration.php');
@@ -289,7 +288,8 @@ class Model_MUserRegistration
 		include('classes/Core/CCurrencySettings.php');
 		include('classes/Core/CNews.php');
 		include('classes/Display/DNews.php');
-		
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -347,7 +347,8 @@ class Model_MUserRegistration
 		$output['slideshow']=Core_CUserRegistration::viewSlideShow();
 		$output['slideshowparameter']=Core_CUserRegistration::getSlideShowParameter();
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
-
+		$output['cartcount']=Core_CAddCart::countCart();
+		$output['productdetails']=Core_CProductDetail::showPopupProducts();
 
 		Bin_Template::createTemplate('index.html',$output);
 	}
@@ -415,7 +416,7 @@ class Model_MUserRegistration
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		
+		$output['cartcount']=Core_CAddCart::countCart();
 		$output['viewProducts']['viewProducts'] = Display_DWishList::viewProductElse();
 		Bin_Template::createTemplate('index.html',$output);
 	}
@@ -435,8 +436,7 @@ class Model_MUserRegistration
 		include('classes/Core/CKeywordSearch.php');
   		include('classes/Display/DKeywordSearch.php');
 		include_once('classes/Core/CCurrencySettings.php');
-		
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -450,6 +450,7 @@ class Model_MUserRegistration
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
+		$output['cartcount']=Core_CAddCart::countCart();	
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['googlead']=Core_CHome::getGoogleAd();
@@ -505,14 +506,14 @@ class Model_MUserRegistration
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['banner']=Core_CHome::getBanner();
 		
-		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
-		$output['googlead']=Core_CHome::getGoogleAd();
-		$output['footer']=Core_CHome::footer();
-			include_once('classes/Core/CLastViewedProducts.php');
-		include_once('classes/Display/DLastViewedProducts.php');
-		
-		$default=new Core_CLastViewedProducts();
-		$output['lastviewedproducts']=$default->lastViewedProducts();
+			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['googlead']=Core_CHome::getGoogleAd();
+			$output['footer']=Core_CHome::footer();
+				include_once('classes/Core/CLastViewedProducts.php');
+			include_once('classes/Display/DLastViewedProducts.php');
+			
+			$default=new Core_CLastViewedProducts();
+			$output['lastviewedproducts']=$default->lastViewedProducts();
 			$default=new Core_CFeaturedItems();
 		
 			$output['maincatimage']=$default->showMainCategory();
@@ -529,6 +530,7 @@ class Model_MUserRegistration
 			$output['wishlistsnapshot'] = Core_CWishList::wishlistSnapshot();
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
@@ -562,6 +564,7 @@ class Model_MUserRegistration
 		include('classes/Core/CProductDetail.php');
 		include('classes/Display/DProductDetail.php');
 		include_once('classes/Core/CCurrencySettings.php');
+		include_once('classes/Core/CAddCart.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
 		$output['signup']=Display_DUserRegistration::signUp();
@@ -573,6 +576,7 @@ class Model_MUserRegistration
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
+		$output['cartcount']=Core_CAddCart::countCart();
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['googlead']=Core_CHome::getGoogleAd();
@@ -605,7 +609,7 @@ class Model_MUserRegistration
 		include('classes/Display/DNews.php');		
 		include('classes/Core/CProductDetail.php');
 		include('classes/Display/DProductDetail.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -619,6 +623,7 @@ class Model_MUserRegistration
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
 		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['cartcount']=Core_CAddCart::countCart();
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
@@ -680,6 +685,7 @@ class Model_MUserRegistration
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+		$output['cartcount']=Core_CAddCart::countCart();
 		$default=new Core_CFeaturedItems();
 		$output['maincatimage']=$default->showMainCategory();
 		

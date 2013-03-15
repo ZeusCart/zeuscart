@@ -71,6 +71,8 @@ class Model_MNewProducts
 		$output['newproducts']=$default->newProducts();
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['cartcount']=Core_CAddCart::countCart();
+
 		Bin_Template::createTemplate('products.html',$output);
 	}
 	/**
@@ -111,7 +113,7 @@ class Model_MNewProducts
 			$output['categorytree'] = Core_CProductDetail::showCategoryTree();
 			$default=new Core_CNewProducts();
 			$output['viewproducts']=$default->viewProducts();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			Bin_Template::createTemplate('listtheproduct.html',$output);
 		}
 		else
@@ -145,7 +147,7 @@ class Model_MNewProducts
 			$output['categorytree'] = Core_CProductDetail::showCategoryTree();
 			$default=new Core_CNewProducts();
 			$output['gridviewproducts']=$default->viewProducts();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			Bin_Template::createTemplate('grid_list_product.html',$output);
 		}
 

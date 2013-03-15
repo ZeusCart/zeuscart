@@ -55,7 +55,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -76,7 +76,7 @@ class Model_MUserAccount
 		$output['result'] = $result;
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();					
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();			$output['cartcount']=Core_CAddCart::countCart();		
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserNewsLetter::showNewsLetter();
 
@@ -98,7 +98,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -118,7 +118,7 @@ class Model_MUserAccount
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();					
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();			$output['cartcount']=Core_CAddCart::countCart();		
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserDashboard::showDashboard();
 		Bin_Template::createTemplate('userIndex.html',$output);
@@ -140,7 +140,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -160,7 +160,9 @@ class Model_MUserAccount
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['result'] = $result;					
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
+		$output['cartcount']=Core_CAddCart::countCart();
+	
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserAccInfo::showAccInfo();
 
@@ -202,7 +204,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -221,7 +223,8 @@ class Model_MUserAccount
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
+		$output['cartcount']=Core_CAddCart::countCart();	
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserProductReview::showProductReview();
 
@@ -245,9 +248,8 @@ class Model_MUserAccount
 		include("classes/Lib/HandleErrors.php");
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CUserWishList.php');
-		
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -271,7 +273,7 @@ class Model_MUserAccount
 		$output['divStat']=Core_CUserWishList::getStatus();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();					
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();			$output['cartcount']=Core_CAddCart::countCart();	
 		$output['userRight'] = "userWishlist.html";					
 		$output['rows']=Core_CUserWishList::showWishList($result);
 
@@ -327,7 +329,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -345,7 +347,8 @@ class Model_MUserAccount
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();		
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
+		$output['cartcount']=Core_CAddCart::countCart();	
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserOrder::showOrder();
 
@@ -368,7 +371,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -385,7 +388,8 @@ class Model_MUserAccount
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
+		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();
+		$output['cartcount']=Core_CAddCart::countCart();			
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserOrder::showOrderDetails();
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();		
@@ -407,7 +411,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -426,6 +430,7 @@ class Model_MUserAccount
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		//$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
+		$output['cartcount']=Core_CAddCart::countCart();
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CAllNew::showAllNew();
 
@@ -447,7 +452,7 @@ class Model_MUserAccount
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
 		include('classes/Core/CCurrencySettings.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -467,6 +472,7 @@ class Model_MUserAccount
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 				
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
+		$output['cartcount']=Core_CAddCart::countCart();
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CAllFeatured::showAllFeatured();
 
@@ -488,7 +494,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -509,7 +515,8 @@ class Model_MUserAccount
 		$output['result'] = $result;
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();					
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
+		$output['cartcount']=Core_CAddCart::countCart();				
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserAddressBook::showAddressBook();
 
@@ -531,7 +538,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -552,7 +559,8 @@ class Model_MUserAccount
 		$output['result'] = $result;
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();					
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
+		$output['cartcount']=Core_CAddCart::countCart();		
 
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserAddressBook::showAddAddress();
@@ -576,7 +584,7 @@ class Model_MUserAccount
 		include('classes/Core/CHome.php');
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -597,7 +605,7 @@ class Model_MUserAccount
 		$output['result'] = $result;
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
-		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();					
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();			$output['cartcount']=Core_CAddCart::countCart();		
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserAddressBook::showAddress();
 

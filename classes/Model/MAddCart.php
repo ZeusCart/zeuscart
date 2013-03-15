@@ -76,7 +76,7 @@ var $output = array();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -90,7 +90,7 @@ var $output = array();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
-			
+			UNSET($_SESSION['cartmsg']);
 		}
 		else
 		{
@@ -118,7 +118,7 @@ var $output = array();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -132,6 +132,7 @@ var $output = array();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
+			UNSET($_SESSION['cartmsg']);
 		}
 		
 	}
@@ -177,7 +178,7 @@ var $output = array();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -191,6 +192,7 @@ var $output = array();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
+			UNSET($_SESSION['cartmsg']);
 			
 		}
 		else
@@ -219,7 +221,7 @@ var $output = array();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -233,6 +235,7 @@ var $output = array();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
+			UNSET($_SESSION['cartmsg']);
 		}
 		
 	}
@@ -279,7 +282,7 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -293,6 +296,7 @@ var $output = array();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);
+			UNSET($_SESSION['cartmsg']);
 		}
 		else
 		{
@@ -325,7 +329,7 @@ var $output = array();
 			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showcart();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
@@ -333,6 +337,7 @@ var $output = array();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
+			UNSET($_SESSION['cartmsg']);
 		}
 		
 	}
@@ -369,18 +374,20 @@ var $output = array();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$default=new Core_CAddCart();
-		$output['deletecart']=$default->deleteCart();
+		$_SESSION['cartmsg']=$default->deleteCart();
+
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
    		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['signup']=Display_DUserRegistration::signUp();
-		
+		$output['cartcount']=Core_CAddCart::countCart();
 		$lastobj=new Core_CLastViewedProducts();
 		$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 		
 		$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 		
 		header('Location:?do=addtocart');
+		
 		
 	}
 	/**
@@ -421,7 +428,7 @@ var $output = array();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-			
+		$output['cartcount']=Core_CAddCart::countCart();	
 		$output['updatecart']=$default->updateCart();
 		$output['showcart']=$default->showcart();
 		
@@ -431,6 +438,7 @@ var $output = array();
 		$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 		
 		Bin_Template::createTemplate('addtocart.html',$output);
+		UNSET($_SESSION['cartmsg']);
 	
 	}
 	/**
@@ -479,7 +487,7 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -558,8 +566,7 @@ var $output = array();
 			$output['showcart']=$default->doQuickRegistration();
 			
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
-			
-			
+			$output['cartcount']=Core_CAddCart::countCart();			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
@@ -611,7 +618,7 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -675,7 +682,7 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -741,7 +748,7 @@ var $output = array();
 			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showShippingMethod($Err);
 			
@@ -807,7 +814,7 @@ var $output = array();
 			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showOrderConfirmation();
 			
@@ -866,7 +873,7 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -925,7 +932,7 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -987,7 +994,7 @@ var $output = array();
 			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showPaymentPageForAuthorizenet();
 			
@@ -1049,7 +1056,7 @@ var $output = array();
 			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showPaymentPageForWorldPay();
 			
@@ -1108,7 +1115,7 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
@@ -1176,7 +1183,7 @@ var $output = array();
 			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showPaymentPageForBluepay();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
@@ -1238,7 +1245,7 @@ var $output = array();
 			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->doPaymentForAuthorizenet();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
@@ -1300,7 +1307,7 @@ var $output = array();
 			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->insertBillingAddress();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
@@ -1361,7 +1368,7 @@ var $output = array();
 			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->insertShippingAddress();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
@@ -1393,7 +1400,7 @@ var $output = array();
 		}
 		else
 		{
-			$_SESSION['shipment_id_selected']=$_POST['shipment_id'];
+			$_SESSION['shipment_id_selected']=$_POST['shipment_id']; 
 			header('Location:?do=showcart&action=showorderconfirmation');
 		}
 	

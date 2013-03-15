@@ -121,11 +121,13 @@ class Display_DUserAccount
 					<td>#'.$arr[$i]['orders_id'].'</td>
 					<td>'.$arr[$i]['pdate'].'</td>
 					<td>'.$arr[$i]['user_display_name'].'</td>
-					<td>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['total']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</td>
+					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['total']).'</span></td>
 					<td> <span class="label label-success">'.$arr[$i]['orders_status_name'].'</span></td>
 					<td><a href="?do=orderdetail&id='.$arr[$i]['orders_id'].'" class="btn btn-mini">View Order</a></td>
 					</tr>';
 				}
+
+
 			}
 			else
 			{
@@ -498,7 +500,7 @@ class Display_DUserAccount
 					$output.='<tr>
 					<td><a href="?do=orderdetail&id='.$arr[$i]['orders_id'].'">#'.$arr[$i]['orders_id'].'</a></td>
 					<td>'.$arr[$i]['pdate'].'</td>
-					<td>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['total']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</td>
+					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['total']).'</span></td>
 					
 					<td>'.$arr[$i]['shipment_track_id'].'</td>
 					<td><span class="label label-important">'.$arr[$i]['orders_status_name'].'</span></td>
@@ -509,7 +511,11 @@ class Display_DUserAccount
 			else
 			{
 
-			$output.='<tr><td colspan="6"><strong>No orders Found</strong></td></tr>';
+			$output.='<tr><td colspan="6"><div class="alert alert-info">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			<strong>No orders Found</strong>
+			</div></td></tr>';
+
 			}
 			
 			
@@ -643,17 +649,19 @@ class Display_DUserAccount
 			</thead>
 			<tbody>';
 			$grand=0;
+			$ship_cost=0;
 			for($i=0;$i<count($arr);$i++)
 			{
 				$total=($arr[$i]['product_unit_price']*$arr[$i]['product_qty'])+$arr[$i]['shipping_cost'];
 				$output.='<tr>
 					<td>'.$arr[$i]['title'].'</td>
-					<td>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price'],2).'</td>
+					<td><span class="label label-info">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price']).'</span></td>
 					<td>'.$arr[$i]['product_qty'].'</td>
-					<td>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['shipping_cost'],2).'</td>
+					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['shipping_cost']).'</span></td>
 					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
 				</tr>';
 				$grand+=$total;
+				$ship_cost+=$arr[$i]['shipping_cost'];
 			}
 				$output.='<tr>
 				<td colspan="3" rowspan="3">&nbsp;</td>
@@ -662,11 +670,11 @@ class Display_DUserAccount
 			</tr>
 				<tr>
 				<td>Shipping Amount</td>
-				<td><span class="label label-inverse">INR  0</span></td>
+				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($ship_cost).'</span></td>
 			</tr>
 				<tr>
 				<td>Grand Total</td>
-				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grand).'</span></td>
+				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total']).'</span></td>
 			</tr>
 			</tbody>
 		</table>
@@ -973,7 +981,7 @@ class Display_DUserAccount
 
 		$srhlist='';
 		foreach(range('A', 'Z') as $letter) {
-   		 $srhlist.='<a href="?do=addressbook&schltr='.$letter.'" class="btn">'.$letter.'</a>';
+   		 $srhlist.='<a href="?do=addressbook&schltr='.$letter.'" class="btn_address">'.$letter.'</a>';
 		}
 		$srhlist.='&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="?do=addressbook&schltr=All"class="btn">All</a>';
 		$output.='<div class="span11">
