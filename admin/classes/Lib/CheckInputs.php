@@ -71,7 +71,30 @@ class Lib_CheckInputs
 			$this->validateCurrency();
 		else if($module=='updatecurrency')
 			$this->validateEditCurrency();
+		else if($module=='updateslideshow')
+			$this->validateSlideShow();
 	}
+	
+	
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
+	function validateSlideShow()
+	{
+	
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			$obj = new Lib_FormValidation('updateslideshow');
+
+		}
+	}
+
+	
 	/**
 	 * Function checks whether the request method is post and invokes the validation module  
 	 * 

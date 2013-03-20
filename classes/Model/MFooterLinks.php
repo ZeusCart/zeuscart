@@ -54,7 +54,9 @@ class Model_MFooterLinks
 		include_once('classes/Display/DLastViewedProducts.php');
 		include('classes/Core/CNews.php');
 		include('classes/Display/DNews.php');
-		
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
+		include('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -75,6 +77,9 @@ class Model_MFooterLinks
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['terms'] = Core_CFooterLinks::termsCondition();
 		$output['newstitle'] = Core_CNews::showNewsMenu();
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
+		$output['cartcount']=Core_CAddCart::countCart();
+
 		Bin_Template::createTemplate('termsandconditions.html',$output);
 	}
 	
@@ -94,7 +99,9 @@ class Model_MFooterLinks
 		include_once('classes/Display/DLastViewedProducts.php');
 		include('classes/Core/CNews.php');
 		include('classes/Display/DNews.php');
-		
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
+		include('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -114,6 +121,9 @@ class Model_MFooterLinks
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['privacypolicy'] = Core_CFooterLinks::privacyPolicy();
 		$output['newstitle'] = Core_CNews::showNewsMenu();
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
+		$output['cartcount']=Core_CAddCart::countCart();
+	
 		Bin_Template::createTemplate('privacypolicy.html',$output);
 	}
 	
@@ -140,7 +150,9 @@ class Model_MFooterLinks
 		include_once('classes/Display/DLastViewedProducts.php');
 		include('classes/Core/CNews.php');
 		include('classes/Display/DNews.php');
-		
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
+		include('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -160,6 +172,9 @@ class Model_MFooterLinks
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['contactus'] = Display_DFooterLinks::showContactUs($Err);
 		$output['newstitle'] = Core_CNews::showNewsMenu();
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
+		$output['cartcount']=Core_CAddCart::countCart();
+
 		Bin_Template::createTemplate('contactus.html',$output);
 	}
 	
@@ -183,7 +198,9 @@ class Model_MFooterLinks
 		include_once('classes/Display/DLastViewedProducts.php');
 		include('classes/Core/CNews.php');
 		include('classes/Display/DNews.php');
-		
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
+		include('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -202,6 +219,8 @@ class Model_MFooterLinks
 		$output['message'] = Core_CFooterLinks::validateContactUs();
 		$output['contactus'] = Display_DFooterLinks::showContactUs('');
 		$output['newstitle'] = Core_CNews::showNewsMenu();
+		$output['cartcount']=Core_CAddCart::countCart();
+
 		Bin_Template::createTemplate('contactus.html',$output);
 	}
 	
@@ -221,7 +240,9 @@ class Model_MFooterLinks
 		include_once('classes/Display/DLastViewedProducts.php');
 		include('classes/Core/CNews.php');
 		include('classes/Display/DNews.php');
-		
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
+		include('classes/Core/CAddCart.php');
 		
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
@@ -243,7 +264,10 @@ class Model_MFooterLinks
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['aboutus'] = Core_CFooterLinks::aboutUs();
 		$output['newstitle'] = Core_CNews::showNewsMenu();
-		
+		$output['cartcount']=Core_CAddCart::countCart();
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
+		$output['cartcount']=Core_CAddCart::countCart();
+
 		Bin_Template::createTemplate('aboutus.html',$output);
 	}
 }

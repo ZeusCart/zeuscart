@@ -29,7 +29,7 @@
     <td align="left">&nbsp;</td>
   </tr>-->
    <tr>
-    <td align="center" style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$bannermsg</AJDF:output></td>
+    <td align="center" style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$smarty.session.bannermsg</AJDF:output></td>
    </tr>
     <!--<tr>
     <td align="left">&nbsp;</td>
@@ -326,18 +326,7 @@
   </table> </form> </td>
   </tr>
   
- <tr>
-    <td><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="91%" align="left" class="footer_style">Powered by <a href="http://www.ajsquare.com/products/ecom/" style="text-decoration:none;" target="_blank">ZeusCart</a></td>
-        <td width="9%" align="left" class="footer_style">Version 2.3</td>
-      </tr>
-    </table></td>
-  </tr>
-    <tr><td colspan="5" height="35" valign="middle" align="right" class="newsletterTXT">Developed in <a href="http://ajdf.ajsquare.com/" style="text-decoration:none;" target="_blank"><img src="../images/AJDF.gif" alt="AJDF" border="0"/> </a>Framework &nbsp;</td></tr>
-  </table>
-</body>
-</html>
+<AJDF:output>include file="footer.html"</AJDF:output>
 
 
 <script>
@@ -346,6 +335,7 @@ function addHomePageBanner()
 {
 
 ni=document.getElementById('homepageBannerDiv1');
+
 var num = 100;
 for(i=2;i<=num;i++)
 {
@@ -364,7 +354,7 @@ for(i=2;i<=num;i++)
 		{
 			var tablecl="   class='alert_row1' onmouseover=\"mouse_event(this, 'listrow_bg');\" onmouseout=\"mouse_event(this, 'alert_row1');\" "; 
 		}
-		newdiv.innerHTML = "<table border='0' width='100%'><tr><td align='left' colspan='2' class='content_list_head'>Home Page Slider</td><td align='left' class='content_list_head' colspan='2'><a href=\"javascript:;\"  onclick=\"removeHomePageBanner(\'"+tableIdName+"\')\">Remove</a></td></tr><tr ><td width='35%' align='left' class='content_form'>Title:</td><td width='66%' class='content_form' valign='top' ><input  type='text' name='slide_title[]' id='slide_title"+i+"' style='width: 381px;'/></td></tr>  <tr><td width='40%' align='left' class='content_form' >Content: </td><td class='content_form'><input type='file' name='slide_content[]'  id='slide_content"+i+"' ></td></tr>  <tr><td width='40%' align='left' class='content_form'  >Caption: </td><td class='content_form'><textarea style='width: 381px; height: 94px;' id='slide_caption"+i+"' name='slide_caption[]'></textarea><input type='hidden' name='theValue[]' id='theValue"+i+"' value='"+i+"'></td></tr></table>";
+		newdiv.innerHTML = "<table border='0' width='100%'><tr><td align='left' colspan='2' class='content_list_head'>Slider"+num+"</td><td align='left' class='content_list_head' colspan='2'><a href=\"javascript:;\"  onclick=\"removeHomePageBanner(\'"+tableIdName+"\')\">Remove</a></td></tr><tr ><td width='35%' align='left' class='content_form'>Title:</td><td width='66%' class='content_form' valign='top' ><input  type='text' name='slide_title[]' id='slide_title"+i+"' style='width: 381px;'/></td></tr>  <tr><td width='40%' align='left' class='content_form' >Content: </td><td class='content_form'><input type='file' name='slide_content[]'  id='slide_content"+i+"' ></td></tr>  <tr><td width='40%' align='left' class='content_form'  >Caption: </td><td class='content_form'><textarea style='width: 381px; height: 94px;' id='slide_caption"+i+"' name='slide_caption[]'></textarea><input type='hidden' name='theValue[]' id='theValue"+i+"' value='"+i+"'></td></tr><tr ><td width='35%' align='left' class='content_form'>Url:</td><td width='66%' class='content_form' valign='top' ><input  type='text' name='slide_url[]' id='slide_url"+i+"' style='width: 381px;'/></td></tr> </table>";
 		ni.appendChild(newdiv);
 		}
 	}
@@ -389,6 +379,34 @@ function removeHomePageBannerInner(rdiv,uid)
 	if(uid!='')
 	{
 	window.location="?do=banner&action=delete&id="+uid;
+	}
+}
+
+function selecttimerparam(val,typ)
+{
+	if(typ=="pie")	
+	{
+		document.getElementById("pie_diameter_value").style.display="none";
+	}
+	if(typ=="bar")
+	{
+		document.getElementById("timer_bar_value").style.display="none";
+	}
+	if(val=="pie")
+	{
+		document.getElementById("pie_diameter").style.display="block";
+		document.getElementById("timer_bar").style.display="none";
+	}
+	else if(val=="bar")
+	{
+	
+		document.getElementById("timer_bar").style.display="block";
+		document.getElementById("pie_diameter").style.display="none";
+	}
+	else if(val=='none')	
+	{
+		document.getElementById('timer_bar').style.display='none';
+		document.getElementById('pie_diameter').style.display='none';
 	}
 }
 </script>

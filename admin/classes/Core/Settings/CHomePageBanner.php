@@ -37,18 +37,18 @@ class Core_Settings_CHomePageBanner
 	
 	/**
 	 * Function gets the home page banner details from the database
-	 * 
+	 * @param $Err $Err
 	 * 
 	 * @return string
 	 */	 	
 	
- 	function homePageBanner()
+ 	function homePageBanner($Err)
 	{
 		$sql = "SELECT * FROM `home_slide_show_table` ";
 		$query = new Bin_Query();
 		$query->executeQuery($sql);
 			
-			return Display_DHomePageBanner::homePageBanner($query->records);
+			return Display_DHomePageBanner::homePageBanner($query->records,$Err);
 		
 	}
 	
@@ -81,11 +81,12 @@ class Core_Settings_CHomePageBanner
 	 */	 	
 	function updateHomePageBanner()
 	{
-	
+
+
 		include('classes/Lib/ThumbImage.php');
 		// slide show parameter updation
 
-		$notallowed=array('slide_title','slide_content','slide_caption','theValue','totalcountinner','totalcount','button');
+		$notallowed=array('slide_title','slide_content','slide_caption','theValue','totalcountinner','totalcount','button','slide_url');
 		$description=array_diff_key($_POST, array_flip($notallowed));
 		if(!empty($description))
 		{	
@@ -93,62 +94,64 @@ class Core_Settings_CHomePageBanner
 			$obj_para=new Bin_Query();
 			$obj_para->updateQuery($sql_para);
 		}	
-		$totalcount=count($_POST['theValue']);
-
-		for($i=0;$i<$totalcount;$i++)
+	 	$totalcount=count($_POST['theValue']);
+		if($totalcount>0)
 		{
-		
-		
-			if($_POST['slide_content'][$i]!='' && $_FILES['slide_content']['name'][$i]=='')
-			{
-				$image=$_POST['slide_content'][$i];
 
-
-				$thumb_image=$_POST['slide_content_thumb'][$i];
-			}
-			elseif($_FILES['slide_content']['name'][$i]!='' && $_POST['slide_content'][$i]!='')
+			for($i=0;$i<$totalcount;$i++)
 			{
-				$imgfilename= $_FILES['slide_content']['name'][$i];
-				$imagefilename = date("Y-m-d-His").$imgfilename ; // generate a new name
+				
+				if($_POST['slide_content_image'][$i]!='' && $_FILES['slide_content']['name'][$i]=='')
+				{
+					$image=$_POST['slide_content_image'][$i];
+		
+					$thumb_image=$_POST['slide_content_thumb'][$i];
+				}
+				elseif($_FILES['slide_content']['name'][$i]!='' )
+				{
+					$imgfilename= $_FILES['slide_content']['name'][$i];
+					$imagefilename = date("Y-m-d-His").$imgfilename ; // generate a new name
+							
+					$image="images/slidesupload/". $imgfilename; // updated into DB
+					$thumb_image="images/slidesupload/thumb/".$imgfilename; // updated into DB
+					
+					$stpath=ROOT_FOLDER.$image;
+					$imageDir=ROOT_FOLDER."images/slidesupload";
+					$thumbDir=ROOT_FOLDER."images/slidesupload/thumb";
+					
+					if(move_uploaded_file($_FILES["slide_content"]["tmp_name"][$i],$stpath))
+					{			
+						new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
 						
-				$image="images/slidesupload/". $imgfilename; // updated into DB
-				$thumb_image="images/slidesupload/thumb/".$imgfilename; // updated into DB
-				
-				$stpath=ROOT_FOLDER.$image;
-				$imageDir=ROOT_FOLDER."images/slide";
-				$thumbDir=ROOT_FOLDER."images/slidesupload/thumb";
-				
-				if(move_uploaded_file($_FILES["slide_content"]["tmp_name"][$i],$stpath))
-				{			
-					new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
+					}
+				}
+				$sqlcheck="SELECT * FROM  home_slide_show_table WHERE id='".$_POST['theValue'][$i]."'"; 
+				$objcheck=new Bin_Query();
+				if($objcheck->executeQuery($sqlcheck))
+				{
+					$sqlupdate="UPDATE  home_slide_show_table SET slide_title='".$_POST['slide_title'][$i]."' ,slide_content='".$image."',slide_content_thumb='".$thumb_image."',slide_caption='".trim($_POST['slide_caption'][$i])."',slide_url='".$_POST['slide_url'][$i]."' WHERE id='".$_POST['theValue'][$i]."'";  
+					$objupdate=new Bin_Query();
+					$objupdate->updateQuery($sqlupdate);
+					
 					
 				}
-			}
-			$sqlcheck="SELECT * FROM  home_slide_show_table WHERE id='".$_POST['theValue'][$i]."'";
-			$objcheck=new Bin_Query();
-			if($objcheck->executeQuery($sqlcheck))
-			{
-				$sqlupdate="UPDATE  home_slide_show_table SET slide_title='".$_POST['slide_title'][$i]."' ,slide_content='".$image."',slide_content_thumb='".$thumb_image."',slide_caption='".trim($_POST['slide_caption'][$i])."' WHERE id='".$_POST['theValue'][$i]."'";  
-				$objcheck=new Bin_Query();
-				$objcheck->updateQuery($sqlupdate);
+				else
+				{
+					 $sql="INSERT INTO home_slide_show_table(slide_title,slide_content,slide_caption,slide_content_thumb,slide_url)VALUES('".$_POST['slide_title'][$i]."','".$image."','".trim($_POST['slide_caption'][$i])."','".$thumb_image."','".$_POST['slide_url'][$i]."')"; 
+					$query = new Bin_Query();
+					$query->updateQuery($sql);
+							
+				}
+
+
 				
 			}
-			elseif(!$objcheck->executeQuery($sqlcheck))
-			{
-				$sql="INSERT INTO home_slide_show_table(slide_title,slide_content,slide_caption,slide_content_thumb)VALUES('".$_POST['slide_title'][$i]."','".$image."','".trim($_POST['slide_caption'][$i])."','".$thumb_image."')";
-				$query = new Bin_Query();
-				$query->updateQuery($sql);		
-			}
-		echo '<script type="text/javascript">
-			window.location = window.location.href;
-			</script>';
-
-		}
 
 
-		return '<div class="success_msgbox" style="width:645px;"> Home Page Slider Inserted Successfully</div>';
-			
-			
+			return '<div class="success_msgbox" style="width:645px;"> Home Page Slider Inserted Successfully</div>';
+				
+
+		}	
 	}
 	
 	/**
@@ -172,7 +175,7 @@ class Core_Settings_CHomePageBanner
 	}
 	/**
 	 * Function get in the Home Page slider show parameter from the database
-	 * 
+	 * @param $Err array
 	 * 
 	 * @return string
 	 */

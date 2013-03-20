@@ -28,7 +28,7 @@
  * @category  		Library
  * @author    		AjSquareInc Dev Team
  * @link   		http://www.zeuscart.com
-  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
  * @version  		Version 4.0
  */
 class Lib_FormValidation extends Lib_Validation_Handler 
@@ -74,6 +74,47 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateCurrency();
 		else if($form=='updatecurrency')
 			$this->validateEditCurrency();
+		else if($form=='updateslideshow')
+			$this->validateSlideShow();
+	}
+	/**
+	 * Function checks the url 
+	 * 
+	 *
+	 * @return string 
+	 */	
+	function isValidURL($url)
+	{
+		$urlstart = substr($url,0,3);
+		$url = ($urlstart == 'www')?'http://'.$url:$url;
+		return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
+	}
+
+	
+	/**
+	 * Function checks the slide show  and assign an error
+	 * 
+	 *
+	 * @return void 
+	 */	
+
+	function validateSlideShow()
+	{
+
+		$message = "Invalid URL!";
+
+		for($i=0;$i<count($_POST['slide_url']);$i++)
+		{
+			if($_POST['slide_url'][$i]!='' && !$this->isValidURL(trim($_POST['slide_url'][$i])))
+			{
+				$j=$i+1;
+				$this->Assign("slide_url".$j."","","noempty",$message);
+			}
+
+		}
+
+
+		$this->PerformValidation('?do=banner');
 	}
 	/**
 	 * Function checks the check out process add to cart address and assign an error
@@ -644,22 +685,22 @@ class Lib_FormValidation extends Lib_Validation_Handler
    	}
   	 /**
 	 * Function checks the float values
-	 *  @param integer $string	 
+	 * @param mixed $number	 
 	 *
 	 * @return bool 
 	 */	
-	function validateFloat($string)
+	function validateFloat($number)
 	{
 		$regex = "/^[0-9]+(?:\.[0-9]{2})?$/";
-		if (preg_match($regex, $string)) {
+		if (preg_match($regex, $number)) {
 			return true;
 		}else{
 			return false;
 		}
-		}  
+	}  
  	/**
 	 * Function checks the images 
-	 *  @param integer $val		 
+	 * @param mixed $val		 
 	 *
 	 * @return bool 
 	 */	
@@ -670,7 +711,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		else
 			return false;
    	 }
-    	/**
+    /**
 	 * Function checks the whether the region wise tax parameter  supplied has null values or not 
 	 * 		 
 	 *

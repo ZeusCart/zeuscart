@@ -48,6 +48,11 @@ class Model_MHomePageBanner
 	 */
 	function homePageBanner()
 	{
+
+		include("classes/Lib/HandleErrors.php");
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
+
 		include('classes/Core/CRoleChecking.php');
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
@@ -77,12 +82,12 @@ class Model_MHomePageBanner
 			$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
 			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
-			$output['banner'] = Core_Settings_CHomePageBanner::homePageBanner();
+			$output['banner'] = Core_Settings_CHomePageBanner::homePageBanner($Err);
 			$output['slide_parameter']=Core_Settings_CHomePageBanner::getSlideParameter();		
-			$output['bannermsg'] = Core_Settings_CHomePageBanner::updateHomePageBanner();
-
+		
 			$output['bannerurl'] = Core_Settings_CHomePageBanner::homePageBannerUrl();
 			Bin_Template::createTemplate('homepagebanner.html',$output);
+			UNSET($_SESSION['bannermsg']);
 		}
 		else
 		{
@@ -92,7 +97,7 @@ class Model_MHomePageBanner
 	}	
 	
 	/**
-	 * Function updates the new Home Page Banner
+	 * Function to get the  the  home page slide show
 	 *   
 	 * 
 	 * @return array
@@ -101,43 +106,19 @@ class Model_MHomePageBanner
 	function updateHomePageBanner()
 	{
 	
-
+		include("classes/Lib/CheckInputs.php");
 		include('classes/Core/CRoleChecking.php');
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
 			include('classes/Core/Settings/CHomePageBanner.php');
 			include('classes/Display/DHomePageBanner.php');
-			include('classes/Core/CAdminHome.php');
-			$output['username']=Core_CAdminHome::userName();
-			$output['currentDate']=date('l, M d, Y H:i:s');	
-			$output['currency_type']=$_SESSION['currency']['currency_tocken'];			
-			$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
-			$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
-			$output['totalorders']=(int)Core_CAdminHome::totalOrders();
-			$output['currentmonthuser']=(int)Core_CAdminHome::currentMonthUser();
-			$output['previousmonthuser']=(int)Core_CAdminHome::previousMonthUser();
-			$output['totalusers']=(int)Core_CAdminHome::totalUsers();
-			$output['currentmonthincome']=Core_CAdminHome::currentMonthIncome();
-			$output['previousmonthincome']=Core_CAdminHome::previoustMonthIncome();
-			$output['totalincome']=Core_CAdminHome::totalIncome();
-			$output['currentmonthproudctquantity']=(int)Core_CAdminHome::currentMonthProudctQuantity();
-			$output['previousmonthproudctquantity']=(int)Core_CAdminHome::previousMonthProudctQuantity();
-			$output['totalproudctquantity']=(int)Core_CAdminHome::totalProudctQuantity();
-			$output['lowstock']=Core_CAdminHome::lowStock();
-			$output['totalproducts']=Core_CAdminHome::totalProducts();		
-			$output['enabledproducts']=Core_CAdminHome::enabledProducts();
-			$output['disabledproducts']=Core_CAdminHome::disabledProducts();
-			$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
-			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
-			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();			
-			$output['slide_parameter']=Core_Settings_CHomePageBanner::getSlideParameter();	
-			$output['bannermsg'] = Core_Settings_CHomePageBanner::updateHomePageBanner();
-			$output['banner'] = Core_Settings_CHomePageBanner::homePageBanner();			$output['bannerurl'] = Core_Settings_CHomePageBanner::homePageBannerUrl();	
+			$obj = new Lib_CheckInputs('updateslideshow');
+			$_SESSION['bannermsg'] = Core_Settings_CHomePageBanner::updateHomePageBanner();
+		
+			header('Location:?do=banner');	
 			
-			Bin_Template::createTemplate('homepagebanner.html',$output);
-			
-
+			//Bin_Template::createTemplate('updatehomepagebanner.html',$output);
 		}
 		else
 		{
@@ -145,6 +126,8 @@ class Model_MHomePageBanner
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
 	}
+
+	
 	/**
 	 * Function to delete the  Home Page Banner
 	 *   

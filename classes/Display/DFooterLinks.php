@@ -30,12 +30,12 @@
   * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
  * @version   		Version 4.0
  */
-$out = array();
-$output = array();
-$arr = array();
+
 
 class Display_DFooterLinks
 {
+
+	
  	/**
 	* This function is used to Display the Terms and Condition
 	* @param mixed $arr
@@ -44,43 +44,13 @@ class Display_DFooterLinks
 	function termsCondition($arr)
 	{
 	
-		$output ='
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="100%" colspan="2" class="serachresult">Terms & Conditions</td>
-            </tr>
-			<tr><td>
-		<table width="100%" border="0" align="center" cellpadding="2" cellspacing="2">
-              <tr>
-                <td align="left">                
-				  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
-				   <tr>
-						<td></td>
-				   </tr>
-				  </table><table width="78%" border="0" align="center" cellpadding="2" cellspacing="2" >
-                    <tr>
-                      <td colspan="2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td colspan="2">'.$arr[0]['termscontent'].'</td>
-                    </tr>
-		             <tr>
-                      <td colspan="2">&nbsp;</td>
-                     </tr>
-					<tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	              <td></td>
-					 </tr>
-					 
-                   </table>
-                  </td>
-                  </tr>
-                  </table></td></tr></table>';
+		$output ='<div id="myaccount_div">
+		<form class="form-horizontal"  >
+
+            <div class="control-group">
+             '.$arr[0]['termscontent'].'
+             </div>
+		</form></div>';
 	  return $output;
 	}
 	
@@ -91,43 +61,17 @@ class Display_DFooterLinks
 	function termsConditionElse()
 	{
 	
-		$output = '
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="100%" colspan="2" class="serachresult">Terms & Conditions</td>
-            </tr>
-			<tr><td>
-		<table width="" border="0" align="center" cellpadding="2" cellspacing="2">
-              <tr>
-                <td align="left"               
-  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
-   <tr>
-   		<td></td>
-   </tr>
-  </table><table width="78%" border="0" align="center" cellpadding="2" cellspacing="2">
-                    <tr>
-                      <td colspan="2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td colspan="2"><div class="success_msgbox">No Terms & Conditions Included</div></td>
-                    </tr>
-		             <tr>
-                      <td colspan="2">&nbsp;</td>
-                     </tr>
-					<tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	              <td></td>
-					 </tr>
-					 
-                   </table>
-                  </td>
-                  </tr>
-                  </table></td></tr></table>';
+		$output = '<div id="myaccount_div">
+		<form class="form-horizontal"  >
+
+            <div class="control-group">
+              <div class="alert alert-info">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <strong>No Terms & Conditions Included</strong> 
+            </div>
+              </div>
+            </div>
+		</form></div>';
 	  return $output;
 	}
 	
@@ -139,44 +83,13 @@ class Display_DFooterLinks
 	function privacyPolicy($arr)
 	{
 	
-		$output = '
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="100%" colspan="2" class="serachresult">Privacy Policy</td>
-            </tr>
-			<tr><td>
-		<table width="" border="0" align="center" cellpadding="2" cellspacing="2">
-              <tr>
-                <td align="left">
-               
-  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
-   <tr>
-   		<td></td>
-   </tr>
-  </table><table width="78%" border="0" align="center" cellpadding="2" cellspacing="2">
-                    <tr>
-                      <td colspan="2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td colspan="2">'.$arr[0]['privacypolicy'].'</td>
-                    </tr>
-		             <tr>
-                      <td colspan="2">&nbsp;</td>
-                     </tr>
-					<tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	              <td></td>
-					 </tr>
-					 
-                   </table>
-                  </td>
-                  </tr>
-                  </table></td></tr></table>';
+		$output = '<div id="myaccount_div">
+		<form class="form-horizontal"  >
+
+            <div class="control-group">
+             '.$arr[0]['privacypolicy'].'
+             </div>
+		</form></div>';
 	  return $output;
 	}
 
@@ -187,44 +100,17 @@ class Display_DFooterLinks
 	function privacyPolicyElse()
 	{
 	
-		$output = '
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="100%" colspan="2" class="serachresult">Privacy Policy</td>
-            </tr>
-			<tr><td>
-		<table width="" border="0" align="center" cellpadding="2" cellspacing="2">
-              <tr>
-                <td align="left">
-                 <!-- <p class="link_header" style="margin-left:100px;">&nbsp;</p>-->
-  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
-   <tr>
-   		<td></td>
-   </tr>
-  </table><table width="78%" border="0" align="center" cellpadding="2" cellspacing="2" class="cart_info">
-                    <tr>
-                      <td colspan="2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td colspan="2"><div class="success_msgbox">No Privacy Policy Included</div></td>
-                    </tr>
-		             <tr>
-                      <td colspan="2">&nbsp;</td>
-                     </tr>
-					<tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	              <td></td>
-					 </tr>
-					 
-                   </table>
-                  </td>
-                  </tr>
-                  </table></td></tr></table>';
+		$output = '<div id="myaccount_div">
+		<form class="form-horizontal"  >
+
+            <div class="control-group">
+              <div class="alert alert-info">
+              <button data-dismiss="alert" class="close" type="button">×</button>
+              <strong>No Privacy Policy Included</strong> 
+            </div>
+              </div>
+            </div>
+		</form></div>';
 	  return $output;
 	}
 	
@@ -240,52 +126,38 @@ class Display_DFooterLinks
 			$output['val']=$Err->values;
 			$output['msg']=$Err->messages;
 		}
-		$out = '
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="100%" colspan="2" class="serachresult">Contact Us</td>
-            </tr>
-			<tr><td>
-		<form name="contactus" action="?do=contactus&action=validatecontactus" method="post">
-		<table width="" border="0" align="center" cellpadding="2" cellspacing="2">
-              <tr>
-                <td align="left">
-                 
-  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
-   <tr>
-   		<td></td>
-   </tr>
-  </table>
-  <table width="78%" border="0" align="center" cellpadding="2" cellspacing="2" class="cart_info"  style="font-size:12px;">
-                    <tr>
-                      <td>Name <font color="red">*</font></td>
-					  <td nowrap><input type="text" name="txtname" maxlength="40" width="40" value="'.$output['val']['txtname'].'"/>
-					  <font color="red">'.$output['msg']['txtname'].'</font></td>
-					   
-                    </tr>
-                    <tr>
-                      <td>Email <font color="red">*</font></td>
-					  <td nowrap><input type="text" name="email" maxlength="40" width="40" value="'.$output['val']['email'].'"/>
-					  <font color="red">'.$output['msg']['email'].'</font></td>
-					  <td></td>
-                    </tr>
-		             <tr>
-                      <td>Comment</td>
-					  <td><textarea rows="10" cols="35" name="comment"></textarea></td>
-                     </tr>
-					
-					 <tr>
-        	              <td></td>
-						  <td align="right">
-						<button type="submit" class="gobutton"><span>&nbsp;Post&nbsp;</span></button>
-				  	</td>
-					 </tr>
-					 
-                   </table>
-                  </td>
-                  </tr>
-				 
-                  </table></form></td></tr></table>';
+		$out = '<div id="myaccount_div">
+		<form class="form-horizontal"  name="contactus" action="?do=contactus&action=validatecontactus" method="post">
+
+            <div class="control-group">
+              <label for="inputEmail" class="control-label">Name  <i class="red_fnt">*</i></label>
+              <div class="controls">
+		<input type="text" name="txtname" maxlength="40"  value="'.$output['val']['txtname'].'"/>
+		<font color="red">'.$output['msg']['txtname'].'</font>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="inputPassword" class="control-label">Email Address <i class="red_fnt">*</i></label>
+              <div class="controls">
+                <input type="text" name="email" maxlength="40"  value="'.$output['val']['email'].'"/>
+		  <font color="red">'.$output['msg']['email'].'</font>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="inputPassword" class="control-label">Text</label>
+              <div class="controls">
+               <textarea rows="10" cols="35" name="comment" style="width: 211px; height: 93px;"></textarea>
+              </div>
+            </div>
+       
+
+          
+            <div class="control-group">
+              <div class="controls">
+                <button class="btn btn-danger" type="submit">Sign in</button>
+              </div>
+            </div>
+          </form>           </div>';
 	  return $out;
 	}
 	
@@ -297,43 +169,13 @@ class Display_DFooterLinks
 	function aboutUs($arr)
 	{
 	
-		$output ='
-		<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="100%" colspan="2" class="serachresult">About Us</td>
-            </tr>
-			<tr><td>
-		<table width="100%" border="0" align="center" cellpadding="2" cellspacing="2">
-              <tr>
-                <td align="left">                
-				  <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
-				   <tr>
-						<td></td>
-				   </tr>
-				  </table><table width="78%" border="0" align="center" cellpadding="2" cellspacing="2" >
-                    <tr>
-                      <td colspan="2">&nbsp;</td>
-                    </tr>
-                    <tr>
-                      <td colspan="2">'.$arr[0]['set_value'].'</td>
-                    </tr>
-		             <tr>
-                      <td colspan="2">&nbsp;</td>
-                     </tr>
-					<tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	             <td colspan="2">&nbsp;</td>
-					 </tr>
-					  <tr>
-        	              <td></td>
-					 </tr>
-					 
-                   </table>
-                  </td>
-                  </tr>
-                  </table></td></tr></table>';
+		$output ='<div id="myaccount_div">
+		<form class="form-horizontal"  >
+
+            <div class="control-group">
+            '.$arr[0]['set_value'].'
+             </div>
+		</form></div>';
 	  return $output;
 	}
 	

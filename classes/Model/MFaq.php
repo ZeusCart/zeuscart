@@ -57,6 +57,7 @@ class Model_MFaq
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
 		include_once('classes/Core/CCurrencySettings.php');
+		include('classes/Core/CAddCart.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
 		$output['sitelogo']=Core_CHome::getLogo();
@@ -75,7 +76,7 @@ class Model_MFaq
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CFaq::showFaq();
-
+		$output['cartcount']=Core_CAddCart::countCart();
 		Bin_Template::createTemplate('userIndex.html',$output);
 	}
 

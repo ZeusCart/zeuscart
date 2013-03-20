@@ -390,17 +390,17 @@ class Display_DUserRegistration
 	function viewSlideShow($recordSet)
 	{
 
+
 		if(count($recordSet)>0)
 		{
 			for($i=0;$i<count($recordSet);$i++)
 			{
 
-			$output.='
-			<div data-thumb="'.$recordSet[$i]['slide_content_thumb'].'" data-src="'.$recordSet[$i]['slide_content'].'">
+			$output.='<div data-thumb="'.$recordSet[$i]['slide_content_thumb'].'" data-src="'.$recordSet[$i]['slide_content'].'" 
+			data-link="'.$recordSet[$i]['slide_url'].'" data-target="_self">
 				<div class="camera_caption fadeFromBottom">
-				Camera is a responsive/adaptive slideshow. <em>'.$recordSet[$i]['slide_caption'].'</em>
-				</div>
-			</div>';
+				<em>'.$recordSet[$i]['slide_caption'].'</em>
+				</div></div>';
 
 			}
 

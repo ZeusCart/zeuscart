@@ -983,7 +983,8 @@ legend + .control-group {
 	float: left;
 	width: 200px;
 	padding-top: 5px;
-	text-align: right;
+	text-align: left;
+*margin-left: 0;
 }
 .form-horizontal .controls {
  *display: inline-block;
@@ -1824,6 +1825,45 @@ button.close {
 	display: inline-block;
  *display: inline;
 	padding: 4px 10px 4px;
+	margin-bottom: 0;
+ *margin-left: .3em;
+	font-size: 13px;
+	line-height: 18px;
+ *line-height: 20px;
+	color: #333333;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #f5f5f5;
+ *background-color: #e6e6e6;
+	background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	border: 1px solid #cccccc;
+ *border: 0;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-bottom-color: #b3b3b3;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+ filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
+ filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+ *zoom: 1;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn_address {
+	display: inline-block;
+ *display: inline;
+	padding: 4px 6px 4px;
 	margin-bottom: 0;
  *margin-left: .3em;
 	font-size: 13px;
@@ -3050,9 +3090,9 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 .modal {
 	position: fixed;
 	top: 50%;
-	left: 50%;
+	left: 40%;
 	z-index: 1050;
-	width: 560px;
+	width: 800px;
 	margin: -250px 0 0 -280px;
 	overflow: auto;
 	background-color: #ffffff;
@@ -3081,7 +3121,7 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 	top: 50%;
 }
 .modal-header {
-	padding: 9px 15px;
+	padding: 1px 15px;
 	border-bottom: 1px solid #eee;
 }
 .modal-header .close {
@@ -3804,10 +3844,14 @@ a {
 	font-weight:bold;
 	font-size:13px;
 	text-transform:uppercase;
-	width:100px;
+	width:150px;
+	height: 50px;	
 	margin:auto;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	margin-top:10px;
+	border:0;
+	outline:none;
+
 }
 #welcome_div {
 	margin-bottom:15px;
@@ -3875,7 +3919,7 @@ a {
 	top:0;
 	width:20px;
 	height:41px;
-	z-index:9999;
+	z-index:1;
 }
 .left_arrow {
 	background:url(../img/left-arrow1.png) left top no-repeat;
@@ -4363,3 +4407,13 @@ ul#paymentlist li p{padding:0 0 15px 0;}
 .orderinfo_row table, .orderinfo_row1 table{border-collapse:collapse}
 .orderinfo_row table td{border:#ccc 1px solid; padding:5px 10px; border-collapse:collapse}
 .orderinfo_row1 table td{border:#ccc 1px solid; padding:5px 10px; border-collapse:collapse; border-top:0;}
+
+
+/*payment details*/
+
+
+#paymentid{margin:20px 0; border:#eee 1px solid; padding:15px;}
+#paymentid h6{font-size:14px; padding-bottom:10px;}
+ul.payment_det{}
+ul.payment_det li{float:left; margin:0 10px 20px 10px;}
+ul.payment_det li img{width:84px; height:39px; overflow:hidden;}

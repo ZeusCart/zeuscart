@@ -43,7 +43,9 @@ class Display_DFaq
  	*/
  	function listFaq($arr,$paging,$prev,$next,$val)
 	{
-	 $output = '<table border=0 width=100% cellpadding=0 cellspacing=0><tr><td colspan=2 class="serachresult">Frequenty Asking Questions:</td></tr>
+	 $output = '<table border=0 width=100% cellpadding=0 cellspacing=0><tr><td colspan=2 class="serachresult"><h3><div class="title_fnt">
+	<h1>Frequenty Asking Questions</h1>
+	</div></td></tr>
 	 			<tr><td colspan=2>
 					<table width=100%>
 					<tr>

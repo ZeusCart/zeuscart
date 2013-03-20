@@ -31,6 +31,12 @@
  */
 class Core_CFooterLinks
 {
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
 	var $output=array();
 
 	/**
@@ -97,10 +103,20 @@ class Core_CFooterLinks
 		{
 			$to_mail = $obj->records[0]['set_value'];
 			Core_CFooterLinks::sendingMail($from_mail,$to_mail,$mail_content);
-			$output = '<div align="center"><font color="orange" size="+1">Your Comment was submitted</font></div>';
+			$output = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Your Comment was submitted.
+			</div>';
+
+
 		}
 		else
-			$output = '<div align="center"><font color="orange" size="+1">Your Comment was not submitted</font></div>';
+
+
+			$output = '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Your Comment was not submitted
+			</div>';
 		return $output;
 	}
 	/**

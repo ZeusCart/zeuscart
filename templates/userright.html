@@ -18,9 +18,9 @@
 *
 </AJDF:output>
 
-  <AJDF:output>if $smarty.get.do ne myorder</AJDF:output>
+	<AJDF:output>if $smarty.get.do ne 'faq'</AJDF:output>
 <div class="span9">
-  <AJDF:output>elseif $smarty.get.do eq myorder</AJDF:output>
+	<AJDF:output>else</AJDF:output>
 <div class="span12">
 <AJDF:output>/if</AJDF:output>
    	   <AJDF:output>include file="$userRight"</AJDF:output>

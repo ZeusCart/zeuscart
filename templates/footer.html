@@ -42,8 +42,7 @@ Sign up for our Newsletter
                    <ul class="ftrlist">
                     	<li><a href="#">My account</a></li>
                     	<li><a href="#">Secure Shopping</a></li>
-                    	<li><a href="#">Contact us</a></li>
-                    	<li><a href="#">Advanced Search</a></li>
+                         <li><a href="#">Advanced Search</a></li>
                     	<li><a href="#">Addresses</a></li>
                     	<li><a href="#">Secure Shopping</a></li>
                     </ul>
@@ -51,6 +50,7 @@ Sign up for our Newsletter
             	<div class="span3">
                 	<h3>Extras</h3>
                    <ul class="ftrlist">
+			<li><a href="?do=contactus">Contact us</a></li>
                     	<li><a href="#">Brands</a></li>
                     	<li><a href="#">Gift Vouchers</a></li>
                     	<li><a href="#">Affiliates</a></li>
@@ -62,12 +62,10 @@ Sign up for our Newsletter
             	<div class="span3">
                 	<h3>Information</h3>
                    <ul class="ftrlist">
-                    	<li><a href="#">Press Room</a></li>
-                    	<li><a href="#">Help</a></li>
-                    	<li><a href="#">Terms & Conditions</a></li>
-                    	<li><a href="#">Personal information</a></li>
-                    	<li><a href="#">Addresses</a></li>
-                    	<li><a href="#">Manufacturers</a></li>
+                    	<li><a href="?do=aboutus">About Us</a></li>
+                    	<li><a href="?do=privacypolicy">Privacy policy</a></li>
+                    	<li><a href="?do=termsandcondition">Terms & Conditions</a></li>
+                    	<li><a href="?do=faq">FAQ</a></li>
                     </ul>
                 </div>
            	  <div class="span3">
@@ -161,7 +159,7 @@ $.ajax({
 	});
 }
 </script>
-<AJDF:output>if $smarty.get.do eq 'addtocartfromproductdetail' || $smarty.get.do eq 'addtocart'</AJDF:output>
+<AJDF:output>if $smarty.get.do eq 'addtocartfromproductdetail' || $smarty.get.do eq 'addtocart' || $smarty.get.do eq 'showcart'</AJDF:output>
 <script type="text/javascript" language="javascript">
 function call()
 {
@@ -169,6 +167,80 @@ function call()
 }
 
 </script>
+<AJDF:output>/if</AJDF:output>
+<AJDF:output>if $smarty.get.do eq 'orders' || $smarty.get.do eq 'myorder'</AJDF:output>
+<script type="text/javascript">
+function changepagesize(optn,sel)
+{
+	if(optn=='order')
+	window.location.href='?do=myorder&totrec='+sel;
+	if(optn=='review')
+	window.location.href='?do=orders&totrec='+sel;
+	if(optn=='digitorder')
+	window.location.href='?do=digitdown&totrec='+sel;
+	
+}
+
+function changeyear(option,val)
+{
+if(option=='order')
+	window.location.href='?do=myorder&year='+val;
+}
+</script>
+<AJDF:output>/if</AJDF:output>
+
+<AJDF:output>if $smarty.get.do eq 'prodetail'</AJDF:output>
+<script type="text/javascript">
+var globVal=0;
+function fun(s)
+{
+
+globVal=0;
+	for (var i=1;i<=s;i++)
+	{
+	document.frm["img"+i].src="assets/img/star.png";
+	}
+	document.frm.hidRate.value=s;
+}
+
+
+function fun1(s)
+{
+if(globVal==0)
+{
+	for (var i=1;i<=5;i++)
+	{
+	document.frm["img"+i].src="assets/img/star-gray.png";
+	}
+	document.frm.hidRate.value="";
+}
+}
+
+function fun2(s)
+{
+globVal=1;
+	for (var i=1;i<=s;i++)
+	{
+	document.frm["img"+i].src="assets/img/star.png";
+	}
+
+}
+
+var presh = -1
+function shuffle()
+{
+		curr = Math.ceil(Math.random()*100);
+	document.getElementById('captcha').src="?do=captcha&"+ (curr==presh ? Math.ceil(Math.random()*100) : curr);				
+		presh = curr;
+
+}
+</script>
+<AJDF:output>if $smarty.session.reviewResult ne ''</AJDF:output>
+<script type="text/javascript">
+document.getElementById('details_id').style.display="block";
+</script>
+<AJDF:output>/if</AJDF:output>
+
 <AJDF:output>/if</AJDF:output>
 </body>
 </html>
