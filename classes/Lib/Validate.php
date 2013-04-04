@@ -18,10 +18,33 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+// {{{ Constants
+
+/**
+
+ * Methods for common data validations
+
+ */
+
+	define('VALIDATE_NUM',          '0-9');
+	define('VALIDATE_SPACE',        '\s');
+	define('VALIDATE_ALPHA_LOWER',  'a-z');
+	define('VALIDATE_ALPHA_UPPER',  'A-Z');
+	define('VALIDATE_ALPHA',        VALIDATE_ALPHA_LOWER . VALIDATE_ALPHA_UPPER);
+	define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . '����������������������');
+	define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . '����������������������');
+	define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
+	define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
+	define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'");
+	define('VALIDATE_STREET',       VALIDATE_NAME . "/\\��");
+
+
+// }}}
+
 /**
  * validation  related  class
  *
- * @package         Validate
+ * @package         Lib
  * @category        Library
  * @author          AJ Square Inc Dev Team
  * @link            http://www.zeuscart.com
@@ -29,24 +52,12 @@
  * @version         Version 4.0
  */
 
-/**
-* Get validation  variable  and assign it
-*/
 
-define('VALIDATE_NUM',          '0-9');
-define('VALIDATE_SPACE',        '\s');
-define('VALIDATE_ALPHA_LOWER',  'a-z');
-define('VALIDATE_ALPHA_UPPER',  'A-Z');
-define('VALIDATE_ALPHA',        VALIDATE_ALPHA_LOWER . VALIDATE_ALPHA_UPPER);
-define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . '����������������������');
-define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . '����������������������');
-define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
-define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
-define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'");
-define('VALIDATE_STREET',       VALIDATE_NAME . "/\\��");
 
 class Validate
 {
+
+	
     /**
      * Function is used to validate a number
      *
@@ -89,7 +100,7 @@ class Validate
      * Function is used tovalidate a email
      *
      * @param string    $email          URL to validate
-     * @param boolean   $domain_check   Check or not if the domain exists
+     * @param boolean   $check_domain   Check or not if the domain exists
      * @return bool
      */
     function email($email, $check_domain = false)
@@ -178,9 +189,9 @@ class Validate
      *      http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
      *      http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
      *
-     * @param  string  $number number (only numeric chars will be considered)
+     * @param  string  $creditCard 
      * @return bool    true if number is valid, otherwise false
-     * @author Ondrej Jombik <nepto@pobox.sk>
+     *
      */
     function creditCard($creditCard)
     {
@@ -378,7 +389,7 @@ class Validate
     }
     /**
      * Function is used in sub string related process 
-     * @param array   $data  
+     * @param array   $date  
      * @param integer  $num
      * @param  bool $opt 
      * @return  array

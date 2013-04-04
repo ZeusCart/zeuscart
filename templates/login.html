@@ -18,14 +18,14 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output> 
-       
+
   <!-- body start here-->
   	<div class="container">
     	<ul class="breadcrumb">
               <li><a href="?do=index">Home</a> <span class="divider">/</span></li>
               <li class="active"> Member Login </li>
             </ul>
-            
+
         <div class="row-fluid">
 <div class="title_fnt">
     	<h1>Member Login</h1>
@@ -43,21 +43,24 @@
                                 	<li><input type="password" name="txtpass" class="input-large"><br /><font color="#FF0000">
 					<AJDF:output>$msg.txtpass</AJDF:output>                          
 					</font></li>
-                                	<li><input type="checkbox"> Remember me?</li>
+                                	<li><input type="checkbox" name="remlogin" value="on" > Remember me?</li>
                                 	<li><input type="submit" value="Login" class="btn btn-danger"> </li>
-                                    <li><a href="?do=forgetpwd"> Forgot password? </a> <span>OR</span> <a href="#">Need help?</a> </li>
+                                    <li><a href="?do=forgetpwd"> Forgot password? </a> <span>OR</span> <a href="?do=faq" target="_blank">Need help?</a> </li>
                                 </ul>
                         </div>
 			</form>
                         </div>
                     	<div class="span6">
-                         <div class="followus_div"><a class="facebook_btn" href="#"></a><a class="twitter_btn" href="#"></a><a class="google_btn" href="#"></a></div>
-                    <p class="userlogin_fnt"><span>or log in using your username and Password</span></p>
+                         <div class="followus_div">
+			<a href="#" id="openfb" class="facebook_btn"></a>
+                        <a href="#" id="opentw" class="twitter_btn"></a>
+                        <a href="#" id="opengp" class="google_btn"></a></div>
+                   	 <p class="userlogin_fnt"><span>or log in using your username and Password</span></p>
                         	<div id="signin_acc">
                         	<ul class="signin-account">
                             	<li> <h5>SIGN UP FOR AN ACCOUNT</h5></li>
                                 <li> <p>Registration is fast and FREE! </p></li>
-                                <a> <a href="?do=userregistration"><input type="button" value="Register Here" class="btn btn-inverse"></a></li>
+                                <li><a href="?do=userregistration"><input type="button" value="Register Here" class="btn btn-inverse"></a></li>
                             </ul>
                             <b>Account Protection Tips </b>
                             <ul class="acctips">
@@ -67,7 +70,7 @@
                             </ul>
                             </div>
                     </div>
-                        
+
                     </div>
                 </div>
     </div>
@@ -75,3 +78,4 @@
     <!-- /container -->
     
   <AJDF:output>include file="footer.html"</AJDF:output>
+

@@ -215,7 +215,64 @@ class Display_DUserAccount
 		</div>
 		</div>
 		
-		<h3 class="accinfo_fnt">Change Password</h3>
+		
+		<div class="control-group">
+		<div class="controls">
+		<button class="btn btn-danger" type="submit">Submit</button>&nbsp;<a href="javascript:void(0);" onclick="history.go(-1);"><button class="btn" type="button">Cancel</button></a>
+		</div>
+		</div>
+		</form>           </div>';
+
+
+		return $out;
+	}
+	/**
+	* This function is used to Display the change password
+	* 
+	* @return string
+ 	*/
+	function showChangePassword()
+	{
+		
+		include("classes/Lib/HandleErrors.php");		
+		
+	
+		include_once('classes/Core/CUserAccInfo.php');
+		if(isset($_SESSION['errmsg']))
+		{	
+			$result=$_SESSION['errmsg'];
+			unset($_SESSION['errmsg']);	
+		}
+	
+		Core_CUserAccInfo::Ulogin($Err);
+		
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
+
+
+		if(count($output['val'])==0)	
+		{
+		
+			$hidcpwd=base64_decode($arr[0]['user_pwd']);
+			$hidsubid=$arr[0]['subsciption_id'];;
+		}
+		else
+		{
+		
+			$cpwd=$output['val']['txtCPwd'];
+			$npwd=$output['val']['txtNPwd'];
+			$cnpwd=$output['val']['txtCNPwd'];
+			$hidcpwd=$output['val']['hidCPwd'];
+			$hidsubid=$output['val']['hidsubid'];;
+		}	
+		$output='<div class="title_fnt">
+		<h1>Change Password</h1>
+		</div>
+		
+			
+		<div id="myaccount_div">
+		<form class="form-horizontal" name="frmAcc" method="post" action="?do=changepassword&action=update">
+		
 		<div class="control-group">
 		<label for="inputPassword" class="control-label">Current Password  <i class="red_fnt">*</i></label>
 		<div class="controls">
@@ -241,10 +298,9 @@ class Display_DUserAccount
 		</div>
 		</form>           </div>';
 
+		return $output;
 
-		return $out;
 	}
-	
  	/**
 	* This function is used to Display the User Product's Review
 	* @param mixed $arr
@@ -261,7 +317,7 @@ class Display_DUserAccount
 		if(count($arr>0))
 		{
 		//changepagesize
-			$showpages='	<ul class="listviews"><li><span class="label label-success">'.count($arr).' </span> item(s) </li> <li style="float:right">Show 
+			$showpages='<li><span class="label label-success">'.count($arr).' </span> item(s) </li> <li style="float:right">Show 
 					<select name="select2" style="width:50px;" onchange="changepagesize(\'review\',this.value);">';
 					$showpages.='<option ';
 						if(isset($_GET['totrec'])&&$_GET['totrec']==10)
@@ -390,16 +446,23 @@ class Display_DUserAccount
 					<td><a class="btn btn-mini" href="?do=addtocart&prodid='.$arr[$i]['product_id'].'">Add to Cart </a></td>
 					</tr>';
 				}
-
+				
 			}
-				
-				
-				
+			else
+			{
+				$output.='<tr><td colspan="6"><div class="alert alert-info">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				<strong>No Products Wishlist Found</strong> 
+				</div></td></tr>';
+
+			}	
 				
 			$output.='</tbody>
-		</table>
-		</div>';
-		 
+					</table>
+					</div>';	
+				
+		
+		 	
 		
 		$_SESSION['wishList']=$output;			
 		return $output;
@@ -453,7 +516,7 @@ class Display_DUserAccount
 		if(count($arr>0))
 		{
 		//changepagesize
-			$showpages='	<ul class="listviews"><li><span class="label label-success">'.count($arr).' </span> item(s) </li> <li style="float:right">Show 
+			$showpages='<li><span class="label label-success">'.count($arr).' </span> item(s) </li> <li style="float:right">Show 
 					<select name="select2" style="width:50px;" onchange="changepagesize(\'review\',this.value);">';
 					$showpages.='<option ';
 						if(isset($_GET['totrec'])&&$_GET['totrec']==10)
@@ -652,7 +715,7 @@ class Display_DUserAccount
 			$ship_cost=0;
 			for($i=0;$i<count($arr);$i++)
 			{
-				$total=($arr[$i]['product_unit_price']*$arr[$i]['product_qty'])+$arr[$i]['shipping_cost'];
+				$total=$arr[$i]['product_unit_price']*$arr[$i]['product_qty'] ;
 				$output.='<tr>
 					<td>'.$arr[$i]['title'].'</td>
 					<td><span class="label label-info">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price']).'</span></td>

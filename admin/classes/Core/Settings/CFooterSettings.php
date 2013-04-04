@@ -34,6 +34,36 @@ class Core_Settings_CFooterSettings
 {
  	
 	/**
+	 * Function get the footer connect with us  from data base
+	 * 
+	 * 
+	 * @return string
+	 */		
+	function getFooterConnect()
+	{
+		$obj=new Bin_Query();
+		$sql="SELECT * FROM footer_settings_table WHERE id='1'";
+		$obj->executeQuery($sql);
+		$records=$obj->records[0];
+
+		return $records	;
+	
+	}
+	/**
+	 * Function update a  footer connect with us  in data base
+	 * 
+	 * 
+	 * @return string
+	 */	
+	function updateConnectWithUs()
+	{
+		$obj=new Bin_Query();
+		$sql="UPDATE  footer_settings_table SET callus='".$_POST['callus']."' ,email='".$_POST['email']."',fax='".$_POST['fax']."',location='".$_POST['location']."',footercontent='".$_POST['footercontent']."' WHERE id='1'";
+		if($obj->updateQuery($sql))
+		return  '<div class="success_msgbox" style="width:650px;">Updated Successfully</div>';
+
+	}
+	/**
 	 * Function adds a new footer link into the database
 	 * 
 	 * 

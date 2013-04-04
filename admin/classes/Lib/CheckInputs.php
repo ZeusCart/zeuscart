@@ -73,8 +73,69 @@ class Lib_CheckInputs
 			$this->validateEditCurrency();
 		else if($module=='updateslideshow')
 			$this->validateSlideShow();
+		else if($module=='addsociallink')
+			$this->validateAddSocialLink();
+		else if($module=='updatesociallink')
+			$this->validateUpdateSocialLink();
 	}
-	
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateUpdateSocialLink()
+	{
+		
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['social_link_title']!='' or $_POST['social_link_title']=='' or $_POST['social_link_url']=='' or $_POST['social_link_url']!='' )
+			{
+			
+				$obj = new Lib_FormValidation('updatesociallink');
+			}
+			else 
+			{
+				header("Location:?do=sociallink");
+				exit();
+			}
+
+
+		}
+		
+
+	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateAddSocialLink()
+	{
+		
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['social_link_title']!='' or $_POST['social_link_title']=='' or $_POST['social_link_url']=='' or $_POST['social_link_url']!='' )
+			{
+			
+				$obj = new Lib_FormValidation('addsociallink');
+			}
+			else 
+			{
+				header("Location:?do=sociallink");
+				exit();
+			}
+
+
+		}
+		
+
+	}
 	
 	/**
 	 * Function checks whether the request method is post and invokes the validation module  

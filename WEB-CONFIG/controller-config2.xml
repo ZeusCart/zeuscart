@@ -77,11 +77,20 @@
 		<do name="gadsense" model="MGoogleAdSense" function="googleAdSenseCode" />
 		<do name="gadsense" model="MGoogleAdSense" action="update" function="updateGoogleAdSenseCode" />
 			
-        <do name="createpage" model="MCreatePage" function="displayCreatePageSettings" />  
+       		 <do name="createpage" model="MCreatePage" function="displayCreatePageSettings" />  
 		<do name="createpage" model="MCreatePage" action="createnewpage" function="createNewPage" />  
 		<do name="createpage" model="MCreatePage" action="deletepage" function="deleteCustomPage" />  
 		<do name="createpage" model="MCreatePage" action="add" function="addPageSettings" />  
 		<do name="createpage" model="MCreatePage" action="update" function="updateStatus" /> 
+		---------------------------Social Link ----------------------------------------------
+		
+		<do name="sociallink" model="MSocialLinks" function="displaySocialLinks" />  
+		<do name="sociallink" model="MSocialLinks" action="create" function="createNewSocialLink" />  
+		<do name="sociallink" model="MSocialLinks" action="delete" function="deleteSocialLink" />  
+		<do name="sociallink" model="MSocialLinks" action="add" function="addSocialLink" /> 
+		<do name="sociallink" model="MSocialLinks" action="edit" function="showEditSocialLink" /> 
+		<do name="sociallink" model="MSocialLinks" action="update" function="updateSocialLink" /> 	
+		
 		
 		<do name="terms" model="MTermsCondition" function="selectTerms" /> 
 		<do name="terms" model="MTermsCondition" action="updateterms" function="updateTerms" /> 
@@ -132,7 +141,7 @@
         
 		<do name="skin" model="MSkin" function="showSkin" />
  		<do name="skin" model="MSkin" action="add" function="addSkin"/>
-        <do name="skin" model="MSkin" action="update" function="updateSkin"/>
+        	<do name="skin" model="MSkin" action="update" function="updateSkin"/>
 		
 		<do name="selectskin" model="MSelectSkin" function="showSkin" />
 		<do name="selectskin" model="MSelectSkin" action="update" function="updateSkin" />
@@ -144,10 +153,11 @@
 		<do name="footersettings" model="MFooterSettings" action="edit" function="editFooterLinks" />
 		<do name="footersettings" model="MFooterSettings" action="update" function="updateFooterLinks" />
 		<do name="footersettings" model="MFooterSettings" action="delete" function="deleteFooterLinks" />
+		-----------------------------------------------new----------------------------------------
+		<do name="updatefootersettings" model="MFooterSettings" function="updateConnectWithUs" action="connect"  />
 		
+		<do name="footersettings" model="MFooterSettings" function="viewConnectWithUs" action="connect"  />
 		<do name="headersettings" model="MHeaderSettings" function="showHeaderLink" /> 
-		
-			
 		<do name="contents" model="MContentManagement" action="add" function="addContent" />
 		<do name="contents" model="MContentManagement" function="showContent" />
 		

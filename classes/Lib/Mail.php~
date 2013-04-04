@@ -185,7 +185,7 @@ class Lib_Mail
 	function To( $to )
 	{
 
-		// TODO : test validit� sur to
+		
 		if( is_array( $to ) )
 			$this->sendto= $to;
 		else 
@@ -294,7 +294,7 @@ class Lib_Mail
 	*/	
 	function Attach( $filename, $filetype = "", $disposition = "inline" )
 	{
-		// TODO : si filetype="", alors chercher dans un tablo de MT connus / extension du fichier
+		
 		if( $filetype == "" )
 			$filetype = "application/x-unknown-content-type";
 			
@@ -362,7 +362,7 @@ class Lib_Mail
 		
 		// envoie du mail
 		$res = @mail( $this->strTo, $this->xheaders['Subject'], $this->fullBody, $this->headers);
-		echo $res;exit;
+		
 	}
 	/**
 	* Function can be used for displaying the message in plain text or logging it
@@ -384,15 +384,43 @@ class Lib_Mail
 	* @return  bool
 	*/	
 	
-	function ValidEmail($address)
+	function ValidEmail($email)
 	{
-		if( ereg( ".*<(.+)>", $address, $regs ) ) {
-			$address = $regs[1];
+ECHO $email;EXIT;
+		if(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", $email))
+		{
+			return FALSE;
 		}
-		if(ereg( "^[^@  ]+@([a-zA-Z0-9\-]+\.)+([a-zA-Z0-9\-]{2}|net|com|gov|mil|org|edu|int)\$",$address) ) 
-			return true;
+	   
+		$at_position = strrpos($email,'@')+1;
+		$after_at = substr($email,$at_position);
+		$tot_extenstions = substr_count($after_at,'.');
+		
+		if($tot_extenstions>2)
+		{
+		return FALSE;
+		}
+		else if($tot_extenstions==2)
+		{
+			$tot_len = strlen($after_at);
+			$dot1_position = strpos($after_at,'.'); 
+			$dot2_position = strrpos($after_at,'.');
+			
+			if(($dot2_position - $dot1_position)>5)
+			return FALSE;
+			
+			if(($tot_len - $dot2_position)>3)
+			return FALSE;
+		}
 		else
-			return false;
+		{
+			$tot_len = strlen($after_at);
+			$dot1_position = strpos($after_at,'.'); 
+			if(($tot_len - $dot1_position)>5)
+			return FALSE;
+		}
+		
+		return TRUE;
 	}
 	
 	/**

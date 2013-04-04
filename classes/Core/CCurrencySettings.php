@@ -30,7 +30,14 @@
  */
 class Core_CCurrencySettings
 {
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
 	var $output = array();
+
 	/**
 	 * This function is used to get the default curreny    from db
 	 * 

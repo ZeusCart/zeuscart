@@ -76,7 +76,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateEditCurrency();
 		else if($form=='updateslideshow')
 			$this->validateSlideShow();
+		else if($form=='addsociallink')
+			$this->validateAddSocialLink();
+		else if($form=='updatesociallink')
+			$this->validateUpdateSocialLink();
 	}
+	
 	/**
 	 * Function checks the url 
 	 * 
@@ -90,7 +95,76 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
 	}
 
+	/**
+	 * Function checks the social link for update 
+	 * 
+	 *
+	 * @return string 
+	 */	
+	function validateUpdateSocialLink()
+	{
+
+		$message = "Required Field Cannot be blank";
+		$this->Assign("social_link_title",trim($_POST['social_link_title']),"noempty",$message);
+		$this->Assign("social_link_url",trim($_POST['social_link_url']),"noempty",$message);
+
+		if($_POST['social_link_logo1']=='' && ($_FILES['social_link_logo']['name']==''))
+		{
+			if($_FILES['social_link_logo']['name']=='')
+			{
+				$message = "Required Field Cannot be blank";
+				$this->Assign("social_link_logo",trim($_FILES['social_link_logo']['name']),"noempty",$message);
+			}
+			
+		}
+		if($_POST['social_link_logo1']!='' && ($_FILES['social_link_logo']['name']!=''))
+		{	
+					
+			if($_FILES['social_link_logo']['name']!='')
+			{
+				if(!$this->validateimages($_FILES['social_link_logo']['type']))
+				{
+					$message = "Upload images only in the format JPEG,JPG,PNG";
+					$this->Assign("social_link_logo",'',"noempty",$message);
+				}
+			}			
+		}
 	
+		$this->PerformValidation('?do=sociallink&action=edit&id='.$_POST['social_link_id']);
+
+	}
+
+	/**
+	 * Function checks the social link for insertion 
+	 * 
+	 *
+	 * @return string 
+	 */	
+	function validateAddSocialLink()
+	{
+		$message = "Required Field Cannot be blank";
+		$this->Assign("social_link_title",trim($_POST['social_link_title']),"noempty",$message);
+		$this->Assign("social_link_url",trim($_POST['social_link_url']),"noempty",$message);
+
+		if($_FILES['social_link_logo']['name']=='')
+		{
+			$message = "Required Field Cannot be blank";
+  	 		$this->Assign("social_link_logo",trim($_FILES['social_link_logo']['name']),"noempty",$message);
+		}
+		if(!empty($_FILES['social_link_logo']))
+		{			
+			if($_FILES['social_link_logo']['name']!='')
+			{
+				if(!$this->validateimages($_FILES['social_link_logo']['type']))
+				{
+					$message = "Upload images only in the format JPEG,JPG,PNG";
+					$this->Assign("social_link_logo",'',"noempty",$message);
+				}
+			}
+					
+		}
+		$this->PerformValidation('?do=sociallink&action=create');
+	}
 	/**
 	 * Function checks the slide show  and assign an error
 	 * 

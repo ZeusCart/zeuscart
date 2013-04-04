@@ -144,7 +144,7 @@ class Display_DFooterLinks
               </div>
             </div>
             <div class="control-group">
-              <label for="inputPassword" class="control-label">Text</label>
+              <label for="inputPassword" class="control-label">Enquiry</label>
               <div class="controls">
                <textarea rows="10" cols="35" name="comment" style="width: 211px; height: 93px;"></textarea>
               </div>

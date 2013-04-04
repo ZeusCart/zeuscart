@@ -68,10 +68,12 @@ class Model_MFaq
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
 		$output['userRight'] = "userdashboard.html";					

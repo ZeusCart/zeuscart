@@ -69,6 +69,8 @@ class Model_MQuickInfo
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 

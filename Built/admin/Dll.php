@@ -313,6 +313,42 @@
     'function' => 'updateStatus',
     'loadlib' => '1',
   ),
+  'sociallink' => 
+  array (
+    'model' => 'MSocialLinks',
+    'function' => 'displaySocialLinks',
+    'loadlib' => '1',
+  ),
+  'sociallink:create' => 
+  array (
+    'model' => 'MSocialLinks',
+    'function' => 'createNewSocialLink',
+    'loadlib' => '1',
+  ),
+  'sociallink:delete' => 
+  array (
+    'model' => 'MSocialLinks',
+    'function' => 'deleteSocialLink',
+    'loadlib' => '1',
+  ),
+  'sociallink:add' => 
+  array (
+    'model' => 'MSocialLinks',
+    'function' => 'addSocialLink',
+    'loadlib' => '1',
+  ),
+  'sociallink:edit' => 
+  array (
+    'model' => 'MSocialLinks',
+    'function' => 'showEditSocialLink',
+    'loadlib' => '1',
+  ),
+  'sociallink:update' => 
+  array (
+    'model' => 'MSocialLinks',
+    'function' => 'updateSocialLink',
+    'loadlib' => '1',
+  ),
   'terms' => 
   array (
     'model' => 'MTermsCondition',
@@ -581,6 +617,18 @@
   array (
     'model' => 'MFooterSettings',
     'function' => 'deleteFooterLinks',
+    'loadlib' => '1',
+  ),
+  'updatefootersettings:connect' => 
+  array (
+    'model' => 'MFooterSettings',
+    'function' => 'updateConnectWithUs',
+    'loadlib' => '1',
+  ),
+  'footersettings:connect' => 
+  array (
+    'model' => 'MFooterSettings',
+    'function' => 'viewConnectWithUs',
     'loadlib' => '1',
   ),
   'headersettings' => 

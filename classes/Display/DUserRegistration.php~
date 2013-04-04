@@ -99,6 +99,53 @@ class Display_DUserRegistration
 		
 		return $output;
 	}
+	/**
+	* This function is used to Display the Header Menu Hidden Desktop for mobile,,tablet
+	* @param mixed $arr
+	* @return string
+ 	*/
+	function showHeaderMenuHidden($arr)
+	{
+
+		$cnt= count($arr);
+		if($cnt>0)
+		{
+			for($i=0;$i<$cnt;$i++)
+			{
+				$output.='<li><a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'" class="arrow">'.$arr[$i]['category_name'].'</a></li>';
+
+					$sqlsub="SELECT * FROM  category_table WHERE  category_parent_id='".$arr[$i]['category_id']."' AND sub_category_parent_id ='0'";
+					$objsub=new Bin_Query();
+					$objsub->executeQuery($sqlsub);
+					$recordssub=$objsub->records;
+					for($j=0;$j<count($recordssub);$j++)
+					{
+						$output.='<li>
+						<a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'"><h4>'.$recordssub[$j]['category_name'].'</h4></a>
+						</li>';
+							
+							$query = new Bin_Query(); 
+							$sql = "SELECT * FROM `category_table` WHERE sub_category_parent_id =".$recordssub[$j]['category_id']." AND category_status =1 order by category_name limit 16";
+							$query->executeQuery($sql);
+							$count=count($query->records);
+							$records=$query->records;
+							if($count>0)
+							{
+								for($k=0;$k<$count;$k++)
+								{
+									$output.='<li><a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'&subundercat='.$records[$k]['category_name'].'">'.$records[$k]['category_name'].'</a></li>';
+	
+								}
+							}
+						
+					}
+	
+					
+			}
+	
+		}
+		return $output;	
+	}
 
  	/**
 	* This function is used to Display the Sub Header menu
@@ -279,8 +326,10 @@ class Display_DUserRegistration
 			else
 			{
 				$output.='<li><a href="?do=accountinfo" class="unselect"><i class="icon-chevron-right"></i> Account Information</a></li>';
-			}	
-                    	if($_GET['do']=='addressbook')
+			}
+			
+			
+                    	if($_GET['do']=='addressbook' || $_GET['do']=='addaddress')
 			{
 				$output.='<li><a href="?do=addressbook" class="select"><i class="icon-chevron-right"></i> Address Book</a></li>';
 
@@ -363,7 +412,7 @@ class Display_DUserRegistration
  	*/
 	function dispCountry($arrCountry)
 	{
-		$output1='<select name="selCountry" id="select3" class="listbox1 w4a TxtC1">';
+		$output1='<select name="selCountry" id="select3" class="listbox1 w4a TxtC1" style="width:280px;">';
 		if(count($arrCountry)>0)
 		{		
 		 for($i=0;$i<count($arrCountry);$i++)
@@ -390,17 +439,17 @@ class Display_DUserRegistration
 	function viewSlideShow($recordSet)
 	{
 
+
 		if(count($recordSet)>0)
 		{
 			for($i=0;$i<count($recordSet);$i++)
 			{
 
-			$output.='
-			<div data-thumb="'.$recordSet[$i]['slide_content_thumb'].'" data-src="'.$recordSet[$i]['slide_content'].'">
+			$output.='<div data-thumb="'.$recordSet[$i]['slide_content_thumb'].'" data-src="'.$recordSet[$i]['slide_content'].'" 
+			data-link="'.$recordSet[$i]['slide_url'].'" data-target="_self">
 				<div class="camera_caption fadeFromBottom">
-				Camera is a responsive/adaptive slideshow. <em>'.$recordSet[$i]['slide_caption'].'</em>
-				</div>
-			</div>';
+				<em>'.$recordSet[$i]['slide_caption'].'</em>
+				</div></div>';
 
 			}
 

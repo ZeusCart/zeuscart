@@ -32,6 +32,12 @@
  */
 class Display_DPolls
 {
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
 	var $output = array();
 	
  	/**

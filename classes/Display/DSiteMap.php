@@ -39,60 +39,75 @@ class Display_DSiteMap
  	*/
  	function showMap($arr)
 	{
-		$output.='
-		<div><div class="serachresult">SiteMap</div>
-		
-		<div style="float:left; padding:20px 10px 0 20px;">
-			<div class="sitemap">
-				<ul> Categories';
-				for($i=0;$i<count($arr);$i++)
+		$output.='<div class="row-fluid">
+		<div class="title_fnt">
+			<h1>Site Map</h1>
+			</div>
+		<div class="span12">
+			<div class="container">
+        	<div class="row-fluid">
+
+		<div class="span3">
+                	<h3>Categories</h3>
+                   <ul class="sitemap">';
+                    	for($i=0;$i<count($arr);$i++)
 				{
 					$output.='<li><a href="?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></li>';
 				}
-				$output.='</ul>
-			</div>
-			<div class="sitemap">
-				<ul> Search<li><a href="?do=search&search=">List All Product</a></li></ul>
-			</div>
-			<div class="sitemap">
-				<ul> My Account
-				<li><a href="?do=login">Login</a></li>
-				<li><a href="?do=forgetpwd">Forgot Password</a></li>								
-				<li><a href="?do=dashboard">Account Dashboard</a></li>
-				<li><a href="?do=accountinfo">Account Information</a></li>
-				<li><a href="?do=myorder">My Orders</a></li>
-				<li><a href="?do=orders">My Product Reviews</a></li>
-				<li><a href="?do=newsletter">News Letter Subscription</a></li>
-				<li><a href="?do=wishlist">My Wishlist</a></li>
-				</ul>
-			</div>
-			<div class="sitemap">
-				<ul> Registration
-				<li><a href="?do=userregistration">User Registration</a></li>
-				</ul>
-			</div>
-		</div>
-		<div style="float:left; padding:20px 10px 0 20px;">
-			<div class="sitemap">
-				<ul> Connect
-				<li><a href="?do=aboutus">About Us</a></li>
-				<li><a href="http://www.zeuscart.com">About Zeuscart</a></li>				
-				</ul>
-			</div>
-			<div class="sitemap">
-				<ul> Customer Services
-				<li><a href="?do=contactus">Contact us</a></li>
-				<li><a href="?do=faq">Fequently Asking Questions</a></li>								
-				</ul>
-			</div>
-			<div class="sitemap">
-			</div>
-			<div class="sitemap">
-			</div>
-		</div>
-		<div style="height:30px; float:left; padding:0px 20px; color:#FFFFFF"></div>
+                   $output.=' </ul>
+                </div>
+		
+		<div class="span3">
+                	<h3>Search</h3>
+                   <ul class="sitemap">
+                    	<li><a href="?do=search&search=">List All Product </a></li>
+			
+                    </ul>
+                </div>
+            	<div class="span3">
+                	<h3>My account</h3>
+                   <ul class="sitemap">
+                    	<li><a href="?do=login">Login</a></li>
+			<li><a href="?do=forgetpwd">Forgot Password</a></li>								
+			<li><a href="?do=dashboard">Account Dashboard</a></li>
+			<li><a href="?do=accountinfo">Account Information</a></li>
+			<li><a href="?do=myorder">My Orders</a></li>
+			<li><a href="?do=orders">My Product Reviews</a></li>
+			<li><a href="?do=newsletter">News Letter Subscription</a></li>
+			<li><a href="?do=wishlist">My Wishlist</a></li>
+                    </ul>
+                </div>
+
+		<div class="span3">
+                	<h3>Registration</h3>
+                   <ul class="sitemap">
+                    	<li><a href="?do=userregistration">User Registration</a></li>
 	
-		</div>';
+                    </ul>
+                </div>
+	  
+            </div>
+		</div>
+			<div class="row-fluid">
+
+		<div class="span3">
+                	<h3> Connect</h3>
+                   <ul class="sitemap">
+			<li><a href="?do=aboutus">About Us</a></li>
+				<li><a href="http://www.zeuscart.com">About Zeuscart</a></li>		
+                    </ul>
+                </div>
+			<div class="span3">
+				<h3>  Customer Services</h3>
+			<ul class="sitemap">
+				<li><a href="?do=contactus">Contact us</a></li>
+					<li><a href="?do=faq">Fequently Asking Questions</a></li>	
+			</ul>
+			</div>
+		</div>
+		</div>
+        
+                </div>';
 		return $output;
 		
 	}

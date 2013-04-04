@@ -74,7 +74,7 @@ class Display_DFeaturedItems
 	{
 		$output='<div class="quickview_border" style="margin-top:14px;">
 		<div class="heading1"><span class="headingTXT">Sub Categories</span></div>
-	<div style="padding:15px 0 5px 0">
+		<div style="padding:15px 0 5px 0">
    			<table width="100%" border="0" cellpadding="2" cellspacing="2">';
 		$loop=0;
 		$cnt= count($arr);
@@ -186,7 +186,7 @@ class Display_DFeaturedItems
  	*/
 	function showFeaturedItems($arr,$flag,$r)
 	{
-		
+	
 		$output='<span class="visible-desktop"><div class="title_fnt">
 				<h1>Feature Products </h1><a href="javascript:void(0)" class="left_arrow"></a> <a href="javascript:void(0)"  class="right_arrow"></a>
 				</div><div class="row-fluid">
@@ -206,7 +206,7 @@ class Display_DFeaturedItems
 					$output.='</ul></div><div style="width:1000px; height:250px;"><ul style="margin-left:12px" id="list" class="portfolio_list da-thumbs">';
 				}
 
-				$output.='<li>';
+				$output.='<li style="width:230px;">';
 				if($arr[$i]['product_status']==1)
 				{
 					$imagetag='<img src="assets/img/ribbion/new.png" alt="new">';
@@ -220,7 +220,7 @@ class Display_DFeaturedItems
 					$imagetag='';
 				}
 
-					//category name
+				//category name
 				$sql="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['category_id']."'";
 				$obj=new Bin_Query();
 				$obj->executeQuery($sql);
@@ -238,27 +238,34 @@ class Display_DFeaturedItems
 				$objsubun->executeQuery($sqlsubun);
 				$subuncat=$objsubun->records[0]['category_name'];
 
-				$output.='<span class="ribbion_div">'.$imagetag.'</span>
-				<form name="product" method="post" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'"><div class="product_box"><img src="'.$arr[$i]['image'].'" alt="'.$arr[$i]['title'].'"></div>
+				$output.='<form name="product" method="post" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><span class="ribbion_div">'.$imagetag.'</span>
+				<div class="product_box">
+				<img src="assets/js/timthumb.php?src='.$arr[$i]['image'].'&h=400&w=400&zc=1&s=1&f=4,9&q=1000" alt="'.$arr[$i]['title'].'"></div>
 				<article class="da-animate da-slideFromRight" style="display: block;">
-					<h3>'.$arr[$i]['title'].'</h3>
-					<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <span class="link_post"><a href="?do=viewproducts&cat='.$cat.'&subcat='.$subcat.'&subundercat='.$subuncat.'"></a></span> <span class="zoom"><a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="popup"></a></span>
-					<input type="hidden" name="addtocart">
-					<button class="add_to_cart" type="submit" >Add to Cart</button>
-					</article>
-				</li>';
+				<h3>'.$arr[$i]['title'].'</h3>
+				<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <a href="?do=viewproducts&cat='.$cat.'&subcat='.$subcat.'&subundercat='.$subuncat.'"><span class="link_post"></span></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="popup"><span class="zoom"></span></a>
+				<input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'">';
+				$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);
+				$recordssoh=$obj->records;
+				if($recordssoh[0]['soh']>0)
+				{
+				$output.='<button class="add_to_cart" type="submit" >Add to Cart</button>';
+				}
+				$output.='</article>
+				</form></li>';
 				
 				
 			}
-		$output.='</ul></div></form>';
+		$output.='</ul></div>';
 		}
 		
 		$output.='  </div>
 			</div>
 			
 			</div>
-				</div></span>
-			';
+				</div></span>';
 		return $output;
 	}
 	/**
@@ -272,29 +279,60 @@ class Display_DFeaturedItems
 	function featuredProductsHidden($arr,$flag,$r)
 	{
 
+		$output='<span class="hidden-desktop"><div class="title_fnt">
+		<h1>Feature Products </h1>
+		</div><div class="row-fluid">
+		<div class="freshdesignweb">     
+		<!-- Portfolio 4 Column start -->
+		<div class="image_grid portfolio_4col">
+		<ul style="margin-left:12px" id="list" class="portfolio_list da-thumbs">';
+
 		if((count($arr)>0))
 		{
 			for($i=0;$i<count($arr);$i++)
 			{
 				
-
+				if($arr[$i]['product_status']==1)
+				{
+					$imagetag='<img src="assets/img/ribbion/new.png" alt="new">';
+				}
+				elseif($arr[$i]['product_status']==2)
+				{
+					$imagetag='<img src="assets/img/ribbion/sale.png" alt="sale">';
+				}
+				elseif($arr[$i]['product_status']==0)
+				{	
+					$imagetag='';
+				}
 				
 
-				$output.='<li>
-				<span class="ribbion_div"><img src="'.$arr[$i]['image'].'" alt="'.$arr[$i]['title'].'"></span>
-				<img src="assets/img/products/portfolio1.jpg" alt="img">
+				$output.='<li><form name="product" method="post" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'">
+				<span class="ribbion_div">'.$imagetag.'</span>
+				<img src="'.$arr[$i]['image'].'" >
 				<article class="da-animate da-slideFromRight" style="display: block;">
 					<h3>'.$arr[$i]['title'].'</h3>
 					<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <span class="link_post"><a href="http://www.htmldrive.net"></a></span> <span class="zoom"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></a></span>
-					<a href="?do=addtocart&prodid='.$arr[$i]['product_id'].'" class="add_to_cart">Add to Cart</a>
-					</article>
-				</li>';
-				
+					
+					<input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'">';
+					$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
+					$obj=new Bin_Query();
+					$obj->executeQuery($sql);
+					$recordssoh=$obj->records;
+					if($recordssoh[0]['soh']>0)
+					{
+					$output.='<button class="add_to_cart" type="submit" >Add to Cart</button>';
+					}
+					$output.='</article></form></li>';
+		
 				
 			}
 	
 		}
 		
+		$output.=' </ul></div>
+		<!-- Portfolio 4 Column End -->
+		</div>
+			</div></span>';
 		
 		return $output;
 

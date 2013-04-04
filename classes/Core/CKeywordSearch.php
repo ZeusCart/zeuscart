@@ -44,7 +44,7 @@
 	{
 	  
 
-		$pagesize=10;
+		$pagesize=9;
 		
 		//-------------For Saving the searched tags----------------
 		$tmpsearch=trim($search);

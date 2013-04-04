@@ -78,6 +78,8 @@ class Model_MPriceCompare
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['footer']=Core_CHome::footer();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$default = new Core_CPriceCompare();	
 			$output['pricecompare'] = $default->showPriceComparePage();

@@ -131,7 +131,7 @@ class Lib_Validation_Methods
 	
   	/**
 	* Function to check the email
-	* @param string $email
+	* @param string $str
 	* @return bool
 	*/	
 	function IsInvalidEmail($str)

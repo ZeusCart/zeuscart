@@ -79,6 +79,8 @@ class Model_MUserRegistration
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['cartcount']=Core_CAddCart::countCart();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
@@ -120,6 +122,8 @@ class Model_MUserRegistration
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
@@ -186,6 +190,8 @@ class Model_MUserRegistration
 			$output['skinname']=Core_CHome::skinName();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$default=new Core_CNewProducts();
 			$output['newproducts']=$default->newProducts();
@@ -233,6 +239,7 @@ class Model_MUserRegistration
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
 		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$default=new Core_CNewProducts();
 		$output['newproducts']=$default->newProducts();
@@ -307,7 +314,8 @@ class Model_MUserRegistration
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
 
@@ -349,7 +357,8 @@ class Model_MUserRegistration
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['cartcount']=Core_CAddCart::countCart();
 		$output['productdetails']=Core_CProductDetail::showPopupProducts();
-
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		
 		Bin_Template::createTemplate('index.html',$output);
 	}
 	/**
@@ -360,6 +369,8 @@ class Model_MUserRegistration
 	function logoutStatus()
 	{
 		unset($_SESSION['user_id']);
+		unset($_SESSION['user_name']);	
+		unset($_SESSION['user_email']);	
 		unset($_SESSION['compareProductId']);
 		unset($_SESSION['LastViewed']);
 		unset($_SESSION['url']);
@@ -389,6 +400,8 @@ class Model_MUserRegistration
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
 		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['banner']=Core_CHome::getBanner();
@@ -396,10 +409,11 @@ class Model_MUserRegistration
 		include('classes/Core/CTagClouds.php');
 		$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 		$output['footer']=Core_CHome::footer();	
+		$output['footerconnect']=Core_CHome::getfooterconnect();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-	
+		
 		
 		$default=new Core_CLastViewedProducts();
 		$output['lastviewedproducts']=$default->lastViewedProducts();
@@ -413,11 +427,14 @@ class Model_MUserRegistration
 		if($_SESSION['user_id']!='')
 			$output['wishlistsnapshot'] = Core_CWishList::wishlistSnapshot();
 		$output['loginStatus']= Core_CUserRegistration::logoutStatus();
+		$output['slideshow']=Core_CUserRegistration::viewSlideShow();
+		$output['slideshowparameter']=Core_CUserRegistration::getSlideShowParameter();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['cartcount']=Core_CAddCart::countCart();
 		$output['viewProducts']['viewProducts'] = Display_DWishList::viewProductElse();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		Bin_Template::createTemplate('index.html',$output);
 	}
 	/**
@@ -450,10 +467,13 @@ class Model_MUserRegistration
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['cartcount']=Core_CAddCart::countCart();	
 		$output['timezone']=Core_CHome::setTimeZone();	
+		$output['footerconnect']=Core_CHome::getfooterconnect();
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		if($_COOKIE['usremail']!='')
 		{
 			$output['val']['txtemail'] = $_COOKIE['usremail'];
@@ -505,11 +525,13 @@ class Model_MUserRegistration
 			$output['timezone']=Core_CHome::setTimeZone();	
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['banner']=Core_CHome::getBanner();
-		
+			
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
-				include_once('classes/Core/CLastViewedProducts.php');
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
+			include_once('classes/Core/CLastViewedProducts.php');
 			include_once('classes/Display/DLastViewedProducts.php');
 			
 			$default=new Core_CLastViewedProducts();
@@ -532,6 +554,7 @@ class Model_MUserRegistration
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['cartcount']=Core_CAddCart::countCart();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 			$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
@@ -571,12 +594,15 @@ class Model_MUserRegistration
 		$default=new Core_CLastViewedProducts();
 		$output['lastviewedproducts']=$default->lastViewedProducts();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
 		$output['cartcount']=Core_CAddCart::countCart();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['googlead']=Core_CHome::getGoogleAd();
@@ -617,12 +643,15 @@ class Model_MUserRegistration
 		$default=new Core_CLastViewedProducts();
 		$output['lastviewedproducts']=$default->lastViewedProducts();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
 		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['cartcount']=Core_CAddCart::countCart();
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
@@ -684,6 +713,8 @@ class Model_MUserRegistration
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['cartcount']=Core_CAddCart::countCart();
 		$default=new Core_CFeaturedItems();
@@ -703,10 +734,50 @@ class Model_MUserRegistration
 		$output['wishlistsnapshot'] = Core_CWishList::snapshotForHome();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['newsletter'] = Core_CUserRegistration::addNewsletterSubscription();
 		Bin_Template::createTemplate('index.html',$output);
+	}
+	/**
+	* This function is used to register the user from facebook
+ 	* @param array $me
+ 	* @return bool
+	*/
+	function autoRegister($me)
+    	{
+
+		include('../../classes/Core/CUserRegistration.php');
+		$objUser = new Core_CUserRegistration();
+		$objUser->autoRegister($me);
+   	}
+	/**
+	* This function is used to register the user from twitter
+ 	* 
+ 	* @return bool
+	*/
+	function twitterRegister()
+    	{
+
+		$sess = $_SESSION['twitter_user_info']->name;
+		$me = $_POST['email'];
+		include('classes/Core/CUserRegistration.php');
+		$objUser = new Core_CUserRegistration();
+		$objUser->twitterRegister($me,$sess);
+		
+    	}
+	/**
+	* This function is used to register the user from google
+ 	* 
+ 	* @return bool
+	*/
+	function googleautoRegister($me)
+	{
+
+		include('../../../../classes/Core/CUserRegistration.php');
+		$objUser = new Core_CUserRegistration();
+		$objUser->googleautoRegister($me);
 	}
 }
 ?>

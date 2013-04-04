@@ -1,4 +1,5 @@
 <?php
+
  /**
 * GNU General Public License.
 
@@ -33,7 +34,12 @@
 
 class Model_MAddCart
 {
-var $output = array();	
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
+	var $output = array();	
 	
 	/**
 	 * This function is used to view the add to cart  page.
@@ -44,6 +50,8 @@ var $output = array();
 	 */
 	function addCart()
 	{
+
+
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -75,19 +83,22 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			$output['cartcount']=Core_CAddCart::countCart();
+			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
 			$default=new Core_CAddCart();
 			$output['addtocart']=$default->addCart();
 			$output['showcart']=$default->showcart();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 			UNSET($_SESSION['cartmsg']);
@@ -117,19 +128,21 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			$output['cartcount']=Core_CAddCart::countCart();
+			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
 			$default=new Core_CAddCart();
 			$output['addtocart']=$default->addCart();
 			$output['showcart']=$default->showcart();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 			UNSET($_SESSION['cartmsg']);
@@ -145,10 +158,21 @@ var $output = array();
 	 */
 	function addCartFromProductDetail()
 	{
+
+
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
-	
+		if($_GET['vid']=='1')
+		{
+			include('classes/Lib/CheckInputs.php');
+			$obj = new Lib_CheckInputs('giftvoucher');
+			$_SESSION['gift'][]=$_POST;
+			$_SESSION['cartmsg'] = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Thank you for purchasing a gift certificate! Once you have completed your order your gift voucher recipient will be sent an email with details how to redeem their gift voucher.
+			</div>';
+		}
 		if(!isset($_SESSION['user_id']))
 		{
 			$prodid = $_GET['prodid'];
@@ -177,15 +201,18 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			$output['cartcount']=Core_CAddCart::countCart();
+			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
 			$default=new Core_CAddCart();
 			$output['addtocart']=$default->addCartFromProductDetail();
 			$output['showcart']=$default->showcart();
-			
+
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
@@ -220,19 +247,21 @@ var $output = array();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['footer']=Core_CHome::footer();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
 			$default=new Core_CAddCart();
 			$output['addtocart']=$default->addCartFromProductDetail();
 			$output['showcart']=$default->showcart();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 			UNSET($_SESSION['cartmsg']);
@@ -248,6 +277,7 @@ var $output = array();
 	 */
 	function showCart() 
 	{
+
 
 	
 		include("classes/Lib/HandleErrors.php");
@@ -280,19 +310,22 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			$output['cartcount']=Core_CAddCart::countCart();
+			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showcart();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -321,6 +354,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
@@ -334,6 +369,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -372,12 +408,15 @@ var $output = array();
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['skinname']=Core_CHome::skinName();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$default=new Core_CAddCart();
 		$_SESSION['cartmsg']=$default->deleteCart();
 
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
    		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['signup']=Display_DUserRegistration::signUp();
 		$output['cartcount']=Core_CAddCart::countCart();
@@ -421,17 +460,20 @@ var $output = array();
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['skinname']=Core_CHome::skinName();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();	
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['signup']=Display_DUserRegistration::signUp();
 		$default=new Core_CAddCart();
 		
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		$output['cartcount']=Core_CAddCart::countCart();	
+		
 		$output['updatecart']=$default->updateCart();
 		$output['showcart']=$default->showcart();
-		
+		$output['cartcount']=Core_CAddCart::countCart();
 		$lastobj=new Core_CLastViewedProducts();
 		$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 		
@@ -458,6 +500,7 @@ var $output = array();
 				$chk=1;
 		else
 				$chk=0;
+		
 		include("classes/Lib/HandleErrors.php");	
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -485,19 +528,22 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			$output['cartcount']=Core_CAddCart::countCart();
+		
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showQuickRegistration($Err);
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -506,6 +552,8 @@ var $output = array();
 		{
 			header("Location:?do=showcart&action=getaddressdetails&chk=$chk");
 		}
+
+
 		
 		
 	}
@@ -518,7 +566,7 @@ var $output = array();
 	 */
 	function doQuickRegistration() 
 	{
-		
+
 		
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
@@ -556,6 +604,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
@@ -569,14 +619,23 @@ var $output = array();
 			$output['cartcount']=Core_CAddCart::countCart();			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 		
 		}
-		else
+		if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+		{	
 		header("Location:?do=showcart&action=getaddressdetails&chk=$chk");	
+		}
+		else
+		{
+		header("Location:?do=showcart&action=showorderconfirmation");	
+
+		}
 		
 	}
+	
 	/**
 	 * This function is used to show the billing address.
 	 *
@@ -592,51 +651,63 @@ var $output = array();
 	
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
+		if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+		{	
 			
-		if($_SESSION['user_id']!='')
-		{
-			
-			$_SESSION['RequestUrl'] = '?do=showcart';
-			
-			include_once('classes/Core/CAddCart.php');
-			include_once('classes/Display/DAddCart.php');
-			include('classes/Core/CUserRegistration.php');
-			include('classes/Display/DUserRegistration.php');
-			include('classes/Core/CKeywordSearch.php');
-	  		include('classes/Display/DKeywordSearch.php');
-			include('classes/Core/CHome.php');
-			include_once('classes/Core/CLastViewedProducts.php');
-			include_once('classes/Display/DLastViewedProducts.php');
-			include('classes/Lib/TagClouds.php');
-			include('classes/Core/CTagClouds.php');
-			
-			$output['sitelogo']=Core_CHome::getLogo();
-			$output['pagetitle']=Core_CHome::pageTitle();
-			$output['timezone']=Core_CHome::setTimeZone();	
-			$output['currentDate']=date('D,M d,Y - h:i A');
-			$output['skinname']=Core_CHome::skinName();
-			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
-			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			$output['signup']=Display_DUserRegistration::signUp();
-			$output['cartcount']=Core_CAddCart::countCart();
-			$lastobj=new Core_CLastViewedProducts();
-			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
-			
-			$default=new Core_CAddCart();
-			$output['showcart']=$default->showBillingDetails($Err);
-			
-			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
-			
-			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
-			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
-			$output['headertext'] = Core_CUserRegistration::showHeaderText();
-	
-			Bin_Template::createTemplate('addtocart.html',$output);
+			if($_SESSION['user_id']!='')
+			{
+				
+				$_SESSION['RequestUrl'] = '?do=showcart';
+				
+				include_once('classes/Core/CAddCart.php');
+				include_once('classes/Display/DAddCart.php');
+				include('classes/Core/CUserRegistration.php');
+				include('classes/Display/DUserRegistration.php');
+				include('classes/Core/CKeywordSearch.php');
+				include('classes/Display/DKeywordSearch.php');
+				include('classes/Core/CHome.php');
+				include_once('classes/Core/CLastViewedProducts.php');
+				include_once('classes/Display/DLastViewedProducts.php');
+				include('classes/Lib/TagClouds.php');
+				include('classes/Core/CTagClouds.php');
+				
+				$output['sitelogo']=Core_CHome::getLogo();
+				$output['pagetitle']=Core_CHome::pageTitle();
+				$output['timezone']=Core_CHome::setTimeZone();	
+				$output['currentDate']=date('D,M d,Y - h:i A');
+				$output['skinname']=Core_CHome::skinName();
+				$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+				$output['footerconnect']=Core_CHome::getfooterconnect();
+				$output['sociallink']=Core_CHome::showSocialLinks();
+				$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+				$output['signup']=Display_DUserRegistration::signUp();
+				
+				$lastobj=new Core_CLastViewedProducts();
+				$output['lastviewedproducts']=$lastobj->lastViewedProducts();
+				
+				$default=new Core_CAddCart();
+				$output['showcart']=$default->showBillingDetails($Err);
+				$output['cartcount']=Core_CAddCart::countCart();
+				$output['tagClouds']=Core_CTagClouds::displayTagClouds();
+				
+				$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+				$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+				$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+				$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		
+				Bin_Template::createTemplate('addtocart.html',$output);
+			}
+			else
+			{
+				header('Location:?do=showcart');
+			}
 		}
 		else
 		{
-			header('Location:?do=showcart');
+		header("Location:?do=showcart&action=showorderconfirmation");	
+
 		}
+		
 		
 	
 	}
@@ -680,19 +751,22 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
-			$output['cartcount']=Core_CAddCart::countCart();
+			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
 			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showShippingDetails($Err);
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -743,19 +817,22 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
-			$output['cartcount']=Core_CAddCart::countCart();
+			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showShippingMethod($Err);
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -809,19 +886,22 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
-			$output['cartcount']=Core_CAddCart::countCart();
+			
 			$default=new Core_CAddCart();
 			$output['showcart']=$default->showOrderConfirmation();
-			
+			$output['cartcount']=Core_CAddCart::countCart();
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -871,6 +951,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			$output['cartcount']=Core_CAddCart::countCart();
@@ -884,6 +966,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -899,6 +982,7 @@ var $output = array();
 	 */
 	function validateCoupon()
 	{
+
 
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
@@ -930,6 +1014,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			$output['cartcount']=Core_CAddCart::countCart();
@@ -938,12 +1024,16 @@ var $output = array();
 			
 			$default=new Core_CAddCart();
 
-			$output['showcart']=$default->showOrderConfirmation($default->validateCoupon());
+			$output['couponmessage']=Core_CAddCart::validateCoupon();
+
+
+			$output['showcart']=$default->showOrderConfirmation($output['couponmessage']);
 			
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -989,6 +1079,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
@@ -1002,6 +1094,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1051,6 +1144,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
@@ -1064,6 +1159,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1113,8 +1209,10 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['cartcount']=Core_CAddCart::countCart();
 			$lastobj=new Core_CLastViewedProducts();
 			$output['lastviewedproducts']=$lastobj->lastViewedProducts();
@@ -1126,6 +1224,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1175,6 +1274,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
@@ -1188,6 +1289,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1237,6 +1339,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
@@ -1250,6 +1354,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1299,6 +1404,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
@@ -1312,6 +1419,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1360,6 +1468,8 @@ var $output = array();
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();	
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['signup']=Display_DUserRegistration::signUp();
 			
@@ -1373,6 +1483,7 @@ var $output = array();
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1388,16 +1499,19 @@ var $output = array();
 	 */
 	function validateShippingMethod()
 	{	
+	
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		include_once('classes/Core/CAddCart.php');
 		include("classes/Lib/CheckInputs.php");
 		$obj = new Lib_CheckInputs('shippingmethod');
 		
+	
 		if(!isset($_SESSION['user_id']))
 		{	
 			header('Location:?do=index');
 		}
+		
 		else
 		{
 			$_SESSION['shipment_id_selected']=$_POST['shipment_id']; 

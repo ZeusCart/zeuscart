@@ -185,7 +185,7 @@ class Lib_Mail
 	function To( $to )
 	{
 
-		// TODO : test validit� sur to
+		
 		if( is_array( $to ) )
 			$this->sendto= $to;
 		else 
@@ -294,7 +294,7 @@ class Lib_Mail
 	*/	
 	function Attach( $filename, $filetype = "", $disposition = "inline" )
 	{
-		// TODO : si filetype="", alors chercher dans un tablo de MT connus / extension du fichier
+		
 		if( $filetype == "" )
 			$filetype = "application/x-unknown-content-type";
 			

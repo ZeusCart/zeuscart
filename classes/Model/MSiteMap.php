@@ -50,7 +50,7 @@ class Model_MSiteMap
 		include('classes/Core/CUserRegistration.php');
 		include('classes/Display/DUserRegistration.php');
 		include('classes/Core/CHome.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include('classes/Core/CSiteMap.php');		
 		
 		include_once('classes/Core/CCurrencySettings.php');
@@ -64,7 +64,8 @@ class Model_MSiteMap
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -72,6 +73,7 @@ class Model_MSiteMap
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['sitemap']=Core_CSiteMap::showMap();
+		$output['cartcount']=Core_CAddCart::countCart();
 		Bin_Template::createTemplate('sitemap.html',$output);
 	}
 }

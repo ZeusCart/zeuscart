@@ -33,6 +33,11 @@
 class Core_CPriceCompare
 {	
 
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
 
 	var $output= array();
 

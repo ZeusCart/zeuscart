@@ -25,6 +25,44 @@
     'function' => 'showIndexPage',
     'loadlib' => '1',
   ),
+
+ 'brands' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showBrands',
+    'loadlib' => '1',
+  ),
+'viewbrands' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'viewBrandsList',
+    'loadlib' => '1',
+  ),
+'viewbrands:grid' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'viewBrandsList',
+    'loadlib' => '1',
+  ),	
+ 'voucher' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showVoucher',
+    'loadlib' => '1',
+  ),
+
+ 'voucher:add' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showAddVoucher',
+    'loadlib' => '1',
+  ),
+ 'voucher:showcart' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showCart',
+    'loadlib' => '1',
+  ),
   'login' => 
   array (
     'model' => 'MUserRegistration',
@@ -55,10 +93,16 @@
     'function' => 'showPriceComparePage',
     'loadlib' => '1',
   ),
-  'userregistration' => 
+'userregistration' => 
   array (
     'model' => 'MUserRegistration',
     'function' => 'displayRegPage',
+    'loadlib' => '1',
+  ),
+  'twitterreg' => 
+  array (
+    'model' => 'MUserRegistration',
+    'function' => 'twitterRegister',
     'loadlib' => '1',
   ),
   'userregistration:addreg' => 
@@ -253,6 +297,12 @@
     'function' => 'doQuickRegistration',
     'loadlib' => '1',
   ),
+'showcart:recipientdetails' => 
+  array (
+    'model' => 'MAddCart',
+    'function' => 'showRecipientDetails',
+    'loadlib' => '1',
+  ),
   'showcart:getaddressdetails' => 
   array (
     'model' => 'MAddCart',
@@ -281,6 +331,12 @@
   array (
     'model' => 'MAddCart',
     'function' => 'showShippingMethod',
+    'loadlib' => '1',
+  ),
+ 'showcart:validateshippingmethod' => 
+  array (
+    'model' => 'MAddCart',
+    'function' => 'validateShippingMethod',
     'loadlib' => '1',
   ),
   'showcart:addnewaddressfromshipping' => 
@@ -433,6 +489,12 @@
     'function' => 'showLargeview',
     'loadlib' => '1',
   ),
+ 'prodetail:showpopupprod' => 
+  array (
+    'model' => 'MProductDetail',
+    'function' => 'showPopupProducts',
+    'loadlib' => '1',
+  ),
   'search' => 
   array (
     'model' => 'MKeywordSearch',
@@ -497,6 +559,19 @@
   array (
     'model' => 'MUserAccount',
     'function' => 'showNewsLetter',
+    'loadlib' => '1',
+  ),
+
+'changepassword' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'showChangePassword',
+    'loadlib' => '1',
+  ),
+ 'changepassword:update' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'editChangePassword',
     'loadlib' => '1',
   ),
   'newsletter:add' => 

@@ -32,6 +32,11 @@
  */
 class Display_DNewProducts
 {
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
 	var $output = array();	
 	
  	/**
@@ -67,7 +72,7 @@ class Display_DNewProducts
 				$objsubun->executeQuery($sqlsubun);
 				$subuncat=$objsubun->records[0]['category_name'];
 
-				$output.='<li>';
+				$output.='<li style="width:230px;">';
 				if($arr[$i]['product_status']==1)
 				{
 					$imagetag='<img src="assets/img/ribbion/new.png" alt="new">';
@@ -81,14 +86,22 @@ class Display_DNewProducts
 					$imagetag='';
 				}
 
-				$output.='<span class="ribbion_div">'.$imagetag.'</span>
-				<div class="product_box"><img src="'.$arr[$i]['image'].'" alt="img"></div>
+				$output.='<form name="product" method="post" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'"><span class="ribbion_div">'.$imagetag.'</span>
+				<div class="product_box">
+
+				<img src="assets/js/timthumb.php?src='.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
+				</div>
 				<article class="da-animate da-slideFromRight" style="display: block;">
 					<h3>'.$arr[$i]['title'].'</h3>
-					<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <span class="link_post"><a href="?do=viewproducts&cat='.$cat.'&subcat='.$subcat.'&subundercat='.$subuncat.'"></a></span> <span class="zoom"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></a></span>
-					<a href="?do=addtocart&prodid='.$arr[$i]['product_id'].'" class="add_to_cart">Add to Cart</a>
-					</article>
-				</li>';
+					<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <a href="?do=viewproducts&cat='.$cat.'&subcat='.$subcat.'&subundercat='.$subuncat.'"><span class="link_post"></span> </a><a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="popup"><span class="zoom"></span></a>
+					<input type="hidden" name="addtocart">
+					';
+					if($arr[$i]['soh']>0)
+					{
+					$output.='<button class="add_to_cart" type="submit" >Add to Cart</button>';
+					}
+					$output.='</article>
+				       </form></li>';
 				
 			}
 
@@ -129,7 +142,6 @@ class Display_DNewProducts
 	function viewProducts($records,$paging,$prev,$next,$val)
 	{
 
-		
 		if($_GET['action']=='')
 		{
 			$output='<ul class="productlists">';
@@ -139,32 +151,47 @@ class Display_DNewProducts
 				for($i=0;$i<count($records);$i++)
 				{
 					
-					$output.='<li>
-                    	
-						<div id="listproduct"><div class="ribbion_div">';
+					$output.='<li>';
+					if($_GET['cat']=='Gift Voucher')
+					{
+					$output.='<form name="product" method="post" action="?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'">';
+					}
+					else
+					{
+					$output.='<form name="product" method="post" action="?do=addtocart&prodid='.$records[$i]['product_id'].'">';	
+					}
+			                   	
+						$output.='<div id="listproduct">';
 
 						if($records[$i]['product_status']==1)
 						{
-							$output.='<img src="assets/img/ribbion/new.png" alt="new">';
+							$output.='<div class="ribbion_div"><img src="assets/img/ribbion/new.png" alt="new" /></div> ';
 						}
 						elseif($records[$i]['product_status']==2)
 						{
-							$output.='<img src="assets/img/ribbion/sale.png" alt="sale">';
+							$output.='<div class="ribbion_div"><img src="assets/img/ribbion/sale.png" alt="sale" /> </div>';
 						}
-						$output.='</div>
-						<div class="productimg"><a href="?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'"><img src='.$records[$i]['thumb_image'].' alt="'.$records[$i]['title'].'"></a></div>
+						$output.='<div class="productimg"><a href="?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'"><img src="assets/js/timthumb.php?src='.$records[$i]['large_image_path'].'&h=150&w=150&zc=0&s=1&f=4,11&q=100&ct=1" alt="'.$records[$i]['title'].'"> 
+						</a></div>
 						<div class="description_div"><h3><a href="?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'">'.$records[$i]['title'].'</a></h3>
-						<p>'.trim($records[$i]['description']).'</p>
+						'.trim($records[$i]['description']).'
 						</div>
 						<div class="dollar_div">
 							<h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$records[$i]['msrp'].'</h1>
-						<a href="?do=addtocart&prodid='.$records[$i]['product_id'].'" class="add_btn"></a>
-						</div>
+						<input type="hidden" name="addtocart">';
+						
+						$sql="SELECT * FROM product_inventory_table WHERE product_id='".$records[$i]['product_id']."'";
+						$obj=new Bin_Query();
+						$obj->executeQuery($sql);
+						$recordssoh=$obj->records;
+						if($recordssoh[0]['soh']>0)
+						{
+						$output.='<button class="add_btn" type="submit" ></button>';
+						}
+						$output.='</div>
 						<div class="clear"></div>
 							</div>
-						</li>';
-
-
+						</form></li>';
 
 				}
 
@@ -189,31 +216,38 @@ class Display_DNewProducts
 			{
 				for($i=0;$i<count($records);$i++)
 				{	
-					$output.='
-					<li class="bags">
-					<div class="galleryImage"><div class="ribbion_div">';
-
-					
+					$output.='<li class="bags"><form name="product" method="post" action="?do=addtocart&prodid='.$records[$i]['product_id'].'">
+					';
+				
 					if($records[$i]['product_status']==1)
 					{
-						$output.='<img src="assets/img/ribbion/new.png" alt="new">';
+						$output.='<div class="ribbion_div"> <img src="assets/img/ribbion/new.png" alt="new"></div>';
 					}
 					elseif($records[$i]['product_status']==2)
 					{
-						$output.='<img src="assets/img/ribbion/sale.png" alt="sale">';
+						$output.='<div class="ribbion_div"> <img src="assets/img/ribbion/sale.png" alt="sale"/></div>';
 					}
-					$output.='</div>
-					<img src='.$records[$i]['image'].'></img>
+					$output.='<div class="galleryImage"><img src="assets/js/timthumb.php?src='.$records[$i]['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'">
+
 					<div class="info">  
 					<h2>'.$records[$i]['title'].'</h2>
-					<p>
+					
 					'.trim($records[$i]['description']).'
-					</p>
+					
 					<h4>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$records[$i]['msrp'].'</h4>
-					<a href="?do=addtocart&prodid='.$records[$i]['product_id'].'" class="add_btn"></a>
+					<input type="hidden" name="addtocart">';
+					
+					$sql="SELECT * FROM product_inventory_table WHERE product_id='".$records[$i]['product_id']."'";
+					$obj=new Bin_Query();
+					$obj->executeQuery($sql);
+					$recordssoh=$obj->records;
+					if($recordssoh[0]['soh']>0)
+					{
+						$output.='<button class="add_btn" type="submit" ></button>';
+					}
+					$output.='</div>
 					</div>
-					</div>
-					</li>';
+					</form></li>';
 					
 				}
 

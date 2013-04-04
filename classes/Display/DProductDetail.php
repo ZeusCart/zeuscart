@@ -95,6 +95,11 @@ class Display_DProductDetail
 	function productDetail($arr,$diffrate,$features,$rating,$breadCrumb,$reviewCount,$reviewArr,$imgArr,$tierArr,$relArr)
 	{
 	
+		// category name selection
+		$sql="SELECT * FROM category_table WHERE category_id ='".$arr[0]['category_id']."'";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$categoryname=$obj->records[0]['category_name']; 
 
 		$result=$_SESSION['reviewResult'];
 		
@@ -116,13 +121,33 @@ class Display_DProductDetail
 			<br/>';
 			
 		$output.=' </div></div><div class="span6">
-				<div class="gallery_detail">
+				<div class="gallery_detail">';
+
+
+				if($categoryname=='Gift Voucher')
+				{
+				$output.='<form method="post"	action="javascript:showGiftVoucher();" name="frmcart">';
+				}
+				else
+				{
+				$output.='<form method="post"	action="?do=addtocartfromproductdetail&prodid='.$arr[0]['product_id'].'" name="frmcart">';
+				}
+
 				
-				<ul class="detaillist">
-				<li>
-				<div class="ribbion_div1"><img src="assets/img/ribbion/new1.png" alt="new"></div>
-				<img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star-gray.png" width="16" height="16" alt="star"></li>
-				<li><form method="post"	action="?do=addtocartfromproductdetail&prodid='.$arr[0]['product_id'].'" name="frmcart"><table width="100%" border="0">
+				$output.='<ul class="detaillist">
+				<li>';
+				if($arr[0]['product_status']==1)
+				{
+				$output.='<div class="ribbion_div1"><img src="assets/img/ribbion/new1.png" alt="New"></div>';
+				}
+				elseif($arr[0]['product_status']==2)
+				{
+				$output.='<div class="ribbion_div1"><img src="assets/img/ribbion/sale-ribbion.png" alt="Sale"></div>';
+				}
+
+		
+				$output.=''.$rating.'</li>
+				<li><table width="100%" border="0">
 				<tr>
 				<td align="left" valign="top"><h4>Product code: 1</h4>';
 		
@@ -142,25 +167,38 @@ class Display_DProductDetail
 						<li><h2>Quick Overview:</h2><p>This midi dress has been made from stretch jersey. The details include: a scoop neckline and sleeveless styling with an open back and latticed deatiling. The dress has been cut with a bodycon fit.</p></li>
 				<li>
 				<table width="100%" border="0">
-		<tr>
-		<td align="left" valign="top"> Quantity ';
-		$output.='<select name="qty[]" style="width:60px;">';
+		<tr>';
+		if($categoryname!='Gift Voucher')
+		{
+		$output.='<td> Quantity <select name="qty[]" style="width:60px;">';
 		if($arr[0]['soh']==0)
 			$output.='<option value="0">0</option>';
 		
 		for($s=1;$s<=$arr[0]['soh'];$s++)
 			$output.='<option value="'.$s.'">'.$s.'</option>';
-		$output.='</select></td>
-		<td align="left" valign="top"><input type="image" name="Submit2" src="assets/img/add-to-cart-btn.png"  style="width:150px;height:40px;	display:block;cursor:pointer;border:0;outline:none;"></td>
-		</tr>
-		</table></form>
-		
-				
+		$output.='</select></td>';
+		}
+
+	
+		if($arr[0]['soh']>0)
+		{
+		$output.='<td align="left" valign="top"><input type="image" name="Submit2" src="assets/img/add-to-cart-btn.png"  style="width:150px;height:40px;	display:block;cursor:pointer;border:0;outline:none;"></td>';
+		}
+
+
+
+
+		$output.='</tr>
+		</table>
+					
 				</li>
 			</ul>
-		</div>
+		</form></div>
 			
 		</div> </div>
+
+
+		<div id="giftvoucher"></div>
             	<div class="clear"></div><div class="buyauc_div" style="display:block;">
             	 <ul class="view_div">
                         <li ><a href="javascript:showAccnt(\'account_id\'); void(0)" class="acc_select" id="account_id1">Product Description</a></li>
@@ -170,7 +208,7 @@ class Display_DProductDetail
 
        
 		<div style="display:block;" id="account_id" class="prd_desc">
-		<p>'.$arr[0]['description'].'</p>
+		'.$arr[0]['description'].'
 		</div>
            
             	 <div style="display:none;" id="details_id">';
@@ -262,9 +300,9 @@ class Display_DProductDetail
 		for($r1=0;$r1<5;$r1++)
 		{
 			if($r1<$rating)
-				$ratepath.='<img src="images/starf.png">';
+				$ratepath.='<img src="assets/img/star.png">&nbsp;';
 			else
-				$ratepath.='<img src="images/stare.png">';							
+				$ratepath.='<img src="assets/img/star-gray.png">&nbsp;';							
 		}	
 		return $ratepath;
 	}
@@ -324,61 +362,61 @@ class Display_DProductDetail
 			$output='<br/><span class="head_text">Related Products </span><div id="middle_details"><div id="product_tbbg_details">
 			<table width="100%" border="0" cellpadding="2" cellspacing="2">';
 		$loop=0;$j=0;
-	 $cnt=count($arr);
-	if(($cnt>0))
-	{
-		for($i=0;$i<$cnt;$i++)
+		$cnt=count($arr);
+		if(($cnt>0))
 		{
-						$product_id=$arr[$i]['product_id'];
-						$sku=$arr[$i]['sku'];
-						$title=$arr[$i]['title'];
-						$description=$arr[$i]['description'];
-						$brand=$arr[$i]['brand'];
-						$price=number_format($arr[$i]['price'],2);
-						$msrp=number_format($arr[$i]['msrp'],2);
-						$weight=$arr[$i]['weight'];
-						$dimension=$arr[$i]['dimension'];
-						$thumb_image=$arr[$i]['thumb_image'];
-						$image=$arr[$i]['image'];
-						$img=explode('/',$thumb_image);
-						$shipping_cost=$arr[$i]['shipping_cost'];
-						$status=$arr[$i]['status'];
-						$tag=$arr[$i]['tag'];
-						$pat="images/products/";
+			for($i=0;$i<$cnt;$i++)
+			{
+							$product_id=$arr[$i]['product_id'];
+							$sku=$arr[$i]['sku'];
+							$title=$arr[$i]['title'];
+							$description=$arr[$i]['description'];
+							$brand=$arr[$i]['brand'];
+							$price=number_format($arr[$i]['price'],2);
+							$msrp=number_format($arr[$i]['msrp'],2);
+							$weight=$arr[$i]['weight'];
+							$dimension=$arr[$i]['dimension'];
+							$thumb_image=$arr[$i]['thumb_image'];
+							$image=$arr[$i]['image'];
+							$img=explode('/',$thumb_image);
+							$shipping_cost=$arr[$i]['shipping_cost'];
+							$status=$arr[$i]['status'];
+							$tag=$arr[$i]['tag'];
+							$pat="images/products/";
+							
+							if($loop==3)
+							{
+								$output.='</tr>';
+								$loop=0;
+							}		
+							if($loop==0)
+								$output.='<tr>';
+							
+							$output.="<td id='product_tbbg'><table width='95%' border='0' align='center' cellpadding='2' cellspacing='2'><tr><td><a href='?do=prodetail&action=showprod&prodid=".$product_id."'>";
+							if(file_exists($thumb_image))
+							{
+							$output.='<img src="'.$thumb_image.'" width="90" height="67"  border="0" />';
+							}
+							else
+							{
+								$output.='<img border="0" width="90" height="67" src="images/noimage.jpg"/>';
+							} 
 						
-						if($loop==3)
-						{
-							$output.='</tr>';
-							$loop=0;
-						}		
-						if($loop==0)
-							$output.='<tr>';
-						
-						$output.="<td id='product_tbbg'><table width='95%' border='0' align='center' cellpadding='2' cellspacing='2'><tr><td><a href='?do=prodetail&action=showprod&prodid=".$product_id."'>";
-						if(file_exists($thumb_image))
-						{
-						  $output.='<img src="'.$thumb_image.'" width="90" height="67"  border="0" />';
-						}
-						else
-						{
-							$output.='<img border="0" width="90" height="67" src="images/noimage.jpg"/>';
-						} 
-					
-        $output.="</a></td>
-        </tr>
-		 <tr>
-          <td class='text'><a href='?do=prodetail&action=showprod&prodid=".$product_id."'>$title</a></td>
-        </tr>
+		$output.="</a></td>
+		</tr>
+			<tr>
+		<td class='text'><a href='?do=prodetail&action=showprod&prodid=".$product_id."'>$title</a></td>
+		</tr>
+			<tr>
+		<td align='left' class='rate_text'>".$r[$j]['msrp']."</td>
+		</tr>
+			<tr>
+		<td align='left' class='addtowishlist'><a href='?do=wishlist&action=viewwishlist&id=".$product_id."'>Add to Wishlist</a> </td>
+		</tr>
 		<tr>
-          <td align='left' class='rate_text'>".$r[$j]['msrp']."</td>
-        </tr>
-		<tr>
-          <td align='left' class='addtowishlist'><a href='?do=wishlist&action=viewwishlist&id=".$product_id."'>Add to Wishlist</a> </td>
-        </tr>
-        <tr>
-          <td align='left' class='addtocompare'><a href='?do=compareproduct&action=addtocompareproduct&prodid=".$product_id."'>Add to Compare</a></td>
-        </tr>
-		";
+		<td align='left' class='addtocompare'><a href='?do=compareproduct&action=addtocompareproduct&prodid=".$product_id."'>Add to Compare</a></td>
+		</tr>
+			";
 			
 			$output.="</table></td>	";
 		
@@ -471,7 +509,7 @@ class Display_DProductDetail
 
 
 			$output.='<li class="blue active withsubsections">
-				<a href="#" class="">'.$arr[$i]['category_name'].'</a>';
+				<a  class="">'.$arr[$i]['category_name'].'</a>';
 				$query = new Bin_Query(); 
 				$sql = "SELECT * FROM `category_table` WHERE category_parent_id =".$arr[$i]['category_id']." AND  sub_category_parent_id =0 AND category_status =1 order by category_name limit 16";
 				$query->executeQuery($sql);
@@ -494,7 +532,7 @@ class Display_DProductDetail
 							{
 
 							$output.='<li>
-								<a href="#">'.$recordssub[$k]['category_name'].'</a>
+								<a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$records[$j]['category_name'].'&subundercat='.$recordssub[$k]['category_name'].'">'.$recordssub[$k]['category_name'].'</a>
 								</li>';
 										
 							}
@@ -521,20 +559,19 @@ class Display_DProductDetail
 	}
 	/**
 	* This function is used to get the pop up  of image of product 
- 	* @param array $records
+ 	* @param array $arr
+	* @param string $rating
  	* @return string
 	*/
-	function showPopupProducts($arr)
+	function showPopupProducts($arr,$rating)
 	{
 		
 		 $output='<div class="container">
 			<div class="row-fluid">
-				<div class="span9">
+				<div class="span10">
 			<div class="title_fnt">
 			<h1><a href="?do=prodetail&action=showprod&prodid='.$arr[0]['product_id'].'" target="_parent">'.$arr[0]['title'].'</a></h1>
-			</div>
-			<div id="gallery_div">
-				<div class="row-fluid">';
+			</div>';
 				$output.='<div class="span6"><div class="clearfix" id="content" >
 			<div class="clearfix">
 			<a href="'.$arr[0]['large_image_path'].'" class="jqzoom" rel="gal1"   title="'.$arr[0]['title'].'" >
@@ -542,16 +579,34 @@ class Display_DProductDetail
 			</a>
 			</div>
 			<br/>';
-				$output.=' </div></div><div class="span6">
+				$output.=' </div></div><div class="span4">
 				<div class="gallery_detail">
 				
-				<ul class="detaillist">
-				<li>
-			
-				<img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star.png" alt="star"> <img src="assets/img/star-gray.png" width="16" height="16" alt="star"></li>
+				<ul class="detaillist">';
+				if($arr[0]['product_status']==1)
+				{
+				$output.='<div class="ribbion_div1"><img src="assets/img/ribbion/new1.png" alt="New"></div>';
+				}
+				elseif($arr[0]['product_status']==2)
+				{
+				$output.='<div class="ribbion_div1"><img src="assets/img/ribbion/sale-ribbion.png" alt="Sale"></div>';
+				}
+				$output.='<li>'.$rating.'</li>
 				<li><table width="100%" border="0">
+
+		
 		<tr>
-		<td align="left" valign="top"><h4>Product code: 1</h4><span>Availability: In stock</span></td>
+		<td align="left" valign="top"><h4>Product code: 1</h4>';
+		if($arr[0]['soh']>0)
+		{
+			$output.='<span>Availability: In Stock</span>';
+		}
+		else
+		{
+			$output.='<span>Availability :  Out Of Stock </span>';
+		}
+
+		$output.='</td>
 		<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['msrp'].'</h1></td>
 		</tr>
 		</table></li>
@@ -566,18 +621,19 @@ class Display_DProductDetail
 		
 		for($s=1;$s<=$arr[0]['soh'];$s++)
 			$output.='<option value="'.$s.'">'.$s.'</option>';
-		$output.='</select></td>
-		<td align="left" valign="top"><input type="image" name="Submit2" src="assets/img/add-to-cart-btn.png"  style="width:150px;height:40px;	display:block;cursor:pointer;border:0;outline:none;"></td>
-		</tr>
+		$output.='</select></td>';
+		if($arr[0]['soh']>0)
+		{
+		$output.='<td align="left" valign="top"><input type="image" name="Submit2" src="assets/img/add-to-cart-btn.png"  style="width:150px;height:40px;	display:block;cursor:pointer;border:0;outline:none;"></td>';
+		}
+		$output.='</tr>
 		</table>
 		</form>
 		</li>
 		</ul>
 		</div>
-		</div>
-		</div>
+		</div>	
 		<div class="clear"></div>
-		</div>
 		</div>
 		</div>
 		</div>';

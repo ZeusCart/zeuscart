@@ -75,7 +75,8 @@ class Model_MNews
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
 
@@ -91,6 +92,7 @@ class Model_MNews
 		
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['categories'] = Display_DUserRegistration::showMainCat();

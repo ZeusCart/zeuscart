@@ -231,9 +231,18 @@ class Core_CUserAddressBook
 			$sql="insert into addressbook_table values('".$userid."','".$_POST['txtGName']."','".$_POST['txtFName']."','".$_POST['txtLName']."','".$_POST['txtCompany']."','".$_POST['txtEMail']."','".$_POST['txtAddress']."','".$_POST['txtCity']."','".$_POST['txtSuburb']."','".$_POST['txtState']."','".$_POST['selCountry']."','".$_POST['txtZip']."','".$_POST['txtPhone']."','".$_POST['txtFax']."')";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
-			return "<div class='success_msgbox'>Created!</div></br>";
+			return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Your Contact Successfully  Created!
+			</div>';
+
 		}	
-		return "<div class='exc_msgbox'>Could not Created!</div></br>";
+		return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Your Contact Could not Created!
+			</div>';
+
+
 	}
 	/**
 	 * This function is used to insert  the  address  from check out process

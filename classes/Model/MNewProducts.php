@@ -66,12 +66,15 @@ class Model_MNewProducts
 		$output['signup']=Display_DUserRegistration::signUp();
 		$output['skinname']=Core_CHome::skinName();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$default=new Core_CNewProducts();
 		$output['newproducts']=$default->newProducts();
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['cartcount']=Core_CAddCart::countCart();
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
 
 		Bin_Template::createTemplate('products.html',$output);
 	}
@@ -105,15 +108,19 @@ class Model_MNewProducts
 			$output['timezone']=Core_CHome::setTimeZone();	
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['categorytree'] = Core_CProductDetail::showCategoryTree();
 			$default=new Core_CNewProducts();
 			$output['viewproducts']=$default->viewProducts();
 			$output['cartcount']=Core_CAddCart::countCart();
+			
 			Bin_Template::createTemplate('listtheproduct.html',$output);
 		}
 		else
@@ -123,9 +130,9 @@ class Model_MNewProducts
 			include('classes/Core/CKeywordSearch.php');
 			include('classes/Display/DKeywordSearch.php');
 			include('classes/Core/CProductDetail.php');
+			include('classes/Display/DProductDetail.php');
 			include('classes/Core/CUserRegistration.php');
 			include('classes/Display/DUserRegistration.php');
-			include('classes/Display/DProductDetail.php');
 			include('classes/Core/CHome.php');
 			include('classes/Core/CAddCart.php');
 			include('classes/Display/DAddCart.php');
@@ -139,10 +146,13 @@ class Model_MNewProducts
 			$output['timezone']=Core_CHome::setTimeZone();	
 			$output['currentDate']=date('D,M d,Y - h:i A');
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['categorytree'] = Core_CProductDetail::showCategoryTree();
 			$default=new Core_CNewProducts();

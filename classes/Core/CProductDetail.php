@@ -1,4 +1,5 @@
 <?php
+
  /**
 * GNU General Public License.
 
@@ -237,7 +238,7 @@ class Core_CProductDetail
 						$r[$j]['msrp']= '<!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($row['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2);
 						
 				}				
-				//print_r($r);
+			
 				return  Display_DProductDetail::productDetail($query->records,$r,$features->records,$rating,$breadCrumb,$reviewcount,$reviewqry->records,$imgqry->records,$pquery->records,$relatedqry->records);
 			}
 			else
@@ -272,8 +273,8 @@ class Core_CProductDetail
 	function reviewRating()
 	{
 		
-		$sql= "SELECT a.product_id,sum(c.rating)/count(c.user_id) as
-			rating FROM products_table as a left join product_reviews_table c on a.product_id=c.product_id where a.product_id=".(int)$_GET['prodid']."AND a.status=1 group by a.product_id";
+		 $sql= "SELECT a.product_id,sum(c.rating)/count(c.user_id) as
+			rating FROM products_table as a left join product_reviews_table c on a.product_id=c.product_id where a.product_id=".(int)$_GET['prodid']." AND a.status=1 group by a.product_id"; 
 
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
@@ -299,7 +300,7 @@ class Core_CProductDetail
 	}
 	/**
 	 * This function is used to get   the last viewed product
-	 *  @param integer @id
+	 * @param integer $id
 	 * 
 	 * @return string
 	 */
@@ -399,6 +400,12 @@ class Core_CProductDetail
 			return $output1;
 		}	
 	}
+	/**
+	 * This function is used to get   the rating of the  product  
+	 * @param integer $productid
+	 * 
+	 * @return integer
+	 */
 	function disRates($productid)
 	{
 		$sql='select min(msrp) as msrp from msrp_by_quantity_table where product_id ='.$productid;
@@ -408,7 +415,12 @@ class Core_CProductDetail
 		return $val[0]['msrp'];
 	}
 	
-	
+	/**
+	 * This function is used to get   the rating of the  product og related products
+	 *  
+	 * 
+	 * @return HTML data
+	 */
 		
 	function dispRelatedProduct()
 	{
@@ -426,7 +438,13 @@ class Core_CProductDetail
 		}
 		return $output;
 	}
-	
+	/**
+	 * This function is used to get   the large view of the product list
+	 *  
+	 * 
+	 * @return HTML data
+	 */
+		
 	function showLargeview()
 	{
 		$pagesize=1;
@@ -473,7 +491,7 @@ class Core_CProductDetail
 	function showCategoryTree()
 	{
 		$obj=new Bin_Query();
-		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1 ";
+		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1 AND category_name!='Gift Voucher'";
 		if($obj->executeQuery($sql))
 		{
 			$output = Display_DProductDetail::showCategoryTree($obj->records);
@@ -485,5 +503,20 @@ class Core_CProductDetail
 
 
 	}
-	
+	/**
+	* This function is used to get the pop up  of image of product 
+ 	*
+ 	* @return string
+	*/		
+	function showPopupProducts()
+	{
+		
+		$sql="SELECT * FROM product_inventory_table a INNER JOIN products_table b ON a.product_id = b.product_id WHERE b.product_id =".(int)$_GET['prodid']." AND b.status=1";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+
+
+		$rating=Core_CProductDetail::reviewRating();
+		return Display_DProductDetail::showPopupProducts($obj->records,$rating);	
+	}
 }

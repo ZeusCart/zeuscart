@@ -91,11 +91,11 @@ class Display_DKeywordSearch
 					for($r1=0;$r1<5;$r1++)
 					{
 						if($r1<$rating)
-							$ratepath.='<img src="images/starf.png">';
+							$ratepath.='<img src="assets/img/star.png">&nbsp;';
 						else
-							$ratepath.='<img src="images/stare.png">';							
-					}	
-					$output.='<li>
+							$ratepath.='<img src="assets/img/star-gray.png">&nbsp;';							
+					}		
+					$output.='<li><form name="product" method="post" action="?do=addtocart&prodid='.$row['product_id'].'">
 		
 					<div id="listproduct">
 					<div class="ribbion_div">';
@@ -113,18 +113,29 @@ class Display_DKeywordSearch
 					}
 
 					$output.=''.$imagetag.'</div>
-					<div class="productimg"><img src="'.$thumb_image.'" alt='.$title.'></div>
+					<div class="productimg"><img src="assets/js/timthumb.php?src='.$row['large_image_path'].'&h=150&w=150&zc=0&s=1&f=4,11&q=100&ct=1" alt="'.$row['title'].'"> 
+					
+					</div>
 						<div class="description_div"><h3><a href="#">'.$title.'</a></h3>
 					<p> Reviews ('.$rcount.')<br/>
 				  	'.$ratepath.'</p>
 					</div>
 					<div class="dollar_div">
-						<h2>'.$msrp.'</h2>
-					<a href="?do=addtocart&prodid='.$product_id.'" class="add_btn"></a>
-					</div>
+						<h2>'.$msrp.'</h2><input type="hidden" name="addtocart">';
+
+						$sql="SELECT * FROM product_inventory_table WHERE product_id='".$row['product_id']."'";
+						$obj=new Bin_Query();
+						$obj->executeQuery($sql);
+						$recordssoh=$obj->records;
+						if($recordssoh[0]['soh']>0)
+						{
+						$output.='<button class="add_btn" type="submit" ></button>';
+						}
+					
+					$output.='</div>
 					<div class="clear"></div>
 					</div>
-					</li>';
+					</form></li>';
 				}
                 	}
 	
@@ -179,31 +190,31 @@ class Display_DKeywordSearch
 					for($r1=0;$r1<5;$r1++)
 					{
 						if($r1<$rating)
-							$ratepath.='<img src="images/starf.png">';
+							$ratepath.='<img src="assets/img/star.png">';
 						else
-							$ratepath.='<img src="images/stare.png">';							
+							$ratepath.='<img src="assets/img/star-gray.png">';							
 					}	
 					$output.='
-					<li class="bags">
-					<div class="galleryImage">
+					<li class="bags"><form name="product" method="post" action="?do=addtocart&prodid='.$row['product_id'].'">
+					
 					<div class="ribbion_div">';
 
-					if($result[$i]['product_status']==1)
+					if($row['product_status']==1)
 					{
 						$imagetag='<img src="assets/img/ribbion/new.png" alt="new">';
 					}
-					elseif($result[$i]['product_status']==2)
+					elseif($row['product_status']==2)
 					{
 						$imagetag='<img src="assets/img/ribbion/sale.png" alt="sale">';
 					}
-					elseif($result[$i]['product_status']==0)
+					elseif($row['product_status']==0)
 					{	
 						$imagetag='';
 					}
 
 
 					$output.=''.$imagetag.'</div>
-					<img src="'.$thumb_image.'" ></img>
+					<div class="galleryImage"><img src="assets/js/timthumb.php?src='.$row['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'"> 
 					<div class="info">  
 					<h2>'.$title.'</h2>
 					<p>
@@ -211,10 +222,20 @@ class Display_DKeywordSearch
 				  	'.$ratepath.'
 					</p>
 					<h4>'.$msrp.'</h4>
-					<a href="?do=addtocart&prodid='.$product_id.'" class="add_btn"></a>
+					<input type="hidden" name="addtocart">';
+	
+					$sql="SELECT * FROM product_inventory_table WHERE product_id='".$row['product_id']."'";
+					$obj=new Bin_Query();
+					$obj->executeQuery($sql);
+					$recordssoh=$obj->records;
+					if($recordssoh[0]['soh']>0)
+					{
+						$output.='<button class="add_btn" type="submit" ></button>';
+					}
+					$output.='
 					</div>
 					</div>
-					</li>';
+					</form></li>';
 
 				}
 

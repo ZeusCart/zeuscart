@@ -52,7 +52,7 @@ class Core_CUserWishList
 	}
 	/**
 	 * This function is used to get wishlist 
-	 *  @param array $result
+	 * @param array $result
 	 * .
 	 * 
 	 * @return string

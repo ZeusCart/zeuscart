@@ -41,7 +41,7 @@ class Model_MUserAccount
 	var $output = array();
 	/**
 	* This function is used to Show news letter page
- 	*
+ 	* @param string $result
  	* @return string 
 	*/
 	function showNewsLetter($result='')
@@ -67,7 +67,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -110,7 +111,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -152,7 +154,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
@@ -165,6 +168,53 @@ class Model_MUserAccount
 	
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserAccInfo::showAccInfo();
+
+		Bin_Template::createTemplate('userIndex.html',$output);
+	
+	}
+
+	/**
+	* This function is used to show the chage password  after login
+ 	* @param array  $result
+ 	* @return string
+	*/
+	function showChangePassword($result='')
+	{
+		$this->checkLogin();	
+		include('classes/Core/CKeywordSearch.php');
+		include('classes/Display/DKeywordSearch.php');
+		include('classes/Core/CUserRegistration.php');
+		include('classes/Display/DUserRegistration.php');
+		include_once('classes/Core/CUserAccInfo.php');
+		include('classes/Core/CHome.php');
+		include_once('classes/Core/CLastViewedProducts.php');
+		include_once('classes/Display/DLastViewedProducts.php');
+		include_once('classes/Core/CAddCart.php');
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+
+		$output['sitelogo']=Core_CHome::getLogo();
+		$output['pagetitle']=Core_CHome::pageTitle();
+		$output['timezone']=Core_CHome::setTimeZone();	
+		$output['currentDate']=date('D,M d,Y - h:i A');
+		$output['skinname']=Core_CHome::skinName();
+		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		$output['result'] = $result;					
+		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
+		$output['cartcount']=Core_CAddCart::countCart();
+	
+		$output['userRight'] = "userdashboard.html";					
+		$output['rows']=Core_CUserAccInfo::showChangePassword();
 
 		Bin_Template::createTemplate('userIndex.html',$output);
 	
@@ -188,6 +238,27 @@ class Model_MUserAccount
 
 		$this->showAccountInfo($result);
 	}
+
+	/**
+	* This function is used to edit change password  after login
+ 	*
+ 	* @return string
+	*/
+	function editChangePassword()
+	{
+		include('classes/Lib/CheckInputs.php');
+		include('classes/Core/CUserAccInfo.php');
+		
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+
+		$obj = new Lib_CheckInputs('changepassword');
+
+		$result=Core_CUserAccInfo::updateChangePassword();	
+
+		$this->showChangePassword($result);
+	}
+
 	/**
 	* This function is used to show  product review  after login
  	*
@@ -216,7 +287,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -265,7 +337,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -341,7 +414,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -383,7 +457,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -423,7 +498,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -465,7 +541,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -506,7 +583,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -550,7 +628,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -596,7 +675,8 @@ class Model_MUserAccount
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();

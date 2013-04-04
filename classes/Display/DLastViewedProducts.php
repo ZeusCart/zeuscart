@@ -31,7 +31,14 @@
  */
 class Display_DLastViewedProducts
 {
-var $output = array();	
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
+	
+	var $output = array();	
 		
  	/**
 	* This function is used to Display the Recently Viewed Product

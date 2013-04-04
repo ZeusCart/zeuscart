@@ -93,6 +93,7 @@ class Model_MKeywordSearch
 		$output['newproducts']=$default->newProducts();
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 		if (isset($_GET['search']))
@@ -133,9 +134,12 @@ class Model_MKeywordSearch
 		
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['mylink']=Core_CKeywordSearch::linkMode();
 
 		$output['sortby']=Display_DKeywordSearch::sortBy();
+		$output['cartcount']=Core_CAddCart::countCart();
 	   	Bin_Template::createTemplate('searchpage.html',$output);
 
 	}	
@@ -196,6 +200,7 @@ class Model_MKeywordSearch
 		$output['newproducts']=$default->newProducts();
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 		$output['sitelogo']=Core_CHome::getLogo();
@@ -206,6 +211,8 @@ class Model_MKeywordSearch
 		$output['banner']=Core_CHome::getBanner();		
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['timezone']=Core_CHome::setTimeZone();
 		
 		$sort=$_POST['selsort'];
@@ -273,6 +280,7 @@ class Model_MKeywordSearch
 		$output['newproducts']=$default->newProducts();
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 		$output['sitelogo']=Core_CHome::getLogo();
@@ -284,7 +292,8 @@ class Model_MKeywordSearch
 		
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 	    	$sort=$_POST['selsort'];
 		
 		$output['dispsubcat']=Core_CKeywordSearch::dispSubCategory();
@@ -343,6 +352,7 @@ class Model_MKeywordSearch
 		$output['newproducts']=$default->newProducts();
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 		include('classes/Core/CKeywordSearch.php');
@@ -354,10 +364,11 @@ class Model_MKeywordSearch
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['skinname']=Core_CHome::skinName();
 		$output['banner']=Core_CHome::getBanner();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		
-	    $sort=$_POST['selsort'];
+	 	$sort=$_POST['selsort'];
 	
 		$mode=$_POST['selmode'];
 																$output['dispsubcat']=Core_CKeywordSearch::dispSubCategory();
@@ -380,8 +391,7 @@ class Model_MKeywordSearch
 		$output['mylink']=Core_CKeywordSearch::linkMode();
 
 		$output['sortby']=Display_DKeywordSearch::sortBy();
-	    Bin_Template::createTemplate('searchpage.html',$output);
-
+	  	Bin_Template::createTemplate('searchpage.html',$output);
 		
 	}
 	

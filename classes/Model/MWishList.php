@@ -22,8 +22,7 @@
 /**
  * Wish list  related  class
  *
- * @package   		Classes
- * @subpackage  	Model
+ * @package   		Model_MWishList
  * @category    	Model
  * @author    		AJ Square Inc Dev Team
  * @link   		http://www.zeuscart.com
@@ -84,7 +83,8 @@ class Model_MWishList
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['result']=$result;
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
@@ -151,7 +151,8 @@ class Model_MWishList
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['result']=$result;
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
@@ -218,7 +219,8 @@ class Model_MWishList
 			$output['googlead']=Core_CHome::getGoogleAd();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['footer']=Core_CHome::footer();
-			
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			if($_SESSION['compareProductId']=='')
 				$output['viewProducts']['viewProducts'] = Display_DWishList::viewProductElse();
 			else
@@ -276,6 +278,8 @@ class Model_MWishList
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['skinname']=Core_CHome::skinName();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
@@ -368,7 +372,8 @@ class Model_MWishList
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -419,7 +424,8 @@ class Model_MWishList
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -470,7 +476,8 @@ class Model_MWishList
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['banner']=Core_CHome::getBanner();
-		
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		include('classes/Core/CKeywordSearch.php');
   		include('classes/Display/DKeywordSearch.php');
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();

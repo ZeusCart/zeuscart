@@ -1,5 +1,4 @@
 <?php
-session_start();
 /**
 * GNU General Public License.
 
@@ -19,6 +18,7 @@ session_start();
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+
 
 /**
  * This class contains functions related cache

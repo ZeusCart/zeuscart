@@ -47,10 +47,10 @@ class Lib_ImageFunctions
 	}
 	/**
 	 * Function is used to reduce the image size
-	 * @param string $fname
-	 * @param integer $newwidth
-	 * @param  integer $newheight
-	 * @param string  $thumbpath	
+	 * @param string $file
+	 * @param integer $filewidth
+	 * @param  integer $fileheight
+	 * @param string  $file_path	
 	 *
 	 * @return bool 
 	 */	

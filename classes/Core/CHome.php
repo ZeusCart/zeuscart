@@ -126,7 +126,7 @@ class Core_CHome
 			}
 			return $output;
 	}
-   /**
+   	/**
 	 * This function is used to Set the time zone assigned in the admin settings 
 	 * 
 	 * 
@@ -182,6 +182,22 @@ class Core_CHome
 			return $output;
 	}
 	/**
+	 * This function is used to get  the social link from  db
+	 * 
+	 * 
+	 * @return string
+	 */
+	function showSocialLinks()
+	{
+		include_once('classes/Display/DHome.php');
+		$sql = "SELECT *  FROM social_links_table WHERE status ='1'";
+		$query = new Bin_Query();
+		if($query->executeQuery($sql))
+		{
+			return Display_DHome::showSocialLinks($query->records);
+		}	
+	}
+	/**
 	 * This function is used to get  the footer content from  db
 	 * 
 	 * 
@@ -197,7 +213,173 @@ class Core_CHome
 				return Display_DHome::footer($query->records);
 			}	
 	}
-   
-   
+   	/**
+	 * This function is used to get  the footer connect with us from  db
+	 * 
+	 * 
+	 * @return string
+	 */
+	function getfooterconnect()
+	{
+		$sql = "SELECT * FROM footer_settings_table WHERE id='1'";
+		$query = new Bin_Query();
+		$query->executeQuery($sql);	
+		$records=$query->records[0];
+	
+		return $records;	
+	}
+   	/**
+	 * This function is used to get  the brands from  db
+	 * 
+	 * 
+	 * @return string
+	 */
+	function showBrands()
+	{
+
+		
+		if(isset($_GET['schltr']))
+		{
+			$searchletter=trim($_GET['schltr']);
+			if(strtolower($searchletter)!='all')
+			{
+				$sql ="SELECT * FROM  products_table   WHERE brand  like '".$searchletter."%' GROUP BY  brand";
+			}
+			else
+			{
+				$sql ="SELECT * FROM  products_table   WHERE brand !=''  GROUP BY  brand"; 
+			}
+		}
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$records=$obj->records;
+		
+ 		return Display_DHome::showBrands($records);	
+	}
+
+	/**
+	 * This function is used to get  the brands from  db for list and grid view
+	 * 
+	 * 
+	 * @return string
+	 */
+	function viewBrandsList()
+	{
+		$pagesize=9;
+  	    	if(isset($_GET['page']))
+		{
+		    
+			$start = trim($_GET['page']-1) *  $pagesize;
+			$end =  $pagesize;
+		}
+		else 
+		{
+			$start = 0;
+			$end =  $pagesize;
+		}
+		$total = 0;
+
+		if(($_GET['brand']!='')  )
+		{
+			//product selection				
+			if($_GET['brand']!='all')
+			{
+			$sqlpro="SELECT * FROM products_table WHERE brand='".$_GET['brand']."'";
+			}
+			else
+			{
+			$sqlpro="SELECT * FROM products_table WHERE brand!=''";
+			}
+
+		}
+		
+
+		$objpro=new Bin_Query();
+		if($objpro->executeQuery($sqlpro))
+		{	
+
+			$sql1=$sqlpro.' LIMIT '.$start.','.$end;
+			$total = ceil($objpro->totrows/ $pagesize);
+			$recordSet=$objpro->records;
+			include('classes/Lib/Paging.php');
+			$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>5),'pagination');
+			$this->data['paging'] = $tmp->output;
+			$this->data['prev'] =$tmp->prev;
+			$this->data['next'] = $tmp->next;
+			$query1 = new Bin_Query();
+			$query1->executeQuery($sql1);	
+		}
+		
+		
+		return Display_DHome::viewBrandsList($query1->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
+		
+
+
+	}
+	/**
+	 * This function is used to get  the brands from  db
+	 * 
+	 * 
+	 * @return string
+	 */
+	function sendGiftvoucher()
+	{
+
+		/*Generate the gift Code */
+		$characters='4';	
+		$possible = '1234567890';
+			$code = '';
+			$i = 0;
+			while ($i < $characters) { 
+				$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
+				$i++;
+	
+			}
+		
+		$code="AJGC".$code;
+
+		$sql="INSERT INTO  gift_voucher_table(recipient_name,recipient_email,name,email, 	certificate_theme,message,amount,gift_code)VALUES('".$_POST['rname']."','".$_POST['remail']."','".$_POST['name']."','".$_POST['email']."','".$_POST['gctheme']."','".$_POST['message']."','".$_POST['amount']."','".$code."')"; 
+		$obj=new Bin_Query();
+		if($obj->updateQuery($sql))
+		{
+			$_SESSION['giftvoucheropen']=1;
+			$_SESSION['gift']=$_POST;
+			//Core_CHome::sendingMail($_POST['email'],$_POST['remail'],$_POST['message']);
+			$output = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Thank you for purchasing a gift certificate! Once you have completed your order your gift voucher recipient will be sent an email with details how to redeem their gift voucher.
+			</div>';
+
+
+		}
+		else
+		{	$output = '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Gift Voucher  Not Send
+			</div>';
+		}
+		return $output;
+		
+	}
+
+	/**
+	 * This function is used to send the mail for  contact us 
+	 * @param string  $from_mail
+	 * @param string  $to_mail
+	 * @param string  $mail_content
+	 * 
+	 * @return string
+	 */
+	function sendingMail($from_mail,$to_mail,$mail_content)
+	{
+		include('classes/Lib/Mail.php');
+		$mail = new Lib_Mail();
+		$mail->From($from_mail); 
+		$mail->ReplyTo('noreply@Zeuscart.com');
+		$mail->To($to_mail); 
+		$mail->Subject('contact');
+		$mail->Body($mail_content);
+		$mail->Send();
+	}
 }
 ?>	

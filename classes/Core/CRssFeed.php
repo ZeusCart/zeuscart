@@ -32,6 +32,12 @@
  */
 class Core_CRssFeed
 {
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
 	var $output = array();
 	/**
 	* This function is used to show the rss feed

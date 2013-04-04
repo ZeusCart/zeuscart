@@ -44,9 +44,10 @@ class Display_DAddCart
 	function showCart($arr,$result)
 	{
 
-		if (!(empty($arr)))
+		if(!(empty($arr)))
 		{
-		   if($Err->messages>0)
+		
+		  	 if($Err->messages>0)
 			{
 				$output['val']=$Err->values;
 				$output['msg']=$Err->messages;
@@ -56,18 +57,20 @@ class Display_DAddCart
 			$resship=$obj->loadCountryDropDown($result,'selshipcountry');
 		
 			$out = '<input  type="hidden" name="prodid" value="'.(int)$_GET['prodid'].'">';
+			
 			$out.='<div id="myaccount_div">	'.$_SESSION['cartmsg'].'
-           		       <table class="rt cf" id="rt1">
-		               <thead class="cf">
-				<tr>
-					<th>Gallery View</th>
-					<th>Product Name</th>
-					<th>Qty</th>
-					<th>Sub Total</th>
-					
-				</tr>
-				</thead>
-				<tbody>';
+			<table class="rt cf" id="rt1">
+			<thead class="cf">
+			<tr>
+			<th></th>
+			<th>Gallery View</th>
+			<th>Product Name</th>
+			<th>Qty</th>
+			<th>Unit Price 	</th>
+			<th>Sub Total</th>				
+			</tr>
+			</thead>
+			<tbody>';
 
 				if(isset($_SESSION['prowishlist']))
 				{
@@ -76,52 +79,57 @@ class Display_DAddCart
 				}
 
 				$cnt=count($arr);
-				for ($i=0;$i<$cnt;$i++)
-				{
-					$proid.=$arr[$i]['product_id'].',';
-					$prqty=$arr[$i]['product_qty'];
-					
-					if ($arr[$i]['soh']<=0)
-						$prqty=0;
+				
+					for ($i=0;$i<$cnt;$i++)
+					{
+						$proid.=$arr[$i]['product_id'].',';
+						$prqty=$arr[$i]['product_qty'];
 						
-								
-					$original_price=$arr[$i]['product_unit_price'];
-					
-					if($arr[$i]['product_unit_price']!=0.00)
-						$msrp=$arr[$i]['product_unit_price']; 
-					elseif($arr[$i]['msrp1']!=0.00)
-						$msrp=$arr[$i]['msrp1']; //$msrp calculated unitpirce
-					else
-						$msrp=$arr[$i]['msrp'];
-						
-					$subtotal[]=$prqty*$msrp;
-					
-					$total=array_sum($subtotal);
-								
-					$shippingcost[]=$arr[$i]['shipingamount'];
-					$shipping=array_sum($shippingcost);
+						if ($arr[$i]['soh']<=0)
+							$prqty=0;
 							
-					$_SESSION['total']=$total;
-					$thumbimage=$arr[$i]['thumb_image'];
-					$temp=$arr[$i]['thumb_image'];
-					$img=explode('/',$temp);
-					
-					
-					$out.='<tr>
-						<td><a href="?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&cartid='.$arr[$i]['cart_id'].'"><img src="assets/img/close_button.gif" alt="close">	</a>		  <div class="showcart_box"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
-						if(file_exists($thumbimage))
-
-						$out.='<img src="'.$thumbimage.'" alt='.$arr[$i]['title'].'  />';
+									
+						$original_price=$arr[$i]['product_unit_price'];
+						
+						if($arr[$i]['product_unit_price']!=0.00)
+							$msrp=$arr[$i]['product_unit_price']; 
+						elseif($arr[$i]['msrp1']!=0.00)
+							$msrp=$arr[$i]['msrp1']; //$msrp calculated unitpirce
 						else
-						$out.='<img src="images/noimage.jpg"  alt='.$arr[$i]['title'].' />';
-
-
-						$out.='</a></div></td>
-						<td ><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
-						<td>'.$arr[$i]['product_qty'].'</td>
-						<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['msrp']*$arr[$i]['product_qty']).'</span></td>
-						</tr>';
-				}
+							$msrp=$arr[$i]['msrp'];
+							
+						$subtotal[]=$prqty*$msrp;
+						
+						$total=array_sum($subtotal);
+									
+						$shippingcost[]=$arr[$i]['shipingamount'];
+						$shipping=array_sum($shippingcost);
+								
+						$_SESSION['total']=$total;
+						$thumbimage=$arr[$i]['thumb_image'];
+						$temp=$arr[$i]['thumb_image'];
+						$img=explode('/',$temp);
+							
+							$out.='<tr>
+								<td><a href="?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="assets/img/close_button.gif" alt="close">	</a>		  <div class="showcart_box"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></td><td>';
+								if(file_exists($thumbimage))
+		
+								$out.='<img src="'.$thumbimage.'" alt='.$arr[$i]['title'].'  />';
+								else
+								$out.='<img src="images/noimage.jpg"  alt='.$arr[$i]['title'].' />';
+		
+		
+								$out.='</a></div></td>
+								<td ><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
+								<td>'.$arr[$i]['product_qty'].'</td>
+								<td><span class="label label-important"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['msrp']).'</span></td>
+								<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['msrp']*$arr[$i]['product_qty']).'</span></td>
+								</tr>';
+	
+						}
+					
+					
+					
 			
 				$_SESSION['prowishlist']=$proid;
 				$grandtotal=$total+$shipping;
@@ -129,7 +137,7 @@ class Display_DAddCart
 			
 			
 			$out.='<tr>
-				<td colspan="2" rowspan="3">&nbsp;</td>
+				<td colspan="4" rowspan="3">&nbsp;</td>
 			 	 <td><strong>Sub Total</strong></td>
 				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.$total.'</span></td>
 				</tr>
@@ -144,20 +152,29 @@ class Display_DAddCart
 					<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.$grandtotal.'</span></td>
 				</tr>
 				<tr>
-				<td colspan="2"><a href="javascript:void(0);" onclick="call();"><input type="submit" class="btn btn-danger" value="Continue Shopping" name="Submit" ></a></td>
-				<td colspan="2" align="center"><a href="?do=showcart&action=showquickregistration" ><input type="button" name="Submit22" value="Proceed To Checkout" class="btn btn-inverse" onclick=""></a></td>
-				</tr>
+				<td colspan="2"><a href="javascript:void(0);" onclick="callHome();"><input type="submit" class="btn btn-danger" value="Continue Shopping" name="Submit" ></a></td>';
+				if($_SESSION['user_id']=='')
+				{	
+				$out.='<td colspan="4" align="right"><a href="javascript:void(0);" onclick="callRegister();" ><input type="button" name="Submit22" value="Proceed To Checkout" class="btn btn-inverse" ></a></td>';
+				}
+				elseif($_SESSION['user_id']!='')
+				{
+				$out.='<td colspan="4" align="right"><a href="javascript:void(0);" onclick="callContinue();" ><input type="button" name="Submit22" value="Proceed To Checkout" class="btn btn-inverse" ></a></td>';
+				}
+				$out.='</tr>
 				</tbody>
 				</table>
 				</div>';
 		}
+		
 		else
+		{
 			$out='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			No Prodcuts Available in Your Shopping Cart.
+			No Products Available in Your Shopping Cart.
 			</div>';
 		
-
+		}
 		return $out;	
 	
 	}
@@ -226,31 +243,38 @@ class Display_DAddCart
 	 * @return string
 	 */
 	
-	function showQuickRegistration($result,$err)
-	{		
-	
-	       $output='<div class="row-fluid">
-        	<ul class="steps">
+	function showQuickRegistration($result,$Err)
+	{
 
-			<li class="act"><a href="#"><span>1. Email Login</span></a></li>		
-			<li class="inact"><a href="#"><span>2. Billing Address</span></a></li>
-			<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
-			<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
-			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
-				        
-			</ul>
+		
+	   	    $output='<div class="row-fluid">
+        		<ul class="steps">';
+			
+			 	 $output.='<li class="act"><a href="#"><span>1. Email Login</span></a></li>'; if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+				{	
+				$output.='<li class="inact"><a href="#"><span>2. Billing Address</span></a></li>
+				<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
+				<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li><li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+				<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>';
+				}
+				else
+				{
+				 $output.='<li class="inact"><a href="#"><span>2. Order Confirmation</span></a></li>
+				<li class="inact"><a href="#"><span>3. Payment Details</span></a></li>';
+				}
+			
+			  $output.='</ul>	
        			 </div><div class="row-fluid">
                     <div class="span6">
-			<form name="f1" method="post" action="?do=showcart&action=doquickregistration">
+			<form name="f1" method="post" action="?do=showcart&action=doquickregistration&gvid='.$_GET['gvid'].'">
                     	<div id="loginfrm">
                         		<ul class="loginfourm">
                                 	<li><b>E-mail Address</b></li>
-                                	<li><input type="text" class="input-large" name="txtregemail"><br />
-	 				 <font color="#FF0000"><AJDF:output>'.$err['txtregemail'].'</AJDF:output></font></li>
+                                	<li><input type="text" class="input-large" name="txtregemail" value='.$Err->values['txtregemail'].'><br />
+	 				 <font color="#FF0000"><AJDF:output>'.$Err->messages['txtregemail'].'</AJDF:output></font></li>
                                     	<li><b>Password</b></li>
                                 	<li><input type="password" name="txtregpass" class="input-large"><br />
-	   				<font color="#FF0000"><AJDF:output>'.$err['txtregpass'].'</AJDF:output></font></li>
+	   				<font color="#FF0000"><AJDF:output>'.$Err->messages['txtregpass'].'</AJDF:output></font></li>
                                 	<li><input type="checkbox"> Remember me?</li>
                                 	<li><input type="submit" value="Login" class="btn btn-danger"> </li>
                                     <li><a href="#"> Forgot password? </a> <span>OR</span> <a href="#">Need help?</a> </li>
@@ -259,7 +283,12 @@ class Display_DAddCart
 			</form>	
                         </div>
                     	<div class="span6">
-                         <div class="followus_div"><a class="facebook_btn" href="#"></a><a class="twitter_btn" href="#"></a><a class="google_btn" href="#"></a></div>
+                         <div class="followus_div">
+			<a href="#" id="openfb" class="facebook_btn"></a>
+                        <a href="#" id="opentw" class="twitter_btn"></a>
+                        <a href="#" id="opengp" class="google_btn"></a>
+
+			</div>
                     <p class="userlogin_fnt"><span>or log in using your username and Password</span></p>
                         	<div id="signin_acc">
                         	<ul class="signin-account">
@@ -281,6 +310,8 @@ class Display_DAddCart
 		return $output;
 
 	}
+
+	
 	/**
 	 * This function is used to show the PaymentPageForAuthorizenet
 	 *
@@ -543,7 +574,7 @@ class Display_DAddCart
 	 * @param   array  	$records	array of address
 	 * @param   array       $result	        array of country 
 	 * @param   array      $Err             contains both error messages and values
-	 *
+	 * @param  integer $billing_addess_id
 	 * @return string
 	 */	
 	function showBillingDetails($records,$result,$Err,$billing_addess_id)
@@ -563,11 +594,13 @@ class Display_DAddCart
 			else
 			{
 				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
-			}		
+			}
+					
 			$output.='<li class="act"><a href="#"><span>2. Billing Address</span></a></li>
 			<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
-			<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>';
+			
+			$output.='<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
 			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
 				        
 			</ul>
@@ -591,16 +624,17 @@ class Display_DAddCart
 					{
 						$imageicon='assets/img/click-btn.gif';
 					}
-                      			$output.='<li><address>
-                                    	<h5>'.$records[$i]['contact_name'].'</h5>
-                                        <p>'.$records[$i]['address'].'</p>
-                                        <p>'.$records[$i]['city'].'</p>
-					<p>'.$records[$i]['state'].'</p>
-					<p>'.$records[$i]['zip'].'</p>	
-
-			
-                                        <a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
-                                    	</address></li>';
+					if($records[$i]['contact_name']!='')
+					{
+						$output.='<li><address>
+						<h5>'.$records[$i]['contact_name'].'</h5>
+						<p>'.$records[$i]['address'].'</p>
+						<p>'.$records[$i]['city'].'</p>
+						<p>'.$records[$i]['state'].'</p>
+						<p>'.$records[$i]['zip'].'</p>	
+						<a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						</address></li>';
+					}
 					$i++;
 				
 				}
@@ -615,14 +649,17 @@ class Display_DAddCart
 					{
 						$imageicon='assets/img/click-btn.gif';
 					}
-                      			$output.='<div style="display:none;" id="more_bill_addr"><li><address>
-                                    	<h5>'.$records[$j]['contact_name'].'</h5>
-                                        <p>'.$records[$j]['address'].'</p>
-                                        <p>'.$records[$j]['city'].'</p>
-					<p>'.$records[$j]['state'].'</p>
-					<p>'.$records[$j]['zip'].'</p>	
-                                        <a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
-                                    	</address></li></div>';
+					if($records[$i]['contact_name']!='')
+					{
+						$output.='<div style="display:none;" id="more_bill_addr"><li><address>
+						<h5>'.$records[$j]['contact_name'].'</h5>
+						<p>'.$records[$j]['address'].'</p>
+						<p>'.$records[$j]['city'].'</p>
+						<p>'.$records[$j]['state'].'</p>
+						<p>'.$records[$j]['zip'].'</p>	
+						<a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						</address></li></div>';
+					}
 					$j++;
 				
 				}
@@ -637,7 +674,7 @@ class Display_DAddCart
 		 <div class="span8">
                     <div id="myaccount_div">
                     <div class="or_ribbion"><img src="assets/img/or.png" width="38" height="300" alt="or"></div>
-                    <p class="billing_title">Enter a new billing address</p>
+                    <p class="billing_title">Enter a new billing address</p><div style="padding:0 50px">
                     	<form method="POST" action="?do=showcart&action=validatebillingaddress" name="billingaddress" class="form-horizontal">
                 <fieldset>
                   <div class="control-group">
@@ -649,8 +686,7 @@ class Display_DAddCart
                   </div>
                   <div class="control-group">
                     <label class="control-label" for="input01">Name <span class="red_fnt">*</span></label>
-                    <div class="controls">
-                      <input type="text"  class="input-xlarge" name="txtname" id="txtname" value='.$Err->values['txtname'].'><br /><font color="#FF0000">'.$Err->messages['txtname'].'</font>
+                    <div class="controls"><input type="text"  class="input-xlarge" id="txtname" name="txtname" value="'.$Err->values['txtname'].'"><br /><font color="#FF0000">'.$Err->messages['txtname'].'</font>
 
                     </div>
                   </div>
@@ -670,8 +706,8 @@ class Display_DAddCart
 		
 		<div class="control-group">
                     <label class="control-label" for="input01"> City <span class="red_fnt">*</span></label>
-                    <div class="controls">
-                     <input type="text" class="input-xlarge"  name="txtcity" id="txtcity"  value='.$Err->values['txtcity'].'><br /><font color="#FF0000">'.$Err->messages['txtcity'].'</font>
+                    <div class="controls"><input type="text"  class="input-xlarge" id="txtcity" name="txtcity" value="'.$Err->values['txtcity'].'"><br />
+                  <br /><font color="#FF0000">'.$Err->messages['txtcity'].'</font>
                     </div>
                   </div>
 
@@ -715,7 +751,7 @@ class Display_DAddCart
                     <button type="submit" class="btn btn-large btn-inverse">Submit</button>
                   </div>
                 </fieldset>
-              </form>
+              </form></div>
 		</div>
                         </div>
           </div>';
@@ -727,7 +763,7 @@ class Display_DAddCart
 	 * @param   array  	$records	array of address
 	 * @param   array  	$result	        array of country 
 	 * @param   array      $Err            contains both error messages and values
-	 *
+	 * @param  integer $shipping_address_id
 	 * @return string
 	 */	
 	function showShippingDetails($records,$result,$Err,$shipping_address_id)
@@ -749,8 +785,10 @@ class Display_DAddCart
 			}		
 			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
 			<li class="act"><a href="#"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>
-			<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>';
+			
+			$output.='<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			
 			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
 				        
 		</ul>
@@ -774,15 +812,17 @@ class Display_DAddCart
 					{
 						$imageicon='assets/img/click-btn.gif';
 					}
-
-                      			$output.='<li><address>
-                                    	<h5>'.$records[$i]['contact_name'].'</h5>
-                                        <p>'.$records[$i]['address'].'</p>
-                                        <p>'.$records[$i]['city'].'</p>
-					<p>'.$records[$i]['state'].'</p>
-					<p>'.$records[$i]['zip'].'</p>	
-                                        <a href="?do=showcart&action=getshippingmethod&ship_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
-                                    	</address></li>';
+					if($records[$i]['contact_name']!='')
+					{
+						$output.='<li><address>
+						<h5>'.$records[$i]['contact_name'].'</h5>
+						<p>'.$records[$i]['address'].'</p>
+						<p>'.$records[$i]['city'].'</p>
+						<p>'.$records[$i]['state'].'</p>
+						<p>'.$records[$i]['zip'].'</p>	
+						<a href="?do=showcart&action=getshippingmethod&ship_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						</address></li>';
+					}
 
 					$i++;
 				}
@@ -799,14 +839,17 @@ class Display_DAddCart
 					{
 						$imageicon='assets/img/click-btn.gif';
 					}
-                      			$output.='<div style="display:none;" id="more_ship_addr"><li><address>
-                                    	<h5>'.$records[$j]['contact_name'].'</h5>
-                                        <p>'.$records[$j]['address'].'</p>
-                                        <p>'.$records[$j]['city'].'</p>
-					<p>'.$records[$j]['state'].'</p>
-					<p>'.$records[$j]['zip'].'</p>	
-                                        <a href="?do=showcart&action=getshippingaddressdetails&ship_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
-                                    	</address></li></div>';
+					if($records[$i]['contact_name']!='')
+					{
+						$output.='<div style="display:none;" id="more_ship_addr"><li><address>
+						<h5>'.$records[$j]['contact_name'].'</h5>
+						<p>'.$records[$j]['address'].'</p>
+						<p>'.$records[$j]['city'].'</p>
+						<p>'.$records[$j]['state'].'</p>
+						<p>'.$records[$j]['zip'].'</p>	
+						<a href="?do=showcart&action=getshippingaddressdetails&ship_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						</address></li></div>';
+					}
 					$j++;
 				
 				}
@@ -824,7 +867,7 @@ class Display_DAddCart
 
                     <div id="myaccount_div">
                     <div class="or_ribbion"><img src="assets/img/or.png" width="38" height="300" alt="or"></div>
-                    <p class="billing_title">Enter a new shipping address</p>
+                    <p class="billing_title">Enter a new shipping address</p><div style="padding:0 50px">
                     	<form method="POST" action="?do=showcart&action=validateshippingaddress" name="register_form" class="form-horizontal">
                 <fieldset>
                   <div class="control-group">
@@ -837,7 +880,7 @@ class Display_DAddCart
                   <div class="control-group">
                     <label class="control-label" for="input01">Name <span class="red_fnt">*</span></label>
                     <div class="controls">
-                      <input type="text"  class="input-xlarge" name="txtname" id="txtname" value='.$Err->values['txtname'].'><br /><font color="#FF0000">'.$Err->messages['txtname'].'</font>
+                     <input type="text"  class="input-xlarge" id="txtname" name="txtname" value="'.$Err->values['txtname'].'"><br /><font color="#FF0000">'.$Err->messages['txtname'].'</font>
 
                     </div>
                   </div>
@@ -858,7 +901,7 @@ class Display_DAddCart
 		<div class="control-group">
                     <label class="control-label" for="input01"> City <span class="red_fnt">*</span></label>
                     <div class="controls">
-                     <input type="text" class="input-xlarge"  name="txtcity" id="txtcity"  value='.$Err->values['txtcity'].'><br /><font color="#FF0000">'.$Err->messages['txtcity'].'</font>
+                     <input type="text"  class="input-xlarge" id="txtcity" name="txtcity" value="'.$Err->values['txtcity'].'"><br /><font color="#FF0000">'.$Err->messages['txtcity'].'</font>
                     </div>
                   </div>
 
@@ -902,7 +945,7 @@ class Display_DAddCart
                     <button type="submit" class="btn btn-large btn-inverse">Submit</button>
                   </div>
                 </fieldset>
-              </form>
+              </form></div>
 		</div>
                         </div>
           </div>';
@@ -911,8 +954,8 @@ class Display_DAddCart
 	}
 	/**
 	 * This function is used to show the shipping method.
-	 *
-	 *
+	 * @param array $records
+	 * @param array $Err
 	 * @return string
 	 */
 	function showShippingMethod($records,$Err)
@@ -931,8 +974,10 @@ class Display_DAddCart
 			}		
 			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
 			<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails"><span>3. Shipping Address</span></a></li>
-			<li class="act"><a href="#"><span>4. Shipping Method</span></a></li>
-			<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			<li class="act"><a href="#"><span>4. Shipping Method</span></a></li>';
+			
+			$output.='<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			
 			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
 		</ul>
 		</div><div class="row-fluid">
@@ -985,6 +1030,7 @@ class Display_DAddCart
    		
 		
                   $output.='<div class="form-actions">
+			
                     <button type="submit" class="btn btn-large btn-inverse" name="shipping_method">Submit</button>
                   </div>
                 </fieldset>
@@ -1006,9 +1052,10 @@ class Display_DAddCart
 	 *
 	 * @return string
 	 */	
-	function showOrderConfirmation($arr,$result,$taxarray,$message='')
+	function showOrderConfirmation($arr,$result,$taxarray,$message)
 	{
-		
+
+
 	 	 $out='<div class="row-fluid">
         	<ul class="steps">';
 			if($_SESSION['user_id']!='')
@@ -1019,22 +1066,29 @@ class Display_DAddCart
 			else
 			{
 				$out.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
-			}		
+			}
+			if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+			{		
 			$out.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
 			<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li>
-			<li class="act"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
-			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
-				        
-		</ul>
-		</div>'.$message.'<div id="myaccount_div">
+			<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li><li class="act"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
+			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>';
+			}
+			else
+			{	
+			$out.='<li class="act"><a href="?do=showcart&action=showorderconfirmation"><span>2. Order Confirmation</span></a></li>
+			<li class="inact"><a href="#"><span>3. Payment Details</span></a></li>';
+			}	        
+			$out.='</ul>
+		</div>'.$message.'<div id="myaccount_div"><form name="cart" action="?do=showcart&action=validatecoupon"  method="post">
            	 <table class="rt cf" id="rt1">
 		<thead class="cf">
 			<tr>
+				<th></th>
 				<th>Gallery View</th>
 				<th>Product Name</th>
-				<th>Unit Price</th>
 				<th>Quantity</th>
+				<th>Unit Price</th>	
 				<th>Sub Total</th>
 				
 			</tr>
@@ -1096,22 +1150,19 @@ class Display_DAddCart
 
 			$out.='<tr>
 
-			<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a>			  <div class="showcart_box">';
+			<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a></td><td>';
 
 			if(file_exists($thumbimage))
 			  $out.='<img src="'.$thumbimage.'" alt="'.$arr[$i]['title'].'" />';
 		 	else	  
 		  	$out.='<img src="images/noimage.jpg" alt="'.$arr[$i]['title'].'"/>';
 
-			$out.='</div></td>
+			$out.='</td>
 			 <td ><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" name="prodname">'.$arr[$i]['title'].'</a></td>
 
-
-			<td><span class="label label-important"><span class="label label-important"> '.($arr[$i]['product_unit_price']<$arr[$i]['msrp1'] ? '<span>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp1']).'</span><br />' : ''.'
-			'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($msrp)).'</span></td>
-
-
 			<td>'.$arr[$i]['product_qty'].'</td>
+			<td><span class="label label-important"> '.($arr[$i]['product_unit_price']<$arr[$i]['msrp1'] ? '<span>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp1']).'</span><br />' : ''.'
+			'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($msrp)).'</span></td>
 			<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($subtotal[$i]).'</span></td>
 			<input type="hidden" name="cartid[]"  value="'.$arr[$i]['cart_id'].'" />
 			<input type="hidden" name="prodid[]" value='.$arr[$i]['product_id'].' />
@@ -1123,7 +1174,7 @@ class Display_DAddCart
 			
 		
 			$out.='<tr>
-				<td colspan="3" rowspan="4">&nbsp;</td>
+				<td colspan="4" rowspan="4">&nbsp;</td>
 			  <td><strong>Sub Total</strong></td>
 				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($total).'</span></td>
 			</tr>
@@ -1140,16 +1191,19 @@ class Display_DAddCart
 			  <td><strong>Grand Total</strong></td>
 				<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal).'</span></td>
 			</tr>
+
 			<tr>
-			  <td colspan="3"><form name="cart" action="?do=showcart&action=validatecoupon"  method="post">
+			  <td colspan="4">
               <h4>Coupon Code</h4>
               <p>If you have a coupon code enter it in the box below and click \'Go\'.</p>
              <p> <input type="text" name="coupon_code"></p>
-            <input type="submit" name="Submit3" value="Go"  class="btn btn-danger"/></td></form>
-			  <td colspan="2" align="center" valign="middle"><a href="?do=showcart&action=displaypaymentgateways" class="btn btn-inverse">Proceed Checkout</a></td>
+            <input type="submit" name="Submit3" value="Go"  class="btn btn-danger" ></td>
+			  <td colspan="3" align="center" valign="middle"><a href="?do=showcart&action=displaypaymentgateways" class="btn btn-inverse">Proceed Checkout</a></td>
 		  </tr>
+
+
 		</tbody>
-	</table>
+	</table></form>
         </div>';
 
 	$_SESSION['checkout_amount']=$grandtotal;
@@ -1178,14 +1232,21 @@ class Display_DAddCart
 			else
 			{
 				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
-			}		
+			}
+			if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+			{		
 			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
 			<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li>
-			<li class="inact"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
-			<li class="act"><a href="#"><span>6. Payment Details</span></a></li>
+			<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li><li class="inact"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
+			<li class="act"><a href="#"><span>6. Payment Details</span></a></li>';
+			}
+			else
+			{
+			$output.='<li class="inact"><a href="?do=showcart&action=showorderconfirmation"><span>2. Order Confirmation</span></a></li>
+			<li class="act"><a href="#"><span>3. Payment Details</span></a></li>';
+			}
 				        
-		</ul>
+		$output.='</ul>
 		</div><div class="row-fluid">
                     <div class="span12">
                          

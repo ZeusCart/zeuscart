@@ -339,7 +339,7 @@
 	
  	/**
 	* This function is used to Display the form for paypal
-	* @param int $business
+	* @param int $bussiness
 	* @return string
  	*/
 	function paypal($bussiness)

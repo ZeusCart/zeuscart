@@ -32,7 +32,14 @@
  */
 class Core_CFeaturedItems
 {
-var $output = array();	
+
+	/**
+	 * Stores the output
+	 *
+	 * @var array 
+	 */
+
+	var $output = array();	
 
 	/**
 	 * This function is used to show the main category landing page
@@ -200,7 +207,7 @@ var $output = array();
 	{
 		$query = new Bin_Query();
 		
-		$sql ="SELECT * FROM `products_table` where category_id in(SELECT category_id FROM category_table WHERE category_id=".(int)$_GET['subcatid']." and category_status=1) and is_featured=1 and status=1 and intro_date <= '".date('Y-m-d')."'";
+		$sql ="SELECT * FROM `products_table` where category_id in(SELECT category_id FROM category_table WHERE category_id=".(int)$_GET['subcatid']." and category_status=1) and is_featured=1 and status=1 and intro_date <= '".date('Y-m-d')."' and  a.category_id !='63'";
 		if($query->executeQuery($sql))
 		{
 			$flag =0;
@@ -237,7 +244,7 @@ var $output = array();
 	 */
 	function featuredProductsHidden()
 	{
-		 $sql = "SELECT a.*,sum(c.rating)/count(c.user_id) as rating FROM `products_table` a left join product_reviews_table c on a.product_id=c.product_id WHERE  is_featured=1 and a.status=1 and a.intro_date <= '".date('Y-m-d')."' group by a.product_id  ORDER BY rand( ) ";
+		 $sql = "SELECT a.*,sum(c.rating)/count(c.user_id) as rating FROM `products_table` a left join product_reviews_table c on a.product_id=c.product_id WHERE  is_featured=1 and a.status=1 and a.intro_date <= '".date('Y-m-d')."' and  a.category_id !='63' group by a.product_id  ORDER BY rand( ) ";
 	
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))

@@ -125,6 +125,8 @@ class Model_MProductDetail
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['pagetitle']=Core_CHome::pageTitle();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		//--------- Details for Left Part-----------//
 		
 		$output['relatedproduct']=Core_CProductDetail::disprelatedProduct();
@@ -146,9 +148,10 @@ class Model_MProductDetail
 		$default=new Core_CProductDetail();
 		$output['product']=$default->productDetail();
 		$output['pageinfo']=$default->pageInfo();
-		
+		$output['cartcount']=Core_CAddCart::countCart();
 		
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		Bin_Template::createTemplate('productdetail.html',$output);
 		UNSET($_SESSION['reviewResult']);
@@ -174,6 +177,20 @@ class Model_MProductDetail
 		$output['result']=$default->showLargeview();
 		Bin_Template::createTemplate('largeview.html',$output);
 	}
+	/**
+	* This function is used to Display the pop up  of image of product 
+ 	*
+ 	* @return string
+	*/		
+	function showPopupProducts()
+	{
+
+		include_once('classes/Core/CProductDetail.php');
+		include_once('classes/Display/DProductDetail.php');
+		echo  $output['popproduct']= Core_CProductDetail::showPopupProducts();
+
+		// Bin_Template::createTemplate('popup_product_detail.html',$output);
+
+	}
 	
-		
 }	

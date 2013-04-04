@@ -30,29 +30,21 @@
   * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
  * @version   		Version 4.0
  */
-	/**
-	 * Stores the output records
-	 *
-	 * @var array 
-	 */	
-     	$arr = array();
-    	 /**
-	 * Stores the output records
-	 *
-	 * @var array 
-	 */	
-	$arr1 = array();
-	/**
-	 * Stores the output 
-	 *
-	 * @var array 
-	 */	
-	$output = array();
+	
 
 class Display_DWishList
 {
+
 	
- 	/**
+//       	 $arr = array();
+// 
+//     
+// 	$arr1 = array();
+// 
+// 		
+// 	$output = array();
+	
+ 	/**	
 	* This function is used to Display the Wishlist Snapshot
 	* @param mixed $arr
 	* @param int $totalitem

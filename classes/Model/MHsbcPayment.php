@@ -55,6 +55,8 @@ class Model_MHsbcPayment
 		$output['bannerurl']=Core_CHome::getBannerUrl();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		include('classes/Core/CHsbcPayment.php');
 		include('classes/Display/DHsbcPayment.php');				
 		$output['hsbcpayment'] =  Display_DHsbcPayment::dispGetDetails();				

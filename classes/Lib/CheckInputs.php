@@ -57,6 +57,8 @@ class Lib_CheckInputs
 			$this->validateCheckout();
 		else if($module=='frmAcc')
 			$this->validateUserAccount();
+		else if($module=='changepassword')
+			$this->validateChangePassword();
 		else if($module=='frmWishSend')
 			$this->validateWishlist();
 		else if($module=='frmAddAddress')
@@ -68,10 +70,40 @@ class Lib_CheckInputs
 		else if($module=='shippingaddress')
 			$this->validateShippingAddress();	
 		else if($module=='shippingmethod')
-			$this->validateShippingMethod();		
+			$this->validateShippingMethod();
+		else if($module=='giftvoucher')
+			$this->validateGiftVoucher();		
 
 	}
 
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateGiftVoucher()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+
+			if($_POST['rname']!='' or $_POST['rname']=='' or $_POST['remail']!='' or $_POST['remail']=='' or $_POST['name']=='' or $_POST['name']!='' or $_POST['email']=='' or $_POST['email']!=''  )
+			{
+				
+				$obj = new Lib_FormValidation('giftvoucher');
+			}
+			else 
+			{
+				header("Location:?do=index");
+				exit();
+			}
+		}
+
+
+	}
 	/**
 	 * Function checks whether the request method is post and invokes the validation module  
 	 * 
@@ -374,6 +406,30 @@ class Lib_CheckInputs
 			else 
 			{	
 				header("Location:?do=accountinfo");
+				exit();
+			}
+		}
+
+	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
+	function validateChangePassword()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['txtCPwd']!='' || $_POST['txtCPwd']=='')
+			{
+				$obj = new Lib_FormValidation('changepassword');
+			}
+			else 
+			{	
+				header("Location:?do=changepassword");
 				exit();
 			}
 		}

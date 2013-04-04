@@ -61,7 +61,7 @@ class Core_CUserAccInfo
 	{
 		include('classes/Display/DUserAccount.php');
 		
-		$sqlselect = "SELECT user_id,user_fname,user_lname,user_email,user_pwd  from users_table a where  a.user_status=1 and user_id=".$_SESSION['user_id'];		
+		$sqlselect = "SELECT a.user_id,a.user_fname,a.user_lname,a.user_email,a.user_pwd,b.subsciption_id from users_table a,newsletter_subscription_table b where a.user_email=b.email and a.user_status=1 and a.user_id=".$_SESSION['user_id'];	
 		
 		$obj = new Bin_Query();
 
@@ -70,6 +70,21 @@ class Core_CUserAccInfo
 
 			 return Display_DUserAccount::showAccountInfo($obj->records);
 		}	
+		
+	}
+	/**
+	 * This function is used to get  the   user account information
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
+	function showChangePassword()
+	{
+		include('classes/Display/DUserAccount.php');
+		
+	      return Display_DUserAccount::showChangePassword();
+	
 		
 	}
 	/**
@@ -91,16 +106,61 @@ class Core_CUserAccInfo
 
 			$obj = new Bin_Query();
 
-			$sqlselect="update users_table set user_fname='".$fname."',user_lname='".$lname."',user_email='".$email."',user_pwd='".base64_encode($pwd)."' where user_id=".$_SESSION['user_id'];
+			$sqlselect="update users_table set user_fname='".$fname."',user_lname='".$lname."',user_email='".$email."' where user_id=".$_SESSION['user_id']; 
 			$obj->updateQuery($sqlselect);
 			
 			$sqlselect="update newsletter_subscription_table set email='".$email."' where subsciption_id=".$subid;
 			
 			if($obj->updateQuery($sqlselect))
-				return "<div class='success_msgbox'>Updated!</div></br>";
-			else
-				return "<div class='exc_msgbox'>Could not Updated!!</div></br>";
+
+				return '<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				Your Account Successfully Updated!
+				</div>';
+				else
+
+
+				return '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				Your Account Could not Updated!!
+				</div>';
 		}
+	}
+	/**
+	 * This function is used to update  the   user change password
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
+	function updateChangePassword()
+	{
+
+		$pwd=$_POST['txtNPwd'];
+		$obj = new Bin_Query();
+
+		$sqlselect="update users_table set user_pwd='".base64_encode($pwd)."' where user_id=".$_SESSION['user_id']; 
+		$obj->updateQuery($sqlselect);
+		
+				
+		if($obj->updateQuery($sqlselect))
+		{
+
+			return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Your Password Successfully Updated!
+			</div>';
+		}
+		else
+		{
+
+			return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>
+			Your Password Could not Updated!!
+			</div>';
+
+		}
+
 	}
 }
 ?>

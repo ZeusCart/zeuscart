@@ -48,7 +48,7 @@ class Model_MPaymentGateways
 	{
 	
 		include('classes/Core/CUserRegistration.php');
-		
+		include('classes/Core/CAddCart.php');
 		include('classes/Core/CPaymentGateways.php');
 		include('classes/Display/DPaymentGateways.php');
 		
@@ -68,8 +68,14 @@ class Model_MPaymentGateways
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['skinname']=Core_CHome::skinName();
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();	
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['cartcount']=Core_CAddCart::countCart();
+
 		Bin_Template::createTemplate('PaymentGateways.html',$output);
 	
 	}
@@ -80,12 +86,12 @@ class Model_MPaymentGateways
 	*/
 	function success()
 	{
-		
+
 		include('classes/Core/CUserRegistration.php');
 		include('classes/Display/DUserRegistration.php');
 		include('classes/Core/CPaymentGateways.php');
 		include('classes/Display/DPaymentGateways.php');	
-		
+		include('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -93,7 +99,6 @@ class Model_MPaymentGateways
 			
                  $output['selectedpayment']=$_POST['paymentBy'];
 		include('classes/Core/CHome.php');
-		include('classes/Core/CAddCart.php');
 		include('classes/Display/DAddCart.php');
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
@@ -102,10 +107,22 @@ class Model_MPaymentGateways
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['skinname']=Core_CHome::skinName();
-		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();	
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		
+	
 		$output['ret'] =   Core_CPaymentGateways::success();				
-		$output['success'] =   '<div class="success_msgbox">Your Order has been Placed Successfully </div>';		
-		$output['footer']=Core_CHome::footer();				
+		$output['success'] =   '<div class="alert alert-success">
+		<button data-dismiss="alert" class="close" type="button">×</button>
+		Your Order has been Placed Successfully .
+		</div>';
+
+	
+		$output['footer']=Core_CHome::footer();	
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['cartcount']=Core_CAddCart::countCart();			
 		Bin_Template::createTemplate('success.html',$output);
 	
 	}
@@ -120,7 +137,7 @@ class Model_MPaymentGateways
 		include('classes/Display/DUserRegistration.php');
 		include('classes/Core/CPaymentGateways.php');
 		include('classes/Display/DPaymentGateways.php');
-		
+		include('classes/Core/CAddCart.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();	
 
@@ -137,9 +154,18 @@ class Model_MPaymentGateways
 		$output['timezone']=Core_CHome::setTimeZone();	
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['skinname']=Core_CHome::skinName();
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();	
-			
-		$output['failure'] =   'Payment Failure Your Payment has not been made';				
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['cartcount']=Core_CAddCart::countCart();
+	
+		$output['failure'] =   '<div class="alert alert-error">
+		<button data-dismiss="alert" class="close" type="button">×</button>
+		Payment Failure Your Payment has not been made.
+		</div>';				
+
 		Bin_Template::createTemplate('failure.html',$output);
 		
 	    

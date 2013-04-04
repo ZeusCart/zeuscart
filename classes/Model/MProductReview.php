@@ -86,6 +86,8 @@ class Model_MProductReview
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['footer']=Core_CHome::footer();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['reviewproduct'] = Core_CProductReview::showProductReview($Err);
 			$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
@@ -99,6 +101,7 @@ class Model_MProductReview
 			$output['wishlist'] = $default->addtoWishList();
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			$default=new Core_CNewProducts();
 			$output['newproducts']=$default->newProducts();
@@ -147,6 +150,8 @@ class Model_MProductReview
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		include('classes/Core/CAddCart.php');
 		include('classes/Display/DAddCart.php');
@@ -164,6 +169,7 @@ class Model_MProductReview
 		$output['wishlist'] = $default->addtoWishList();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 		$default=new Core_CNewProducts();
@@ -212,6 +218,8 @@ class Model_MProductReview
 			$output['skinname']=Core_CHome::skinName();
 			$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 			$output['footer']=Core_CHome::footer();
+			$output['footerconnect']=Core_CHome::getfooterconnect();
+			$output['sociallink']=Core_CHome::showSocialLinks();
 			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 			$output['reviewproduct'] = Core_CProductReview::showProductReview($Err);
 			$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
@@ -222,6 +230,7 @@ class Model_MProductReview
 			$output['wishlist'] = $default->addtoWishList();
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			$default=new Core_CNewProducts();
 			$output['newproducts']=$default->newProducts();

@@ -96,6 +96,10 @@ class Lib_Cache
 
 	/**
 	* Put data into cache
+	* @param  string $var_name
+	* @param  string $data
+	* @param  string $var
+	* @param  integer $ttl
 	*/
 	function put($var_name, $data, $var, $ttl = 31536000)
 	{	
