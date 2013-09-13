@@ -73,8 +73,10 @@ class Model_MTermsCondition
 		{
 			include("classes/Core/CTermsCondition.php");
 			$default = new Core_CTermsCondition();
+			$output['updatetermsmsg']=$_SESSION['messageTerms'];
 			$output['termscontent']=$default->selectTerms();
 			Bin_Template::createTemplate('termsconditions.html',$output);	
+			unset($_SESSION['messageTerms']);
 		}
 		else
 		{
@@ -116,10 +118,11 @@ class Model_MTermsCondition
 			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 			
 			$default = new Core_CTermsCondition();
-			
-			$output['updatetermsmsg']=$default->updateTerms();
+			$_SESSION['messageTerms']=$default->updateTerms();
 			$output['termscontent']=$default->selectTerms();
-			Bin_Template::createTemplate('termsconditions.html',$output);	
+			header('Location:?do=terms');
+			exit;
+			
 
 	}
 	

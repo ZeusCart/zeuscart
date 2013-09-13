@@ -68,7 +68,8 @@ class Core_Settings_CAdminEmailSettings
 			}
 			else
 			{
-				return '<div class="error_msgbox" style="width:646px;">Admin Email Site Settings Not Found</div>';
+				return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Admin Email Site Settings Not Found</div>';
 			}
 	}
 	
@@ -88,15 +89,18 @@ class Core_Settings_CAdminEmailSettings
 			if($query->updateQuery($sql))
 			{		
 				
-				return '<div class="success_msgbox" style="width:646px;">Site Email Settings <b>'.$_POST['email'].'</b> Saved Successfully</div>';
+				return '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> Site Email Settings <b>'.$_POST['email'].'</b> Saved Successfully</div>';
 			}
 			else
 			{
-				return '<div class="error_msgbox" style="width:646px;">Admin Email Site Settings Not Found</div>';
+				return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Admin Email Site Settings Not Found</div>';
 			}
 		}
 		else
-			return '<div class="error_msgbox" style="width:646px;">Email Should Not Be Empty</div>';
+			return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Admin Email Id Should Not Be Empty</div>';
 	}
 }	
  ?>

@@ -50,48 +50,119 @@ function selUnDeSel(a){
 }
 
 -->
-</script>
- <form name="formattrib" action="?do=addattributes&action=add"  method="post" >
- 
-<table width="97%" border="0" cellspacing="0" cellpadding="">
-			
-          <tr>
-            <td colspan="5" align="left" class="content_title">Attributes <!--&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('datt', 'Attributes', 'Add here')" onmouseout="HideHelp('datt');">
-			<div id="datt" style="left: 50px; top: 50px;"></div>--></td>
-          </tr>
-          <tr>
-            <td colspan="7" align="left">&nbsp;</td>
-          </tr>
-          <tr>
-            <td colspan="4" align="left"><AJDF:output>$attribmsg</AJDF:output></td>
-          </tr>
-          <tr>
-            <td height="41" colspan="5" align="right"><a href="?do=addattributevalues" class="add_link" >Add Attribute values</a></td>
-          </tr>
-		  <tr><td>
-	<table class="content_list_bdr" width="100%" border="0" >
-          <tr>
-            <td width="17%" align="left" class="content_form">Add Attributes:</td>
-            <td width="26%" align="left">
-<input type="text" name="attributes" id="attrib" class="txt_box200" maxlength="25"  value="<AJDF:output>$val.attributes</AJDF:output>"/></td>
-            <td width="7%" align="center"><input type="submit" name="btnsubmit" value="Add" id="submit" class="all_bttn"  /></td>
-            <td width="50%" colspan="2">&nbsp;</td>
-          </tr>
-          <tr><td></td><td colspan="3"><font color="#FF0000"><AJDF:output>$msg.attributes</AJDF:output></font></td></tr>
 
-		  </table></td></tr>
-		  <tr>
-            <td colspan="4" align="left">&nbsp;</td>
-          </tr>
-          <tr>
-            <td colspan="5" align="left"><AJDF:output>$showattributes</AJDF:output></td>
-</tr>
-</table>
+
+$(document).ready(function (){
+  $('#saveAttribute').click(function(){
+    $("#saveAttributeForm").submit();
+  });
+});
+</script>
+ 
+
+  <div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Attributes</h2>
+    </div>
+     <div class="span3" >
+
+      <ul class="bttn_right">
+            <li>
+              <a href="?do=addattributes&action=add" class="add_icon1"  id="saveAttribute"></a> </li>
+              <li><a href="#myModal" data-toggle="modal"  class="delete_icon1"  id="attributeDelete"></a>
+                 </li>
+                   
+                        </ul>
+
+    </div>
+
+  </div>
+</div>
+ 
+<AJDF:output>$attribmsg</AJDF:output>
+
+<form action="?do=addattributes&action=delete" method="post" id="deleteAttributeId">
+
+        <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">
+		 <AJDF:output>$showattributes</AJDF:output>
+    </div></div>
 </form>
+
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Are you sure to delete the Attribute?</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<a href="javascript:void(0);" id="deleteAttribute" class="btn btn-primary" >Save changes</a>
+</div>
+</div>
+
+<div id="deletealert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Please select one checkbox</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+</div>
+</div>
+
+
 
 <AJDF:output>include file="footer.html"</AJDF:output>
 
 <script type="text/javascript" language="javascript">
+
+ $(document).ready(function (){
+
+$('#attributeDelete').click(function () {
+
+var countvalue=$('input:checkbox:checked').length;
+  
+
+  if(countvalue=='0')
+  {
+    $('#deletealert').modal('show');
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+
+
+});
+
+$('#deleteAttribute').live('click',function(){
+  $('#deleteAttributeId').submit();
+});
+
+
+
+});
+
+
+
+
+function toggleChecked(status) {
+$(".chkbox").each( function() {
+$(this).attr("checked",status);
+})
+}
+
+
+
 function  callattribs(id)
 {
 	if(confirm("Are you sure want to Delete?"))

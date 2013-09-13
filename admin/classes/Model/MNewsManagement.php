@@ -118,20 +118,23 @@ class Model_MNewsManagement
 		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 		$chkuser=Core_CRoleChecking::checkRoles();
-		if($chkuser)
-		{
+		// if($chkuser)
+		// {
 			include("classes/Core/Settings/CNewsSettings.php");			
-			$default = new Core_Settings_CNewsSettings();	
-			$output['addnewssmsg'] =$default -> addNews();
+			$default = new Core_Settings_CNewsSettings();
+			$_SESSION['msgAddnewssuccess']=	$default -> addNews();
+			$output['addnewssmsg'] = $_SESSION['msgAddnewssuccess'];
 			$output['shownews'] =$default -> showNews();
-			Bin_Template::createTemplate('news.html',$output);
-			//header("Location:?do=newsletter&action=show");
-		}
-		else
-		{
-			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
+			//Bin_Template::createTemplate('news.html',$output);
+			//unset($_SESSION['msgAddnewssuccess']);
+			header("Location:?do=news&action=show");
+			exit;
+		// }
+		// else
+		// {
+		// 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+		// 	Bin_Template::createTemplate('Errors.html',$output);
+		// }
 	}
 	/**
 	 * Function displays the  News page
@@ -172,12 +175,16 @@ class Model_MNewsManagement
 			include("classes/Core/Settings/CNewsSettings.php");
 			$default = new Core_Settings_CNewsSettings();				
 			$output['shownews'] =$default -> showNews();
+			$output['addnewssmsg'] = $_SESSION['msgAddnewssuccess'];
+			$output['statusmsg']=$_SESSION['msgStatusUpdate'];
 			if(isset($_SESSION['msg']))
 			{
 			$output['updatemsg'] = $_SESSION['msg'];			
 			}			
 			Bin_Template::createTemplate('news.html',$output);
 			unset($_SESSION['msg']);
+			unset($_SESSION['msgAddnewssuccess']);
+			unset($_SESSION['msgStatusUpdate']);
 		}
 		else
 		{
@@ -271,6 +278,7 @@ class Model_MNewsManagement
 			$output['updatemsg']=$default->editNews();
 			//$output['shownews'] =$default -> showNews();	
 			header("Location:?do=news&action=show");
+			exit;
 			//Bin_Template::createTemplate('news.html',$output);
 		/*}
 		else
@@ -318,6 +326,7 @@ class Model_MNewsManagement
 			$default = new Core_Settings_CNewsSettings();
 			$output['deletemsg']=$default->deleteNews();
 			header("Location:?do=news&action=show");
+			exit;
 			/*$output['shownews'] =$default -> showNews();			
 			Bin_Template::createTemplate('news.html',$output);*/
 			
@@ -361,19 +370,14 @@ class Model_MNewsManagement
 		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 		$chkuser=Core_CRoleChecking::checkRoles();
-		if($chkuser)
-		{
-			include("classes/Core/Settings/CNewsSettings.php");
+		include("classes/Core/Settings/CNewsSettings.php");
 			$default = new Core_Settings_CNewsSettings();
-			$output['statusmsg']=$default->statusNews();
+			$_SESSION['msgStatusUpdate']=$default->statusNews();
+			
 			$output['shownews'] =$default -> showNews();			
-			Bin_Template::createTemplate('news.html',$output);
-		}
-		else
-		{
-			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
+			header("Location:?do=news&action=show");
+			exit;
+		
 	}	 
 	
 		 

@@ -20,10 +20,12 @@
 <AJDF:output>include file="header.html"</AJDF:output>
 <script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
 <link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
-<script type="text/javascript" src="script/ajax.js"></script>
-<script type="text/javascript" src="js/calendar/calendar.js"></script>
-<script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
-<script type="text/javascript" src="js/calendar/calendar-en.js"></script>
+<style>
+.rowhide{
+	display: none;
+}
+</style>
+
 <script type="text/javascript">
 <!--
 function selDeSel(a){
@@ -59,35 +61,56 @@ function showOrderDetail(id)
 	
 	if(document.getElementById('orderDetail'+id).style.display=='none')
 	{
+		
+		$('.clshiderow'+id).removeClass('rowhide');
 		document.getElementById('order'+id).style.backgroundColor='#DBF3FF';
 		document.getElementById('quick'+id).src="images/minus.gif";
 		document.getElementById('orderDetail'+id).style.display='block';
 	}	
 	else
 	{
+		$('.clshiderow'+id).addClass('rowhide');
 		document.getElementById('order'+id).style.backgroundColor='';
 		document.getElementById('quick'+id).src="images/plus.gif";
 		document.getElementById('orderDetail'+id).style.display='none';	
 	}	
 }
 
+$(function () {
+
+$('.dlsrow').addClass('rowhide');
+
+$('#txtfromdate').datepicker();
+
+$('#txttodate').datepicker();
+
+});
+
 -->
 </script>
-<link href="css/calendar_styles.css" rel="stylesheet" type="text/css" />
-<tr>
-       <td>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="left" class="content_title">Order Management</td>
-          </tr>
-		   <tr>
-            <td align="left">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="left"><AJDF:output>$orderlist</AJDF:output></td>
-          </tr>
+<script type="text/javascript">
+$(function(){
+$("select").chosen({allow_single_deselect:true});
+	
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Order Management</h2>
+    </div>
+    <div class="span3" >
 
-</table>
+      <ul class="bttn_right">
+        <!-- <li><a href="javascript:void(0);" class="export_icon"  id="adminactivity"></a></li> -->
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+<AJDF:output> $errmsg </AJDF:output>
+<AJDF:output>$orderlist</AJDF:output>
 <AJDF:output>include file="footer.html"</AJDF:output>
 
 <script type="text/javascript">

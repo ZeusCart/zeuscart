@@ -18,25 +18,17 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package   		AJDF
- * @author    		AjSquareInc Dev Team
- * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version  		Version 4.0
- * @created   		January 15 2013
- */
 
 /**
  * This class contains functions related db connnections process
  *
- * @package  		Bin
+ * @package  		Bin_DbConnect
+ * @subpackage          Bin_SetConfiguration
  * @author    		AjSquareInc Dev Team
  * @link   		http://www.zeuscart.com
+ * @version  		Version 4.0
+ * @created   		January 15 2013
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.	
  */
 class Bin_DbConnect extends Bin_SetConfiguration
 {

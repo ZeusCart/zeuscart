@@ -156,7 +156,13 @@ class Core_CUserAddressBook
 		$this->data['next'] = $tmp->next;	
 		
 
-		return Display_DUserAccount::showAddressBook($query->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
+		$sqladd="SELECT * FROM users_table WHERE user_id ='".$userid."'";
+		$objadd=new Bin_Query();
+		$objadd->executeQuery($sqladd);
+		$recordsadd=$objadd->records[0];
+
+
+		return Display_DUserAccount::showAddressBook($query->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start,$recordsadd);
 	}
 	/**
 	 * This function is used to show  the  add address for user after login
@@ -175,15 +181,21 @@ class Core_CUserAddressBook
 		$objCountry->executeQuery($sqlCountry);
 		
 		$userid=$_SESSION['user_id'];
+
+		$sqladd="SELECT * FROM users_table WHERE user_id ='".$userid."'";
+		$objadd=new Bin_Query();
+		$objadd->executeQuery($sqladd);
+		$recordsadd=$objadd->records[0];
+
 		if($_GET['id']!='')
 		{
-			$sql="select * from addressbook_table where user_id=".$userid." and contact_name='".$_GET['id']."'";
+			$sql="select * from addressbook_table where user_id=".$userid." and contact_name='".$_GET['id']."' and  id='".$_GET['address_id']."'"; 
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
-			return Display_DUserAccount::showAddAddress($objCountry->records,$query->records);
+			return Display_DUserAccount::showAddAddress($objCountry->records,$query->records,$recordsadd);
 		}
 		else
-			return Display_DUserAccount::showAddAddress($objCountry->records);
+			return Display_DUserAccount::showAddAddress($objCountry->records,$recordsadd);
 	}
 	/**
 	 * This function is used to get  the  address from check out process
@@ -276,9 +288,29 @@ class Core_CUserAddressBook
 	 */
 	function editAddress()
 	{
+
 		$userid=$_SESSION['user_id'];
-	
-		$sql="update addressbook_table set contact_name='".$_POST['txtGName']."',first_name='".$_POST['txtFName']."',last_name='".$_POST['txtLName']."',company='".$_POST['txtCompany']."',email='".$_POST['txtEMail']."',address='".$_POST['txtAddress']."',city='".$_POST['txtCity']."',suburb='".$_POST['txtSuburb']."',state='".$_POST['txtState']."',country='".$_POST['selCountry']."',zip='".$_POST['txtZip']."',phone_no='".$_POST['txtPhone']."',fax='".$_POST['txtFax']."' where user_id='".$userid."' and contact_name='".$_POST['hidGroup']."'";
+		if($_POST['billing_address']!='' && !isset($_POST['shipping_address']))
+		{
+			$sqlup="UPDATE  users_table SET  billing_address_id='".$_POST['billing_address']."' WHERE user_id='".$userid."'";
+			$objup=new Bin_Query();
+			$objup->updateQuery($sqlup);
+			
+		}
+		if($_POST['shipping_address']!='' && !isset($_POST['billing_address']))
+		{
+			$sqlup1="UPDATE  users_table SET  shipping_address_id='".$_POST['shipping_address']."' WHERE user_id='".$userid."'";
+			$objup1=new Bin_Query();
+			$objup1->updateQuery($sqlup1);
+
+		}		
+		if(($_POST['shipping_address']!='') && ($_POST['billing_address']!=''))
+		{
+			$sqlup1="UPDATE  users_table SET  shipping_address_id='".$_POST['shipping_address']."' ,billing_address_id='".$_POST['billing_address']."' WHERE user_id='".$userid."'";
+			$objup1=new Bin_Query();
+			$objup1->updateQuery($sqlup1);
+		}
+		 $sql="update addressbook_table set contact_name='".$_POST['txtGName']."',first_name='".$_POST['txtFName']."',last_name='".$_POST['txtLName']."',company='".$_POST['txtCompany']."',email='".$_POST['txtEMail']."',address='".$_POST['txtAddress']."',city='".$_POST['txtCity']."',suburb='".$_POST['txtSuburb']."',state='".$_POST['txtState']."',country='".$_POST['selCountry']."',zip='".$_POST['txtZip']."',phone_no='".$_POST['txtPhone']."',fax='".$_POST['txtFax']."' where user_id='".$userid."' and contact_name='".$_POST['hidGroup']."' and id ='".$_GET['address_id']."'";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
 

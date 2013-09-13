@@ -40,7 +40,7 @@ class Model_MAdminRoleManagement
 	 *
 	 * @var array $output
 	 */		
-	 
+
 	var $output = array();	
 	
 	/**
@@ -82,11 +82,13 @@ class Model_MAdminRoleManagement
 		if($chkuser)
 		{
 			$output['subadminroles'] =  Core_CAdminRoleManagement::dispSubAdminRole();	
-			Bin_Template::createTemplate('AdminRoleManagement.html',$output);			
+			$output['updatemsg'] =$_SESSION['msgSubadminrole'];		
+			Bin_Template::createTemplate('AdminRoleManagement.html',$output);	
+			unset($_SESSION['msgSubadminrole']);		
 		}
 		else
 		{
-		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
 		
@@ -108,12 +110,14 @@ class Model_MAdminRoleManagement
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{		
-	    	$output['editSubAdminRoles'] =   Core_CAdminRoleManagement::dispSelectedSubAdminRole();							
+			$output['editSubAdminRoles'] =   Core_CAdminRoleManagement::dispSelectedSubAdminRole();	
+						
 			Bin_Template::createTemplate('editsubadminrolemanagement.html',$output);
+			unset($_SESSION['msgSubadminrole']);
 		}
 		else
 		{
-		 $output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
 
@@ -125,24 +129,18 @@ class Model_MAdminRoleManagement
 	 * 
 	 * @return array
 	 */
-	 
+
 	function updateSubAdminRole()
 	{
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Core/CAdminRoleManagement.php');
 		$chkuser=Core_CRoleChecking::checkRoles();
-		if($chkuser)
-		{
-		   $output['updatemsg'] = Core_CAdminRoleManagement::updateSubAdminRole();				
-		   $id=$_POST['subid'];
-	 	   header("Location:?do=subadminrole&id=$id&msg=Sucessfully%20Updated");
-		   exit;
-		}
-		else
-		{
-		    $output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
+		
+		$_SESSION['msgSubadminrole']= Core_CAdminRoleManagement::updateSubAdminRole();				
+		$id=$_POST['subid'];
+		header("Location:?do=subadminrole&id=$id");
+		exit;
+		
 		
 	}
 	
@@ -152,25 +150,25 @@ class Model_MAdminRoleManagement
 	 * 
 	 * @return array
 	 */
-	 
+
 	function deleteSubAdminRole()
 	{
-	   include('classes/Core/CRoleChecking.php');
-	   include('classes/Core/CAdminRoleManagement.php');
-	   $chkuser=Core_CRoleChecking::checkRoles();
-	  if($chkuser)
-	  {
-		  $output['deletemsg'] =   Core_CAdminRoleManagement::deleteSubAdminRole();	
-		  $id=$_GET['subid'];
-		  header("Location:?do=subadminrole&id=$id&msg=Successfully%20Removed");
-		  exit;
-	  }
-	  else
-	  {
-	      $output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CAdminRoleManagement.php');
+		$chkuser=Core_CRoleChecking::checkRoles();
+		if($chkuser)
+		{
+			$output['deletemsg'] =   Core_CAdminRoleManagement::deleteSubAdminRole();	
+			$id=$_GET['subid'];
+			header("Location:?do=subadminrole&id=$id&msg=Successfully%20Removed");
+			exit;
+		}
+		else
+		{
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
 			Bin_Template::createTemplate('Errors.html',$output);
-	  }
-	  Model_MAdminRoleManagement::displayAdminRole();
+		}
+		Model_MAdminRoleManagement::displayAdminRole();
 	}
 	
 	
@@ -183,21 +181,15 @@ class Model_MAdminRoleManagement
 	
 	function insertSubAdminRole()
 	{
-	   include('classes/Core/CRoleChecking.php');
-	   include('classes/Core/CAdminRoleManagement.php');
-	   $chkuser=Core_CRoleChecking::checkRoles();
-	   if($chkuser)
-	   {
-	   		$output['insertmsg'] =   Core_CAdminRoleManagement::insertSubAdminRole();	
-	   		$id=$_POST['subadminid'];
-	   		header("Location:?do=subadminrole&id=$id&msg=Updated%20Sucessfully");	  
-			exit;
-	   }
-	   else
-	   {
-			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-	   }
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CAdminRoleManagement.php');
+		$chkuser=Core_CRoleChecking::checkRoles();
+
+		$_SESSION['msgSubadminrole']= Core_CAdminRoleManagement::insertSubAdminRole();				
+		$id=$_POST['subadminid'];
+		header("Location:?do=subadminrole&id=$id");
+		exit;
+
 	}
 }
 ?>

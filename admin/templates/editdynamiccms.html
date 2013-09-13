@@ -1,0 +1,100 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<link rel="stylesheet" href="assets/css/jquery.ibutton.min.css" />
+<script src="assets/js/jquery.ibutton.min.js"></script>
+<script src="assets/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#editDynamiccmsicon').click(function(){
+    $("#editDynamiccmsform").submit();
+  });
+    $(":checkbox").iButton();
+});
+</script>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Edit Dynamic CMS</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+	<li><a class="back_icon1" href="javascript:history.back()"></a></li>
+        <li><a href="javascript:void(0);" class="update_icon"  id="editDynamiccmsicon"></a></li>
+
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<AJDF:output>if count($msg) gt 0</AJDF:output>
+<div class="alert alert-error">
+  <button data-dismiss="alert" class="close" type="button">×</button>
+  <AJDF:output>foreach name=err item=err from=$msg</AJDF:output>
+  <AJDF:output>$err</AJDF:output>
+  <br>
+  <AJDF:output>/foreach</AJDF:output>
+</div>
+<AJDF:output>/if</AJDF:output>
+
+
+<form name="dynamiccms" id="editDynamiccmsform"   method="post" action="?do=dynamiccms&action=update&id=<AJDF:output>$smarty.get.id</AJDF:output>" >
+
+<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Edit Dynamic CMS</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+<div class="row-fluid">
+  <div class="span6"><label>Page Title</label>
+                <input type="text" name="cms_page_title" class="span8" id="cms_page_title" value="<AJDF:output>$val.cms_page_title</AJDF:output>" /></div></div><div class="row-fluid">
+  <div class="span6"><label>Page Alias</label>
+
+                <input type="text" name="cms_page_alias" class="span8" id="cms_page_alias" value="<AJDF:output>$val.cms_page_alias</AJDF:output>" /></div></div>
+<div class="row-fluid">
+    <div class="span6">
+    <label>Meta Content</label>
+               <textarea style="width: 286px; height: 171px;" name="cms_meta_content"><AJDF:output>$val.cms_meta_content</AJDF:output></textarea>
+         </div></div>
+<div class="row-fluid">
+    <div class="span6">
+    <label>Meta Keyword </label>
+              <textarea style="width: 286px; height: 171px;"
+		 name="cms_meta_keyword"><AJDF:output>$val.cms_meta_keyword</AJDF:output></textarea>
+         </div></div>
+<div class="row-fluid">
+  <div class="span12"><label>Page Content</label>
+                <textarea name="cms_page_content" id="cms_page_content"  cols="85" rows="20" class="ckeditor"><AJDF:output>$val.cms_page_content</AJDF:output></textarea>
+            </div></div><div class="row-fluid">
+  <div class="span6"><label>Page Status</label>
+                <input name="cms_page_status" type="checkbox" class="span8" value="1" <AJDF:output>if $val.cms_page_status eq 1 </AJDF:output> checked<AJDF:output>/if</AJDF:output>/></div></div>
+</form>
+</div>
+</div>
+</div>
+</div></div>
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+

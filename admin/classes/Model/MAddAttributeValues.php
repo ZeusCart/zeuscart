@@ -52,12 +52,14 @@ class Model_MAddAttributeValues
 		{
 			include("classes/Core/Settings/CAddAttributeValues.php");		
 			$default = new Core_Settings_CAddAttributeValues();
-			//$output['allatt']=$default->showAttrib();
+					
+		
 			$output['allatt']=$default->getAttribListValues();
+			
 			$output['showattributevalues']=$default->showAttributeValues();
 			 
 			Bin_Template::createTemplate('addattributevalues.html',$output);	
-			//include("templates/addattributevalues.html");
+			UNSET($_SESSION['successmsg']);
 		}
 		else
 		{
@@ -67,7 +69,33 @@ class Model_MAddAttributeValues
 		}		
 		
 	}
-	
+	function showAddAttributeValue()
+	{
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Model/MSiteStatistics.php');
+				
+		$output=Model_MSiteStatistics::siteStatistics();
+		$chkuser=Core_CRoleChecking::checkRoles();
+		if($chkuser)
+		{
+			include("classes/Core/Settings/CAddAttributeValues.php");
+			include("classes/Lib/HandleErrors.php");			
+			$default = new Core_Settings_CAddAttributeValues();
+			$output['msg']=$Err->messages;
+			$output['val']=$Err->values;	
+			
+			$output['allatt']=$default->getAttribListValues();
+			Bin_Template::createTemplate('addattributevalues_new.html',$output);	
+			
+		}
+		else
+		{
+		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+			
+		}	
+
+	}
 	
 	/**
 	 * Function used to add a New Attribute Value from    
@@ -79,24 +107,21 @@ class Model_MAddAttributeValues
 	
 	function addAttributeValues()
 	{
+
+
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Model/MSiteStatistics.php');
-				
+		include('classes/Lib/CheckInputs.php');		
 		$output=Model_MSiteStatistics::siteStatistics();
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
 			include("classes/Core/Settings/CAddAttributeValues.php");
+			$obj = new Lib_CheckInputs('addattributevalues');
 		
 			$default = new Core_Settings_CAddAttributeValues();
-		
-			$output['msg']=$default->addAttributeValues();
-			//echo $output['id']=$_POST['id'];
-			//$output['allatt']=$default->showAttrib();
-			$output['allatt']=$default->getAttribListValues();
-			$output['showattributevalues']=$default->showAttributeValues();
-			
-			Bin_Template::createTemplate('addattributevalues.html',$output);	
+			$default->addAttributeValues();	
+	
 		}
 		else
 		{
@@ -117,6 +142,8 @@ class Model_MAddAttributeValues
 	
 	function displayAttributeValues()
 	{
+
+
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Model/MSiteStatistics.php');
 				
@@ -125,14 +152,19 @@ class Model_MAddAttributeValues
 		
 		if($chkuser)
 		{
-			include("classes/Core/Settings/CAddAttributeValues.php");			
-			
-			$output['customers']=Core_CAdminHome::getCustomers();
-			$default = new Core_Settings_CAddAttributeValues();			
-			$output['dispattributevalues']=$default->displayAttributeValues();
-			
+			include_once("classes/Core/Settings/CAddAttributeValues.php");			
+			include("classes/Lib/HandleErrors.php");			
+		
+			$output['msg']=$Err->messages;
+			$output['val']=$Err->values;	
+				
+				
+			$default = new Core_Settings_CAddAttributeValues();
+			$output['dispattributevalues']=$default->displayAttributeValues($Err);
+	
+			$output['showattributevalues']=$default->showAttributeValues();
 			Bin_Template::createTemplate('editattributevalues.html',$output);	
-			//header("Location:?do=addmaincategory");
+			
 		}
 		else
 		{
@@ -154,22 +186,19 @@ class Model_MAddAttributeValues
 	{
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Model/MSiteStatistics.php');
-				
+		include('classes/Lib/CheckInputs.php');			
 		$output=Model_MSiteStatistics::siteStatistics();
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
 		if($chkuser)
 		{
 			include("classes/Core/Settings/CAddAttributeValues.php");
+			$obj = new Lib_CheckInputs('editattributevalues');
+			
 			$default = new Core_Settings_CAddAttributeValues();
 			
-			$output['msg']=$default->editAttributeValues();
-			$output['allatt']=$default->getAttribListValues();
-			$output['showattributevalues']=$default->showAttributeValues($Err);
-			
-			Bin_Template::createTemplate('addattributevalues.html',$output);	
-			//header("Location:?do=addattributevalues");<br />
-	}
+			$default->editAttributeValues();
+		}
 		else
 		{
 		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
@@ -210,5 +239,7 @@ class Model_MAddAttributeValues
 		}	
 					
 	}	
+
+	
 }
 ?>

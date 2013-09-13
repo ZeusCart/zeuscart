@@ -67,11 +67,14 @@ class Core_CTermsCondition
 		$query = new Bin_Query();
 		if($query->updateQuery($sql))
 		{
-			return '<div class="success_msgbox">Content Updated Successfully</div>';
+			return '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Well done!</strong> Content Updated Successfully</div>';
 		}
 		else
 		{
-				return '<div class="error_msgbox">Content Not Updated </div>';
+				return '<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button> Content Not Updated </div>';
 		}
 	}
 	

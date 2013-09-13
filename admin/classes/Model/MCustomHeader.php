@@ -75,7 +75,9 @@ class Model_MCustomHeader
 		{
 			include("classes/Core/CCustomHeader.php");
 			$output['customheader'] = Core_CCustomHeader::showCustomHeader();
+			$output['updateContentmsg'] = $_SESSION['msgHomepagecontent'];
 			Bin_Template::createTemplate('customHeader.html',$output);	
+			unset($_SESSION['msgHomepagecontent']);
 		}
 		else
 		{
@@ -118,18 +120,14 @@ class Model_MCustomHeader
 		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 		$chkuser=Core_CRoleChecking::checkRoles();
-		if($chkuser)
-		{
+
 		include("classes/Core/CCustomHeader.php");
-     	$output['updateContentmsg'] = Core_CCustomHeader::updateCustomHeader();
+     							$_SESSION['msgHomepagecontent']=Core_CCustomHeader::updateCustomHeader();
 		$output['customheader'] = Core_CCustomHeader::showCustomHeader();
-		Bin_Template::createTemplate('customheader.html',$output);	
-		}
-		else
-		{
-			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
+
+		header('Location:?do=customheader');
+		exit;
+		
 	}
 }
 ?>

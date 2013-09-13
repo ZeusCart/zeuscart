@@ -62,7 +62,7 @@ class Core_Category_CCategorySelection
 		
 		if(count($Err->values) >0)
 			$this->errormessages = $Err->messages;
-		$this->makeConstant($this->data);
+		$this->makeConstant($this->data,$prefix='');
 	}
 	
 	/**
@@ -85,7 +85,7 @@ class Core_Category_CCategorySelection
 			echo $this->data['showsubcat'] = "No Subcategories Found";
 			
 		}
-		$this->makeConstant($this->data);
+		$this->makeConstant($this->data,$prefix='');
 	}
 	
 	/**
@@ -110,7 +110,7 @@ class Core_Category_CCategorySelection
 			
 		}
 		
-		$this->makeConstant($this->data);
+		$this->makeConstant($this->data,$prefix='');
 	}
 	
 	

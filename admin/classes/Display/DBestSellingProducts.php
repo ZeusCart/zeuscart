@@ -45,35 +45,53 @@ class Display_DBestSellingProducts
 	
 	function showBestSellingProducts($arr,$paging,$prev,$next)
 	{
-	
+		
 		$output = "";
 		
-		$output .= '<table width="99%" border="0" cellpadding="0" cellspacing="0" align="center" class="content_list_bdr">';
-		$output .= '<tr><td class="content_list_head" >S.No</td><td class="content_list_head" >Product Name</td><td class="content_list_head" >Category Name</td><td class="content_list_head" >Price Per Item</td><td class="content_list_head" >Items Sold</td></tr>';
+		$output .= '<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+		<thead class="green_bg">
+		<tr>
+		<th align="left">S.No</th>
+		<th align="left">Product Name</th>
+		<th align="left">Category Name</th>
+		<th align="left">Price Per Item</th>
+		<th align="left">Items Sold</th>
+		
+		</tr>
+		</thead>
+		<tbody>';
 		
 		for ($i=0;$i<count($arr);$i++)
 		{
-		
-		$output.='<tr  onmouseover="listbg(this, 1);" onmouseout="listbg(this, 0);" style="background-color: rgb(255, 255, 255);">
-			<td align="center" style="padding:5px;width:20px" class=content_list_txt1>'.($i+1).'</td>
-			<td class=content_list_txt1>'.ucwords($arr[$i]['title']).'</td>';
-				
- 
-		$output.='<td align="left"  style="padding-left:10px;" class=content_list_txt1 >'.ucwords($arr[$i]['category_name']).'</td>
-			<td align="right"  style="padding-left:10px;" class=content_list_txt1 >'.$_SESSION['currency']['currency_tocken'].number_format($arr[$i]['msrp'],2).'</td>
-			<td align="right"  style="padding-left:10px;" class=content_list_txt1 >'.$arr[$i]['cnt'].'</td>
+			
+			$output.='<tr>
+			<td>'.($i+1).'</td>
+			<td>'.ucwords($arr[$i]['title']).'</td>';
+			
+			
+			$output.='<td>'.ucwords($arr[$i]['category_name']).'</td>
+			<td>'.$_SESSION['currency']['currency_tocken'].number_format($arr[$i]['msrp'],2).'</td>
+			<td>'.$arr[$i]['cnt'].'</td>
 			</tr>';					
 		}
-		$output .='<tr align="center"><td colspan="8"  class="content_list_footer" >'.' '.$prev.' ';
+		$output .='<tr>
+		<td colspan="5" class="clsAlignRight">
+		<div class="dt-row dt-bottom-row">
+		<div class="row-fluid">
+		<div class="dataTables_paginate paging_bootstrap pagination">
+		<ul>'.' '.$prev.' ';
 		
-		    for($i=1;$i<=count($paging);$i++)
-				 $pagingvalues .= $paging[$i]."  ";
+		for($i=1;$i<=count($paging);$i++)
+			$pagingvalues .= $paging[$i]."  ";
 		
-		$output .= $pagingvalues.' '.$next.'</td></tr>';
-						
-		$output .= '</table>';
+		$output .= $pagingvalues.' '.$next.' </div>
+		</div>
+		</td>
+		</tr>';
+		
+		$output .= '</tbody></table>';
 		return $output;
-			
+		
 	}
 }
 ?>

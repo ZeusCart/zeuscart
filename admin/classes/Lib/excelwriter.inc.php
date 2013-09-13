@@ -23,7 +23,7 @@
 /**
  * This class contains functions related to excel writer process
  *
- * @package  		Library
+ * @package  		Lib
  * @link   		http://www.zeuscart.com
  * @version  		Version 4.0
  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.

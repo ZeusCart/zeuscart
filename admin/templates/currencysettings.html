@@ -18,50 +18,101 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<tr>
-       <td>
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="left" class="content_title">List of Currency</td>
-          </tr>
-		   <tr>
-            <td align="left">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="center">
-			
-			<!-------------------tax----------------------->
-			
-  <table width="97%" border="0" cellspacing="0" cellpadding="0">
-    
-    <!--<<tr>
-      <td align="left">&nbsp;</td>
-    </tr>
-    tr>
-      <td align="left"></td>
-    </tr>-->
-    <tr>
-      <td align="left"><AJDF:output> $insmsg </AJDF:output>
-	  
-	  	<table cellspacing="0" border="0" width="100%" style="padding-left:780px; padding-bottom:10px; padding-top:5px;">
-	  		<tr><td colspan="6" align="right"><a class="add_link" href="?do=showaddcurrency">Add Currency</a></td></tr>
-		  </table>
-	 </td>
-    </tr>
-    <tr>
-      <td align="center" class="content_form_bdr">
-	  
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>List of Currency</h2>
+    </div>
+     <div class="span3" >
+
+      <ul class="bttn_right">
+            <li>
+              <a href="?do=showaddcurrency"  class="add_icon1" ></a> </li>
+
+          <li><a href="#myModal" data-toggle="modal"  class="delete_icon1"  id="currencyDelete"></a>
+                 </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+          <AJDF:output> $insmsg </AJDF:output>
+	 
+		   <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">
 	  	   	  	  
 	  <AJDF:output>$taxsettings</AJDF:output>
-	   </td>
-    </tr>
-  </table>
+  </div>  </div>
 
-			
-			<!-------------------tax----------------------->
-			
-			</td>
-          </tr>
 
-</table>
+
+  <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Are you sure to delete the Currency?</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<a href="javascript:void(0);" id="deleteCurrencyid" class="btn btn-primary" >Save changes</a>
+</div>
+</div>
+
+<div id="deletealert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Please select one checkbox</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+</div>
+</div>
+
+  <script type="text/javascript">
+   $(document).ready(function (){
+
+$('#currencyDelete').click(function () {
+
+  var countvalue=$('input:checkbox:checked').length;
+  
+  if(countvalue=='0')
+  {
+    $('#deletealert').modal('show');
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+
+
+});
+
+$('#deleteCurrencyid').live('click',function(){
+  $('#currencyId').submit();
+});
+
+
+
+});
+
+
+
+
+function togglecurrencyChecked(status) {
+$(".chkcurrencybox").each( function() {
+$(this).attr("checked",status);
+})
+}
+  </script>
+
+
+
+	   
 <AJDF:output>include file="footer.html"</AJDF:output>

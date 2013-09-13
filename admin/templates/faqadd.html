@@ -18,6 +18,15 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
+<script type="text/javascript">
+ $(document).ready(function (){
+$('#addfaqbutton').click(function(){
+$("#addfaqaction").submit();
+});
+});
+</script>
+
 <AJDF:output>$result</AJDF:output>
+
+
 <AJDF:output>include file="footer.html"</AJDF:output>

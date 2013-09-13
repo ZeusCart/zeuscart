@@ -18,27 +18,62 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="left" class="content_title">Sub Admin Role Management</td>
-          </tr>
-		  <tr>
-            <td align="left">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="left"><form method="post" action="?do=subadminrole&action=insert"> 
+<link rel="stylesheet" href="assets/css/jquery.ibutton.min.css" />
+<script src="assets/js/jquery.ibutton.min.js"></script>
+<script src="assets/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#subAdminroleIcon').click(function(){
+    $("#updateSubadminrole").submit();
+  });
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Sub Admin Role Management</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a href="javascript:void(0);" class="update_icon"  id="subAdminroleIcon"></a></li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
 <AJDF:output>$updatemsg</AJDF:output>
 <AJDF:output>$deletemsg</AJDF:output>
 <AJDF:output>$insertmsg</AJDF:output>
+
+<form method="post" action="?do=subadminrole&action=insert" id="updateSubadminrole"> 
+
+
+<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Update Sub Admin Role Management </h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
 <AJDF:output>$subadminroles</AJDF:output>
+
+</div>
+</div>
+</div>
+</div></div>
 </form>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
+
+
+
+<script type="text/javascript">
+										$(document).ready(function (){
+											$(":checkbox").iButton();
+										})
+  // trigger the change event (to update the text)
+  
+  </script>
+
 <AJDF:output>include file="footer.html"</AJDF:output>
 
 

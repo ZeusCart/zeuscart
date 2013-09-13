@@ -26,7 +26,7 @@
 <div class="title_fnt">
     	<h1>Purchase a Gift Certificate</h1>
         </div>
-        <form class="form-horizontal" name="register_form" action="?do=addtocartfromproductdetail&prodid=<AJDF:output>$smarty.get.prodid</AJDF:output>&vid=1" method="POST">
+        <form class="form-horizontal" name="register_form" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=addtocartfromproductdetail&prodid=<AJDF:output>$smarty.get.prodid</AJDF:output>&vid=1" method="POST">
                 <fieldset>
                   <div class="control-group">
                     <div class="controls">
@@ -119,7 +119,7 @@
                     <div class="controls">
 		<label class="checkbox inline">
                     <input type="checkbox" align="absmiddle" name="chkterms" id="checkbox" value="1"> 
-		I understand that gift certificates are non-refundable<font color="#FF0000">
+		I understand that gift certificates are non-refundable<br/><font color="#FF0000">
                             <AJDF:output> $msg.chkterms </AJDF:output>
                             </font></label>
                     </div>

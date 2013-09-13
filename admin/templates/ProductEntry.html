@@ -18,51 +18,29 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<script type="text/javascript" src="script/ajax.js"></script>
-<script type="text/javascript" src="js/calendar/calendar.js"></script>
-<script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
-<script type="text/javascript" src="js/calendar/calendar-en.js"></script>
-<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-	tinyMCE.init({
-		// General options
-		mode : "textareas",
-		theme : "advanced",
-		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+<script type="text/javascript" src="../js/ajax.js"></script>
+<link rel="stylesheet" href="assets/css/jquery.ibutton.min.css" />
+<script src="assets/js/jquery.ibutton.min.js"></script>
+<script src="assets/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap-fileupload.min.js"></script>
+<link rel="stylesheet" href="assets/css/bootstrap-fileupload.min.css">
 
-		// Theme options
-		//theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
-		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect",
-		//theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-		theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-		//theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
-		//theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,advhr,|,print,|,ltr,rtl,|",
-		//theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
-		theme_advanced_buttons4 : "pagebreak",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_statusbar_location : "bottom",
-		//theme_advanced_resizing : true,
 
-		// Example content CSS (should be your site CSS)
-		content_css : "css/content.css",
-
-		// Drop lists for link/image/media/template dialogs
-		template_external_list_url : "lists/template_list.js",
-		external_link_list_url : "lists/link_list.js",
-		external_image_list_url : "lists/image_list.js",
-		media_external_list_url : "lists/media_list.js"
-
-	});
-</script>
 
 <script type="text/javascript" language="javascript">
+$(function(){
+
+	$('#intro_date').datepicker();
+
+});
+
+
 function showProducts(subcatid)
 {
 	if(subcatid!='')
 	{
-	var url ="?do=productreg&action=showproducts&name=" + subcatid;
-	ajax(url, 'productlist');
+		var url ="?do=productreg&action=showproducts&name=" + subcatid;
+		ajax(url, 'productlist');
 	}
 }  
 function showSubCat(id)
@@ -79,42 +57,41 @@ function showSubCat(id)
 function assignSubUnderCat(id)
 {
 
-   if(id!='')
-   {
-	document.getElementById('subcatunder').value=id;
-  }
+	if(id!='')
+	{
+		document.getElementById('subcatunder').value=id;
+	}
 }
 
 function assignSubCat(id)
 {
 
-   if(id!='')
-   {
+	if(id!='')
+	{
 
-	document.getElementById('subcat').value=id;
-	
-	var url='?do=productentry&action=displaySubUnderCategory&id='+ id;
-	ajax(url,'subcatsunder');
-	var url1='?do=productentry&action=displayAttributes&id='+ id;
-alert(url1);
+		document.getElementById('subcat').value=id;
+
+		var url='?do=productentry&action=displaySubUnderCategory&id='+ id;
+		ajax(url,'subcatsunder');
+		var url1='?do=productentry&action=displayAttributes&id='+ id;
 		ajax(url1,'attributes');
-			
-   }
+
+	}
 }
 function checkInputs()
 {
-	if ((document.getElementById('selcatgory').value=='') || (document.productreg.selsubcatgory.value==''))
+	if(document.getElementById('selcatgory').value=='') 
 	{
 		alert("Please enter the mandatory fields In Category");
-		clk('Image51','images/tab_images/category_1.jpg',4);
+		tabOpenvalidation('1');
 		return false;
 	}
 	else
 	{
-		if ((document.productreg.product_title.value=='') || (document.productreg.sku.value=='')||(document.productreg.cse_enabled.checked==true&&document.productreg.csekeyid.value==''))
+		if ((document.productreg.product_title.value=='') || (document.productreg.sku.value==''))
 		{
 			alert('Please enter the mandatory fields In General');
-			clk('Image52','images/tab_images/general_1.jpg',5);
+			tabOpenvalidation('2');
 			return false;
 		}
 		else
@@ -122,7 +99,7 @@ function checkInputs()
 			if ((document.getElementById('ufile[0]').value==''))
 			{
 				alert('Please enter the mandatory fields In Images');
-				clk('Image54','images/tab_images/images_1.jpg',6);
+				tabOpenvalidation('3');
 				return false;
 			}
 			else
@@ -130,13 +107,13 @@ function checkInputs()
 				if ((document.productreg.price.value=='')|| (document.productreg.msrp_org.value==''))
 				{
 					alert('Please enter the mandatory fields In Price');
-					clk('Image56','images/tab_images/price_1.jpg',8);
+					tabOpenvalidation('5');
 					return false;
 				}
 				else if ( isNaN(document.productreg.price.value)|| isNaN(document.productreg.msrp_org.value)|| isNaN(document.productreg.shipcost.value))
 				{
 					alert('Invalid Inputs In Price');
-					clk('Image56','images/tab_images/price_1.jpg',8);
+					tabOpenvalidation('5');
 					return false;
 				}
 				
@@ -146,21 +123,21 @@ function checkInputs()
 	if (parseFloat(document.productreg.msrp_org.value)<parseFloat(document.productreg.price.value))
 	{
 		alert('Product MSRP Should Be Greater Than Product Price');
-		clk('Image56','images/tab_images/price_1.jpg',8);
+		tabOpenvalidation('5');
 		return false;
 	}
 	if ( isNaN(document.productreg.rol.value)|| isNaN(document.productreg.soh.value))
 	{
 		alert('Invalid Inputs In Inventory');
-		clk('Image57','images/tab_images/inventory_1.jpg',9);
+		tabOpenvalidation('6');
 		return false;
 	}
 	return true;
 }
 
-	/*Validation*/
- </script>
- <script language="javascript">
+/*Validation*/
+</script>
+<script language="javascript">
 function addEvent()
 {
 	var ni = document.getElementById('myDiv');
@@ -174,17 +151,21 @@ function addEvent()
 		var newdiv = document.createElement('div');
 		newdiv.setAttribute("id",divIdName);
 		//alert(num);
-		newdiv.innerHTML = "<table border='0' cellspacing='3' cellpadding='3' width='100%'><tr><td width='31%'>Sub Product Image</td><td colspan=3><input type=file name=ufile[] id=ufile[]>&nbsp;&nbsp;&nbsp;<a href=\"javascript:;\" onclick=\"removeEvent(\'"+divIdName+"\')\">Remove</a><br></td></tr></table>";
+		newdiv.innerHTML = "<div class=\"row-fluid\"><div class=\"span12\"><label>Sub Product Image</label><div class=\"fileupload fileupload-new\" data-provides=\"fileupload\" style=\"width:350px;\"><div class=\"fileupload-new thumbnail\" style=\"width: 200px; height: 150px;\"><img src=\"assets/img/noimage.gif\" /></div><div class=\"fileupload-preview fileupload-exists thumbnail\" style=\"max-width: 200px; max-height: 150px; line-height: 20px;\"></div><div><span class=\"btn btn-file\"><span class=\"fileupload-new\">Select image</span><span class=\"fileupload-exists\">Change</span><input type=file name=ufile[] id=ufile[]></span><a href=\"#\" class=\"btn fileupload-exists\" data-dismiss=\"fileupload\">Remove</a></div></div>&nbsp;&nbsp;&nbsp;<a href=\"javascript:;\" onclick=\"removeEvent(\'"+divIdName+"\')\"><button class='btn btn-mini btn-danger' type='button'>Remove</button></a><br></div></div>";
 		ni.appendChild(newdiv);
 	}
 }
 function cseshow()
 {
 	if(document.getElementById('cse_enabled').checked==true)
-	document.getElementById('divcsekey').style.display = 'block';
+		document.getElementById('divcsekey').style.display = 'block';
 	else if(document.getElementById('cse_enabled').checked==false)
-	document.getElementById('divcsekey').style.display = 'none';
+		document.getElementById('divcsekey').style.display = 'none';
 }
+
+
+
+
 function removeEvent(divNum)
 {
 	var d = document.getElementById('myDiv');
@@ -207,14 +188,15 @@ function clk(id,source,no)
 	//document.getElementById('Image59').src='images/tab_images/May_tab1_09.jpg';
 	document.getElementById('Image60').src='images/tab_images/meta.jpg';
 	document.getElementById('Image61').src='images/tab_images/related.jpg';
-	  
+
 	document.getElementById(id).src=source;
-	for(i=4;i<=13;i++)
+	for(i=1;i<=13;i++)
 	{
 		tg='tab'+i;
+
 		if(i==no)
 			document.getElementById(tg).style.display='block';
-			
+
 		else
 			document.getElementById(tg).style.display='none';
 	}
@@ -222,20 +204,20 @@ function clk(id,source,no)
 
 function searchProducts(view)
 {
-	var title=document.getElementById('title1').value;
-	var brand=document.getElementById('brand1').value;
-	var frommsrp=document.getElementById('frommsrp1').value;
-	var tomsrp=document.getElementById('tomsrp1').value;
-	var fromprice=document.getElementById('fromprice1').value;
-	var toprice=document.getElementById('toprice1').value;
-		
+	var title=$('#title1').val();
+	var brand=$('#brand1').val();
+	var frommsrp=$('#frommsrp1').val();
+	var tomsrp=$('#tomsrp1').val();
+	var fromprice=$('#fromprice1').val();
+	var toprice=$('#toprice1').val();
+
 /*	alert(title);
 	alert(brand);
 	alert(frommsrp);
 	alert(tomsrp);
 	alert(fromprice);
 	alert(toprice);
-*/		
+	*/		
 	var url ="?do=productentry&action=search&title="+title+"&brand="+brand+"&frommsrp="+frommsrp+"&tomsrp="+tomsrp+"&fromprice="+fromprice+"&toprice="+toprice+"&view="+view;
 	ajax(url, 'search');
 	
@@ -269,7 +251,7 @@ function chkall()
 		{
 			document.productreg.chkSub.checked=false;
 		}
-	
+
 	}
 }
 
@@ -286,7 +268,10 @@ function addTier(cursym)
 		var newdiv = document.createElement('div');
 		newdiv.setAttribute("id",divIdName);
 		//alert(num);
-		newdiv.innerHTML = "<table border='0' width='100%'><tr><td width='42%'><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td><td width='31%'><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td >&nbsp;<a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\">Remove</a></td></tr><table>";
+// 		newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\"><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td><td  width=\"40%\"><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td  width=\"20%\">&nbsp;<a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\">Remove</a></td></tr></table>";
+
+newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\" style=\"border-left:0\"><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td></td><td width=\"40%\" style=\"border-left:0\"><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td width=\"20%\" style=\"border-left:0\"><a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
+
 		ni.appendChild(newdiv);
 	}
 }
@@ -299,471 +284,503 @@ function removeTier(divNum)
 	document.getElementById("msrp1").value=num;
 	d.removeChild(olddiv);
 }
-</script>
-<link href="css/calendar_styles.css" rel="stylesheet" type="text/css" />
-<tr><td>
-<form name="productreg" action="?do=productentry&action=insert" method="post" enctype="multipart/form-data" onsubmit="return checkInputs()">
-    <input type="hidden" name="subcat" id="subcat"  />
-    <table cellpadding="0" cellspacing="0" width="90%" border="0" align="center">
-        <tr>
-            <td colspan="8" align="left" class="content_title">ADD PRODUCTS </td>
-        </tr>
-        <tr>
-            <td colspan="3" align="right"><font color="#FF0000">*</font> Mandatory Inputs </td>
-        </tr>
-        <tr>
-            <td colspan="3" align="left">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="3" align="left"><AJDF:output>$message</AJDF:output></td>
-        </tr>
-        <tr>
-            <td colspan="3" align="left">&nbsp;</td>
-        </tr>
-        <tr>
-        
-        <td align="center" >
-        <table cellpadding="0" cellspacing="0" border="0" width="70%">
-            <tr>
-                <td align="center"><!--<img src="images/tab_images/ico_error_msg.gif"  alt="" border="0" width="14" height="14">--></td>
-            </tr>
-            <tr>
-                <td align="left"><img name="Image51" id="Image51" src="images/tab_images/category_1.jpg"  alt="" border="0" onClick="clk('Image51','images/tab_images/category_1.jpg',4)"></td>
-                <td><img src="images/tab_images/general.jpg" id="Image52" name="Image52" border="0" onClick="clk('Image52','images/tab_images/general_1.jpg',5)" ></td>
-                <td><img src="images/tab_images/images.jpg" name="Image54" id="Image54" border="0" onClick="clk('Image54','images/tab_images/images_1.jpg',6)" ></td>
-                <td><img src="images/tab_images/attributes.jpg" name="Image55" id="Image55" border="0" onClick="clk('Image55','images/tab_images/attributes_1.jpg',7)"  ></td>
-                <td><img src="images/tab_images/price.jpg" name="Image56" id="Image56" border="0" onClick="clk('Image56','images/tab_images/price_1.jpg',8)"></td>
-                <td><img src="images/tab_images/inventory.jpg" name="Image57" id="Image57" border="0" onClick="clk('Image57','images/tab_images/inventory_1.jpg',9)"></td>
-                <!--<td><img src="images/tab_images/May_tab1_08.jpg" name="Image58" id="Image58" border="0" onClick="clk('Image58','images/tab_images/May_tab1_roll_08.jpg',10)"></td>
-<td><img src="images/tab_images/May_tab1_09.jpg" name="Image59" id="Image59" border="0" onClick="clk('Image59','images/tab_images/May_tab1_roll_09.jpg',11)"></td>-->
-                <td><img src="images/tab_images/meta.jpg" name="Image60" id="Image60" border="0" onClick="clk('Image60','images/tab_images/meta_1.jpg',12)"></td>
-                <td><img src="images/tab_images/related.jpg" name="Image61" id="Image61" border="0" onClick="clk('Image61','images/tab_images/related_1.jpg',13)"></td>
-            </tr>
-        </table>
-        <span id="tabs_det" style="display:none"></span>
-	<!-- Category-->
-        <div id="tab4" >
-            	<table style="border-left: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204);" border="0" cellpadding="0" cellspacing="5" width="742">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="content_form" align="left"><b>Category Details</b> </td>
-                </tr>
-                <tr>
-                    <td><table border="0" width="60%" cellpadding="4" cellspacing="4" align="left">
-                            <tr>
-                                <td width="40%" valign="top" class="content_form"> Select Main Category <font color="#FF0000">*</font></td>
-                                <td align="left"><AJDF:output>$dropcategory</AJDF:output>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dct', 'Main Category', 'Select product main category')" onmouseout="HideHelp('dct');">
-			<div id="dct" style="left: 50px; top: 50px;"></div><div style="color:#FF0000">
-                                        <AJDF:output>$msg.selcatgory</AJDF:output>
-                                    </div></td>
-                            </tr>
-                            <tr>
-                                <td width="31%" class="content_form"> Select Sub Category <font color="#FF0000">*</font></td>
-                                <td ID="subcats" align="left"><select name="selsubcatgory" style="width:148px"><option value="0">-Select-</option></select>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dct1', 'Sub Category', 'Select product sub category')" onmouseout="HideHelp('dct1');">
-			<div id="dct1" style="left: 50px; top: 50px;"></div><div style="color:#FF0000">
-                                        <AJDF:output>$msg.subcat</AJDF:output>
-                                    </div></td>
-                            </tr>
-		   <tr>
-                                <td width="31%" class="content_form"> Select Sub Under SubCategory <font color="#FF0000">*</font></td>
-                                <td ID="subcatsunder" align="left"><select name="selsubundercatgory" style="width:148px"><option value="0">-Select-</option></select>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dct2', 'Sub Under SubCategory', 'Select product sub under sub category')" onmouseout="HideHelp('dct2');">
-			<div id="dct2" style="left: 50px; top: 50px;"></div><div style="color:#FF0000">
-                                        <AJDF:output>$msg.subcatunder</AJDF:output>
-                                    </div></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" align="center"><input type="button" name="category" class="all_bttn" value="Continue" onClick="clk('Image52','images/tab_images/general_1.jpg',5)"/></td>
-                            </tr>
-                        </table></td>
-                </tr>
-            </table>
-        </div>
-	<!-- General-->
-        <div id="tab5" style="display:none" >
-		<table style="border-left: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204);" border="0" cellpadding="0" cellspacing="5" width="742">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="content_form" align="left"><b>Product General Information</b> </td>
-                </tr>
-                <tr>
-                    <td><table border="0" width="60%" cellpadding="4" cellspacing="4" align="left">
-                            <tr>
-                                <td width="31%" class="content_form" nowrap="nowrap" align="left"> Product Name <font color="#FF0000">*</font></td>
-                                <td colspan="3" align="left"><input name="product_title" id="product_title" value="<AJDF:output>$val.product_title</AJDF:output>"  type="text" size="50" />
-                                    <div style="color:#FF0000">
-                                        <AJDF:output>$msg.product_title</AJDF:output>
-                                    </div></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" class="content_form" align="left"> Product Description </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="padding-left:140px" width="210">
-                                <textarea name="desc" id="desc" cols="120" rows="30" >
-                                <AJDF:output>$val.desc</AJDF:output></textarea></td>
-                            </tr>
-                            <tr>
-                                <td class="content_form" align="left">SKU <font color="#FF0000">*</font></td>
-                                <td colspan="3" id="sku" align="left"><input name="sku" id="sku" type="text" value="<AJDF:output>$val.sku</AJDF:output>"/>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dsku', 'SKU', 'Stock Keeping Unit for a product')" onmouseout="HideHelp('dsku');">
-			<div id="dsku" style="left: 50px; top: 50px;"></div>
-                                    <div style="color:#FF0000">
-                                        <AJDF:output>$msg.sku</AJDF:output>
-                                    </div></td>
-                            </tr>
-                            <tr>
-                                <td class="content_form" align="left">Brand</td>
-                                <td  colspan="2" class="content_form" align="left"><table>
-                                        <tr>
-						<td align="left"><div id="select" name="select" style="visibility:visible; padding-left:0px; display:block"><AJDF:output>$dispbrand</AJDF:output></div><div id="select_new" name="select_new" style="visibility:hidden; padding-left:10px; display:none"><input type="text" name="new_brand"  /></div></td><td><div id="select1" name="select1" style="visibility:visible; display:block"><a href="javascript:change();">Others</a></div><div id="select_new1" name="select_new1" style="visibility:hidden; display:none"><a href="javascript:change1();">Others</a></div></td><td>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dbnd', 'Brand', 'Select brand from list or click and enter new brand.')" onmouseout="HideHelp('dbnd');">
-			<div id="dbnd" style="left: 50px; top: 50px;"></div></td>
-					
-                                            <!--<td id='spanbrandcbo'><AJDF:output>$dispbrand</AJDF:output></td>
-                                            <td><a href="javascript:toggle('spanbrand'); toggle('spanbrandcbo');void (0);">Others</a> &nbsp;<span id='spanbrand' style="display:none">
-                                                <input name="brand" id="brand" type="text"/>
-                                                </span></td>-->
-                                        </tr>
-                                    </table></td>
-                            </tr>
-                            <tr>
-                                <td class="content_form" align="left">Model</td>
-                                <td colspan="3" align="left"><input name="model" id="model"  type="text" value="<AJDF:output>$val.model</AJDF:output>" /></td>
-                            </tr>
-                            
-                             <tr>
-                                <td class="content_form" align="left">Weight</td>
-                                <td colspan="3" align="left"><input name="txtweight" id="txtweight"  type="text" value="<AJDF:output>$val.txtweight</AJDF:output>" />(lbs) <div style="color:#FF0000">
-                                        <AJDF:output>$msg.txtweight</AJDF:output>
-                                    </div></td>
-                            </tr>
-                             <tr>
-                                <td class="content_form" valign="top" align="left">Dimension</td>
-                                <td colspan="3" align="left">
-                               <table>
-                                 <tr>
-                                 <td class="content_form" valign="top">Width</td>
-                                 <td class="content_form" valign="top">Height</td>
-                                 <td class="content_form" valign="top">Depth</td>
-                                 </tr>
-                                 <tr>
-                                   <td><input name="txtwidth" type="text" id="txtwidth" value="<AJDF:output>$val.txtwidth</AJDF:output>" size="4" /><div style="color:#FF0000">
-                                        <AJDF:output>$msg.txtwidth</AJDF:output>
-                                    </div></td>
-                                  <td><input name="txtheight" id="txtheight"  type="text" value="<AJDF:output>$val.txtheight</AJDF:output>" size="4"/><div style="color:#FF0000">
-                                        <AJDF:output>$msg.txtheight</AJDF:output>
-                                    </div></td>
-                                  <td><input name="txtdepth" id="txtdepth"  type="text" value="<AJDF:output>$val.txtdepth</AJDF:output>" size="4"/> (inches)<div style="color:#FF0000">
-                                        <AJDF:output>$msg.txtdepth</AJDF:output>
-                                    </div></td>
-                                 </tr>
-                                </table>
-                              </td>
-                            </tr>
-			     <TR>
-                  <TD class="content_form" align="left"> Product Tags </TD>
-                  <TD align="left"><INPUT NAME="tag"  type="text" ID="tag" VALUE="<AJDF:output>$val.tag</AJDF:output>" SIZE="80"/>
-                    <div><font size="-2">(Ex: tag1, tag2,etc..)</div></TD><td valign="top"><img src="images/help.gif" onmouseover="ShowHelp('dptag', 'Product Tags', 'The keywords that are related to product name, which is to be used while searching the product should be entered. When user enters the keyword related to the added product tags then your product will be displayed for the user. Enter the tags separated by commas.')" onmouseout="HideHelp('dptag');" style="vertical-align:top">
-			<div id="dptag" style="left: 50px; top: 50px;"></div></td>
-                </TR>
-			    <TR>
-                  <TD class="content_form" align="left">Introduction Date </TD>
-                  <TD align="left"><INPUT  type="text" ID="intro_date" NAME="intro_date" VALUE="<AJDF:output>$val.intro_date</AJDF:output>"  />
-                    <INPUT TYPE="image" SRC="images/calendar_img.gif" ID="cal-button-1" VALUE="cal">
-                    <SCRIPT TYPE="text/javascript">
-            Calendar.setup({
-              inputField    : "intro_date",
-              button        : "cal-button-1",
-              align         : "Tr"
-            });
-          </SCRIPT>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dindt', 'Introduction Date', 'Select the date in which you need to schedule the product to be displayed in site. The date can be selected from scheduled calendar displayed.')" onmouseout="HideHelp('dindt');">
-			<div id="dindt" style="left: 50px; top: 50px;"></div></TD>
-                </TR>
-		<TR>
-                  <TD class="content_form" valign="top" align="left">Is CSE Enabled </TD>
-                  <TD class="content_form" align="left"><INPUT NAME="cse_enabled" TYPE="checkbox" ID="cse_enabled" onclick="cseshow()" <AJDF:output>$val.cse_enabled</AJDF:output>/>
-                  (Check if the product is eligible for price comparison) &nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dcse','Comparison Shopping Engine(CSE)','If you have registered with the www.pricerunner.com, you may get the pricerunner id to compare the prices of products added in your website with the other websites. When you enable the check box, your product will be compared with the other products.')" onmouseout="HideHelp('dcse');">
-			<div id="dcse" style="position:fixed"></div><div id="divcsekey" style="display:none">CSE Keyword&nbsp;:&nbsp;<input type="text" id="csekeyid" name="csekeyid" value="<AJDF:output>$val.csekeyid</AJDF:output>" /></div><div style="color:#FF0000">
-                                        <AJDF:output>$msg.csekeyid</AJDF:output>
-                                    </div></TD>
-                </TR>
-                <TR>
-                  <TD class="content_form" align="left">Is Featured</TD>
-                  <TD class="content_form" align="left"><INPUT NAME="is_feautured" TYPE="checkbox" <AJDF:output>$val.is_feautured</AJDF:output>/> 
-                  (Check if the product is Featured product)&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dftr','Featured Product','Enable the check box to display the product in featured products list provided in home page of site.')" onmouseout="HideHelp('dftr');">
-			<div id="dftr" style="position:fixed"></div> </TD>
-                </TR>
 
-		 <TR>
-                  <TD class="content_form" align="left">Is New Product</TD>
-                  <TD class="content_form" align="left"><INPUT NAME="is__product_status" TYPE="radio" <AJDF:output>$val.is_new_product</AJDF:output> value='1'/> 
-                  (enable if the product is new product)&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dftrnew','New Product','Enable the radio button to display the product in featured new products list provided in home page of site.')" onmouseout="HideHelp('dftrnew');">
-			<div id="dftrnew" style=" position:fixed"></div>Is Discount Product<INPUT NAME="is__product_status" TYPE="radio" <AJDF:output>$val.$is_discount_product</AJDF:output> value='2'/> 
-                  (enable if the product is discount  product)&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dftrdiscount','Featured Product','Enable the radio button to display the product in featured discount products list provided in home page of site.')" onmouseout="HideHelp('dftrdiscount');">
-			<div id="dftrdiscount" style=" position:fixed"></div></TD>
-                </TR>
-                <TR>
-                  <TD class="content_form" nowrap="nowrap" align="left">Visibility at Store Front </TD>
-                  <TD class="content_form" align="left"><INPUT NAME="status" TYPE="checkbox" checked="checked" />
-                  (Check if you want to show the product at Store Front)&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dstrfrnt','Store Front','Enable the check box to make activate of product in site.')" onmouseout="HideHelp('dstrfrnt');">
-			<div id="dstrfrnt" style=" position:fixed"></div> </TD>
-                </TR>
-                            <tr>
-                                <td colspan="2" align="center"><input type="button" name="category" class="all_bttn" value="Back" onClick="clk('Image51','images/tab_images/category_1.jpg',4)"/>&nbsp;&nbsp;&nbsp;<input type="button" name="category" class="all_bttn" value="Continue" onClick="clk('Image54','images/tab_images/images_1.jpg',6)"/></td>
-                            </tr>
-                        </table></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-            </table>
-            <br>
-        </div>
-	<!-- Images-->
-        <div id="tab6" style="display:none">
-		<table style="border-left: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204);" border="0" cellpadding="0" cellspacing="5" width="742">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="content_form" align="left"><b>Product Image Details</b> </td>
-                </tr>
-                <tr>
-                
-                <td>
-                <table border="0" width="80%" cellpadding="4" cellspacing="4" align="left">
-		<tr><td colspan="2" align="center"><div style="color:#FF0000">
-                                        <AJDF:output>$msg.ufile_value</AJDF:output>
-                                    </div></td></tr>
-                    <tr>
-                        <td width="31%" class="content_form" align="left"> Main Product Image <font color="#FF0000">*</font></td>
-                        <td colspan="3" align="left"><INPUT VALUE="0" ID="theValue" TYPE="hidden">
-                            <INPUT NAME="ufile[0]" ID="ufile[0]"  type="file" />
-                            &nbsp;<A HREF="javascript:;" onClick="addEvent();">Add Multiple Images</A>
-			     <div style="color:#FF0000">
-                                        <AJDF:output>$msg.ufile</AJDF:output>
-                                    </div>
-			    </td>
-                    </tr>
-                    <tr>
-                        <td width="31%" colspan="5"><DIV ID="myDiv"></DIV>
-                            <A HREF="javascript:;" onClick="addEvent();"></A></TD>
-                    </TR>
-                    </td>
-                    
-                    </tr>
-                    
-                    <tr>
-                        <td colspan="2" align="center"><input type="button" name="category" class="all_bttn" value="Back" onClick="clk('Image52','images/tab_images/general_1.jpg',5)"/>&nbsp;&nbsp;&nbsp;<input type="button" name="category" class="all_bttn" value="Continue" onClick="clk('Image55','images/tab_images/attributes_1.jpg',7)"/></td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                
-            </table>
-	    <br />
-        </div>
-	<!-- Attributes-->
-        <div id="tab7" style="display:none">
-		<table style="border-left: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204);" border="0" cellpadding="0" cellspacing="5" width="742">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="content_form" align="left"><b>Product Attributes</b> </td>
-                </tr>
-                <tr>
-                
-                <td ID="attributes" align="left">
-		
-               <table border="0" width="80%" cellpadding="4" cellspacing="4" align="left">
-                   <tr>
-        			<td colspan="2" align="center"><font color="orange"><b>No Attributes found</b></font></td>
-	                </tr>
-                </table>
-                </td>
-                </tr>
-                  <tr>
-        		<td colspan="2" align="center"><input type="button" name="category" class="all_bttn" value="Back" onClick="clk('Image54','images/tab_images/images_1.jpg',6)"/>&nbsp;&nbsp;&nbsp;<input type="button" name="category" class="all_bttn" value="Continue" onClick="clk('Image56','images/tab_images/price_1.jpg',8)"/></td>
-                </tr>
-            </table>
-	    <br />
-	</div>
-	<!-- Price-->
-        <div id="tab8" style="display:none">
-		<table style="border-left: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204);" border="0" cellpadding="0" cellspacing="5" width="742">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="content_form" align="left"><b>Product Prices</b> </td>
-                </tr>
-                <tr>
-                
-                <td>
-                <table border="0" width="90%" cellpadding="4" cellspacing="4" align="left">
-                    <TR>
-                  <TD width="20%" class="content_form" align="left">Purchase Price <font color="#FF0000">*</font> </TD>
-                  <TD  colspan="3" class="content_form" align="left"><input name="price" type="text" id="price" value="<AJDF:output>$val.price</AJDF:output>"    maxlength="16" > &nbsp;<b>[<AJDF:output>$currencycode</AJDF:output>]</b>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dprice','Purchased Price','Enter product purchased price')" onmouseout="HideHelp('dprice');">
-			<div id="dprice" style="left: 50px; top: 50px;"></div>
-                  <DIV STYLE="color:#FF0000"> <AJDF:output>$msg.price</AJDF:output>    </DIV></TD>
-                </TR>
-                <TR>
-                  <TD class="content_form" align="left"> Product MSRP <font color="#FF0000">*</font> </TD>
-                  <TD COLSPAN="3" class="content_form" align="left"><INPUT NAME="msrp_org" TYPE="text" ID="msrp" MAXLENGTH="16" VALUE="<AJDF:output>$val.msrp_org</AJDF:output>" />&nbsp;<b>[<AJDF:output>$currencycode</AJDF:output>]</b>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dmsrp', 'MSRP', 'Manufacturer&acute;s Suggested Retail Price')" onmouseout="HideHelp('dmsrp');">
-			<div id="dmsrp" style="left: 50px; top: 50px;font-weight:normal"></div>
-                  <DIV STYLE="color:#FF0000"><AJDF:output>$msg.msrp_org</AJDF:output> </DIV>         </TD>
-                </TR>
-		<TR>
-                  <TD valign="top" class="content_form" align="left"> Tier Price </TD>
-                  <TD COLSPAN="3" valign="top" align="left">
-		  <div align="right" style="padding-bottom:10px; width:90%"><input type="button" name="insert" class="all_bttn"  value="Add" onClick="addTier('<AJDF:output>$currencycode</AJDF:output>');"/><INPUT VALUE="-1" ID="msrp1" TYPE="hidden"></div>
-		  <table cellpadding="4" cellspacing="0" border="0" width="90%"  class="content_list_bdr">
-	   	<tr>
-	   		<td class="content_list_head" width="40%">Quantity</td>
-			<td  class="content_list_head" width="30%">MSRP Per Unit</td>
-			<td  class="content_list_head" width="25%">Actions</td>
-		</tr>
-		<!--<tr>
-			
-			<td class="content_list_txt1" width="40%">
-				<INPUT VALUE="0" ID="quantity1" TYPE="hidden">
-				<INPUT NAME="quantity[0]" ID="quantity[0]"  type="text"  size="3" />and above
-			</td>
-			<td class="content_list_txt1">
-				<INPUT VALUE="0" ID="msrp1" TYPE="hidden">
-				<INPUT NAME="msrp[0]" ID="msrp[0]"  type="text"  size="5" />&nbsp;<b>[USD]</b>
-			</td>
-			<td class="content_list_txt1" align="center"></td>
-			</tr>-->
-			<tr>
-                        <td colspan="3"><DIV ID="myTier"></DIV>
-                            <A HREF="javascript:;" onClick="addEvent();"></A></TD>
-                    </TR>
-			</table>
-		 </TD>
-                </TR>
-				 <TR>
-                  <TD class="content_form" align="left"> Product Shipping Cost </TD>
-                  <TD COLSPAN="4" class="content_form" align="left"><INPUT NAME="shipcost" ID="shipcost"  type="text" VALUE="<AJDF:output>$val.shipcost</AJDF:output>"  />&nbsp;<b>[<AJDF:output>$currencycode</AJDF:output>]</b>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dshipping', 'Shipping Cost', 'Enter the amount to be collected while sending the product to customers.')" onmouseout="HideHelp('dshipping');">
-			<div id="dshipping" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.shipcost</AJDF:output> </DIV>                  </TD></TR>
-               
-                    
-                    <tr>
-                        <td colspan="2" align="center"><input type="button" name="category" class="all_bttn" value="Back" onClick="clk('Image55','images/tab_images/attributes_1.jpg',7)"/>&nbsp;&nbsp;&nbsp;<input type="button" name="category" class="all_bttn" value="Continue" onClick="clk('Image57','images/tab_images/inventory_1.jpg',9)"/></td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                
-            </table>
-	    <br />
-	</div>
-	<!-- Inventory-->
-        <div id="tab9" style="display:none">
-		<table style="border-left: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204);" border="0" cellpadding="0" cellspacing="5" width="742">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="content_form" align="left"><b>Product Inventory Details</b> </td>
-                </tr>
-                <tr>
-                
-                <td>
-                <table border="0" width="60%" cellpadding="4" cellspacing="4" align="left">
-                    		<TR>
-                  <TD class="content_form" width="35%" align="left"> Re-Order Level Quantity </TD>
-                  <TD align="left"><INPUT NAME="rol"  type="text" ID="rol" SIZE="10" MAXLENGTH="5" VALUE="<AJDF:output>$val.rol</AJDF:output>" />&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dreodr','Reorder Level','Enter product repurchase limit')" onmouseout="HideHelp('dreodr');">
-			<div id="dreodr" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.rol</AJDF:output> </DIV></TD>
-                </TR>
-				
-				<TR>
-                  <TD class="content_form" align="left"> Stock on Hand Quantity </TD>
-                  <TD align="left"><INPUT NAME="soh"  type="text" ID="soh" SIZE="10" VALUE="<AJDF:output>$val.soh</AJDF:output>" MAXLENGTH="5"/>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dsth','Stock in Hand','Enter the number of products available with you currently.')" onmouseout="HideHelp('dsth');">
-			<div id="dsth" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.soh</AJDF:output> </DIV></TD>
-                </TR>
-                    
-                    <tr>
-                        <td colspan="2" align="center"><input type="button" name="category" class="all_bttn" value="Back" onClick="clk('Image56','images/tab_images/price_1.jpg',8)"/>&nbsp;&nbsp;&nbsp;<input type="button" name="category" class="all_bttn" value="Continue" onClick="clk('Image60','images/tab_images/meta_1.jpg',12)"/></td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                
-            </table>
-	    <br />
-	</div>
+
+function tabOpen(hide,show)
+{
+	$('#tab'+hide).removeClass('active');
+    $('#Image'+hide).removeClass('active');
+    $('#tab'+show).addClass('active');
+    $('#Image'+show).addClass('active');
 	
-	<div id="tab10" style="display:none">Test8</div>
-        <div id="tab11" style="display:none">Test8</div>
-	<!-- Meta Information-->
-        <div id="tab12" style="display:none">
-		<table style="border-left: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204);" border="0" cellpadding="0" cellspacing="5" width="742">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="content_form" align="left"><b>Product Meta Information</b> </td>
-                </tr>
-                <tr>
-                
-                <td align="left">
-                <table border="0" width="92%" cellpadding="4" cellspacing="4" align="left">
-		<!--<TR>
-                  <TD>Meta Title </TD>
-                  <TD>
-		  <INPUT NAME="meta_keywords" wrap="off" TYPE="text" ID="meta_keywords" VALUE="<AJDF:output>$val.meta_keywords</AJDF:output>"/></TD>
-                </TR>-->
-		<TR>
-                  <TD class="content_form" align="left">Meta Keywords </TD>
-                  <TD align="left">
-		  <INPUT NAME="meta_keywords" wrap="off" TYPE="text" ID="meta_keywords"  size="75"  VALUE="<AJDF:output>$val.meta_keywords</AJDF:output>"/>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dmeteaky', 'Meta Keyword', 'This entry is essential as it provides meta-information about your page, such as descriptions and keywords for search engines and refreshes rates. Create effective well formatted Meta tags for your website with this Meta tag generator. Enter the essential keywords to be used for product.')" onmouseout="HideHelp('dmeteaky');">
-			<div id="dmeteaky" style="left: 50px; top: 50px;"></div></TD>
-                </TR>
-		<TR>
-                  <TD class="content_form" width="20%" align="left">Meta Description </TD>
-                  <TD align="left"><INPUT NAME="meta_desc"  size="75" type="text"  id="meta_desc" VALUE="<AJDF:output>$val.meta_desc</AJDF:output>" />&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dmetadesc', 'Meta Content', 'Enter the brand name for product i.e., the name allotted by manufacturer for product.')" onmouseout="HideHelp('dmetadesc');">
-			<div id="dmetadesc" style="left: 50px; top: 50px;"></div>
-                    <!--<textarea name="prodmetadesc" id="prodmetadesc" rows="3" cols="36"/></textarea>    -->                  </TD>
-                </TR>
-                
-                    <tr>
-                        <td colspan="2" align="center"><input type="button" name="category" class="all_bttn" value="Back" onClick="clk('Image57','images/tab_images/inventory_1.jpg',9)"/>&nbsp;&nbsp;&nbsp;<input type="button" name="category" class="all_bttn" value="Continue" onClick="clk('Image61','images/tab_images/related_1.jpg',13)"/></td>
-                    </tr>
-                </table>
-                </td>
-                </tr>
-                
-            </table><br />
+}
+
+
+function tabOpenvalidation(show)
+{
+	for(i=1;i<=8;i++)
+	{
+		if(i==show)
+		{
+		$('#tab'+show).addClass('active');
+	    $('#Image'+show).addClass('active');
+		}
+		else{
+		$('#tab'+i).removeClass('active');
+	    $('#Image'+i).removeClass('active');
+		}
+	}
+
+}
+
+$(document).ready(function (){
+  $('#saveProductId').click(function(){
+    $("#saveProductdetails").submit();
+  });
+});
+function productalias(val)
+{
+
+	if(val!='')
+	{
+		var url='?do=productentry&action=productalias&alias='+ val;
+		ajax(url,'checkalias');	
+		
+	}
+
+}
+</script>
+<style>
+/* bordered tabbable  */
+.tabbable-bordered { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+.tabbable-bordered > .nav-tabs { margin: 0; border: none; }
+.tabbable-bordered > .tab-content { height: auto; border-style: solid; border-color: #ddd; padding: 10px; border-width: 1px; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+.tabs-below.tabbable-bordered > .tab-content { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+.tabs-left.tabbable-bordered > .tab-content { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+.tabs-right.tabbable-bordered > .tab-content { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+.tabbable-bordered .nav-tabs > li { margin-right: 2px; border-top: 2px solid transparent; }
+.tabbable-bordered .nav-tabs > li > a { -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; margin-right: 0; padding: 6px 10px; }
+.tabbable-bordered .nav-tabs > li > a:hover { background: none; border-color: transparent; }
+.tabbable-bordered .nav-tabs > li.active { border-top: 3px solid #368CA9; margin-top: 0; position: relative; }
+.tabbable-bordered .nav-tabs > li.active > a { border-top: none; font-weight: 700; }
+.tabbable-bordered .nav-tabs > li.active > a:hover { background: #fff; border-color: #ddd #ddd transparent; }
+.tabs-below.tabbable-bordered .nav-tabs > li { border-top: none; border-bottom: 2px solid transparent; margin-top: -1px; }
+.tabs-below.tabbable-bordered .nav-tabs > li.active { border-top: none; border-bottom: 3px solid #368CA9; margin-bottom: 0; position: relative; }
+.tabs-below.tabbable-bordered .nav-tabs > li.active > a { border-bottom: none }
+.tabs-below.tabbable-bordered .nav-tabs > li.active > a:hover { background: #fff; border-color: #ddd #ddd transparent; }
+.tabs-left.tabbable-bordered .nav-tabs > li { margin-right: 0; border-left: 2px solid transparent; border-top: none; }
+.tabs-left.tabbable-bordered .nav-tabs > li.active { border-top: none; border-left: 3px solid #368CA9; margin-top: 0; margin-right: -1px; position: relative; }
+.tabs-left.tabbable-bordered .nav-tabs > li.active > a { border-top: 1px solid #ddd; border-left: 1px solid transparent; }
+.tabs-left.tabbable-bordered .nav-tabs > li.active > a:hover { background: #fff; border-color: #ddd transparent #ddd; }
+.tabs-right.tabbable-bordered .nav-tabs > li { margin-right: 0; border-right: 2px solid transparent; border-top: none; }
+.tabs-right.tabbable-bordered .nav-tabs > li.active { border-top: none; border-right: 3px solid #368CA9; margin-top: 0; margin-left: -1px; position: relative; }
+.tabs-right.tabbable-bordered .nav-tabs > li.active > a { border-top: 1px solid #ddd; border-right: 1px solid transparent; }
+.tabs-right.tabbable-bordered .nav-tabs > li.active > a:hover { background: #fff; border-color: #ddd transparent #ddd; }
+.tabs-right.tabbable-bordered .nav-tabs > li a, .tabs-left.tabbable-bordered .nav-tabs > li a { padding: 8px 10px }
+
+
+
+.swMain div.actionBar{display:block;clear:both;border:1px solid #ddd;background-color:#f5f5f5;min-height:30px;text-align:right;margin:20px 0 0;padding:10px;-webkit-box-shadow: inset 0 1px 0 #fff;-moz-box-shadow: inset 0 1px 0 #fff;-ms-box-shadow: inset 0 1px 0 #fff;box-shadow: inset 0 1px 0 #fff}
+.swMain div.actionBar .btn + .btn {margin-right:10px}
+.swMain div.actionBar .buttonFinish {margin-left:10px}
+
+
+
+</style>
+
+
+
+<div class="menu_new clsBtm_20">
+	<div class="row-fluid">
+		<div class="span9"><h2> ADD PRODUCTS 
+		</h2>
 	</div>
-	<!-- Related Products-->
-        <div id="tab13" style="display:none">
-		<table style="border-left: 1px solid rgb(204, 204, 204); border-right: 1px solid rgb(204, 204, 204); border-bottom: 1px solid rgb(204, 204, 204);" border="0" cellpadding="0" cellspacing="5" width="742">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="content_form" align="left"><b>Select Your Related Products</b> </td>
-                </tr>
-		
-                <tr>
-                
-                <td align="left"><AJDF:output>$allproducts</AJDF:output>
-		
-                </td>
-                </tr>
+	<div class="span3" >
+
+      <ul class="bttn_right">
+            <li>
+              <a href="javascript:void(0);" class="add_icon1"  id="saveProductId"></a> </li>
+              
+                   
+             </ul>
+
+         </div>
+
+     </div>
+ </div>
+
+ <AJDF:output>$message</AJDF:output>
+ <form name="productreg" id="saveProductdetails" action="?do=productentry&action=insert" method="post" enctype="multipart/form-data" onsubmit="return checkInputs()">
+ 	<input type="hidden" name="subcat" id="subcat"  />
+ 
+
+ 	<div class="row-fluid">
+ 			<div class="span9">&nbsp;</div>  
+ 		<div class="span3">    <ul class="bttn_right">
+            <li>
+              <font color="#FF0000">*</font> Mandatory Inputs  </li>
+                   
+             </ul></div></div>
+
+
+ 	<div class="row-fluid">
+ 		<div class="span12">
+ 			<div class="tabbable tabbable-bordered">
+ 				<ul class="nav nav-tabs">
+ 					<li id="Image1" class="active"><a href="#tab1" id="Image51" data-toggle="tab">Category</a></li>
+ 					<li id="Image2"  class=""><a href="#tab2" id="Image52" data-toggle="tab">General</a></li>
+ 					<li id="Image3"  class=""><a href="#tab3" id="Image54" data-toggle="tab">Images</a></li>
+ 					<li id="Image4" class=""><a href="#tab4" id="Image55" data-toggle="tab">Attributes</a></li>
+ 					<li id="Image5" class=""><a href="#tab5" id="Image56" data-toggle="tab">Price</a></li>
+ 					<li id="Image6" class=""><a href="#tab6" id="Image57" data-toggle="tab">Inventory</a></li>
+ 					<li id="Image7"  class=""><a href="#tab7" id="Image60" data-toggle="tab">Meta Information</a></li>
+ 					<li id="Image8" class=""><a href="#tab8" id="Image61" data-toggle="tab">Related Products</a></li>
+ 				</ul>
+ 				 <span id="tabs_det" style="display:none"></span>
+ 				<div class="tab-content">
+ 					<div class="tab-pane active swMain" id="tab1">
+
+
+ 						<div class="row-fluid">
+ 							<div class="span12"><label>Select Category <font color="#FF0000">*</font></label>
+ 								<AJDF:output>$dropcategory</AJDF:output>
+ 								<div id="dct" style="left: 50px; top: 50px;"></div><div style="color:#FF0000">
+ 								<AJDF:output>$msg.selcatgory</AJDF:output>
+ 							</div>	</div>	</div>
+
+ 							<!--<div class="row-fluid">
+ 								<div class="span12"><label>
+
+ 									Select Sub Category <font color="#FF0000">*</font></label>
+ 									<div ID="subcats" align="left"><select name="selsubcatgory" style="width:148px"><option value="0">-Select-</option></select>
+ 										<div id="dct1" style="left: 50px; top: 50px;"></div><div style="color:#FF0000">
+ 										<AJDF:output>$msg.subcat</AJDF:output>
+ 									</div></div>
+ 								</div>	</div>-->
+
+ 								<!--<div class="row-fluid">
+ 									<div class="span12"><label>Select Sub Under SubCategory <font color="#FF0000">*</font></label>
+ 										<div ID="subcatsunder" align="left"><select name="selsubundercatgory" style="width:148px"><option value="0">-Select-</option></select>
+ 											<div id="dct2" style="left: 50px; top: 50px;"></div><div style="color:#FF0000">
+ 											<AJDF:output>$msg.subcatunder</AJDF:output>
+ 										</div></div></div></div>-->
+        				<!-- </tr>
+        				<tr>
+        					<td colspan="2" align="center"><input type="button" name="category" class="all_bttn" value="Continue" onClick="clk('Image52','images/tab_images/general_1.jpg',5)"/></td>
+        				</tr>
+        			</table></td>
+        		</tr>
+        	</table> -->
+        	<div class="actionBar"><a href="javascript:void(0);" onclick="tabOpen('1','2');" class="btn buttonNext" >Next</a></div>
+        </div>
+
+<!-- general -->
+        <div class="tab-pane swMain" id="tab2">
+        	<div class="row-fluid">
+        		<div class="span12"><label>Product Name <font color="#FF0000">*</font></label>
+        			<input name="product_title" id="product_title" value="<AJDF:output>$val.product_title</AJDF:output>"  type="text" size="50" />
+        		</div>
+        	</div>
+
+		<div class="row-fluid">
+        		<div class="span12"><label>Product Alias </label>
+        			<input name="product_alias" id="product_alias" value="<AJDF:output>$val.product_alias</AJDF:output>"   type="text" size="50" onblur="productalias(this.value);"/>&nbsp;<div style="color:#FF0000" id="checkalias"></div>
+        		</div>
+        	</div>
+
+        	<div class="row-fluid">
+        		<div class="span12"><label>Product Description </label>
+
+        			<textarea name="desc" class="ckeditor" id="desc" cols="120" rows="30" >
+        				<AJDF:output>$val.desc</AJDF:output></textarea></div>
+        			</div>
+        			<div class="row-fluid">
+        				<div class="span12"><label>SKU <font color="#FF0000">*</font></label>
+        					<div id="sku"><input name="sku" id="sku" type="text" value="<AJDF:output>$val.sku</AJDF:output>"/>
+        						<div id="dsku" style="left: 50px; top: 50px;"></div>
+        					</div></div></div>
+        					<div class="row-fluid">
+        						<div class="span12"><label>Brand</label>
+        							<div id="select" name="select" style="visibility:visible; padding-left:0px; display:block"><AJDF:output>$dispbrand</AJDF:output></div><div id="select_new" name="select_new" style="visibility:hidden; padding-left:0px; display:none"><input type="text" name="new_brand"  /></div><div id="select1" name="select1" style="visibility:visible; display:block"><a href="javascript:change();">    <p style="margin-top:-31px;margin-left:167px;">   <button class="btn btn-mini btn-primary"  type="button">Others</button></p></a></div><div id="select_new1" name="select_new1" style="visibility:hidden; display:none"><a href="javascript:change1();">    <p style="margin-top:-31px;margin-left:167px;">  <button class="btn btn-mini btn-primary"  type="button">Others</button></p></a></div>
+        							<div id="dbnd" style="left: 50px; top: 50px;"></div></div>
+        						</div>
+
+        						<div class="row-fluid">
+        							<div class="span12"><label>Model</label>
+        								<input name="model" id="model"  type="text" value="<AJDF:output>$val.model</AJDF:output>" /></div>
+        							</div>
+
+        							<div class="row-fluid">
+        								<div class="span12"><label>Weight</label>
+        									<input name="txtweight" id="txtweight"  type="text" value="<AJDF:output>$val.txtweight</AJDF:output>" />&nbsp;<code>(lbs)</code> <div style="color:#FF0000">
+        									<AJDF:output>$msg.txtweight</AJDF:output>
+        								</div></div>
+        							</div>
+
+        							<div class="row-fluid">
+        								<div class="span12"><label>Dimension</label>
+
+        									<table>
+        										<tr>
+        											<td class="content_form" valign="top">Width</td>
+        											<td class="content_form" valign="top">Height</td>
+        											<td class="content_form" valign="top">Depth</td>
+        										</tr>
+        										<tr>
+        											<td><input name="txtwidth" type="text" id="txtwidth" value="<AJDF:output>$val.txtwidth</AJDF:output>" size="4" /><div style="color:#FF0000">
+        												<AJDF:output>$msg.txtwidth</AJDF:output>
+        											</div></td>
+        											<td><input name="txtheight" id="txtheight"  type="text" value="<AJDF:output>$val.txtheight</AJDF:output>" size="4"/><div style="color:#FF0000">
+        												<AJDF:output>$msg.txtheight</AJDF:output>
+        											</div></td>
+        											<td><input name="txtdepth" id="txtdepth"  type="text" value="<AJDF:output>$val.txtdepth</AJDF:output>" size="4"/>&nbsp;<code>(inches)</code><div style="color:#FF0000">
+        												<AJDF:output>$msg.txtdepth</AJDF:output>
+        											</div></td>
+        										</tr>
+        									</table>
+        								</div>
+        							</div>
+
+
+        							<div class="row-fluid">
+        								<div class="span12"><label> Product Tags </label>
+        									<INPUT NAME="tag"  type="text" ID="tag" VALUE="<AJDF:output>$val.tag</AJDF:output>" />
+        										<code><font size="-2">(Ex: tag1, tag2,etc..)</font></code></div><div valign="top">
+        										<div id="dptag" style="left: 50px; top: 50px;"></div></div>
+        									</div> 
+
+        									<div class="row-fluid">
+        										<div class="span12"><label>Introduction Date </label>
+        											<INPUT  type="text" ID="intro_date" NAME="intro_date" VALUE="<AJDF:output>$val.intro_date</AJDF:output>"  />
+        												<div id="dindt" style="left: 50px; top: 50px;"></div></div>
+        											</div>
+
+
+        											<!--<div class="row-fluid">
+        												<div class="span12"><label>Is CSE Enabled </label>
+        													<INPUT NAME="cse_enabled" TYPE="checkbox" ID="cse_enabledid" class="checkButton"  <AJDF:output>$val.cse_enabled</AJDF:output>  onclick="chckk('1')"/>
+        														(Check if the product is eligible for price comparison) 
+
+        													</div></div>-->
+        														
+
+        														<div id="dcse" style="position:fixed"></div><div id="divcsekey" style="display:none">
+        											<div class="row-fluid">
+        												<div class="span12"><label>CSE Keyword</label><input type="text" id="csekeyid" name="csekeyid" value="<AJDF:output>$val.csekeyid</AJDF:output>" /></div> 
+
+        													</div>
+
+        												</div>
+        												<div class="row-fluid">
+        													<div class="span12"><label>Is Featured</label>
+        														<INPUT NAME="is_feautured" class="checkButton" TYPE="checkbox" <AJDF:output>$val.is_feautured</AJDF:output>/> 
+        															<p style="margin-top:-20px;margin-left:90px;"><code>(Enable if the product is Featured product)</code></p>
+        														</div>
+        													</div>
+
+        													<div class="row-fluid">
+ 		<div class="span12"><label>Is New Product</label>
+                  <INPUT NAME="is__product_status" TYPE="radio" <AJDF:output>$val.is_new_product</AJDF:output> value='1'/> 
+               <p style="margin-top:-20px;margin-left:90px;">  <code> (Enable if the product is new product)</code></p></div></div>
+
+<div class="row-fluid">
+ 		<div class="span12"><label>Is Discount Product</label>
+           <INPUT NAME="is__product_status" TYPE="radio" <AJDF:output>$val.$is_discount_product</AJDF:output> value='2'/> 
+                <p style="margin-top:-20px;margin-left:90px;"> <code> (Enable if the product is discount  product)</code></p></div></div>
+
+
+        													<div class="row-fluid">
+        														<div class="span12"><label>Visibility at Store Front </label>
+        															<INPUT NAME="status" class="checkButton" TYPE="checkbox" checked="checked" />
+        															 <p style="margin-top:-20px;margin-left:90px;"> <code>(Check if you want to show the product at Store Front)</code></p>
+        															<div id="dstrfrnt" style=" position:fixed"></div> </div>
+        														</div>
+
+
+        <div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('2','1');" class="btn buttonNext" >Back</a>
+
+        	<a href="javascript:void(0);" onclick="tabOpen('2','3');" class="btn buttonNext" >Next</a></div>
+
+        													</div>
+<!-- general End -->
+
+<!-- Images  -->
+
+<div class="tab-pane swMain" id="tab3">
+        					<div style="color:#FF0000">
+        						<AJDF:output>$msg.ufile_value</AJDF:output>
+        					</div>
+
+       		<div class="row-fluid"><div class="span12"><label>Main Product Image <font color="#FF0000">*</font></label>
+        						<INPUT VALUE="0" ID="theValue" TYPE="hidden">
+
+        							<div class="fileupload fileupload-new" data-provides="fileupload" style="width:350px;">
+		<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+		<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+		<div>
+		<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="ufile[0]" id="ufile[0]"  /></span>
+		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+		</div></div>&nbsp;<A HREF="javascript:;" onClick="addEvent();"><button class="btn btn-mini btn-primary" type="button">Add Multiple Images</button></A>
+        							<div style="color:#FF0000">
+        								<AJDF:output>$msg.ufile</AJDF:output>
+        							</div>
+        						</div>
+        					</div>
+        						<div class="row-fluid"><div class="span12"><label>
+        					<DIV ID="myDiv"></DIV></label>
+        							<A HREF="javascript:;" onClick="addEvent();"></A></div>
+        					</div>
+        				
+
+        				<div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('3','2');" class="btn buttonNext" >Back</a>
+
+        	<a href="javascript:void(0);" onclick="tabOpen('3','4');" class="btn buttonNext" >Next</a></div>
+
+        													</div>
+
+
+        													<!-- Images end -->
+        									<!-- Attributes  -->				
+
+        			<div class="tab-pane swMain" id="tab4">
+        				<div class="row-fluid"><div class="span12">
+        		<table  border="0" cellpadding="0" cellspacing="5" >
+    		<tr>
+    			<td>&nbsp;</td>
+    		</tr>
+    		<tr>
+    			<td colspan="4" class="content_form" align="left"><b>Product Attributes</b> </td>
+    		</tr>
+    		<tr>
+
+    			<td ID="attributes" align="left">
+
+    				<table border="0" width="100%" cellpadding="4" cellspacing="4" align="left">
+    					<tr>
+    						<td colspan="2" align="center"><font color="orange"><b>No Attributes found</b></font></td>
+    					</tr>
+    				</table>
+    			</td>
+    		</tr>
+    		
+    	</table></div></div>	<div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('4','3');" class="btn buttonNext" >Back</a>
+
+        	<a href="javascript:void(0);" onclick="tabOpen('4','5');" class="btn buttonNext" >Next</a></div></div>
+
+    	<!-- Attributes end -->
+    	<!-- price  -->
+    	<div class="tab-pane swMain" id="tab5">
+        
+        <div class="row-fluid"><div class="span12"><label>
+    				
+    				Purchase Price <font color="#FF0000">*</font> </label>
+    				<input name="price" type="text" id="price" value="<AJDF:output>$val.price</AJDF:output>"    maxlength="16" > &nbsp;<b>[<AJDF:output>$currencycode</AJDF:output>]</b>
+    							<div id="dprice" style="left: 50px; top: 50px;"></div></div></div>
+    							
+    						<div class="row-fluid"><div class="span12"><label>	Product MSRP <font color="#FF0000">*</font> </label>
+    							<INPUT NAME="msrp_org" TYPE="text" ID="msrp" MAXLENGTH="16" VALUE="<AJDF:output>$val.msrp_org</AJDF:output>" />&nbsp;<b>[<AJDF:output>$currencycode</AJDF:output>]</b>
+    								<div id="dmsrp" style="left: 50px; top: 50px;font-weight:normal"></div>
+    								</div></div>
+
+<div class="row-fluid"><div class="span12"><label>
+    								 Tier Price</label></div></div>
+
+    									<div class="row-fluid">
+	<div class="span6">
+		  <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix"><div><a href="javascript:void(0);" class="add_icon1"   onClick="addTier('<AJDF:output>$currencycode</AJDF:output>');"/><INPUT VALUE="-1" ID="msrp1" TYPE="hidden"></a></div>
+    									<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover" >
+	
+		<thead class="green_bg">
+    										<tr>
+    											<th width="40%">Quantity</th>
+    											<th width="40%">MSRP Per Unit</th>
+    											<th width="20%">Actions</th>
+    										</tr>
+    									</thead><tbody >
+	
 		<tr>
-                       <td align="center"><input type="button" name="category" class="all_bttn" value="Back" onClick="clk('Image60','images/tab_images/meta_1.jpg',12)"/>&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" class="all_bttn" value="Finish" /></td>
-                    </tr>
-                
-            </table>
-	</div>
-        </td>
-        </tr>
-    </table>
+			<td colspan="3"><DIV ID="myTier"></DIV>
+				<A HREF="javascript:;" onClick="addEvent();"></A></td>
+			</tr>
+
+</tbody>
+	</table></div></div>
+</div>
+</div>
+	<div class="row-fluid"><div class="span12"><label>Product Shipping Cost </label>
+	<INPUT NAME="shipcost" ID="shipcost"  type="text" VALUE="<AJDF:output>$val.shipcost</AJDF:output>"  />&nbsp;<b>[<AJDF:output>$currencycode</AJDF:output>]</b>
+		<div id="dshipping" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.shipcost</AJDF:output> </DIV>                  
+
+</div>
+</div>
+
+<div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('5','4');" class="btn buttonNext" >Back</a>
+
+        	<a href="javascript:void(0);" onclick="tabOpen('5','6');" class="btn buttonNext" >Next</a></div>
+
+
+              													</div>
+
+
+<!-- price end -->
+<!-- Inventory  -->
+
+
+        						<div class="tab-pane swMain" id="tab6">
+        								<div class="row-fluid"><div class="span12"><label> Re-Order Level Quantity </label>
+        							 <INPUT NAME="rol"  type="text" ID="rol"  VALUE="<AJDF:output>$val.rol</AJDF:output>" />
+							<div id="dreodr" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.rol</AJDF:output> </DIV></div></div>	<div class="row-fluid"><div class="span12"><label>Stock on Hand Quantity </label>
+							<INPUT NAME="soh"  type="text" ID="soh"  VALUE="<AJDF:output>$val.soh</AJDF:output>" />
+
+								<div id="dsth" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.soh</AJDF:output> </DIV>		</div>		</div>
+
+
+<div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('6','5');" class="btn buttonNext" >Back</a>
+
+        	<a href="javascript:void(0);" onclick="tabOpen('6','7');" class="btn buttonNext" >Next</a></div>
+
+
+
+        													</div>
+
+<!-- Inventory end -->
+<!-- meta  -->
+        													<div class="tab-pane swMain" id="tab7">
+        														<div class="row-fluid"><div class="span12"><label>Meta Keywords </label>
+	
+		  		
+				<textarea style="width: 279px; height: 159px;" id="meta_keywords" name="meta_kerwords"><AJDF:output>$val.meta_keywords</AJDF:output></textarea>
+		  			<div id="dmeteaky" style="left: 50px; top: 50px;"></div></div>
+		  		</div>
+		  		<div class="row-fluid"><div class="span12"><label>Meta Description </label>
+		  			<TD align="left">
+				<textarea style="width: 279px; height: 159px;" id="meta_desc" name="meta_desc"><AJDF:output>$val.meta_desc</AJDF:output></textarea>
+		  				<div id="dmetadesc" style="left: 50px; top: 50px;"></div>
+		  				    </div>
+		  			</div>
+
+
+		  			<div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('7','6');" class="btn buttonNext" >Back</a>
+
+        	<a href="javascript:void(0);" onclick="tabOpen('7','8');" class="btn buttonNext" >Next</a></div>
+
+        													</div>
+
+
+        													<!-- meta  end -->
+
+        													<div class="tab-pane swMain" id="tab8">
+        														<div class="row-fluid"><div class="span12"><AJDF:output>$allproducts</AJDF:output>
+        													</div>	</div>	<div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('8','7');" class="btn buttonNext" >Back</a>
+
+        	</div>
+</div>
+
+
+
+        												</div>
+        											</div>
+        										</div>
+        									</div>
+
+
+ 		
+       
 </form>
 
 <script language="javascript" type="text/javascript">
@@ -792,8 +809,41 @@ function change1()
 	document.getElementById("select_new1").style.visibility="hidden";
 	document.getElementById("select_new1").style.display="none";
 }
+ $(document).ready(function (){
+              $(".checkButton").iButton(function(){
+
+                    });
+
+                $(":radio").iButton(function(){
+
+                    });
+
+
+ $("input[name='cse_enabled']").change(function(){
+
+
+
+ if (!$('#cse_enabledid').is(':checked')) {
+ $('#divcsekey').css('display','none');
+ }
+ else
+ {
+ 	 $('#divcsekey').css('display','block');
+ }
+
+     });
+});
+
+
+
+
 
 </script>
+
+
+           
+
+
 <AJDF:output>include file="footer.html"</AJDF:output>
 <!--</body>
-</html>-->
+	</html>-->

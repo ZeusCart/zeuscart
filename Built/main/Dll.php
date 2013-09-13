@@ -25,39 +25,37 @@
     'function' => 'showIndexPage',
     'loadlib' => '1',
   ),
-
- 'brands' => 
+  'brands' => 
   array (
     'model' => 'MHome',
     'function' => 'showBrands',
     'loadlib' => '1',
   ),
-'viewbrands' => 
+  'viewbrands' => 
   array (
     'model' => 'MHome',
     'function' => 'viewBrandsList',
     'loadlib' => '1',
   ),
-'viewbrands:grid' => 
+  'viewbrands:grid' => 
   array (
     'model' => 'MHome',
     'function' => 'viewBrandsList',
     'loadlib' => '1',
-  ),	
- 'voucher' => 
+  ),
+  'voucher' => 
   array (
     'model' => 'MHome',
     'function' => 'showVoucher',
     'loadlib' => '1',
   ),
-
- 'voucher:add' => 
+  'voucher:add' => 
   array (
     'model' => 'MHome',
     'function' => 'showAddVoucher',
     'loadlib' => '1',
   ),
- 'voucher:showcart' => 
+  'voucher:showcart' => 
   array (
     'model' => 'MHome',
     'function' => 'showCart',
@@ -93,7 +91,7 @@
     'function' => 'showPriceComparePage',
     'loadlib' => '1',
   ),
-'userregistration' => 
+  'userregistration' => 
   array (
     'model' => 'MUserRegistration',
     'function' => 'displayRegPage',
@@ -297,7 +295,7 @@
     'function' => 'doQuickRegistration',
     'loadlib' => '1',
   ),
-'showcart:recipientdetails' => 
+  'showcart:recipientdetails' => 
   array (
     'model' => 'MAddCart',
     'function' => 'showRecipientDetails',
@@ -309,7 +307,7 @@
     'function' => 'showBillingDetails',
     'loadlib' => '1',
   ),
-'showcart:validatebillingaddress' => 
+  'showcart:validatebillingaddress' => 
   array (
     'model' => 'MAddCart',
     'function' => 'validateBillingAddress',
@@ -321,7 +319,7 @@
     'function' => 'showShippingDetails',
     'loadlib' => '1',
   ),
- 'showcart:validateshippingaddress' => 
+  'showcart:validateshippingaddress' => 
   array (
     'model' => 'MAddCart',
     'function' => 'validateShippingAddress',
@@ -333,7 +331,7 @@
     'function' => 'showShippingMethod',
     'loadlib' => '1',
   ),
- 'showcart:validateshippingmethod' => 
+  'showcart:validateshippingmethod' => 
   array (
     'model' => 'MAddCart',
     'function' => 'validateShippingMethod',
@@ -453,16 +451,16 @@
     'function' => 'newProducts',
     'loadlib' => '1',
   ),
- 'viewproducts' => 
+  'viewproducts' => 
   array (
     'model' => 'MNewProducts',
     'function' => 'viewProducts',
     'loadlib' => '1',
   ),
-'viewproducts:grid' => 
+  'girdviewproducts' => 
   array (
     'model' => 'MNewProducts',
-    'function' => 'viewProducts',
+    'function' => 'girdViewProducts',
     'loadlib' => '1',
   ),
   'prodetail' => 
@@ -489,7 +487,7 @@
     'function' => 'showLargeview',
     'loadlib' => '1',
   ),
- 'prodetail:showpopupprod' => 
+  'prodetail:showpopupprod' => 
   array (
     'model' => 'MProductDetail',
     'function' => 'showPopupProducts',
@@ -507,7 +505,7 @@
     'function' => 'narrowSearch',
     'loadlib' => '1',
   ),
-'search:grid' => 
+  'search:grid' => 
   array (
     'model' => 'MKeywordSearch',
     'function' => 'keywordsearch',
@@ -561,14 +559,13 @@
     'function' => 'showNewsLetter',
     'loadlib' => '1',
   ),
-
-'changepassword' => 
+  'changepassword' => 
   array (
     'model' => 'MUserAccount',
     'function' => 'showChangePassword',
     'loadlib' => '1',
   ),
- 'changepassword:update' => 
+  'changepassword:update' => 
   array (
     'model' => 'MUserAccount',
     'function' => 'editChangePassword',
@@ -676,6 +673,12 @@
     'function' => 'showOrderDetails',
     'loadlib' => '1',
   ),
+  'orderdetail:print' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'printOrderDetails',
+    'loadlib' => '1',
+  ),
   'faq' => 
   array (
     'model' => 'MFaq',
@@ -716,6 +719,24 @@
   array (
     'model' => 'MNews',
     'function' => 'showNewsPage',
+    'loadlib' => '1',
+  ),
+  'dynamiccms' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showDynamicContent',
+    'loadlib' => '1',
+  ),
+  'digitdown' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'showDigitalProduct',
+    'loadlib' => '1',
+  ),
+ 'prodown' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'CheckDigitalProduct',
     'loadlib' => '1',
   ),
 );

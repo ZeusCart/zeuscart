@@ -18,39 +18,178 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<tr>
-       <td>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-          
-          <tr>
-            <td align="left"><AJDF:output>$detailorder</AJDF:output>
-</td>
-          </tr>
- 
-          <tr>
-            <td align="left" class="content_title">Products Ordered</td>
+<style type="text/css">
+#floatMenu {
+	position:absolute;
+}
+html>body .button_bg_api {
+	background:url(images/close.png) no-repeat;
+	border:0 none;
+	height:30px;
+	width:30px;
+	position:absolute;
+	right:5px;
+	top: 15px;
+}
+* html .button_bg_api {
+	height:27px;
+	width:21px;
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/close.png', sizingMethod='noscale');
+	position:absolute;
+	cursor:pointer;
+	right:-8px;
+	top:7px;
+	border:0 none;
+}
+</style>
+
+<style type="text/css">
+#lightbox_id {
+	display:none;
+	position:fixed;
+	_position:absolute;
+	left:27%;
+	top:25%;
+	padding-left:1px;
+	padding-top:1px;
+	z-index:8;
+	color:#000;
+}
+#backgroundPopup {
+	display:none;
+	position:fixed;
+	_position:absolute;
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	background:#000000;
+	border:1px solid #cecece;
+	z-index:7;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+}
+
+#lightbox_id1 {
+	display:none;
+	position:fixed;
+	_position:absolute;
+	left:27%;
+	top:25%;
+	padding-left:1px;
+	padding-top:1px;
+	z-index:8;
+	color:#000;
+}
+#backgroundPopup1 {
+	display:none;
+	position:fixed;
+	_position:absolute;
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	background:#000000;
+	border:1px solid #cecece;
+	z-index:7;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+}
+</style>
+<script type="text/javascript">
+function showPopupInvoice(){
+
+	if(/MSIE (\d+\.\d+);/.test(navigator.userAgent)){ //test for MSIE x.x;
+		var ieversion=new Number(RegExp.$1)// capture x.x portion and store as a number	
+		if (ieversion>=6)
+			document.body.style.overflowY = "hidden";
+	}
+	document.getElementById("lightbox_id").style.display="block";
+	document.getElementById("backgroundPopup").style.display="block";
+	
+	
+}
+function closeinfo()
+{
+if(document.body.style.overflowY == 'hidden')
+document.body.style.overflowY ='visible';
+document.getElementById("lightbox_id").style.display="none";
+document.getElementById("backgroundPopup").style.display="none";
+}
+
+$(function(){
+$("select").chosen({allow_single_deselect:true});
+
+ $('#updateOrderIcon').click(function(){
+    $("#orderDetailsupdate").submit();
+  });
+	
+});
+
+
+</script>
+<AJDF:output>$detailorder</AJDF:output>
+<div class="row-fluid">
+  <div class="span12">
+    <h2 class="box_head green_bg">Delivery Details</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+<AJDF:output>$transdetails</AJDF:output>
+
+<AJDF:output>$editorderlist</AJDF:output>
+</div></div></div></div></div><br/>
+<div class="row-fluid">
+  <div class="span12">
+    <h2 class="box_head green_bg">Products Ordered</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+
+<AJDF:output>$productorders</AJDF:output>
+</div></div></div></div></div><br/>
+
+<!-- Invoice Information</td>
           </tr>
 		  <tr>
             <td align="left">&nbsp;</td>
           </tr>
           <tr>
-            <td align="left"><AJDF:output>$productorders</AJDF:output>
+            <td align="left"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      
+                      <tbody><tr>
+                        <td align="left" style="font-weight:normal;" class="formtext2" colspan="3"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+                          <tbody>			
+                 <tr><td  class="formtext2" colspan="5"><a  href="javascript:void(0);" onclick="showPopupInvoice();">
+		      				<input type="button" border="0" value="add" id="add" name="add" src="images/add_bttn.gif"></a></td></tr></td></tbody></table>  </div>                     
+			</tr>			
+			</tbody></table>
 </td>
           </tr>
- 
-          <tr>
-            <td align="left" class="content_title">Delivery Details</td>
-          </tr>
-		  <tr>
-            <td align="left">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="left"><AJDF:output>$transdetails</AJDF:output>
-</td>
-          </tr>
-		  <tr>
-            <td align="left"><AJDF:output>$editorderlist</AJDF:output>
-</td>
-          </tr>
-</table>
+</table> -->
+
+<div class="lightbox" id="lightbox_id" ><a href="javascript:void(0)" class="button_bg_api" onclick="closeinfo();"></a>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+      <tr>
+        <td valign="top" align="left" width="2%" class="lb_tl"></td>
+        <td valign="top" align="left" width="96%" class="lb_tc"></td>
+        <td valign="top" align="left" width="2%" class="lb_tr"></td>
+      </tr>
+      <tr>
+        <td valign="top" align="left" class="lb_cl"></td>
+        <td valign="top" align="left" class="lb_cc"><div class="lb_title">Invoice Upload</div>
+        <iframe name="create_invoice" id="create_invoice" src="index.php?do=userinvoice&action=show&id=<AJDF:output>$smarty.get.id</AJDF:output>" scrolling="none" style="width:440px; height:180px;" frameborder="0"></iframe>
+        </td>
+        <td valign="top" align="left" class="lb_cr"></td>
+      </tr>
+      <tr>
+        <td valign="top" align="left" class="lb_bl"></td>
+        <td valign="top" align="left" class="lb_bc"></td>
+        <td valign="top" align="left" class="lb_br"></td>
+      </tr>
+    </table>
+  </div>
+<div id="backgroundPopup"></div>
 <AJDF:output>include file="footer.html"</AJDF:output>

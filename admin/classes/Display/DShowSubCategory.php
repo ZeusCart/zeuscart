@@ -39,62 +39,57 @@ class Display_DShowSubCategory
 	 */	
 	function showCategory($arr,$flag)
 	{
-	
-		$output.='<form name="search" method="post" action="?do=showsub&action=search&id='.(int)$_GET['id'].'" > <table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-              <tr>
-                <!--<td width="2%" class="content_list_head" align="center">S.no.</td>-->
-				<td width="25%" class="content_list_head" nowrap>Category Icon</td>
-                <td width="40%" class="content_list_head">Category Name</td>
-                <td width="40%" class="content_list_head">Category Description</td>
-                
-				<td width="5%" class="content_list_head">Status</td>
-                <td width="5%" class="content_list_head" colspan=2 align="center">Actions</td>
-             	</tr>
-            	<tr>
-                <td colspan="7" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-                </tr>';  
-				
-				$output .= '<tr class="list_search_bg"><td class="content_list_txt2"></td><td class="content_list_txt2"><input type="text"  name="catname" size="20" value="'.$_POST['catname'].'"/></td><td class="content_list_txt2"><input type="text" size="24" name="catdesc" value="'.$_POST['catdesc'].'"/></td> <td class="content_list_txt2"><input type="hidden" name="main_cat" value="'.(int)$_GET['id'].'">
-			<select id="visibility" name="status" style="width: 60px;" type="select" >';
-			if($_POST['status']=="")
-			{
-				$output.='<option value="" selected="selected" >All</option>
-				<option value="1" >Enabled</option>
-				<option value="0" >Disabled</option>';
-				
-			}
-			elseif($_POST['status']==1)
-			{
-				$output.='<option value="" >ALl</option>
-				<option value="1" selected="selected" >Enabled</option>
-				<option value="0" >Disabled</option>';
-			}	
-			else
-			{
-				$output.='
-				<option value="" >All</option>
-				<option value="1" >Enabled</option>
-				<option value="0" selected="selected" >Disabled</option>';
-			}
+
+		$output.='<form name="search" method="post" action="?do=showsub&action=search&id='.(int)$_GET['id'].'" > <table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
+		<tr>
+		<th>Category Icon</th>
+		<th>Category Name</th>
+		<th>Category Description</th>
+
+		<th>Status</th>
+		<th colspan="2">Actions</th>
+		</tr>
+		</thead><tbody>
+		';  
+
+		$output .= '<tr class="list_search_bg"><td class="content_list_txt2"></td><td class="content_list_txt2"><input type="text"  name="catname" size="20" value="'.$_POST['catname'].'"/></td><td class="content_list_txt2"><input type="text" size="24" name="catdesc" value="'.$_POST['catdesc'].'"/></td> <td class="content_list_txt2"><input type="hidden" name="main_cat" value="'.(int)$_GET['id'].'">
+		<select id="visibility" name="status" style="width: 60px;" type="select" >';
+		if($_POST['status']=="")
+		{
+			$output.='<option value="" selected="selected" >All</option>
+			<option value="1" >Enabled</option>
+			<option value="0" >Disabled</option>';
+
+		}
+		elseif($_POST['status']==1)
+		{
+			$output.='<option value="" >ALl</option>
+			<option value="1" selected="selected" >Enabled</option>
+			<option value="0" >Disabled</option>';
+		}	
+		else
+		{
 			$output.='
-			</select></td><td class="content_list_txt2" colspan="2" align="center"><input type="submit" name="search" class="all_bttn" value="Search"/></td></tr></form>';
-				if($flag=='0')
-			return $output .= '<tr><td align="center" colspan="5"><font color="orange"><b>No Category Matched</b></font></td></tr>';
-			else
+			<option value="" >All</option>
+			<option value="1" >Enabled</option>
+			<option value="0" selected="selected" >Disabled</option>';
+		}
+		$output.='
+		</select></td><td class="content_list_txt2" colspan="2" align="center"><input type="submit" name="search" class="clsBigBtn" value="Search"/></td></tr></form>';
+		if($flag=='0')
+			$output .= '<tr><td align="center" colspan="5"><font color="orange"><b>No Category Matched</b></font></td></tr>';
+		else
+		{
+			for ($i=0;$i<count($arr);$i++)
 			{
-				for ($i=0;$i<count($arr);$i++)
-				{
-		
-					if($i % 2 == 0)
-						$classtd='class="content_list_txt1"';
-					else
-					{
-						$classtd='class="content_list_txt2"';
-					}	
-					
+
+
+
 					//print_r($arr);
-					if($arr[$i]['category_status']=='0')
-					{
+				if($arr[$i]['category_status']=='0')
+				{
 						$catstatus='inactive_link';//'Disabled';
 					}
 					else
@@ -108,46 +103,46 @@ class Display_DShowSubCategory
 					//$img=explode('/',$temp);
 					$category_desc=(strlen($arr[$i]['category_desc'])>25) ? substr($arr[$i]['category_desc'],0,25).'...' : $arr[$i]['category_desc'] ;
 					$output.='<input type="hidden" name="index" value="">';
-					$output .= '<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);">
-					<!--<td align="center" '.$classtd.'>'.($i+1).'</td>-->';
-					$output .='<td '.$classtd.' align="center" >';
+					$output .= '<tr>
+					<!--<td align="center" >'.($i+1).'</td>-->';
+					$output .='<td  align="center" >';
 					if(file_exists('../'.$arr[$i]['image']))
-			$output.='<img src="../'.$arr[$i]['image'].'" name="image1"  width="30" height="30" id="image2" border="0"/></td>';
-			else
-			$output.='<img src="../images/noimage.jpg" border="0" width="30" height="30"/></td>';
+						$output.='<img src="../'.$arr[$i]['image'].'" name="image1"  width="30" height="30" id="image2" border="0"/></td>';
+					else
+						$output.='<img src="../images/noimage.jpg" border="0" width="30" height="30"/></td>';
 					
-		
-			if($flag==3)
-			{
-			$output.='<td '.$classtd.'>'.$arr[$i]['SubCategory'].'</td>';
-			}		
-			elseif($flag!=3)
-			{
-			$output.='<td '.$classtd.'><a href="?do=showsubundercat&action=show&id='.$arr[$i]['category_id'].'">'.$arr[$i]['SubCategory'].'</a></td>';
-			}	
-		
 
-			
-				$output.='<td '.$classtd.'>'.$category_desc.'</td>
-					<td '.$classtd.' align="center"><span class="'.$catstatus.'">&nbsp;</span></td>';
+					if($flag==3)
+					{
+						$output.='<td >'.$arr[$i]['SubCategory'].'</td>';
+					}		
+					elseif($flag!=3)
+					{
+						$output.='<td ><a href="?do=showsubundercat&action=show&id='.$arr[$i]['category_id'].'">'.$arr[$i]['SubCategory'].'</a></td>';
+					}	
+
+
+
+					$output.='<td >'.$category_desc.'</td>
+					<td  align="center"><span class="'.$catstatus.'">&nbsp;</span></td>';
 					
-					$output.='<td '.$classtd.'><input type="button" name="Edit" class="edit_bttn"   title="Edit" value="" onclick=edit('.$arr[$i]['category_id'].','.(int)$_GET['id'].') /></td>';
-					$output.='<td '.$classtd.'><input type="button" name="Delete" class="delete_bttn"  title="Delete" value="" onclick=callid('.$arr[$i]['category_id'].','.$arr[$i]['category_parent_id'].','.$arr[$i]['sub_category_parent_id'].') /></td></tr>';	
+					$output.='<td ><input type="button" name="Edit" class="edit_bttn"   title="Edit" value="" onclick=edit('.$arr[$i]['category_id'].','.(int)$_GET['id'].') /></td>';
+					$output.='<td ><input type="button" name="Delete" class="delete_bttn"  title="Delete" value="" onclick=callid('.$arr[$i]['category_id'].','.$arr[$i]['category_parent_id'].','.$arr[$i]['sub_category_parent_id'].') /></td></tr>';	
 					
 					
 				/*if(file_exists('../uploadedimages/caticons/thumb/thumb_'.$img[2]))
 					$output.='<img src="../uploadedimages/caticons/thumb/thumb_'.$img[2].'" name="image1"  width="30" height="30" id="image2" border="0"/></td>';
 				else
 					$output.='<img src="../images/noimage.jpg" border="0" width="30" height="30"/></td>';
-							$output.='<td '.$classtd.'>'.$arr[$i]['SubCategory'].'</td><td '.$classtd.'>'.$category_desc.'</td>';
+							$output.='<td >'.$arr[$i]['SubCategory'].'</td><td >'.$category_desc.'</td>';
 							*/
-				
+
+						}
+
+					}		
+					$output .= '</tbody></table>';
+					return $output;
 				}
-		
-		}		
-			$output .= '</table>';
-			return $output;
-	}
 	/**
 	 * Function  to  display the main category
 	 * @param array $arr
@@ -158,29 +153,29 @@ class Display_DShowSubCategory
 		
 		for ($i=0;$i<count($arr);$i++)
 		{
-				
+
 			$output = "";
 			if(count($arr) > 0)
 				$fun = 'onChange="showSub(this.value);"';
 			//$output .= 'Category';
 			$output='<tr>
-				<td align="left" class="content_form">Category name:  ';
+			<td align="left" class="content_form">Category name:  ';
 			$output .= '&nbsp;<select name="cbosubcateg" class="combo_box2" id="cbosubcat" '.$fun.'>';
 			if($_GET['id']!="")
 			{
 				$category_name=Display_DShowSubCategory::getCategoryname($_GET['id']);
 				$output .= '<option value="" selected="selected">'.$category_name.'</option>';
 			}	
-				$count=count($arr);
-				for ($i=0;$i<$count; $i++)
-					$output .= '<option value="'.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].$hassub.'</option>';
-				$output .= '</select></td> ';
-				
-				return $output;
+			$count=count($arr);
+			for ($i=0;$i<$count; $i++)
+				$output .= '<option value="'.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].$hassub.'</option>';
+			$output .= '</select></td> ';
+
+			return $output;
 			
 		}
-			$output .= '</tr>';
-			return $output;
+		$output .= '</tr>';
+		return $output;
 	}
 	/**
 	 * Function  to  get the category name
@@ -207,51 +202,46 @@ class Display_DShowSubCategory
 		$temp=$arr[0]['category_image'];
 		//$img=explode('/',$temp);
 		
-		$output.='<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			<tr><td class="content_list_head" colspan="2">Edit Sub Category</td></tr><tr><td>';
-		$output.='<form name="formsubcatedit" action="?do=showsub&action=edit&id='.(int)$_GET['mid'].'&subid='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">';
-		$output.='<table width="100%" border="0" cellspacing="0" cellpadding="0">';
+		$output.='';
+		$output.='<form name="formsubcatedit" id="saveSubcategory" action="?do=showsub&action=edit&id='.(int)$_GET['mid'].'&subid='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">';
 		
-		$output.='<input type="hidden" name="index" value="">';
 		$output .= '
 		
-		<tr><td  align="left" class="content_form" width="25%">Category Name :</td>
-            <td colspan="3" class="content_form"><input type="text" name="category" class="txt_box250" id="cat" value="'.$arr[0]['category_name'].'" />
-            </p>
-            </td>
-              </tr>
-			
-		<tr><td align="left" class="content_form">Category Description:</td>
-                <td colspan="3" class="content_form"><input type="text" name="categorydesc" class="txt_box250" id="catdesc" value="'.$arr[0]['category_desc'].'" /></td>
-              </tr>
-              <tr><td align="left" class="content_form">Category Image:</td>
-		<td colspan="3" ><input type="file" name="caticon" id="caticon" /></td>
-		<td ></td><td colspan="3" align="center" ><img src="../'.$temp.'" name="image1"  id="image2" /></td>
-              </tr>
-		 <tr>
-            <td align="left" class="content_form">Status :</td>
-            <td colspan="3" class=""><span>';
-			if($arr[0]['category_status']=='1')
-			{
-			$output.='  <input type="radio" name="status" value="1" checked="checked">
-              On &nbsp;&nbsp;
-              <input type="radio" name="status" value="0"  >
-              Off</span></td>';
-			}
-			else
-			{
-				$output.='  <input type="radio" name="status" value="1" >
-              On &nbsp;&nbsp;
-              <input type="radio" name="status" value="0" checked="checked" >
-              Off</span></td>';
-			 } 
-          	$output.='</tr>';
-		  if($arr[0]['html_content']!='')
-		  {
-		  $output.='<tr><td align="left" class="content_form">Landing Content:</td>
-		  <td align="" class="">'.$arr[0]['html_content'].'</td></tr>';
-		  }
-		$output.='</tr>';
+		<div class="row-fluid">
+		<div class="span12"><label>Category Name </label>
+		<input type="text" name="category" class="txt_box250" id="cat" value="'.$arr[0]['category_name'].'" />
+		</div></div><div class="row-fluid">
+		<div class="span12"><label>Category Description</label>
+		<input type="text" name="categorydesc" class="txt_box250" id="catdesc" value="'.$arr[0]['category_desc'].'" /></div></div><div class="row-fluid">
+		<div class="span6"><label>Category Image</label>
+
+
+		<div class="fileupload fileupload-new" data-provides="fileupload" style="width:350px;"><div style="float:right;" class="thumbnail"><img src="../'.$temp.'" name="image1"  id="image2" /></div>
+		<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+		<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+		<div>
+		<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="caticon" id="caticon" /></span>
+		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+		</div>
+		</div></div></div><div class="row-fluid">
+		<div class="span12"><label>Status </label>
+		<td colspan="3" class=""><span>';
+		if($arr[0]['category_status']=='1')
+		{
+			$checked.='checked';
+		}
+		else
+		{
+			$checked.=' ';
+		} 
+		$output.='<input type="checkbox" name="status" value="1" '.$checked.' ></div></div>';
+		if($arr[0]['html_content']!='')
+		{
+			$output.='<div class="row-fluid">
+			<div class="span12"><label>Landing Content</label>
+			'.$arr[0]['html_content'].'</div></div>';
+		}
+
 		return $output;
 	}
 	/**
@@ -265,52 +255,40 @@ class Display_DShowSubCategory
 
 		$output ="";
 		$temp=$arr[0]['category_image'];
+
+		$output.='<form name="formsubcatedit" id="updateUndersubcat" action="?do=showsubundercat&action=edit&id='.(int)$_GET['mid'].'&subid='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">';
 		
-		$output.='<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			<tr><td class="content_list_head" colspan="2">Edit Sub Category</td></tr><tr><td>';
-		$output.='<form name="formsubcatedit" action="?do=showsubundercat&action=edit&id='.(int)$_GET['mid'].'&subid='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">';
-		$output.='<table width="100%" border="0" cellspacing="0" cellpadding="0">';
-		
-		$output.='<input type="hidden" name="index" value="">';
-		$output .= '
-		
-		<tr><td  align="left" class="content_form" width="25%">Category Name :</td>
-                <td colspan="3" class="content_form"><input type="text" name="category" class="txt_box250" id="cat" value="'.$arr[0]['category_name'].'" />
-               </p>
-              </td>
-              </tr>
-			
-		<tr><td align="left" class="content_form">Category Description:</td>
-                <td colspan="3" class="content_form"><input type="text" name="categorydesc" class="txt_box250" id="catdesc" value="'.$arr[0]['category_desc'].'" /></td>
-                </tr>
-                <tr><td align="left" class="content_form">Category Image:</td>
-		<td colspan="3" ><input type="file" name="caticon" id="caticon" /></td>
-		<td ></td><td colspan="3" align="center" ><img src="../'.$temp.'" name="image1"  id="image2" /></td>
-                </tr>
-		 <tr>
-		<td align="left" class="content_form">Status :</td>
-		<td colspan="3" class=""><span>';
-			if($arr[0]['category_status']=='1')
-			{
-				$output.='  <input type="radio" name="status" value="1" checked="checked">
-				On &nbsp;&nbsp;
-				<input type="radio" name="status" value="0"  >
-				Off</span></td>';
-			}
-			else
-			{
-				$output.='  <input type="radio" name="status" value="1" >
-				On &nbsp;&nbsp;
-				<input type="radio" name="status" value="0" checked="checked" >
-				Off</span></td>';
-			 } 
-         		 $output.='</tr>';
-		  if($arr[0]['html_content']!='')
-		  {
-		  $output.='<tr><td align="left" class="content_form">Landing Content:</td>
-		  <td align="" class="">'.$arr[0]['html_content'].'</td></tr>';
-		  }
-		$output.='</tr>';
+		$output .= '<div class="row-fluid">
+		<div class="span12"><label>Category Name</label> <input type="text" name="category" class="txt_box250" id="cat" value="'.$arr[0]['category_name'].'" /></div></div><div class="row-fluid">
+		<div class="span12"><label>
+		Category Description</label>
+		<input type="text" name="categorydesc" class="txt_box250" id="catdesc" value="'.$arr[0]['category_desc'].'" /></div></div><div class="row-fluid">
+		<div class="span12"><label>
+		Category Image</label>
+		<div class="fileupload fileupload-new" data-provides="fileupload" style="width:350px;"><div style="float:right;" class="thumbnail"><img src="../'.$temp.'" name="image1"  id="image2" /></div>
+		<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+		<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+		<div>
+		<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="caticon" id="caticon" /></span>
+		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+		</div></div></div><div class="row-fluid">
+		<div class="span12"><label>
+		Status</label> ';
+		if($arr[0]['category_status']=='1')
+		{
+			$checked.='checked';
+		}
+		else
+		{
+			$checked.=' ';
+		} 
+		$output.='<input type="checkbox" name="status" value="1" '.$checked.' ></div></div>';
+		if($arr[0]['html_content']!='')
+		{
+			$output.='<div class="row-fluid">
+			<div class="span12"><label>Landing Content></label>'.$arr[0]['html_content'].'</div></div>';
+		}
+
 		return $output;
 	}
 }

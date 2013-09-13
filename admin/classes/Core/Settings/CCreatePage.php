@@ -190,7 +190,7 @@ class Core_Settings_CreatePage
 		$cssfilepath=$_FILES['css_file']['name'];
 		$jsfilepath=$_FILES['js_file']['name'];
 		$writeString="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns='http://www.w3.org/1999/xhtml'>
-	<head><title>".$title."</title><meta name='description' content='". $meta . "' /><meta name='keywords' content='".$metakey."' /><link href='css/".$cssfilepath."' rel='stylesheet' type='text/css' />  
+		<head><title>".$title."</title><meta name='description' content='". $meta . "' /><meta name='keywords' content='".$metakey."' /><link href='css/".$cssfilepath."' rel='stylesheet' type='text/css' />  
 		<script type='text/javascript' src='script/".$jsfilepath."'></script></head><body>".$body."</body></html>";		
 		
 		$default = new Core_Settings_CreatePage();
@@ -268,5 +268,6 @@ class Core_Settings_CreatePage
 			$query->updateQuery($sql);
 		}
 	}
+	
 }
 ?>

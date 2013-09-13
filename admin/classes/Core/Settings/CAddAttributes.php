@@ -76,7 +76,8 @@ class Core_Settings_CAddAttributes
 		}
 		else
 		{
-		return '<div class="exc_msgbox">Attributes Not Found</div>';
+		return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Attributes Not Found</div>';
 		}
 	}
 	
@@ -96,7 +97,8 @@ class Core_Settings_CAddAttributes
 			$query = new Bin_Query();
 			if($query->executeQuery($sql))
 			{
-				return '<div class="exc_msgbox">Already this Attribute is Added</div>';
+				return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Already this Attribute is Added</div>';
 			}
 			else
 			{
@@ -105,12 +107,14 @@ class Core_Settings_CAddAttributes
 				$query = new Bin_Query();
 				if($query->updateQuery($sql))
 				{
-					return '<div class="success_msgbox">Attribute <b>'.$_POST['attributes'].'</b> Added Successfully</div>';
+					return '<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button> Attribute <b>'.$_POST['attributes'].'</b> Added Successfully</div>';
 				}
 			}
 		}
 		else
-			return '<div class="exc_msgbox">Please Enter Attribute Name</div>';
+			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Please Enter Attribute Name</div>';
 	}
 	/**
 	 * Function displays the attributes for updation from the table 
@@ -131,7 +135,8 @@ class Core_Settings_CAddAttributes
 		}
 		else
 		{
-			return '<div class="success_msgbox">Attributes Not Found</div>';
+			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Attributes Not Found</div>';
 		}
 	}
 	/**
@@ -147,11 +152,13 @@ class Core_Settings_CAddAttributes
 		$query = new Bin_Query();
 		if($query->updateQuery($sql))
 		{
-			return '<div class="success_msgbox">Updated <b>'.$_POST['attributes'].'</b> Successfully</div>';
+			return '<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button> Updated <b>'.$_POST['attributes'].'</b> Successfully</div>';
 		}
 		else
 		{
-			return '<div class="success_msgbox">Not Edited</div>';
+			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Not Edited</div>';
 		}	
 	}
 	
@@ -165,21 +172,29 @@ class Core_Settings_CAddAttributes
 	function deleteAttributes()
 	{
 			
-			$sql = "DELETE FROM attribute_table WHERE attrib_id=".(int)$_GET['id'];
+			foreach ($_POST['attributeCheck'] as $key => $value) {
+				
+			
+			$sql = "DELETE FROM attribute_table WHERE attrib_id='$value'";
 			$query = new Bin_Query();
 			$query->updateQuery($sql);
 			
 			
-			$sql = "DELETE FROM attribute_value_table WHERE attrib_id=".(int)$_GET['id'];
+			$sql = "DELETE FROM attribute_value_table WHERE attrib_id='$value'";
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
 			{
-				return '<div class="success_msgbox">Deleted Successfully</div>';
+				$result='<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button> Deleted Successfully</div>';
 			}
 			else
 			{
-				return "Not Deleted";
+				$result='<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Not Deleted</div>';
 			}
+		}
+
+		return $result;
 			
 	}
 

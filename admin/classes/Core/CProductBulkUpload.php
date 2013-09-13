@@ -54,13 +54,15 @@ class Core_CProductBulkUpload
 		  $file = explode(".",$_FILES['product_file']['name']);	
 		  if(count($file) > 2  || $file[1] != 'tsv')
 		  {			
-  			return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
+  			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
 		  }	 	
 			
 		  $file_ext = strtolower(end(explode(".",$_FILES['product_file']['name'])));	
 		  if (!in_array ($file_ext, $legal_extentions))
 		  {
-  		  return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
+  		  return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
           	  }		  		
 	  
 		   if(file_exists($tsvfilename)>0)
@@ -126,20 +128,24 @@ class Core_CProductBulkUpload
 										$fail_cnt++;
 
 								}
-								return '<div class="success_msgbox">'. $pro_cnt . ' Product(s) Created Successfullly . '.$fail_cnt .' Product(s) Not Created </div>';
+								return '<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button> '. $pro_cnt . ' Product(s) Created Successfullly . '.$fail_cnt .' Product(s) Not Created </div>';
 							}
 							else
-								return '<div class="error_msgbox">Please Check The Format Of TSV File  </div>';
+								return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Please Check The Format Of TSV File  </div>';
 							
 							fclose($fp);
 		
 						}
 						else
-							return '<div class="error_msgbox">Error Uploading File</div>';	
+							return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Error Uploading File</div>';	
 							
 				   }
 				   else
-						   return '<div class="error_msgbox">TSV File is not created </div>';	
+						   return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> TSV File is not created </div>';	
 				 
 			}
 	}
@@ -241,13 +247,15 @@ class Core_CProductBulkUpload
 		  $file = explode(".",$_FILES['image_file']['name']);	
 		  if(count($file) > 2  || $file[1] != 'tsv')
 		  {			
-  			return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
+  			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
 		  }	 	
 			
 		  $file_ext = strtolower(end(explode(".",$_FILES['image_file']['name'])));	
 		  if (!in_array ($file_ext, $legal_extentions))
 		  {
-  		  return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
+  		  return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
           	  }		  	
 
 
@@ -340,24 +348,29 @@ class Core_CProductBulkUpload
 																		
 
 								}
-								return '<div class="success_msgbox">'. $pro_cnt . ' Images(s) Uploaded Successfullly . '.$fail_cnt .' Images(s) Not Uploaded </div>';
+								return '<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button> '. $pro_cnt . ' Images(s) Uploaded Successfullly . '.$fail_cnt .' Images(s) Not Uploaded </div>';
 							}
 							else
-								return '<div class="error_msgbox">Please Check The Format Of TSV File  </div>';
+								return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Please Check The Format Of TSV File  </div>';
 							
 							fclose($fp);
 		
 						}
 						else
-							return '<div class="error_msgbox">Error Uploading File</div>';	
+							return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Error Uploading File</div>';	
 							
 				   }
 				   else
-						   return '<div class="error_msgbox">TSV File is not created </div>';	
+						   return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> TSV File is not created </div>';	
 				 
 			}
 			else
-				return '<div class="error_msgbox">Only TSV File Can Be Uploaded </div>';	
+				return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Only TSV File Can Be Uploaded </div>';	
 		
 	}
 	

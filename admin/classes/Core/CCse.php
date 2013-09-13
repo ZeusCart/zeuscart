@@ -61,12 +61,14 @@ class Core_CCse
 			
 			if($obj->updateQuery($sql))
 			{
-				$result = '<div class="success_msgbox">Added Successfully</div>';
+				$result = '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> Added Successfully</div>';
 				return $result;
 			}
 			else
 			{
-				$result = '<div class="error_msgbox">Not Inserted</div>';
+				$result = '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Not Inserted</div>';
 				return $result;
 			}
 			}

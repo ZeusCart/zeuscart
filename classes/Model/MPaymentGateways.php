@@ -70,12 +70,13 @@ class Model_MPaymentGateways
 		$output['skinname']=Core_CHome::skinName();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();	
 		$output['footer']=Core_CHome::footer();
 		$output['footerconnect']=Core_CHome::getfooterconnect();
 		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['cartcount']=Core_CAddCart::countCart();
-
+		
 		Bin_Template::createTemplate('PaymentGateways.html',$output);
 	
 	}
@@ -97,7 +98,7 @@ class Model_MPaymentGateways
 
 		$output['payments']=Core_CPaymentGateways::optPaymentMode();
 			
-                 $output['selectedpayment']=$_POST['paymentBy'];
+                $output['selectedpayment']=$_POST['paymentBy'];
 		include('classes/Core/CHome.php');
 		include('classes/Display/DAddCart.php');
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
@@ -109,6 +110,7 @@ class Model_MPaymentGateways
 		$output['skinname']=Core_CHome::skinName();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		
 	
@@ -133,6 +135,7 @@ class Model_MPaymentGateways
 	*/
 	function failure()
 	{
+
 		include('classes/Core/CUserRegistration.php');
 		include('classes/Display/DUserRegistration.php');
 		include('classes/Core/CPaymentGateways.php');
@@ -145,7 +148,6 @@ class Model_MPaymentGateways
 			
        		 $output['selectedpayment']=$_POST['paymentBy'];
 		include('classes/Core/CHome.php');
-		include('classes/Core/CAddCart.php');
 		include('classes/Display/DAddCart.php');
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
@@ -156,6 +158,7 @@ class Model_MPaymentGateways
 		$output['skinname']=Core_CHome::skinName();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();	
 		$output['footerconnect']=Core_CHome::getfooterconnect();
 		$output['sociallink']=Core_CHome::showSocialLinks();

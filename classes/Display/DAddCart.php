@@ -111,19 +111,19 @@ class Display_DAddCart
 						$img=explode('/',$temp);
 							
 							$out.='<tr>
-								<td><a href="?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="assets/img/close_button.gif" alt="close">	</a>		  <div class="showcart_box"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></td><td>';
+								<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="'.$_SESSION['base_url'].'/assets/img/close_button.gif" alt="close">	</a>		  <div class="showcart_box"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></td><td>';
 								if(file_exists($thumbimage))
 		
-								$out.='<img src="'.$thumbimage.'" alt='.$arr[$i]['title'].'  />';
+								$out.='<img src="'.$_SESSION['base_url'].'/'.$thumbimage.'" alt='.$arr[$i]['title'].'  />';
 								else
 								$out.='<img src="images/noimage.jpg"  alt='.$arr[$i]['title'].' />';
 		
 		
 								$out.='</a></div></td>
-								<td ><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
+								<td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
 								<td>'.$arr[$i]['product_qty'].'</td>
-								<td><span class="label label-important"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['msrp']).'</span></td>
-								<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['msrp']*$arr[$i]['product_qty']).'</span></td>
+								<td><span class="label label-important"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($msrp*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+								<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format(($msrp*$arr[$i]['product_qty'])*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 								</tr>';
 	
 						}
@@ -139,17 +139,17 @@ class Display_DAddCart
 			$out.='<tr>
 				<td colspan="4" rowspan="3">&nbsp;</td>
 			 	 <td><strong>Sub Total</strong></td>
-				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.$total.'</span></td>
+				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 				</tr>
 				<tr>
 				<td><strong>Shipping Amount</strong></td>
-					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.$shipping.'</span></td>
+					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($shipping*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 				</tr>
 				
 				
 				<tr>
 				<td><strong>Grand Total</strong></td>
-					<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.$grandtotal.'</span></td>
+					<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grandtotal*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 				</tr>
 				<tr>
 				<td colspan="2"><a href="javascript:void(0);" onclick="callHome();"><input type="submit" class="btn btn-danger" value="Continue Shopping" name="Submit" ></a></td>';
@@ -192,7 +192,7 @@ class Display_DAddCart
 		$output='<div class="viewcartTXT"><span>'.$cnt.'</span> items in the Cart<br />
 		Sub Total : <span><!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></div>
 		
-		<div style="padding-top:7px;"> <a href="?do=showcart"><input type="submit" name="Submit52" value="View Cart" class="button5" style="float:left; clear:right " /></a><a href="?do=showcart&action=getaddressdetails"><input type="submit" name="Submit5" value="Check Out" class="button6" style="float:left; clear:right" /></a></div>';
+		<div style="padding-top:7px;"> <a href="?do=showcart"><input type="submit" name="Submit52" value="View Cart" class="button5" style="float:left; clear:right " /></a><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><input type="submit" name="Submit5" value="Check Out" class="button6" style="float:left; clear:right" /></a></div>';
 			return $output;
 		
 	}
@@ -266,7 +266,7 @@ class Display_DAddCart
 			  $output.='</ul>	
        			 </div><div class="row-fluid">
                     <div class="span6">
-			<form name="f1" method="post" action="?do=showcart&action=doquickregistration&gvid='.$_GET['gvid'].'">
+			<form name="f1" method="post" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=doquickregistration&gvid='.$_GET['gvid'].'">
                     	<div id="loginfrm">
                         		<ul class="loginfourm">
                                 	<li><b>E-mail Address</b></li>
@@ -275,9 +275,9 @@ class Display_DAddCart
                                     	<li><b>Password</b></li>
                                 	<li><input type="password" name="txtregpass" class="input-large"><br />
 	   				<font color="#FF0000"><AJDF:output>'.$Err->messages['txtregpass'].'</AJDF:output></font></li>
-                                	<li><input type="checkbox"> Remember me?</li>
+                                	<li><input type="checkbox" name="remlogin" value="on" > Remember me?</li>
                                 	<li><input type="submit" value="Login" class="btn btn-danger"> </li>
-                                    <li><a href="#"> Forgot password? </a> <span>OR</span> <a href="#">Need help?</a> </li>
+                                    <li><a href="'.$_SESSION['base_url'].'/index.php?do=forgetpwd"> Forgot password? </a> <span>OR</span> <a href="'.$_SESSION['base_url'].'/index.php?do=faq" target="_blank">Need help?</a> </li>
                                 </ul>
                         </div>
 			</form>	
@@ -294,7 +294,7 @@ class Display_DAddCart
                         	<ul class="signin-account">
                             	<li> <h5>SIGN UP FOR AN ACCOUNT</h5></li>
                                 <li> <p>Registration is fast and FREE! </p></li>
-                                <li><a href="?do=userregistration"> <input type="button" value="Register Here" class="btn btn-inverse"></a></li>
+                                <li><a href="'.$_SESSION['base_url'].'/index.php?do=userregistration"> <input type="button" value="Register Here" class="btn btn-inverse"></a></li>
                             </ul>
                             <b>Account Protection Tips </b>
                             <ul class="acctips">
@@ -304,7 +304,7 @@ class Display_DAddCart
                             </ul>
                             </div>
                     </div>
-                        
+
                     </div>';
 
 		return $output;
@@ -323,7 +323,7 @@ class Display_DAddCart
 
 		$output='<div id="myaccount_div">
 
-		<form name="f1" method="post" action="?do=showcart&action=doauthorizenetpayment"  class="form-horizontal">
+		<form name="f1" method="post" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=doauthorizenetpayment"  class="form-horizontal">
 		
 		<h3 class="accinfo_fnt">Authorize.net Payment Information</h3>
 		
@@ -580,6 +580,7 @@ class Display_DAddCart
 	function showBillingDetails($records,$result,$Err,$billing_addess_id)
 	{
 
+
 		$obj=new Display_DAddCart();
 		$res=$obj->loadCountryDropDown($result,'selbillcountry',$Err->values['selbillcountry']);
 			
@@ -589,7 +590,7 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$output.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. My Account</span></a></li>';
 			}	
 			else
 			{
@@ -618,11 +619,11 @@ class Display_DAddCart
 				{
 					if($billing_addess_id==$records[$i]['id'])
 					{
-						$imageicon='assets/img/click-btn-hov.gif';
+						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn-hov.gif';
 					}
 					else
 					{
-						$imageicon='assets/img/click-btn.gif';
+						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn.gif';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -632,7 +633,7 @@ class Display_DAddCart
 						<p>'.$records[$i]['city'].'</p>
 						<p>'.$records[$i]['state'].'</p>
 						<p>'.$records[$i]['zip'].'</p>	
-						<a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
 						</address></li>';
 					}
 					$i++;
@@ -643,11 +644,11 @@ class Display_DAddCart
 				{
 					if($billing_addess_id==$records[$i]['id'])
 					{
-						$imageicon='assets/img/click-btn-hov.gif';
+						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn-hov.gif';
 					}
 					else
 					{
-						$imageicon='assets/img/click-btn.gif';
+						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn.gif';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -657,7 +658,7 @@ class Display_DAddCart
 						<p>'.$records[$j]['city'].'</p>
 						<p>'.$records[$j]['state'].'</p>
 						<p>'.$records[$j]['zip'].'</p>	
-						<a href="?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
 						</address></li></div>';
 					}
 					$j++;
@@ -673,9 +674,9 @@ class Display_DAddCart
                       $output.='</ul></div>
 		 <div class="span8">
                     <div id="myaccount_div">
-                    <div class="or_ribbion"><img src="assets/img/or.png" width="38" height="300" alt="or"></div>
+                    <div class="or_ribbion"><img src="'.$_SESSION['base_url'].'/assets/img/or.png" width="38" height="300" alt="or"></div>
                     <p class="billing_title">Enter a new billing address</p><div style="padding:0 50px">
-                    	<form method="POST" action="?do=showcart&action=validatebillingaddress" name="billingaddress" class="form-horizontal">
+                    	<form method="POST" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=validatebillingaddress" name="billingaddress" class="form-horizontal">
                 <fieldset>
                   <div class="control-group">
                     <div class="controls">
@@ -777,13 +778,13 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$output.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. My Account</span></a></li>';
 			}	
 			else
 			{
 				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
 			}		
-			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
+			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
 			<li class="act"><a href="#"><span>3. Shipping Address</span></a></li>
 			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>';
 			
@@ -806,11 +807,11 @@ class Display_DAddCart
 				{
 					if($shipping_address_id==$records[$i]['id'])
 					{
-						$imageicon='assets/img/click-btn-hov.gif';
+						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn-hov.gif';
 					}
 					else
 					{
-						$imageicon='assets/img/click-btn.gif';
+						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn.gif';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -820,7 +821,7 @@ class Display_DAddCart
 						<p>'.$records[$i]['city'].'</p>
 						<p>'.$records[$i]['state'].'</p>
 						<p>'.$records[$i]['zip'].'</p>	
-						<a href="?do=showcart&action=getshippingmethod&ship_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&ship_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
 						</address></li>';
 					}
 
@@ -833,11 +834,11 @@ class Display_DAddCart
 
 					if($shipping_address_id==$records[$i]['id'])
 					{
-						$imageicon='assets/img/click-btn-hov.gif';
+						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn-hov.gif';
 					}
 					else
 					{
-						$imageicon='assets/img/click-btn.gif';
+						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn.gif';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -847,7 +848,7 @@ class Display_DAddCart
 						<p>'.$records[$j]['city'].'</p>
 						<p>'.$records[$j]['state'].'</p>
 						<p>'.$records[$j]['zip'].'</p>	
-						<a href="?do=showcart&action=getshippingaddressdetails&ship_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&ship_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
 						</address></li></div>';
 					}
 					$j++;
@@ -866,9 +867,9 @@ class Display_DAddCart
                     <div class="span8">
 
                     <div id="myaccount_div">
-                    <div class="or_ribbion"><img src="assets/img/or.png" width="38" height="300" alt="or"></div>
+                    <div class="or_ribbion"><img src="'.$_SESSION['base_url'].'/assets/img/or.png" width="38" height="300" alt="or"></div>
                     <p class="billing_title">Enter a new shipping address</p><div style="padding:0 50px">
-                    	<form method="POST" action="?do=showcart&action=validateshippingaddress" name="register_form" class="form-horizontal">
+                    	<form method="POST" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=validateshippingaddress" name="register_form" class="form-horizontal">
                 <fieldset>
                   <div class="control-group">
                     <div class="controls">
@@ -966,14 +967,14 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$output.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. My Account</span></a></li>';
 			}	
 			else
 			{
 				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
 			}		
-			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-			<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails"><span>3. Shipping Address</span></a></li>
+			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails"><span>3. Shipping Address</span></a></li>
 			<li class="act"><a href="#"><span>4. Shipping Method</span></a></li>';
 			
 			$output.='<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
@@ -995,7 +996,7 @@ class Display_DAddCart
 			'.$Err->messages['shipment_id'].'
 			</div>';
 		}
-                    	$output.='<form method="POST" action="?do=showcart&action=validateshippingmethod" name="register_form" class="form-horizontal">
+                    	$output.='<form method="POST" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=validateshippingmethod" name="register_form" class="form-horizontal">
                 <fieldset>
                   <div class="control-group">
                     <div class="controls">
@@ -1026,17 +1027,14 @@ class Display_DAddCart
 					</div>';
 				}
 			}
-                
-   		
 		
                   $output.='<div class="form-actions">
-			
                     <button type="submit" class="btn btn-large btn-inverse" name="shipping_method">Submit</button>
                   </div>
                 </fieldset>
               </form>
 		</div>
-                        </div>
+                 </div>
           </div>';
 
 		return $output;
@@ -1054,29 +1052,29 @@ class Display_DAddCart
 	 */	
 	function showOrderConfirmation($arr,$result,$taxarray,$message)
 	{
+ 	
 
-
-	 	 $out='<div class="row-fluid">
+	 $out='<div class="row-fluid">
         	<ul class="steps">';
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$out.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+				$out.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo&vid='.$_GET['vid'].'"><span>1. My Account</span></a></li>';
 			}	
 			else
 			{
 				$out.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
 			}
-			if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+			if($_GET['vid']=='') 
 			{		
-			$out.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-			<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li><li class="act"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
+			$out.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li><li class="act"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
 			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>';
 			}
 			else
 			{	
-			$out.='<li class="act"><a href="?do=showcart&action=showorderconfirmation"><span>2. Order Confirmation</span></a></li>
+			$out.='<li class="act"><a href="?do=showcart&action=showorderconfirmation&vid='.$_GET['vid'].'"><span>2. Order Confirmation</span></a></li>
 			<li class="inact"><a href="#"><span>3. Payment Details</span></a></li>';
 			}	        
 			$out.='</ul>
@@ -1150,20 +1148,19 @@ class Display_DAddCart
 
 			$out.='<tr>
 
-			<td><a href="#"><img src="assets/img/close_button.gif" alt="close">	</a></td><td>';
+			<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="'.$_SESSION['base_url'].'/assets/img/close_button.gif" alt="close">	</a></td><td>';
 
 			if(file_exists($thumbimage))
-			  $out.='<img src="'.$thumbimage.'" alt="'.$arr[$i]['title'].'" />';
+			  $out.='<img src="'.$_SESSION['base_url'].'/'.$thumbimage.'" alt="'.$arr[$i]['title'].'" />';
 		 	else	  
-		  	$out.='<img src="images/noimage.jpg" alt="'.$arr[$i]['title'].'"/>';
+		  	$out.='<img src="'.$_SESSION['base_url'].'/images/noimage.jpg" alt="'.$arr[$i]['title'].'"/>';
 
 			$out.='</td>
-			 <td ><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" name="prodname">'.$arr[$i]['title'].'</a></td>
+			 <td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" name="prodname">'.$arr[$i]['title'].'</a></td>
 
 			<td>'.$arr[$i]['product_qty'].'</td>
-			<td><span class="label label-important"> '.($arr[$i]['product_unit_price']<$arr[$i]['msrp1'] ? '<span>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp1']).'</span><br />' : ''.'
-			'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($msrp)).'</span></td>
-			<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($subtotal[$i]).'</span></td>
+			<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($msrp*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+			<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($subtotal[$i]*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			<input type="hidden" name="cartid[]"  value="'.$arr[$i]['cart_id'].'" />
 			<input type="hidden" name="prodid[]" value='.$arr[$i]['product_id'].' />
 			</tr>';
@@ -1176,20 +1173,20 @@ class Display_DAddCart
 			$out.='<tr>
 				<td colspan="4" rowspan="4">&nbsp;</td>
 			  <td><strong>Sub Total</strong></td>
-				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($total).'</span></td>
+				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($total*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			</tr>
 			<tr>
 			  <td><strong>Shipping Amount</strong></td>
-				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($shipping).'</span></td>
+				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($shipping*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			</tr>
 			
 			<tr>
 			  <td><strong>'.$taxarray['tax_name'].' Tax Applied</strong></td>
-				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($tax).'</span></td>
+				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($tax*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			</tr>
 			<tr>
 			  <td><strong>Grand Total</strong></td>
-				<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal).'</span></td>
+				<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 			</tr>
 
 			<tr>
@@ -1198,7 +1195,7 @@ class Display_DAddCart
               <p>If you have a coupon code enter it in the box below and click \'Go\'.</p>
              <p> <input type="text" name="coupon_code"></p>
             <input type="submit" name="Submit3" value="Go"  class="btn btn-danger" ></td>
-			  <td colspan="3" align="center" valign="middle"><a href="?do=showcart&action=displaypaymentgateways" class="btn btn-inverse">Proceed Checkout</a></td>
+			  <td colspan="3" align="center" valign="middle"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=displaypaymentgateways&vid='.$_GET['vid'].'" class="btn btn-inverse">Proceed Checkout</a></td>
 		  </tr>
 
 
@@ -1227,22 +1224,22 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$output.='<li class="inact"><a href="?do=accountinfo"><span>1. My Account</span></a></li>';
+				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo&vid='.$_GET['vid'].'"><span>1. My Account</span></a></li>';
 			}	
 			else
 			{
 				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
 			}
-			if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+			if($_GET['vid']=='')
 			{		
-			$output.='<li class="inact"><a href="?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-			<li class="inact"><a href="?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li><li class="inact"><a href="?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
+			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li><li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
 			<li class="act"><a href="#"><span>6. Payment Details</span></a></li>';
 			}
 			else
 			{
-			$output.='<li class="inact"><a href="?do=showcart&action=showorderconfirmation"><span>2. Order Confirmation</span></a></li>
+			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation&vid='.$_GET['vid'].'"><span>2. Order Confirmation</span></a></li>
 			<li class="act"><a href="#"><span>3. Payment Details</span></a></li>';
 			}
 				        
@@ -1253,7 +1250,7 @@ class Display_DAddCart
                       <p class="billing_title">Choose your mode of payment</p>
                       
                       <div id="myaccount_div">
-                      <span class="label label-info">Your Checkout Amount is    '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$_SESSION['checkout_amount'].'</span>
+                      <span class="label label-info">Your Checkout Amount is    '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.number_format($_SESSION['checkout_amount']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span>
                       <div id="paymentid">
                       <h6>Online Payment Gateways</h6>
                        <ul class="payment_det">';
@@ -1270,27 +1267,32 @@ class Display_DAddCart
 			}
                         	$output.='</ul>
                             <div class="clear"></div>
-                            </div>
-                      <div id="paymentid">
-                      <h6>Offline Payment Gateways</h6>
-                       <ul class="payment_det">';
-			if(count($offlinearr)>0)
-			{
-				$cnt=count($offlinearr);
-				for ($i=0;$i<$cnt;$i++)
-				{
-				$output.='<li><a>';
-				$output.=Display_DAddCart::getPaymentGatewayForms($offlinearr[$i],$domain);
-				$output.='</a></li>';
-				}
+                            </div>   </div>	';
+			if($_GET['vid']=='')
+			{		
 
+                   		$output.='<div id="paymentid">
+				<h6>Offline Payment Gateways</h6>
+				<ul class="payment_det">';
+				if(count($offlinearr)>0)
+				{
+					$cnt=count($offlinearr);
+					for ($i=0;$i<$cnt;$i++)
+					{
+					$output.='<li><a>';
+					$output.=Display_DAddCart::getPaymentGatewayForms($offlinearr[$i],$domain);
+					$output.='</a></li>';
+					}
+	
+				}
+				
+					$output.='</ul>
+				<div class="clear"></div>
+				</div>';
 			}
-			
-                        	$output.='</ul>
-                            <div class="clear"></div>
-                            </div>
-                      </div>
-        	     </div> </div>';
+
+        	    $output.=' </div> </div>';
+
 		return $output;
 	}
 	/**
@@ -1307,8 +1309,8 @@ class Display_DAddCart
 		//$cancel_url='http://'.$_SERVER['SERVER_NAME'].'/zeuscartv21/?do=paymentgateway&action=failure';
 		
 		
-		$sucess_url='?do=paymentgateway&action=success';
-		$cancel_url='?do=paymentgateway&action=failure';				
+		$sucess_url=''.$_SESSION['base_url'].'/index.php?do=paymentgateway&action=success';
+		$cancel_url=''.$_SESSION['base_url'].'/index.php?do=paymentgateway&action=failure';				
 		
 		
 		$getMerchantId = new Core_CAddCart();
@@ -1337,7 +1339,7 @@ class Display_DAddCart
 
                     <input name="return" value="'.$sucess_url.'&pay_type=1" type="hidden">
                     <input name="cancel_return" value="'.$cancel_url.'" type="hidden">
-					<input src="images/payment/paypal.jpg" name="submit" alt="PayPal" type="image" border="0" style="height:30;width:100px;"></form>';
+					<input src="'.$_SESSION['base_url'].'/images/payment/paypal.jpg" name="submit" alt="PayPal" type="image" border="0" style="height:30;width:100px;"></form>';
 
 			$payment_html['e-bullion']='<form name="atip" method="post" action="https://atip.e-bullion.com/process.php">
 					<input type="hidden" name="ATIP_STATUS_URL" value="'.$_SERVER['SERVER_NAME'].'">
@@ -1357,7 +1359,7 @@ class Display_DAddCart
 					<input type="hidden" name="ATIP_PAYMENT_AMOUNT" value="'.$amount.'" size="10">
 					<input type="hidden" name="ATIP_PAYMENT_UNIT" value="1">
 					<input type="hidden" name="ATIP_PAYMENT_METAL" value="3">
-					<input type="image" name="pay" src="images/payment/ebullion.jpg" style="height:30;width:100px;"></form>';
+					<input type="image" name="pay" src="'.$_SESSION['base_url'].'/images/payment/ebullion.jpg" style="height:30;width:100px;"></form>';
 					
 			$payment_html['e-gold']='<form action="https://www.e-gold.com/sci_asp/payments.asp" method=post>
 					<input type=hidden name="PAYMENT_AMOUNT" value="'.$amount.'">
@@ -1373,7 +1375,7 @@ class Display_DAddCart
 					<input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
 					<input type="hidden" name="BAGGAGE_FIELDS" value="PROGL">
 					<input type="hidden" name="PROGL" value="01">
-					<input type=image src="images/payment/egold.jpg" style="height:30;width:100px;">
+					<input type=image src="'.$_SESSION['base_url'].'/images/payment/egold.jpg" style="height:30;width:100px;">
 					</form>	';
 				
 					
@@ -1417,25 +1419,28 @@ class Display_DAddCart
 					</form>';*/
 					
 					$payment_html['2checkout']=' <form id="form2co" name="form2co" method="post" 		
-					action="?do=showcart&action=show2checkout">
+					action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=show2checkout">
 					<input type="hidden" name="sid" value="'.$merchantid.'" />
 					<input type="hidden" name="cart_order_id" value="100" />
 					<input type="hidden" name="total" value="'.$amount.'" /><!--<input type="hidden" name="demo" value="Y" />-->
+		
+					<INPUT TYPE="HIDDEN" NAME="x_test_request" VALUE="TRUE">
 					<input type="hidden" name="fixed" value="Y" /><input type="hidden" name="return_url" value="'.$sucess_url.'" 
 					/>
 					<input type="hidden" name="lang" value="en" />
-					<input type="hidden" name="card_holder_name" value="" /><input type="image" src="assets/img/payment/2checkout.gif" 
+					<input type="hidden" name="card_holder_name" value="" /><input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/2checkout.gif" 
 					name="submit" alt="2checkout" style="height:30;width:100px;"/>
 					</form>';
 					
 					$payment_html['Authorize.net']=' <form id="form2co" name="form2co" method="post" 		
-					action="?do=showcart&action=showauthorizenet">
-					<input type="image" src="assets/img/payment/authorize.gif" 
+					action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showauthorizenet">
+					<INPUT TYPE="HIDDEN" NAME="x_test_request" VALUE="TRUE">
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/authorize.gif" 
 					name="submit" alt="Authorize.net" style="height:30;width:100px;" />
 					</form>';
 					
 					$payment_html['worldpay']=' <form id="worldpay" name="worldpay" method="post" 		
-					action="?do=showcart&action=showworldpay">
+					action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showworldpay">
 					<input type=hidden name="instId" value="'.$merchantid.'">
 					<input type=hidden name="cartId" value=" 122 "> 
 					<input type=hidden name="amount" value="'.$amount.'">
@@ -1444,7 +1449,7 @@ class Display_DAddCart
 					<!--<input type=hidden name="testMode" value="100"> -->
 					<input type="hidden" name="MC_callback" value="'.$sucess_url.'" />
 					
-					<input type="image" src="assets/img/payment/worldpay.gif" name="submit" alt="WorldPay" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/worldpay.gif" name="submit" alt="WorldPay" style="height:30;width:100px;">
 					</form>';
 					
 					/*$payment_html['worldpay']=' <form action="https://select.worldpay.com/wcc/purchase" method=POST>
@@ -1459,23 +1464,28 @@ class Display_DAddCart
 					<input type="image" src="../worldpay.gif" name="submit" alt="WorldPay">
 					</form>
 					';*/
-					
+					if (!(isset($_SESSION['digitalproducts'])) || ($_SESSION['digitalproducts']==0))
+					{
 					$payment_html['Pay in Store']=' <form action="'.$sucess_url.'&pay_type=8" method=POST>
 					
 					<input type=hidden name="amount" value="'.$amount.'">
 					<input type=hidden name="currency" value="USD">
 					<input type=hidden name="desc" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'">
-					<input type="image" src="assets/img/payment/payinstore.gif" name="submit" alt="Pay in Store" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/payinstore.gif" name="submit" alt="Pay in Store" style="height:30;width:100px;">
 					</form>
 					';
+					}
+					if (!(isset($_SESSION['digitalproducts'])) || ($_SESSION['digitalproducts']==0))
+					{
 					$payment_html['Cash on Delivery']=' <form action="'.$sucess_url.'&pay_type=9" method=POST>
 					
 					<input type=hidden name="amount" value="'.$amount.'">
 					<input type=hidden name="currency" value="USD">
 					<input type=hidden name="desc" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'">
-					<input type="image" src="assets/img/payment/cashondelivery.gif" name="submit" alt="Cash On Delivery" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/cashondelivery.gif" name="submit" alt="Cash On Delivery" style="height:30;width:100px;">
 					</form>
 					';
+					}
 					
 					$payment_html['Paymate'] = '
 					<form action="https://www.paymate.com/PayMate/ExpressPayment?mid='.$merchantid.'" method="post">
@@ -1485,7 +1495,7 @@ class Display_DAddCart
 					<input type="hidden"  name="ref" value="'.$_SERVER['SERVER_NAME'].' Check out">			
 					<input type="hidden"  name="return" value="'.$sucess_url.'&pay_type=10">
 					<input type="hidden"  name="popup" value="'.$cancel_url.'">
-					<input type="image" src="assets/img/payment/paymate.gif" name="submit" alt="Pay with Paymate Express" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/paymate.gif" name="submit" alt="Pay with Paymate Express" style="height:30;width:100px;">
 					</form>';
 					
 					
@@ -1497,7 +1507,7 @@ class Display_DAddCart
 					<input type="hidden" name="language" value="EN">
 					<input type="hidden" name="amount" value="'.$amount.'">
 					<input type="hidden" name="currency" value="USD">
-					<input type="image" src="images/payment/moneybookers.jpg" name="submit" alt="Money Bookers" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/moneybookers.jpg" name="submit" alt="Money Bookers" style="height:30;width:100px;">
 					</form>';
 						
 					
@@ -1509,7 +1519,7 @@ class Display_DAddCart
 					<!--<INPUT TYPE=hidden NAME="TestResult" VALUE="1">-->					
 					<INPUT TYPE=hidden NAME="OrderID" VALUE="">
 					<INPUT TYPE=hidden NAME="SubTotal" VALUE="'.$amount.'">
-					<input type="image" src="assets/img/payment/psigate.gif" name="submit" alt="PSI Gate" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/psigate.gif" name="submit" alt="PSI Gate" style="height:30;width:100px;">
 					</FORM>';	
 					
 					$payment_html['Strompay']='<form method="post" action="https://www.stormpay.com/stormpay/handle_gen.php">
@@ -1524,7 +1534,7 @@ class Display_DAddCart
 					<input type="hidden" name="return_URL" value="'.$sucess_url.'&pay_type=13">
 					<input type="hidden" name="cancel_URL" value="'.$cancel_url.'">
 					<input type="hidden" name="subject_matter" value="Cart Payment">
-					<input type=image src="assets/img/payment/strompay.jpg"  alt="Strompay" style="height:30;width:100px;">
+					<input type=image src="'.$_SESSION['base_url'].'/assets/img/payment/strompay.jpg"  alt="Strompay" style="height:30;width:100px;">
 					</form>';
 					
 					/*$payment_html['Alertpay']='<form action="https://www.alertpay.com/PayProcess.aspx" method="post">
@@ -1546,7 +1556,7 @@ class Display_DAddCart
 					<input type='hidden'  name='ap_itemname' value='PTYW'>
 					<input type='hidden'  name='ap_currency' value='USD'>
 					<input type='hidden'  name='ap_returnurl' value='".$sucess_url."&pay_type=14'>
-					<input type='image' src='images/payment/alertpay.jpeg' style='height:30;width:100px;'>
+					<input type='image' src='".$_SESSION['base_url']."/images/payment/alertpay.jpeg' style='height:30;width:100px;'>
 					<input type='hidden'  name='ap_quantity' value='1'>
 					<input type='hidden' name='ap_description' value='PTYW'>
 					<input type='hidden'  name='ap_amount' value='".$amount."'>
@@ -1572,7 +1582,7 @@ class Display_DAddCart
 					<input type="hidden" name="storename" value="'.$merchantid.'">
 					<input type="hidden" name="txntype" value="sale">
 					<input type="hidden" name="comments" value="'.$domain.'-Buy cart">
-					<input type="image" src="assets/img/payment/yourpay.jpeg" alt="Yourpay" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/yourpay.jpeg" alt="Yourpay" style="height:30;width:100px;">
 					<!--<input type="submit" name="btnup" value="Yourpay">-->
 					</form>';
 					
@@ -1595,14 +1605,14 @@ class Display_DAddCart
 					<input type="hidden" name="phone" value="34343434"/>
 					<input type="hidden" name="country" value="USA"/>
 					<input type="hidden" name="email" value="'.$merchantid.'"/>
-					<input type="image" src="assets/img/payment/itransact.gif" alt="submit securely"  style="height:30;width:100px;"/>
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/itransact.gif" alt="submit securely"  style="height:30;width:100px;"/>
 					</form>';							
 					
 					
 					
 					$payment_html['Bluepay']=' <form id="formbluepay" name="formbluepay" method="post" 		
-					action="?do=showcart&action=showbluepay">					
-					<input type="image" src="assets/img/payment/bluepay.jpeg" name="submit" alt="BluePay" style="height:30;width:100px;"/>
+					action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showbluepay">					
+					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/bluepay.jpeg" name="submit" alt="BluePay" style="height:30;width:100px;"/>
 					</form>';			
 					if($arr['gateway_id'] == '17')
 					$_SESSION['bluepaydetails'] = $merchantid.'|'.$sucess_url.'|'.$cancel_url;	
@@ -1625,7 +1635,7 @@ class Display_DAddCart
               		<input type="hidden" name="iquantity" value="">
              		<input type="hidden" name="imultiplyPurchase" value="y">
               		<input type="hidden" name="colortheme" value="LightBlueYellow">
-              		<input type="image" src="assets/img/payment/safepay.gif" alt="Pay through SafePay Solutions" style="height:30;width:100px;">
+              		<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/safepay.gif" alt="Pay through SafePay Solutions" style="height:30;width:100px;">
 		            </form>';							
 					
 					

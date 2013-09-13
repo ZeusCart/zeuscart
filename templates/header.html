@@ -21,322 +21,93 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>::  <AJDF:output>$pagetitle</AJDF:output>::</title>
+   <!-- <title>::  <AJDF:output>$pagetitle</AJDF:output>::</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
-
+    <meta name="author" content="">-->
+<AJDF:output>$pagetitle</AJDF:output>
     <!-- Le styles -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/responsive.css" rel="stylesheet">
-    <link href="assets/css/docs.css" rel="stylesheet">
-    <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-   <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
-   <link href="assets/css/table.css" rel="stylesheet" type="text/css" />
-    <script src="assets/js/jquery.js"></script>
+    <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/style.css" rel="stylesheet">
+    <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/responsive.css" rel="stylesheet">
+    <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/docs.css" rel="stylesheet">
+    <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+   <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/menu.css" rel="stylesheet" type="text/css" />
+   <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/table.css" rel="stylesheet" type="text/css" />
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery.min.js"></script>
+
+
+   <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/listview.css" rel="stylesheet" type="text/css" >
+      <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery.js"></script>
+   <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/mobilyselect.js" type="text/javascript"></script>
+	
+<script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/init.js" type="text/javascript"></script>
+
 
    <!-- gallery-->
-   <link href="assets/css/listview.css" rel="stylesheet" type="text/css" >
-   <link href="assets/css/grid.css" rel="stylesheet" type="text/css" >
-   <script src="assets/js/mobilyselect.js" type="text/javascript"></script>
-<script src="assets/js/init.js" type="text/javascript"></script>
-<script type="text/javascript" src="assets/js/zoominfo.js"></script>
+ <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/grid.css" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/zoominfo.js"></script>
 
-        <script src="assets/js/jquery-tree.js" ></script>
-		<script src="assets/js/carousel-special.js"	></script>
-        <script src="assets/js/jquery.cycle.all.js"></script>
-
-
-
-    
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <link rel="stylesheet" type="text/css" href="assets/css/tree.css" >
-<script type="text/javascript">
+  <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery-tree.js" ></script>
+      
+       <link rel="stylesheet" type="text/css" href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/tree.css" >
+	<script type="text/javascript">
 	        $(document).ready(function() {
 
 		        $("#tree").niceTree();
 				
 	        });
 	    </script>
+<link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/dropmenu/css/down-menu.css" rel="stylesheet" type="text/css"/>
+<script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery.js"></script>
 
-
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-<!--zoom effect-->
-<AJDF:output>if $smarty.get.do eq 'prodetail'</AJDF:output>
-<script src="assets/js/jquery.jqzoom-core.js" type="text/javascript"></script>
-<link rel="stylesheet" href="assets/css/jquery.jqzoom.css" type="text/css">
+<script type="text/javascript" src="<AJDF:output>$smarty.session.base_url</AJDF:output>/dropmenu/js/nestaccording.js"></script>
 <script type="text/javascript">
-
-$(document).ready(function() {
-	$('.jqzoom').jqzoom({
-            zoomType: 'innerzoom',
-            preloadImages: false,
-            alwaysOn:false
-        });
+<!--//--><![CDATA[//><!--
+$("html").addClass("js");
+$(function() {
+  $("#side").accordion({
+    event: "hover", 
+    interval: 400,
+    initShow : "#current"
+  });
+  $("#main").accordion({
+      obj: "div", 
+      wrapper: "div", 
+      el: ".h", 
+      head: "h4", 
+      next: "div", 
+      initShow : "div.outer:first",
+      event : "hover",
+      collapsible : false
+    });
+  $("html").removeClass("js");
 });
-
-
+//--><!]]>
 </script>
-<AJDF:output>/if</AJDF:output>
-
-
-<script type="text/javascript">
-var arr3=["account_id","details_id"];
-function showAccnt(divid)
-{
-	if(document.getElementById(divid).style.display=="none")
-	{
-		for(var i=0;i<arr3.length;i++)
-			{
-				document.getElementById(arr3[i]).style.display="none";
-				document.getElementById(arr3[i]+"1").className="acc_unselect";
-			}
-			viewAccnt(divid);
-	}
-	
-}
-function viewAccnt(div_id)
-{
-	$("#"+ div_id).fadeIn('slow');
-	document.getElementById(div_id+"1").className="acc_select";
-}
-</script>
-
-
-<script type="text/javascript">
-function selectCurrency(id)
-{
-
-$.ajax({
-		type: "GET",
-		url: "?do=changecurrency",
-		data: "id="+id,
-		success: function(result){
-		
-		window.location.href=window.location.href;
-	}
-	});
-}
-</script>
-<AJDF:output>if $smarty.get.do eq 'addtocartfromproductdetail' || $smarty.get.do eq 'addtocart' || $smarty.get.do eq 'showcart'</AJDF:output>
-<script type="text/javascript" language="javascript">
-function callHome()
-{
-  window.location= "?do=indexpage";
-}
-function callRegister()
-{
-
-  window.location= "?do=showcart&action=showquickregistration";
-}
-function callContinue()
-{
-
-  window.location= "?do=showcart&action=getaddressdetails&chk=0";
-}
-</script>
-<AJDF:output>/if</AJDF:output>
-<AJDF:output>if $smarty.get.do eq 'orders' || $smarty.get.do eq 'myorder'</AJDF:output>
-<script type="text/javascript">
-function changepagesize(optn,sel)
-{
-	if(optn=='order')
-	window.location.href='?do=myorder&totrec='+sel;
-	if(optn=='review')
-	window.location.href='?do=orders&totrec='+sel;
-	if(optn=='digitorder')
-	window.location.href='?do=digitdown&totrec='+sel;
-	
-}
-
-function changeyear(option,val)
-{
-if(option=='order')
-	window.location.href='?do=myorder&year='+val;
-}
-</script>
-<AJDF:output>/if</AJDF:output>
-
-<AJDF:output>if $smarty.get.do eq 'prodetail'</AJDF:output>
-<script type="text/javascript">
-var globVal=0;
-function fun(s)
-{
-
-globVal=0;
-	for (var i=1;i<=s;i++)
-	{
-	document.frm["img"+i].src="assets/img/star.png";
-	}
-	document.frm.hidRate.value=s;
-}
-
-
-function fun1(s)
-{
-if(globVal==0)
-{
-	for (var i=1;i<=5;i++)
-	{
-	document.frm["img"+i].src="assets/img/star-gray.png";
-	}
-	document.frm.hidRate.value="";
-}
-}
-
-function fun2(s)
-{
-globVal=1;
-	for (var i=1;i<=s;i++)
-	{
-	document.frm["img"+i].src="assets/img/star.png";
-	}
-
-}
-
-var presh = -1
-function shuffle()
-{
-		curr = Math.ceil(Math.random()*100);
-	document.getElementById('captcha').src="?do=captcha&"+ (curr==presh ? Math.ceil(Math.random()*100) : curr);				
-		presh = curr;
-
-}
-</script>
-<AJDF:output>if $smarty.session.reviewResult ne ''</AJDF:output>
-<script type="text/javascript">
-document.getElementById('details_id').style.display="block";
-</script>
-<AJDF:output>/if</AJDF:output>
-
-<AJDF:output>/if</AJDF:output>
-<AJDF:output>if $smarty.get.do eq 'showcart'</AJDF:output>
-<script type="text/javascript">
-
-function viewMoreBillAddress()
-{
-
-document.getElementById('more_bill_addr').style.display="block";
-document.getElementById('more_bill_addr_button').style.display="none";
-}
-
-</script>
-
-<script type="text/javascript">
-
-function viewMoreShipAddress()
-{
-
-document.getElementById('more_ship_addr').style.display="block";
-document.getElementById('more_ship_addr_button').style.display="none";
-}
-
-</script>
-<AJDF:output>/if</AJDF:output>
-<AJDF:output>if $smarty.get.do eq 'prodetail'</AJDF:output>
-<script>
-function showGiftVoucher()
-{
-$.ajax({
-		type: "GET",
-		url: "index.php?do=voucher",
-		data: "prodid="+<AJDF:output>$smarty.get.prodid</AJDF:output>,
-		success: function(result){
-		
-		$("#giftvoucher").html(result);
-		
-	}
-	});
-
-}
-
-</script>
-<AJDF:output>if $smarty.get.vid eq 1</AJDF:output>
-
-<script>
-$.ajax({
-		type: "GET",
-		url: "index.php?do=voucher",
-		data: "prodid="+<AJDF:output>$smarty.get.prodid</AJDF:output>,
-		success: function(result){
-		
-		$("#giftvoucher").html(result);
-		
-	}
-	});
-</script>
-<AJDF:output>/if</AJDF:output>
-<AJDF:output>/if</AJDF:output>
-
-
-<AJDF:output>if $smarty.get.do eq 'login' || $smarty.get.action eq 'showquickregistration' </AJDF:output>
-
-
-<script>
- // document.domain = '<?php echo $_SERVER['HTTP_HOST']; ?>';
-jQuery(document).ready(function(){
-    var childWin;
-        jQuery('#openfb').click(function(){
-
-              childWin = fb_popup();
-              if (window.focus) {childWin.focus();}
-        });
-        jQuery('#opentw').click(function(){
-
-              childWin = tw_popup();
-              if (window.focus) {childWin.focus();}
-        });
-        jQuery('#opengp').click(function(){
-
-              childWin = gp_popup();
-              if (window.focus) {childWin.focus();}
-        });
-});
-
-function fb_popup()
-{
-    t=(screen.height/2)-(420/2);
-    l=(screen.width/2)-(470/2);
-    return window.open('http://localhost.com/ajshop/zeuscart/socialauth/facebook/example.php','FACEBOOKLOGIN','status=0,toolbar=0,resizable=0,menubar=0,width=488,height=420,scrollbars=yes,top='+t+',left='+l);
-}
-
-function tw_popup()
-{
-    t=(screen.height/2)-(420/2);
-    l=(screen.width/2)-(470/2);
-    return window.open('http://localhost.com/ajshop/zeuscart/socialauth/twitter/example1.php','TWITTERLOGIN','status=0,toolbar=0,resizable=0,menubar=0,width=488,height=420,scrollbars=yes,top='+t+',left='+l);
-}
-
-function gp_popup()
-{
-    t=(screen.height/2)-(420/2);
-    l=(screen.width/2)-(470/2);
-    return window.open('http://localhost.com/ajshop/zeuscart/socialauth/google/examples/batch.php','GOOGLELOGIN','status=0,toolbar=0,resizable=0,menubar=0,width=488,height=420,scrollbars=yes,top='+t+',left='+l);
-}
-
-</script>
-<AJDF:output>/if</AJDF:output>
+<AJDF:output>include file="includes.html"</AJDF:output>
   </head>
 
   <body>
   <header>
+
   <div id="header">
   <div id="top_menu">
   		<div class="container">
         	<div class="row-fluid">
+		 <span class="visible-desktop">
             	<div class="span6">
                 	<ul class="topmenu">
-                    	<li style="padding-left:0;"><a href="?do=dashboard">My Account</a></li>
+                    	<li style="padding-left:0;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard">My Account</a></li>
                     	
-                    	<li><a href="?do=wishlist">My Wishlist</a></li>
-                    	<li><a href="?do=showcart">My Cart</a></li>
-                    	<li><a href="?do=showcart">Checkout</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist">My Wishlist</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart">My Cart</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart">Checkout</a></li>
                     	<li><AJDF:output>$loginStatus.logout</AJDF:output></li>
 		
                     </ul>
                 </div>
+		
+		
 		<div class="span5">
                 	<ul class="topmenu">
                     	
@@ -345,26 +116,70 @@ function gp_popup()
                     </ul>
                 </div>
                 <div class="span1"><AJDF:output>$currencysettings</AJDF:output></div>
+
+</span>
+<span class="hidden-desktop">
+			<div class="row-fluid">
+            	<div class="span12">
+                	<ul class="tabletmenu">
+                    	<li style="padding-left:10;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard">My Account</a></li>
+                    	
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist">My Wishlist</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart">My Cart</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart">Checkout</a></li>
+                    	<li><AJDF:output>$loginStatus.logout</AJDF:output></li>
+		
+                
+                    	
+			<li><a ><AJDF:output>$currentDate</AJDF:output></a></li>
+			<li><a ><AJDF:output>$loginStatus.username</AJDF:output></a></li>
+               <li></li><AJDF:output>$currencysettings</AJDF:output></li></ul></div></div>
+
+</span>
             </div>
+
+
+
         </div>
   </div>
   <div class="container">
   	<!--logo-->
     <div id="logo_div">
     	<div class="row-fluid">
-        	<div class="span3"><a href="?do=index"><img src="<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
-	 <div class="span3">
-            	
-            </div>
-            <div class="span3"><form name="frmSearch" action="?do=search" method="post" onSubmit="document.frmSearch.action='?do=search&search='+document.frmSearch.searchtxt.value;"><div class="input-append">
-        <input style="width:100px; height:18px; overflow:hidden;" value="<AJDF:output>$searchsession</AJDF:output>" name="search"  type="text" id="searchtxt">
-     <button class="btn" type="submit" onclick="document.frmSearch.submit();" value="Search"><i class="icon-zoom-in"></i> Search</button>
-        </div></form></div>
+		 <span class="hidden-tablet">
+        	<div class="span5"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
+	
+         <div class="span4">
+
+	<div class="input-append"  style=" margin-top: 30px;">
+        <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output>Search enter item name here ... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> Search</button>
+        </div></div>
            
-            <div class="span3"><a href="?do=showcart"><div id="shopping_cart"><i>Shopping Cart - <AJDF:output>$cartcount </AJDF:output> &nbsp;Items</i></div></a>
+            <div class="span3" style=" margin-top: 30px;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i>Shopping Cart - <AJDF:output>$cartcount </AJDF:output> &nbsp;Items</i></div></a>
             
             </div>
+</span>
+<span class="visible-tablet">
+			<div class="row-fluid">
+        	<div class="span4"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
+	<div class="span8">
+            	
+            </div>
+	</div>
+		<div class="row-fluid">
+         <div class="span6">
+
+	<div class="input-append">
+        <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output>Search enter item name here ... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> Search</button>
+        </div></div>
+           
+            <div class="span6"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i>Shopping Cart - <AJDF:output>$cartcount </AJDF:output> &nbsp;Items</i></div></a>
+            
+            </div>
+	</div>
+</span>
         </div>
+
         </div>
     <!--menu-->
     <div class="row-fluid">
@@ -377,7 +192,7 @@ function gp_popup()
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="./index.html" class="brand">MENUS</a>
+          <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php" class="brand">SHOP</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
                 <AJDF:output>$headermenuhidden</AJDF:output>
@@ -393,13 +208,8 @@ function gp_popup()
 <div class="menu style-1">
 	<ul class="menu">
 
-		<li class="select"><a href="?do=index">Home</a></li>
-		
+		<li class="select"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index">Home</a></li>	
 		<AJDF:output>$headermenu</AJDF:output>
-		
-	
-		
-
 	</ul>
 </div>
 

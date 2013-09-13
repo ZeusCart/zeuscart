@@ -41,20 +41,11 @@ class Display_DAdminEmailSettings
 	function siteEmail($arr)
 	{
 
-		$output = '<table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-    	<td align="left">&nbsp;</td>
- 		 </tr>
-		<tr><td width="24%" align="left" class="content_form">
-	       Administrator Email:</td>
-		<td width="26%" class="content_form" >
-        <input type="text" name="email"  value="'.$arr[0]['set_value'].'" class="txt_box250" /> </td>
-        
-         <td>&nbsp;</td>
-        </tr><tr><td colspan="2"  align="center" class="content_form" >
-        <input type="submit" name="emailid" class="all_bttn" value="Update email" /></td>
-         <td>&nbsp;</td>
-        </tr></table>  ';
+		$output = '	<div class="row-fluid">
+		<div class="span6">
+		<label>Administrator Email:</label>
+	    
+        <input type="text" name="email"  value="'.$arr[0]['set_value'].'" class="span8" /> </div></div>  ';
 			
 		return $output;
 	}

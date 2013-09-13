@@ -154,7 +154,7 @@ class Lib_Validation_Methods
 	{
 		for($i=0;$i<strlen($str);$i++)
 		{
-			$chr = ord(substr($str,i,1));
+			$chr = ord(substr($str,$i,1));
 			if($chr < 46 || $chr > 57)
 				return true;		
 		}

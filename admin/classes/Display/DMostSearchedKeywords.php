@@ -45,31 +45,49 @@ class Display_DMostSearchedKeywords
 	
 	function showMostSearchedKeywords($arr,$paging,$prev,$next)
 	{
-	
+		
 		$output = "";
 		
-		$output .= '<table width="99%" border="0" cellpadding="0" cellspacing="0" align="center" class="content_list_bdr">';
-		$output .= '<tr><td class="content_list_head" >S.No</td><td class="content_list_head" >Searched Keyword</td><td class="content_list_head" >Search Frequency</td></tr>';
+		$output .= '
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+		<thead class="green_bg">
+		<tr>
+		<th align="left">S.No</th>
+		<th align="left">Searched Keyword</th>
+		<th align="left">Search Frequency</th>
+		</tr>
+		</thead>
+		<tbody>';
+		
 		
 		for ($i=0;$i<count($arr);$i++)
 		{
-		
-			$output.='<tr  onmouseover="listbg(this, 1);" onmouseout="listbg(this, 0);" style="background-color: rgb(255, 255, 255);"><td align="center" style="padding:5px;width:20px" class=content_list_txt1>'.($i+1).'</td><td class=content_list_txt1>'.$arr[$i]['keyword'].'</td>';
-				
- 
-			$output.='<td align="left"  style="padding-left:10px;" class=content_list_txt1 >'.$arr[$i]['cnt'].'</td></tr>';			
+			
+			$output.='<tr><td>'.($i+1).'</td><td class=content_list_txt1>'.$arr[$i]['keyword'].'</td>';
+			
+			
+			$output.='<td>'.$arr[$i]['cnt'].'</td></tr>';			
 			
 		}
-		$output .='<tr align="center"><td colspan="8"  class="content_list_footer" >'.' '.$prev.' ';
+		$output .='<tr>
+		<td colspan="4" class="clsAlignRight">
+		<div class="dt-row dt-bottom-row">
+		<div class="row-fluid">
+		<div class="dataTables_paginate paging_bootstrap pagination">
+		<ul>'.' '.$prev.' ';
 		
-		    for($i=1;$i<=count($paging);$i++)
-				 $pagingvalues .= $paging[$i]."  ";
+		for($i=1;$i<=count($paging);$i++)
+			$pagingvalues .= $paging[$i]."  ";
 		
-		$output .= $pagingvalues.' '.$next.'</td></tr>';
-						
-		$output .= '</table>';
+		$output .= $pagingvalues.' '.$next.'</ul></div>
+		</div>
+		</div>
+		</td>
+		</tr>';
+		
+		$output .= '</tbody></table>';
 		return $output;
-			
+		
 	}
 }
 ?>

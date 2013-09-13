@@ -52,11 +52,11 @@ class Core_Settings_CCurrencySettings
 	{
 		
 		
-	   $pagesize=10;
-	  
-	   if(isset($_GET['page']))
+		$pagesize=10;
+
+		if(isset($_GET['page']))
 		{
-		    
+
 			$start = trim($_GET['page']-1) *  $pagesize;
 			$end =  $pagesize;
 		}
@@ -66,34 +66,34 @@ class Core_Settings_CCurrencySettings
 			$end =  $pagesize;
 		}
 		$total = 0;
-					
+
 		$sql='SELECT a.id,a.currency_name,a.currency_code,a.country_code,a.conversion_rate,a.currency_tocken,a.status,a.default_currency,b.cou_name FROM currency_master_table a LEFT JOIN country_table b ON a.country_code=b.cou_code ';
-						
-	  
+
+
 		$obj=new Bin_Query();
-  	    if($obj->executeQuery($sql))
+		if($obj->executeQuery($sql))
 		{
-				$total = ceil($obj->totrows/ $pagesize);
-				include('classes/Lib/Paging.php');
-				$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
-				$this->data['paging'] = $tmp->output;
-				$this->data['prev'] =$tmp->prev;
-				$this->data['next'] = $tmp->next;
-				$sql1 =$sql." LIMIT ".$start.",".$end;
-				
-				$query = new Bin_Query();
+			$total = ceil($obj->totrows/ $pagesize);
+			include('classes/Lib/Paging.php');
+			$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
+			$this->data['paging'] = $tmp->output;
+			$this->data['prev'] =$tmp->prev;
+			$this->data['next'] = $tmp->next;
+			$sql1 =$sql." LIMIT ".$start.",".$end;
+
+			$query = new Bin_Query();
 				//$sql1="select orders_status_id,orders_status_name from orders_status_table";
-				$obj1=new Bin_Query();
-				$obj1->executeQuery($sql1);
-				
-				
+			$obj1=new Bin_Query();
+			$obj1->executeQuery($sql1);
+
+
 		}
 		
-			if ($obj1->totrows>0)
-				return Display_DCurrencySettings::showCurrencyList($obj1->records,$this->data['paging'],$this->data['prev'],$this->data['next']);
-			else
-				return 'No Currencies Found';	
-	
+		if ($obj1->totrows>0)
+			return Display_DCurrencySettings::showCurrencyList($obj1->records,$this->data['paging'],$this->data['prev'],$this->data['next']);
+		else
+			return 'No Currencies Found';	
+
 	}
 	
 	/**
@@ -106,7 +106,7 @@ class Core_Settings_CCurrencySettings
 
 	function showAddCurrency($Err)
 	{
-	
+
 		
 		
 		$sqlCat="SELECT * FROM country_table ORDER BY cou_name";
@@ -117,7 +117,7 @@ class Core_Settings_CCurrencySettings
 		$queryCat1 = new Bin_Query();
 		$queryCat1->executeQuery($sqlCat1);
 		return Display_DCurrencySettings::showAddCurrency($queryCat->records,$queryCat1->records,$Err);
-	
+
 	}
 	
 	/**
@@ -129,43 +129,46 @@ class Core_Settings_CCurrencySettings
 	
 	function addNewCurrency()
 	{
-			$currname = trim($_POST['currency_name']);
-			$currcode = trim($_POST['currency_code']);
-			$currtoken = trim($_POST['currency_tocken']);
-			$convertrate = trim($_POST['conversion_rate']);
-			$countrycode=$_POST['taxratecountry'];
-			$status=$_POST['taxratestatus'];
+		$currname = trim($_POST['currency_name']);
+		$currcode = trim($_POST['currency_code']);
+		$currtoken = trim($_POST['currency_tocken']);
+		$convertrate = trim($_POST['conversion_rate']);
+		$countrycode=$_POST['taxratecountry'];
+		$status=$_POST['taxratestatus'];
 		
-			$obj1 = new Bin_Query();
+		$obj1 = new Bin_Query();
 			//$sql="select count(*)as numcurrency from currency_master_table where currency_code='$currcode' or country_code='$countrycode'";
-			$sql="select count(*)as numcurrency from currency_master_table where currency_code='$currcode' and country_code='$countrycode'";
-			$obj1->executeQuery($sql);
-			
-			if($obj1->records[0]['numcurrency']>0)
+		$sql="select count(*)as numcurrency from currency_master_table where currency_code='$currcode' and country_code='$countrycode'";
+		$obj1->executeQuery($sql);
+
+		if($obj1->records[0]['numcurrency']>0)
+		{
+			$result = '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button> Country code/Currency code is already set</div>';
+			return $result;
+		}
+		else
+		{
+			if($status=='')
 			{
-				$result = "Country code/Currency code is already set";
-				return $result;
+				$status=0;	
+			}
+			$sql="INSERT INTO currency_master_table(currency_name,currency_code,country_code,conversion_rate,currency_tocken,status) VALUES('$currname','$currcode','$countrycode',$convertrate,'$currtoken',$status)"; 
+			$qry=new Bin_Query();
+			if($qry->updateQuery($sql))
+			{
+				$result = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">×</button> Added Successfully</div>';
+				return $result;		
 			}
 			else
 			{
-				if($status=='')
-				{
-					$status=0;	
-				}
-				$sql="INSERT INTO currency_master_table(currency_name,currency_code,country_code,conversion_rate,currency_tocken,status) VALUES('$currname','$currcode','$countrycode',$convertrate,'$currtoken',$status)"; 
-				$qry=new Bin_Query();
-				if($qry->updateQuery($sql))
-					{
-						$result = "Added Successfully";
-						return $result;		
-					}
-				else
-				{
-					$result = "Not Inserted";
-					return $result;
-				}
-				
+				$result = '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button> Not Inserted </div>';
+				return $result;
 			}
+
+		}
 		
 	}
 	
@@ -194,7 +197,8 @@ class Core_Settings_CCurrencySettings
 			return Display_DCurrencySettings::showEditCurrency($queryCat->records,$queryCat1->records,$qry->records,$Err);
 		}
 		else
-			return "No more currency.";
+			return '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button> No more currency.</div>';
 	}
 	
 	/**
@@ -207,63 +211,68 @@ class Core_Settings_CCurrencySettings
 	
 	function updateCurrency()
 	{
-			$currid=trim($_POST['hidecurrencyid']);
-			$currname = trim($_POST['currency_name']);
-			$currcode = trim($_POST['currency_code']);
-			$currtoken = trim($_POST['currency_tocken']);
-			$convertrate = trim($_POST['conversion_rate']);
-			$countrycode=$_POST['taxratecountry'];
-			$status=$_POST['taxratestatus'];
+		$currid=trim($_POST['hidecurrencyid']);
+		$currname = trim($_POST['currency_name']);
+		$currcode = trim($_POST['currency_code']);
+		$currtoken = trim($_POST['currency_tocken']);
+		$convertrate = trim($_POST['conversion_rate']);
+		$countrycode=$_POST['taxratecountry'];
+		$status=$_POST['taxratestatus'];
 		
-			  if($currid==1 || $currid=='1')
-			  {
-				  $sql="Update currency_master_table set conversion_rate=$convertrate where id=$currid";  	
-			  
-			  	$qry1=new Bin_Query();
-				  if($qry1->updateQuery($sql))
-					{
-						$result = "<div class='success_msgbox'>Updated Successfully</div>";
-						return $result;		
-					}
-				  else
-				  {
-					  $result = "Not Updated";
-					  return $result;
-				  }	
-			  }
-			  else
-			  {
-				$obj1 = new Bin_Query();
+		if($currid==1 || $currid=='1')
+		{
+			$sql="Update currency_master_table set conversion_rate=$convertrate where id=$currid";  	
+
+			$qry1=new Bin_Query();
+			if($qry1->updateQuery($sql))
+			{
+				$result = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">×</button> Updated Successfully</div>';
+				return $result;		
+			}
+			else
+			{
+				$result = '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button> Not Updated</div>';
+				return $result;
+			}	
+		}
+		else
+		{
+			$obj1 = new Bin_Query();
 			$sql="select count(*)as numcurrency from currency_master_table where (currency_code='$currcode' and country_code='$countrycode') and id<>$currid";
 			//$sql="select count(*)as numcurrency from currency_master_table where (currency_code='$currcode' or country_code='$countrycode') and id<>$currid";
 			$obj1->executeQuery($sql);
 			
 			if($obj1->records[0]['numcurrency']>0)
 			{
-				$result = "Country code/Currency code is already set";
+				$result = '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button> Country code/Currency code is already set</div>';
 				return $result;
 			}  
-				  
-			  if($status=='')
-				  {
-					  $status=0;	
-				  }
-				  $sql="Update currency_master_table set currency_name='$currname',currency_code='$currcode',country_code='$countrycode',conversion_rate=$convertrate,currency_tocken='$currtoken',status=$status where id=$currid"; 
-				  
-			  
-				$qry=new Bin_Query();
-				  if($qry->updateQuery($sql))
-					{
-						$result = "Updated Successfully";
-						return $result;		
-					}
-				  else
-				  {
-					  $result = "Not Updated";
-					  return $result;
-				  }	
-			   }
+
+			if($status=='')
+			{
+				$status=0;	
 			}
+			$sql="Update currency_master_table set currency_name='$currname',currency_code='$currcode',country_code='$countrycode',conversion_rate=$convertrate,currency_tocken='$currtoken',status=$status where id=$currid"; 
+
+
+			$qry=new Bin_Query();
+			if($qry->updateQuery($sql))
+			{
+				$result = '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">×</button> Updated Successfully</div>';
+				return $result;		
+			}
+			else
+			{
+				$result = '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button> Not Updated</div>';
+				return $result;
+			}	
+		}
+	}
 	
 	
 	/**
@@ -273,38 +282,74 @@ class Core_Settings_CCurrencySettings
 	 * @return string
 	 */	 	
 	
+	// function removeCurrency()
+	// {
+	// 	if(isset($_GET['cid'])&&is_numeric($_GET['cid']))
+	// 		{
+
+	// 			$currid=trim($_GET['cid']);
+	// 			if($currid==1 || $currid=='1')
+	// 			{
+	// 				$result = "Default currency not Deleted";
+	// 				  return $result;
+	// 			}
+	// 			else
+	// 			{
+	// 			$sql="delete from currency_master_table where id=$currid and id<>1"; 
+	// 			$qry=new Bin_Query();
+	// 			  if($qry->updateQuery($sql))
+	// 			  {
+	// 				return "Deleted Successfully";	
+	// 				return $result;		
+	// 			  }
+	// 			  else
+	// 			  {
+	// 				  $result = "Not Deleted";
+	// 				  return $result;
+	// 			  }	
+	// 			}
+	// 		}
+	// 	else
+	// 		{
+	// 			return 'Not Deleted';	
+	// 		}
+	// }
+
+
 	function removeCurrency()
 	{
-		if(isset($_GET['cid'])&&is_numeric($_GET['cid']))
-			{
-				
-				$currid=trim($_GET['cid']);
-				if($currid==1 || $currid=='1')
-				{
-					$result = "Default currency not Deleted";
-					  return $result;
-				}
-				else
-				{
-				$sql="delete from currency_master_table where id=$currid and id<>1"; 
+
+		$currid=$_POST['currencycheck'];
+		if(count($currid) > 0)
+		{
+			foreach ($currid as $key => $value) {
 				$qry=new Bin_Query();
-				  if($qry->updateQuery($sql))
-				  {
-					return "Deleted Successfully";	
-					return $result;		
-				  }
-				  else
-				  {
-					  $result = "Not Deleted";
-					  return $result;
-				  }	
-				}
+				$sql="delete from currency_master_table where id=$value and id<>1"; 
+				$qry->updateQuery($sql);
+				
+				$result ='<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				Deleted Successfully</div>';	
+				
+				
+
+
 			}
+
+		}
 		else
-			{
-				return 'Not Deleted';	
-			}
+		{
+			$result = '<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button> Not Deleted</div>';
+			
+
+		}
+
+		return $result;		
+
+
 	}
+
 	
 }
 ?>

@@ -18,58 +18,81 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<!--<AJDF:output>$statisticsArea</AJDF:output>-->
-<AJDF:output>include file="left.html"</AJDF:output>
+<script type="text/javascript" src="assets/js/bootstrap-fileupload.min.js"></script>
+<link rel="stylesheet" href="assets/css/bootstrap-fileupload.min.css">
 
-<form name="fm" method="post" action="?do=skin&action=add" enctype="multipart/form-data">
- <table width="97%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td align="left" class="content_title">Add Skin</td>
-  </tr>
-  <tr>
-    <td align="left">&nbsp;</td>
-  </tr>
-  <tr>
-    <!--<td align="left"><AJDF:output>$updatemsg</AJDF:output></td>--><td align="left"><AJDF:output>$addmsg</AJDF:output></td>
-  </tr>
-  <tr>
-    <td align="left">&nbsp;</td>
-  </tr>
-  <tr>
-    <td align="left" class="content_form_bdr"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-			<td colspan="2" class="content_list_head">Add Skins
-	    	</td>
-		</tr>
-        <tr>
-          <td width="34%" align="right" class="content_form_line">
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#updateSiteskinicon').click(function(){
+    $("#updateSiteskin").submit();
+  });
+});
+</script>
 
-        Skin Name
-        </td>
-          <td width="66%" class="content_form_line" >
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Add Skin</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a href="javascript:void(0);" class="add_icon1"  id="updateSiteskinicon"></a></li>
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<AJDF:output>$addmsg</AJDF:output>
+
+<form name="fm" method="post" action="?do=skin&action=add" id="updateSiteskin" enctype="multipart/form-data">
+ 
+ <div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Add Skins</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+              
+         <div class="row-fluid">
+  <div class="span12"><label>Skin Name</label>
+      
         <input type="text" name="skinname" class="txt_box250" /> 
-        </td>
-        </tr>
-        <tr>
-          <td align="right" class="content_form_line">Theme Zip File</td>
-          <td class="content_form_line"><input type="file" name="zip_file" id="zip_file" value="<? echo $_POST['zip_file']; ?>"/>
-           &nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dskin', 'Upload CSS', 'Upload your site&acute;s skin as Cascading Style Sheet(CSS) file.')" onmouseout="HideHelp('dskin');">
-			<div id="dskin" style="left: 50px; top: 50px;"></div> <br />
-            </td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td class="content_form_line" colspan="2" align="center"><input type="submit" name="button" id="button" value="Submit" class="all_bttn"  /></td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-        <td align="right" class="content_form_line">List Of Available Skins </td>
-        <td class="content_form_line">
-        <AJDF:output>$showskin</AJDF:output> 
-        </td>
-        </tr>
-</table>
-</td>
-</tr>
-</table></form>
+
+</div></div>
+
+        
+         <div class="row-fluid">
+  <div class="span12">Theme Zip File
+
+
+
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                  <div>
+                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="zip_file" id="zip_file" value="<? echo $_POST['zip_file']; ?>"/></span>
+                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                  </div>
+                </div>
+              </div></div>
+
+
+
+
+           <div class="row-fluid">
+  <div class="span12">
+          List Of Available Skins 
+        <AJDF:output>$showskin</AJDF:output>       </div>
+</div>
+       </div>
+</div>
+</div>
+</div></div>
+
+</form>
 <AJDF:output>include file="footer.html"</AJDF:output>

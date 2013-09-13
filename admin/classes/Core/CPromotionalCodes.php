@@ -92,13 +92,15 @@ class Core_CPromotionalCodes
 				
 			}
 			$_SESSION['coupon_id']='';
-			return '<div class="success_msgbox">Coupon Code Send To Selected Users Successfullly</div>';
+			return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Coupon Code Send To Selected Users Successfullly.</div>';
 		}
 		else
 		{
 			$_SESSION['coupon_id']='';
 			if($_GET['page']=='')
-				return '<div class="error_msgbox">Select Atleast One User</div>';	
+				return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Select Atleast One User.</div>';	
 		}
 		
 		
@@ -236,9 +238,11 @@ class Core_CPromotionalCodes
 			$obj=new Bin_Query();
 		
 			if($obj->updateQuery($sql))
-				return '<div class="success_msgbox">Coupon Status Updated Successfullly</div>';	
+				return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Coupon Status Updated Successfullly.</div>';	
 			else
-				return '<div class="error_msgbox">Unable To Update Coupon Status</div>';	
+				return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Unable To Update Coupon Status.</div>';	
 		}
 				
 	}
@@ -301,9 +305,9 @@ class Core_CPromotionalCodes
 	function displayPromotionalCodes()
 	{
 		
-	   $pagesize=10;
-	   $_SESSION['coupon_id']='';
-	   if(isset($_GET['page']))
+		$pagesize=10;
+		$_SESSION['coupon_id']='';
+		if(isset($_GET['page']))
 		{
 		    
 			$start = trim($_GET['page']-1) *  $pagesize;
@@ -325,7 +329,7 @@ class Core_CPromotionalCodes
 	  
 	  
 		$obj=new Bin_Query();
-  	    if($obj->executeQuery($sql))
+  		if($obj->executeQuery($sql))
 		{
 				$total = ceil($obj->totrows/ $pagesize);
 				include('classes/Lib/Paging.php');
@@ -360,7 +364,7 @@ class Core_CPromotionalCodes
 	
 	function insertPromotionalCode()
 	{
-	   
+
 	   $cupon_code=$_POST['cupon_code'];
 	   $cupon_name=$_POST['cupon_name'];
 	   $discount_amt=$_POST['discount_amt'];
@@ -371,7 +375,7 @@ class Core_CPromotionalCodes
 	   $uses_count=$_POST['uses_count'];
 	   $maincategories=$_POST['maincategories'];
 	   $subcategories=$_POST['subcategories'];
-	   
+	
 	   $created_date=date('Y-m-d H:i:s');
 	   //subtraction for date range checking 
 	   $datediff=strtotime($txttodate) - strtotime($txtfromdate);
@@ -412,10 +416,9 @@ class Core_CPromotionalCodes
 			
 
 		 if($days>=0&&$datediff>=0)
-	   {
+	  	{
 	
-		$sql="INSERT INTO  coupons_table(coupon_code, coupan_name, created_date ,discount_amt ,discount_type ,valid_from ,valid_to ,min_purchase ,no_of_uses,applies_to,status) VALUES ('".$cupon_code."','".$cupon_name."','".$created_date."',".$discount_amt.",'".$discount_type."','".$txtfromdate."','".$txttodate."',". $min_purchase.",".$uses_count.",'".$categories."',1)";		
-	
+		$sql="INSERT INTO  coupons_table(coupon_code, coupan_name, created_date ,discount_amt ,discount_type ,valid_from ,valid_to ,min_purchase ,no_of_uses,applies_to,status) VALUES ('".$cupon_code."','".$cupon_name."','".$created_date."',".$discount_amt.",'".$discount_type."','".$txtfromdate."','".$txttodate."',". $min_purchase.",".$uses_count.",'".$categories."',1)"; 
 		$obj=new Bin_Query();
 		if($obj->updateQuery($sql))
 		{
@@ -428,19 +431,22 @@ class Core_CPromotionalCodes
 					$obj_rel->updateQuery($sql_rel);
 				}
 			}
-			return '<div class="success_msgbox">Coupon Code Generated Successfullly</div>';	
+			return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Coupon Code Generated Successfullly.</div>';	
 				
 		}
 		
 		else
 		 {
 			if($_GET['page']=='')
-				return '<div class="error_msgbox">Unable To Create Coupon Code</div>';	
+				return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Unable To Create Coupon Code.</div>';	
 		 }
 	   }
 	   else
 	   {
-		  return '<div class="error_msgbox">Unable To Create Coupon Code(Invalid Date Selection- Valid To Date Should Be Greater than Valid From Date)</div>';	
+		  return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Unable To Create Coupon Code(Invalid Date Selection- Valid To Date Should Be Greater than Valid From Date).</div>';	
 	   }
 	}
 	

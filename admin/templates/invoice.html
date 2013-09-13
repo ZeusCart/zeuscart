@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+.details_title2 {
+	font-size:16px;
+	color:#666;
+	padding:12px 0 5px 0;
+}
+.details_bdr {
+	border:1px solid #e8e8e8;
+}
+
+.formtext2 {
+	font-size:12px;
+	font-weight:bold;
+	color:#666;
+	padding:10px;
+	border-top:1px dotted #e4e4e4;
+}
+.alert_row1 td {
+	background-color:#FFFFFF;
+	border-top:1px solid #FFFFFF;
+	border-bottom:1px solid #FFFFFF;
+}
+.alert_row2 td {
+	background-color:#f6f6f6;
+	border-top:1px solid #efefef;
+	border-bottom:1px solid #efefef;
+}
+
+.lbox_topl {
+	background:url(images/box_top_lrbg.gif) left top no-repeat;
+	height:32px;
+}
+.lbox_topbg {
+	background:url(images/box_top_bg.gif) left top repeat-x;
+	font-family:"Trebuchet MS", Tahoma, Arial;
+	font-size:16px;
+	color:#353535;
+}
+.lbox_topr {
+	background:url(images/box_top_lrbg.gif) right top no-repeat;
+	height:32px;
+}
+.lbox_contentbg {
+	background-color:#fff;
+	border-left:1px solid #b5c1cc;
+	border-right:1px solid #b5c1cc;
+	padding:10px;
+}
+.lbox_botl {
+	background:url(images/box_bot_lrbg.gif) left top no-repeat;
+	height:11px;
+}
+.lbox_botbg {
+	background:url(images/box_bot_bg.gif) left top repeat-x;
+}
+.lbox_botr {
+	background:url(images/box_bot_lrbg.gif) right top no-repeat;
+	height:11px;
+}
+</style>
+</head>
+<body>
+
+
+  <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="alerts">
+
+<tr>
+          <td width="2%" class="lbox_topl">&nbsp;</td>
+          <td width="96%" align="left" class="lbox_topbg"> Invoice</td>
+          <td width="2%" class="lbox_topr">&nbsp;</td>
+        </tr>
+	<tbody>  		
+  
+      <tr valign="top" align="left">
+	<form action="?do=userinvoice&amp;action=add&id=<AJDF:output>$smarty.get.id</AJDF:output>" method="post" name="invoice" enctype="multipart/form-data" target="_parent">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+		 
+		  <tr>
+                  <td align="center" class="details_bdr"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                       
+                     
+		
+		 <tr class="alert_row2">
+                  <td width="25%" valign="middle" align="right" class="formtext2"><input type="text" name="name" id="name" style="width:100px;" value="<AJDF:output>$name</AJDF:output>"/>  </td> 
+                  <td width="49%" align="left" ><input type="file" name="invoice" id="invoice"  class="tbox1" /></td><br/>
+			
+               </tr>	
+		<!--<tr class="alert_row1">
+
+  		<td width="25%" valign="middle" align="right" style="padding:20px 0;font-size:14px; font-family:Arial;"  class="formtext2">   Path : </td> 
+                  <td width="49%" align="left" class="formtext2">	<AJDF:output> $path</AJDF:output></td>
+                 </font>		 
+                 </td></tr>-->
+		<tr>
+                  <td align="right">&nbsp;</td>
+		</tr>
+               <tr>
+                  <td align="right">&nbsp;</td>
+                  <td align="left" colspan="2" ><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('updatesitesettings','','images/add_bttn_hov.gif',1)">
+		  <input type="image" src="images/update_bttn.gif" name="update" alt="update" id="updatesitesettings" value=""/></a> </td>
+                </tr>
+                <tr>
+                  <td align="right">&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+	</table></td></tr>
+            </table>
+	</form>
+	</td>
+    </tr>
+  </tbody><tr>
+          <td class="lbox_botl">&nbsp;</td>
+          <td class="lbox_botbg">&nbsp;</td>
+          <td class="lbox_botr">&nbsp;</td>
+        </tr></table>
+
+
+ 
+</body>
+</html>

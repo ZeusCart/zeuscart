@@ -121,8 +121,8 @@ class Model_MCreatePage
 			$output['enabledproducts']=Core_CAdminHome::enabledProducts();
 			$output['disabledproducts']=Core_CAdminHome::disabledProducts();
 			$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
-		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
-		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
+			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
+			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 			
 			Bin_Template::createTemplate('createpage.html',$output);
 			//include_once('templates/createpage.php');
@@ -223,8 +223,8 @@ class Model_MCreatePage
 			$output['enabledproducts']=Core_CAdminHome::enabledProducts();
 			$output['disabledproducts']=Core_CAdminHome::disabledProducts();
 			$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
-		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
-		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
+			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
+			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 			$output['customers']=Core_CAdminHome::getCustomers();			
 			include_once('classes/Core/Settings/CCreatePage.php');
 			$output['createpagemsg'] = Core_Settings_CreatePage::createPage();
@@ -255,6 +255,8 @@ class Model_MCreatePage
 		$this->displayCreatePageSettings();
 	}
 	
+
+
 }
 
 ?>

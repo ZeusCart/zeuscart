@@ -50,7 +50,7 @@ class Core_Category_CCategory
 	 	 include('classes/Lib/Components.php');
 		//$components = new Lib_Components();
 		$this->data['allcat'] = $this->createComponent('combobox',$this->getListValues('category'),'name=id class=category_box',$_GET['id']);
-		$this->makeConstants($this->data);
+		$this->makeConstants($this->data,$prefix='');
 	}
 	
 	
@@ -71,7 +71,7 @@ class Core_Category_CCategory
   	  $obj1=new Core_Category_CCategory();
 
 	  $obj->data['category']=$obj->createComponent('combobox',$obj1->getListValues('category'),'name=id class=category_box','');
-	  makeConstants($obj->data);
+	  makeConstants($obj->data,$prefix='');
 	}
 	
 	/**
@@ -111,7 +111,7 @@ class Core_Category_CCategory
 		$components = new Lib_Components();
 		$this->data['allatt'] = $components->createComponent('combobox',$this->getAttribListValues('attrib'),'name=id 		class=attrib_box',$_GET['attid']);
 		
-		$this->makeConstants($this->data);
+		$this->makeConstants($this->data,$prefix='');
 	}
 	
 	/**

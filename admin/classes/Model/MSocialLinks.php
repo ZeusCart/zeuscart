@@ -78,7 +78,13 @@ class Model_MSocialLinks
 		{
 			include('classes/Lib/FileOperations.php');			
 			$output['showpage'] = Core_Settings_SocialLinks::showSocialLinks();
+			$output['deleteMsg']=$_SESSION['msgSociallinkdelete'];
+			$output['insertMsg']=$_SESSION['msgSociallinkadd'];
+			$output['updateMsg']=$_SESSION['msgUpdatesociallink'];
 			Bin_Template::createTemplate('social_links.html',$output);
+			unset($_SESSION['msgSociallinkdelete']);
+			unset($_SESSION['msgSociallinkadd']);
+			unset($_SESSION['msgUpdatesociallink']);
 		
 		}
 		else
@@ -99,7 +105,7 @@ class Model_MSocialLinks
 	{
 		include("classes/Lib/HandleErrors.php");
 
-		$output['messages']=$Err->messages;
+		$output['msg']=$Err->messages;
 		$output['values']=$Err->values;
 		include('classes/Core/CRoleChecking.php');
 		$chkuser=Core_CRoleChecking::checkRoles();
@@ -180,9 +186,9 @@ class Model_MSocialLinks
 			include('classes/Display/DCreatePage.php');		
 			include_once('classes/Core/Settings/CSocialLinks.php');			
 			include('classes/Display/DSocialLinks.php');
-			$output['message'] = Core_Settings_SocialLinks::insertSocialLink();
-			$output['showpage'] = Core_Settings_SocialLinks::showSocialLinks();			
-			Bin_Template::createTemplate('social_links.html',$output);	
+			$_SESSION['msgSociallinkadd'] = Core_Settings_SocialLinks::insertSocialLink();
+			header('Location:?do=sociallink');
+			exit;
 		}
 		else
 		{
@@ -200,7 +206,10 @@ class Model_MSocialLinks
 	
 	function deleteSocialLink()
 	{
-					
+				
+		// echo "<pre>";
+		// print_r($_POST);exit;
+
 		include_once('classes/Core/Settings/CSocialLinks.php');			
 		include('classes/Display/DSocialLinks.php');
 		include('classes/Core/CRoleChecking.php');	
@@ -234,9 +243,12 @@ class Model_MSocialLinks
 			include_once('classes/Core/Settings/CCreatePage.php');
 			$output['createpagemsg'] = Core_Settings_CreatePage::createPage();
 			
-			$output['message'] = Core_Settings_SocialLinks::deleteSocialLink();
+			$_SESSION['msgSociallinkdelete']= Core_Settings_SocialLinks::deleteSocialLink();
 			$output['showpage'] = Core_Settings_SocialLinks::showSocialLinks();
-			Bin_Template::createTemplate('social_links.html',$output);	
+			header('Location:?do=sociallink');
+			exit;
+
+			
 		}
 		else
 		{
@@ -258,7 +270,7 @@ class Model_MSocialLinks
 
 		include("classes/Lib/HandleErrors.php");
 
-		$output['messages']=$Err->messages;
+		$output['msg']=$Err->messages;
 		$output['values']=$Err->values;
 
 		include_once('classes/Core/Settings/CSocialLinks.php');	
@@ -341,9 +353,9 @@ class Model_MSocialLinks
 			include('classes/Display/DCreatePage.php');		
 			include_once('classes/Core/Settings/CSocialLinks.php');			
 			include('classes/Display/DSocialLinks.php');
-			$output['message'] = Core_Settings_SocialLinks::updateSocialLink();
-			$output['showpage'] = Core_Settings_SocialLinks::showSocialLinks();			
-			Bin_Template::createTemplate('social_links.html',$output);	
+			$_SESSION['msgUpdatesociallink'] = Core_Settings_SocialLinks::updateSocialLink();
+			header('Location:?do=sociallink');
+			exit;
 		}
 		else
 		{

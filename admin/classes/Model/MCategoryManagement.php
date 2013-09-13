@@ -54,6 +54,7 @@ class Model_MCategoryManagement
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
 		
+
 		include_once('classes/Core/Category/CCategory.php');
 		include_once('classes/Display/DCategoryManagement.php');
 		include("classes/Core/Settings/CCategoryManagement.php");
@@ -63,12 +64,13 @@ class Model_MCategoryManagement
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
-			$output['allcat']=$cat->showCat();	
-			
+			$output['insmsg']=$_SESSION['insmsg'];
+			$_SESSION['insmsg']='';
+			$output['allcat']=$cat->showCat();			
 			$content= new Core_Settings_CCategoryManagement();
-			$output['content']=$content->showContent();
+			$output['content']=$content->showContent();			
 			$output['attrib']=$content->getAttributes();
-			$output['subcatparent']=$content->showSubChildParent();
+			$output['categoryparent']=$content->showCategoryParent();
 		}
 		else
 		{
@@ -144,25 +146,10 @@ class Model_MCategoryManagement
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 	
 		$content= new Core_Settings_CCategoryManagement();
-		$output['insmsg']=$content->addCategory();
+		$_SESSION['updatemiancatmsg']=$content->addCategory();
 		
-		
-		include('classes/Core/CRoleChecking.php');
-		$chkuser=Core_CRoleChecking::checkRoles();
-		if($chkuser)
-		{
-			$cat = new Core_Category_CCategory();
-			$output['allcat']=$cat->showCat();	
-			$output['content']=$content->showContent();
-			$output['attrib']=$content->getAttributes();
-			$output['subcatparent']=$content->showSubChildParent();
-			Bin_Template::createTemplate('categorymanagement.html',$output);
-		}
-		else
-		{
-		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
+		header('Location:?do=showmain');
+
 						
 	}	
 	

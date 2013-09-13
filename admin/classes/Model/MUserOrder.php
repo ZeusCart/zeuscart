@@ -49,6 +49,8 @@ class Model_MUserOrder
 	 */
 	function showOrder($msg='') 
 	{
+
+
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Core/CAdminHome.php');
 		$output['username']=Core_CAdminHome::userName();
@@ -76,21 +78,33 @@ class Model_MUserOrder
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
+			include("classes/Lib/HandleErrors.php");		
+		
+			if(count($Err->messages) > 0)
+			{
+				$output['val'] = $Err->values;
+				$output['msg'] = $Err->messages;
+			}
+
 			include_once('classes/Core/CUserOrder.php');
 			include_once('classes/Display/DUserOrder.php');			
 			$default=new Core_CUserOrder();
 			$output['message'] =$msg;
-			$output['customer'] = $default->showCustomer();
+			$output['customer'] = $default->showCustomer($Err);
 			$output['payment'] = $default->showPayment();			
 			
 			$output['category1'] = $default->showCategory();		
-			$output['subcategory'] = $default->showSubCategory();		
+			//$output['subcategory'] = $default->showSubCategory();
+			//$output['subundercategory'] = $default->showSubUnderCat();			
 			$output['products'] = $default->showProducts();									
 			$output['qty'] = $default->showQty();												
-			$output['orderlist'] = $default->listOrder();			
-			$output['showShippingDetails'] = $default->showShippingDetails();			
+			$output['orderlist'] = $default->listOrder();	
+
+								
+			$output['showShippingDetails'] = $default->showShippingDetails($Err,$output['multibilladdress'],$output['multishipaddress']);			
 			
 			Bin_Template::createTemplate('userorder.html',$output);
+		
 		}
 		else
 		{
@@ -112,7 +126,18 @@ class Model_MUserOrder
 		$default=new Core_CUserOrder();
 		echo $default->showSubCategory($_GET['id']);		
 	}
-	
+	/**
+	 * Function show  the sub under sub category
+	 * 
+	 * @return array
+	 */
+	function showSubUnderCat()
+	{
+		include_once('classes/Core/CUserOrder.php');
+		include_once('classes/Display/DUserOrder.php');			
+		$default=new Core_CUserOrder();
+		echo $default->showSubUnderCat($_GET['id']);
+	}
 	/**
 	 * Function displays the list of products available  
 	 * 
@@ -122,6 +147,7 @@ class Model_MUserOrder
 	
 	function showProduct()
 	{
+
 		include_once('classes/Core/CUserOrder.php');
 		include_once('classes/Display/DUserOrder.php');			
 		$default=new Core_CUserOrder();
@@ -147,11 +173,12 @@ class Model_MUserOrder
 	 */
 	function addProduct()
 	{
+
 		include_once('classes/Core/CUserOrder.php');
 		include_once('classes/Display/DUserOrder.php');			
 		$default=new Core_CUserOrder();
-		$default->addProduct();		
-		Model_MUserOrder::showOrder();
+		$msg = $default->addProduct();	
+		Model_MUserOrder::showOrder($msg);
 	}
 	/**
 	 * Function deletes the existing product 
@@ -175,6 +202,8 @@ class Model_MUserOrder
 	
 	function createOrder()
 	{
+
+
 		include_once('classes/Core/CUserOrder.php');
 		include_once('classes/Display/DUserOrder.php');		
 		include('classes/Lib/CheckInputs.php');
@@ -186,6 +215,47 @@ class Model_MUserOrder
 		Model_MUserOrder::showOrder($result);
 	}
 	
+	/**
+	 * Function show  the user multi address for billing
+	 * 
+	 * @return array
+	 */
+	function showUserMultiBillAddress()
+	{
 
+		include_once('classes/Core/CUserOrder.php');
+		include_once('classes/Display/DUserOrder.php');			
+		$default=new Core_CUserOrder();
+		echo $default->showUserMultiBillAddress();
+
+	}
+	/**
+	 * Function show  the user multi address for shipping
+	 * 
+	 * @return array
+	 */
+	function showUserMultiShipAddress()
+	{
+
+		include_once('classes/Core/CUserOrder.php');
+		include_once('classes/Display/DUserOrder.php');			
+		$default=new Core_CUserOrder();
+		echo $default->showUserMultiShipAddress();
+
+	}
+	/**
+	 * Function show  the user billing address and shipping address
+	 * 
+	 * @return array
+	 */
+	function showUserAddressDetails()
+	{	
+
+		include_once('classes/Core/CUserOrder.php');
+		include_once('classes/Display/DUserOrder.php');			
+		$default=new Core_CUserOrder();
+		echo $default->showUserAddressDetails();
+	
+	}
 }
 ?>

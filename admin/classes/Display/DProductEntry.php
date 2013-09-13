@@ -40,23 +40,70 @@
 	 */		
  	function displayCategory($result,$selected='')
 	{
-		
+	
 		if((count($result))>0)
 		{
-		  
-			$output='<select name="selcatgory" onchange="showSubCat(this.value);" id="selcatgory"><option value="">Select</option>';
-			if(count($result)>0)
-			
-		    foreach($result as $row) 			
+		   	 $output='<select name="selcatgory[]" id="selcatgory"  style="width: 292px;height:150px" multiple><option value="Choose Category">Choose Category</option>';	
+		
+			for($k=0;$k<count($result);$k++)
 			{
-			   $id=$row['category_id'];
-			   $name=$row['category_name'];
-			   $output.='<option value="'.$id.'"';
-			   if ($selected==$id)
-			   	$output.=' selected=selected ';
-			   $output.='>'.$name.'</option>';
+				if($catid==$result[$k]['category_id'])
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected='';
+				}
+				
+				$output.='<option value='.$result[$k]['category_id'].' '.$selected.'>'.$result[$k]['category_name'].'</option>';
+				$output.=self:: getSubFamilies(0,$result[$k]['category_id'] );
+	
+			
 			}
-			$output.='</select>';
+
+		$output.='</select>';
+		}
+
+		return $output;
+	}
+	/**
+	 * Function generates an drop down list with the category details.in sub child
+	 * 
+	 * 
+	 * @return array
+	 */		
+	function getSubFamilies($level, $id) {
+
+		$level++;
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+		$resultSubFamilies = mysql_query($sqlSubFamilies);
+		if (mysql_num_rows($resultSubFamilies) > 0) {
+		
+			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies)) {
+
+				
+				if($catid==$rowSubFamilies['category_id'])
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected='';
+				}
+				
+				$output.= "<option value=".$rowSubFamilies['category_id']."  ".$selected.">";
+
+				for($a=1;$a<$level+1;$a++)
+				{
+				$output.='- &nbsp;';
+					
+				}
+				$output.=$rowSubFamilies['category_name']."</option>";
+				$output.=self:: getSubFamilies($level, $rowSubFamilies['category_id']);
+				
+			}
+		
 		}
 		
 		return $output;
@@ -144,12 +191,17 @@
 	 */	
 	function dispBrand($result,$selected='')
 	{
-	
-	   if((count($result))>0)
+
+		if((count($result))>0)
 		{
-		   $output="<select name='selbrand'><option value=''>Select</option>";
-		   foreach($result as $row)
-		      $output.="<option value='".$row['brand']."' ".(($selected==$row['brand']) ? " selected=selected " : " " )." >".$row['brand']."</option>";
+		   $output="<select name='selbrand' style='width:160px'><option value=''>Select</option>";
+		  	 foreach($result as $row)
+			{
+				if($row['brand']!='')
+				{	
+					$output.="<option value='".$row['brand']."' >".trim($row['brand'])."</option>";
+				}
+			}
 		   $output.="</select>";
 		   return $output;
 		}
@@ -198,40 +250,48 @@
 			
 		$output.='
 		
-		<div style="text-align:right; width:90%; padding-bottom:10px"><input class="all_bttn" type="button" name="search" value="Reset Filter"  onclick="searchProducts(\'all\');"/>&nbsp;&nbsp;&nbsp;<input class="all_bttn" type="button" name="search" value="Search"  onclick="searchProducts(\'sear\');"/></div>
-		<table cellpadding="0" cellspacing="0" border="0" width="90%" class="content_list_bdr">
+		<div style="text-align:right;"><p>
+              <button class="btn btn-mini btn-primary" type="button"  onclick="searchProducts(\'all\');">Reset Filter</button>
+              <button class="btn btn-mini" type="button" onclick="searchProducts(\'sear\');">Search</button>
+            </p></div>
+		  <div class="blocks" style="opacity: 1;">
+		<div class="clsListing clearfix">
+			<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+	
+		<thead class="green_bg">
 		<TR>
-                  <td class="content_list_head" width="5%"></td>
-		  <td class="content_list_head" width="21%">Product Name</td>
-		  <td class="content_list_head" width="17%">Brand</td>
-		  <td class="content_list_head" width="14%">MSRP</td>
-		  <td class="content_list_head" width="14%">Price</td>		  
-		  </TR>';
+           <th ></th>
+		  <th>Product Name</th>
+		  <th>Brand</th>
+		  <th width="15%">MSRP</th>
+		  <th width="15%">Price</th>		  
+		  </TR>
+		  </thead><tbody  id="search">';
 		
 		$cnt = count($arr);
 		
-		$output .= '<tr class="list_search_bg" >
-		<td class="content_list_txt1" align="center"><input type="checkbox" name="chkMain" onClick="chkall();" value=1></td>
-		<td class="content_list_txt1" valign="top"><input type="text" id="title1"  name="title" style="width:130px;" value="'.$_POST['title'].'" /></td>
-		<td class="content_list_txt1" valign="top"><input type="text"  style="width:100px;" name="brand" id="brand1"  value="'.$_POST['brand'].'"/></td>
-		<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;">From:<input type="text" name="frommsrp" id="frommsrp1" size="4" value="'.$_POST['frommsrp'].'"/><br/><br/>To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="tomsrp" id="tomsrp1" size="4" value="'.$_POST['tomsrp'].'"/></td>
-		<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;">From:<input type="text"  name="fromprice" id="fromprice1" size="4" value="'.$_POST['fromprice'].'"/><br/><br/>To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  name="toprice" id="toprice1" size="4" value="'.$_POST['toprice'].'"/></td>';
+		$output .= '<tr>
+		<td  ><input type="checkbox" name="chkMain" onClick="chkall();" value=1></td>
+		<td ><input type="text" id="title1"  name="title"  value="'.$_POST['title'].'" /></td>
+		<td  ><input type="text"   name="brand" id="brand1"  value="'.$_POST['brand'].'"/></td>
+		<td ><table><tr><td  style="border:none">From:</td><td  style="border:none"><input type="text" name="frommsrp" id="frommsrp1" size="5" value="'.$_POST['frommsrp'].'"/></td></tr><tr><td  style="border:none">To:</td><td  style="border:none"> <input type="text" name="tomsrp" id="tomsrp1" size="5" value="'.$_POST['tomsrp'].'"/></td></tr></table></td>
+		<td  valign="top" ><table><tr><td  style="border:none">From:</td><td  style="border:none"><input type="text"  name="fromprice" id="fromprice1" size="5" value="'.$_POST['fromprice'].'"/></td></tr><tr><td  style="border:none">To:</td><td  style="border:none"> <input type="text"  name="toprice" id="toprice1" size="5" value="'.$_POST['toprice'].'"/></td></tr></table>
+		 </td>';
 
 		$output.='</tr>';
-		$output.='<tr><td ID="search" colspan="7">
-		<table cellpadding="0" cellspacing="0" border="0" width="100%" >';	
+
+	
+
+		
 		if(count($arr) > 0)
 			$count=count($arr);
 		if($flag=='0')
-			return $output .= '<tr><td align="center" colspan="7"><font color="orange"><b>No Products Matched</b></font></td></tr>';
+			 $output .= '<tr><td align="center" colspan="7"><font color="orange"><b>No Products Matched</b></font></td></tr>';
 		else
 		{
 			for($i=0;$i<$count; $i++)
 			{
-				if($i % 2 == 0)
-					$classtd='class="content_list_txt1"';
-				else
-					$classtd='class="content_list_txt2"';
+				
 					
 				$temp=$arr[$i]['image'];
 				$img=explode('/',$temp);
@@ -242,21 +302,22 @@
 					$status="Enabled";	
 				
 				$output.='<input type="hidden" name="mainindex" value="">';
-				$output .='<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.' width="5%"><input name="chkSub[]" id="chkSub" type="checkbox" value="'.$arr[$i]['product_id'].'"></td>';
+				$output .='<tr ><td align="center" '.$classtd.' width="5%"><input name="chkSub[]" id="chkSub" type="checkbox" value="'.$arr[$i]['product_id'].'"></td>';
 				
 				$title=(strlen($arr[$i]['title'])>25) ? substr($arr[$i]['title'],0,25).'...' : $arr[$i]['title'] ;
-				$output .= '<td '.$classtd.' align="left" width="21%"><a class="content_list_link" href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$title.'</a></td><td '.$classtd.' width="17%">'.$arr[$i]['brand'].'</td><td '.$classtd.' width="14%" align="right">'.$arr[$i]['msrp'].'</td><td '.$classtd.' width="14%" align="right">'.$arr[$i]['price'].'	</td>';
+				$output .= '<td ><a class="content_list_link" href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$title.'</a></td><td>'.$arr[$i]['brand'].'</td><td>'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['msrp'],2).'</td><td>'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['price'],2).'</td>';
 				
 				$output.='</tr>';
 				$start++;
 			}
 			
+
 			/*$output.='<tr align="center"><td colspan="11"  class="content_list_footer" >'.' '.$prev.' ';
 			
 			for($i=1;$i<=count($paging);$i++)
 				$pagingvalues .= $paging[$i]."  ";*/
 			
-			$output.= '</td></tr></table></td></tr></table>';
+			$output.= '</td></tr></tbody></table></div></div>';
 			
 			//$output.= '</td></tr></table>';
 			return $output;
@@ -277,12 +338,20 @@
 	{
 			
 		
-			
 		$output.='<table cellpadding="0" cellspacing="0" border="0" width="100%" >';
 		
 		$cnt = count($arr);
 		if(count($arr) > 0)
 			$count=count($arr);
+		$output .= '<tr>
+		<td  ><input type="checkbox" name="chkMain" onClick="chkall();" value=1></td>
+		<td ><input type="text" id="title1"  name="title"  value="'.$_GET['title'].'" /></td>
+		<td  ><input type="text"   name="brand" id="brand1"  value="'.$_GET['brand'].'"/></td>
+		<td ><table><tr><td  style="border:none">From:</td><td  style="border:none"><input type="text" name="frommsrp" id="frommsrp1" size="5" value="'.$_GET['frommsrp'].'"/></td></tr><tr><td  style="border:none">To:</td><td  style="border:none"> <input type="text" name="tomsrp" id="tomsrp1" size="5" value="'.$_GET['tomsrp'].'"/></td></tr></table></td>
+		<td  valign="top" ><table><tr><td  style="border:none">From:</td><td  style="border:none"><input type="text"  name="fromprice" id="fromprice1" size="5" value="'.$_GET['fromprice'].'"/></td></tr><tr><td  style="border:none">To:</td><td  style="border:none"> <input type="text"  name="toprice" id="toprice1" size="5" value="'.$_GET['toprice'].'"/></td></tr></table>
+		 </td>';
+
+		$output.='</tr>';
 		if($flag=='0')
 			$output .= '<tr><td align="center" colspan="7"><font color="orange"><b>No Products Matched</b></font></td></tr>';
 		else
@@ -306,7 +375,7 @@
 				$output .='<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.' width="5%"><input name="chkSub[]" id="chkSub" type="checkbox" value="'.$arr[$i]['product_id'].'"></td>';
 				
 				$title=(strlen($arr[$i]['title'])>25) ? substr($arr[$i]['title'],0,25).'...' : $arr[$i]['title'] ;
-				$output .= '<td '.$classtd.' align="left" width="21%"><a class="content_list_link" href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$title.'</a></td><td '.$classtd.' width="17%">'.$arr[$i]['brand'].'</td><td '.$classtd.' width="14%" align="right">'.$arr[$i]['msrp'].'</td><td '.$classtd.' width="14%" align="right">'.$arr[$i]['price'].'</td>';
+				$output .= '<td '.$classtd.' align="left" width="21%"><a class="content_list_link" href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$title.'</a></td><td '.$classtd.' width="17%">'.$arr[$i]['brand'].'</td><td '.$classtd.' width="14%" align="right">'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['msrp'],2).'</td><td '.$classtd.' width="14%" align="right">'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['price'],2).'</td>';
 				
 				$output.='</tr>';
 				//$output.='<input type="hidden" name="productid[]" value="'.$arr[$i]['product_id'].'" />';

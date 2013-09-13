@@ -47,16 +47,22 @@ class Core_CCategoryBulkUpload
 		  $tsvfilename= $_FILES['category_file']['tmp_name'];			       
 		   
 		  $legal_extentions = array("tsv");  
+
+
+
 		  $file_ext = strtolower(end(explode(".",$_FILES['category_file']['name']))); 
+		   
 		  if (!in_array ($file_ext, $legal_extentions))
 		  {
-   			return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
+   			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
           	  }			   
 			
 		  $file = explode(".",$_FILES['product_file']['name']);	
 		  if(count($file) > 2  || $file[1] != 'tsv')
 		  {			
-  			return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
+  			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
 		  }	 	
 				
 
@@ -103,7 +109,8 @@ class Core_CCategoryBulkUpload
 									$check->checkCatExists($pro[0],$pro[3]);
 									if($check->checkCatExists($pro[0],$pro[3]))
 									{
-									return '<div class="error_msgbox">'. $pro[0]. ' Category Name Already Exists </div>';
+									return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> '. $pro[0]. ' Category Name Already Exists </div>';
 									}
 									if($pro[3]!=0 && $pro[2]!='parent')
 									{
@@ -159,20 +166,24 @@ class Core_CCategoryBulkUpload
 										$fail_cnt++;
 */
 								}
-								return '<div class="success_msgbox">'. $pro_cnt . ' Categories Created Successfullly . '.$fail_cnt .' Categories Not Created </div>';
+								return '<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button> '. $pro_cnt . ' Categories Created Successfullly . '.$fail_cnt .' Categories Not Created </div>';
 							}
 							else
-								return '<div class="error_msgbox">Please Check The Format Of TSV File  </div>';
+								return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Please Check The Format Of TSV File  </div>';
 							
 							fclose($fp);
 		
 						}
 						else
-							return '<div class="error_msgbox">Error Uploading File</div>';	
+							return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Error Uploading File</div>';	
 							
 				   }
 				   else
-						   return '<div class="error_msgbox">TSV File is not created </div>';	
+						   return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> TSV File is not created </div>';	
 				 
 			}
 	}

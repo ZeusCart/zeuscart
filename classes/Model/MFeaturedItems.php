@@ -106,6 +106,7 @@ class Model_MFeaturedItems
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showSubHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['categories'] = Display_DUserRegistration::showSubCat();
 		Bin_Template::createTemplate('index.html',$output);
@@ -172,6 +173,7 @@ class Model_MFeaturedItems
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		Bin_Template::createTemplate('index.html',$output);
 	}
@@ -245,6 +247,7 @@ class Model_MFeaturedItems
 		$output['showBestSellingProducts']=Core_CFeaturedItems::showBestSellingProducts();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
@@ -321,7 +324,8 @@ class Model_MFeaturedItems
 		include_once('classes/Core/CHome.php');
 		include('classes/Lib/TagClouds.php');
 		include('classes/Core/CTagClouds.php');
-		
+		include('classes/Core/CUserRegistration.php');
+		include('classes/Display/DUserRegistration.php');
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -340,7 +344,12 @@ class Model_MFeaturedItems
 		$output['categories'] = Display_DUserRegistration::showMainCat();		
 		$output['tagClouds']=Core_CTagClouds::displayTagClouds();
 		$output['showBestSellingProducts']=Core_CFeaturedItems::showBestSellingProducts();
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
+		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
+
 		$default=new Core_CLastViewedProducts();
 		$output['lastviewedproducts']=$default->lastViewedProducts();
 		$default=new Core_CFeaturedItems();

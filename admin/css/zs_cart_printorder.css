@@ -1,0 +1,75 @@
+/***************************************************************************
+* Product Name			: AJ Shopping Cart
+* Version 				: 1.0
+* Release Date			: 31 October 2009
+* Copyright				: (C) 2009 AJ Square Inc.
+* Email					: info@ajsquare.com
+* Company URL			: www.ajsquare.com
+ ***************************************************************************/
+ 
+/****************************************************************************
+* Licence Agreement:
+* This program is a Commercial licensed software.You are not authorized to redistribute it and/or   modify/and or sell it under any publication either user and enterprise versions of the License   (or) any later version is applicable for the same.If you have received this software without a license, you must not use it, and you must destroy your copy of it immediately. If anybody illegally uses this software, please contact info@ajsquare.com.
+*****************************************************************************/
+
+@charset "utf-8";
+/* ZS Cart CSS Document */ 
+
+body, TD
+{
+	font-family: Verdana;
+	font-size: 12px;
+}
+
+.MainTable
+{
+	border: solid 2px #CACACA;
+}
+
+.Bar
+{
+	background-color: #cccccc;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+.BodyContainer
+{
+	width: 100%;
+}
+
+.Heading
+{
+	font-size: 18pt;
+	font-weight: bold;
+	font-family: Arial;
+}
+
+.Summary
+{
+	font-style: italic;
+}
+
+.Heading2
+{
+	font-weight: bold;
+	font-style: italic;
+}
+
+.Heading3
+{
+	font-weight: bold;
+	font-size: 11pt;
+}
+
+.InvoiceTitle {
+	font-size: 15px;
+	font-weight: bold;
+	background-color: black;
+	color: white;
+}
+
+.PageBreak {
+	page-break-after: always;
+}
+

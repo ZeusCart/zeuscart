@@ -244,8 +244,7 @@ class Core_CFeaturedItems
 	 */
 	function featuredProductsHidden()
 	{
-		 $sql = "SELECT a.*,sum(c.rating)/count(c.user_id) as rating FROM `products_table` a left join product_reviews_table c on a.product_id=c.product_id WHERE  is_featured=1 and a.status=1 and a.intro_date <= '".date('Y-m-d')."' and  a.category_id !='63' group by a.product_id  ORDER BY rand( ) ";
-	
+		 $sql = "SELECT a.*,sum(c.rating)/count(c.user_id) as rating FROM `products_table` a left join product_reviews_table c on a.product_id=c.product_id WHERE  is_featured=1 and a.status=1 and a.intro_date <= '".date('Y-m-d')."' and  a.category_id !='63' group by a.product_id  ORDER BY rand( ) ";	
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
 		{

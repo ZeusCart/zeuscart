@@ -44,53 +44,51 @@ class Display_DSocialLinks
 	{
 		if(count($arr) < 1)
 			$output .='<div width="100%" class="exc_msgbox">No social link  is created still now.</div>';
-				
+
 		else 
 		{
-			$output = '<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-             	 <tr>
-                <td align="center" class="content_list_head">S.No</td>
-                <td class="content_list_head" align="left">Title</td>				
-                <td class="content_list_head" align="left">Logo</td>
-		 <td class="content_list_head" align="left">Url</td>
-		<td class="content_list_head" align="center">Delete</td>
-		<td class="content_list_head" align="center">Status</td>				
-                </tr>
-                <tr>
-                <td colspan="6" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-                </tr>';
-		for ($i=0;$i<count($arr);$i++)
-		{
-			
-			if($arr[$i]['status']==1)
+			$output = '<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+			<thead class="green_bg">
+			<tr>
+			<th><input type="checkbox"  onclick="toggleChecked(this.checked)" name="socialcheckall"></th>
+			<th>S.No</th>
+			<th>Title</th>				
+			<th>Logo</th>
+			<th>Url</th>
+			<th>Status</th>				
+			</tr>
+
+			</thead>
+			<tbody>';
+			for ($i=0;$i<count($arr);$i++)
 			{
-				$status='<span title="Active" class="active_link" title="Active"></span>';
+
+				if($arr[$i]['status']==1)
+				{
+					$status='<span title="Active" class="active_link" title="Active">Active</span>';
+				}
+				else
+				{
+					$status='<span title="Inactive" class="inactive_link" title="Suspend">Inactive</span>';
+				}
+
+
+				$output.='<input type="hidden" name="mainindex" value="">';
+				$output .= '<tr >
+				<td><input type="checkbox" name="socialLinkcheck[]" class="chkbox" value="'.$arr[$i]['social_link_id'].'"></td>
+				<td >'.($i+1).'</td>
+				<td><a href="?do=sociallink&action=edit&id='.$arr[$i]['social_link_id'].'">'.$arr[$i]['social_link_title'].'</a></td>
+				<td><img src="../'.$arr[$i]['social_link_logo'].'"  ></td>
+				<td>'.$arr[$i]['social_link_url'].'</td>
+				
+				<td '.$classtd.' align="center">'.$status.'</td>
+				</tr>';
 			}
-			else
-			{
-				$status='<span title="Inactive" class="inactive_link" title="Suspend"></span>';
-			}
-		
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
-			$output.='<input type="hidden" name="mainindex" value="">';
-			$output .= '<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);">
-				<td '.$classtd.' align="center">'.($i+1).'</td>
-			<td '.$classtd.' align="left">'.$arr[$i]['social_link_title'].'</td>
-			<td '.$classtd.' align="left"><img src="../'.$arr[$i]['social_link_logo'].'"  ></td>
-			<td '.$classtd.' align="left">'.$arr[$i]['social_link_url'].'</td>
-			<td '.$classtd.' align="center" style="padding-left:3px; padding-right:3px;" ><span><a href="?do=sociallink&amp;action=edit&amp;id='.$arr[$i]['social_link_id'].'"><img border="0" alt="Edit" title="Edit Social Link" src="images/icon_edit1.gif"></a> </span> &nbsp;&nbsp;&nbsp;&nbsp;				 
-			<span><a href="?do=sociallink&action=delete&id='.$arr[$i]['social_link_id'].'" 
-			onclick="return confirm(\'Are you sure want to Delete this Social Link?\')" class="delete_bttn">&nbsp;</a> </span></td>
-			<td '.$classtd.' align="center">'.$status.'</td>
-			</tr>';
-		}
-		$output .= '
-		<tr><td colspan="6" align="center" class="content_list_txt1"><input type=submit value="Update Page Settings" class="all_bttn"></td></tr>
-		</table>';
-	
+			$output .= '
+			</tbody>
+			</table>';
+
 		}
 		return $output;
 	}

@@ -127,7 +127,7 @@ class Display_DFooterLinks
 			$output['msg']=$Err->messages;
 		}
 		$out = '<div id="myaccount_div">
-		<form class="form-horizontal"  name="contactus" action="?do=contactus&action=validatecontactus" method="post">
+		<form class="form-horizontal"  name="contactus" action="'.$_SESSION['base_url'].'/index.php?do=contactus&action=validatecontactus" method="post">
 
             <div class="control-group">
               <label for="inputEmail" class="control-label">Name  <i class="red_fnt">*</i></label>

@@ -18,20 +18,23 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
-<form name="frmcontent" method="post" action="" enctype="multipart/form-data">
-  <table width="97%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-      <td colspan="3" align="left" class="content_title">Best Selling Products <!--&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dbsp', 'Best Selling Products', 'Add here')" onmouseout="HideHelp('dbsp');">
-			<div id="dbsp" style="left: 50px; top: 50px;"></div>--></td>
-    </tr>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span12"><h2>Best Selling Products
+
+</h2>
+    </div>
+     
+
+  </div>
+</div>
+
+
+  <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">
+<AJDF:output>$showcontent</AJDF:output>
    
-    <tr>
-      <td align="left" style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$showcontent</AJDF:output>
-      </td>
-    </tr>
-  </table>
-</form>
+</div></div>
 <AJDF:output>include file="footer.html"</AJDF:output>
 
-</body></html>

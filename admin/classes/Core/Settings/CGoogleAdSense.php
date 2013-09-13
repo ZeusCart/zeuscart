@@ -74,16 +74,20 @@ class Core_Settings_CGoogleAdSense
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
 			{
-				return '<div class="success_msgbox">Updated Successfully</div>';
+				return '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Well done!</strong> Updated Successfully</div>';
 			}
 			else
 			{
-				return '<div class="error_msgbox">Not Updated!!! Try Again </div>';
+				return '<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button> Not Updated!!! Try Again </div>';
 			}
 		}
 		else
 		{
-			return '<div class="error_msgbox">Please Insert a Google adsense Script Code</div>';
+			return '<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button> Please Insert a Google adsense Script Code</div>';
 		}
 			
 	}

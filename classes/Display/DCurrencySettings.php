@@ -47,9 +47,9 @@ class Display_DCurrencySettings
        		 foreach($arr as $row)
 		{
 			if ($_SESSION['currencysetting']['selected_currency_settings']['country_code']==$row['country_code'])
-				$output.='<li>'.'<h1><img src="images/flags/'.$row['country_code'].'.gif" alt="'.$row['country_code'].'" border="0" /><span>'.$row['country_name'].'</span></h1></li>';
+				$output.='<li>'.'<h1><img src="'.$_SESSION['base_url'].'/images/flags/'.$row['country_code'].'.gif" alt="'.$row['country_code'].'" border="0" /><span>'.$row['country_name'].'</span></h1></li>';
 			else
-				$output.='<li>'.'<a href="?do=changecurrency&currency='.$row['id'].'"><img src="images/flags/'.$row['country_code'].'.gif" alt="'.$row['country_code'].'" border="0"/><span>'.$row['country_name'].'</span></a></li>';
+				$output.='<li>'.'<a href="'.$_SESSION['base_url'].'/index.php?do=changecurrency&currency='.$row['id'].'"><img src="images/flags/'.$row['country_code'].'.gif" alt="'.$row['country_code'].'" border="0"/><span>'.$row['country_name'].'</span></a></li>';
 		}
 	
 		$output.='</ul>';

@@ -25,12 +25,16 @@
 		<do name="adminproductreview" model="MAdminProductReview" function="searchReviewDetails" action="search"/> 
 		<do name="adminproductreview" model="MAdminProductReview" function="reviewAcceptStatus" action="accept"/>
 		<do name="adminproductreview" model="MAdminProductReview" function="reviewDenyStatus" action="deny"/>
+			
+		<do name="adminproductreview" model="MAdminProductReview" function="deleteReview" action="delete"/>	
+			
 		<do name="adminproductreview" model="MAdminProductReview" action="autoc" function="autoComplete" />
 		
 		<do name="adminadduser" model="MAdminAddUsrRegistration" function="showValidateRegPage" action="addreg"/>
 		<do name="adminadduser" model="MAdminAddUsrRegistration" function="displayRegPage"/>
 		
 		 <do name="adminreg" model="MAdminUserRegistration" function="showRegistrationPage"/> 
+		 
 		 <do name="deletereg" model="MAdminUserRegistration" function="deleteRegistration" action="delete"/> 
 		 <do name="editreg" model="MAdminUserRegistration" function="editRegistration" action="edit"/> 
 		 <do name="updatereg" model="MAdminUserRegistration" function="updateRegistration" action="update"/>
@@ -48,14 +52,23 @@
 		 
 		 <do name="showcse" model="MAdminAddUsrRegistration" function="showCse"/>
 		 <do name="savecse" model="MAdminAddUsrRegistration" function="saveCse"/>
+		 
+		 <do name="addUserAccountLight" model="MAdminUserRegistration" function="displayRegPageLight" />
+		 
+		 
+		 <do name="addUserAccountLight" model="MAdminUserRegistration" function="showValidateRegPageLight"  action="addreg"/>	
 				
 		<do name="homepage" model="MHome" function="homePage" />
 		
 		<do name="home" model="MAdminHome" function="homePage" />
 		<!--<do name="home" model="MAdminHome" function="getLatestCustomers" />-->
 		
-		<do name="site" model="MSiteSettings" function="siteMoto" />
-		<do name="site" model="MSiteSettings" action="update" function="updateSiteMoto" />
+		<do name="site" model="MSiteSettings" function="siteSettings" />
+		<do name="site" model="MSiteSettings" action="update" function="updatesiteSettings" />
+		
+		<do name="domainname" model="MDomainName" function="domainName" />
+		<do name="domainname" model="MDomainName" action="update" function="updateDomainName" />
+		
 		
 		<do name="sitemail" model="MAdminEmailSettings" function="siteEmail" />
 		<do name="sitemail" model="MAdminEmailSettings" action="update" function="updateSiteEmail" />
@@ -82,6 +95,15 @@
 		<do name="createpage" model="MCreatePage" action="deletepage" function="deleteCustomPage" />  
 		<do name="createpage" model="MCreatePage" action="add" function="addPageSettings" />  
 		<do name="createpage" model="MCreatePage" action="update" function="updateStatus" /> 
+		
+		-------------Dynamiccms----------------------------------
+		<do name="dynamiccms" model="MDynamicCms"  function="createDymnaicPage"  /> 
+		<do name="dynamiccms" model="MDynamicCms" action="add" function="addDynamicPageSettings" /> 
+		<do name="dynamiccms" model="MDynamicCms"  function="showDynamicCmsList" action="show"/> 
+			
+		<do name="dynamiccms" model="MDynamicCms"  function="showEditDynamicCms" action="edit"/>
+		<do name="dynamiccms" model="MDynamicCms"  function="updateEditDynamicCms" action="update"/>
+		<do name="dynamiccms" model="MDynamicCms"  function="deleteDynamicCms" action="delete"/>
 		---------------------------Social Link ----------------------------------------------
 		
 		<do name="sociallink" model="MSocialLinks" function="displaySocialLinks" />  
@@ -110,7 +132,7 @@
         <do name="addcrossproduct" model="MAddCrossProducts" action="showproducts" function="showProducts"/>    
         <do name="addcrossproduct" model="MAddCrossProducts" action="updateProducts" function="updateProducts"/>
 		
-		<do name="selectcategory" model="MCategorySelection" function="showCategory"/>
+	<do name="selectcategory" model="MCategorySelection" function="showCategory"/>
         <do name="selectcategory" model="MCategorySelection" action="showsubcat" function="showSubCategory"/>
         <do name="selectcategory" model="MCategorySelection" action="showproducts" function="showProducts"/>    
         <do name="selectcategory" model="MCategorySelection" action="updateProducts" function="updateProducts"/>   
@@ -129,11 +151,14 @@
          
         <do name="addattributes" model="MAddAttributes" function="showAttributes"/> 
         <do name="addattributes" model="MAddAttributes" action="add" function="addAttributes"/> 
+	<do name="addattributes" model="MAddAttributes" action="insert" function="insertAttributes"/> 
 		<do name="addattributes" model="MAddAttributes" action="disp" function="displayAttributes"/> 
 		<do name="addattributes" model="MAddAttributes" action="edit" function="editAttributes"/>
 		<do name="addattributes" model="MAddAttributes" action="delete" function="deleteAttributes"/>
 		
         <do name="addattributevalues" model="MAddAttributeValues" function="showAttributeValues"/> 
+	
+	<do name="addattributevalues" model="MAddAttributeValues" action="showadd" function="showAddAttributeValue"/>	
         <do name="addattributevalues" model="MAddAttributeValues" action="add" function="addAttributeValues"/>	
 	<do name="addattributevalues" model="MAddAttributeValues" action="disp" function="displayAttributeValues"/>	
 		<do name="addattributevalues" model="MAddAttributeValues" action="edit" function="editAttributeValues"/>	
@@ -224,11 +249,20 @@
 		<do name="manageproducts" model="MManageProducts" action="gettitle" function="getTitle" />
 		<do name="manageproducts" model="MManageProducts" action="autoc" function="autoComplete" />
 		
-		<do name="selectfeatured" model="MSelectFeaturedItems" function="showCategory"/>
-        <do name="selectfeatured" model="MSelectFeaturedItems" action="showsubcat" function="showSubCategory"/>
-        <do name="selectfeatured" model="MSelectFeaturedItems" action="showproducts" function="showProducts"/>    
-        <do name="selectfeatured" model="MSelectFeaturedItems" action="updateProducts" function="updateProducts"/>
+		<do name="manageproducts" model="MManageProducts" action="digiteditprod" function="editDigitalProduct" />
 		
+		<do name="manageproducts" model="MManageProducts" action="updatedigitprod" function="updateDigitalProduct" />	
+		
+			
+		<do name="manageproducts" model="MManageProducts" action="gifteditprod" function="editGiftProduct" />
+		
+		<do name="manageproducts" model="MManageProducts" action="updategiftprod" function="updateGiftProduct" />	
+		
+		<do name="selectfeatured" model="MSelectFeaturedItems" function="showCategory"/>
+		<do name="selectfeatured" model="MSelectFeaturedItems" action="showsubcat" function="showSubCategory"/>
+		<do name="selectfeatured" model="MSelectFeaturedItems" action="showproducts" function="showProducts"/>    
+		<do name="selectfeatured" model="MSelectFeaturedItems" action="updateProducts" function="updateProducts"/>
+			
 		<do name="aprodetail" model="MProductDetail" function="showProducts" />
 		<do name="aprodetail" model="MProductDetail" action="showprod" function="productDetail"	/>
 		
@@ -269,11 +303,17 @@
 		<do name="disporders" model="MOrderManagement" function="dispOrders" action="insert" />
 		<do name="disporders" model="MOrderManagement" function="dispDetailOrders" action="detail" />
 		<do name="disporders" model="MOrderManagement" function="updateOrders" action="update" /><!-- Modified -->
+		<do name="disporders" model="MOrderManagement" function="cancelOrders" action="cancel" />
+		<do name="disporders" model="MOrderManagement" function="printOrders" action="print" />
+		<do name="disporders" model="MOrderManagement" function="emailOrders" action="mail" />
+		
 		<do name="disporders" model="MOrderManagement" function="dispOrders" action="delete" />
 		<do name="disporders" model="MOrderManagement" action="autoc" function="autoComplete" />
-		
+		<do name="disporders" model="MOrderManagement" function="viewOrderDetail" action="viewdetail" />
 		<do name="displatestorders" model="MLatestOrders" function="dispLatestOrders" />
-			
+		
+		
+		<do name="productentry" model="MProductEntry" function="checkProductAlias" action="productalias"/>	
  	 	<do name="productentry" model="MProductEntry" function="displayEntry"/>
 		<do name="productentry" model="MProductEntry" function="displaySubCategory" action="displaySubCategory"/>
 		
@@ -286,7 +326,12 @@
 		<do name="productentry" model="MProductEntry" function="editProductEntry" action="edit"/>
 		<do name="productentry" model="MProductEntry" function="searchProducts" action="search"/>
 		
+		<do name="digitproductentry" model="MProductEntry" function="displayForDigitalEntry"/>
+		<do name="digitproductentry" model="MProductEntry" function="insertDigitalProduct" action="insert"/>
 		
+		
+		<do name="giftproductentry" model="MProductEntry" function="displayForGiftEntry"/>
+		<do name="giftproductentry" model="MProductEntry" function="insertGiftProduct" action="insert"/>
 		
 		<do name="msrpmgt" model="MProductMsrpManagement" function="displayMsrpByQuantity"/>
 		<do name="msrpmgt" model="MProductMsrpManagement" function="insertMsrpByQuantity" action="insert"/>
@@ -347,11 +392,18 @@
 		<do name="activity" model="MAdminActivity" function="showReport"/>
 		<do name="deleteActivity" model="MAdminActivity" function="deleteActivity"/>
 		<do name="addUserAccount" model="MAdminUserRegistration" function="displayRegPage"/>
-		<do name="addUserAccount" model="MAdminUserRegistration" action="addreg" function="showValidateRegPage"/>						
+		<do name="addUserAccount" model="MAdminUserRegistration" action="addreg" function="showValidateRegPage"/>
+		<do name="customerdetail" model="MAdminUserRegistration" function="customerDetail" action="detail"/>	
 		<do name="userorder" model="MUserOrder" function="showOrder"/>
-		<do name="loadSubcat" model="MUserOrder" function="showSubcat"/>		
+		<do name="loadSubcat" model="MUserOrder" function="showSubcat"/>
+		<do name="loadSubUnder" model="MUserOrder" function="showSubUnderCat"/>	
 		<do name="loadProduct" model="MUserOrder" function="showProduct"/>		
-		<do name="loadQty" model="MUserOrder" function="showQty"/>						
+		<do name="loadQty" model="MUserOrder" function="showQty"/>					
+		<do name="loadusermultibilladdress" model="MUserOrder" function="showUserMultiBillAddress"/>
+		
+		<do name="loadusermultishipaddress" model="MUserOrder" function="showUserMultiShipAddress"/>
+		
+		<do name="loaduseraddressdetails" model="MUserOrder" function="showUserAddressDetails" /> 	
 		<do name="addUserProduct" model="MUserOrder" function="addProduct"/>						
 		<do name="addUserProduct" action="delete" model="MUserOrder" function="delProduct"/>								
 		<do name="addUserOrder" action="create" model="MUserOrder" function="createOrder"/>								
@@ -401,9 +453,53 @@
 		<do name="news" model="MNewsManagement" action="disp"  function="viewNews" />
 		<do name="news" model="MNewsManagement" action="edit" function="editNews" />
 		<do name="news" model="MNewsManagement" action="delete" function="deleteNews" />
-		<do name="news" model="MNewsManagement" action="status" function="statusNews" />
+		<do name="news" model="MNewsManagement" action="status" function="statusNews" />		
+		
+		----------------Home page Ads----------------------------------------	
+		
+		<do name="homepageads" model="MHomePageAds" function="showHomePageAdsList" />
+		
+		<do name="homepageads" model="MHomePageAds" function="showAddHomePageAds" action="show" />
+		
+		<do name="homepageads" model="MHomePageAds" function="insertHomePageAds" action="add" />
+		
+		<do name="homepageads" model="MHomePageAds" function="deleteHomePageAds" action="delete" />
+		
+		<do name="homepageads" model="MHomePageAds" function="showEditHomePageAds" action="edit"/>
+		
+		<do name="homepageads" model="MHomePageAds" function="updateEditHomePageAds" action="update" />
+		
+		<do name="homepageads" model="MHomePageAds" function="acceptHomePageAds" action="accept"/>
+		
+		<do name="homepageads" model="MHomePageAds" function="denyEditHomePageAds" action="deny" />
 		
 		
+		---------------------Invoice--------------------
+		
+		<do name="userinvoice" model="MOrderManagement" function="showAddnvoice"  action="show" />
+		
+		<do name="userinvoice" model="MOrderManagement" function="insertInvoice"  action="add" />
+		
+		
+		------------------------Menus----------------------------------------
+		
+		<do name="menus" model="MMenuManagement" function="showMenuManagament"   />
+		
+		<do name="menus" model="MMenuManagement" function="insertMenus"   action="add"/>
+		<do name="menus" model="MMenuManagement" function="deleteMenus"   action="delete"/>
+		<do name="menus" model="MMenuManagement" function="selectedMenuTypeList"   action="type"/>
+	
+		<do name="menus" model="MMenuManagement" function="insertNavigation"   action="navigation"/>
+		
+		<do name="menus" model="MMenuManagement" function="addCategory"   action="addcategory"/>
+		-------------Customer Group Management-----------------------------------
+		<do name="custgroup" model="MCustomerGroup" function="showCustomerGroup"/>
+		<do name="custgroup" model="MCustomerGroup" function="ajaxCustomerGroup" action="search" />		
+		<do name="custgroup" model="MCustomerGroup" function="displayCustGrpRegPage" action="add"/>
+		<do name="custgroup" model="MCustomerGroup" function="insertCustomerGroup" action="insert"/>		
+		<do name="custgroup" model="MCustomerGroup" function="editCustomerGroup" action="edit"/>
+		<do name="custgroup" model="MCustomerGroup" function="updateCustomerGroup" action="update"/>
+		<do name="custgroup" model="MCustomerGroup" function="deleteCustomerGroup" action="delete"/>
 	</domapping>
 	
 </controller-config>

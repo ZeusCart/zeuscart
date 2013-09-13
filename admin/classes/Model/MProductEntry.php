@@ -261,5 +261,199 @@ class Model_MProductEntry
 		echo Core_CProductEntry::searchProducts();	
 	}
 		
+	/**
+	 * Function displays a template for adding new digital product 
+	 * 
+	 * 
+	 * @return array
+	 */
+	function displayForDigitalEntry()
+	{
+
+		include("classes/Lib/HandleErrors.php");
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CProductEntry.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Display/DProductEntry.php');	
+		
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
+
+		$output['val']=Core_CProductEntry::stripSlashesForOut($output['val']);
+		$output['val']=Core_CProductEntry::getChecked($output['val']);
+	
+		$output['username']=Core_CAdminHome::userName();
+		
+		$output['currentDate']=date('l, M d, Y H:i:s');		
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];		
+		$output['currencycode']=$_SESSION['currency']['currency_code'];	
+		$output['dispbrand']=Core_CProductEntry::dispBrand($output['val']['selbrand']);
+		$output['dropcategory'] =Core_CProductEntry::displayCategory($output['val']['selcatgory']);	
+		$output['addmoremsrp'] =Core_CProductEntry::addMoreMsrpLink();  
+		$output['allproducts']=Core_CProductEntry::showProducts();
+		
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{				
+			Bin_Template::createTemplate('digitproductentry.html',$output);
+		}
+		else
+		{
+		   	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+		
+			Bin_Template::createTemplate('Errors.html',$output);
+		}	
+
+	}	
+	/**
+	 * Function adds or inserts a new digitalproduct  
+	 * 
+	 * 
+	 * @return array
+	 */
+	function insertDigitalProduct()
+	{ 
+		
+		include("classes/Lib/CheckInputs.php");
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CProductEntry.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Display/DProductEntry.php');		
+		
+		$obj = new Lib_CheckInputs('digitalproductreg');
+		
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];		
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{	
+			$output['message']=Core_CProductEntry::insertDigitalProduct();
+			$output['dispbrand']=Core_CProductEntry::dispBrand();
+			$output['dropcategory'] =Core_CProductEntry::displayCategory();	
+			$output['addmoremsrp'] =Core_CProductEntry::addMoreMsrpLink();  
+			$output['allproducts']=Core_CProductEntry::showProducts();
+			
+			Bin_Template::createTemplate('digitproductentry.html',$output);
+			
+		}
+		else
+		{
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			
+			Bin_Template::createTemplate('Errors.html',$output);
+		}
+
+
+	}
+
+	/**
+	 * Function displays a template for adding new gift product 
+	 * 
+	 * 
+	 * @return array
+	 */
+	function displayForGiftEntry()
+	{
+
+		include("classes/Lib/HandleErrors.php");
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CProductEntry.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Display/DProductEntry.php');	
+		
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
+
+		$output['val']=Core_CProductEntry::stripSlashesForOut($output['val']);
+		$output['val']=Core_CProductEntry::getChecked($output['val']);
+	
+		$output['username']=Core_CAdminHome::userName();
+		
+		$output['currentDate']=date('l, M d, Y H:i:s');		
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];		
+		$output['currencycode']=$_SESSION['currency']['currency_code'];	
+		$output['dispbrand']=Core_CProductEntry::dispBrand($output['val']['selbrand']);
+		$output['dropcategory'] =Core_CProductEntry::displayCategory($output['val']['selcatgory']);	
+		$output['addmoremsrp'] =Core_CProductEntry::addMoreMsrpLink();  
+		$output['allproducts']=Core_CProductEntry::showProducts();
+		
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{				
+			Bin_Template::createTemplate('giftproductentry.html',$output);
+		}
+		else
+		{
+		   	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+		
+			Bin_Template::createTemplate('Errors.html',$output);
+		}	
+
+	}
+	/**
+	 * Function adds or inserts a new giftproduct  
+	 * 
+	 * 
+	 * @return array
+	 */
+	function insertGiftProduct()
+	{ 
+		
+		include("classes/Lib/CheckInputs.php");
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CProductEntry.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Display/DProductEntry.php');		
+		
+		$obj = new Lib_CheckInputs('giftproductreg');
+		
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];		
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{	
+			$output['message']=Core_CProductEntry::insertGiftProduct();
+			$output['dispbrand']=Core_CProductEntry::dispBrand();
+			$output['dropcategory'] =Core_CProductEntry::displayCategory();	
+			$output['addmoremsrp'] =Core_CProductEntry::addMoreMsrpLink();  
+			$output['allproducts']=Core_CProductEntry::showProducts();
+			
+			Bin_Template::createTemplate('giftproductentry.html',$output);
+			
+		}
+		else
+		{
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			
+			Bin_Template::createTemplate('Errors.html',$output);
+		}
+
+
+	}
+		
+	/**
+	 * Function is used to check the product alias  
+	 * 
+	 * 
+	 * @return array
+	 */	
+	 
+	function checkProductAlias()
+	{
+
+		include('classes/Core/Settings/CManageProducts.php');
+		echo Core_CProductEntry::checkProductAlias();
+	}
+	
 }
 ?>

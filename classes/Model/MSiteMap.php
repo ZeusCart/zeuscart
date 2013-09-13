@@ -69,9 +69,10 @@ class Model_MSiteMap
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
-		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();		
+		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['sitemap']=Core_CSiteMap::showMap();
 		$output['cartcount']=Core_CAddCart::countCart();
 		Bin_Template::createTemplate('sitemap.html',$output);

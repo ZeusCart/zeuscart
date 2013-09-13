@@ -33,6 +33,21 @@ class Core_CHome
 {
 
 	/**
+	 * This function is used to get  the home page ads from  db
+	 * 
+	 * 
+	 * @return string
+	 */
+	function showHomePageAds()
+   	{
+		$sqlselect = "SELECT * FROM home_page_ads_table WHERE status ='1'"; 
+		$obj = new Bin_Query();
+		if($obj->executeQuery($sqlselect))
+		$records=$obj->records;
+		return $records;
+   	}
+
+	/**
 	 * This function is used to get  the site logo from  db
 	 * 
 	 * 
@@ -40,17 +55,17 @@ class Core_CHome
 	 */
 	function getLogo()
    	{
-		$sqlselect = "SELECT set_value FROM admin_settings_table WHERE set_name='Site Logo'";
+		$sqlselect = "SELECT *  FROM admin_settings_table WHERE set_id='1'";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sqlselect))
 		{
-			if(!file_exists($obj->records[0]['set_value']))
+			if(!file_exists($obj->records[0]['site_logo']))
 			{
 			$output =  "images/logo/logo.gif";	
 			}
 			else
 			{
-			$output =  $obj->records[0]['set_value'];	
+			$output =  $obj->records[0]['site_logo'];	
 			}			
 		}
 		else
@@ -92,19 +107,33 @@ class Core_CHome
 	 */
 	function pageTitle()
 	{
-			
-			$sqlselect = "SELECT set_value FROM admin_settings_table WHERE set_name='Site Moto'";
-			$obj = new Bin_Query();
-			if($obj->executeQuery($sqlselect))
-			{
-				$output =  $obj->records[0]['set_value'];
-			}
-			else
-			{
-				$output = "Smart Shopping !";
-			}
-			return $output;
-	}
+	
+   		include_once('classes/Display/DHome.php');
+		if($_GET['prodid']!='')
+		{
+			$sql= "SELECT product_id,title,meta_desc,meta_keywords FROM products_table where  	product_id= '".$_GET['prodid']."' and status=1"; 
+			$query = new Bin_Query();
+			$query->executeQuery($sql);		
+			return  Display_DHome::pageTitle($query->records);
+		}
+		elseif($_GET['id']!='' && $_GET['do']=='category')
+		{
+			$catid=explode('-',$_GET['id']);
+			$catid=$catid[1];
+			$sql= "SELECT * FROM category_table where category_id= '".$catid."' ";
+			$query = new Bin_Query();
+			$query->executeQuery($sql);		
+			return  Display_DHome::pageCategory($query->records);
+		}
+		else
+		{
+			$sql= "SELECT * FROM admin_settings_table where set_id= '1'";
+			$query = new Bin_Query();
+			$query->executeQuery($sql);		
+			return  Display_DHome::siteMetaInformation($query->records);
+		}
+		
+     	}
 	/**
 	 * This function is used to get  the skin name from  db
 	 * 
@@ -380,6 +409,21 @@ class Core_CHome
 		$mail->Subject('contact');
 		$mail->Body($mail_content);
 		$mail->Send();
+	}
+	/**
+	 * This function is used to get  the dynamic content page from db
+	 * 
+	 * @return array
+	 */
+	function showDynamicContent()
+	{
+		$query = new Bin_Query(); 
+		$sql = "SELECT * from cms_table WHERE  	cms_id ='".trim($_GET['id'])."'";
+		$query->executeQuery($sql);
+		$records=$query->records[0];
+		
+		return $records;
+
 	}
 }
 ?>	

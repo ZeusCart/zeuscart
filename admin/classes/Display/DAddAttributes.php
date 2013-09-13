@@ -50,36 +50,47 @@ class Display_DAttributeSelection
 	{
 		$output = "";
 		
-		$output .= '<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
+		$output .= '
 
-                <td class="content_list_head" width=5% align="center">S.No</td>
-                <td class="content_list_head" width=60%>Attribute Name</td>
-                <td colspan="2" align="center" class="content_list_head" width=8%>Actions</td>
-                </tr>
-              <tr>
-                <td colspan="4" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              </tr>';
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+	
+		<thead class="green_bg">
+		<tr>
+		  <th><input type="checkbox"  onclick="toggleChecked(this.checked)" name="attributecheckall"></th>
+	     <th>S.No</th>
+         <th>Attribute Name</th>
+           
+
+		</tr>
+		</thead><tbody>';
 		//$output.='<th>S.no.</th><th>Attribute Name</th><th colspan="2">Options</th>';
 		for ($i=0;$i<count($arr);$i++)
 		{
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
+	
 				
-			$output.='<input type="hidden" name="mainindex" value="">';
-			$output .= '<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);">
-			<td align="center" '.$classtd.'>'.($val+1).'</td>
-			<td align="" '.$classtd.'>'.$arr[$i]['attrib_name'].'</td>';
-			$output.='<td align="center" '.$classtd.'><input type="button" class="edit_bttn" name="Edit"  title="Edit" value="" onclick=edit('.$arr[$i]['attrib_id'].') /></td>';
-			$output.='<td align="center" '.$classtd.'><input type="button" name="Delete" class="delete_bttn" title="Delete" value="" onclick=callattribs('.$arr[$i]['attrib_id'].') /></td></tr>';
+			
+			$output .= '<tr>
+			<td><input type="checkbox" name="attributeCheck[]" class="chkbox" value="'.$arr[$i]['attrib_id'].'"></td>
+			<td align="left">'.($val+1).'</td>
+			<td align="left"><a href="?do=addattributes&action=disp&id='.$arr[$i]['attrib_id'].'">'.$arr[$i]['attrib_name'].'</a></td>';
+		
+			//$output.='<td align="center" '.$classtd.'><input type="button" class="edit_bttn" name="Edit"  title="Edit" value="" onclick=edit('.$arr[$i]['attrib_id'].') />&nbsp;&nbsp;<input type="button" name="Delete" class="delete_bttn" title="Delete" value="" onclick=callattribs('.$arr[$i]['attrib_id'].') /></td></tr>';
 			$val++;
 		}
-		 $output.='<tr align="center"><td colspan="8"  class="content_list_footer" >'.' '.$prev.' ';
+		 $output.='<tr>
+			<td colspan="3" class="clsAlignRight">
+			<div class="dt-row dt-bottom-row">
+			<div class="row-fluid">
+			<div class="dataTables_paginate paging_bootstrap pagination">
+			<ul>'.' '.$prev.' ';
 		    for($i=1;$i<=count($paging);$i++)
 				 $pagingvalues .= $paging[$i]."  ";
-				 	 	$output .= $pagingvalues.' '.$next.'</td></tr></table>';
-		//$output .= '</table>';
+				 	 	$output .= $pagingvalues.' '.$next.'</ul></div>
+			</div>
+			</div>
+			</td>
+			</tr>';
+		$output .= '</tbody></table>';
 		return $output;
 			
 	}
@@ -96,15 +107,11 @@ class Display_DAttributeSelection
 		$output = "";
 		for ($i=0;$i<count($arr);$i++)
 		{
-			$output.='<form name="formsubcatedit" action="?do=addattributes&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
-			<tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          	</tr><tr>
-			<td width="20%" align="left" class="content_form"><b> Attribute :</b></td>
-
-			<td width="31%" align="center" class="label_name"><input type="text" class="txt_box200" name="attributes" id="attrib" value="'.$arr[0]['attrib_name'].'" /></td>
-			<td align="left"><input type="submit" class="all_bttn" name="btnsubmit" value="Update" id="submit"  /></td>
-			</tr>
+			$output.='<form name="formsubcatedit" id="updateAttribute" action="?do=addattributes&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
+			<div class="row-fluid">
+  <div class="span6">
+			 <label>Attribute </label>
+			 <input type="text" class="txt_box200" name="attributes" id="attrib" value="'.$arr[0]['attrib_name'].'" /></div></div>
 			</form>';
 
 		}

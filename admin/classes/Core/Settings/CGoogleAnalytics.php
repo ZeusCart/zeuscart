@@ -53,7 +53,8 @@ class Core_Settings_CGoogleAnalytics
 		}
 		else
 		{
-			return '<div class="success_msgbox" style="width:644px;">Site</div>';
+			return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Site</div>';
 		}
 	}
 	
@@ -76,16 +77,19 @@ class Core_Settings_CGoogleAnalytics
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
 			{		
-				return '<div class="success_msgbox" style="width:644px;">Updated Successfully</div>';
+				return '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Updated Successfully</div>';
 			}
 			else
 			{
-				return '<div class="error_msgbox" style="width:644px;">Not Updated !!! Try Again </div>';
+				return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Not Updated !!! Try Again </div>';
 			}
 		}
 		else
 		{
-			return '<div class="error_msgbox" style="width:644px;">Please Insert a Google Analytics Script Code</div>';
+			return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Please Insert a Google Analytics Script Code</div>';
 		}	
 	}
 }

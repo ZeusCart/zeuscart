@@ -31,67 +31,59 @@
  */
 
 
- class Core_CProductInventoryManagement
+class Core_CProductInventoryManagement
 {
- 	 
+	
 	 /**
 	 * Function gets the inventory details from the database
 	 * 
 	 * 
 	 * @return string
 	 */
-	
+	 
 	 
 	 function dispInventory()
-	{
-		$pagesize=10;
-	   if(isset($_GET['page']))
-		{
-		    
-			$start = trim($_GET['page']-1) *  $pagesize;
-			$end =  $pagesize;
-		}
-		else 
-		{
-			$start = 0;
-			$end =  $pagesize;
-		}
-		$total = 0;
-		
-	
-	   $sql='select a.*,b.title from product_inventory_table a inner join products_table b on a.product_id=b.product_id';
-	  
-	   $query = new Bin_Query();
-		if($query->executeQuery($sql))
-		{	
-			$total = ceil($query->totrows/ $pagesize);
-			include_once('classes/Lib/Paging.php');
-			$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
-			$this->data['paging'] = $tmp->output;
-			$this->data['prev'] =$tmp->prev;
-			$this->data['next'] = $tmp->next;
-			
-			$sql1 = "select a.*,b.title from product_inventory_table a inner join products_table b on a.product_id=b.product_id  LIMIT $start,$end";
-			$query1 = new Bin_Query();
-			
-			if($query1->executeQuery($sql1))
-			{
-	 		  return Display_DProductInventoryManagement::dispInventory($query1->records,$this->data['paging'],$this->data['prev'],$this->data['next']);
-			}
-		}
-		else
-		{
-			return "No Inventory Found";
-		}
-	  
-	  
-	  
-	  
+	 {
+	 	$pagesize=10;
+	 	if(isset($_GET['page']))
+	 	{
+	 		
+	 		$start = trim($_GET['page']-1) *  $pagesize;
+	 		$end =  $pagesize;
+	 	}
+	 	else 
+	 	{
+	 		$start = 0;
+	 		$end =  $pagesize;
+	 	}
+	 	$total = 0;
+	 	
+	 	
+	 	$sql='select a.*,b.title from product_inventory_table a inner join products_table b on a.product_id=b.product_id';
+	 	
+	 	$query = new Bin_Query();
+	 	if($query->executeQuery($sql))
+	 	{	
+	 		$total = ceil($query->totrows/ $pagesize);
+	 		include_once('classes/Lib/Paging.php');
+	 		$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
+	 		$this->data['paging'] = $tmp->output;
+	 		$this->data['prev'] =$tmp->prev;
+	 		$this->data['next'] = $tmp->next;
+	 		
+	 		$sql1 = "select a.*,b.title from product_inventory_table a inner join products_table b on a.product_id=b.product_id  LIMIT $start,$end";
+	 		$query1 = new Bin_Query();
+	 		
+	 		$query1->executeQuery($sql1);
+	 	}
+	 	return Display_DProductInventoryManagement::dispInventory($query1->records,$this->data['paging'],$this->data['prev'],$this->data['next']);
+	 	
+	 	
 	  // $obj=new Bin_Query();
 	   //$obj->executeQuery($sql);
 	  // return Display_DProductInventoryManagement::dispInventory($obj->records);
-	}
-	
+	 }
+	 
 	/**
 	 * Function gets the inventory details from the database
 	 * 
@@ -101,11 +93,11 @@
 	
 	function editInventory()
 	{
-	   $id=$_GET['id']; 
-	   $sql='select a.*,b.title from product_inventory_table a inner join products_table b on a.product_id=b.product_id where a.inventory_id='.$id;
-	   $obj=new Bin_Query();
-	   $obj->executeQuery($sql);
-	   return Display_DProductInventoryManagement::editInventory($obj->records);
+		$id=$_GET['id']; 
+		$sql='select a.*,b.title from product_inventory_table a inner join products_table b on a.product_id=b.product_id where a.inventory_id='.$id;
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		return Display_DProductInventoryManagement::editInventory($obj->records);
 	}
 	
 	/**
@@ -116,10 +108,10 @@
 	 */
 	function deleteInventory()
 	{
-	    $id=$_GET['id'];
-	    $sql='delete from product_inventory_table where inventory_id='.$id;
-	   $obj=new Bin_Query();
-	   $obj->updateQuery($sql);
+		$id=$_GET['id'];
+		$sql='delete from product_inventory_table where inventory_id='.$id;
+		$obj=new Bin_Query();
+		$obj->updateQuery($sql);
 	}
 	
 	/**
@@ -131,13 +123,13 @@
 	
 	function updateInventory()
 	{
-	    $id=(int)$_POST['invid'];
+		$id=(int)$_POST['invid'];
 		$rol=(int)$_POST['rol'];
 		$soh=(int)$_POST['soh'];
 		$sql="update product_inventory_table set rol=".$rol.", soh=".$soh." where inventory_id=".$id;
-	    $obj=new Bin_Query();
-	    $obj->updateQuery($sql);
-	
+		$obj=new Bin_Query();
+		$obj->updateQuery($sql);
+		
 	}
 }
 ?>

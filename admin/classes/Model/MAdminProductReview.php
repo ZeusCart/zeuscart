@@ -174,6 +174,34 @@ class Model_MAdminProductReview
 			
 		}
 	}
+	/**
+	 * Function updates the status (Inactive Status) for a product at the admin side 
+	 * 
+	 * 
+	 * @return array
+	 */	
+	
+	
+	function deleteReview()
+	{
+		$output = array();
+		include('classes/Core/CRoleChecking.php');
+		$chkuser=Core_CRoleChecking::checkRoles();
+		if($chkuser)
+		{
+			include('classes/Core/CAdminProductReview.php');
+			$default = new Core_CAdminProductReview();
+			$output['statusmsg'] =  $default->deleteReview();
+			$output['adminreview'] = Core_CAdminProductReview::showReviewDetails();
+			Bin_Template::createTemplate('AdminProductReview.html',$output);
+		}
+		else
+		{
+		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+			
+		}
+	}
 	
 	/**
 	 * Function displays an popup window at the admin side for selecting the search keywords.  

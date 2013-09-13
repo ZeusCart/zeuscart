@@ -45,13 +45,13 @@
 	 */
 	function displaySubAdminRole($pages,$rights,$subadmin,$id)
 	{
-		$output="<table cellpadding='8' cellspacing='0' border='0'  class='' width='100%'>";
-		$output.=(isset($_GET['msg'])? '<tr><td><table border="0" width="98%" align="center" ><tr><td colspan="2"><div class="success_msgbox"  width="100%" style="width:644px;" >'.$_GET['msg'].'</div></td></tr></table></td></tr>' : "" );
+		// $output="<table cellpadding='8' cellspacing='0' border='0'  class='' width='100%'>";
+		// $output.=(isset($_GET['msg'])? '<tr><td><table border="0" width="98%" align="center" ><tr><td colspan="2"><div class="success_msgbox"  width="100%" style="width:644px;" >'.$_GET['msg'].'</div></td></tr></table></td></tr>' : "" );
 		
-		$output.='<tr><td><table border="0" width="90%" align="left">
-		<tr><td class="content_form"><b>Sub Admin Name:</b> '.$subadmin.'</td></tr>
-		</table></td></tr>';
-		$output.="<tr><td><table cellpadding='8' cellspacing='0' border='0'  class='content_list_bdr' width='100%'><tr><td  class='content_list_head' colspan=3 >Sub Admin Role Management</td></tr>";
+		$output.='<div class="row-fluid">
+		<div class="span6"><b>Sub Admin Name:</b></div>
+		<div class="span6"> <b>'.ucfirst($subadmin).'</b></div></div>';
+		
 		for($i=0;$i<count($pages);$i++)
 		{
 			for($j=0;$j<count($rights);$j++)
@@ -67,13 +67,15 @@
 					$classtd='class="content_list_txt1"';
 				else
 					$classtd='class="content_list_txt2"';
-			$output.="<tr style='background-color:#FFFFFF;' onmouseout='listbg(this, 0);' onmouseover='listbg(this, 1);'><td '".$classtd."' width='45%'>".$pages[$i]['page_description']."</td><td ".$classtd."'><input type=checkbox name=chkStatus[] ".$val." value='".$pages[$i]['page_id']."'></td></tr>";		
+			$output.='	<div class="row-fluid">
+		<div class="span6">'.$pages[$i]['page_description'].'</div>
+		<div class="span6">
+		<input type="checkbox" '.$val.'  id="default" value="'.$pages[$i]['page_id'].'" name="chkStatus[]" class="sb_ch1 {labelOn: \'Excel\', labelOff: \'OFF\'}" />
+	
+			<input type="hidden" value="'.$id.'" name="subadminid"/></div></div>';		
 		}
 		
-		$output.='<tr><td><a href="?do=subadminmgt">Back </a></td><td>
-		<input type="hidden" value="'.$id.'" name="subadminid"/>
-		<input type="submit" name="insertsub" value="update" class="all_bttn" /></td></tr>
-		</table>';
+		$output.='';
 	
 		return $output;
 	}

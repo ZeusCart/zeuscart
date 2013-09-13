@@ -44,7 +44,7 @@ class Model_MFaq
 	
 	/**
 	 * Function displays the list of FAQs available at the admin side 
-	 *  @param array $msg
+	 * @param string $msg
 	 * 
 	 * @return array
 	 */
@@ -83,7 +83,9 @@ class Model_MFaq
 			$default=new Core_CFaq();
 			$output['message'] =$msg;
 			$output['result'] = $default->listFaq();
+			$output['faqmsg']=$_SESSION['msgfaqadded'];
 			Bin_Template::createTemplate('faq.html',$output);
+			unset($_SESSION['msgfaqadded']);
 		}
 		else
 		{
@@ -133,6 +135,7 @@ class Model_MFaq
 			include_once('classes/Display/DFaq.php');	
 			$output['result']=Core_CFaq::show($result);	
 			Bin_Template::createTemplate('faqadd.html',$output);
+
 		}
 		else
 		{
@@ -154,6 +157,10 @@ class Model_MFaq
 		include_once('classes/Display/DFaq.php');	
 		$result=Core_CFaq::add();		
 		Model_MFaq::addFaq($result);
+		$_SESSION['msgfaqadded']='Faq Added successfully!';
+		header('Location:?do=faq');
+		exit;
+
 	}
 	
 	/**
@@ -169,6 +176,9 @@ class Model_MFaq
 		include_once('classes/Display/DFaq.php');	
 		$result=Core_CFaq::edit();		
 		Model_MFaq::addFaq($result);
+		$_SESSION['msgfaqadded']='Faq Edited successfully!';
+		header('Location:?do=faq');
+		exit;
 	}
 	
 	/**
@@ -179,11 +189,15 @@ class Model_MFaq
 	 */
 	
 	function delete()
-	{
+	{ 
+	
 		include_once('classes/Core/CFaq.php');
 		include_once('classes/Display/DFaq.php');	
 		$result=Core_CFaq::delete();		
 		Model_MFaq::showFaq($result);
+		$_SESSION['msgfaqadded']='Faq Deleted successfully!';
+		header('Location:?do=faq');
+		exit;
 	}
 }
 ?>

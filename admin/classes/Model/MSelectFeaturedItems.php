@@ -62,7 +62,7 @@ class Model_MSelectFeaturedItems
 		{
 			$default = new Core_Settings_CSelectFeaturedItems();
 	
-			$output['subcategory']=$default->displaySubCategory();
+			$output['product']=$default->displayAllFeatured();
 			$output['maincategory']=$default->displayCategory();
 	
 			Bin_Template::createTemplate('selectfeatureditems.html',$output);	
@@ -132,6 +132,7 @@ class Model_MSelectFeaturedItems
 			$default = new Core_Settings_CSelectFeaturedItems();
 			
 			echo $output['product']=$default->showProducts();
+			
 		}
 		else
 		{
@@ -165,8 +166,8 @@ class Model_MSelectFeaturedItems
 			$default = new Core_Settings_CSelectFeaturedItems();
 			
 			$output['msg']=$default->updateProducts();
+			$output['product']=$default->displayAllFeatured();
 			$output['maincategory']=$default->displayCategory();
-			$output['subcategory']=$default->displaySubCategory();
 		
 			Bin_Template::createTemplate('selectfeatureditems.html',$output);	
 			

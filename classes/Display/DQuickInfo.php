@@ -40,13 +40,13 @@ class Display_DQuickInfo
 	function showInfo($arr,$r)
 	{	
 		if($arr['rating']>0)
-			$rating='<img src="images/star'.$arr['rating'].'.jpg"/>';
+			$rating='<img src="'.$_SESSION['base_url'].'/images/star'.$arr['rating'].'.jpg"/>';
 		else
 			$rating='No Rating';
 		if($arr['image']!='' && file_exists($arr['image']))
-			$imgPath= '<img src="'.$arr['image'].'" alt="'.addslashes($arr['title']).'" width="'.IMAGE1_WIDTH.'" />';
+			$imgPath= '<img src="'.$_SESSION['base_url'].'/'.$arr['image'].'" alt="'.addslashes($arr['title']).'" width="'.IMAGE1_WIDTH.'" />';
 		else
-			$imgPath='<img src="images/noimage1.jpg" alt="'.addslashes($arr['title']).'"  />';
+			$imgPath='<img src="'.$_SESSION['base_url'].'/images/noimage1.jpg" alt="'.addslashes($arr['title']).'"  />';
 			
 			$output='<div style="padding-top:2px;"><div class="quickview_border">
 					<div class="heading1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -75,9 +75,9 @@ class Display_DQuickInfo
 					
 					if($arr['cse_enabled']==1)
 					{
-					$output.='<a href=\'?do=pricecompare&action=compareproductprice&keyword='.$arr['sku'].'\';window.close();" style="text-decoration:none" >
+					$output.='<a href=\''.$_SESSION['base_url'].'/index.php?do=pricecompare&action=compareproductprice&keyword='.$arr['sku'].'\';window.close();" style="text-decoration:none" >
 					<input type="button" name="compareprice" value="Compare Price" class="compareprice" />
-					<!--<img src="images/compare_price.gif" alt="compare price" border="0" />--></a>';
+					<!--<img src="'.$_SESSION['base_url'].'/images/compare_price.gif" alt="compare price" border="0" />--></a>';
 					}
 					
 					
@@ -95,7 +95,7 @@ class Display_DQuickInfo
 			<table width="100%" border="0" cellspacing="5" cellpadding="0" style="background-color:#f8f8f8; border:#ececec 1px solid">
 					<tr>
 						<td width="36%" align="right">
-					<form name="addtocart" id="addtocart" action="?do=addtocart&prodid='.$arr['product_id'].'" method="post" >
+					<form name="addtocart" id="addtocart" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr['product_id'].'" method="post" >
 						<table border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td align="right" valign="top" class="button_left"></td>
@@ -106,7 +106,7 @@ class Display_DQuickInfo
 						</form>
 						</td>
 						<td width="26%" align="left">
-						<form name="addtowishlist" id="addtowishlist" action="?do=wishlist&action=viewwishlist&prodid='.$arr['product_id'].'" method="post">
+						<form name="addtowishlist" id="addtowishlist" action="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$arr['product_id'].'" method="post">
 						<table border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td align="right" class="button_left"></td>
@@ -119,7 +119,7 @@ class Display_DQuickInfo
 						<!--<td width="38%" align="left"><table border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td align="right" class="button_left"> </td>
-							<td><a href=\'?do=compareproduct&action=addtocompareproduct&prodid='.$arr['product_id'].'\';window.close();" style="text-decoration:none;"><input type="button" name="Submit23232" value="Add to Compare" class="button" /></a></td>
+							<td><a href=\''.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$arr['product_id'].'\';window.close();" style="text-decoration:none;"><input type="button" name="Submit23232" value="Add to Compare" class="button" /></a></td>
 							<td class="button_right"></td>
 						</tr>
 						</table></td>-->
@@ -135,7 +135,7 @@ class Display_DQuickInfo
 										<td><table id="Table_" width="100%" border="0" cellpadding="0" cellspacing="0" height="33">
 											<tbody>
 												<tr>
-												<td width="86" valign="bottom"><img src="images/description1.gif" alt="" width="86" border="0" height="28"></td>
+												<td width="86" valign="bottom"><img src="'.$_SESSION['base_url'].'/images/description1.gif" alt="" width="86" border="0" height="28"></td>
 												<td valign="bottom" style="border-bottom:#bfbebe 1px solid" >&nbsp;</td>
 												</tr>
 											</tbody>
@@ -154,7 +154,7 @@ class Display_DQuickInfo
 				</div>	</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="right" valign="top" style="padding-right:5px;"><a href=\'?do=prodetail&action=showprod&prodid='.$arr['product_id'].'\';window.close();"><img src="images/viewfulldetail.gif" alt="view" width="125" height="23" border="0" /></a></td>
+					<td colspan="2" align="right" valign="top" style="padding-right:5px;"><a href=\''.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr['product_id'].'\';window.close();"><img src="images/viewfulldetail.gif" alt="view" width="125" height="23" border="0" /></a></td>
 				</tr>
 				</table>
 				</div>

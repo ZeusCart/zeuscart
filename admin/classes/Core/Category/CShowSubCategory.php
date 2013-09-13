@@ -56,7 +56,8 @@ class Core_Category_CShowSubCategory
 		}
 		else
 		{
-			return '<div class="exc_msgbox">Sub Categories Not Found</div>';
+			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Sub Categories Not Found</div>';
 		}
 		
 	}
@@ -82,7 +83,8 @@ class Core_Category_CShowSubCategory
 		}
 		else
 		{
-			return '<div class="exc_msgbox">Sub Under Sub Categories Not Found</div>';
+			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Sub Under Sub Categories Not Found</div>';
 		}
 	}
 	/**
@@ -94,7 +96,8 @@ class Core_Category_CShowSubCategory
 	
 	function msg()
 	{
-		return '<div class="exc_msgbox">Please Select an Category </div>';
+		return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Please Select an Category </div>';
 	}
 	
 	
@@ -118,7 +121,8 @@ class Core_Category_CShowSubCategory
 		}
 		else
 		{
-			return '<div class="error_msgbox">No Category Found</div>';
+			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> No Category Found</div>';
 		}
 		
 	}
@@ -152,7 +156,8 @@ class Core_Category_CShowSubCategory
 			}
 			else
 			{
-				return "No Sub Category Found";
+				return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> No Sub Category Found</div>';
 			}
 		
 		}
@@ -170,7 +175,8 @@ class Core_Category_CShowSubCategory
 			}
 			else
 			{
-				return "No Sub Category Found";
+				return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> No Sub Category Found</div>';
 			}
 		}
 	}
@@ -203,7 +209,8 @@ class Core_Category_CShowSubCategory
 			}
 			else
 			{
-				return "No Sub Category Found";
+				return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> No Sub Category Found</div>';
 			}
 		
 		}
@@ -221,7 +228,8 @@ class Core_Category_CShowSubCategory
 			}
 			else
 			{
-				return "No Sub Category Found";
+				return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> No Sub Category Found</div>';
 			}
 		}
 	}	
@@ -255,10 +263,12 @@ class Core_Category_CShowSubCategory
 					$sql .= " category_image = '".$caticonpath."', ";					
 				}
 				else
-					return '<div class="error_msgbox">Sorry Image Not Uploaded</div>';	
+					return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Sorry Image Not Uploaded</div>';	
 			}
 			else
-				return '<div class="error_msgbox">Invalid image file format</div>';
+				return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Invalid image file format</div>';
 		}
 		
 		if($_POST['contentid']!=0)
@@ -285,7 +295,8 @@ class Core_Category_CShowSubCategory
 				$query->updateQuery($sql);
 			}
 			
-			return '<div class="success_msgbox">Category <b> '.$_POST['category'].'</b> Updated Successfully</div>';
+			return '<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button> Category <b> '.$_POST['category'].'</b> Updated Successfully</div>';
 		
 	}
 	/**
@@ -318,10 +329,12 @@ class Core_Category_CShowSubCategory
 					$sql .= " category_image = '".$caticonpath."', ";					
 				}
 				else
-					return '<div class="error_msgbox">Sorry Image Not Uploaded</div>';	
+					return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Sorry Image Not Uploaded</div>';	
 			}
 			else
-				return '<div class="error_msgbox">Invalid image file format</div>';
+				return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Invalid image file format</div>';
 		}
 		
 		if($_POST['contentid']!=0)
@@ -348,7 +361,8 @@ class Core_Category_CShowSubCategory
 				$query->updateQuery($sql);
 			}
 			
-			return '<div class="success_msgbox">Category <b> '.$_POST['category'].'</b> Updated Successfully</div>';
+			return '<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button> Category <b> '.$_POST['category'].'</b> Updated Successfully</div>';
 
 
 	}

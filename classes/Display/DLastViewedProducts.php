@@ -70,14 +70,14 @@ class Display_DLastViewedProducts
 			$output.='<div class="recent">';
 			$output.='<table width="100%" border="0" cellspacing="0" cellpadding="0">';
 			$output .='<tr>
-   		 <td width="36%" align="center"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
+   		 <td width="36%" align="center"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
 			$filename=$arr[$i]['thumb_image'];
 			if(file_exists($filename))
-				$output.='<img src="'.$arr[$i]['thumb_image'].'" alt="'.addslashes($arr[$i]['title']).'"  width="63"  border="0"/>';
+				$output.='<img src="'.$_SESSION['base_url'].'/'.$arr[$i]['thumb_image'].'" alt="'.addslashes($arr[$i]['title']).'"  width="63"  border="0"/>';
 			else
 				$output.='<img alt="No item" width="63"  border="0" src="images/noimage.jpg" />';	
 			$output.='</a></td>';
-			$output.='<td width="64%" valign="top" class="recentTXT" align="right" style="padding-left:5px"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
+			$output.='<td width="64%" valign="top" class="recentTXT" align="right" style="padding-left:5px"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
 			if(strlen($arr[$i]['title'])>25) 
 			$output.=substr($arr[$i]['title'],0,25).'...'; 
 			else
@@ -87,7 +87,7 @@ class Display_DLastViewedProducts
 			$output.='</tr>';
 			$output.='<tr>
                    <td align="left" style="padding-top:10px">			   
-				   <input title="<b>Quick Information</b>" alt="?do=quickinfo&prodid='.$arr[$i]['product_id'].'?inlineId=myOnPageContent&amp;height=500&amp;width=500" class="thickbox button4" type="button" value="Quick Info" />  
+				   <input title="<b>Quick Information</b>" alt="'.$_SESSION['base_url'].'/index.php?do=quickinfo&prodid='.$arr[$i]['product_id'].'?inlineId=myOnPageContent&amp;height=500&amp;width=500" class="thickbox button4" type="button" value="Quick Info" />  
 				   <!--<a href="#" onClick="Lightbox.showBoxByAJAX(\'?do=quickinfo&prodid='.$arr[$i]['product_id'].'\', 478, 478);return false;">-->
 				   <!--<a href="#" onclick=window.open("?do=quickinfo&prodid='.$arr[$i]['product_id'].'","a","height=480,width=490,menubar=0,status=0,toolbar=0,scrollbars=0,location=0,minimize=0,resizable=0")>	
 		<input type="submit" value="Quik Info" class="button4" />--></td>

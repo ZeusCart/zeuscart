@@ -35,7 +35,7 @@ class Core_Settings_SocialLinks
 	
 	
 	
-		
+
 	/**
 	 * Function inserts the page name into the social link table 
  	 * 
@@ -63,20 +63,22 @@ class Core_Settings_SocialLinks
 			$status=0;	
 		}
 		$image=explode('/',$varstpath, 2);
-		 $sql="INSERT INTO social_links_table(social_link_title,social_link_logo,social_link_url,status) VALUES('$title','$image[1]','$url','$status')";
+		$sql="INSERT INTO social_links_table(social_link_title,social_link_logo,social_link_url,status) VALUES('$title','$image[1]','$url','$status')";
 		$qry=new Bin_Query();
 		if($qry->updateQuery($sql))
 		{
-			$result = '<div class="success_msgbox">Social Link Inserted Iuccessfully</div>';
-			return $result;	
+			$result = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Social Link Inserted Iuccessfully</div>';
+			
 		}
 		else
 		{
-			$result = '<div class="error_msgbox">Social Link Not Inserted </div>';		
-			return $result;	
+			$result = '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Social Link Not Inserted </div>';		
+			
 		}
 		
-				
+		return $result;	
 	}
 	
 	/**
@@ -104,12 +106,21 @@ class Core_Settings_SocialLinks
 	
 	function deleteSocialLink()
 	{
-		$sql="DELETE FROM social_links_table WHERE social_link_id 	=".mysql_escape_string(intval($_GET['id']));
-		$query = new Bin_Query();
-		if($query->updateQuery($sql))
-		{
-			return '<div class="success_msgbox">Social Link Deleted successfully</div> ';
+		$id=$_POST['socialLinkcheck'];
+		foreach ($id as $key => $value) {
+
+			$sql="DELETE FROM social_links_table WHERE social_link_id 	='$value'";
+			$query = new Bin_Query();
+			if($query->updateQuery($sql))
+			{
+				$result='<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Social Link Deleted successfully</div>';
+			}
+			
 		}
+
+		return $result;
+		
 	}
 	/**
 	 * Function is used to get the social link for display the edit page
@@ -154,7 +165,7 @@ class Core_Settings_SocialLinks
 		}
 		else
 		{
-			 $varstpath=$_POST['social_link_logo1'];
+			$varstpath=$_POST['social_link_logo1'];
 			$image[1]=$varstpath;
 			
 		}
@@ -167,14 +178,18 @@ class Core_Settings_SocialLinks
 		$qry=new Bin_Query();
 		if($qry->updateQuery($sql))
 		{
-		$result = '<div class="success_msgbox">Social Link Updated successfully</div>';
-		return $result;
+			$result = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Social Link Updated successfully.</div>';
+			
 		}
 		else
 		{
-			$result = '<div class="success_msgbox">Social Link Not Updated successfully</div>';		
-			return $result;				 
+			$result = '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Social Link Not Updated successfully.</div>';		
+						 
 		}	
+
+		return $result;
 
 	}
 }

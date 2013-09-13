@@ -46,12 +46,38 @@
 	function insertProduct()
 	{
 
+		if($_POST['product_alias']!='')
+		{
+			
+			$sluggable=$_POST['product_alias'];			
+			
+		}
+		else
+		{
+			$sqlcheck="SELECT * FROM  ".TBL_PREFIX."products_table WHERE alias='".$_POST['product_title']."'";
+			$objcheck=new Bin_Query();
+			if(!$objcheck->executeQuery($sqlcheck))	
+			{
+				$sluggable=$_POST['product_title'];
+			}
+				
+		}
+		//convert all special charactor into hyphens and lower case
+		$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $sluggable);
+		$sluggable = trim($sluggable, '-');
+		if( function_exists('mb_strtolower') ) { 
+			$sluggable = mb_strtolower( $sluggable );
+		} else { 
+			$sluggable = strtolower( $sluggable );
+		}
+		$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
 		include('classes/Lib/ThumbImage.php');
 
-		$category_id=(int)$_POST['selcatgory'];
-		$sub_category_id=(int)$_POST['selsubcatgory'];
-		$sub_under_category_id=(int)$_POST['selsubundersubcatgory'];
-		
+// 		$category_id=(int)$_POST['selcatgory'];
+// 		$sub_category_id=(int)$_POST['selsubcatgory'];
+// 		$sub_under_category_id=(int)$_POST['selsubundersubcatgory'];
+		$category_id = implode(",",$_POST['selcatgory']);
 		$title=$_POST['product_title'];
 		$description=str_replace('#','',$_POST['desc']);
 		$sku=$_POST['sku'];
@@ -159,7 +185,7 @@
 				
 		
 	
-		$sql="insert into products_table(category_id, sku, title, description, brand, model, msrp,price,cse_enabled,cse_key, weight, dimension, thumb_image, image, shipping_cost, status, tag, meta_desc, meta_keywords, intro_date, is_featured,product_status,sub_category_id,sub_under_category_id)values('".$category_id."','".$sku."','".$title."','".$description."','".$brand."','".$model."','".$msrp_org."','".$price."','".$cse_enabled."','".$csekeyid."','".$weight."','".$dimension."','".$thumb_image."','".$image."','".$shipping_cost."','".$status."','".$tag."','".$meta_desc."','".$meta_keywords."','".$intro_date."','".$is_feautured."','".$product_status."','".$sub_category_id."','".$sub_under_category_id."')";	
+		$sql="insert into products_table(category_id, sku, title, description, brand, model, msrp,price,cse_enabled,cse_key, weight, dimension, thumb_image, image, shipping_cost, status, tag, meta_desc, meta_keywords, intro_date, is_featured,product_status,alias)values('".$category_id."','".$sku."','".$title."','".$description."','".$brand."','".$model."','".$msrp_org."','".$price."','".$cse_enabled."','".$csekeyid."','".$weight."','".$dimension."','".$thumb_image."','".$image."','".$shipping_cost."','".$status."','".$tag."','".$meta_desc."','".$meta_keywords."','".$intro_date."','".$is_feautured."','".$product_status."','".$sluggable."')";	
 				
 		$obj=new Bin_Query();
 		
@@ -241,19 +267,21 @@
 					$obj->updateQuery($spl);
 				}
 			}
-			
-			$_SESSION['update_msg']='<div class="success_msgbox">Product '.$title.' Inserted Successfullly</div>';
+				
+			$_SESSION['update_msg']='<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has been inserted successfully</div>';
 			header('Location:?do=manageproducts');
-			
-			return '<div class="success_msgbox">Product '.$title.' Inserted Successfullly</div>';		
+			exit;		
 		}
 		
 		else
 		 {
+
 			@unlink(ROOT_FOLDER.$image); 
 			@unlink(ROOT_FOLDER.$thumb_image);
 			@unlink(ROOT_FOLDER.$large_image);	
-			return '<div class="error_msgbox">Unable to create product</div>';	
+			return '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Unable to create product</div>';	
 		 }
 		
 	}
@@ -600,6 +628,357 @@
 			$result['status']=' Checked=checked ';
 		
 		return $result;
+	}
+
+	/**
+	 * Function adds a new digital product into the database
+	 * 
+	 * 
+	 * @return string
+	 */
+	function insertDigitalProduct()
+	{
+	
+		
+		include('classes/Lib/ThumbImage.php');
+			if($_POST['product_alias']!='')
+		{
+			
+			$sluggable=$_POST['product_alias'];			
+			
+		}
+		else
+		{
+			$sqlcheck="SELECT * FROM  products_table WHERE alias='".$_POST['product_title']."'";
+			$objcheck=new Bin_Query();
+			if(!$objcheck->executeQuery($sqlcheck))	
+			{
+				$sluggable=$_POST['product_title'];
+			}
+				
+		}
+		//convert all special charactor into hyphens and lower case
+		$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $sluggable);
+		$sluggable = trim($sluggable, '-');
+		if( function_exists('mb_strtolower') ) { 
+			$sluggable = mb_strtolower( $sluggable );
+		} else { 
+			$sluggable = strtolower( $sluggable );
+		}
+		$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+		
+// 		$category_id=(int)$_POST['selcatgory'];
+// 		$sub_category_id=(int)$_POST['selsubcatgory'];
+// 		$sub_under_category_id=(int)$_POST['selsubundersubcatgory'];
+		$category_id = implode(",",$_POST['selcatgory']);
+		$title=$_POST['product_title'];
+		$description=str_replace('#','',$_POST['desc']);
+		$sku=$_POST['sku'];
+		$product_video=htmlentities($_POST['videotag']);
+		$tag=$_POST['tag'];
+		if($_POST['intro_date']!='')
+		$intro_date= $_POST['intro_date'];
+		else
+		$intro_date= date('Y/m/d');
+			
+			
+		if($_POST['is_feautured']=='on')
+			$is_feautured=1;
+		else
+			$is_feautured=0;
+			
+		if($_POST['status']=='on')
+			$status=1;
+		else
+			$status=0;	
+		
+		
+		//$attribute=$_POST['attribute'];
+
+		$price=(float)$_POST['price'];
+		$msrp_org=(float)$_POST['msrp_org'];
+		$msrp=$_POST['msrp'];
+		//$quantity=$_POST['quantity'];
+		//$shipping_cost=(float)$_POST['shipcost'];
+		
+		$soh=(int)$_POST['soh'];
+		$rol=(int)$_POST['rol'];
+		
+		$meta_keywords=$_POST['meta_keywords'];
+		$meta_desc=$_POST['meta_desc'];
+		
+		
+		$images=$_POST['ufile'];
+		
+		$imgfile= $_FILES['ufile']['name'][0];
+				
+
+		
+		$digitfilename=$_FILES['digitalfile']['tmp_name'];
+		$digitfilepath="download/".date("YmdHis").$_FILES['digitalfile']['name'];
+		
+		if(move_uploaded_file($digitfilename,$digitfilepath))
+		{
+		   
+			 $sql="insert into products_table(category_id,sku, title, description,msrp,price,cse_enabled,thumb_image, image, shipping_cost, status, tag, meta_desc, meta_keywords, intro_date, is_featured,digital,digital_product_path,alias)values('".$category_id."','".$sku."','".$title."','".addslashes(htmlentities($description))."','".$msrp_org."','".$price."',0,'".$thumb_image."','".$image."',0,'".$status."','".$tag."','".$meta_desc."','".$meta_keywords."','".$intro_date."','".$is_feautured."',1,'".$digitfilepath."','".$sluggable."')";
+			
+			$obj=new Bin_Query();
+			
+			if($obj->updateQuery($sql))
+			{
+		    		
+				$desc = 'New Product "'.$title.'" added';
+		 		$sql = "insert into user_activity_table (activity_desc,activity_type,activity_title,activity_on) values ('".$desc."',2,'New Product Added',now())";
+				$useractivity = new Bin_Query();
+				$useractivity->updateQuery($sql);
+
+				$product_id=$obj->insertid;
+				
+				$sql="insert into  product_inventory_table(product_id, rol, soh) values('".$product_id."',0,1)";		
+			    	$obj->updateQuery($sql);
+				
+				if(count($_FILES['ufile']['name']) > 0)
+				{
+					for($i=0;$i<count($_FILES['ufile']['name']);$i++)
+					{
+						$imgfilename= $_FILES['ufile']['name'][$i];
+						
+			
+	
+						$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+						
+						$image="images/products/". $imgfilename; // updated into DB
+						$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
+						$large_image="images/products/large_image/".$imgfilename; 
+	
+						$stpath=ROOT_FOLDER.$image;
+						$imageDir=ROOT_FOLDER."images/products"; // to upload the file
+						$thumbDir=ROOT_FOLDER."images/products/thumb"; //to upload the file
+						$largeDir=ROOT_FOLDER."images/products/large_image";
+						
+						if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
+						{
+							list($img_w,$img_h, $type, $attr) = getimagesize($stpath);
+							
+							if($img_w > THUMB_WIDTH)
+								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);	
+								
+							if($img_w > IMAGE1_WIDTH)
+								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);
+							new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+						
+						}
+						if($i==0)
+						{
+							$imgType='main';
+							$update="UPDATE products_table set image='$image',thumb_image='$thumb_image',large_image_path='$large_image' where product_id='".$product_id."'";						
+							$obj->updateQuery($update);
+						}
+						else
+							$imgType='sub';
+					
+						$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','$imgType','$large_image')";
+						$obj->updateQuery($spl);
+					}
+				}
+			
+				$_SESSION['update_msg']='<div class="success_msgbox">Product '.$title.' Inserted Successfullly</div>';
+				header('Location:?do=manageproducts');			
+				exit;		
+			}
+		}		
+		else
+		 {
+			@unlink(ROOT_FOLDER.$image); 
+			@unlink(ROOT_FOLDER.$thumb_image);
+			@unlink(ROOT_FOLDER.$large_image);	
+			return '<div class="error_msgbox">Unable to create product</div>';	
+		 }
+		
+	}
+	/**
+	 * Function adds a new gift product into the database
+	 * 
+	 * 
+	 * @return string
+	 */
+	function insertGiftProduct()
+	{
+	
+	
+		include('classes/Lib/ThumbImage.php');
+			if($_POST['product_alias']!='')
+		{
+			
+			$sluggable=$_POST['product_alias'];			
+			
+		}
+		else
+		{
+			$sqlcheck="SELECT * FROM products_table WHERE alias='".$_POST['product_title']."'";
+			$objcheck=new Bin_Query();
+			if(!$objcheck->executeQuery($sqlcheck))	
+			{
+				$sluggable=$_POST['product_title'];
+			}
+				
+		}
+		//convert all special charactor into hyphens and lower case
+		$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $sluggable);
+		$sluggable = trim($sluggable, '-');
+		if( function_exists('mb_strtolower') ) { 
+			$sluggable = mb_strtolower( $sluggable );
+		} else { 
+			$sluggable = strtolower( $sluggable );
+		}
+		$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+		
+// 		$category_id=(int)$_POST['selcatgory'];
+// 		$sub_category_id=(int)$_POST['selsubcatgory'];
+// 		$sub_under_category_id=(int)$_POST['selsubundersubcatgory'];
+		$category_id = implode(",",$_POST['selcatgory']);
+		$title=$_POST['product_title'];
+		$description=str_replace('#','',$_POST['desc']);
+		$sku=$_POST['sku'];
+		$product_video=htmlentities($_POST['videotag']);
+		$tag=$_POST['tag'];
+		if($_POST['intro_date']!='')
+		$intro_date= $_POST['intro_date'];
+		else
+		$intro_date= date('Y/m/d');
+			
+			
+		if($_POST['is_feautured']=='on')
+			$is_feautured=1;
+		else
+			$is_feautured=0;
+			
+		if($_POST['status']=='on')
+			$status=1;
+		else
+			$status=0;	
+		
+		
+		//$attribute=$_POST['attribute'];
+
+		$price=(float)$_POST['price'];
+		$msrp_org=(float)$_POST['msrp_org'];
+		$msrp=$_POST['msrp'];
+		//$quantity=$_POST['quantity'];
+		//$shipping_cost=(float)$_POST['shipcost'];
+		
+		$soh=(int)$_POST['soh'];
+		$rol=(int)$_POST['rol'];
+		
+		$meta_keywords=$_POST['meta_keywords'];
+		$meta_desc=$_POST['meta_desc'];
+		
+		
+		$images=$_POST['ufile'];
+		
+		$imgfile= $_FILES['ufile']['name'][0];
+
+			 $sql="insert into products_table(category_id,sku, title, description,msrp,price,cse_enabled,thumb_image, image, shipping_cost, status, tag, meta_desc, meta_keywords, intro_date, is_featured,gift,alias)values('".$category_id."','".$sku."','".$title."','".addslashes(htmlentities($description))."','".$msrp_org."','".$price."',0,'".$thumb_image."','".$image."',0,'".$status."','".$tag."','".$meta_desc."','".$meta_keywords."','".$intro_date."','".$is_feautured."',1,'".$sluggable."')";
+			
+			$obj=new Bin_Query();
+			
+			if($obj->updateQuery($sql))
+			{
+		    		
+				$desc = 'New Product "'.$title.'" added';
+		 		$sql = "insert into user_activity_table (activity_desc,activity_type,activity_title,activity_on) values ('".$desc."',2,'New Product Added',now())";
+				$useractivity = new Bin_Query();
+				$useractivity->updateQuery($sql);
+
+				$product_id=$obj->insertid;
+				
+				$sql="insert into product_inventory_table(product_id, rol, soh) values('".$product_id."',0,1)";		
+			    	$obj->updateQuery($sql);
+				
+				if(count($_FILES['ufile']['name']) > 0)
+				{
+					for($i=0;$i<count($_FILES['ufile']['name']);$i++)
+					{
+						$imgfilename= $_FILES['ufile']['name'][$i];
+						
+			
+	
+						$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+						
+						$image="images/products/". $imgfilename; // updated into DB
+						$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
+						$large_image="images/products/large_image/".$imgfilename; 
+	
+						$stpath=ROOT_FOLDER.$image;
+						$imageDir=ROOT_FOLDER."images/products"; // to upload the file
+						$thumbDir=ROOT_FOLDER."images/products/thumb"; //to upload the file
+						$largeDir=ROOT_FOLDER."images/products/large_image";
+						
+						if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
+						{
+							list($img_w,$img_h, $type, $attr) = getimagesize($stpath);
+							
+							if($img_w > THUMB_WIDTH)
+								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);	
+								
+							if($img_w > IMAGE1_WIDTH)
+								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);
+							new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+						
+						}
+						if($i==0)
+						{
+							$imgType='main';
+							$update="UPDATE products_table set image='$image',thumb_image='$thumb_image',large_image_path='$large_image' where product_id='".$product_id."'";						
+							$obj->updateQuery($update);
+						}
+						else
+							$imgType='sub';
+					
+						$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','$imgType','$large_image')";
+						$obj->updateQuery($spl);
+					}
+				}
+			
+				$_SESSION['update_msg']='<div class="success_msgbox">Product '.$title.' Inserted Successfullly</div>';
+				header('Location:?do=manageproducts');			
+				exit;		
+			}
+		
+			
+		
+	}
+
+	/**
+	 * Function is used to check the alias in database
+	 * 
+	 * 
+	 * @return string
+	 */	
+
+	function checkProductAlias()
+	{
+		//convert all special charactor into hyphens and lower case
+		$sluggable=$_GET['alias'];
+		
+		$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $sluggable);
+		$sluggable = trim($sluggable, '-');
+		if( function_exists('mb_strtolower') ) { 
+			$sluggable = mb_strtolower( $sluggable );
+		} else { 
+			$sluggable = strtolower( $sluggable );
+		}
+		$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+		$sql="SELECT * FROM products_table WHERE alias='".$sluggable."'";
+		$obj=new Bin_Query();
+		if($obj->executeQuery($sql))
+		{
+			return 'Product Alias already exists';
+		}
+
 	}
 }
 ?>

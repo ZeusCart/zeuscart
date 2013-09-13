@@ -33,9 +33,9 @@
 
 
 
- class Core_CAboutUs
- {
- 	
+class Core_CAboutUs
+{
+	
 	/**
 	 * Function gets the about us value from the table 
 	 * 
@@ -46,15 +46,15 @@
 	
 	function showAboutUs()
 	{
-	   $sql = "SELECT set_name,set_value FROM `admin_settings_table` where set_id=15";
+		$sql = "SELECT set_name,set_value FROM `admin_settings_table` where set_id=15";
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
 		{		
 			return $query->records[0]['set_value'];
 		}
-				
+		
 	}
- 	
+	
 	/**
 	 * Function updates the about us value into the database
 	 * 
@@ -65,12 +65,16 @@
 	
 	function updateAboutUs()
 	{
+		
 		$sql="update admin_settings_table set set_value='". trim($_POST['aboutus']) . "' where set_id=15";
 		$obj=new Bin_Query();
 		if($obj->updateQuery($sql))
-			return '<div class="success_msgbox" style="width:652px;">AboutUs Content changed Successfully</div>';
+			return '<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Well done!</strong> AboutUs Content changed Successfully</div>';
 		else
-			return '<div class="error_msgbox" style="width:652px;">Unable to change AboutUs Content</div>';			
+			return '<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">×</button> Unable to change AboutUs Content</div>';			
 
 	}
 }

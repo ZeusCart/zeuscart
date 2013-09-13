@@ -132,7 +132,26 @@ class Model_MAdminUserRegistration
 		$output['customers']=Core_CAdminHome::getCustomers();
 		
 		$default = new Core_CAdminUserRegistration();
-		$output = Core_CAdminUserRegistration::editAccount($Err);
+
+		$default = new Core_CAdminUserRegistration();
+
+	   	if(isset($_GET['action']) && $_GET['action']=='edit') 
+	   	{
+
+			$output['value'] = $default->editAccount();		
+		}
+
+		
+		if(count($Err->messages)>=1)
+		{
+
+			$output['msg']=$Err->messages;
+			$output['value'] = $Err->values;	
+		}
+
+		$output['val']=$default->getEditCountry($output['value']['editCountry']);
+
+	    	$output['group']=$default->getEditGroup($output['value']['editGroup']);
 		Bin_Template::createTemplate('EditUser.html',$output);
 		
 	}
@@ -146,36 +165,43 @@ class Model_MAdminUserRegistration
 	
 	function updateRegistration()
 	{
+	
+
 		include('classes/Lib/CheckInputs.php');
-		$obj = new Lib_CheckInputs('registerupdate');
-		$output = array();
-		include('classes/Core/CAdminUserRegistration.php');
-		include('classes/Display/DAdminUserRegistration.php');
-		include('classes/Core/CAdminHome.php');
-		$output['username']=Core_CAdminHome::userName();
-		$output['currentDate']=date('l, M d, Y H:i:s');	
-		$output['currency_type']=$_SESSION['currency']['currency_tocken'];			
-		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
-		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
-		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
-		$output['currentmonthuser']=(int)Core_CAdminHome::currentMonthUser();
-		$output['previousmonthuser']=(int)Core_CAdminHome::previousMonthUser();
-		$output['totalusers']=(int)Core_CAdminHome::totalUsers();
-		$output['currentmonthincome']=Core_CAdminHome::currentMonthIncome();
-		$output['previousmonthincome']=Core_CAdminHome::previoustMonthIncome();
-		$output['totalincome']=Core_CAdminHome::totalIncome();
-		$output['currentmonthproudctquantity']=(int)Core_CAdminHome::currentMonthProudctQuantity();
-		$output['previousmonthproudctquantity']=(int)Core_CAdminHome::previousMonthProudctQuantity();
-		$output['totalproudctquantity']=(int)Core_CAdminHome::totalProudctQuantity();
-		$output['lowstock']=Core_CAdminHome::lowStock();
-		$output['totalproducts']=Core_CAdminHome::totalProducts();		
-		$output['enabledproducts']=Core_CAdminHome::enabledProducts();
-		$output['disabledproducts']=Core_CAdminHome::disabledProducts();
+
+		include("classes/Lib/HandleErrors.php");
+
 		
+
+		$output = array();
+
+		include('classes/Core/CAdminUserRegistration.php');
+
+		include('classes/Display/DAdminUserRegistration.php');
+
+		include('classes/Core/CAdminHome.php');
+
+		$output['username']=Core_CAdminHome::userName();
+
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];				
+
+
+		$obj = new Lib_CheckInputs('useraccupdate');
+
+	
 		$default = new Core_CAdminUserRegistration();
+
 		$output['editmsg'] = $default->updateAccount();
-		$output['adminreg'] = Core_CAdminUserRegistration::showAccount();
-		Bin_Template::createTemplate('ShowUser.html',$output);		
+
+		$_SESSION['rtsinsmsg']=$output['editmsg'];
+
+		
+		header('Location:?do=adminreg');
+
+		
+
 	}
 	
 	/**
@@ -366,7 +392,9 @@ class Model_MAdminUserRegistration
 			
 			$output['val']=Core_CAdminUserRegistration::getCountry($Err->values);
 			$output['msg']=$Err->messages;
+			$output['account'] = $_SESSION['msgCustomersuccess'];
 			Bin_Template::createTemplate('signup.html',$output);
+			unset($_SESSION['msgCustomersuccess']);
 		}
 		else
 		{
@@ -410,22 +438,16 @@ class Model_MAdminUserRegistration
 		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 		$chkuser=Core_CRoleChecking::checkRoles();
-		if($chkuser)
-		{
-			include('classes/Lib/CheckInputs.php');
-			include('classes/Core/CAdminUserRegistration.php');		
-			$obj = new Lib_CheckInputs('useraccregister');
+		include('classes/Lib/CheckInputs.php');
+		include('classes/Core/CAdminUserRegistration.php');		
+		$obj = new Lib_CheckInputs('useraccregister');
 			
 			//include_once('classes/Core/CAdminUserRegistration.php');
-			$output['account'] = Core_CAdminUserRegistration::addAccount();
-			Bin_Template::createTemplate('signup.html',$output);
-		}
-		else
-		{
-			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}	
+		$_SESSION['msgCustomersuccess']= Core_CAdminUserRegistration::addAccount();
 
+		header('Location:?do=addUserAccount');
+		exit;
+			
 	}
 	
 	/**
@@ -507,7 +529,158 @@ class Model_MAdminUserRegistration
 			$output['email']=$default->autoComplete();
 		//Bin_Template::createTemplate('autocomplete.html',$output);
 	}
+	/**
+	 * Function displays a light box registration page for adding an customer account 
+	 * at the admin side   
+	 * 
+	 * @return array
+	 */	
+	function displayRegPageLight()
+	{
+		$output = array();
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CAdminHome.php');
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];			
+		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
+		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
+		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
+		$output['currentmonthuser']=(int)Core_CAdminHome::currentMonthUser();
+		$output['previousmonthuser']=(int)Core_CAdminHome::previousMonthUser();
+		$output['totalusers']=(int)Core_CAdminHome::totalUsers();
+		$output['currentmonthincome']=Core_CAdminHome::currentMonthIncome();
+		$output['previousmonthincome']=Core_CAdminHome::previoustMonthIncome();
+		$output['totalincome']=Core_CAdminHome::totalIncome();
+		$output['currentmonthproudctquantity']=(int)Core_CAdminHome::currentMonthProudctQuantity();
+		$output['previousmonthproudctquantity']=(int)Core_CAdminHome::previousMonthProudctQuantity();
+		$output['totalproudctquantity']=(int)Core_CAdminHome::totalProudctQuantity();
+		$output['lowstock']=Core_CAdminHome::lowStock();
+		$output['totalproducts']=Core_CAdminHome::totalProducts();		
+		$output['enabledproducts']=Core_CAdminHome::enabledProducts();
+		$output['disabledproducts']=Core_CAdminHome::disabledProducts();
+		$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
+		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
+		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
+		$chkuser=Core_CRoleChecking::checkRoles();
+		if($chkuser)
+		{
+			include('classes/Core/CAdminUserRegistration.php');
+			include("classes/Lib/HandleErrors.php");
+			
+			//$output['val']=$Err->values;
+			
+			$output['val']=Core_CAdminUserRegistration::getCountry($Err->values);
+			$output['msg']=$Err->messages;
+			Bin_Template::createTemplate('signup_light.html',$output);
+		}
+		else
+		{
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+		}	
 
+	}
+
+	/**
+	 * Function validates and updates a new account from the admin side for light box register page  
+	 * 
+	 * 
+	 * @return array
+	 */	
+	function showValidateRegPageLight()
+	{
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CAdminHome.php');
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];			
+		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
+		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
+		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
+		$output['currentmonthuser']=(int)Core_CAdminHome::currentMonthUser();
+		$output['previousmonthuser']=(int)Core_CAdminHome::previousMonthUser();
+		$output['totalusers']=(int)Core_CAdminHome::totalUsers();
+		$output['currentmonthincome']=Core_CAdminHome::currentMonthIncome();
+		$output['previousmonthincome']=Core_CAdminHome::previoustMonthIncome();
+		$output['totalincome']=Core_CAdminHome::totalIncome();
+		$output['currentmonthproudctquantity']=(int)Core_CAdminHome::currentMonthProudctQuantity();
+		$output['previousmonthproudctquantity']=(int)Core_CAdminHome::previousMonthProudctQuantity();
+		$output['totalproudctquantity']=(int)Core_CAdminHome::totalProudctQuantity();
+		$output['lowstock']=Core_CAdminHome::lowStock();
+		$output['totalproducts']=Core_CAdminHome::totalProducts();		
+		$output['enabledproducts']=Core_CAdminHome::enabledProducts();
+		$output['disabledproducts']=Core_CAdminHome::disabledProducts();
+		$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
+		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
+		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
+		$chkuser=Core_CRoleChecking::checkRoles();
+		if($chkuser)
+		{
+			include('classes/Lib/CheckInputs.php');
+			include('classes/Core/CAdminUserRegistration.php');		
+			$obj = new Lib_CheckInputs('useraccregisterlight');
+			
+			//include_once('classes/Core/CAdminUserRegistration.php');
+			$output['account'] = Core_CAdminUserRegistration::addAccount();
+			Bin_Template::createTemplate('signup_light.html',$output);
+		}
+		else
+		{
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+		}	
+
+	}
+	/**
+	 * Function is used to view the customer details page
+	 * 
+	 * 
+	 * @return array
+	 */
+	function customerDetail()	
+	{
+		include('classes/Core/CAdminHome.php');
+		include('classes/Display/DAdminHome.php');
+		include('classes/Core/CAdminUserRegistration.php');
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Display/DAdminUserRegistration.php');
+		
+		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
+		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
+		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
+		$output['currentmonthuser']=(int)Core_CAdminHome::currentMonthUser();
+		$output['previousmonthuser']=(int)Core_CAdminHome::previousMonthUser();
+		$output['totalusers']=(int)Core_CAdminHome::totalUsers();
+		$output['currentmonthincome']=Core_CAdminHome::currentMonthIncome();
+		$output['previousmonthincome']=Core_CAdminHome::previoustMonthIncome();
+		$output['totalincome']=Core_CAdminHome::totalIncome();
+		$output['currentmonthproudctquantity']=(int)Core_CAdminHome::currentMonthProudctQuantity();
+		$output['previousmonthproudctquantity']=(int)Core_CAdminHome::previousMonthProudctQuantity();
+		$output['totalproudctquantity']=(int)Core_CAdminHome::totalProudctQuantity();
+		$output['lowstock']=(int)Core_CAdminHome::lowStock();
+		$output['totalproducts']=(int)Core_CAdminHome::totalProducts();		
+		$output['enabledproducts']=(int)Core_CAdminHome::enabledProducts();
+		$output['disabledproducts']=(int)Core_CAdminHome::disabledProducts();
+		$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
+		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
+		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
+
+		$chkuser=Core_CRoleChecking::checkRoles();
+		if($chkuser)
+		{	
+			$output['cusotmerdetail'] = Core_CAdminUserRegistration::customerDetail();	
+
+					
+			Bin_Template::createTemplate('customerdetail.html',$output);
+		}
+		else
+		{
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+		}	
+
+	}
 	
 }
 ?>

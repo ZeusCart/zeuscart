@@ -53,8 +53,8 @@ class Core_CAdminUserRegistration
 	function showAccount()
 	{
 
-	   $pagesize=10;
-	   if(isset($_GET['page']))
+		$pagesize=10;
+		if(isset($_GET['page']))
 		{
 		    
 			$start = trim($_GET['page']-1) *  $pagesize;
@@ -90,7 +90,7 @@ class Core_CAdminUserRegistration
 		{
 			return "No Users Found";
 		}		
-   }
+   	}
    
 	/**
 	 * Function gets the search details from the users_table. 
@@ -108,7 +108,7 @@ class Core_CAdminUserRegistration
 		 $status =  $_POST['status']; 
 		 
 		  $pagesize=10;
-	   if(isset($_GET['page']))
+	  	if(isset($_GET['page']))
 		{
 		    
 			$start = trim($_GET['page']-1) *  $pagesize;
@@ -122,8 +122,8 @@ class Core_CAdminUserRegistration
 		$total = 0;
 		 
 		$sql = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table";
-		 $condition=array();
-		 if($dispname!='')
+		$condition=array();
+		if($dispname!='')
 		{
 			$condition []= "  user_display_name like '%".$dispname."%'";
 		}
@@ -152,8 +152,6 @@ class Core_CAdminUserRegistration
 		if($_POST['search']=='Search')
 		{
 			
-			
-			
 			$obj = new Bin_Query();
 			if($obj->executeQuery($sql))
 			{
@@ -175,10 +173,8 @@ class Core_CAdminUserRegistration
 	 * 
 	 * 
 	 * @return string
-	 */		
-	
-	
-   function searchUserDetails_withpaging()
+	 */	
+   	function searchUserDetails_withpaging()
 	{
 		 $dispname = $_POST['displayname'];
 		 $firstname = $_POST['firstname'];
@@ -186,8 +182,8 @@ class Core_CAdminUserRegistration
 		 $email =  $_POST['email'];
 		 $status =  $_POST['status']; 
 		 
-		  $pagesize=10;
-	   if(isset($_GET['page']))
+		$pagesize=10;
+	   	if(isset($_GET['page']))
 		{
 		    
 			$start = trim($_GET['page']-1) *  $pagesize;
@@ -202,7 +198,7 @@ class Core_CAdminUserRegistration
 		 
 		$sql = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table";
 		 $condition=array();
-		 if($dispname!='')
+		if($dispname!='')
 		{
 			$condition []= "  user_display_name like '%".$dispname."%'";
 		}
@@ -272,48 +268,49 @@ class Core_CAdminUserRegistration
 	 * 
 	 * @return string
 	 */		
-	
-   
-   function deleteAccount()
-   {
-		$userid = $_GET['id'];
-		$sqldelete = "delete from users_table where user_id=".$userid;
-		$obj = new Bin_Query();
-		if($obj->updateQuery($sqldelete))
-			$output = "Successfully Deleted";
-		else
-			$output = "Not Deleted";
+	   
+	function deleteAccount()
+	{
+			$userid = $_GET['id'];
+			$sqldelete = "delete from users_table where user_id=".$userid;
+			$obj = new Bin_Query();
+			if($obj->updateQuery($sqldelete))
+				$output = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Successfully Deleted.</div>';
+			else
+				$output = '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Not Deleted.</div>';
+				
+			//$output .= $this->showAccount();
 			
-		//$output .= $this->showAccount();
-		
-		return $output;
-		
-   }
+			return $output;
+			
+	}
    
-   /**
+   	/**
 	 * Function updates (active) the user status in the users_table. 
 	 * 
 	 * 
 	 * @return string
 	 */		
-	
-   
-   function acceptAccount()
-   {
-		$userid = $_GET['id'];
-		$sqlaccept = "update users_table set user_status=1 where user_id=".$userid;
-		$obj = new Bin_Query();
-		if($obj->updateQuery($sqlaccept))
-			$output = '<div class="success_msgbox">Successfully Activated</div>';
-		else
-			$output = '<div class="success_msgbox">Not Accepted</div>';
+	function acceptAccount()
+	{
+			$userid = $_GET['id'];
+			$sqlaccept = "update users_table set user_status=1 where user_id=".$userid;
+			$obj = new Bin_Query();
+			if($obj->updateQuery($sqlaccept))
+				$output = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Successfully Activated.</div>';
+			else
+				$output = '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Not Accepted.</div>';
+				
+			//$output .= $this->showAccount();
 			
-		//$output .= $this->showAccount();
-		
-		return $output;
-		
-   }
-   
+			return $output;
+			
+	}
+   	
   	 /**
 	 * Function updates (inactive) the user status in the users_table. 
 	 * 
@@ -327,9 +324,11 @@ class Core_CAdminUserRegistration
 			$sqldeny = "update users_table set user_status=0 where user_id=".$userid;
 			$obj = new Bin_Query();
 			if($obj->updateQuery($sqldeny))
-				$output = '<div class="success_msgbox">Successfully Inactivated </div>';
+				$output = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Successfully Inactivated .</div>';
 			else
-				$output = "Not Denied";
+				$output = '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Not Denied.</div>';
 				
 			//$output .= $this->showAccount();
 			
@@ -346,31 +345,31 @@ class Core_CAdminUserRegistration
    
 	function editAccount($Err)
 	{
-			$userid = $_GET['id'];
-			if(count($Err->messages) > 0)
-			{
-				$output['val']['id'] = $userid;
-				$output['val'] = $Err->values;
-				$output['msg'] = $Err->messages;
-			}
-			else
-			{
-				$sqlselect = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table where user_id=".$userid;
-				
-				$obj = new Bin_Query();
-				if($obj->executeQuery($sqlselect))
-				{
-					$output['val']['id'] = $userid;
-					$output['val']['disname'] = $obj->records[0]['user_display_name'];
-					$output['val']['fname'] = $obj->records[0]['user_fname'];
-					$output['val']['lname'] = $obj->records[0]['user_lname'];
-					$output['val']['txtemail'] = $obj->records[0]['user_email'];
-					//$output['val']['msg'] = '<div class="success_msgbox">Updated Successfully</div>';
-				}
-				else
-					$output = "No Record Found";
-			}
-			return $output;
+		$userid = mysql_escape_string(intval($_GET['userid']));
+	
+		$sqlselect = "select a.user_display_name as dispname,a.user_fname as fname,a.user_lname as lname,a.user_email as email,a.user_status,a.user_group as usergroup,b.address,b.city,b.state,b.country,b.zip from users_table a, addressbook_table b where a.user_id=".$userid." and b.user_id=".$userid;
+		
+		$obj = new Bin_Query();
+		if($obj->executeQuery($sqlselect))
+		{
+			$output['userid'] = $userid;
+			$output['txtdisname'] = $obj->records[0]['dispname'];
+			$output['txtfname'] = $obj->records[0]['fname'];
+			$output['txtlname'] = $obj->records[0]['lname'];
+			$output['txtemail'] = $obj->records[0]['email'];
+			$output['editGroup'] = $obj->records[0]['usergroup'];
+			$output['txtaddr'] = $obj->records[0]['address'];
+			$output['txtcity'] = $obj->records[0]['city'];
+			$output['txtState'] = $obj->records[0]['state'];
+			$output['editCountry'] = $obj->records[0]['country'];
+			$output['txtzipcode'] = $obj->records[0]['zip'];
+
+			//$output['val']['msg'] = '<div class="success_msgbox">Updated Successfully</div>';
+		}
+		else
+			$output = "No Record Found";
+		
+		return $output;
 			
 	}
    
@@ -388,20 +387,56 @@ class Core_CAdminUserRegistration
 			else if($_POST['id'] != '')
 				$userid = $_POST['id'];
 		
-			$sqlupdate ="update users_table set user_display_name ='".$_POST['disname']."',user_fname='".$_POST['fname'].             			"',user_lname='" .$_POST['lname']."',user_email='".$_POST['txtemail']."' where user_id=".$userid;
+// 			$sqlupdate ="update users_table set user_display_name ='".$_POST['disname']."',user_fname='".$_POST['fname'].             			"',user_lname='" .$_POST['lname']."',user_email='".$_POST['txtemail']."' where user_id=".$userid;
+
+			$sqlupdate ="update users_table a, addressbook_table b set a.user_display_name ='".$_POST['txtdisname']."',a.user_fname='".$_POST['txtfname']."',a.user_lname='" .$_POST['txtlname']."',a.user_email='".$_POST['txtemail']."',a.user_group='".$_POST['editGroup']."', a.user_country='".$_POST['editCountry']."',b.country='".$_POST['editCountry']."', b.address='".$_POST['txtaddr']."',    	b.city='".$_POST['txtcity']."', b.state='".$_POST['txtState']."', b.zip='".$_POST['txtzipcode']."' where a.user_id=".$_POST['userid']." and b.user_id=".$_POST['userid'];
 			$obj = new Bin_Query();
 			
 			if($obj->updateQuery($sqlupdate))
-				$output = '<div class="success_msgbox">Successfully Updated</div>';
+				$output = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Successfully Updated.</div>';
 			else
-				$output = "Not Updated";
+				$output = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Not Updated</div>';
 			
-			//$output = $this->showAccount();
+			
 			return $output;
 			
 	}
    	
-	
+	/**
+	 * Function gets the edit content group 
+	 * 
+	 * @param   string  $groupid  $groupid
+	 * @return array
+	 */
+	function getEditGroup($groupid)
+	{
+		$query = new Bin_Query(); 
+		$sql = "SELECT group_id, group_name from users_group_table ";
+		$query->executeQuery($sql);
+		include_once('classes/Display/DAdminUserRegistration.php');
+		
+		
+		
+		 $arrGroup['selGroup']=Display_DAdminUserRegistration::editGroup($query->records,$groupid);
+		 return $arrGroup;
+	}
+	 /**
+	 * Function gets the edit country  
+	 * 
+	 * @param   string  $cntcode   $cntcode
+	 * @return array
+	 */
+	function getEditCountry($cntcode)
+	{
+		$query = new Bin_Query(); 
+		$sql = "SELECT * from country_table order by cou_name";
+		$query->executeQuery($sql);
+		include_once('classes/Display/DAdminUserRegistration.php');
+		$arr1['selCountry']=Display_DAdminUserRegistration::editCountry($query->records,$cntcode);
+		return $arr1;
+	}
 	 /**
 	 * Function generates a report in the file format. 
 	 * @param array  $sql
@@ -636,7 +671,7 @@ class Core_CAdminUserRegistration
 			if( $displayname!= '' and $firstname  != '' and $lastname != '' and $email != '' and $pswd != '')
 			{
 				
-				$pswd=base64_encode($pswd);
+				$pswd=md5($pswd);
 				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',1,'".$date."','".$country."')";
 			$obj = new Bin_Query();
 			
@@ -658,7 +693,8 @@ class Core_CAdminUserRegistration
 				$sql = "insert into newsletter_subscription_table(email,status)values('".$email."',".$newsletter.")";
 				if($obj->updateQuery($sql))
 				{
-					$result = "<div class='success_msgbox'>Account has been Created Successfully</div></br>";
+					$result = '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Account has been Created Successfully</div></br>';
 					$pwd = $_POST['txtpwd'];
 					$title="Zeuscart";
 					$mail_content="Thank you for registering with us. Your Login Details are given below<br>
@@ -666,17 +702,20 @@ class Core_CAdminUserRegistration
 					Core_CAdminUserRegistration::sendingMail($email,$title,$mail_content);
 				}
 				else
-					$result = "<div class='exc_msgbox'>Account Not Created</div></br>";
+					$result = '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div></br>';
 				}
 				else
-					$result = "<div class='exc_msgbox'>Account Not Created</div></br>";
+					$result = '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div></br>';
 			}
 			else
-				$result = "<div class='exc_msgbox'>Account Not Created</div></br>";
+				$result = '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div></br>';
+			}
 		}
+		return $result;
 	}
-	return $result;
-  }
   
   	/**
 	 * Function sends a mail to the mail id supplied using the Lib_Mail()
@@ -819,6 +858,28 @@ class Core_CAdminUserRegistration
 		include_once('classes/Display/DAdminUserRegistration.php');
 		$arr1['selCountry']=Display_DAdminUserRegistration::dispCountry($query->records);
 		return $arr1;
+	}
+
+	/**
+	 * Function is user to get the customer detail from db
+	 * 
+	 * @return string
+	 */
+	function customerDetail()
+	{
+		
+		$objuser=new Bin_Query();
+		$sqluser="SELECT * FROM users_table WHERE user_id='".$_GET['userid']."'";	
+		$objuser->executeQuery($sqluser);
+		$recordsuser=$objuser->records[0];
+
+		$obj=new Bin_Query();
+		$sql="SELECT * FROM addressbook_table WHERE user_id='".$_GET['userid']."'";	
+		$obj->executeQuery($sql);
+		$records=$obj->records;
+
+		return Display_DAdminUserRegistration::customerDetail($recordsuser,$records);
+
 	}
 
 }

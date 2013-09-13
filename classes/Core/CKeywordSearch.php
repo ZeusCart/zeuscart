@@ -19,7 +19,6 @@
 *
 */
 
-
 /**
  * Keyword search related  class
  *
@@ -182,7 +181,6 @@
 			    $categoryname=$ob->categoryName($id);
 				$subcategoryname=$ob->categoryName($sub);
 			    $_SESSION['selectedbrand']='You have Selected <b> '.$categoryname. ' >> '.$subcategoryname.'</b>';
-//				echo $_SESSION['selectedbrand'];
 		  }
 		  elseif($_POST['catsel'])
 		  {
@@ -291,7 +289,7 @@
 	 */
 	function dispBrandWithCount()
 	{
-	    $id=$_POST['catsel'];
+	    	$id=$_POST['catsel'];
 		
 		if($_SESSION['subcategory']!="")
 		{
@@ -311,11 +309,11 @@
 
 		$sql="Select a.brand,count(a.brand) as cnt from products_table a inner join category_table b on a.category_id=b.category_id  ".$mycat." and a.intro_date <= '".date('Y-m-d')."' and a.status=1 group by a.brand";
 	
-	   $obj=new Bin_Query();
-	   $obj->executeQuery($sql);
-	   $res=$obj->records;
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$res=$obj->records;
 
-	   return Display_DKeywordSearch::dispBrandWithCount($res,$id);
+	   	return Display_DKeywordSearch::dispBrandWithCount($res,$id);
 	  	   
 	}
 	/**
@@ -357,7 +355,7 @@
 		{
 		   $mycat="";
 		}
-           $ob=new Core_CKeywordSearch();
+              $ob=new Core_CKeywordSearch();
 	      $categoryname=$ob->categoryName($id);
 		
          	 $head=$_GET['head'];
@@ -466,8 +464,6 @@
 	 */
 	function featureList()
 	{
-		
-		
 
 		if(empty($_POST['subcatsel']))
 		   $id= $_SESSION['category'];
@@ -555,7 +551,7 @@
 		$sql = "select a.*,sum(r.rating)/count(r.user_id) as rating,count(r.user_id) as rcount from products_table a left join product_reviews_table r on a.product_id=r.product_id and a.intro_date <= '".date('Y-m-d')."' and a.status=1 ";
 
 		$conditions=array();
-	    $pagesize=10;
+	        $pagesize=10;
 		
 		if(isset($_POST['pricerange']))
 		{
@@ -579,7 +575,7 @@
 			$condition[]= ' a.msrp between ' . $minval . ' and '.$maxval;
 		  
 
-		 if(isset($_GET['page']))
+		       if(isset($_GET['page']))
 			{
 				$start = trim($_GET['page']-1) *  $pagesize;
 				$end =  $pagesize;
@@ -590,7 +586,7 @@
 				$end =  $pagesize;
 			}
 			$total = 0;
-		    $catagory=$_POST['subcatsel'];
+		        $catagory=$_POST['subcatsel'];
 			$sortby=$_POST['selsort'];
 			if(empty($sortby))
 			  $sortby=0;
@@ -620,13 +616,12 @@
 				$sql.= ' where '. implode('', $condition);
 			$sql.= ' group by a.product_id '.$orderby;
 			
-			//echo $sql;exit;
-				$obj = new Bin_Query();
-				if($obj->executeQuery($sql))
+			$obj = new Bin_Query();
+			if($obj->executeQuery($sql))
 			{
-			$_SESSION['countsearch']=$obj->totrows;		
+			  $_SESSION['countsearch']=$obj->totrows;		
 			  $sql1=$sql.' LIMIT '.$start.','.$end;
-//			  echo $sql1;exit;
+
 			  $total = ceil($obj->totrows/ $pagesize);
 			  include('classes/Lib/paging.php');
 			  $tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
@@ -689,10 +684,10 @@
 
 	function extendedSearch($sort,$mode)
 	{
-        $attrib_value_id= $_GET['attrib_value_id'];
+                $attrib_value_id= $_GET['attrib_value_id'];
 		$catid=$_GET['category'];
-	   $pagesize=10;
-	 if(isset($_GET['page']))
+	        $pagesize=10;
+	        if(isset($_GET['page']))
 		{
 		    
 			$start = trim($_GET['page']-1) *  $pagesize;
@@ -714,21 +709,21 @@
 		    $catid=$_GET['category'];
 		 
 
-		 $ob=new Core_CKeywordSearch();
-	      $subcategoryname=$ob->categoryName($catid);
+		  $ob=new Core_CKeywordSearch();
+	          $subcategoryname=$ob->categoryName($catid);
 		  $mm=$_SESSION['category'];
 		  $categoryname=$ob->categoryName($mm);
 		
-          $head=$_GET['head'];
+        	  $head=$_GET['head'];
 		  $attib_value_id =$_GET['attrib_value_id'];
 		 // echo 'the value is '.$attib_value_id; 
-	      $brand=$_GET['brand'];
+	  	   $brand=$_GET['brand'];
 		  if(((int)$attib_value_id)>0)
 			  $_SESSION['selectedbrand']='You have Selected <b>'.$categoryname.'</b> >><b> '.$subcategoryname.'</b>>>'.'<b> '.$head.' </b>';
 		  elseif(count($brand)>0)
 			  $_SESSION['selectedbrand']='You have Selected <b>'.$categoryname.'</b> >><b> '.$subcategoryname.'</b>';
 
-	if(((int)$attrib_value_id)>0)
+		if(((int)$attrib_value_id)>0)
 		if($sortby==0)
 		{
 		   //$sql="select * from products_table a inner join product_attrib_values_table b on a.product_id=b.product_id inner join category_table c on c.category_id=a.category_id inner join category_table d on d.category_id=c.category_parent_id where b.attrib_value_id=".$attrib_value_id." and category_id=".catid." group by a.title  order by a.msrp";
@@ -822,10 +817,10 @@
 		$keyword=htmlentities(trim($keyword));
 		$search_sql="select count(*) as cnt  from search_tags_table where search_tag='".$keyword."'";
 		$obj = new Bin_Query();
-	    $obj->executeQuery($search_sql);		
-	    $res=$obj->records;
+		$obj->executeQuery($search_sql);		
+		$res=$obj->records;
 		
-	    if ($res[0]['cnt'] <= 0)
+	   	if ($res[0]['cnt'] <= 0)
 		{
 			$sql="insert into search_tags_table (search_tag,search_count) values ('".$keyword."',1)";
 		}

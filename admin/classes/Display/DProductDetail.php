@@ -73,8 +73,8 @@ class Display_DProductDetail
 		//print_r($arr[0]['price']);
 		//print_r($arr[0]['quantity']);
 		/*<link href="css/default/styles.css" rel="stylesheet" type="text/css" />
-<link href="css/default/anylinkvertical.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="css/default/anylinkvertical.js">*/
+		<link href="css/default/anylinkvertical.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="css/default/anylinkvertical.js">*/
 		//include('templates/header.html');
 		//print_r($reviewCount['review']);
 		if($reviewCount=='')
@@ -103,125 +103,121 @@ class Display_DProductDetail
 		}
 		$saveprice.= '</table>';
 		
-		$output.='<head><title>'.$arr[0]['title'].'</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="description" content="'.$arr[0]['meta_desc'].'" />
-<meta name="keywords" content="'.$arr[0]['meta_keywords'].'" />
+		// 		$output.='<head><title>'.$arr[0]['title'].'</title>
+		// <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		// <meta name="description" content="'.$arr[0]['meta_desc'].'" />
+		// <meta name="keywords" content="'.$arr[0]['meta_keywords'].'" />
+		// 
+		// </script></head><body>';
 
-</script></head><body>';
-		
-		$output.='<form name="frm" action="?do=addtocart&prodid='.$arr[0]['product_id'].'" method="post" >
-		<table width="97%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="left" class="content_title">PRODUCT DETAILS</td>
-          </tr>
-          <tr>
-            <td align="left" align="right">&nbsp; </td>
-          </tr>
-           <tr>
-            <td  align="right" style="padding-bottom:10px;"><a class="spl_features" href="?do=manageproducts&action=editprod&prodid='.$arr[0]['product_id'].'">Edit Product </a></td>
-          </tr>
-          <tr>
-            <td width="68%" align="left"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
+		$output='<div class="row-fluid">
 
-              <tr>
-                <td colspan="2" class="content_list_head">'.$arr[0]['title'].'</td>
-                </tr>
-              <tr>
-                 <td colspan="2" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-                </tr><tr>
-                <td width="34%" rowspan="8" align="center" class="content_list_txt1">';
-				$filename="../".$arr[0]['image'];
+		<div class="span12">
+		<div class="span6">';
+		$filename="../".$arr[0]['image'];
 				if(file_exists($filename))
 					$output.=' <img border="0"  src='."../".$arr[0]['image'].'  />';
 				else
 					$output.=' <img border="0"  src="../images/noimage.jpg" />';	
-				$output.='</td>
-                <td width="66%" class="content_list_txt1">'.$arr[0]['title'].'<br/>SKU:'.$arr[0]['sku'].' </td>
-            </tr>';
-			/*if($arr[0]['quantity']>0)
-			{*/
-			$output.='<tr>
-                <td class="content_list_txt2">Price: '.$_SESSION['currency']['currency_tocken'].number_format($arr[0]['price'],2).'</td></tr>';
-			//}
-			/*else
-			{*/
-				$output.='<tr>
-                <td class="content_list_txt2">MSRP: '.$_SESSION['currency']['currency_tocken'].number_format($arr[0]['msrp'],2).'</td></tr>'; 
-			//}//<button class="" onClick="addtocart('.$arr[0]['product_id'].')"><span>Add to Cart</span></button>
-			
-			//<button class="" onClick="addtocart('.$arr[0]['product_id'].')"><span>Add to Cart</span></button>
-			
+				$output.='
+		</div>
+		<div class="span6">
+		<p class="formSep"><h4>'.$arr[0]['title'].'</h4></p>
+		
+		<p class="formSep"><table width="100%" border="0">
+				<tbody><tr>
+				<td align="left" valign="top"><span>SKU: '.$arr[0]['sku'].'</span></td>
+				
+				</tr>
+				</tbody></table> </p>
+
+		<p class="formSep"><table width="100%" border="0">
+				<tbody><tr>
+				<td align="left" valign="top"><span>Price: <font color="red">'.$_SESSION['currency']['currency_tocken'].number_format($arr[0]['price'],2).'</font></span></td>
+				
+				</tr>
+				</tbody></table></p>
+		<p class="formSep"><table width="100%" border="0">
+				<tbody><tr>
+				<td align="left" valign="top"><span>MSRP: <font color="red">'.$_SESSION['currency']['currency_tocken'].number_format($arr[0]['msrp'],2).'</font></span></td>
+				
+				</tr>
+				</tbody></table></p>';
+
 			if($arr[0]['soh']>0)
 			{
-			$output.=' <tr>
-                <td width="66%" class="content_list_txt1">Availability: <b>In stock.</b> </small></td></tr>';}
+				$output.=' <p class="formSep"><table width="100%" border="0">
+				<tbody><tr>
+				<td align="left" valign="top"><span>Availability: In stock.</span></td>
+				
+				</tr>
+				</tbody></table></p>';
+			}
 			else
 			{
-				$output.=' <tr><td  class="content_list_txt1">Availability: <b>Out stock.</b></small></td></tr>'; 
-			}
-			$output.=
-			'<tr>
-             <td  class="content_list_txt1">'.$rating.'</td>
-            </tr> 
-		  <tr>
-			  <td class="content_list_txt2" align="left">Tags: '.$arr[0]['tag'].'</td>
-            </tr> 
-                        
-         
-		  ';
-			/*<tr>
-              <td width="66%" class="content_list_txt1"><a href="?do=productreview&action=showProductReview&prodid=">Reviews('.$reviewCount.') </a> <a href="#">Add Your Reviews</a></td>
-            </tr>*/
-			
-$output.='
-</table></td>
-          </tr>
-          <tr>
-            <td align="left">&nbsp;</td>
-          </tr>
-          
-          <tr>
-            <td align="left"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-                <tr>
-                  <td width="35%" class="content_list_head">Product Overview</td>
-                  </tr>
-                <tr>
-                  <td class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-                </tr>
-                <tr>
-                  <td class="content_list_txt1">'.$arr[0]['description'].'</td>
-                  </tr>
-            </table></td>
-          </tr>
-		  
- <tr>
-            <td align="left">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="left"><table width="100%" align="center" cellspacing="0" class="content_list_bdr" id="product-attribute-specs-table">
-		<h4>Additional Information</h4>
-        <tbody>
-                
-                <tr class="odd first">
-                  <td width="23%" align="right" class="content_list_txt1">Model</td>
-                  <td width="77%" class="content_list_txt1">'.$arr[0]['model'].'</td>
-                </tr>
-                
-		  		<tr class="odd first">
-                <td width="23%" align="right" class="content_list_txt2">Dimensions</td>
-            	<td width="77%" class="content_list_txt2">'.$arr[0]['dimension'].'</td>
-			  	</tr>
-          <tr class="even">
-                <td width="23%" align="right" class="content_list_txt1">weight</td>
+				$output.=' <p class="formSep"><table width="100%" border="0">
+				<tbody><tr>
+				<td align="left" valign="top"><span>Availability: Out stock.</span></td>
 				
-             	<td class="content_list_txt1">'.$arr[0]['weight'].'</td>
-          </tr>	
+				</tr>
+				</tbody></table></p>';
+			}
+
+		
+		$output.='<p class="formSep"><table width="100%" border="0">
+				<tbody><tr>
+				<td align="left" valign="top"><span>Tags: '.$arr[0]['tag'].'</span></td>
+				
+				</tr>
+				</tbody></table></p>
+		</div>
+		</div>
+		</div>';
+
+		$output.='<div class="bs-docs-example">
+            <ul class="nav nav-tabs" id="myTab">
+              <li class="active"><a data-toggle="tab" href="#home">Product Overview</a></li>
+              <li class=""><a data-toggle="tab" href="#profile">Additional Information</a></li>
+              
+            </ul>';
+
+            $output.='<div class="tab-content" id="myTabContent">
+              <div id="home" class="tab-pane fade active in">
+                <p>'.$arr[0]['description'].'</p>
+              </div>
+              <div id="profile" class="tab-pane fade">
+                <p><tr>
+		<td align="left"><table width="100%" align="center" cellspacing="0" class="content_list_bdr" >
+		
+		<tbody>
+			
+			<tr>
+			<td width="23%" align="left" >Model</td>
+			<td width="77%" >'.$arr[0]['model'].'</td>
+			</tr>
+			
+					<tr >
+			<td width="23%" align="left" >Dimensions</td>
+			<td width="77%" >'.$arr[0]['dimension'].'</td>
+					</tr>
+		<tr >
+			<td width="23%" align="left" >weight</td>
+					
+			<td >'.$arr[0]['weight'].'</td>
+		</tr> </table></td>
+		</tr></p>
+              </div>
+             
+          </div>
+		
+		
+		
+		
 		  
 		';
 	 return $output;	
 	 
-	 ///QTY <span class="qty-box"><label for="qty">Qty:</label>
+	 //QTY <span class="qty-box"><label for="qty">Qty:</label>
 //<input name="qty" class="input-text qty" id="qty" maxlength="12" value="" type="text"></span>
 /*$output.='<div>
 

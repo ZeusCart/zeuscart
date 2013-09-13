@@ -45,57 +45,80 @@ class Display_DNewsSettings
 	
 	function showNews($arr,$flag,$paging,$prev,$next)
 	{    
-	
+
+
+
+
 		$output = "";
 		
-		$output .= '<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-              <tr>
-                <td class="content_list_head">S.No</td>
-                <td class="content_list_head">News Title</td>
-				<td align="center" class="content_list_head">Created Date</td>
-				<td align="center" class="content_list_head">Status</td>
-			
-                <td colspan="2" align="center" class="content_list_head">Delete</td>
-                </tr>
-              <tr>
-                <td colspan="6" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              </tr>
-			  ';
-		//$output.='<th>S.no.</th><th>Newsletter title</th><th>Created Date</th><th>Status</th><th colspan="2">Options</th>';
-		for ($i=0;$i<count($arr);$i++)
+		$output .= '
+
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
+		<tr>
+		<th  align="left"><input type="checkbox"  onclick="togglenewsChecked(this.checked)" name="newscheckall"></th>
+		<th  align="left">S.No</th>
+		<th align="left">News Title</th>
+		<th align="left" style="width:15%" >Created Date</th>
+		<th align="left" style="width:15%">Status</th>
+		</tr>
+		</thead>
+		<tbody>
+		';
+
+		if(count($arr) > 0)
 		{
+		//$output.='<th>S.no.</th><th>Newsletter title</th><th>Created Date</th><th>Status</th><th colspan="2">Options</th>';
+			for ($i=0;$i<count($arr);$i++)
+			{
 			//$msg=substr($msg,0,30).'..';
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
-			$status=$arr[$i]['news_status'];
-			if($status==1)
-			{
-			$status='active_link'; //sent
-			$title='Active';
-			}
-			else
-			{
-			$status='inactive_link'; //Not Sent
-			$title='InActive';
-			}
-			$output .= '<tr style="background-color: rgb(255, 255, 255);" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.'">'.($i+1).'</td><td align="" '.$classtd.'"><a href="?do=news&action=disp&id='.$arr[$i]['news_id'].'" >'.$arr[$i]['news_title'].' </a></td>';
-			$output .= '<td align="center" '.$classtd.'">'.$arr[$i]['news_date'].'</td>';
-			$output .= '<td align="center" '.$classtd.'" title='.$title.'><a href="?do=news&action=status&id='.$arr[$i]['news_id'].'&status='.$arr[$i]['news_status'].'"><span class='.$status.'></span></a><input type="hidden" value="'.$arr[$i]['news_status'].'" name="newsStatus" /></td> ';
-			$output.='<td align="center" '.$classtd.'"><input type="checkbox" name="deletenews[]" id="deletenews" value='.$arr[$i]['news_id'].' /></td>';
-		}
-		$output .='<tr><td colspan="5" align="center" class="content_list_txt1">'.$prev.' ';
-		
-		    for($i=1;$i<=count($paging);$i++)
-				 $pagingvalues .= $paging[$i]."  ";
-		
-			$output .= $pagingvalues.' '.$next.'</td></tr>';	
-		$output.='</td></tr></table>';
-		return $output;
-			
+				if($i % 2 == 0)
+					$classtd='class="content_list_txt1"';
+				else
+					$classtd='class="content_list_txt2"';
+				$status=$arr[$i]['news_status'];
+				if($status==1)
+				{
+					$status='active_link'; //sent
+					$title='<span class="badge badge-info">Active</span>';
+				}
+				else
+				{
+					$status='inactive_link'; //Not Sent
+					$title='<span class="badge badge-important">InActive</span>';
+				}
+		$output .= '<tr ><td><input type="checkbox" name="newscheck[]" class="chknewsbox" value="'.$arr[$i]['news_id'].'"></td><td >'.($i+1).'</td><td><a href="?do=news&action=disp&id='.$arr[$i]['news_id'].'" >'.$arr[$i]['news_title'].' </a></td>';
+		$output .= '<td>'.$arr[$i]['news_date'].'</td>';
+		$output .= '<td><a href="?do=news&action=status&id='.$arr[$i]['news_id'].'&status='.$arr[$i]['news_status'].'">'.$title.'</a><input type="hidden" value="'.$arr[$i]['news_status'].'" name="newsStatus" /></td> ';
+		$output.='</tr>';
 	}
-	
+	$output .='<tr>
+	<td colspan="5" class="clsAlignRight">
+	<div class="dt-row dt-bottom-row">
+	<div class="row-fluid">
+	<div class="dataTables_paginate paging_bootstrap pagination">
+	<ul>'.$prev.' ';
+
+	for($i=1;$i<=count($paging);$i++)
+		$pagingvalues .= $paging[$i]."  ";
+
+	$output .= $pagingvalues.' '.$next.'</ul></div>
+	</div>
+	</div>
+	</td>
+	</tr>';	
+}
+else
+{
+	$output.='<tr><td colspan="5">No News Found!</td></tr>';
+
+}
+$output.='</tbody></table>';
+return $output;
+
+}
+
 	/**
 	 * Function creates a template to update the available news. 
 	 * @param array $arr
@@ -105,37 +128,17 @@ class Display_DNewsSettings
 	
 	function viewNews($arr)
 	{
-	
-		
-		
+
 		$output = "";
-		//echo "<pre>";
-		//print_r($arr); // ?do=newsletter&action=edit&id='.(int)$_GET['id'].'
-		$output.='<form name="viewnews" action="" method="post" >';
-		//$output .= '<table border="1"><tr><td>';
-		
-		$output.='<table width="97%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr" align="center">
-			
-				<tr >
-            <td width="" align="left" class="label_name">News Title:  <input type="text" name="newstitle" id="newstitle" class="txt_box200" value="'.$arr[0]['news_title'].'" />&nbsp;<a href="?do=news" class="add_link" >Add News</a></td></tr>
-<tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>
-          <tr >';
-		$output.='<tr class="">
-            <td width="" align="left" class="label_name">News Content: 
-<div><textarea name="newsletter" id="newsletter" cols="85" rows="20" >'.$arr[0]['news_desc'].'</textarea>
-</td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr >
-<td class="content_list_txt1" align="center"><input type="submit" name="update" id="update" class="all_bttn" value="Update News" onclick="edit('.$arr[0]['news_id'].')" />
-</td></tr>
-';
-		$output.='
-                
-               
-              </tr>';		
-		$output .= '</td></tr></table></form>';
+		$output.='<form name="viewnews" id="newsUpdateform" action="?do=news&action=edit&id='.$_GET['id'].'" method="post" >';
+		$output.='<div class="row-fluid">
+		<div class="span12">
+		<label>News Title :</label>  <input type="text" name="newstitle" id="newstitle" class="span8" value="'.$arr[0]['news_title'].'" /></div></div>';
+		$output.='<div class="row-fluid">
+		<div class="span12">
+		<label>News Content :</label>
+		<textarea name="newsletter" id="newsletter" class="ckeditor" cols="85" rows="20" >'.$arr[0]['news_desc'].'</textarea></div></div>';
+		$output .= '</form>';
 
 		return $output;
 	}	

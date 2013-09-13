@@ -128,7 +128,7 @@ class Model_MProductDetail
 		$output['footerconnect']=Core_CHome::getfooterconnect();
 		$output['sociallink']=Core_CHome::showSocialLinks();
 		//--------- Details for Left Part-----------//
-		
+
 		$output['relatedproduct']=Core_CProductDetail::disprelatedProduct();
 		$output['currencylist'] = Core_CCurrencySettings::displayEnabledCurrencies();				
 		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
@@ -147,7 +147,8 @@ class Model_MProductDetail
 		
 		$default=new Core_CProductDetail();
 		$output['product']=$default->productDetail();
-		$output['pageinfo']=$default->pageInfo();
+// 		$output['pageinfo']=$default->pageInfo();
+		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['cartcount']=Core_CAddCart::countCart();
 		
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
@@ -155,7 +156,7 @@ class Model_MProductDetail
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		Bin_Template::createTemplate('productdetail.html',$output);
 		UNSET($_SESSION['reviewResult']);
-	
+		UNSET($_SESSION['reviewResultSuccess']);
 		
 	}
 	/**
@@ -184,13 +185,9 @@ class Model_MProductDetail
 	*/		
 	function showPopupProducts()
 	{
-
 		include_once('classes/Core/CProductDetail.php');
 		include_once('classes/Display/DProductDetail.php');
 		echo  $output['popproduct']= Core_CProductDetail::showPopupProducts();
-
-		// Bin_Template::createTemplate('popup_product_detail.html',$output);
-
 	}
 	
 }	

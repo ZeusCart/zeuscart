@@ -22,16 +22,16 @@
   <!-- body start here-->
   	<div class="container">
     	<ul class="breadcrumb">
-              <li><a href="#">Home</a> <span class="divider">/</span></li>
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index">Home</a> <span class="divider">/</span></li>
               <li class="active"> Register </li>
             </ul>
-           <AJDF:output> $account </AJDF:output></TD>
+           <AJDF:output> $account </AJDF:output>
    
         <div class="row-fluid">
 <div class="title_fnt">
     	<h1>Register</h1>
         </div>
-        <form class="form-horizontal" name="register_form" action="?do=userregistration&action=addreg" method="POST">
+        <form class="form-horizontal" name="register_form" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=userregistration&action=addreg" method="POST">
                 <fieldset>
                   <div class="control-group">
                     <div class="controls">
@@ -39,7 +39,8 @@
                          Fields marked with an <span class="red_fnt">*</span> are required 
                       </p>
                     </div>
-                  </div>
+                  </div><h4>Your Personal Details</h4>
+			<div>&nbsp;</div>
                   <div class="control-group">
                     <label for="input01" class="control-label">Display Name <span class="red_fnt">*</span></label>
                     <div class="controls">
@@ -76,8 +77,8 @@
                     </div>
                   </div>
 
-	 
-
+		<h4>Your Password</h4>
+		<div>&nbsp;</div>
   		<div class="control-group">
                     <label for="input01" class="control-label">Password <span class="red_fnt">*</span></label>
                     <div class="controls">
@@ -95,8 +96,8 @@
                     </div>
                   </div>
 	
-
-
+		<h4>Your Address</h4>
+		<div>&nbsp;</div>
  		  <div class="control-group">
                     <label for="input01" class="control-label">Address <span class="red_fnt">*</span> </label>
                     <div class="controls">
@@ -135,18 +136,32 @@
                     </div>
                   </div>
     		
-
-   		 
+		<h4>Newsletter</h4>
+		<div>&nbsp;</div>
 		<div class="control-group">
-                    <label for="input01" class="control-label"> </label>
+                    <label for="input01" class="control-label"> Subscribe</label>
                     <div class="controls">
-                    <input type="checkbox" align="absmiddle" name="chkterms" id="checkbox" value="1">  I accept the <a href="?do=termsandcondition">User Agreement and </a><a href="?do=privacypolicy">Privacy Policy</a><font color="#FF0000">
-                            <AJDF:output> $msg.chkterms </AJDF:output>
-                            </font>
+
+		<label class="radio inline">
+		<input type="radio" id="chknewsletter" value="1" name="chknewsletter"  <AJDF:output>if $val.chknewsletter eq 1</AJDF:output> checked<AJDF:output>/if</AJDF:output> > Yes
+		</label>
+		<label class="radio inline">
+		<input type="radio" id="chknewsletter" value="0" name="chknewsletter"  <AJDF:output>if $val.chknewsletter eq 0</AJDF:output> checked<AJDF:output>/if</AJDF:output>> No
+		</label>
                     </div>
                   </div>
-		
-                  <div class="form-actions">
+   		
+		<div class="control-group">
+ 
+                    <div class="controls">
+		<label class="checkbox inline">
+                    <input type="checkbox" align="absmiddle" name="chkterms" id="checkbox" value="1">  I accept the <a href="?do=termsandcondition" target="_blank">User Agreement </a>and <a href="?do=privacypolicy" target="_blank">Privacy Policy</a><font color="#FF0000">
+                            <AJDF:output> $msg.chkterms </AJDF:output>
+                            </font></label>
+                    </div>
+                  </div>
+
+                 <div class="form-actions">
                     <button class="btn btn-large btn-primary" type="submit">Submit</button>
                   </div>
                 </fieldset>

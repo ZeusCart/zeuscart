@@ -18,35 +18,46 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript">
+ $(document).ready(function (){
+$('#adminEmailbutton').click(function(){
+$("#adminEmailform").submit();
+});
+});
+</script>
 
-<AJDF:output>include file="left.html"</AJDF:output>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Administrator Email Settings</h2>
+    </div>
+     <div class="span3" >
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
-  
-  <tr>
-    <td align="left" class="content_title">Administrator Email Settings</td>
-  </tr>
-  <!--<tr>
-    <td align="left">&nbsp;</td>
-  </tr>-->
+      <ul class="bttn_right">
+            <li><a href="javascript:void(0);" class="update_icon"  id="adminEmailbutton"></a></li>
+          </ul>
 
-  <tr>
-    <td align="center"  style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$siteemailmsg</AJDF:output></td>
-   </tr>
-   <!--<tr>
-    <td align="left">&nbsp;</td>
-  </tr>
-    <tr>-->
-    <td align="left" class="content_list_head">Admin Email Id</td>
-  </tr>
-  <tr>
-    <td align="left" class="content_form_bdr">
-    <form name="site" action="?do=sitemail&action=update" method="post" >
+    </div>
+
+  </div>
+</div>
+
+
+<AJDF:output>$siteemailmsg</AJDF:output>
+
+
+    <form name="site" action="?do=sitemail&action=update" method="post" id="adminEmailform">
+      <div class="row-fluid">
+    <div class="span12"><h2 class="box_head green_bg">Admin Email Id</h2>
+    <div class="toggle_container">
+    <div class="clsblock">
+    <div class="clearfix">
     
     <AJDF:output>$siteemail</AJDF:output>        
           
-          
+</div>
+</div>
+</div>
+</div></div>
          
-        </form></td></tr>
-        </table>  
+        </form> 
 <AJDF:output>include file="footer.html"</AJDF:output>

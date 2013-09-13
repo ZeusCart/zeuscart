@@ -1,0 +1,214 @@
+.ibutton-container {
+	position: relative;
+	height: 22px;
+	cursor: pointer;
+	overflow: hidden;
+	/* set max width to that of sprite */
+	max-width: 400px;
+	/* prevent text selection */
+	-khtml-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-moz-user-focus: ignore; 
+	-moz-user-input: disabled;
+	/* set default width based on ON/OFF labels */
+	width: 79px;
+	background: #d7d7d7;
+	-webkit-box-shadow: inset 0 1px 0 #cfcfcf;
+	-moz-box-shadow: inset 0  1px 0 #cfcfcf;
+	-ms-box-shadow: inset 0  1px 0 #cfcfcf;
+	box-shadow: inset 0  1px 0 #cfcfcf;
+	border: 1px solid #bababa;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-ms-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+}
+
+.ibutton-container input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* hide the element */
+	filter:alpha(opacity=0);
+	-moz-opacity: 0.0; 
+	opacity: 0.0;
+	/* allow checking of input if visible */
+	-moz-user-input: enabled  !important;
+}
+
+.ibutton-handle {
+	display: block;
+	height: 22px;
+	cursor: inherit;
+	position: absolute;
+	top: -1px;
+	left: 39px;
+	width: 0;
+	background: #f9f9f9;
+	background: -moz-linear-gradient(top,  #f9f9f9 0%, #e8e8e8 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#e8e8e8));
+	background: -webkit-linear-gradient(top,  #f9f9f9 0%,#e8e8e8 100%);
+	background: -o-linear-gradient(top,  #f9f9f9 0%,#e8e8e8 100%);
+	background: -ms-linear-gradient(top,  #f9f9f9 0%,#e8e8e8 100%);
+	background: linear-gradient(to bottom,  #f9f9f9 0%,#e8e8e8 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#e8e8e8',GradientType=0 );
+	z-index: 3;
+	/* set default width based on ON/OFF labels */
+	width: 38px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-ms-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+	border: 1px solid #cfcfcf;
+}
+
+.ibutton-handle span {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	background: url(../img/ibutton/ibutton.gif) no-repeat center center;
+}
+
+div.ibutton-label-on, div.ibutton-label-off {
+  white-space: nowrap;
+  font-size: 17px;
+  line-height: 17px;
+  font-weight: bold;
+  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  cursor: inherit;
+  display: block;
+  height: 21px;
+  position: absolute;
+  width: auto;
+  top: 0;
+  padding-top: 1px;
+  overflow: hidden;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.14);
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.14);
+  -ms-box-shadow: inset 0 1px 2px rgba(0,0,0,0.14);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.14);
+}
+
+div.ibutton-label-on {
+	background: #d4e4ab;
+	color: #777;
+	left: 0;
+	z-index: 1;
+}
+
+div.ibutton-label-on span {
+  padding-left: 5px;
+}
+
+div.ibutton-label-off {
+	background: #eee;
+	color: #aaa;
+	text-align: right;
+	right: 0;
+	/* the off label needs to near the left edge (ideally just 5px away) 
+	 * it just needs to be close enough that it won't show under the handle if dragged to the left  
+	 */
+	width: 95%;
+}
+
+div.ibutton-label-off span {
+  padding-right: 5px; 
+}
+
+/* create an outline when button gets focus via keyboard */
+.ibutton-container label {
+	cursor: inherit;
+	padding: 1px 3px;
+	font-size: 11px !important;
+	display: inline-block;
+	font-weight: 700;
+	margin: 0;
+	float: none;
+}
+
+.ibutton-focus label {
+	/* we must use border, since outline doesn't work in IE */
+	border: 1px dotted #666 !important;
+	padding: 0 2px;
+}
+
+
+/* change the styles of the handle when being dragged */
+.ibutton-active-handle .ibutton-handle {
+	background-position: 0 -108px;
+}
+
+.ibutton-active-handle .ibutton-handle-right {
+	background-position: 100% -108px;
+}
+
+.ibutton-active-handle .ibutton-handle-middle {
+	background-position: 50% -108px;
+}
+
+/* styles to use when the button is disabled */
+.ibutton-disabled {
+	cursor: not-allowed !important; /* cursor options: default or not-allowed */
+}
+
+.ibutton-disabled .ibutton-handle {
+	background-position: 0 -81px;
+}
+
+.ibutton-disabled .ibutton-handle-right {
+	background-position: 100% -81px;
+}
+
+.ibutton-disabled .ibutton-handle-middle {
+	background-position: 50% -81px;
+}
+
+.ibutton-disabled div.ibutton-label-on {
+	background-position: 0 -27px;
+}
+
+.ibutton-disabled div.ibutton-label-off {
+	background-position: 100% -27px;
+}
+
+.ibutton-disabled .ibutton-padding-left {
+	background-position: 0 -27px;
+}
+
+.ibutton-disabled .ibutton-padding-right {
+	background-position: 100% -27px;
+}
+
+.ibutton-disabled div.ibutton-label-on {
+	color: #fff;
+}
+
+.ibutton-disabled div.ibutton-label-off {
+	color: #cbcbcb;
+}
+
+.ibutton-group {
+	overflow: hidden;
+}
+.ibutton-group .ibutton-container {
+	float: left;
+	margin-right: 8px;
+    margin-bottom: 4px;
+}
+
+.ibutton-group .ibutton-container:last-child {
+	margin: 0;
+}
+
+.ibutton-container + .help-block {
+	margin-top: 0;
+	padding-top: 5px;
+	line-height: 13px;
+}
+.ibutton-group + .help-block {
+	margin-top: 0;
+	padding-top: 1px;
+	line-height: 13px;
+}

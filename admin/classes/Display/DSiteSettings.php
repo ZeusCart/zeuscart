@@ -37,17 +37,86 @@ class Display_DSiteSettings
 	 * 
 	 * @return string
 	 */	
-	function siteMoto($arr)
+	function siteSittings($arr,$recordsTime,$Err)
 	{
-	
-		$output = '<tr>
-          <td align="left" class="content_form">
-	       Site Moto:</td>
-		<td  class="content_form" >
-        <input type="text" name="moto"  value="'.$arr[0]['set_value'].'" class="txt_box250" /> </td></tr>
-        
-        ';
-			
+
+
+		if(!empty($Err->messages))
+		{
+			$arr=$Err->values;
+		}
+		else
+		{
+			$arr=$arr;
+		}
+
+		$output.='<div class="row-fluid">
+   		 <div class="span6">
+	        <label>Site Moto:</label>
+		<input type="text" name="site_moto"  value="'.$arr['site_moto'].'" class="span8" />
+		</div></div>
+		<div class="row-fluid">
+		<div class="span6">
+		<label> Meta Keywords:</label>	    
+			<textarea name="meta_kerwords" id="meta_kerwords"  style="width: 279px; height: 159px;">'.$arr['meta_kerwords'].'</textarea>
+		</div>
+		</div> 
+		<div class="row-fluid">
+		<div class="span6">
+		<label>Meta Description:</label>	    
+			<textarea name="meta_description" id="meta_description"  style="width: 279px; height: 159px;">'.$arr['meta_description'].'</textarea>
+		</div>
+		</div>
+		<div class="row-fluid">
+   		 <div class="span12">
+	        <label>Google Analytics Tracking Script:</label>
+		<textarea name="google_analytics" id="google_analytics"  style="width: 279px; height: 159px;">'.$arr['google_analytics'].'</textarea>
+		</div></div>  ';
+		$output.='<div class="row-fluid">
+		<div class="span12">
+		<label>Custom Header:</label>
+		<textarea name="customer_header" id="customer_header" class="ckeditor"  style="width: 279px; height: 159px;">'.$arr['customer_header'].'</textarea>
+		</div>
+		</div>
+		';
+		$output.='<div class="row-fluid">
+		<div class="span6">
+		<label>Administrator Email:</label>	    
+		<input type="text" name="admin_email"  value="'.$arr['admin_email'].'" class="span8" /> 
+		</div>
+		</div> 
+
+		<div class="row-fluid">
+   		 <div class="span6">
+	        <label>Set TimeZone to :</label>';		
+		$count=count($recordsTime);
+		$output.= '<select name="time_zone" style="width:290px" id="cbosubcat" '.$fun.'>';
+		$output.= '<option value="">Select</option>';	
+		for ($i=0;$i<$count; $i++)
+		{
+			//if($_POST['timezone']!=	$arr[$i]['tz_timezone'])
+			if($arr['time_zone'] !=$recordsTime[$i]['tz_timezone'])
+				$output.= '<option value="'.$recordsTime[$i]['tz_timezone'].'">'.$recordsTime[$i]['tz_timezone'].$hassub.'</option>';
+			else
+				$output.= '<option value="'.$recordsTime[$i]['tz_timezone'].'" selected>'.$recordsTime[$i]['tz_timezone'].$hassub.'</option>';
+		}
+		$output.= '</select>';
+		
+		$output.='</div></div>';
+		$output.='<div class="row-fluid">
+              <div class="span2">
+                Upload Logo</div><div class="span10" style="float:left;">
+
+                <div class="fileupload fileupload-new" data-provides="fileupload"> 
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>&nbsp;<div class="thumbnail" style="float:center;"><img src="../'.$arr['site_logo'].'"></div><input type="hidden" name="site_logo" value="'.$arr['site_logo'].'"> 
+                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                  <div>
+                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="site_logo" /></span>
+                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                  </div>
+                </div>
+              </div></div>';
+
 		return $output;
 	}
 }

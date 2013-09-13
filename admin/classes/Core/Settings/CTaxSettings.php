@@ -72,6 +72,7 @@ class Core_Settings_CTaxSettings
 	
 	function updateTaxSettings()
 	{
+
 	
 		if(is_numeric($_POST['SingleTaxRate']))
 		{
@@ -84,15 +85,17 @@ class Core_Settings_CTaxSettings
 		
 		for($i=1;$i<=3;$i++)
 		{
-			$sql="UPDATE tax_master_table SET status = ".(((int)$_POST['TaxSetting']==$i) ? '1' : '0' )." WHERE id =".$i; 
+		  $sql="UPDATE tax_master_table SET status = ".(((int)$_POST['TaxSetting']==$i) ? '1' : '0' )." WHERE id =".$i; 
 			$query = new Bin_Query();
 			$query->updateQuery($sql);
 		}
-		return '<div class="success_msgbox">Tax Settings Changed Successfully</div>';
+		return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Tax Settings Changed Successfully.</div>';
 		}
 		else
 		{
-			return '<div class="error_msgbox">Tax Settings failed(Tax rate - Numeric Only).</div>';
+			return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Tax Settings failed(Tax rate - Numeric Only).</div>';
 		}
 			
 	}
@@ -222,10 +225,12 @@ class Core_Settings_CTaxSettings
 			
 			$query=new Bin_Query();
 			if ($query->updateQuery($sql))
-				return '<div class="success_msgbox">Tax Rate Added Successfully</div>';
+				return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Tax Rate Added Successfully.</div>';
 		}
 		else
-			return '<div class="exc_msgbox">Tax Rate Is Already Added For Selected Country </div>';
+			return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Tax Rate Is Already Added For Selected Country. </div>';
 		
 	}
 	
@@ -260,11 +265,13 @@ class Core_Settings_CTaxSettings
 			if ($query->updateQuery($sql))
 			{
 				 unset($_SESSION['edittaxid']);
-				return '<div class="success_msgbox">Tax Rate Modified Successfully</div>';
+				return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Tax Rate Modified Successfully.</div>';
 			}
 		}
 		else
-			return '<div class="exc_msgbox">Tax Rate Is Already Added For Selected Country </div>';
+			return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Tax Rate Is Already Added For Selected Country .</div>';
 		
 	}
 	
@@ -284,9 +291,11 @@ class Core_Settings_CTaxSettings
 		$query=new Bin_Query();
 		
 		if ($query->updateQuery($sql))
-			return '<div class="success_msgbox">Tax Rate Deleted Successfully</div>';
+			return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Tax Rate Deleted Successfully.</div>';
 		else
-			return '<div class="exc_msgbox">Cannot Delete Tax </div>';
+			return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Cannot Delete Tax. </div>';
 		
 	}
 }

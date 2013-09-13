@@ -33,6 +33,7 @@
  */
 
 
+
 class Model_MSubAdminManagement
 {
 	/**
@@ -103,7 +104,13 @@ class Model_MSubAdminManagement
 		if($chkuser)
 		{
 			$output['subadmin'] =   Core_CSubadminmanagement::displaySubAdmin($Err);
-			Bin_Template::createTemplate('Subadminmanagement.html',$output);				
+			$output['updateMsg']=$_SESSION['msgSubadminupdate'];
+			$output['deleteMsg']=$_SESSION['msgSubadmindelete'];
+			$output['insertMsg']=$_SESSION['msgSubadmininsert'];
+			Bin_Template::createTemplate('Subadminmanagement.html',$output);		
+			unset($_SESSION['msgSubadminupdate']);		
+			unset($_SESSION['msgSubadmindelete']);
+			unset($_SESSION['msgSubadmininsert']);
 		}
 		else
 		{
@@ -167,18 +174,11 @@ class Model_MSubAdminManagement
 		$output['customers']=Core_CAdminHome::getCustomers();
 		include('classes/Core/CSubAdminManagement.php');
 		$chkuser=Core_CRoleChecking::checkRoles();
-		if($chkuser)
-		{
-			Core_CSubadminmanagement::updateSubAdmin();	
-			header("Location:?do=subadminmgt&msg=Updated%20Sucessfully");		
-			exit;	
-		}
-		else
-		{
-		   	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
-			
+
+		$_SESSION['msgSubadminupdate']=Core_CSubadminmanagement::updateSubAdmin();	
+		header("Location:?do=subadminmgt");		
+		exit;	
+
 	}
 	
 	/**
@@ -190,6 +190,7 @@ class Model_MSubAdminManagement
 	
 	function deleteSubAdmin()
 	{
+
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Core/CAdminHome.php');
 		$output['username']=Core_CAdminHome::userName();
@@ -200,19 +201,14 @@ class Model_MSubAdminManagement
 		$output['ordercount']= Core_CAdminHome::getOrderCount();		
 		$output['customers']=Core_CAdminHome::getCustomers();
 		$chkuser=Core_CRoleChecking::checkRoles();
- 	    include('classes/Core/CSubAdminManagement.php');
-		if($chkuser)
-		{
-		   Core_CSubadminmanagement::deleteSubAdmin();	
-		   header("Location:?do=subadminmgt&msg=SubAdmin%20Deleted%20Successfully");
-		   exit;
-		}
-		else
-		{
-		 $output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
-		 
+		include('classes/Core/CSubAdminManagement.php');
+		
+
+		
+		$_SESSION['msgSubadmindelete']=Core_CSubadminmanagement::deleteSubAdmin();	
+		header("Location:?do=subadminmgt");
+		exit;
+		
 	}
 	
 	/**
@@ -224,6 +220,11 @@ class Model_MSubAdminManagement
 	
 	function insertSubAdmin()
 	{
+
+		// echo "<pre>";
+		// print_r($_POST);
+
+		// echo "adf";exit;
 		include('classes/Lib/CheckInputs.php');
 		include('classes/Core/CAdminHome.php');
 		$output['username']=Core_CAdminHome::userName();
@@ -235,7 +236,7 @@ class Model_MSubAdminManagement
 		$output['customers']=Core_CAdminHome::getCustomers();
 		$obj = new Lib_CheckInputs('subadminmail');
 		include('classes/Core/CRoleChecking.php');
-	    include('classes/Core/CSubAdminManagement.php');
+		include('classes/Core/CSubAdminManagement.php');
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
 		$checkUserExists=Core_CSubadminmanagement::checkSubadminExists();
@@ -247,17 +248,28 @@ class Model_MSubAdminManagement
 				header("Location:?do=subadminmgt&errmsg=User%20Already%20Exists");
 			else
 			{
-				Core_CSubadminmanagement::insertSubAdmin();	
-		        header("Location:?do=subadminmgt&msg=SubAdmin%20Added%20Successfully");
+				$_SESSION['msgSubadmininsert']=Core_CSubadminmanagement::insertSubAdmin();	
+				header("Location:?do=subadminmgt");
 			}
-		  	exit;
-	    }
+			exit;
+		}
 		else
 		{
-		$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
 			Bin_Template::createTemplate('Errors.html',$output);
 		}
-		  
+
+	}
+
+
+	function subadminNamealreadyExist()
+	{
+		
+		include('classes/Core/CSubAdminManagement.php');
+				
+		$checkUserExists=Core_CSubadminmanagement::subadminUsernamecheck();
+
+
 	}
 	
 

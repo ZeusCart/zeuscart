@@ -53,27 +53,30 @@ class Core_Settings_CSiteSettings
 	var $errormessages = array();
 	
 	/**
-	 * Function gets the site moto details from the database 
+	 * Function gets the site settings details from the database 
 	 * 
 	 * 
 	 * @return string
 	 */	 	
 		
-	function siteMoto()
+	function siteSittings($Err)
 	{
-		
-		
-			$sql = "SELECT set_name,set_value FROM `admin_settings_table` where set_name='Site Moto'";
-			$query = new Bin_Query();
-			if($query->executeQuery($sql))
-			{		
-				
-				return Display_DSiteSettings::siteMoto($query->records);
-			}
-			else
-			{
-				return '<div class="error_msgbox" style="width:644px;">Site Moto Settings Not Found</div>';
-			}
+	
+		$sql = "SELECT * FROM admin_settings_table "; 
+		$query = new Bin_Query();
+		if($query->executeQuery($sql))
+		{
+			$sqlTime = "SELECT tz_timezone FROM `timezone_table` order by tz_timezone";
+			$queryTime = new Bin_Query();
+			if($queryTime->executeQuery($sqlTime))		
+			
+			return Display_DSiteSettings::siteSittings($query->records[0],$queryTime->records,$Err);
+		}
+		else
+		{
+			return '<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button> Site  Settings Not Found</div>';
+		}
 	}
 	
 	/**
@@ -83,19 +86,52 @@ class Core_Settings_CSiteSettings
 	 * @return string
 	 */	 	
 	
-	function updateSiteMoto()
+	function updatesiteSettings()
 	{
-		$sql = "UPDATE admin_settings_table SET set_value='".$_POST['moto']."' where set_name='Site Moto'";
+
+		$remove =  array("\\n","\\r");
+		$_POST['google_analytics'] = str_replace($remove,"",$_POST['google_analytics']);
+		$_POST['customer_header'] = str_replace($remove,"",$_POST['customer_header']);
+
+		if($_FILES['site_logo']['name'] != '')
+		{
+			$site_logo_path = 'images/logo/'.date("YmdHis").'_'.$_FILES['site_logo']['name'];
+			if(move_uploaded_file($_FILES['site_logo']['tmp_name'],'../'.$site_logo_path))
+				$site_logo = $site_logo_path;
+		}
+		else
+		{
+			$site_logo=$_POST['site_logo'];
+		}
+
+		 $sql = "UPDATE admin_settings_table SET 
+			customer_header ='".trim($_POST['customer_header'])."' ,
+			site_logo='".$site_logo."',
+			google_analytics='".trim($_POST['google_analytics'])."',
+			time_zone='".trim($_POST['time_zone'])."',
+			site_moto='".trim($_POST['site_moto'])."',
+			site_skin='".trim($_POST['site_skin'])."',	
+			admin_email='".trim($_POST['admin_email'])."',
+			meta_kerwords='".stripslashes(trim($_POST['meta_kerwords']))."',
+			meta_description='".stripslashes(trim($_POST['meta_description']))."'
+			where set_id='1'";  
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
 			{		
-				
-				return '<div class="success_msgbox" style="width:644px;">Site Moto Successfully Changed to <b> '.$_POST['moto'].'</b>. </div>';
+
+				$_SESSION['msgSitemoto'] = '<div class="alert alert-success">
+   				 <button type="button" class="close" data-dismiss="alert">×</button> Site settings has been updated successfully </div>';
+		
 			}
 			else
 			{
-				return '<div class="error_msgbox" style="width:644px;">Site Moto Settings Not Found</div>';
+				$_SESSION['msgSitemoto'] = '<div class="alert alert-error">
+    				<button type="button" class="close" data-dismiss="alert">×</button>Site settings has not been updated successfully</div>';
+
 			}
+
+			header('Location:?do=site');
+			exit;
 	}
 }	
  ?>

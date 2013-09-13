@@ -82,9 +82,10 @@ class Model_MAdminActivity
 			include_once('classes/Core/CAdminActivity.php');
 			include_once('classes/Display/DAdminActivity.php');			
 			$default=new Core_CAdminActivity();
-			$output['message'] =$msg;
+			$output['message'] =$_SESSION['messageActivity'];
 			$output['result'] = $default->showReport();
 			Bin_Template::createTemplate('adminActivity.html',$output);
+			unset($_SESSION['messageActivity']);
 		}
 		else
 		{
@@ -103,8 +104,10 @@ class Model_MAdminActivity
 	{
 		include_once('classes/Core/CAdminActivity.php');
 		$default=new Core_CAdminActivity();
-		$output['message']=$default->deleteActivity();
-		Bin_Template::createTemplate('deleteAdminActivity.html',$output);
+		$_SESSION['messageActivity']=$default->deleteActivity();
+		header('Location:?do=activity');
+		exit;
+		//Bin_Template::createTemplate('deleteAdminActivity.html',$output);
 	}
 }
 ?>

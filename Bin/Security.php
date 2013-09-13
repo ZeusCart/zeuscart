@@ -18,18 +18,7 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package   		AJDF
- * @author    		AjSquareInc Dev Team
- * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version  		Version 4.0
- * @created   		January 15 2013
- */
+
 
 /**
  * This class contains functions related to  security process for sql injection
@@ -37,6 +26,10 @@
  * @package  		Bin
  * @author    		AjSquareInc Dev Team
  * @link   		http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @link    		http://www.ajsquare.com/ajhome.php
+ * @version  		Version 4.0
+ * @created   		January 15 2013	
  */
 class Bin_Security
 {
@@ -68,6 +61,7 @@ class Bin_Security
 	 
 	function checkConfigFile()
 	{
+
 		if(file_exists(ROOT_FOLDER.'Bin/Configuration.php'))
 		{
 			include(ROOT_FOLDER.'Bin/Configuration.php');
@@ -82,6 +76,6 @@ class Bin_Security
 }
 
  if(!Bin_Security::checkConfigFile())
-	die("Configuration file corrupted or missing...") 
+	die("Configuration file corrupted or missing..."); 
 
 ?>

@@ -58,12 +58,12 @@ class Core_Settings_CSelectSkin
 	{
 		
 		
-			$sql = "SELECT set_name,set_value FROM `admin_settings_table` where set_name='Site Skin'";
+			$sql = "SELECT set_id,site_skin FROM `admin_settings_table` where set_id ='1'";
 			$query = new Bin_Query();
 			if($query->executeQuery($sql))
 			{		
 				
-				return $query->records[0]['set_value'];
+				return $query->records[0]['site_skin'];
 			}
 			else
 			{
@@ -110,14 +110,16 @@ class Core_Settings_CSelectSkin
 		$query = new Bin_Query();
 		if($_POST['skingroup'] != '')
 		{
-			$sql = "UPDATE admin_settings_table SET set_value='".$_POST['skingroup']."' WHERE  set_name='Site Skin'";  
+			$sql = "UPDATE admin_settings_table SET site_skin='".$_POST['skingroup']."' WHERE  set_id='1'";  
 			if($query->updateQuery($sql))
 			{
-				return '<div class="success_msgbox" style="width:648px;">Site skin is updated to <b>'.$_POST['skingroup'].'</b> Successfully</div>';
+				return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Site skin is updated to <b>'.$_POST['skingroup'].'</b> Successfully</div>';
 			}
 			else
 			{
-				return '<div class="error_msgbox" style="width:648px;">Not Updated</div>';
+				return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>  Not Updated</div>';
 			}
 		}
 	 }

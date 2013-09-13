@@ -42,91 +42,93 @@ class Display_DTaxSettings
 	function showTaxSettings($arr,$uniqarr)
 	{
 		
-		$output = '<table width="100%" class="" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="20%" align="left" class="content_form" valign="top" style="padding-left:70px;">Category Name :</td>
-            <td width="80%" class="content_form" >
-				<input name="TaxSetting" id="taxtype1" value="'.$arr[0]['id'].'"  type="radio" '.(($arr[0]['status']==1) ? 'checked="checked"' : '' ).' onclick="document.getElementById(\'SingleTaxDiv\').style.display=\'none\';document.getElementById(\'ifrmdiv\').style.display=\'none\'"> I don\'t want to apply tax to any products in my store&nbsp;<img src="images/help.gif" onmouseover="ShowHelp(\'dtax1\', \'Tax\', \'Don&acute;t apply Tax to any product(Tax Free).\')" onmouseout="HideHelp(\'dtax1\');">
-			<div id="dtax1" style=" position:fixed"></div><br>
-				<input name="TaxSetting" id="taxtype2" value="'.$arr[1]['id'].'"   type="radio" onclick="document.getElementById(\'SingleTaxDiv\').style.display=\'none\'; document.getElementById(\'ifrmdiv\').style.display=\'block\';" '.(($arr[1]['status']==1) ? 'checked="checked"' : '' ).'> I want to apply tax for specific countries and/or states&nbsp;<img src="images/help.gif" onmouseover="ShowHelp(\'dtax2\', \'Tax\', \'Apply Tax for country or/and state based.\')" onmouseout="HideHelp(\'dtax2\');">
-			<div id="dtax2" style=" position:fixed"></div><br>
-				<div id="ifrmdiv" style="display:'.(($arr[1]['status']==1) ? 'block' : 'none' ).';padding-top:5px;"><iframe src="?do=taxsettings&action=showregionwisetaxlist" style="border:none;" width="680px;" height="510px;"></iframe></div>
-				<input name="TaxSetting" id="taxtype3" value="'.$arr[2]['id'].'"   type="radio" onclick="document.getElementById(\'SingleTaxDiv\').style.display=\'block\';document.getElementById(\'ifrmdiv\').style.display=\'none\';" '.(($arr[2]['status']==1) ? 'checked="checked"' : '' ).' > I want to apply one tax rate to all products in my store&nbsp;<img src="images/help.gif" onmouseover="ShowHelp(\'dtax3\', \'Tax\', \'Apply Tax to all products(Common to all).\')" onmouseout="HideHelp(\'dtax3\');">
-			<div id="dtax3" style=" position:fixed"></div>
-						
-						
-						
-							</td>
-          </tr>
-		  <tr>
-		  	<td>&nbsp;</td>
-		  	<td>
+		$output = '
+
+		<div class="tabbable tabbable-bordered">
+		<ul class="nav nav-tabs">
+		<li class="active"><a href="#tb1_a" data-toggle="tab">Type 1</a></li>
+		<li><a href="#tb1_b" data-toggle="tab">Type 2</a></li>
+		<li><a href="#tb1_c" data-toggle="tab">Type 3</a></li>
+		</ul>
+		<div class="tab-content">
+		<div class="tab-pane active" id="tb1_a">
+		<div class="ibutton-group">
+		<div class="row-fluid">
+		<div class="span12">
+		<label>I don\'t want to apply tax to any products in my store</label><input name="TaxSetting" class="sb_ch1 {labelOn: \'Excel\', labelOff: \'OFF\'}" id="taxtype1" value="'.$arr[0]['id'].'"  type="radio" '.(($arr[0]['status']==1) ? 'checked="checked"' : '' ).' onclick="document.getElementById(\'SingleTaxDiv\').style.display=\'none\';document.getElementById(\'ifrmdiv\').style.display=\'none\'"> </div></div>
+		</div></div>
+		<div class="tab-pane" id="tb1_b">
+		<div class="ibutton-group">
+		<div class="row-fluid">
+		<div class="span12">
+		<label> I want to apply tax for specific countries and/or states</label>
+		<input name="TaxSetting" id="taxtype2" value="'.$arr[1]['id'].'"  '.(($arr[1]['status']==1) ? 'checked="checked"' : '' ).'  type="radio" > </div>
+		</div></div>
+
+		<iframe src="?do=taxsettings&action=showregionwisetaxlist" style="border:none;" width="100%" height="500px;" ></iframe>
+		</div>
+		<div class="tab-pane" id="tb1_c">
+		<div class="ibutton-group">
+		<div class="row-fluid">
+		<div class="span12">
+		<label>I want to apply one tax rate to all products in my store</label>
+		<input name="TaxSetting" id="taxtype3" value="'.$arr[2]['id'].'"   type="radio" onclick="document.getElementById(\'SingleTaxDiv\').style.display=\'block\';document.getElementById(\'ifrmdiv\').style.display=\'none\';" '.(($arr[2]['status']==1) ? 'checked="checked"' : '' ).' > 
+		</div>
+		</div></div>
+
+
+		<table cellspacing="0" cellpadding="0" border="0" style="width: 100%; margin-top: 5px; " id="SingleTaxDiv" class="content_form" >
+		<tbody><tr>
+		<td width="10%">&nbsp;							</td>
+		<td width="90%" align="left" valign="top">
+		<table border="0">
+		<tbody><tr>
+		<td><!--<img alt="" src="images/nodejoin.gif"/>--></td>
+		<td nowrap="nowrap" align="left" width="100"><label >Tax Rate Name:</label></td>
+		<td>
+		<input type="text"  value="'.$uniqarr[0]['tax_name'].'" id="SingleTaxRateName" name="SingleTaxRateName"/>
+
+
+		</td>
+		</tr>
+		<tr>
+		<td> </td>
+		<td align="left">
+		<label >Tax Rate:</label>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" value="'.$uniqarr[0]['tax_rate_percent'].'" id="SingleTaxRate" name="SingleTaxRate"  style="width:40px;"/> <code>(%)</code>
+
+		</td>
+		</tr>
+		<tr>
+		<td> </td>
+		<td>
+		Based On:
+		</td>
+		<td>
+		<select id="SingleTaxRateBasedOn" name="SingleTaxRateBasedOn" style="width:146px;">
+		<option value="subtotal" '.(($uniqarr[0]['based_on_amount']=='subtotal') ? ' selected="selected" ' : '' ).' >Subtotal</option>
+		<option value="subtotal_and_shipping" '.(($uniqarr[0]['based_on_amount']=='subtotal_and_shipping') ? ' selected="selected" ' : '' ).' >Subtotal + Shipping</option>
+		</select>
+
+
+		</td>
+		</tr>									
 			
-			
-			
-			<!--------------------------Tax Details----------------------->
-			
-			<table cellspacing="0" cellpadding="0" border="0" style="width: 100%; margin-top: 5px; display: '.(($arr[2]['status']==1) ? 'block"' : 'none' ).';" id="SingleTaxDiv" class="content_form" >
-						<tbody><tr>
-							<td width="10%">&nbsp;							</td>
-							<td width="90%" align="left" valign="top">
-								<table border="0">
-									<tbody><tr>
-										<td><!--<img alt="" src="images/nodejoin.gif"/>--></td>
-										<td nowrap="nowrap" align="left" width="100"><label >Tax Rate Name:</label></td>
-										<td>
-											<input type="text"  value="'.$uniqarr[0]['tax_name'].'" id="SingleTaxRateName" name="SingleTaxRateName"/>
-											
-											
-										</td>
-									</tr>
-									<tr>
-										<td> </td>
-										<td>
-											Based On:
-										</td>
-										<td>
-											<select id="SingleTaxRateBasedOn" name="SingleTaxRateBasedOn" style="width:146px;">
-												<option value="subtotal" '.(($uniqarr[0]['based_on_amount']=='subtotal') ? ' selected="selected" ' : '' ).' >Subtotal</option>
-												<option value="subtotal_and_shipping" '.(($uniqarr[0]['based_on_amount']=='subtotal_and_shipping') ? ' selected="selected" ' : '' ).' >Subtotal + Shipping</option>
-											</select>
-											
-											
-										</td>
-									</tr>									
-									<tr>
-										<td> </td>
-										<td align="left">
-											<label >Tax Rate:</label>
-										</td>
-										<td align="left" valign="top">
-											<input type="text" value="'.$uniqarr[0]['tax_rate_percent'].'" id="SingleTaxRate" name="SingleTaxRate"  style="width:40px;"/>%
-											
-										</td>
-									</tr>	
-								</tbody></table>
-							</td>
-						</tr>
-					</tbody></table>
-			
-			<!--------------------------Tax Details----------------------->
-			
-			
-			
-			</td>
-		  </tr>
-          
-          <tr>
-            <td class="content_form">&nbsp;</td>
-            <td class="content_form" style="padding-left:30px;"><input type="submit" name="submit" value="Update Tax Setting" class="all_bttn"   />
-            </td>
-          </tr>
-        
-        </table>';
+		</tbody></table>
+		</td>
+		</tr>
+		</tbody></table>
+		</div>
+		</div>
+		</div>
+
+		';
 		
-			
+
 		return $output;
-			
+
 	}
 	/**
 	 * Function  to display   the  country wise tax list
@@ -140,37 +142,50 @@ class Display_DTaxSettings
 	{
 
 		
-		$output = '<table class="content_list_bdr" cellspacing="0" border="0" width="100%">
-	<tr><td width="300" class="content_list_head">Tax Name</td>
-	<td width="221" class="content_list_head">Tax Rate</td>
-	<td width="264" class="content_list_head">Applied To</td>
-	<td width="50" class="content_list_head">Status</td>
-	<td width="50" class="content_list_head">&nbsp;</td>
-	<td width="50" class="content_list_head">&nbsp;</td>
-	</tr>';
-	
-	
-	foreach ($result as $arr)
-	{
-		$output.='<tr onmouseover="listbg(this, 1);" onmouseout="listbg(this, 0);" style="background-color: rgb(255, 255, 255);"><td style="padding: 5px; width: 20px;" class="content_list_txt1" align="left">'.$arr['tax_name'].'</td><td class="content_list_txt1">'.$arr['tax_rate_percent'].' %</td><td style="padding-left: 10px;" class="content_list_txt1" align="left">'.( ($arr['country_code']=='' || $arr['country_code']=='all') ?  'All Countries' : $arr['cou_name']).'</td><td style="padding: 5px; width: 20px;" class="content_list_txt1" align="center"><span '.(($arr['status']==1) ? ' class="active_link" title="Active" ' : ' class="inactive_link" title="Inactive" ' ).'" /></td><td class="content_list_txt1"><a class="edit_bttn" href="?do=taxsettings&action=editregionwisetax&taxid='.$arr['id'].'">&nbsp;</a></td>
-	  <td class="content_list_txt1"><a class="delete_bttn" onclick="return confirm(\'Do you want to delete\');" href="?do=taxsettings&action=deleteregionwisetax&taxid='.$arr['id'].'">&nbsp;</a></td>
-	</tr>';
-	}
-	
-	$output.='<tr onmouseover="listbg(this, 1);" onmouseout="listbg(this, 0);" style="background-color: rgb(255, 255, 255);"></tr>
-	
-	<tr align="center"><td colspan="6" class="content_list_footer">  ';
-	
-	 for($i=1;$i<=count($paging);$i++)
-				 $pagingvalues .= $paging[$i]."  ";
-				 	 	$output .= $pagingvalues.' '.$next;
-	
-	$output .='   </td></tr>
-</table>';
+		$output = ' <a href="?do=taxsettings&amp;action=addregionwisetax" class="add_link">Add Tax Rate </a>
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
 		
-			
+		<thead class="green_bg">
+		<tr>
+		
+		<th  align="left">Tax Name</th>
+		<th  align="left">Tax Rate</th>
+		<th  align="left">Applied To</th>
+		<th  align="left" width="2%">Status</th>
+		<th colspan="2" width="10%"  align="center">Action</th>
+		
+		</tr>
+		</thead>
+		<tbody>';
+
+
+		foreach ($result as $arr)
+		{
+			$output.='<tr ><td >'.$arr['tax_name'].'</td><td>'.$arr['tax_rate_percent'].' %</td><td style="padding-left: 10px;" align="left">'.( ($arr['country_code']=='' || $arr['country_code']=='all') ?  'All Countries' : $arr['cou_name']).'</td><td class="content_list_txt1" style="padding: 5px; width: 20px;" align="center"><span '.(($arr['status']==1) ? ' class="active_link" title="Active" ' : ' class="inactive_link" title="Inactive" ' ).'" /></td><td ><a class="edit_bttn" href="?do=taxsettings&action=editregionwisetax&taxid='.$arr['id'].'">Edit</a></td> <td> <a class="delete_bttn" onclick="return confirm(\'Do you want to delete\');" href="?do=taxsettings&action=deleteregionwisetax&taxid='.$arr['id'].'">Delete</a></td>
+			</tr>';
+		}
+
+		$output.='<tr>
+		<td colspan="6" class="clsAlignRight">
+		<div class="dt-row dt-bottom-row">
+		<div class="row-fluid">
+		<div class="dataTables_paginate paging_bootstrap pagination">
+		<ul> ';
+
+		for($i=1;$i<=count($paging);$i++)
+			$pagingvalues .= $paging[$i]."  ";
+		$output .= $pagingvalues.' '.$next;
+
+		$output .='</ul></div>
+		</div>
+		</div>
+		</td>
+		</tr>   </tbody>
+		</table>';
+		
+
 		return $output;
-			
+
 	}
 	/**
 	 * Function  to display   the  add country wise tax 
@@ -182,8 +197,8 @@ class Display_DTaxSettings
 	{
 		if(count($Err->messages) > 0)
 		{
-			 $values = $Err->values;
-			 $messages = $Err->messages;
+			$values = $Err->values;
+			$messages = $Err->messages;
 		}
 		
 		$countrylist='<select size="5" name="taxratecountry" id="taxratecountry"   onchange="" style="width:180px;">';
@@ -192,65 +207,48 @@ class Display_DTaxSettings
 			$countrylist.='<option value="'.$country['cou_code'].'" '.(($values['taxratecountry']==$country['cou_code']) ? ' selected ="selected" ' : '' ).'>'.$country['cou_name'].'</option>';
 		$countrylist.='</select>';
 		
-		$output = '<form  name="sam" action="?do=taxsettings&action=insertregionwisetax" method="post"><table width="80%" border="0" cellspacing="0" cellpadding="0" align="center"><tr>
-						  <td  colspan="3" align="right"><font color="red"> * Required Fields</font></td>
-						</tr>
-						<tr>
-							<td width="166" class="content_form" >
-								Tax Name<span style="color:#FF0000">*</span>&nbsp;							</td>
-							<td width="66" class="content_form" >:</td>
-							<td width="293" class="">
+		$output = '<div class="row-fluid">
+		<div class="span12"><h2 class="box_head green_bg">Regionwise Tax Rates</h2>
+		<div class="toggle_container">
+		<div class="clsblock">
+		<div class="clearfix"><form  name="sam" action="?do=taxsettings&action=insertregionwisetax" method="post">
+		<div class="row-fluid">
+		<div class="span6"><label>
+		Tax Name<span style="color:#FF0000">*</span></label>
+		<input name="taxratename" id="taxratename"   value="'.$values['taxratename'].'" type="text" style="width:178px;"><br><span style="color:#FF0000">'.$messages['taxratename'].'</span></div></div>
+		<div class="row-fluid">
+		<div class="span6"><label>
+		Apply Tax to <span  style="color:#FF0000">*</span>&nbsp;</label>
 
-							<input name="taxratename" id="taxratename"   value="'.$values['taxratename'].'" type="text" style="width:178px;"><br><span style="color:#FF0000">'.$messages['taxratename'].'</span>							</td>
-						</tr>
-						<tr>
-							<td  class="content_form">Apply Tax to <span  style="color:#FF0000">*</span>&nbsp;</td>
+		<select name="taxratebasedon" id="taxratebasedon"   style="width:180px;">
+		<option value="subtotal" '.(($values['taxratebasedon']=='subtotal') ? ' selected ="selected" ' : '' ).' >Subtotal</option>
+		<option value="subtotal_and_shipping" '.(($values['taxratebasedon']=='subtotal_and_shipping') ? ' selected ="selected" ' : '' ).' >Subtotal + Shipping</option>
+		</select><br><span style="color:#FF0000">'.$messages['taxratebasedon'].'</span>							</div></div>
+		<div class="row-fluid">
+		<div class="span6"><label>Apply To<span  style="color:#FF0000">*</span>&nbsp;</label>
+		'.$countrylist.'<br><span style="color:#FF0000">'.$messages['taxratecountry'].'</span>		</div></div>
+		<div class="row-fluid">
+		<div class="span6"><label>Charge tax on <span  style="color:#FF0000">*</span>&nbsp;</label>
+		
+		<select name="taxaddress" id="taxaddress"   style="width:180px;">
+		<option value="billing" '.(($values['taxaddress']=='billing') ? ' selected ="selected" ' : '' ).' >Billing Address</option>
+		<option value="shipping" '.(($values['taxaddress']=='shipping') ? ' selected ="selected" ' : '' ).' >Shipping Address</option>
+		</select><br><span style="color:#FF0000">'.$messages['taxaddress'].'</span>								</div></div>
+		<div class="row-fluid">
+		<div class="span6"><label>Tax Rate<span  style="color:#FF0000">*</span>&nbsp;</label>
+		
+		<input name="taxratepercent" id="taxratepercent"  value="'.$values['taxratepercent'].'" type="text" style="width:60px;">&nbsp;<code>%</code><br><span style="color:#FF0000">'.$messages['taxratepercent'].'</span>							</div></div>
+		<div class="row-fluid">
+		<div class="span6"><label>Status<span  style="color:#FF0000">*</span>&nbsp;</label>
+		
+		<input  name="taxratestatus" id="taxratestatus" type="checkbox" value="1" '.(($values['taxratestatus']==1) ? ' checked="checked" ' : '' ).'></div></div><br/>
+		<div class="row-fluid">
+		<div class="span6">
+		<label><input name="SubmitButton2" value="Add Tax Rate"  type="submit" class="clsBtn"></label>
+		</div></div>
+		</form>
+		</div></div></div></div></div>';	
 
-							<td  class="content_form">: </td>
-							<td class="">
-								<select name="taxratebasedon" id="taxratebasedon"   style="width:180px;">
-									<option value="subtotal" '.(($values['taxratebasedon']=='subtotal') ? ' selected ="selected" ' : '' ).' >Subtotal</option>
-									<option value="subtotal_and_shipping" '.(($values['taxratebasedon']=='subtotal_and_shipping') ? ' selected ="selected" ' : '' ).' >Subtotal + Shipping</option>
-								</select><br><span style="color:#FF0000">'.$messages['taxratebasedon'].'</span>							</td>
-						</tr>
-						<tr>
-							<td  class="content_form">Apply To<span  style="color:#FF0000">*</span>&nbsp;</td>
-							<td  class="content_form">: </td>
-							<td class="">'.$countrylist.'<br><span style="color:#FF0000">'.$messages['taxratecountry'].'</span></td>
-						</tr>
-						
-							<tr>
-								<td class="content_form" >Charge tax on <span  style="color:#FF0000">*</span>&nbsp;</td>
-								<td  class="content_form">: </td>
-								<td class="">
-									<select name="taxaddress" id="taxaddress"   style="width:180px;">
-										<option value="billing" '.(($values['taxaddress']=='billing') ? ' selected ="selected" ' : '' ).' >Billing Address</option>
-										<option value="shipping" '.(($values['taxaddress']=='shipping') ? ' selected ="selected" ' : '' ).' >Shipping Address</option>
-									</select><br><span style="color:#FF0000">'.$messages['taxaddress'].'</span>								</td>
-							</tr>
-						<tr>
-							<td  class="content_form">Tax Rate<span  style="color:#FF0000">*</span>&nbsp;</td>
-							<td  class="content_form">: </td>
-							<td class="">
-								<input name="taxratepercent" id="taxratepercent"  value="'.$values['taxratepercent'].'" type="text" style="width:60px;">%<br><span style="color:#FF0000">'.$messages['taxratepercent'].'</span>							</td>
-						</tr>
-						<tr>
-							<td  class="content_form">Status<span  style="color:#FF0000">*</span>&nbsp;</td>
-							<td  class="content_form">: </td>
-							<td class="">
-								<input  name="taxratestatus" id="taxratestatus" type="checkbox" value="1" '.(($values['taxratestatus']==1) ? ' checked="checked" ' : '' ).'> <label for="taxratestatus">Enable Tax Rate </label></td>
-						</tr>
-						<tr>
-							<td colspan="2"  class="content_form">&nbsp;</td>
-							<td class="content_form">
-								<input name="SubmitButton2" value="Add Tax Rate"  type="submit" class="all_bttn">
-															</td>
-						</tr>
-						<tr><td colspan="3"  all_bttn>&nbsp;</td></tr>
-					 
-					</table></form>
-';	
-			
 		return $output;
 	}
 	/**
@@ -264,8 +262,8 @@ class Display_DTaxSettings
 	{
 		if(count($Err->messages) > 0)
 		{
-			 $values = $Err->values;
-			 $messages = $Err->messages;
+			$values = $Err->values;
+			$messages = $Err->messages;
 		}
 		else
 			$values =$arr[0];
@@ -277,67 +275,67 @@ class Display_DTaxSettings
 		$countrylist.='</select>';
 		
 		$output = '<form  name="sam" action="?do=taxsettings&action=updateregionwisetax" method="post"><table width="60%" border="0" cellspacing="0" cellpadding="0" align="center"><tr>
-						  <td  colspan="3" align="right"><input type="hidden" name="taxid" value="'.$values['id'].'"><font color="red"> * Required Fields</font></td>
-						</tr>
-						<tr>
-							<td width="166" class="content_form" >
-								Tax Name<span style="color:#FF0000">*</span>&nbsp;							</td>
-							<td width="66" class="content_form" >:</td>
-							<td width="293" class="">
+		<td  colspan="3" align="right"><input type="hidden" name="taxid" value="'.$values['id'].'"><font color="red"> * Required Fields</font></td>
+		</tr>
+		<tr>
+		<td width="166" class="content_form" >
+		Tax Name<span style="color:#FF0000">*</span>&nbsp;							</td>
+		<td width="66" class="content_form" >:</td>
+		<td width="293" class="">
 
-							<input name="taxratename" id="taxratename"   value="'.$values['taxratename'].'" type="text" style="width:178px;"><br><span style="color:#FF0000">'.$messages['taxratename'].'</span>							</td>
-						</tr>
-						<tr>
-							<td  class="content_form">Apply Tax to <span  style="color:#FF0000">*</span>&nbsp;</td>
+		<input name="taxratename" id="taxratename"   value="'.$values['taxratename'].'" type="text" style="width:178px;"><br><span style="color:#FF0000">'.$messages['taxratename'].'</span>							</td>
+		</tr>
+		<tr>
+		<td  class="content_form">Apply Tax to <span  style="color:#FF0000">*</span>&nbsp;</td>
 
-							<td  class="content_form">: </td>
-							<td class="">
-								<select name="taxratebasedon" id="taxratebasedon"   style="width:180px;">
-									<option value="subtotal" '.(($values['taxratebasedon']=='subtotal') ? ' selected ="selected" ' : '' ).' >Subtotal</option>
-									<option value="subtotal_and_shipping" '.(($values['taxratebasedon']=='subtotal_and_shipping') ? ' selected ="selected" ' : '' ).' >Subtotal + Shipping</option>
-								</select><br><span style="color:#FF0000">'.$messages['taxratebasedon'].'</span>							</td>
-						</tr>
-						<tr>
-							<td  class="content_form">Apply To<span  style="color:#FF0000">*</span>&nbsp;</td>
-							<td  class="content_form">: </td>
-							<td class="">'.$countrylist.'<br><span style="color:#FF0000">'.$messages['taxratecountry'].'</span></td>
-						</tr>
-						
-							<tr>
-								<td class="content_form" >Charge tax on <span  style="color:#FF0000">*</span>&nbsp;</td>
-								<td  class="content_form">: </td>
-								<td class="">
-									<select name="taxaddress" id="taxaddress"   style="width:180px;">
-										<option value="billing" '.(($values['taxaddress']=='billing') ? ' selected ="selected" ' : '' ).' >Billing Address</option>
-										<option value="shipping" '.(($values['taxaddress']=='shipping') ? ' selected ="selected" ' : '' ).' >Shipping Address</option>
-									</select><br><span style="color:#FF0000">'.$messages['taxaddress'].'</span>								</td>
-							</tr>
-						<tr>
-							<td  class="content_form">Tax Rate<span  style="color:#FF0000">*</span>&nbsp;</td>
-							<td  class="content_form">: </td>
-							<td class="">
-								<input name="taxratepercent" id="taxratepercent"  value="'.$values['taxratepercent'].'" type="text" style="width:60px;">%<br><span style="color:#FF0000">'.$messages['taxratepercent'].'</span>							</td>
-						</tr>
-						<tr>
-							<td  class="content_form">Status<span  style="color:#FF0000">*</span>&nbsp;</td>
-							<td  class="content_form">: </td>
-							<td class="">
-								<input  name="taxratestatus" id="taxratestatus" type="checkbox" value="1" '.(($values['taxratestatus']==1) ? ' checked="checked" ' : '' ).'> <label for="taxratestatus">Enable Tax Rate </label></td>
-						</tr>
-						<tr>
-							<td colspan="2"  class="content_form">&nbsp;</td>
-							<td class="content_form">
-								<input name="SubmitButton2" value="Add Tax Rate"  type="submit" class="all_bttn">
-															</td>
-						</tr>
-						<tr><td colspan="3"  all_bttn>&nbsp;</td></tr>
-					 
-					</table></form>
-';	
-			
+		<td  class="content_form">: </td>
+		<td class="">
+		<select name="taxratebasedon" id="taxratebasedon"   style="width:180px;">
+		<option value="subtotal" '.(($values['taxratebasedon']=='subtotal') ? ' selected ="selected" ' : '' ).' >Subtotal</option>
+		<option value="subtotal_and_shipping" '.(($values['taxratebasedon']=='subtotal_and_shipping') ? ' selected ="selected" ' : '' ).' >Subtotal + Shipping</option>
+		</select><br><span style="color:#FF0000">'.$messages['taxratebasedon'].'</span>							</td>
+		</tr>
+		<tr>
+		<td  class="content_form">Apply To<span  style="color:#FF0000">*</span>&nbsp;</td>
+		<td  class="content_form">: </td>
+		<td class="">'.$countrylist.'<br><span style="color:#FF0000">'.$messages['taxratecountry'].'</span></td>
+		</tr>
+
+		<tr>
+		<td class="content_form" >Charge tax on <span  style="color:#FF0000">*</span>&nbsp;</td>
+		<td  class="content_form">: </td>
+		<td class="">
+		<select name="taxaddress" id="taxaddress"   style="width:180px;">
+		<option value="billing" '.(($values['taxaddress']=='billing') ? ' selected ="selected" ' : '' ).' >Billing Address</option>
+		<option value="shipping" '.(($values['taxaddress']=='shipping') ? ' selected ="selected" ' : '' ).' >Shipping Address</option>
+		</select><br><span style="color:#FF0000">'.$messages['taxaddress'].'</span>								</td>
+		</tr>
+		<tr>
+		<td  class="content_form">Tax Rate<span  style="color:#FF0000">*</span>&nbsp;</td>
+		<td  class="content_form">: </td>
+		<td class="">
+		<input name="taxratepercent" id="taxratepercent"  value="'.$values['taxratepercent'].'" type="text" style="width:60px;">%<br><span style="color:#FF0000">'.$messages['taxratepercent'].'</span>							</td>
+		</tr>
+		<tr>
+		<td  class="content_form">Status<span  style="color:#FF0000">*</span>&nbsp;</td>
+		<td  class="content_form">: </td>
+		<td class="">
+		<input  name="taxratestatus" id="taxratestatus" type="checkbox" value="1" '.(($values['taxratestatus']==1) ? ' checked="checked" ' : '' ).'> <label for="taxratestatus">Enable Tax Rate </label></td>
+		</tr>
+		<tr>
+		<td colspan="2"  class="content_form">&nbsp;</td>
+		<td class="content_form">
+		<input name="SubmitButton2" value="Add Tax Rate"  type="submit" class="all_bttn">
+		</td>
+		</tr>
+		<tr><td colspan="3"  all_bttn>&nbsp;</td></tr>
+
+		</table></form>
+		';	
+
 		return $output;
 	}
 }
 
- 
+
 ?>

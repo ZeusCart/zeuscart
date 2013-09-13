@@ -18,13 +18,7 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<!--<AJDF:output>include file="left.html"</AJDF:output>-->
-<script type="text/javascript" src="js/calendar/calendar.js"></script>
-<script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
-<script type="text/javascript" src="js/calendar/calendar-en.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
-<link href="css/calendar_styles.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
 <script type="text/javascript">
 var xmlHttp;
@@ -53,43 +47,43 @@ function callAjax()
 	var cust=ajax(url, 'titlescheck');
 	//var obj = actb(document.getElementById('tb'),customarray)
 }
+$(function () {
+
+
+
+$('#fromdate').datepicker();
+
+$('#todate').datepicker();
+
+});
 </script>
-<tr><td> 
-<table width="99%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td colspan="8" align="left"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="content_title" width="80%">Product List</td>
-    <td class="content_title" width="30%" align="right"><a href="javascript:history.back()" class="more_page">Back</a></td>
-  </tr>
-</table>
-</td>
-          </tr>
-          <tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>
-           <tr>
-          
-          <td align="left" class="top_links"><!--<a href="?do=manageproducts">View All Products </a>--></td><td align="right" class="top_links"><a href="?do=productentry" class="add_link">Add Product </a> </td></tr>
-          
+<script type="text/javascript">
+$(function(){
+$("select").chosen({allow_single_deselect:true});
+	
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Product List</h2>
+    </div>
+    <div class="span3" >
 
-<tr>
-<td colspan="2" style="" ><AJDF:output>$updatemsg</AJDF:output>
-<AJDF:output>$deletemsg</AJDF:output>
+      <ul class="bttn_right">
+         <li title="Add to physical product"><a href="?do=productentry"  ><img src="assets/img/icons/product.png" style="width:20px"><br><font color="#ff">Add</font></a></li> 
+           <li title="Add to digital product"><a href="?do=digitproductentry"  ><img src="assets/img/icons/digitalproduct.png" style="width:20px"><br><font color="#ff">Add</font></a></li> 
+	   <li title="Add to gift product"><a href="?do=giftproductentry"  ><img src="assets/img/icons/gift.png" style="width:20px"><br><font color="#ff">Add</font></a></li> 	
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
 <AJDF:output>$updateproduct</AJDF:output>
-</td>
-</tr>
-<tr>
-      <td colspan="3" align="left" >&nbsp;</td>
-</tr>
-<tr>
-
-<td colspan="2" align="center" id=productlist >
+            <AJDF:output>$editmsg</AJDF:output></td>
+          
 <AJDF:output>$allproducts</AJDF:output><AJDF:output>$searchproduct</AJDF:output>
-</td></tr></table>
-<!--<div ><AJDF:output>$products</AJDF:output></div>-->
-
-
 
 <AJDF:output>include file="footer.html"</AJDF:output>
 <script>

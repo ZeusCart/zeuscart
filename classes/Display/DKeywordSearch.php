@@ -76,14 +76,14 @@ class Display_DKeywordSearch
 					
 					$thumb_image=$row['thumb_image'];
 					if(!file_exists($thumb_image))
-						$thumb_image='images/noimage1.jpg';
+						$thumb_image=''.$_SESSION['base_url'].'/images/noimage1.jpg';
 					$image=$row['image'];
 					if(!file_exists($image))
-						$image='images/noimage1.jpg';
+						$image=''.$_SESSION['base_url'].'/images/noimage1.jpg';
 					$shipping_cost=$row['shipping_cost'];
 					$status=$row['status'];
 					$tag=$row['tag'];
-					$pat="images/products/";
+					$pat="".$_SESSION['base_url']."/images/products/";
 					$rcount=$row['rcount'];
 					
 					$rating=ceil($row['rating']);
@@ -91,21 +91,21 @@ class Display_DKeywordSearch
 					for($r1=0;$r1<5;$r1++)
 					{
 						if($r1<$rating)
-							$ratepath.='<img src="assets/img/star.png">&nbsp;';
+							$ratepath.='<img src="'.$_SESSION['base_url'].'/assets/img/star.png">&nbsp;';
 						else
-							$ratepath.='<img src="assets/img/star-gray.png">&nbsp;';							
+							$ratepath.='<img src="'.$_SESSION['base_url'].'/assets/img/star-gray.png">&nbsp;';							
 					}		
-					$output.='<li><form name="product" method="post" action="?do=addtocart&prodid='.$row['product_id'].'">
+					$output.='<li><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$row['product_id'].'">
 		
 					<div id="listproduct">
 					<div class="ribbion_div">';
 					if($result[$i]['product_status']==1)
 					{
-						$imagetag='<img src="assets/img/ribbion/new.png" alt="new">';
+						$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new">';
 					}
 					elseif($result[$i]['product_status']==2)
 					{
-						$imagetag='<img src="assets/img/ribbion/sale.png" alt="sale">';
+						$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale">';
 					}
 					elseif($result[$i]['product_status']==0)
 					{	
@@ -113,7 +113,7 @@ class Display_DKeywordSearch
 					}
 
 					$output.=''.$imagetag.'</div>
-					<div class="productimg"><img src="assets/js/timthumb.php?src='.$row['large_image_path'].'&h=150&w=150&zc=0&s=1&f=4,11&q=100&ct=1" alt="'.$row['title'].'"> 
+					<div class="productimg"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$row['product_id'].'"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$row['large_image_path'].'&h=150&w=150&zc=0&s=1&f=4,11&q=100&ct=1" alt="'.$row['title'].'"> </a>
 					
 					</div>
 						<div class="description_div"><h3><a href="#">'.$title.'</a></h3>
@@ -195,17 +195,17 @@ class Display_DKeywordSearch
 							$ratepath.='<img src="assets/img/star-gray.png">';							
 					}	
 					$output.='
-					<li class="bags"><form name="product" method="post" action="?do=addtocart&prodid='.$row['product_id'].'">
+					<li class="bags"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$row['product_id'].'">
 					
 					<div class="ribbion_div">';
 
 					if($row['product_status']==1)
 					{
-						$imagetag='<img src="assets/img/ribbion/new.png" alt="new">';
+						$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new">';
 					}
 					elseif($row['product_status']==2)
 					{
-						$imagetag='<img src="assets/img/ribbion/sale.png" alt="sale">';
+						$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale">';
 					}
 					elseif($row['product_status']==0)
 					{	
@@ -214,7 +214,7 @@ class Display_DKeywordSearch
 
 
 					$output.=''.$imagetag.'</div>
-					<div class="galleryImage"><img src="assets/js/timthumb.php?src='.$row['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'"> 
+					<div class="galleryImage"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$row['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'"> 
 					<div class="info">  
 					<h2>'.$title.'</h2>
 					<p>
@@ -243,8 +243,6 @@ class Display_DKeywordSearch
 					$output.='</ul>	
 					</div>
 					</div>';
-
-
 
 		}
 
@@ -355,7 +353,7 @@ class Display_DKeywordSearch
  	*/
 	function priceRange()
 	{
-		 $output='<form name="pricerange" action="?do=search&action=pricerange" method="post">
+		 $output='<form name="pricerange" action="'.$_SESSION['base_url'].'/index.php?do=search&action=pricerange" method="post">
 	<table cellpadding="0" cellspacing="0"  border="0" width="100%">
 	<tr>
 	<td colspan="4"><ul>
@@ -392,7 +390,7 @@ class Display_DKeywordSearch
 				$brand=$row['brand'];
 				$cnt=(int)$row['cnt'];
 					
-				$output.='<li><input type="hidden" name="mycategory" value='.$id.' /><a href="?do=search&action=narrowsearch&brand='.$brand.'&category='.$id.'">';
+				$output.='<li><input type="hidden" name="mycategory" value='.$id.' /><a href="'.$_SESSION['base_url'].'/index.php?do=search&action=narrowsearch&brand='.$brand.'&category='.$id.'">';
 				if($brand=='') $brand="UnBranded Items";
 				$output.=$brand;
 				$output.='('.$cnt.')</a></li>';
@@ -419,7 +417,7 @@ class Display_DKeywordSearch
 			    $brand=$row['brand'];
 				$cnt=(int)$row['cnt'];
 				if($cnt>0)				  
-			     $output.='<tr><td><a href="?do=search&action=narrowsearch&brand='.$brand.'">'.$brand.'('.$cnt.')</a></td></tr>';
+			     $output.='<tr><td><a href="'.$_SESSION['base_url'].'/index.php?do=search&action=narrowsearch&brand='.$brand.'">'.$brand.'('.$cnt.')</a></td></tr>';
 			 }
 			 $output.='</table>';
 			 return $output;
@@ -446,12 +444,12 @@ class Display_DKeywordSearch
 			   $output.="<tr><td><span class='All_text_head'>".$head[$i]."</span></td></tr>";
 			   for($j=0;$j<=count($att);$j++)
 			   {
-				   $output.="<tr><td class='All_text'><input type='hidden' value=".$id." name='mycategory' /><a href='?do=search&action=extendedsearch&attrib_value_id=".$att[$i][$j]."&head=".$head[$i]."&category=".$id."'>".$cnt[$i][$j]."</a><input type='hidden' name='attribute_id' value='".$att[$i][$j]."'/></td></tr>";			   		   
+				   $output.="<tr><td class='All_text'><input type='hidden' value=".$id." name='mycategory' /><a href='".$_SESSION['base_url']."/index.php?do=search&action=extendedsearch&attrib_value_id=".$att[$i][$j]."&head=".$head[$i]."&category=".$id."'>".$cnt[$i][$j]."</a><input type='hidden' name='attribute_id' value='".$att[$i][$j]."'/></td></tr>";			   		   
 			   }
 		   }
 		}	  
 		$output.="</table>";
-     return $output;
+     		return $output;
 
 	}
 
@@ -536,51 +534,51 @@ class Display_DKeywordSearch
 						$output='';
 						
 						$output.='<TR><TD> <div class="linebg resultITEM" style="width:610px;">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td width="9%" style="padding-right:10px" valign="top"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'"><img src="'.$thumb_image.'" alt="'.addslashes($title).'" border=0 width=95 /></a></td>
-	  
-          <td width="33%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0"  class="resultDETAILS">
-              <tr>
-                  <td align="left" scope="col"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'">'.$title.'</a>
-				  <br>Reviews ('.$rcount.')<br/>
-  				  '.$ratepath.'
-				  </td>
-              </tr>
-          </table>	  </td>
-          
-	  <td width="40%" valign="top" style="color:maroon"><b>'.$msrp.'</b></td>
-	  
-          <td width="20%"><div class="resultButton"><a href="?do=addtocart&prodid='.$product_id.'">
-		  <table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px" >
-			  <tr>
-				<td align="right" class="button_left"></td>
-				<td valign=top><input type="submit" value="Add to Cart" class="button" /></td>
-				<td class="button_right" ></td>
-			  </tr>
-			</table></a><!--<br />-->
-      <a href="?do=wishlist&action=viewWishList&id='.$product_id.'">
-	  <table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px" >
-			  <tr>
-				<td align="right" class="button_left"></td>
-				<td valign=top><input type="submit" value="Add to Wishlist" class="button" ></td>
-				<td class="button_right" ></td>
-			  </tr>
-			</table>
-	  </a><!--<br />-->
-      <a href="?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">
-	  <table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px" >
-			  <tr>
-				<td align="right" class="button_left" ></td>
-				<td valign=top><input type="submit" value="Add to Compare" class="button" /></td>
-				<td class="button_right" ></td>
-			  </tr>
-			</table>
-	  </a></div></td>
-      
-        </tr>
-      </table>
-	</div></td></tr>';
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+					<td width="9%" style="padding-right:10px" valign="top"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$product_id.'"><img src="'.$_SESSION['base_url'].'/'.$thumb_image.'" alt="'.addslashes($title).'" border=0 width=95 /></a></td>
+					
+					<td width="33%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0"  class="resultDETAILS">
+					<tr>
+						<td align="left" scope="col"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'">'.$title.'</a>
+								<br>Reviews ('.$rcount.')<br/>
+								'.$_SESSION['base_url'].'/'.$ratepath.'
+								</td>
+					</tr>
+					</table>	  </td>
+					
+					<td width="40%" valign="top" style="color:maroon"><b>'.$msrp.'</b></td>
+					
+					<td width="20%"><div class="resultButton"><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$product_id.'">
+						<table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px" >
+							<tr>
+								<td align="right" class="button_left"></td>
+								<td valign=top><input type="submit" value="Add to Cart" class="button" /></td>
+								<td class="button_right" ></td>
+							</tr>
+							</table></a><!--<br />-->
+				<a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewWishList&id='.$product_id.'">
+					<table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px" >
+							<tr>
+								<td align="right" class="button_left"></td>
+								<td valign=top><input type="submit" value="Add to Wishlist" class="button" ></td>
+								<td class="button_right" ></td>
+							</tr>
+							</table>
+					</a><!--<br />-->
+				<a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">
+					<table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px" >
+							<tr>
+								<td align="right" class="button_left" ></td>
+								<td valign=top><input type="submit" value="Add to Compare" class="button" /></td>
+								<td class="button_right" ></td>
+							</tr>
+							</table>
+					</a></div></td>
+				
+					</tr>
+				</table>
+					</div></td></tr>';
 			}
 			
 			
@@ -595,13 +593,13 @@ class Display_DKeywordSearch
 			else
 			{
 				$output.='<div class="linebg resultITEM" style="width:610px;">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td width="9%" style="padding-right:10px" valign="top"><div class="exc_msgbox">No Records Found</div></td>
-      
-        </tr>
-      </table>
-	</div>';
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+					<td width="9%" style="padding-right:10px" valign="top"><div class="exc_msgbox">No Records Found</div></td>
+				
+					</tr>
+					</table>
+					</div>';
 				 
 			}
 			
@@ -688,12 +686,12 @@ class Display_DKeywordSearch
 						
 						
 							
-							$output.='<td  id=product_tbbg><table width="95%" border="0" align="left" cellpadding="2" cellspacing="2"><tr><td align="left"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'" border="0"><img src="'.$thumb_image.'" width="90"  border="0"/></td></tr><tr><td class="text" align="left"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'" border="0">'.$title.'<br />Brand : '.$brand.'<br />Model : '.$model.'</a></td></tr><tr><td align="left" class="rate_text">  '.$msrp.'</td></tr><tr><td align="left"><a href="?do=addtocart&prodid='.$product_id.'"><img src="images/addtocart.jpg" border="0" /></a></td></tr><tr><td align="left" class="addtowishlist" ><a href="?do=wishlist&action=viewWishList&id='.$product_id.'">Add to Wishlist</a> </td></tr><tr><td align="left" class="addtocompare"><a href="?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">Add to Compare</a></td></tr><tr><td align="left" class="addtocompare"><img src="css/themes/default/compareprice.jpg" /></td></tr></table><td>';
+							$output.='<td  id=product_tbbg><table width="95%" border="0" align="left" cellpadding="2" cellspacing="2"><tr><td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$product_id.'" border="0"><img src="'.$thumb_image.'" width="90"  border="0"/></td></tr><tr><td class="text" align="left"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'" border="0">'.$title.'<br />Brand : '.$brand.'<br />Model : '.$model.'</a></td></tr><tr><td align="left" class="rate_text">  '.$msrp.'</td></tr><tr><td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$product_id.'"><img src="images/addtocart.jpg" border="0" /></a></td></tr><tr><td align="left" class="addtowishlist" ><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewWishList&id='.$product_id.'">Add to Wishlist</a> </td></tr><tr><td align="left" class="addtocompare"><a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">Add to Compare</a></td></tr><tr><td align="left" class="addtocompare"><img src="css/themes/default/compareprice.jpg" /></td></tr></table><td>';
 						}
 						elseif($i==3)
 						{
 							
-							$output.='</tr><tr><td><table width="95%" border="0" align="left" cellpadding="2" cellspacing="2"><tr><td align="left"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'" border="0"><img src="'.$thumb_image.'" width="90"  border="0"/></td></tr><tr><td class="text"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'" border="0">'.$title.'<br />Brand : '.$brand.'<br />Model : '.$model.'</a></td></tr><tr><td align="left" class="rate_text">  '.$msrp.'</td></tr><tr><td align="left"><a href="?do=addtocart&prodid='.$product_id.'"><img src="images/addtocart.jpg" border="0" /></a></td></tr><tr><td align="left" class="addtowishlist" style="padding-left:40px" ><a href="?do=wishlist&action=viewWishList&id='.$product_id.'">Add to Wishlist</a> </td></tr><tr><td align="left" class="addtocompare"><a href="?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">Add to Compare</a></td></tr><tr><td align="left" class="addtocompare"><img src="css/themes/default/compareprice.jpg" /></td></tr></table><td>';
+							$output.='</tr><tr><td><table width="95%" border="0" align="left" cellpadding="2" cellspacing="2"><tr><td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$product_id.'" border="0"><img src="'.$thumb_image.'" width="90"  border="0"/></td></tr><tr><td class="text"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'" border="0">'.$title.'<br />Brand : '.$brand.'<br />Model : '.$model.'</a></td></tr><tr><td align="left" class="rate_text">  '.$msrp.'</td></tr><tr><td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$product_id.'"><img src="images/addtocart.jpg" border="0" /></a></td></tr><tr><td align="left" class="addtowishlist" style="padding-left:40px" ><a href="?do=wishlist&action=viewWishList&id='.$product_id.'">Add to Wishlist</a> </td></tr><tr><td align="left" class="addtocompare"><a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">Add to Compare</a></td></tr><tr><td align="left" class="addtocompare"><img src="css/themes/default/compareprice.jpg" /></td></tr></table><td>';
 						$i=0;
 						}
 	
@@ -748,12 +746,12 @@ class Display_DKeywordSearch
 						$status=$row['status'];
 						$tag=$row['tag'];
 						$pat="images/products/";
-						$output.='<tr><td><table width="95%" border="0" align="left" cellpadding="0" cellspacing="0"><tr><td width="17%"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'" border="0"><img src="'.$thumb_image.'" width="90" border="0"/></td><td width="30%"><table width="95%" border="0"   style="padding-left:40px"  align="left" cellpadding="2" cellspacing="2"><tr><td class="text"><a href="#">'.$title.'<br /></a></td></tr><tr><td align="left" class="rate_text">  '.$msrp.'</td></tr><tr><td align="left"><a href="?do=addtocart&prodid='.$product_id.'"><img src="images/addtocart.jpg" border="0" /></a></td></tr></table></td><td width="33%"><table width="95%" border="0" align="left" cellpadding="2" cellspacing="2"><tr><td class="text"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'" border="0">'.$title.'<br />Brand : '.$brand.' <br />Model : '.$model.'</a></td></tr></table></td><td width="20%" ><img src="css/themes/default/compareprice.jpg" />	</td></tr><tr><td></td><td class="addtowishlist" style="padding-left:40px" ><a href="?do=wishlist&action=viewWishList&id='.$product_id.'">Add to Wishlist</a></td><td class="addtocompare"><a href="?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">Add to Compare</a></td><td></td></tr></table></td></tr> <tr><td class="line"></td></tr>';
-	}
+						$output.='<tr><td><table width="95%" border="0" align="left" cellpadding="0" cellspacing="0"><tr><td width="17%"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$product_id.'" border="0"><img src="'.$thumb_image.'" width="90" border="0"/></td><td width="30%"><table width="95%" border="0"   style="padding-left:40px"  align="left" cellpadding="2" cellspacing="2"><tr><td class="text"><a href="#">'.$title.'<br /></a></td></tr><tr><td align="left" class="rate_text">  '.$msrp.'</td></tr><tr><td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$product_id.'"><img src="images/addtocart.jpg" border="0" /></a></td></tr></table></td><td width="33%"><table width="95%" border="0" align="left" cellpadding="2" cellspacing="2"><tr><td class="text"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$product_id.'" border="0">'.$title.'<br />Brand : '.$brand.' <br />Model : '.$model.'</a></td></tr></table></td><td width="20%" ><img src="css/themes/default/compareprice.jpg" />	</td></tr><tr><td></td><td class="addtowishlist" style="padding-left:40px" ><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewWishList&id='.$product_id.'">Add to Wishlist</a></td><td class="addtocompare"><a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">Add to Compare</a></td><td></td></tr></table></td></tr> <tr><td class="line"></td></tr>';
+		}
 			$output.="</table>";
 			$output.="<table cellpadding='3' cellspacing='0' border='0' width='100%'>";
 			$output.='<tr align="center"><td   class="content_list_footer" >'.' '.$prev.' ';
-		    for($im=1;$im<=count($paging);$im++)
+		    	for($im=1;$im<=count($paging);$im++)
 			$pagingvalues .= $paging[$im]."  ";
 			$output .= $pagingvalues.' '.$next.'</td></tr></table>'	;	
 			}
@@ -853,20 +851,20 @@ class Display_DKeywordSearch
 						$output.='<tr><td> <div class="'.$line.' resultITEM" style="width:610px;">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td width="9%" style="padding-right:10px" valign="top"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'"><img src="'.$thumb_image.'" alt="'.addslashes($title).'"  border=0 width=95 hwight=60 /></a></td>
+          <td width="9%" style="padding-right:10px" valign="top"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$product_id.'"><img src="'.$_SESSION['base_url'].'/'.$thumb_image.'" alt="'.addslashes($title).'"  border=0 width=95 hwight=60 /></a></td>
 	  
           <td width="33%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0"  class="resultDETAILS">
               <tr>
                   <td align="left" scope="col"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'">'.$title.'</a>
 				 <br/> Reviews ('.$rcount.')<br/>
-				 '.$ratepath.'
+				 '.$_SESSION['base_url'].'/'.$ratepath.'
 				  </td>
               </tr>
           </table>	  </td>
           
 	  <td width="40%" valign="top" style="color:maroon"><b>'.$msrp.'</b></td>
 	  
-          <td width="20%"><div class="resultButton"><a href="?do=addtocart&prodid='.$product_id.'">
+          <td width="20%"><div class="resultButton"><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$product_id.'">
 		  <table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px" >
 			  <tr>
 				<td align="right" class="button_left"></td>
@@ -875,7 +873,7 @@ class Display_DKeywordSearch
 			  </tr>
 			</table>
 		  </a><!--<br />-->
-      <a href="?do=wishlist&action=viewWishList&id='.$product_id.'" >
+      <a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewWishList&id='.$product_id.'" >
 	  <table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px"  >
 		  <tr>
 			<td align="right" class="button_left"></td>
@@ -884,7 +882,7 @@ class Display_DKeywordSearch
 		  </tr>
 		</table>
 	  </a><!--<br />-->
-      <a href="?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">
+      <a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">
 	  <table border="0" cellspacing="0" cellpadding="0" style="padding-bottom:10px"  >
 		  <tr>
 			<td align="right" class="button_left"></td>
@@ -955,7 +953,7 @@ class Display_DKeywordSearch
 			      $head=$row['head'];
 				  $val=$row['val'];
 				  
-				  $output.="<tr><td>".$head." ".$val."</td><td><a href='?do=search&action=removesession&removesession=".$i."'>[Remove]</a></td></tr>";
+				  $output.="<tr><td>".$head." ".$val."</td><td><a href='".$_SESSION['base_url']."/index.php?do=search&action=removesession&removesession=".$i."'>[Remove]</a></td></tr>";
 				  $i++;
 
 			  }
@@ -1005,7 +1003,7 @@ class Display_DKeywordSearch
  	*/
 	function dispSubCategory($result)
 	{
-		$output='<form name="frmsubcatselection" method="post" action="?do=search"><select name="subcatsel" onchange="document.frmsubcatselection.submit();"><option value="">Sub Category</option>';		
+		$output='<form name="frmsubcatselection" method="post" action="'.$_SESSION['base_url'].'/index.php?do=search"><select name="subcatsel" onchange="document.frmsubcatselection.submit();"><option value="">Sub Category</option>';		
 		 if((count($result))>0)
 		{ 
 		    if(empty($_SESSION['subcategory']))
@@ -1015,7 +1013,7 @@ class Display_DKeywordSearch
 			   
 			 if($_SESSION['category']==-1)
 			    session_unregister('subcategory');
-            foreach($result as $row)
+            		foreach($result as $row)
 			 {
 					   
 			   $categoryname=$row['category_name'];

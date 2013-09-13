@@ -44,9 +44,9 @@ class Display_DSelectSkin
 		for ($i=0;$i<count($arr);$i++)
 		{
 			if($arr[$i]['skin_name']==$_POST['skingroup'])
-				$output .= '<input type="radio" name="skingroup" checked="checked" value="'.$arr[$i]['skin_name'].'">'.$arr[$i]['skin_name'].'</input><br/>';
+				$output .= '<div class="span3"><label>'.$arr[$i]['skin_name'].'</label><input type="radio" name="skingroup" checked="checked" value="'.$arr[$i]['skin_name'].'" /></div>';
 			else
-				$output .= '<input type="radio" name="skingroup" value="'.$arr[$i]['skin_name'].'">'.$arr[$i]['skin_name'].'</input><br/>';
+				$output .= '<div class="span3"><label>'.$arr[$i]['skin_name'].'</label><input type="radio" name="skingroup" value="'.$arr[$i]['skin_name'].'" /></div>';
 		}
 			
 			return $output;
@@ -66,9 +66,9 @@ class Display_DSelectSkin
 			//if($arr[$i]['skin_name']==$_POST['skingroup'])
 				//$output .= '<input type="radio" name="skingroup" checked="checked" value="'.$arr[$i]['skin_name'].'">'.$arr[$i]['skin_name'].'</input><br/>';
 			if($arr[$i]['skin_name']==$selSkin)
-				$output .= '<input type="radio" name="skingroup" checked="checked" value="'.$arr[$i]['skin_name'].'">'.$arr[$i]['skin_name'].'</input><br/>';
+				$output .= '<div class="span3"><label>'.$arr[$i]['skin_name'].'</label><input type="radio" name="skingroup" checked="checked" value="'.$arr[$i]['skin_name'].'"></input></div>';
 			else
-				$output .= '<input type="radio" name="skingroup" value="'.$arr[$i]['skin_name'].'">'.$arr[$i]['skin_name'].'</input><br/>';
+				$output .= '<div class="span3"><label>'.$arr[$i]['skin_name'].'</label><input type="radio" name="skingroup" value="'.$arr[$i]['skin_name'].'"></input></div>';
 		}
 			
 			return $output;

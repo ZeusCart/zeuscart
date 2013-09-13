@@ -70,6 +70,7 @@ class Model_MUserRegistration
 		$output['lastviewedproducts']=$default->lastViewedProducts();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
@@ -117,6 +118,7 @@ class Model_MUserRegistration
 		$output['lastviewedproducts']=$default->lastViewedProducts();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['timezone']=Core_CHome::setTimeZone();
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
@@ -199,6 +201,7 @@ class Model_MUserRegistration
 			$output['loginStatus']= Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			$output['newstitle'] = Core_CNews::showNewsMenu();
 			
@@ -257,6 +260,7 @@ class Model_MUserRegistration
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['newstitle'] = Core_CNews::showNewsMenu();
 		if($_SESSION['compareProductId']=='')
@@ -303,6 +307,7 @@ class Model_MUserRegistration
 		global $install_error;
 		$output['install_error']=$install_error ;
 		
+
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['timezone']=Core_CHome::setTimeZone();	
@@ -313,6 +318,8 @@ class Model_MUserRegistration
 
 		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
 		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['homepageads']= Core_CHome::showHomePageAds();
+
 		$output['footer']=Core_CHome::footer();
 		$output['footerconnect']=Core_CHome::getfooterconnect();
 		$output['sociallink']=Core_CHome::showSocialLinks();
@@ -335,6 +342,7 @@ class Model_MUserRegistration
 		
 		$default=new Core_CNewProducts();
 		$output['newproducts']=$default->newProducts();
+		$output['allnewproduct']=$default->showAllNewProducts();
 		if($_SESSION['user_id']!='')
 			$output['wishlistsnapshot'] = Core_CWishList::snapshotForHome();
 			
@@ -344,6 +352,7 @@ class Model_MUserRegistration
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+
 		$output['categories'] = Display_DUserRegistration::showMainCat();
 		$output['newstitle'] = Core_CNews::showNewsMenu();
 
@@ -359,6 +368,7 @@ class Model_MUserRegistration
 		$output['productdetails']=Core_CProductDetail::showPopupProducts();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		
+
 		Bin_Template::createTemplate('index.html',$output);
 	}
 	/**
@@ -737,6 +747,8 @@ class Model_MUserRegistration
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		$output['slideshow']=Core_CUserRegistration::viewSlideShow();
+		$output['slideshowparameter']=Core_CUserRegistration::getSlideShowParameter();
 		$output['newsletter'] = Core_CUserRegistration::addNewsletterSubscription();
 		Bin_Template::createTemplate('index.html',$output);
 	}
@@ -748,7 +760,7 @@ class Model_MUserRegistration
 	function autoRegister($me)
     	{
 
-		include('../../classes/Core/CUserRegistration.php');
+		include('../../../classes/Core/CUserRegistration.php');
 		$objUser = new Core_CUserRegistration();
 		$objUser->autoRegister($me);
    	}
@@ -779,5 +791,7 @@ class Model_MUserRegistration
 		$objUser = new Core_CUserRegistration();
 		$objUser->googleautoRegister($me);
 	}
+
+	
 }
 ?>

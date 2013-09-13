@@ -4,7 +4,7 @@
 body {
   position: relative;
   background-color: #fff;
-  background-image: url(../img/bgpg);
+ /* background-image: url(../img/bgpg);*/
   background-repeat: repeat;
   background-position: 0 40px;
 }
@@ -865,6 +865,14 @@ ul.ftrlist{}
 ul.ftrlist li{line-height:30px; background:url(../img/right-arrow1.png) left 12px no-repeat; padding-left:15px; color:#959595; }
 ul.ftrlist li a{color:#959595;}
 ul.ftrlist li a:hover{color:#fff;}
+
+
+ul.sitemap{margin-bottom:20px;}
+ul.sitemap li{line-height:30px; background:url(../img/right-arrow1.png) left 12px no-repeat; padding-left:15px; color:#959595; }
+ul.sitemap li a{color:#333333;  }
+ul.sitemap li a:hover{color: #000;text-decoration:underline; }
+
+
 
 ul.cntwithus{}
 ul.cntwithus li{line-height:35px; color:#959595; }

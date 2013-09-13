@@ -42,19 +42,51 @@ class Core_Category_CShowMainCategory
 	 */	
 	function showMainCategory()
 	{
+
+		$pagesize=5;
+		if(isset($_GET['page']))
+		{
+		    
+			$start = trim($_GET['page']-1) *  $pagesize;
+			$end =  $pagesize;
+		}
+		else 
+		{
+			$start = 0;
+			$end =  $pagesize;
+		}
+		$total = 0;
         	include_once("classes/Display/DShowMainCategory.php");
 		
-		$sql = "SELECT * FROM category_table where category_parent_id=0  order by category_name";
-		
-		$query = new Bin_Query();
-		
+		$sql = "SELECT * FROM category_table WHERE category_parent_id ='0'" ;		
+		$query = new Bin_Query();		
 		if($query->executeQuery($sql))
-		{		
-			return  Display_DShowMainCategory::showCategory($query->records,1);
+		{	
+			$total = ceil($query->totrows/ $pagesize);
+			include_once('classes/Lib/Paging.php');
+			$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
+			$this->data['paging'] = $tmp->output;
+			$this->data['prev'] =$tmp->prev;
+			$this->data['next'] = $tmp->next;
+			$sql1 = "SELECT * FROM category_table WHERE category_parent_id ='0'   LIMIT $start,$end"; 
+			$query1 = new Bin_Query();
+			if($query1->executeQuery($sql1))
+			{
+				return Display_DShowMainCategory::showCategory($query1->records,1,$this->data['paging'],$this->data['prev'],$this->data['next']);
+			}
+			else
+			{
+				return Display_DShowMainCategory::showCategory($obj->records,0,'','','');
+				
+			}
+
+			
+			 
 		}
 		else
 		{
-			return '<div class="exc_msgbox">Category Not Found  <a href="?do=managecategory"> To Create Category Click Here..</a></div>';
+			return '<div class="alert alert-error">
+             		<button type="button" class="close" data-dismiss="alert">×</button> Category Not Found  <a href="?do=managecategory"> To Create Category Click Here..</a></div>';
 		}
 			
 	}
@@ -70,8 +102,7 @@ class Core_Category_CShowMainCategory
 	{
         	include_once("classes/Display/DShowMainCategory.php");
 		
-		$sql = "SELECT category_content_id FROM category_table where category_parent_id=0 and category_id=".(int)$_GET['id'];
-		
+	 	$sql = "SELECT category_content_id FROM category_table where  category_id=".(int)$_GET['id'];	
 		$query = new Bin_Query();
 		$query->executeQuery($sql);
 		
@@ -80,8 +111,7 @@ class Core_Category_CShowMainCategory
 	
 		if($flag==0)
 		{
-			$sql = "SELECT * FROM category_table where category_parent_id=0 and category_id=".(int)$_GET['id'];
-		
+			$sql = "SELECT * FROM category_table where category_id=".(int)$_GET['id'];		
 			$query = new Bin_Query();
 			if($query->executeQuery($sql))
 			{	
@@ -90,7 +120,8 @@ class Core_Category_CShowMainCategory
 			}
 			else
 			{
-				return "No Category Found";
+				return '<div class="alert alert-error">
+             			 <button type="button" class="close" data-dismiss="alert">×</button> No Category Found</div>';
 			}
 		}	
 		else
@@ -108,11 +139,12 @@ class Core_Category_CShowMainCategory
 			}
 			else
 			{
-				return "No Category Found";
+				return '<div class="alert alert-error">
+            			 <button type="button" class="close" data-dismiss="alert">×</button> No Category Found</div>';
 			}
 		}
 			
-    }
+    	}
 	
 	/**
 	 * Function updates the changes made in the main category
@@ -123,27 +155,41 @@ class Core_Category_CShowMainCategory
 	
 	function editMainCategory()
 	{
-		$catname=trim($_POST['category']);
-		//if(preg_match('#[^a-zA-Z0-9]#', $_string)&&preg_match('*',$catname)
-		if(!empty($catname))
-		{
+		
+
 		$sql = "UPDATE category_table SET ";
 	
-		if($_POST['contentid']!=0)
+		if($_POST['category']=='0')
 		{
-			$sql.="category_content_id='".$_POST['contentid']."',";
-		}
-		
-		$sql.= "category_name = '".$_POST['category']."', category_desc = '".$_POST['categorydesc']. "', category_status = '".$_POST['status']."' WHERE category_id =".(int)$_GET['id'];
-		
-		$query = new Bin_Query();
-		if($query->updateQuery($sql))
-		
-		return '<div class="success_msgbox">Category <b> '.$_POST['category'].'</b> Updated Successfully</div>';
+			$categoryparent=0;	
+			$subcategorypath=0;
+			$count=0;
 		}
 		else
 		{
-			return '<div class="error_msgbox">Category Updated Failed(Category can not empty)</div>';
+			$sqlsel="SELECT * FROM category_table WHERE category_id='".$_POST['category']."'  ";
+			$objsel=new Bin_Query();
+			$objsel->executeQuery($sqlsel);
+			$path=$objsel->records[0]['subcat_path'];
+			$categoryparent=$_POST['category'];
+			$subcategorypath=$path.','.$_POST['category'];
+			$pathcount=explode(',',$path);
+			$count=count($pathcount);
+			
+		}
+		
+		$sql.= "category_name = '".$_POST['categoryname']."', category_desc = '".$_POST['categorydesc']. "', category_status='".$_POST['status']."',category_parent_id='".$categoryparent."',subcat_path='".$subcategorypath."',count='".$count."' WHERE category_id =".(int)$_GET['id'];  
+		
+		$query = new Bin_Query();
+		if($query->updateQuery($sql))
+		{
+		return '<div class="alert alert-success">
+            	  <button type="button" class="close" data-dismiss="alert">×</button> Category <b> '.$_POST['categoryname'].'</b> Updated Successfully</div>';
+		}
+		else
+		{
+			return '<div class="alert alert-error">
+             		 <button type="button" class="close" data-dismiss="alert">×</button>  Category Updated Failed(Category can not empty)</div>';
 		}
 	}
 	
@@ -156,12 +202,35 @@ class Core_Category_CShowMainCategory
 	
 	function deleteMainCategory()
 	{
-		$sql = "DELETE FROM category_table WHERE category_parent_id='".(int)$_GET['id']."' or  category_id=".(int)$_GET['id'];
-		
-		$query = new Bin_Query();
-		
-		if($query->updateQuery($sql))
-				return '<div class="success_msgbox">Category Deleted Successfully</div>';
+
+		if($_GET['id']!='')
+		{
+			$sql = "DELETE FROM category_table WHERE  category_id=".(int)$_GET['id'];
+			
+			$query = new Bin_Query();
+			
+			if($query->updateQuery($sql))
+					return '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>  Category Deleted Successfully</div>';
+		}
+		else
+		{
+			if(count($_POST['categoryid'])>0)
+			{
+				for($i=0;$i<count($_POST['categoryid']);$i++)
+				{
+					 $sql = "DELETE FROM category_table WHERE  category_id=".(int)$_POST['categoryid'][$i];
+					$obj=new Bin_Query();
+					$obj->updateQuery($sql);
+				}
+
+				
+
+			}
+			if($obj->updateQuery($sql))
+					return '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>  Category Deleted Successfully</div>';
+		}
 	}
 	
 	/**
@@ -173,60 +242,80 @@ class Core_Category_CShowMainCategory
 	
 	function searchMainCategory()
 	{
+		
+
 		include_once("classes/Display/DShowMainCategory.php");
 		
 		$catname = $_POST['catname'];
 		$catdesc = $_POST['catdesc'];
 		$status =  $_POST['status'];
-		
+		 $pagesize=10;
+	  	if(isset($_GET['page']))
+		{
+		    
+			$start = trim($_GET['page']-1) *  $pagesize;
+			$end =  $pagesize;
+		}
+		else 
+		{
+			$start = 0;
+			$end =  $pagesize;
+		}
+		$total = 0;
 		$sql='SELECT category_id,category_name,category_desc,category_status,category_image FROM category_table ';
 		$condition=array();
 			
-			if($catname!='')
-			{
-				$condition []= "  category_name like '%".$catname."%'";
-			}
-			if($catdesc!='')
-			{
-				$condition[]= " category_desc like  '%".$catdesc."%'";
-			}
-			
-			if($status!='')
-			{
-				$condition []= " category_status = '".$status."'";
-			}
-			
+		if($catname!='')
+		{
+			$condition []= "  category_name like '%".$catname."%'";
+		}
+		if($catdesc!='')
+		{
+			$condition[]= " category_desc like  '%".$catdesc."%'";
+		}
+		
+		if($status!='')
+		{
+			$condition []= " category_status = '".$status."'";
+		}
+		
 			
 		if(count($condition)>1)
-			$sql.= ' where '. implode(' and ', $condition) .' and category_parent_id="0"';
+			$sql.= ' where '. implode(' and ', $condition) .' ';
 		elseif(count($condition)>0)
-			$sql.= ' where '. implode('', $condition) .' and category_parent_id="0"';
+			$sql.= ' where '. implode('', $condition) .' ';
 		elseif(count($condition)==0)
 		{
-			$sql.= " where  category_parent_id='0'";
+			$sql.= " ";
 		}
-				
-			if($_POST['search']=='Search')
-			{
-				$obj = new Bin_Query();
-				if($obj->executeQuery($sql))
-					$output =  Display_DShowMainCategory::showCategory($obj->records,'1');
+
+		$obj=new Bin_Query();
+  	    	if($obj->executeQuery($sql))
+		{
+				$total = ceil($obj->totrows/ $pagesize);
+				include('classes/Lib/Paging.php');
+				$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>5),'pagination');
+				$this->data['paging'] = $tmp->output;
+				$this->data['prev'] =$tmp->prev;
+				$this->data['next'] = $tmp->next;
+				if (empty($condition))
+					 $sql1 =$sql." LIMIT ".$start.",".$end;
 				else
-				{ 
-					$output =  Display_DShowMainCategory::showCategory($obj->records,'0');
-				}
-				return $output;
-			}
-			else
-			{
-					
-					$this->showMainCategory();
-				//Core_CShowMainCategory::showMainCategory($sql);
-			}
+					 $sql1 =$sql;	
+				$obj1=new Bin_Query();
+				$obj1->executeQuery($sql1);
+			return Display_DShowMainCategory::showCategory($obj->records,1,$this->data['paging'],$this->data['prev'],$this->data['next']);
+			
 		
-   }
-   
-   	
+			
+		}
+		else
+		{
+			$output =  Display_DShowMainCategory::showCategory($obj->records,0,'','','');
+		}
+
+			return $output;
+  	}
 
  	/**
 	 * Function selects the data from the table need for generating auto complete popup window. 

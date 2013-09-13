@@ -157,7 +157,6 @@ class Display_DCategorySelection
 	 * @param array $arr	 
 	 * @return string
 	 */	
-	
 	function displayMainCategory($arr)
 	{
 		$output ="";
@@ -224,7 +223,6 @@ class Display_DCategorySelection
 	 * @param array $arr	 
 	 * @return string
 	 */	
-
 	function displaySubCategory($arr)
 	{
 		$output ="";
@@ -271,16 +269,15 @@ class Display_DCategorySelection
 				Status:
 				</td>
 				<td>
-
 				<input type="radio" name="group1" value="1" checked="'.$arr[0]['category_status'].'">
 				ON
 				<input type="radio" name="group1" value="0" checked="'.$arr[0]['category_status'].'" >
 				Off<br />
-
 				</td>
 				</tr>
 				<tr>
 				<td></td>
+
 				<td colspan="2">
 				<input type="submit" name="btnsubmit"  value="Update Main Category" id="submit"  />
 				</td>

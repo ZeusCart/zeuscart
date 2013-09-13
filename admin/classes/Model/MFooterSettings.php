@@ -84,7 +84,7 @@ class Model_MFooterSettings
 			include('classes/Display/DFooterSettings.php');		
 			$output['footerconnect'] = Core_Settings_CFooterSettings::getFooterConnect();	
 				
-			Bin_Template::createTemplate('footer_settings_connect.html',$output);
+		Bin_Template::createTemplate('footer_settings_connect.html',$output);
 			UNSET($_SESSION['successmsg']);
 		}
 		else

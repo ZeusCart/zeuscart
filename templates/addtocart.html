@@ -23,20 +23,22 @@
   <!-- body start here-->
   	<div class="container">
     	<ul class="breadcrumb">
-              <li><a href="?do=index">Home</a> <span class="divider">/</span></li>
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index">Home</a> <span class="divider">/</span></li>
               <li class="active"> Show Cart </li>
             </ul>
             <AJDF:output>$smarty.session.update_msg</AJDF:output>
+
         <div class="row-fluid">
         	<div class="span12">
+
             <div class="title_fnt">
-	<AJDF:output>if $smarty.get.action eq ''</AJDF:output>
+	<AJDF:output>if $smarty.get.action eq '' ||   $smarty.get.action eq 'add'</AJDF:output>
     	<h1>Show Cart </h1>
 	<AJDF:output>else</AJDF:output>
 	 	<h1>Check out</h1>
 	<AJDF:output>/if</AJDF:output>
         </div>
-      <AJDF:output>$showcart</AJDF:output></div></div>
+      <AJDF:output>$showcart</AJDF:output></div>
                                	
         </div>
     </div>
@@ -44,15 +46,5 @@
     <!-- /container -->
 
    <AJDF:output>include file="footer.html"</AJDF:output>
-<script type="text/javascript">
-function viewMoreBillAddress()
-{
-
-document.getElementById('more_bill_addr').style.display="block";
-document.getElementById('more_bill_addr_button').style.display="none";
-}
-
-</script>
-
 
 

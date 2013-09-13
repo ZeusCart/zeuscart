@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -23,8 +23,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>ZeusCart Version 2.3 - Installation Wizard</title>
-<link href="css/install.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/scroll-pan.css" rel="stylesheet" type="text/css" />
+<title>ZEUS CART</title>
+<style type="text/css" id="page-css">
+			/* Styles specific to this particular page */
+			.scroll-pane
+			{
+				width: 100%;
+				height: 200px;
+				overflow: auto;
+			}
+			.horizontal-only
+			{
+				height: auto;
+				max-height: 200px;
+			}
+		</style>
+
+		<!-- latest jQuery direct from google's CDN -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<!-- the mousewheel plugin -->
+		<script type="text/javascript" src="js/mouse.wheel.js"></script>
+		<!-- the jScrollPane script -->
+		<script type="text/javascript" src="js/scrollpanel.js"></script>
+		<script type="text/javascript" id="sourcecode">
+			$(function()
+			{
+				$('.scroll-pane').jScrollPane({showArrows: true});
+			});
+		</script>
 <script type="text/javascript">
 <!--
 function MM_swapImgRestore() { //v3.0
@@ -50,36 +78,46 @@ function MM_swapImage() { //v3.0
 }
 //-->
 </script>
+
+
 </head>
-<body onload="MM_preloadImages('images/cancel_bttn_hov.gif')">
-<center>
-  <div id="main">
-    <div id="left">
-      <div class="menu"> <?php echo $menus;?> </div>
-    </div>
-    <div id="right">
-      <form name="frm" method="post" action="<?php echo $next ?>">
-        <div id="display">
-          <?php include($template); ?>
-        </div>
-        <div id="button">
+
+<body onload="MM_preloadImages('images/back-btn-hov.png','images/cancel-btn-hov.png','images/next-btn-hov.png')">
+	<div id="main">
+ <form name="frm" method="post" action="<?php echo $next ?>">
+    		<!--header start here-->
+            <div class="header_div">
+       	    <img src="images/header.jpg" alt="AJ HYIP" /></div>
+            <!--body start here-->
+            <div class="body_div">
+            	 <?php echo $menus;?>
+
+                	<div class="clear"></div>
+
+		<?php include($template); ?>
+
+                <div class="botton_div"> <h6>  
           <?php if($shownavigation==3) { ?>
-          &nbsp;
-          <input type="image" src="images/next_bttn.gif"/>
-          <?php } 
+	 <input type="image" src="images/next-btn.png" alt="Next" style="width:76px;height=32px;border-style: none;padding:1px;" border="0" />
+
+	<?php } 
 	   else if($shownavigation==1) { ?>
-          &nbsp;<a href=" <?php echo $prv ?>" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image4','','images/previous_bttn_hov.gif',1)" style="text-decoration:none"><img src="images/previous_bttn.gif" alt="previous" name="Image4" width="73" height="23" border="0" id="Image4" /></a>&nbsp;
-          <input type="image" src="images/next_bttn.gif" />
-          <?php } 
+	<a href=" <?php echo $prv ?>" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image2','','images/back-btn-hov.png',1)"><img src="images/back-btn.png" alt="Back" name="Image2" width="76" height="32" border="0" id="Image2" /></a> <input type="image" src="images/next-btn.png" alt="Next" style="width:76px;height=32px;border-style: none;padding:1px;" border="0" />
+
+	 <?php } 
 	    else if($shownavigation==2)
 	  {
 	  ?>
-          &nbsp;&nbsp;&nbsp;<a href="../" target="_blank"><img src="images/go_store.gif" alt="Go to Store" width="150" height="23" border="0" /></a> &nbsp;&nbsp; <a href="../admin" target="_blank"><img src="images/admin_area.gif" alt="Go to Control Panel" width="176" height="23" border="0" /></a>
+
+	<a onmouseover="MM_swapImage('Image2','','images/go-to-store-btn-hov.png',1)" onmouseout="MM_swapImgRestore()" href="../" target="_blank"><img  border="0" id="Image2" name="Image2" alt="Back" src="images/go-to-store-btn.png"></a> <a onmouseover="MM_swapImage('Image3','','images/go-to-control-panel-btn-hov.png',1)" onmouseout="MM_swapImgRestore()" href="../admin" target="_blank"><img  border="0" id="Image3" name="Image3" alt="Cancel" src="images/go-to-control-panel-btn.png"></a>
+ 
           <?php } ?>
-        </div>
-      </form>
-    </div>
-  </div>
-</center>
+          </h6> </div>  
+                <h5>© www.zeuscart.com 2013. All Rights Reserved</h5>
+          </div>
+            <!--footer start here-->
+            <div class="bottom_div"></div>
+</form>
+</div>
 </body>
 </html>

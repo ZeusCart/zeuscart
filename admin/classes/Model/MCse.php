@@ -73,12 +73,16 @@ class Model_MCse
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
+		$output['savecse']=$_SESSION['msgCse'];
+		// print_r($output['msg']);
 		Bin_Template::createTemplate('ComparisonEngine.html',$output);
+		unset($_SESSION['msgCse']);
 		}
 		else
 		{
 		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
 			Bin_Template::createTemplate('Errors.html',$output);
+
 			
 		}	
 	
@@ -97,6 +101,7 @@ class Model_MCse
 		$output = array();
 		include('classes/Core/CCse.php');
 		include('classes/Core/CAdminHome.php');
+		include('classes/Lib/CheckInputs.php');
 		$output['username']=Core_CAdminHome::userName();
 		$output['currentDate']=date('l, M d, Y H:i:s');	
 		$output['currency_type']=$_SESSION['currency']['currency_tocken'];			
@@ -119,8 +124,13 @@ class Model_MCse
 		$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
 		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
-		$output['savecse'] = Core_CCse::saveCse();
-		Bin_Template::createTemplate('ComparisonEngine.html',$output);
+		
+		$obj = new Lib_CheckInputs('csevalidation');
+		$_SESSION['msgCse'] = Core_CCse::saveCse();
+
+
+		header('Location:?do=cse');
+		exit;
 	}
 }
 ?>

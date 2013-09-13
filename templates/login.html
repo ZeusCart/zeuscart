@@ -22,7 +22,7 @@
   <!-- body start here-->
   	<div class="container">
     	<ul class="breadcrumb">
-              <li><a href="?do=index">Home</a> <span class="divider">/</span></li>
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index">Home</a> <span class="divider">/</span></li>
               <li class="active"> Member Login </li>
             </ul>
 
@@ -32,7 +32,7 @@
         </div>
         <div class="row-fluid">
                     <div class="span6">
-		<form name="loginfrm" method="post" action="?do=login&action=validatelogin" >
+		<form name="loginfrm" method="post" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=login&action=validatelogin" >
                     	<div id="loginfrm">
                         		<ul class="loginfourm">
                                 	<li><b>E-mail Address</b></li>
@@ -45,7 +45,7 @@
 					</font></li>
                                 	<li><input type="checkbox" name="remlogin" value="on" > Remember me?</li>
                                 	<li><input type="submit" value="Login" class="btn btn-danger"> </li>
-                                    <li><a href="?do=forgetpwd"> Forgot password? </a> <span>OR</span> <a href="?do=faq" target="_blank">Need help?</a> </li>
+                                    <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/forgotpassword.html"> Forgot password? </a> <span>OR</span> <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/faq.html" target="_blank">Need help?</a> </li>
                                 </ul>
                         </div>
 			</form>
@@ -60,7 +60,7 @@
                         	<ul class="signin-account">
                             	<li> <h5>SIGN UP FOR AN ACCOUNT</h5></li>
                                 <li> <p>Registration is fast and FREE! </p></li>
-                                <li><a href="?do=userregistration"><input type="button" value="Register Here" class="btn btn-inverse"></a></li>
+                                <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/register.html"><input type="button" value="Register Here" class="btn btn-inverse"></a></li>
                             </ul>
                             <b>Account Protection Tips </b>
                             <ul class="acctips">

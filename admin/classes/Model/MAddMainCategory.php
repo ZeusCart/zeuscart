@@ -26,7 +26,7 @@
  * @category  		Model
  * @author    		AjSquareInc Dev Team
  * @link   		http://www.zeuscart.com
-  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+  * @copyright 		Copyright (c) 2008 - 2013, AjSquare,Inc.
  * @version  		Version 4.0
  */
 class Model_MAddMainCategory
@@ -59,7 +59,7 @@ class Model_MAddMainCategory
 				$default->showMainCategory($Err);
 				//$template = "createcategory.php";
 				include("templates/addmaincategory.php");
-			}
+		}
 		else
 		{
 		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
@@ -131,8 +131,7 @@ class Model_MAddMainCategory
 	 * 
 	 * @return array
 	 */
-	
-	
+
 	function editMainCategory()
 	{
 		include('classes/Core/CRoleChecking.php');
@@ -163,7 +162,7 @@ class Model_MAddMainCategory
 	 */
 	function deleteMainCategory()
 	{
-	include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CRoleChecking.php');
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{

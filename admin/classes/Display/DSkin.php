@@ -39,12 +39,12 @@ class Display_DSkin
 	 */	
 	function displaySkin($arr)
 	{
-		$output = "<ul>";
+		$output = '<ul>';
 		
 		for ($i=0;$i<count($arr);$i++)
 		{
 			
-				$output .= '<li>'.$arr[$i]['skin_name'].'</li>';
+				$output .= '<li class="list">'.$arr[$i]['skin_name'].'</li>';
 			
 					
 		}

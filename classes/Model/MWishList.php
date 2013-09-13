@@ -92,6 +92,7 @@ class Model_MWishList
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['divStat']=Core_CUserWishList::getStatus();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();					
 		$output['userRight'] = "userWishlist.html";		
@@ -160,6 +161,7 @@ class Model_MWishList
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['divStat']=Core_CUserWishList::getStatus();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();					
 		$output['userRight'] = "userWishlist.html";		
@@ -229,6 +231,8 @@ class Model_MWishList
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 			$default=new Core_CNewProducts();
 			$output['newproducts']=$default->newProducts();
 			if($_SESSION['user_id']!='')
@@ -286,7 +290,7 @@ class Model_MWishList
 		$output['googlead']=Core_CHome::getGoogleAd();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		
-		if($_SESSION['compareProductId']=='')
+			if($_SESSION['compareProductId']=='')
 			{
 			
 				$output['viewProducts']['viewProducts'] = Display_DWishList::viewProductElse();
@@ -299,6 +303,8 @@ class Model_MWishList
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 			$default=new Core_CNewProducts();
 			$output['newproducts']=$default->newProducts();
 			if($_SESSION['user_id']!='')
@@ -380,7 +386,7 @@ class Model_MWishList
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['result'] = $result;
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CWishList::viewCompareProduct();
@@ -431,7 +437,7 @@ class Model_MWishList
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CWishList::viewCompareProduct();
@@ -496,6 +502,7 @@ class Model_MWishList
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$default=new Core_CNewProducts();
 		$output['newproducts']=$default->newProducts();
 		if($_SESSION['user_id']!='')

@@ -41,7 +41,7 @@ class Model_MAboutUs
 	 * 
 	 * @return array
 	 */
-	 
+
 	
 	
 	function showAboutUs()
@@ -76,7 +76,9 @@ class Model_MAboutUs
 		{
 			include("classes/Core/CAboutUs.php");
 			$output['aboutus'] = Core_CAboutUs::showAboutUs();
+			$output['updateaboutusmsg'] = $_SESSION['messageAbutus'];
 			Bin_Template::createTemplate('aboutus.html',$output);	
+			unset($_SESSION['messageAbutus']);
 		}
 		else
 		{
@@ -92,7 +94,7 @@ class Model_MAboutUs
 	 * 
 	 * @return array
 	 */
-	 
+
 	
 	function updateAboutUs()
 	{
@@ -121,18 +123,14 @@ class Model_MAboutUs
 		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 		$chkuser=Core_CRoleChecking::checkRoles();
-		if($chkuser)
-		{
+		
 		include("classes/Core/CAboutUs.php");
-     	$output['updateaboutusmsg'] = Core_CAboutUs::updateAboutUs();
+
+		$_SESSION['messageAbutus']=Core_CAboutUs::updateAboutUs();
 		$output['aboutus'] = Core_CAboutUs::showAboutUs();
-		Bin_Template::createTemplate('aboutus.html',$output);	
-		}
-		else
-		{
-			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
+		header('Location:?do=aboutus');
+		exit;
+		
 	}
 }
 ?>

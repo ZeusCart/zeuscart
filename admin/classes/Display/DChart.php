@@ -41,26 +41,26 @@ class Display_DChart
 	
 	function getDay($id)
 	{			
-	$output ='';
-	
-	if($id==1)
-	$output.='<select name="Calendar[To][Mth]" >';
-	else if($id==0)
-	$output.='<select name="Calendar[From][Mth]" >';
-	
-	$tmp = array(1=>'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
-	
-	$currmonth = date("n");	
-	
-	foreach($tmp as $i => $value)
-	{					
-	if($i==$currmonth && $id==1)
-	$output.= '<option value="'.$i.'" selected>'.$value.'</option>';		
-	else
-	$output.= '<option value="'.$i.'">'.$value.'</option>';		
-	}
-    $output.='</select>';		
-    return $output;	
+		$output ='';
+		
+		if($id==1)
+		$output.='<select name="Calendar[To][Mth]" >';
+		else if($id==0)
+		$output.='<select name="Calendar[From][Mth]" >';
+		
+		$tmp = array(1=>'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+		
+		$currmonth = date("n");	
+		
+		foreach($tmp as $i => $value)
+		{					
+		if($i==$currmonth && $id==1)
+		$output.= '<option value="'.$i.'" selected>'.$value.'</option>';		
+		else
+		$output.= '<option value="'.$i.'">'.$value.'</option>';		
+		}
+		$output.='</select>';		
+		return $output;	
 	}	
 	
 	/**
@@ -71,22 +71,22 @@ class Display_DChart
 	
 	function getYear($id)
 	{			
-	$output ='';
-
-	if($id==1)
-	$output.='<select name="Calendar[To][Yr]" >';
-	elseif($id==0)
-    $output.='<select name="Calendar[From][Yr]" >';     
+		$output ='';
 	
-	$startyr = date('Y',strtotime("-365 days"));		
-	$endyr = date('Y', strtotime("+3650 days"));	
-		                                            
-	for($i=$startyr;$i<=$endyr;$i++)
-	{ 	  	
-	$output.= '<option value="'. $i .'">'. $i.'</option>';		
-	}                                                
-    $output.='</select>';		
-    return $output;	
+		if($id==1)
+		$output.='<select name="Calendar[To][Yr]" >';
+		elseif($id==0)
+		$output.='<select name="Calendar[From][Yr]" >';     
+		
+		$startyr = date('Y',strtotime("-365 days"));		
+		$endyr = date('Y', strtotime("+3650 days"));	
+								
+		for($i=$startyr;$i<=$endyr;$i++)
+		{ 	  	
+		$output.= '<option value="'. $i .'">'. $i.'</option>';		
+		}                                                
+		$output.='</select>';		
+		return $output;	
 	}	
 	
 	
@@ -99,23 +99,23 @@ class Display_DChart
 	function getType()
 	{		
 	 
-	 $tmparray = array(1=>'Last 30 days',2=>'This Month',3=>'Last Month',4=>'All Time',5=>'Custom');
-	 $output.='';	
-	 $output.='<select name="Calendar[DateType]" id="Calendar" class="CalendarSelect" onchange="doCustomDate(this.value)">
-	 <option value="0">------Select-----</option>';
-	 
-	 foreach($tmparray as $key=>$item)
-	 {	
-	 	if((int)$key==(int)$_POST['Calendar']['DateType'])
-	 	{
-	  	$output.='<option value="'.$key.'" selected >'.$item.'</option>';
-	 	}
-	 	else
-	 	{
-	 	$output.='<option value="'.$key.'" >'.$item.'</option>';
-	 	}	 
-	 }
-	 return $output;	
+		$tmparray = array(1=>'Last 30 days',2=>'This Month',3=>'Last Month',4=>'All Time',5=>'Custom');
+		$output.='';	
+		$output.='<select name="Calendar[DateType]" id="Calendar" class="CalendarSelect" onchange="doCustomDate(this.value)">
+		<option value="0">------Select-----</option>';
+		
+		foreach($tmparray as $key=>$item)
+		{	
+			if((int)$key==(int)$_POST['Calendar']['DateType'])
+			{
+			$output.='<option value="'.$key.'" selected >'.$item.'</option>';
+			}
+			else
+			{
+			$output.='<option value="'.$key.'" >'.$item.'</option>';
+			}	 
+		}
+		return $output;	
 	}
 	
 }

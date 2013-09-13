@@ -42,7 +42,7 @@ class Display_DGoogleAdSense
 	
 	function googleAdSenseCode($arr)
 	{
-		$output = '<textarea name="gadsense" cols=40 rows=10>'.$arr[0]['set_value'].'</textarea>';
+		$output = '<form name="site" id="addSense" action="?do=gadsense&action=update" method="post" ><textarea name="gadsense" style="width:98%" cols=40 rows=10>'.$arr[0]['set_value'].'</textarea></form>';
 		return $output;
 	}
 }

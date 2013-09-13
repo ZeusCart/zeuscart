@@ -64,8 +64,7 @@ class Model_MCurrencySettings
 
 		include('classes/Core/CCurrencySettings.php');
 		
-		Core_CCurrencySettings::changeCurrency();
-			   
+		Core_CCurrencySettings::changeCurrency();			   
 	}	
 
 	

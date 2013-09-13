@@ -68,38 +68,52 @@ class Display_DAttributeValueSelection
 	{
 		$output = "";
 		
-		$output .= '<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-          <td colspan="2"><tr>
-                <td width="5%" class="content_list_head" align="center">S.No</td>
-                <td width="41%" class="content_list_head">Attribute Name</td>
-				<td width="90%" class="content_list_head">Attribute Value</td>
-                <td colspan="2" align="center" class="content_list_head">Actions</td>
-                </tr>
-              <tr>
-                <td colspan="5" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              </tr>';		//$output.='<th>S.no.</th><th>Attribute Name</th><th>Attribute Value</th><th colspan="2">Options</th>';
+		$output .= '<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
+		<tr>
+
+		<th align="left"><input type="checkbox"  onclick="toggleChecked(this.checked)" name="attributevaluecheckall"></th>
+		<th align="left">S.No</th>
+		<th align="left">Attribute Name</th>
+		<th align="left">Attribute Value</th>
+		</tr>
+		</thea>
+		<tbody>';
+		
 		for ($i=0;$i<count($arr);$i++)
 		{
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
-			$output.='<input type=hidden name=index value="">';
 			
-			$output .= '<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.'">'.($val+1).'</td><td align="left" '.$classtd.'">'.$arr[$i]['attrib_name'].'</td><td align="left" '.$classtd.'">'.$arr[$i]['attrib_value'].'</td>';
 			
-			$output.='<td align="center" '.$classtd.'"><input type="button" class="edit_bttn" name="Edit"  title="Edit" value="" onclick=edit('.$arr[$i]['attrib_value_id'].') /></td>';
-			$output.='<td align="center" '.$classtd.'"><input type="button" class="delete_bttn" name="Delete"  title="Delete" value="" onclick=callattribvalues('.$arr[$i]['attrib_value_id'].') /></td></tr>';
+			$output .= '<tr >
+			<td><input type="checkbox" name="attributevalueCheck[]" class="chkbox" value="'.$arr[$i]['attrib_value_id'].'"></td>
+			<td align="left" >'.($val+1).'</td><td align="left" >'.$arr[$i]['attrib_name'].'</td><td align="left" ><a href="?do=addattributevalues&action=disp&id='.$arr[$i]['attrib_value_id'].'">'.$arr[$i]['attrib_value'].'</a></td>';
+			
+			
+			$output.='</tr>';
+
+
 			$val++;
 		}
 		
-			
-			$output.='<tr align="center"><td colspan="8"  class="content_list_footer" >'.' '.$prev.' ';
-		    for($i=1;$i<=count($paging);$i++)
-				 $pagingvalues .= $paging[$i]."  ";
-				 	 	$output .= $pagingvalues.' '.$next.'</td></tr></table>';
-			return $output;
-			
+
+		$output.='<tr>
+		<td colspan="4" class="clsAlignRight">
+		<div class="dt-row dt-bottom-row">
+		<div class="row-fluid">
+		<div class="dataTables_paginate paging_bootstrap pagination">
+		<ul>'.' '.$prev.' ';
+		for($i=1;$i<=count($paging);$i++)
+			$pagingvalues .= $paging[$i]."  ";
+		$output .= $pagingvalues.' '.$next.'</ul></div>
+		</div>
+		</div>
+		</td>
+		</tr>
+
+		</tbody></table>';
+		return $output;
+
 	}
 	/**
 	 * Function To Edit an Attributes values. 
@@ -111,16 +125,11 @@ class Display_DAttributeValueSelection
 		$output = "";
 		for ($i=0;$i<count($arr);$i++)
 		{
-			$output.='<form name="formsubcatedit" action="?do=addattributevalues&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
-			<tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>
-			<tr>
-			<td width="20%" align="left" class="content_form"> Attribute Values:</td>
-
-			<td width="31%" align="center" class="content_form"><input type="text" name="attributevalues" class="txt_box200" id="attrib" value="'.$arr[0]['attrib_value'].'" /></td>
-			<td width="50%" align="left"><input type="submit" class="all_bttn" name="btnsubmit" value="Update" id="submit"  /></td>
-			</tr>
+			$output.='<form name="formsubcatedit" id="updateAttributevalue" action="?do=addattributevalues&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
+			<div class="row-fluid">
+			<div class="span12">
+			<label>Attribute Values</label>
+			<input type="text" name="attributevalues" class="txt_box200" id="attrib" value="'.$arr[0]['attrib_value'].'" /></div></div>
 			</form>';
 		}
 		return $output;

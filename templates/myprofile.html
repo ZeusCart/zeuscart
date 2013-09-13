@@ -26,7 +26,7 @@
         <div id="product_tbbg">
         <AJDF:output>$viewProducts.success</AJDF:output> 
           <AJDF:output>$message</AJDF:output>
-        <form id="form1" name="form1" method="post" action="?do=myprofile&action=updatemyprofile">
+        <form id="form1" name="form1" method="post" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=myprofile&action=updatemyprofile">
           <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="table">
             <tr>
               <td class="product_header">My Profile</td>

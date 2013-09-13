@@ -53,8 +53,7 @@ class Core_CNewProducts
 	function newProducts()
 	{
 		
-		$sql= " SELECT a.product_id, a.title, a.thumb_image,a.image,a.product_status,a.category_id ,a.msrp,a.sub_category_id ,a.sub_under_category_id, a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as 			rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  left join product_reviews_table c on a.product_id=c.product_id 
-		WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.category_id !='63' group by a.product_id ORDER BY rand( ) LIMIT 0,12 "; 
+		$sql= " SELECT a.product_id, a.title, a.thumb_image,a.image,a.product_status,a.category_id ,a.msrp,a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1  group by a.product_id ORDER BY rand( ) LIMIT 0,12 "; 
 			
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
@@ -90,6 +89,21 @@ class Core_CNewProducts
 			return Display_DNewProducts::newProductsElse();
 		}
 		
+	}
+	/**
+	 * This function is used to show to get all new products from db
+	 *
+	 * 
+	 * @return HTML data
+	 */
+	function showAllNewProducts()
+	{
+		$sql="SELECT * FROM products_table WHERE  product_status='1' ";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$records=$obj->records;
+		
+		return Display_DNewProducts::showAllNewProducts($records);
 	}
 	/**
 	 * This function is used to show  the rating 
@@ -128,48 +142,86 @@ class Core_CNewProducts
 		}
 		$total = 0;
 
-		if(($_GET['cat']!='') && ($_GET['subcat']=='') && ($_GET['subundercat']==''))
+		$category=$_GET['cat'];
+		$totcategory=explode('/',$_GET['cat']);
+		$last=str_replace('-',' ',$totcategory);
+
+// 		$category=$totcategory[0];
+// 		$subcat=$totcategory[1];
+// 		$subcatunder=$totcategory[2];
+// // 		
+// print_r($totcategory);
+// 
+// exit;
+
+		
+		$sql="SELECT * FROM category_table WHERE category_name ='".end($last)."'"; 
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$categoryid=$obj->records[0]['category_id'];
+		$subcatpath=$obj->records[0]['subcat_path']; 
+		$subcatid=explode(',',$subcatpath);	
+
+
+		if(count($subcatid)>1)
 		{
-			$sql="SELECT * from category_table where category_name ='".$_GET['cat']."'";
-			$obj=new Bin_Query();
-			$obj->executeQuery($sql);
-			$records=$obj->records;
-			$objpro=new Bin_Query();
+			for($j=1;$j<count($subcatid);$j++)
+			{
+				$subcategory.="category_id ='".$subcatid[$j]."'";
+				if(($j+1)!=count($subcatid))
+				{
+					$subcategory.=' OR ';	
+				}
+			}	
 
-			//product selection
-			$sqlpro="SELECT * FROM products_table WHERE category_id='".$records[0]['category_id']."' OR sub_category_id='".$records[0]['category_parent_id']."' OR 	sub_under_category_id='".$records[0]['sub_category_parent_id']."'";
 
-		}
-		elseif(($_GET['subcat']!='') && ($_GET['cat']!='') && ($_GET['subundercat']==''))
+		}	
+		else
 		{
- 			$sql="SELECT * FROM  category_table WHERE category_parent_id IN(SELECT category_id 
-			from category_table where category_name ='".$_GET['cat']."') AND category_name='".$_GET['subcat']."'"; 
-
-			$obj=new Bin_Query();
-			$obj->executeQuery($sql);
-			$records=$obj->records;
-			$objpro=new Bin_Query();
-
-			//product selection
-		 	$sqlpro="SELECT * FROM products_table WHERE category_id='".
-			$records[0]['category_parent_id']."' AND sub_category_id='".$records[0]['category_id']."' ";
-
-		}
-		elseif(($_GET['subundercat']!='')&&( $_GET['subcat']!='') && ($_GET['cat']!=''))
-		{	
-			 $sql="SELECT * FROM  category_table WHERE category_parent_id IN(SELECT category_id 
-			from category_table where category_name ='".$_GET['cat']."') AND category_id  IN (SELECT category_id from category_table where category_name ='".$_GET['subundercat']."')"; 
-			
-			$obj=new Bin_Query();
-			$obj->executeQuery($sql);
-			$records=$obj->records;
-			$objpro=new Bin_Query();
-
-			//product selection
-		 	$sqlpro="SELECT * FROM products_table WHERE category_id='".
-			$records[0]['category_parent_id']."' AND sub_category_id='".$records[0]['sub_category_parent_id']."' AND 	sub_under_category_id='".$records[0]['category_id']."'  ";
+			$subcategory=$categoryid;
 		}
 
+// 		if(($category!='') && ($subcat=='') && ($subcatunder==''))
+// 		{
+// 			$sql="SELECT * from category_table where category_name ='".$category."'";
+// 			$obj=new Bin_Query();
+// 			$obj->executeQuery($sql);
+// 			$records=$obj->records;
+// 			$objpro=new Bin_Query();
+
+			//product selection
+			$sqlpro="SELECT * FROM products_table WHERE ".$subcategory.""; 
+
+// 		}
+// 		elseif(($subcat!='') && ($category!='') && ($subcatunder==''))
+// 		{
+//  			$sql="SELECT * FROM  category_table WHERE category_parent_id IN(SELECT category_id 
+// 			from category_table where category_name ='".$category."') AND category_name='".$subcat."'"; 
+// 
+// 			$obj=new Bin_Query();
+// 			$obj->executeQuery($sql);
+// 			$records=$obj->records;
+// 			$objpro=new Bin_Query();
+// 
+// 			//product selection
+// 		 	$sqlpro="SELECT * FROM products_table WHERE sub_category_id='".$records[0]['category_id']."' ";
+// 
+// 		}
+// 		elseif(($subcatunder!='')&&($subcat!='') && ($category!=''))
+// 		{	
+// 			 $sql="SELECT * FROM  category_table WHERE category_parent_id IN(SELECT category_id 
+// 			from category_table where category_name ='".$category."') AND category_id  IN (SELECT category_id from category_table where category_name ='".$subcatunder."')"; 
+// 			
+// 			$obj=new Bin_Query();
+// 			$obj->executeQuery($sql);
+// 			$records=$obj->records;
+// 			$objpro=new Bin_Query();
+// 
+// 			//product selection
+// 		 	$sqlpro="SELECT * FROM products_table WHERE category_id='".
+// 			$records[0]['category_parent_id']."' AND sub_category_id='".$records[0]['sub_category_parent_id']."' AND 	sub_under_category_id='".$records[0]['category_id']."'  ";
+// 		}
+// 
 
 		$objpro=new Bin_Query();
 		if($objpro->executeQuery($sqlpro))
@@ -190,6 +242,17 @@ class Core_CNewProducts
 		
 		return Display_DNewProducts::viewProducts($query1->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
 		
+
+	}
+	/**
+	 * This function is used to show  the category bread crumb
+	 * 
+	 * 
+	 * @return HTML data
+	 */
+	function categoryBreadCrumb()
+	{
+		return Display_DNewProducts::categoryBreadCrumb();
 
 	}
 

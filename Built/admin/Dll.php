@@ -91,6 +91,12 @@
     'function' => 'reviewDenyStatus',
     'loadlib' => '1',
   ),
+  'adminproductreview:delete' => 
+  array (
+    'model' => 'MAdminProductReview',
+    'function' => 'deleteReview',
+    'loadlib' => '1',
+  ),
   'adminproductreview:autoc' => 
   array (
     'model' => 'MAdminProductReview',
@@ -181,6 +187,18 @@
     'function' => 'saveCse',
     'loadlib' => '1',
   ),
+  'addUserAccountLight' => 
+  array (
+    'model' => 'MAdminUserRegistration',
+    'function' => 'displayRegPageLight',
+    'loadlib' => '1',
+  ),
+  'addUserAccountLight:addreg' => 
+  array (
+    'model' => 'MAdminUserRegistration',
+    'function' => 'showValidateRegPageLight',
+    'loadlib' => '1',
+  ),
   'homepage' => 
   array (
     'model' => 'MHome',
@@ -196,13 +214,25 @@
   'site' => 
   array (
     'model' => 'MSiteSettings',
-    'function' => 'siteMoto',
+    'function' => 'siteSettings',
     'loadlib' => '1',
   ),
   'site:update' => 
   array (
     'model' => 'MSiteSettings',
-    'function' => 'updateSiteMoto',
+    'function' => 'updatesiteSettings',
+    'loadlib' => '1',
+  ),
+  'domainname' => 
+  array (
+    'model' => 'MDomainName',
+    'function' => 'domainName',
+    'loadlib' => '1',
+  ),
+  'domainname:update' => 
+  array (
+    'model' => 'MDomainName',
+    'function' => 'updateDomainName',
     'loadlib' => '1',
   ),
   'sitemail' => 
@@ -311,6 +341,42 @@
   array (
     'model' => 'MCreatePage',
     'function' => 'updateStatus',
+    'loadlib' => '1',
+  ),
+  'dynamiccms' => 
+  array (
+    'model' => 'MDynamicCms',
+    'function' => 'createDymnaicPage',
+    'loadlib' => '1',
+  ),
+  'dynamiccms:add' => 
+  array (
+    'model' => 'MDynamicCms',
+    'function' => 'addDynamicPageSettings',
+    'loadlib' => '1',
+  ),
+  'dynamiccms:show' => 
+  array (
+    'model' => 'MDynamicCms',
+    'function' => 'showDynamicCmsList',
+    'loadlib' => '1',
+  ),
+  'dynamiccms:edit' => 
+  array (
+    'model' => 'MDynamicCms',
+    'function' => 'showEditDynamicCms',
+    'loadlib' => '1',
+  ),
+  'dynamiccms:update' => 
+  array (
+    'model' => 'MDynamicCms',
+    'function' => 'updateEditDynamicCms',
+    'loadlib' => '1',
+  ),
+  'dynamiccms:delete' => 
+  array (
+    'model' => 'MDynamicCms',
+    'function' => 'deleteDynamicCms',
     'loadlib' => '1',
   ),
   'sociallink' => 
@@ -505,6 +571,12 @@
     'function' => 'addAttributes',
     'loadlib' => '1',
   ),
+  'addattributes:insert' => 
+  array (
+    'model' => 'MAddAttributes',
+    'function' => 'insertAttributes',
+    'loadlib' => '1',
+  ),
   'addattributes:disp' => 
   array (
     'model' => 'MAddAttributes',
@@ -527,6 +599,12 @@
   array (
     'model' => 'MAddAttributeValues',
     'function' => 'showAttributeValues',
+    'loadlib' => '1',
+  ),
+  'addattributevalues:showadd' => 
+  array (
+    'model' => 'MAddAttributeValues',
+    'function' => 'showAddAttributeValue',
     'loadlib' => '1',
   ),
   'addattributevalues:add' => 
@@ -949,6 +1027,30 @@
     'function' => 'autoComplete',
     'loadlib' => '1',
   ),
+  'manageproducts:digiteditprod' => 
+  array (
+    'model' => 'MManageProducts',
+    'function' => 'editDigitalProduct',
+    'loadlib' => '1',
+  ),
+  'manageproducts:updatedigitprod' => 
+  array (
+    'model' => 'MManageProducts',
+    'function' => 'updateDigitalProduct',
+    'loadlib' => '1',
+  ),
+  'manageproducts:gifteditprod' => 
+  array (
+    'model' => 'MManageProducts',
+    'function' => 'editGiftProduct',
+    'loadlib' => '1',
+  ),
+  'manageproducts:updategiftprod' => 
+  array (
+    'model' => 'MManageProducts',
+    'function' => 'updateGiftProduct',
+    'loadlib' => '1',
+  ),
   'selectfeatured' => 
   array (
     'model' => 'MSelectFeaturedItems',
@@ -1147,6 +1249,24 @@
     'function' => 'updateOrders',
     'loadlib' => '1',
   ),
+  'disporders:cancel' => 
+  array (
+    'model' => 'MOrderManagement',
+    'function' => 'cancelOrders',
+    'loadlib' => '1',
+  ),
+  'disporders:print' => 
+  array (
+    'model' => 'MOrderManagement',
+    'function' => 'printOrders',
+    'loadlib' => '1',
+  ),
+  'disporders:mail' => 
+  array (
+    'model' => 'MOrderManagement',
+    'function' => 'emailOrders',
+    'loadlib' => '1',
+  ),
   'disporders:delete' => 
   array (
     'model' => 'MOrderManagement',
@@ -1159,10 +1279,22 @@
     'function' => 'autoComplete',
     'loadlib' => '1',
   ),
+  'disporders:viewdetail' => 
+  array (
+    'model' => 'MOrderManagement',
+    'function' => 'viewOrderDetail',
+    'loadlib' => '1',
+  ),
   'displatestorders' => 
   array (
     'model' => 'MLatestOrders',
     'function' => 'dispLatestOrders',
+    'loadlib' => '1',
+  ),
+  'productentry:productalias' => 
+  array (
+    'model' => 'MProductEntry',
+    'function' => 'checkProductAlias',
     'loadlib' => '1',
   ),
   'productentry' => 
@@ -1205,6 +1337,30 @@
   array (
     'model' => 'MProductEntry',
     'function' => 'searchProducts',
+    'loadlib' => '1',
+  ),
+  'digitproductentry' => 
+  array (
+    'model' => 'MProductEntry',
+    'function' => 'displayForDigitalEntry',
+    'loadlib' => '1',
+  ),
+  'digitproductentry:insert' => 
+  array (
+    'model' => 'MProductEntry',
+    'function' => 'insertDigitalProduct',
+    'loadlib' => '1',
+  ),
+  'giftproductentry' => 
+  array (
+    'model' => 'MProductEntry',
+    'function' => 'displayForGiftEntry',
+    'loadlib' => '1',
+  ),
+  'giftproductentry:insert' => 
+  array (
+    'model' => 'MProductEntry',
+    'function' => 'insertGiftProduct',
     'loadlib' => '1',
   ),
   'msrpmgt' => 
@@ -1501,6 +1657,12 @@
     'function' => 'showValidateRegPage',
     'loadlib' => '1',
   ),
+  'customerdetail:detail' => 
+  array (
+    'model' => 'MAdminUserRegistration',
+    'function' => 'customerDetail',
+    'loadlib' => '1',
+  ),
   'userorder' => 
   array (
     'model' => 'MUserOrder',
@@ -1513,6 +1675,12 @@
     'function' => 'showSubcat',
     'loadlib' => '1',
   ),
+  'loadSubUnder' => 
+  array (
+    'model' => 'MUserOrder',
+    'function' => 'showSubUnderCat',
+    'loadlib' => '1',
+  ),
   'loadProduct' => 
   array (
     'model' => 'MUserOrder',
@@ -1523,6 +1691,24 @@
   array (
     'model' => 'MUserOrder',
     'function' => 'showQty',
+    'loadlib' => '1',
+  ),
+  'loadusermultibilladdress' => 
+  array (
+    'model' => 'MUserOrder',
+    'function' => 'showUserMultiBillAddress',
+    'loadlib' => '1',
+  ),
+  'loadusermultishipaddress' => 
+  array (
+    'model' => 'MUserOrder',
+    'function' => 'showUserMultiShipAddress',
+    'loadlib' => '1',
+  ),
+  'loaduseraddressdetails' => 
+  array (
+    'model' => 'MUserOrder',
+    'function' => 'showUserAddressDetails',
     'loadlib' => '1',
   ),
   'addUserProduct' => 
@@ -1757,6 +1943,144 @@
   array (
     'model' => 'MNewsManagement',
     'function' => 'statusNews',
+    'loadlib' => '1',
+  ),
+  'homepageads' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'showHomePageAdsList',
+    'loadlib' => '1',
+  ),
+  'homepageads:show' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'showAddHomePageAds',
+    'loadlib' => '1',
+  ),
+  'homepageads:add' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'insertHomePageAds',
+    'loadlib' => '1',
+  ),
+  'homepageads:delete' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'deleteHomePageAds',
+    'loadlib' => '1',
+  ),
+  'homepageads:edit' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'showEditHomePageAds',
+    'loadlib' => '1',
+  ),
+  'homepageads:update' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'updateEditHomePageAds',
+    'loadlib' => '1',
+  ),
+  'homepageads:accept' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'acceptHomePageAds',
+    'loadlib' => '1',
+  ),
+  'homepageads:deny' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'denyEditHomePageAds',
+    'loadlib' => '1',
+  ),
+  'userinvoice:show' => 
+  array (
+    'model' => 'MOrderManagement',
+    'function' => 'showAddnvoice',
+    'loadlib' => '1',
+  ),
+  'userinvoice:add' => 
+  array (
+    'model' => 'MOrderManagement',
+    'function' => 'insertInvoice',
+    'loadlib' => '1',
+  ),
+  'menus' => 
+  array (
+    'model' => 'MMenuManagement',
+    'function' => 'showMenuManagament',
+    'loadlib' => '1',
+  ),
+  'menus:add' => 
+  array (
+    'model' => 'MMenuManagement',
+    'function' => 'insertMenus',
+    'loadlib' => '1',
+  ),
+  'menus:delete' => 
+  array (
+    'model' => 'MMenuManagement',
+    'function' => 'deleteMenus',
+    'loadlib' => '1',
+  ),
+  'menus:type' => 
+  array (
+    'model' => 'MMenuManagement',
+    'function' => 'selectedMenuTypeList',
+    'loadlib' => '1',
+  ),
+  'menus:navigation' => 
+  array (
+    'model' => 'MMenuManagement',
+    'function' => 'insertNavigation',
+    'loadlib' => '1',
+  ),
+  'menus:addcategory' => 
+  array (
+    'model' => 'MMenuManagement',
+    'function' => 'addCategory',
+    'loadlib' => '1',
+  ),
+  'custgroup' => 
+  array (
+    'model' => 'MCustomerGroup',
+    'function' => 'showCustomerGroup',
+    'loadlib' => '1',
+  ),
+  'custgroup:search' => 
+  array (
+    'model' => 'MCustomerGroup',
+    'function' => 'ajaxCustomerGroup',
+    'loadlib' => '1',
+  ),
+  'custgroup:add' => 
+  array (
+    'model' => 'MCustomerGroup',
+    'function' => 'displayCustGrpRegPage',
+    'loadlib' => '1',
+  ),
+  'custgroup:insert' => 
+  array (
+    'model' => 'MCustomerGroup',
+    'function' => 'insertCustomerGroup',
+    'loadlib' => '1',
+  ),
+  'custgroup:edit' => 
+  array (
+    'model' => 'MCustomerGroup',
+    'function' => 'editCustomerGroup',
+    'loadlib' => '1',
+  ),
+  'custgroup:update' => 
+  array (
+    'model' => 'MCustomerGroup',
+    'function' => 'updateCustomerGroup',
+    'loadlib' => '1',
+  ),
+  'custgroup:delete' => 
+  array (
+    'model' => 'MCustomerGroup',
+    'function' => 'deleteCustomerGroup',
     'loadlib' => '1',
   ),
 );

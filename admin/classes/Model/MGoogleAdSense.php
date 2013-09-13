@@ -82,9 +82,10 @@ class Model_MGoogleAdSense
 		{
 			include('classes/Core/Settings/CGoogleAdSense.php');
 			include('classes/Display/DGoogleAdSense.php');		
-					
+			$output['gadsensemsg'] = $_SESSION['messageGooglesense'];
 			$output['gadsense'] =Core_Settings_CGoogleAdSense::googleAdSenseCode();							
 			Bin_Template::createTemplate('googleadsense.html',$output);
+			unset($_SESSION['messageGooglesense']);
 		}
 		else
 		{
@@ -130,17 +131,20 @@ class Model_MGoogleAdSense
 			$output['disabledproducts']=Core_CAdminHome::disabledProducts();
 			$output['gadsense'] =Core_Settings_CGoogleAdSense::googleAdSenseCode();	
 			$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
-		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
-		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();						
-			$output['gadsensemsg'] =Core_Settings_CGoogleAdSense::updateGoogleAdSenseCode();
+			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
+			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();						
+			
+			$_SESSION['messageGooglesense']=Core_Settings_CGoogleAdSense::updateGoogleAdSenseCode();
 			$output['gadsense'] =Core_Settings_CGoogleAdSense::googleAdSenseCode();
-			Bin_Template::createTemplate('googleadsense.html',$output);
-		}
-		else
-		{
-			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-		}
+			header('Location:?do=gadsense');
+			exit;
+		// 	Bin_Template::createTemplate('googleadsense.html',$output);
+		 }
+		// else
+		// {
+		// 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+		// 	Bin_Template::createTemplate('Errors.html',$output);
+		// }
 	}	
 }
 ?>

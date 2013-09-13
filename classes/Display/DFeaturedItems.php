@@ -93,20 +93,20 @@ class Display_DFeaturedItems
 			if(trim($arr[$i]['image'])!='')
 			{
 				$img=explode('/',$arr[$i]['image']);
-				$thumb='uploadedimages/caticons/'.$img[2];
+				$thumb=''.$_SESSION['base_url'].'/uploadedimages/caticons/'.$img[2];
 				$img=(file_exists($thumb)) ? '<img src="'.$thumb.'" width="'.THUMB_WIDTH.'"   border="0" />' :
-					'<img src="images/noimage1.jpg" width="'.THUMB_WIDTH.'" border="0" />';
+					'<img src="'.$_SESSION['base_url'].'/images/noimage1.jpg" width="'.THUMB_WIDTH.'" border="0" />';
 			}
 			else
-				$img='<img src="images/noimage1.jpg" width="'.THUMB_WIDTH.'" border="0" />';
+				$img='<img src="'.$_SESSION['base_url'].'/images/noimage1.jpg" width="'.THUMB_WIDTH.'" border="0" />';
 			
 			$output.='<td id="product_tbbg">
 			<table width="100%" border="0" align="left" cellpadding="2" cellspacing="2">
 				<tr><td align="center">
-						<a href="?do=featured&action=showfeaturedproduct&subcatid='.$arr[$i]['subcatid'].'">'.$img.'</a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$arr[$i]['subcatid'].'">'.$img.'</a>
 				</td></tr>
 				<tr><td  class="featureTXT">
-					<div  align="center"><a href="?do=featured&action=showfeaturedproduct&subcatid='.$arr[$i]['subcatid'].'" class=categoriesList>'.$arr[$i]['SubCategory'].'</a>
+					<div  align="center"><a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$arr[$i]['subcatid'].'" class=categoriesList>'.$arr[$i]['SubCategory'].'</a>
 							</div>
 				</td></tr>
 			</table>';
@@ -141,18 +141,18 @@ class Display_DFeaturedItems
 			$temp=$arr[$i]['category_image'];
 			$img=explode('/',$temp);	
 				
-				$output.='<td id="product_tbbg"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="2"><tr><td align="left"><a href="?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">';
-				$thumb='uploadedimages/caticons/'.$img[2];
+				$output.='<td id="product_tbbg"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="2"><tr><td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">';
+				$thumb=''.$_SESSION['base_url'].'/uploadedimages/caticons/'.$img[2];
 				if(file_exists($thumb))
 				{
 					$output.='<img src="'.$thumb.'"   border="0" />';
 				}
 				else
 				{
-					$output.=" <img border='0' width='95'  src='images/noimage1.jpg' />";
+					$output.=" <img border='0' width='95'  src='".$_SESSION['base_url']."/images/noimage1.jpg' />";
 				}	
 				$output.='</a></td></tr>
-                <tr><td class="text" align="left"><a href="?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></td></tr></table></td>';
+                <tr><td class="text" align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></td></tr></table></td>';
 
 			$loop++;			
 		}
@@ -186,34 +186,120 @@ class Display_DFeaturedItems
  	*/
 	function showFeaturedItems($arr,$flag,$r)
 	{
-	
-		$output='<span class="visible-desktop"><div class="title_fnt">
-				<h1>Feature Products </h1><a href="javascript:void(0)" class="left_arrow"></a> <a href="javascript:void(0)"  class="right_arrow"></a>
-				</div><div class="row-fluid">
-					<div class="freshdesignweb">     
-			<!-- Portfolio 4 Column start -->
-			<div class="image_grid portfolio_4col">
-			<div id="horz_scroll_id">';	
+
+		$output='<div class="image_grid portfolio_4col">
+		<div id="horz_scroll_id">';
+
+		$output.='<div class="scroller_div">
+       		 <div class="row-fluid">';
+
 		if((count($arr)>0))
 		{
-			$output.='<div style="width:1000px; height:250px;"><ul style="margin-left:12px" id="list" class="portfolio_list da-thumbs">';
-
 			for($i=0;$i<count($arr);$i++)
 			{
-				if($i%4==0&&$i!=0)
+				if($i%8==0 && $i!=0 && $i%4==0 )
 				{
 
-					$output.='</ul></div><div style="width:1000px; height:250px;"><ul style="margin-left:12px" id="list" class="portfolio_list da-thumbs">';
+					$output.='</div></div><div class="scroller_div"><div class="row-fluid">';
+				}
+				if($i%4==0 && $i!=0 && $i%8==0)
+				{
+
+					$output.=' </div> <div class="row-fluid">';
 				}
 
-				$output.='<li style="width:230px;">';
 				if($arr[$i]['product_status']==1)
 				{
-					$imagetag='<img src="assets/img/ribbion/new.png" alt="new">';
+					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new">';
 				}
 				elseif($arr[$i]['product_status']==2)
 				{
-					$imagetag='<img src="assets/img/ribbion/sale.png" alt="sale">';
+					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale">';
+				}
+				elseif($arr[$i]['product_status']==0)
+				{	
+					$imagetag='';
+				}
+
+				//category name
+				$sql="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['category_id']."'";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);
+				$cat=$obj->records[0]['category_name'];
+
+				//sub category
+				$sqlsub="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_category_id']."'";
+				$objsub=new Bin_Query();
+				$objsub->executeQuery($sqlsub);
+				$subcat=$objsub->records[0]['category_name'];
+
+				//sub under  category
+				$sqlsubun="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_under_category_id']."'";
+				$objsubun=new Bin_Query();
+				$objsubun->executeQuery($sqlsubun);
+				$subuncat=$objsubun->records[0]['category_name'];
+				//soh 
+				$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);
+				$recordssoh=$obj->records;
+
+        			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=1000" alt="'.$arr[$i]['title'].'">
+				<div class="mask">
+				<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
+				if($recordssoh[0]['soh']>0)
+				{
+				$output.='<button class="info" type="submit" >Add to Cart</button>';
+				}
+				$output.='</div>
+				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
+				
+			}
+			$output.='</div></div>';
+		}
+    
+
+
+	  $output.='</div>
+		</div>';	
+		return $output;
+	}
+	/**
+	* This function is used to Display the Featured Product Hidden Desktop
+	* @param mixed $arr
+	* @param integer $flag
+	* @param array $r
+	* @return string
+ 	*/
+	function featuredProductsHidden($arr,$flag,$r)
+	{
+
+		$output='<div class="image_grid portfolio_4col">
+		<div id="horz_scroll_id">';
+
+		$output.='
+       		 <div class="row-fluid">';
+
+		if((count($arr)>0))
+		{
+			for($i=0;$i<count($arr);$i++)
+			{
+				
+				if($i%4==0 && $i!=0 )
+				{
+
+					$output.=' </div> <div class="row-fluid">';
+				}
+
+				if($arr[$i]['product_status']==1)
+				{
+					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new">';
+				}
+				elseif($arr[$i]['product_status']==2)
+				{
+					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale">';
 				}
 				elseif($arr[$i]['product_status']==0)
 				{	
@@ -238,101 +324,34 @@ class Display_DFeaturedItems
 				$objsubun->executeQuery($sqlsubun);
 				$subuncat=$objsubun->records[0]['category_name'];
 
-				$output.='<form name="product" method="post" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><span class="ribbion_div">'.$imagetag.'</span>
-				<div class="product_box">
-				<img src="assets/js/timthumb.php?src='.$arr[$i]['image'].'&h=400&w=400&zc=1&s=1&f=4,9&q=1000" alt="'.$arr[$i]['title'].'"></div>
-				<article class="da-animate da-slideFromRight" style="display: block;">
-				<h3>'.$arr[$i]['title'].'</h3>
-				<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <a href="?do=viewproducts&cat='.$cat.'&subcat='.$subcat.'&subundercat='.$subuncat.'"><span class="link_post"></span></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="popup"><span class="zoom"></span></a>
-				<input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'">';
+				//soh 
 				$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
 				$obj=new Bin_Query();
 				$obj->executeQuery($sql);
 				$recordssoh=$obj->records;
+
+        			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=1000" alt="'.$arr[$i]['title'].'">
+				<div class="mask"><span class="visible-phone">
+					<h2><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				</span>
+				<span class="hidden-phone"><h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
 				if($recordssoh[0]['soh']>0)
 				{
-				$output.='<button class="add_to_cart" type="submit" >Add to Cart</button>';
+				$output.='<button class="info" type="submit" >Add to Cart</button>';
 				}
-				$output.='</article>
-				</form></li>';
-				
+				$output.='</div>
+				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
 				
 			}
-		$output.='</ul></div>';
+			$output.='</div>';
 		}
-		
-		$output.='  </div>
-			</div>
-			
-			</div>
-				</div></span>';
-		return $output;
-	}
-	/**
-	* This function is used to Display the Featured Product Hidden Desktop
-	* @param mixed $arr
-	* @param integer $flag
-	* @param array $r
-	* @return string
- 	*/
+    
 
-	function featuredProductsHidden($arr,$flag,$r)
-	{
 
-		$output='<span class="hidden-desktop"><div class="title_fnt">
-		<h1>Feature Products </h1>
-		</div><div class="row-fluid">
-		<div class="freshdesignweb">     
-		<!-- Portfolio 4 Column start -->
-		<div class="image_grid portfolio_4col">
-		<ul style="margin-left:12px" id="list" class="portfolio_list da-thumbs">';
-
-		if((count($arr)>0))
-		{
-			for($i=0;$i<count($arr);$i++)
-			{
-				
-				if($arr[$i]['product_status']==1)
-				{
-					$imagetag='<img src="assets/img/ribbion/new.png" alt="new">';
-				}
-				elseif($arr[$i]['product_status']==2)
-				{
-					$imagetag='<img src="assets/img/ribbion/sale.png" alt="sale">';
-				}
-				elseif($arr[$i]['product_status']==0)
-				{	
-					$imagetag='';
-				}
-				
-
-				$output.='<li><form name="product" method="post" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'">
-				<span class="ribbion_div">'.$imagetag.'</span>
-				<img src="'.$arr[$i]['image'].'" >
-				<article class="da-animate da-slideFromRight" style="display: block;">
-					<h3>'.$arr[$i]['title'].'</h3>
-					<em><b>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</b></em> <span class="link_post"><a href="http://www.htmldrive.net"></a></span> <span class="zoom"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></a></span>
-					
-					<input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'">';
-					$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
-					$obj=new Bin_Query();
-					$obj->executeQuery($sql);
-					$recordssoh=$obj->records;
-					if($recordssoh[0]['soh']>0)
-					{
-					$output.='<button class="add_to_cart" type="submit" >Add to Cart</button>';
-					}
-					$output.='</article></form></li>';
-		
-				
-			}
-	
-		}
-		
-		$output.=' </ul></div>
-		<!-- Portfolio 4 Column End -->
-		</div>
-			</div></span>';
+	  $output.='</div>
+		</div>';
 		
 		return $output;
 
@@ -373,92 +392,92 @@ class Display_DFeaturedItems
  			<div id="product_tbbg"><table width="100%" border="0" cellpadding="2" cellspacing="2">';
 		
 	
-	$i=0;$j=0;
-	if((count($arr)>0))
-	{
+		$i=0;$j=0;
+		if((count($arr)>0))
+		{
 		
 			foreach($arr as $row)
 			{	
-						$product_id=$row['product_id'];
-						$sku=$row['sku'];
-						$title=$row['title'];
-						$description=$row['description'];
-						$brand=$row['brand'];
-						$price=number_format($row['price'],2);
-						$msrp=number_format($row['msrp'],2);
-						$weight=$row['weight'];
-						$dimension=$row['dimension'];
-						$thumb_image=$row['thumb_image'];
-						
-						$image=$row['image'];
-						$img=explode('/',$thumb_image);
-						$shipping_cost=$row['shipping_cost'];
-						$status=$row['status'];
-						$tag=$row['tag'];
-						$pat="images/products/";
-						
-						if($i==3)
-						{
-							$output.='</tr>';
-							$i==0;
-						}
-						if($i==0)
-							$output.='<tr>';
-						$output.='<td  id="product_tbbg">
-							<table width="95%" border="0" align="left" cellpadding="2" cellspacing="2"> 
-		<tr>
-          <td align="left"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'">';
-		 	if(file_exists($thumb_image))
-			{
-			  $output.='<img src="'.$thumb_image.'" width="90"   border="0" />';
-			}
-			else
-			{
-				$output.='<img border="0" width="90" src="images/noimage.jpg" />';
-			} 
-		$output.='</a></td>
-        </tr>
-        <tr>
-          <td class="text"><a href="?do=prodetail&action=showprod&prodid='.$product_id.'">'.$title.'</a></td>
-        </tr>
-        <tr>
-
-          <td align="left" class="rate_text">'.$r[$j]['msrp'].'</td>
-
-        
-
-        </tr>
-        <tr>
-          <td align="left" class="addtocart"><a href="?do=addtocart&prodid='.$product_id.'"><img src="images/addtocart.jpg" border="0"></a></td>
-        </tr>
-        <tr>
-          <td align="left" class="addtowishlist"><a href="?do=wishlist&action=viewwishlist&prodid='.$product_id.'">Add to Wishlist</a>		  </td>
-        </tr>
-        <tr>
-          <td align="left" class="addtocompare"><a href="?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">Add to Compare</a></td>
-        </tr>';
-        if($arr[0]['cse_enabled']==1)
-		{
-			$output.='<tr>
-	  		<td class="addtocompare"><a href="?do=pricecompare&action=compareproductprice&keyword=450D">Compare Price</a></td></tr>';
-	 	}
-		  $output.='<tr>
-          <td class="addtocompare"></td>
-        </tr></table></td>';
-		$i++;
-		$j++;
+				$product_id=$row['product_id'];
+				$sku=$row['sku'];
+				$title=$row['title'];
+				$description=$row['description'];
+				$brand=$row['brand'];
+				$price=number_format($row['price'],2);
+				$msrp=number_format($row['msrp'],2);
+				$weight=$row['weight'];
+				$dimension=$row['dimension'];
+				$thumb_image=$row['thumb_image'];
 				
+				$image=$row['image'];
+				$img=explode('/',$thumb_image);
+				$shipping_cost=$row['shipping_cost'];
+				$status=$row['status'];
+				$tag=$row['tag'];
+				$pat="".$_SESSION['base_url']."/images/products/";
+				
+				if($i==3)
+				{
+					$output.='</tr>';
+					$i==0;
+				}
+				if($i==0)
+					$output.='<tr>';
+				$output.='<td  id="product_tbbg">
+					<table width="95%" border="0" align="left" cellpadding="2" cellspacing="2"> 
+				<tr>
+				<td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$product_id.'">';
+				if(file_exists($thumb_image))
+				{
+				$output.='<img src="'.$_SESSION['base_url'].'/'.$thumb_image.'" width="90"   border="0" />';
+				}
+				else
+				{
+					$output.='<img border="0" width="90" src="'.$_SESSION['base_url'].'/images/noimage.jpg" />';
+				} 
+				$output.='</a></td>
+				</tr>
+				<tr>
+				<td class="text"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$product_id.'">'.$title.'</a></td>
+				</tr>
+				<tr>
+			
+				<td align="left" class="rate_text">'.$r[$j]['msrp'].'</td>
+			
+				
+			
+				</tr>
+				<tr>
+				<td align="left" class="addtocart"><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$product_id.'"><img src="'.$_SESSION['base_url'].'/images/addtocart.jpg" border="0"></a></td>
+				</tr>
+				<tr>
+				<td align="left" class="addtowishlist"><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$product_id.'">Add to Wishlist</a>		  </td>
+				</tr>
+				<tr>
+				<td align="left" class="addtocompare"><a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$product_id.'">Add to Compare</a></td>
+				</tr>';
+				if($arr[0]['cse_enabled']==1)
+				{
+					$output.='<tr>
+					<td class="addtocompare"><a href="'.$_SESSION['base_url'].'/index.php?do=pricecompare&action=compareproductprice&keyword=450D">Compare Price</a></td></tr>';
+				}
+				$output.='<tr>
+				<td class="addtocompare"></td>
+				</tr></table></td>';
+				$i++;
+				$j++;
+						
 			}
 		}
 		else
 		{
-			 $output='<div class="head_text" id="head_text">Products</div>
- <div id="product_tbbg"><table width="100%" border="0" cellpadding="0" cellspacing="0">
-			 <tr><td class="product_tbbg1"><font color="orange"><b>No featured product found for this category</b></font></td></tr>';
+			$output='<div class="head_text" id="head_text">Products</div>
+			<div id="product_tbbg"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr><td class="product_tbbg1"><font color="orange"><b>No featured product found for this category</b></font></td></tr>';
 		}
 		$output.='</table></div>';
-		
-		return $output;
+			
+			return $output;
 	}
 	
  	/**
@@ -468,7 +487,7 @@ class Display_DFeaturedItems
 	function showSubCatFeaturedItemsElse()
 	{
 		 $output='<div class="head_text" id="head_text">Products</div>
- 	<div id="product_tbbg"><table width="100%" border="0" cellpadding="0" cellspacing="0">
+ 		<div id="product_tbbg"><table width="100%" border="0" cellpadding="0" cellspacing="0">
 		 		<tr><td>&nbsp;</td></tr>
 			 <tr><td class="product_tbbg1"><font color="orange"><b>No featured product found for this category</b></font></td></tr>
 			   <tr><td>&nbsp;</td></tr></table></div>';
@@ -498,7 +517,7 @@ class Display_DFeaturedItems
 		return  '
 		<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="resultDETAILS">
               <tr>
-                  <td align="left" scope="col"><a href="?do=indexpage">Home</a> <b>&gt;&gt;</b> <a href="?do=featured&action=showmaincatlanding&maincatid='.$arr[0]['maincatid'].'">'.$arr[0]['Category'].'</a> <b>&gt;&gt;</b> '.$arr[0]['SubCategory'].'</td></tr></table>';
+                  <td align="left" scope="col"><a href="?do=indexpage">Home</a> <b>&gt;&gt;</b> <a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showmaincatlanding&maincatid='.$arr[0]['maincatid'].'">'.$arr[0]['Category'].'</a> <b>&gt;&gt;</b> '.$arr[0]['SubCategory'].'</td></tr></table>';
 	}
 	
  	/**
@@ -527,14 +546,14 @@ class Display_DFeaturedItems
 								
 			    $output.='<td  style="'.$style[1].'"><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
 				<tr>
-				  <td width="43%" valign=top><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="'.(file_exists($arr[$i]['thumb_image']) ? $arr[$i]['thumb_image'] : 'images/noimage1.jpg').'" alt="'.addslashes($arr[$i]['title']).'" width="'.THUMB_WIDTH.'" border=0/></a></td>
-				  <td width="57%" valign="top" class="bestsellingTXT"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.((strlen($arr[$i]['title'])>15) ? substr( $arr[$i]['title'],0,15).'...' : $arr[$i]['title']).'</a><br><br /><span class="featurePRICE">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($_SESSION['currencysetting']['selected_currency_settings']['conversion_rate']*$arr[$i]['msrp'],2).'</span>
+				  <td width="43%" valign=top><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="'.(file_exists($arr[$i]['thumb_image']) ? $arr[$i]['thumb_image'] : 'images/noimage1.jpg').'" alt="'.addslashes($arr[$i]['title']).'" width="'.THUMB_WIDTH.'" border=0/></a></td>
+				  <td width="57%" valign="top" class="bestsellingTXT"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.((strlen($arr[$i]['title'])>15) ? substr( $arr[$i]['title'],0,15).'...' : $arr[$i]['title']).'</a><br><br /><span class="featurePRICE">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($_SESSION['currencysetting']['selected_currency_settings']['conversion_rate']*$arr[$i]['msrp'],2).'</span>
 					<br /><br>
-					See all <span><!--<a href="?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a>-->
-					<a href="?do=featured&action=showfeaturedproduct&subcatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></span></td>
+					See all <span><!--<a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a>-->
+					<a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></span></td>
 				</tr>
 				
-			  </table></td>';
+				  </table></td>';
 			  	
 				if(($i%2)!=0 || empty($arr[$i+1]['product_id']))
 				{
@@ -544,8 +563,8 @@ class Display_DFeaturedItems
 				}
 				if ($i==1)
 					$output.='<tr>
-          <td colspan="2" class="dot_line">&nbsp;</td>
-          </tr>';
+				<td colspan="2" class="dot_line">&nbsp;</td>
+				</tr>';
 				$i++;
 			}
 		}
@@ -579,7 +598,7 @@ class Display_DFeaturedItems
 					for($j=0;$j<$val;$j++)
 					{
 					if($arr[$i][$j]['products_count'] > 0 ) 
-						$output.='<li><a href="?do=featured&action=showfeaturedproduct&subcatid='.$id.'&type='.$arr[$i][0]['attrib_name'].'&val='.$arr[$i][$j]['attrib_value_id'].'">'.$arr[$i][$j]['attrib_value'].' ('.$arr[$i][$j]['products_count'].')</a></li>';
+						$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$id.'&type='.$arr[$i][0]['attrib_name'].'&val='.$arr[$i][$j]['attrib_value_id'].'">'.$arr[$i][$j]['attrib_value'].' ('.$arr[$i][$j]['products_count'].')</a></li>';
 				}
 					$output.='</ul>';
 				}
@@ -613,7 +632,7 @@ class Display_DFeaturedItems
 					{
 						if($arr[$i][$j]['count'] > 0 )
 						{
-							$output.='<li><a href="?do=featured&action=showfeaturedproduct&subcatid='.$id.'&type=Price&val='.$arr[$i][$j]['msrp'].'&range='.$range[$i].'">'.$range[$i].' ('.$arr[$i][$j]['count'].')</a></li>';
+							$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$id.'&type=Price&val='.$arr[$i][$j]['msrp'].'&range='.$range[$i].'">'.$range[$i].' ('.$arr[$i][$j]['count'].')</a></li>';
 						}
 					}
 				}
@@ -643,7 +662,7 @@ class Display_DFeaturedItems
 				{
 					if($arr[$i]['count'] > 0 )
 					{
-		 				$output.='<li><a href="?do=featured&action=showfeaturedproduct&subcatid='.$id.'&type=Brand&val='.$arr[$i]['brand'].'">'.(($arr[$i]['brand'])!='' ? $arr[$i]['brand'] : 'Unbranded Items').' ('.$arr[$i]['count'].')</a></li>';
+		 				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$id.'&type=Brand&val='.$arr[$i]['brand'].'">'.(($arr[$i]['brand'])!='' ? $arr[$i]['brand'] : 'Unbranded Items').' ('.$arr[$i]['count'].')</a></li>';
 					}
 				}
 				$output.='</ul>';
@@ -680,57 +699,57 @@ class Display_DFeaturedItems
 				if(strlen($proDesc) > 20 )
 					$proDesc=substr($proDesc,0,20).'...';					
 				
-	$class = ($i<$cnt-1) ? 'resultITEM linebg' : 'resultITEM';
-	
-	$output.='<div class="'.$class.'" style="width:455px;">					
-	  <table width="100%" border="0" cellspacing="2" cellpadding="0">
-        <tr>
-          <td class="resultIMG" width="13%"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="'.$imgPath.'" alt="'.addslashes($arr[$i]['title']).'" width="60"  border=0 title="'.addslashes($arr[$i]['title']).'" /></a>
-		  </td>
-          <td valign="top" class="resultDETAILS" width="35%"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a><br />
-	<span>'.$proDesc.'</span> 
-	</td>
-    <td  valign="top" class="resultPRICE" width="25%">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'
-	</td>
-	 <td width="23%" valign=top> 
-	  <form name="addtocart" id="addtocart" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'" method="post" >
-	  <table border="0" cellspacing="0" cellpadding="0" class="featureBUTTON" style="padding-top: 1px">		  
-		  <tr>
-			<td align="right" class="button_left" style="padding-top:2px" ></td>
-			<td valign=top><input type="submit" value="Add to Cart" class="button" /></td>
-			<td class="button_right"></td>
-		  </tr>
-		</table>
-		</form>
-	  
-      <form name="addtowishlist" id="addtowishlist" action="?do=wishlist&action=viewwishlist&prodid='.$arr[$i]['product_id'].'" method="post">
-	  <table border="0" cellspacing="0" cellpadding="0" class="featureBUTTON">
-			  <tr>
-				<td align="right" class="button_left" ></td>
-				<td valign=top><input type="submit" value="Add to Wishlist" class="button" /></td>
-				<td class="button_right" ></td>
-			  </tr>
+			$class = ($i<$cnt-1) ? 'resultITEM linebg' : 'resultITEM';
+			
+			$output.='<div class="'.$class.'" style="width:455px;">					
+			<table width="100%" border="0" cellspacing="2" cellpadding="0">
+			<tr>
+			<td class="resultIMG" width="13%"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="'.$_SESSION['base_url'].'/'.$imgPath.'" alt="'.addslashes($arr[$i]['title']).'" width="60"  border=0 title="'.addslashes($arr[$i]['title']).'" /></a>
+				</td>
+			<td valign="top" class="resultDETAILS" width="35%"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a><br />
+			<span>'.$proDesc.'</span> 
+			</td>
+			<td  valign="top" class="resultPRICE" width="25%">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'
+			</td>
+			<td width="23%" valign=top> 
+			<form name="addtocart" id="addtocart" action="?do=addtocart&prodid='.$arr[$i]['product_id'].'" method="post" >
+			<table border="0" cellspacing="0" cellpadding="0" class="featureBUTTON" style="padding-top: 1px">		  
+				<tr>
+					<td align="right" class="button_left" style="padding-top:2px" ></td>
+					<td valign=top><input type="submit" value="Add to Cart" class="button" /></td>
+					<td class="button_right"></td>
+				</tr>
+				</table>
+				</form>
+			
+			<form name="addtowishlist" id="addtowishlist" action="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$arr[$i]['product_id'].'" method="post">
+			<table border="0" cellspacing="0" cellpadding="0" class="featureBUTTON">
+					<tr>
+						<td align="right" class="button_left" ></td>
+						<td valign=top><input type="submit" value="Add to Wishlist" class="button" /></td>
+						<td class="button_right" ></td>
+					</tr>
+					</table>
+					</form>
+			<form name="addtocompare" id="addtocompare" action="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$arr[$i]['product_id'].'" method="post" >
+			<table border="0" cellspacing="0" cellpadding="0" class="featureBUTTON">
+					<tr>
+						<td align="right" class="button_left" ></td>
+						<td valign=top><input type="submit" value="Add to Compare" class="button" /></td>
+						<td class="button_right" ></td>
+					</tr>
+					</table>
+					</form>
+			</td>
+			</tr>
 			</table>
-			</form>
-      <form name="addtocompare" id="addtocompare" action="?do=compareproduct&action=addtocompareproduct&prodid='.$arr[$i]['product_id'].'" method="post" >
-	  <table border="0" cellspacing="0" cellpadding="0" class="featureBUTTON">
-			  <tr>
-				<td align="right" class="button_left" ></td>
-				<td valign=top><input type="submit" value="Add to Compare" class="button" /></td>
-				<td class="button_right" ></td>
-			  </tr>
-			</table>
-	  		</form>
-	  </td>
-        </tr>
-      </table>
-	</div>';
-	
-	}
-	$output.='</div><div>
-	<div class="pagination" style="line-height:20px;"><span class="disabled"><!--<img src="css/default/images/arrow1.gif" alt="arrow" /><span class="current">1</span></span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a>&#8230;<a href="#">199</a><a href="#">200</a><a href="#" style="margin-right:none; color:#a81f1f"><img src="css/default/images/arrow2.gif" alt="arrow" border="0" /></a>--></div>
-	</div>
-	</div>';
+			</div>';
+			
+			}
+			$output.='</div><div>
+			<div class="pagination" style="line-height:20px;"><span class="disabled"><!--<img src="css/default/images/arrow1.gif" alt="arrow" /><span class="current">1</span></span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a>&#8230;<a href="#">199</a><a href="#">200</a><a href="#" style="margin-right:none; color:#a81f1f"><img src="css/default/images/arrow2.gif" alt="arrow" border="0" /></a>--></div>
+			</div>
+			</div>';
 		}
 		
 		return $output;
@@ -750,11 +769,11 @@ class Display_DFeaturedItems
 		$output='<div class="resultTITLE borderBOT">Search Criteria :';
 		if($brand!='')
 		{
-			$output.='<div class="resultTITLE ">Brand : <span>'.$brand.'</span>&nbsp;<a href="?do=featured&action=showfeaturedproduct&subcatid='.$id.'&rtype=Brand" ><img src="images/bullet.jpg" alt="Remove" border="0"></a></div>';
+			$output.='<div class="resultTITLE ">Brand : <span>'.$brand.'</span>&nbsp;<a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$id.'&rtype=Brand" ><img src="'.$_SESSION['base_url'].'/images/bullet.jpg" alt="Remove" border="0"></a></div>';
 		}
 		if($price!='')
 		{
-			$output.='<div class="resultTITLE "><!--Price :--> <span>'.$_SESSION['range'].'</span>&nbsp;<a href="?do=featured&action=showfeaturedproduct&subcatid='.$id.'&rtype=Price" ><img src="images/bullet.jpg" alt="Remove" border="0"></a></div>';
+			$output.='<div class="resultTITLE "><!--Price :--> <span>'.$_SESSION['range'].'</span>&nbsp;<a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$id.'&rtype=Price" ><img src="'.$_SESSION['base_url'].'/images/bullet.jpg" alt="Remove" border="0"></a></div>';
 		}
 		if($cnt > 0 )
 		{
@@ -762,9 +781,9 @@ class Display_DFeaturedItems
 			{
 				$output.='
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="resultDETAILS">
-              <tr>
-                  <td align="left" scope="col">
-				<div class="resultTITLE ">'.$arr[$i][0]['attrib_name'].' : <span>'.$arr[$i][0]['attrib_value'].'</span>&nbsp;<a href="?do=featured&action=showfeaturedproduct&subcatid='.$id.'&rtype='.$arr[$i][0]['attrib_name'].'" ><img src="images/bullet.jpg" alt="Remove" border="0"></a></div></td></tr></table>';
+              			<tr>
+                 		 <td align="left" scope="col">
+				<div class="resultTITLE ">'.$arr[$i][0]['attrib_name'].' : <span>'.$arr[$i][0]['attrib_value'].'</span>&nbsp;<a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$id.'&rtype='.$arr[$i][0]['attrib_name'].'" ><img src="images/bullet.jpg" alt="Remove" border="0"></a></div></td></tr></table>';
 			}
 			
 			

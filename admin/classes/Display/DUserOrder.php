@@ -29,7 +29,7 @@
   * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
  * @version  		Version 4.0
  */
- class Display_DUserOrder
+class Display_DUserOrder
 {
 
 	/**
@@ -37,24 +37,49 @@
 	 * @param array $arrUser
      	* @return string
 	 */	
- 	function showCustomer($arrUser)
-	{
-		$opt='<select name="selCustomer" style="width:127px;">';
-		for($i=0;$i<count($arrUser);$i++)
-		{
-			$sel='';		
-			//if($arrUser[$i]['user_id']==$output['val']['selCustomer'])
-			//	 $sel='selected';
-		
-			$opt.='<option value="'.$arrUser[$i]['user_id'].'" '.$sel.'>'.$arrUser[$i]['user_display_name'].'</option>';
-		}
-		$opt.='</select>';
-		return $opt;
-	}
+     	function showCustomer($arrUser,$Err)
+     	{
+
+     		if(count($arrUser) > 0 && !empty($arrUser))
+     		{
+     			$opt='<select name="selCustomer" id="selCustomer" class="sbox1" onchange="loadusermultiaddress();"><option value="0">Select Customer </option>';
+     			for($i=0;$i<count($arrUser);$i++)
+     			{	
+     				if(trim($Err->values['selCustomer'])==trim($arrUser[$i]['user_id']))
+				{
+					$selected='selected';
+				}
+				else
+				{
+					$selected='';
+				}
+
+     				$opt.='<option value="'.$arrUser[$i]['user_id'].'" '.$selected.'>'.$arrUser[$i]['user_display_name'].'</option>';
+     			}
+
+     			$opt.='</select><br>';
+
+			if($Err->messages["selCustomer"]!='')
+			{
+			$opt.='<div class="row-fluid">
+			<div class="span12" style="text-align:left;"><div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>'.$Err->messages["selCustomer"].'</div></div></div>';
+			}
+     		}
+     		else
+     		{
+     			$opt='<select name="selCustomer" class="sbox1" >';		
+     			$opt.='<option value="">No Users Found</option>';
+     			$opt.='</select>';
+     		}
+     		$opt.='';
+
+     		return $opt;
+     	}
 	/**
 	 * Function  to display   the  payment
 	 * @param array $arrUser
-     * @return string
+    	 * @return string
 	 */	
 	function showPayment($arrUser)
 	{
@@ -71,36 +96,189 @@
 	 * @param array $arrCat
          * @return string
 	 */	
- 	function showCategory($arrCat)
+// 	function showCategory($arrCat)
+// 	{
+// 		// echo "<pre>";
+// 		// print_r($arrCat);exit;
+// 		
+// 		// 		$cat='<select name="selCategory" id="category" style="width:110px;" onchange="loadSubcat(this.value)">
+// 		// 		<option value="">--Select--</option>';
+// 		// 		for($i=0;$i<count($arrCat);$i++)
+// 		// 		{
+// 		// 			$sel='';		
+// 		// 			if($arrCat[$i]['category_id']==$_POST['selCategory'])
+// 		// 				 $sel='selected';
+// 		// 
+// 		// 			$cat.='<option value="'.$arrCat[$i]['category_id'].'" '.$sel.'>'.$arrCat[$i]['category_name'].'</option>';
+// 		// 		}
+// 		// 		$cat.='</select>';
+// 		// 		return $cat;
+// 		
+// 		// 		$output='<div>
+// 		// 
+// 
+// 
+// 		// $output='   <a href="#" class="expand_button">Open all</a>
+// 		// <a href="#" class="collapse_button">Close all</a><ul class="telefilms first"  >';
+// 		$output.='<select onchange="loadProduct();" id="categoryId" name="category">';
+// 
+// 		for($i=0;$i<count($arrCat);$i++)
+// 		{
+// 
+// 
+// 			$output.='<option>'.$arrCat[$i]['category_name'].'</option>';
+// 			$query = new Bin_Query(); 
+// 			$sql = "SELECT * FROM `category_table` WHERE category_parent_id =".$arrCat[$i]['category_id']." AND  sub_category_parent_id =0 AND category_status =1 order by category_name limit 16";
+// 			$query->executeQuery($sql);
+// 			$count=count($query->records);
+// 			if($count>0)
+// 			{	
+// 				$records=$query->records;
+// 				
+// 				for($j=0;$j<$count;$j++)
+// 				{
+// 					$output.='<option>-'.$records[$j]['category_name'].'</option>';
+// 
+// 
+// 					$sqlsub="SELECT * FROM category_table WHERE sub_category_parent_id='".$records[$j]['category_id']."' and sub_category_parent_id !=0";
+// 					$objsub=new Bin_Query();
+// 					$objsub->executeQuery($sqlsub);
+// 					$recordssub=$objsub->records;
+// 					
+// 					for($k=0;$k<count($recordssub);$k++)
+// 					{
+// 
+// 						$output.='
+// 						<option value="'.$arrCat[$i]['category_id'].'">---'.$recordssub[$k]['category_name'].'</option>
+// 						';
+// 
+// 					}
+// 
+// 				 }
+// 
+// 			}
+// 
+// 		}
+// 
+// 		$output.='</select>';
+// 
+// 		return $output;
+// 	}
+	function showCategory($result)
 	{
-		$cat='<select name="selCategory" style="width:110px;" onchange="loadSubcat(this.value)">
+		$catid=$_POST['selCategory'];
+
+	
+		if((count($result))>0)
+		{
+		   	 $output='<select name="selCategory" id="selCategory" class="sbox1" onchange="loadProduct(this.value)"><option value="" >Choose Category</option>';	
+		
+			for($k=0;$k<count($result);$k++)
+			{
+				if($catid==$result[$k]['category_id'])
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected='';
+				}
+				
+				$output.='<option value='.$result[$k]['category_id'].' '.$selected.'>'.$result[$k]['category_name'].'</option>';
+				$output.=self:: getSubFamilies(0,$result[$k]['category_id'],$catid );
+	
+			
+			}
+
+			$output.='</select>';
+		}		
+		else
+		{
+			
+			$output='<select name="selCategory"  class="sbox1" >
+			<option value="">Main Category</option>';		
+			$output.='</select>';	
+		}
+		
+		return $output;
+	}
+	/**
+	 * Function generates an drop down list with the category details.in sub child
+	 * 
+	 * 
+	 * @return array
+	 */		
+	function getSubFamilies($level, $id,$catid) {
+
+		$level++;
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+		$resultSubFamilies = mysql_query($sqlSubFamilies);
+		if (mysql_num_rows($resultSubFamilies) > 0) {
+		
+			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies)) {
+
+				
+				if($catid==$rowSubFamilies['category_id'])
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected='';
+				}
+				
+				$output.= "<option value=".$rowSubFamilies['category_id']."  ".$selected.">";
+
+				for($a=1;$a<$level+1;$a++)
+				{
+				$output.='- &nbsp;';
+					
+				}
+				$output.=$rowSubFamilies['category_name']."</option>";
+				$output.=self:: getSubFamilies($level, $rowSubFamilies['category_id'],$catid);
+				
+			}
+		
+		}
+		
+		return $output;
+	}
+	/**
+	 * Function  to display   the  sub category
+	 * @param array $arrCat
+    	 * @return string
+	 */	
+	function showSubCategory($arrCat)
+	{
+		$cat='<select name="selSubCategory" style="width:110px;" onchange="loadSubUnder(this.value)">
 		<option value="">--Select--</option>';
 		for($i=0;$i<count($arrCat);$i++)
 		{
 			$sel='';		
-			if($arrCat[$i]['category_id']==$_POST['selCategory'])
-				 $sel='selected';
+			if($arrCat[$i]['category_id']==$_POST['selSubCategory'])
+				$sel='selected';
 
 			$cat.='<option value="'.$arrCat[$i]['category_id'].'" '.$sel.'>'.$arrCat[$i]['category_name'].'</option>';
 		}
 		$cat.='</select>';
 		return $cat;
 	}
+
 	/**
 	 * Function  to display   the  sub category
 	 * @param array $arrCat
-     * @return string
+    	 * @return string
 	 */	
- 	function showSubCategory($arrCat)
+	function showSubUnderCat($arrCat)
 	{
-		$cat='<select name="selSubCategory" style="width:110px;" onchange="loadProduct(this.value)">
+		$cat='<select name="selSubUnderCategory"  id="selSubUnderCategory" style="width:110px;" onchange="loadProduct(this.value)">
 		<option value="">--Select--</option>';
 		for($i=0;$i<count($arrCat);$i++)
 		{
 			$sel='';		
-			if($arrCat[$i]['category_id']==$_POST['selSubCategory'])
-				 $sel='selected';
-		
+			if($arrCat[$i]['category_id']==$_POST['selSubUnderCategory'])
+				$sel='selected';
+
 			$cat.='<option value="'.$arrCat[$i]['category_id'].'" '.$sel.'>'.$arrCat[$i]['category_name'].'</option>';
 		}
 		$cat.='</select>';
@@ -109,18 +287,19 @@
 	/**
 	 * Function  to display   the  product
 	 * @param array $arrCat
-     * @return string
+    	 * @return string
 	 */	
- 	function showProducts($arrCat)
+	function showProducts($arrCat)
 	{
-		$cat='<select name="selProduct" style="width:110px;" onchange="loadQty(this.value)">
+
+		$cat='<select name="selProduct" id="selProduct" style="width:110px;" onchange="loadQty(this.value)">
 		<option value="">--Select--</option>';
 		for($i=0;$i<count($arrCat);$i++)
 		{
 			$sel='';		
 			if($arrCat[$i]['product_id']==$_POST['selProduct'])
-				 $sel='selected';
-		
+				$sel='selected';
+
 			$cat.='<option value="'.$arrCat[$i]['product_id'].'" '.$sel.'>'.$arrCat[$i]['title'].'</option>';
 		}
 		$cat.='</select>';
@@ -129,32 +308,33 @@
 	/**
 	 * Function  to display   the  product quantity
 	 * @param array $arrCat
-     * @return string
+     	 * @return string
 	 */	
- 	function showQty($arrCat)
+	function showQty($arrCat)
 	{
 		
-		$cat='<select name="selQty" style="width:50px;">';
+		$cat='<select name="selQty" id="quantity" style="width:100px;"><option value="">Qty</option>';
 		if($arrCat[0]['soh']>0)
 		{
 			for($i=1;$i<=$arrCat[0]['soh'];$i++)
 			{
 				$sel='';		
 				if($i==$_POST['selQty'])
-					 $sel='selected';
-			
+					$sel='selected';
+
 				$cat.='<option value="'.$i.'" '.$sel.'>'.$i.'</option>';
 			}
 		}
 		else
-				$cat.='<option value="0" >0</option>';
-				
-		$cat.='</select>&nbsp;
-		<input type="hidden" name="hidPrice" value="'.$arrCat[0]['msrp'].'"/>
+			$cat.='<option value="0" >0</option>';
+
+		$cat.='</select>';
+			if(count($arrCat)>0)
+			$cat.='<span class="label label-info">Unit Price: '.$_SESSION['currency']['currency_tocken'].number_format($arrCat[0]['msrp'],2).'</span>&nbsp;';
+		$cat.='<input type="hidden" name="hidPrice" value="'.$arrCat[0]['msrp'].'"/>
 		<input type="hidden" name="hidShipCost" value="'.$arrCat[0]['shipping_cost'].'"/>
 		<input type="hidden" name="hidProduct" value="'.$arrCat[0]['title'].'"/>';
-		if(count($arrCat)>0)
-			$cat.='Unit Price: '.$_SESSION['currency']['currency_tocken'].number_format($arrCat[0]['msrp'],2);
+		
 		return $cat;
 	}
 	/**
@@ -164,281 +344,299 @@
 	 */	
 	function listOrder($arr)
 	{
-		$output = '<br><br>
-		<table width="98%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
 
-                <td class="content_list_head" width=5% align="center">S.No</td>
-                <td class="content_list_head" width=30%>Product</td>
-                <td class="content_list_head" width=8%>Qty</td>				
-                <td class="content_list_head" width=10%>Unit Price</td>	
-                <td class="content_list_head" width=10%>Shipping</td>								
-                <td class="content_list_head" width=10%>Sub Total</td>				
-                <td colspan="2" align="center" class="content_list_head" width=1%></td>
-                </tr>
-              <tr>
-                <td colspan="8" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              </tr>';
-	 if(count($arr)>0)
-	 {
-	 	$grandTotal=0;
-		for ($i=0;$i<count($arr);$i++)
+
+		$output = '
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
+		<tr>
+		<th align="left">S.No</th>
+		<th align="left">Product</th>
+		<th align="left">Qty</th>				
+		<th align="left">Unit Price</th>	
+		<th align="left">Shipping</th>								
+		<th align="left">Sub Total</th>				
+		<th align="left" colspan="2"></th>
+		</tr><tbody>
+		';
+		if(count($arr)>0)
 		{
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
+			$grandTotal=0;
+			$total=0;
+			$shiptotal=0;
+			for ($i=0;$i<count($arr);$i++)
+			{
 				
-			$output .= '<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);">
-			<td align="center" '.$classtd.'>'.($val+1).'</td>
-			<td align="" '.$classtd.'>'.$arr[$i]['product'].'</td>
-			<td align="" '.$classtd.'>'.$arr[$i]['qty'].'</td>
-			<td align="right" '.$classtd.'>'.$_SESSION['currency']['currency_tocken'].number_format($arr[$i]['price'],2).'</td>
-			<td align="right" '.$classtd.'>'.$_SESSION['currency']['currency_tocken'].number_format($arr[$i]['shipCost'],2).'</td>
-			<td align="right" '.$classtd.'>'.$_SESSION['currency']['currency_tocken'].number_format(($arr[$i]['qty']*$arr[$i]['price']),2).'</td>';
-			$grandTotal+=($arr[$i]['qty']*$arr[$i]['price']);
-			
-			/*$output.='<td align="center" '.$classtd.'>
-			<a href="?do=faq&action=add&id='.$arr[$i]['faq_id'].'" style="cursor:pointer;text-decoration:none;">
-			<input type="button" class="edit_bttn" name="Edit"  title="Edit" value=""/></a></td>';*/
-			$output.='<td align="center" '.$classtd.'>
-			<a href="?do=addUserProduct&action=delete&id='.$arr[$i]['product_id'].'" style="cursor:pointer;text-decoration:none;">
-			<input type="button" name="Delete" class="delete_bttn" onclick="return confirm(\'Are you sure to delete?\')" title="Delete" value=""/>&nbsp;</a></td></tr>';
-			$val++;
+
+				$output .= '<tr >
+				<td align="center" >'.($val+1).'</td>
+				<td align="" >'.$arr[$i]['product'].'</td>
+				<td align="" >'.$arr[$i]['qty'].'</td>
+				<td align="right" >'.$_SESSION['currency']['currency_tocken'].number_format($arr[$i]['price'],2).'</td>
+				<td align="right" >'.$_SESSION['currency']['currency_tocken'].number_format($arr[$i]['qty']*$arr[$i]['shipCost'],2).'</td>
+				<td align="right" >'.$_SESSION['currency']['currency_tocken'].number_format(($arr[$i]['qty']*$arr[$i]['price']),2).'</td>';
+				$grandTotal+=($arr[$i]['qty']*$arr[$i]['price'])+($arr[$i]['qty']*$arr[$i]['shipCost']);
+				$total+=($arr[$i]['qty']*$arr[$i]['price']);
+				$shiptotal+=($arr[$i]['qty']*$arr[$i]['shipCost']);
+				/*$output.='<td align="center" >
+				<a href="?do=faq&action=add&id='.$arr[$i]['faq_id'].'" style="cursor:pointer;text-decoration:none;">
+				<input type="button" class="edit_bttn" name="Edit"  title="Edit" value=""/></a></td>';*/
+				$output.='<td align="center" >
+				<a href="?do=addUserProduct&action=delete&id='.$arr[$i]['product_id'].'" onclick="return confirm(\'Are you sure to delete?\')" title="Delete" >
+				<i class="icon-trash"></i></a></td></tr>';
+				$val++;
+			}
+			$output.='<tr>
+			<td colspan=5  align=right><b>Sub Total</b></td><td align="right" >'.$_SESSION['currency']['currency_tocken'].number_format($total,2).'
+			<input type="hidden" name="hidOrderTotal" value="'.$grandTotal.'"></td></tr>
+			<td colspan=5  align=right><b>Shipping Cost</b></td><td align="right" >'.$_SESSION['currency']['currency_tocken'].number_format($shiptotal,2).'
+			<input type="hidden" name="hidOrderTotal" value="'.$grandTotal.'"></td>	</tr>
+			<td colspan=3  align=left><b>Discount </b>&nbsp;<input type="text" style="width:30%" name="discountrate"  id="discountrate">&nbsp;<select style="width:30%" name="discount" id="discount"><option value="flat">Flat rate</option><option value="percentage">Percentage</option></select>&nbsp;<a href="javascript:void(0);" onclick="coupondiscount('.$grandTotal.');"><input type="button" class="all_bttn" value="Apply" id="add" name="Apply"></a></td>
+
+			<td colspan=2  align=right><b>Grand Total</b></td>
+			<td align="right"  id="grandtotal" >'.$_SESSION['currency']['currency_tocken'].number_format($grandTotal,2).'
+			<input type="hidden" name="hidOrderTotal" id="hidOrderTotal" value="'.$grandTotal.'"></td>';
+
 		}
-		$output.='<tr>
-			<td colspan=5 '.$classtd.' align=right><b>Grand Total</b></td><td align="right" '.$classtd.'>'.$_SESSION['currency']['currency_tocken'].number_format($grandTotal,2).'<input type=hidden name="hidOrderTotal" value="'.$grandTotal.'"></td>';
-		
-	}
-	else
-		$output.='<tr><td colspan=7 valign="bottom" align="center">No product selected !<br/>&nbsp;</td></tr>';
-						
-		$output .= '</table>';
+		else
+			$output.='<tr><td colspan=7 valign="bottom" align="center">No Products Available in the Cart !<br/>&nbsp;</td></tr>';
+
+		$output .= '</tbody></table>';
 		return $output;
 		
 	}
 	/**
 	 * Function  to display   the shipping details
 	 * @param array $res
-     * @return string
+     	 * @return string
 	 */	
-		function showShippingDetails($res)
+	function showShippingDetails($res,$Err)
+	{
+
+		
+
+		if($Err->messages>0)
 		{
-			include_once("classes/Lib/HandleErrors.php");
-			include_once('classes/Core/CUserOrder.php');
-			Core_CUserOrder::Ulogin($Err);
+			$output['val']=$Err->values;
+			$output['msg']=$Err->messages;
+		}
+		
 
-			if($Err->messages>0)
-			{
-				$output['val']=$Err->values;
-				$output['msg']=$Err->messages;
+		$billCntry='<select name="selbillcountry" id="selbillcountry" class="span6"><option value="">Select Country</option>';
+		for($i=0;$i<count($res);$i++)
+		{
+			$billCntry.='<option value="'.$res[$i]['cou_code'].'">'.$res[$i]['cou_name'].'</option>';
+		}
+		$billCntry.='</select>';
+		
+		$shipCntry='<select name="selshipcountry" id="selshipcountry" class="span6"><option value="">Select Country</option>';
+		for($i=0;$i<count($res);$i++)
+		{
+			$shipCntry.='<option value="'.$res[$i]['cou_code'].'">'.$res[$i]['cou_name'].'</option>';
+		}
+		$shipCntry.='</select>';
+
+
+		$output1='
+		<div class="row-fluid" id="detail">
+		<div class="span6">
+
+		<div class="row-fluid" >
+		<div class="span12">
+
+		<h2 class="box_head green_bg">Billing Address</h2>
+		<div class="toggle_container">
+		<div class="clsblock">
+		<div class="clearfix">';
+
+		if(count($output['msg'])>0)
+		{
+			$output1.='<div class="row-fluid">
+			<div class="span12" style="text-align:left;"><div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>';
+
+			$error=array($output["msg"]['txtname'],$output["msg"]['txtstreet'],$output["msg"]['txtcity'],$output["msg"]['txtstate'],$output["msg"]["selbillcountry"],$output["msg"]['txtzipcode']);
+
+
+			foreach ($error as $key => $value) {
+				$output1.=$value."<br/>";
 			}
 
-			$billCntry='<select name="selbillcountry" id="selbillcountry" style="width:145px">';
-			for($i=0;$i<count($res);$i++)
-			{
-				$billCntry.='<option value="'.$res[$i]['cou_code'].'">'.$res[$i]['cou_name'].'</option>';
+
+
+			$output1.='</div></div></div>';
+		}
+
+		$output1.='<div class="row-fluid">
+		<div class="span3">Multi Address</div><div class="span9"> <div id="multiaddressbill"></div></div></div>
+		
+		<div class="row-fluid">
+		<div class="span3"><label>Name <font color="red">*</font></label></div><div class="span9">
+		<input name="txtname" type="text" class="span6" id="txtname" value="'.$output["val"]['txtname'].'" /></div>
+		</div>
+		<div class="row-fluid">
+		<div class="span3"><label>Company</label></div><div class="span9">
+		<input name="txtcompany" type="text" class="span6" id="txtcompany" value="'.$output["val"]['txtcompany'].'"/></div>
+		</div>
+		<div class="row-fluid">
+		<div class="span3"><label>Address <font color="red">*</font></label></div><div class="span9"><input name="txtstreet" type="text" class="span6" id="txtstreet" value="'.$output["val"]["txtstreet"].'" value='.$output["val"]['txtstreet'].'/></div>
+		</div>
+		<div class="row-fluid">
+		<div class="span3"><label>City <font color="red">*</font></label></div><div class="span9"><input name="txtcity" type="text" class="span6" id="txtcity" value="'.$output["val"]["txtcity"].'"/></div>
+		</div>
+		<div class="row-fluid">
+		<div class="span3"><label>SubUrb </label></div><div class="span9"><input name="txtsuburb" type="text" class="span6" id="txtsuburb" value="'.$output["val"]['txtsuburb'].'" /></div>
+		</div>
+		<div class="row-fluid">
+		<div class="span3"><label>State/Province <font color="red">*</font></label></div><div class="span9"><input name="txtstate" type="text" class="span6" id="txtstate" value="'.$output["val"]["txtstate"].'"  value="'.$output["val"]['txtstate'].'"/></div>
+		</div>
+		<div class="row-fluid">
+		<div class="span3"><label>Country <font color="red">*</font></label></div><div class="span9">'.$billCntry.'</div>
+		</div>
+		<div class="row-fluid">
+		<div class="span3"><label>Zip/Postal Code <font color="red">*</font></label></div><div class="span9"><input name="txtzipcode" type="text" class="span6" id="txtzipcode" value="'.$output["val"]["txtzipcode"].'"/></div>
+		</div>';
+
+
+
+				// 				<tr>
+				// 				<td colspan="3" style="padding-top:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+				// 				<tr>
+				// 				<td valign="top" class="content_form" nowrap><div>
+				// 					<input type="checkbox" name="chkall" id="chkall" value="checkbox" onclick="javascript:getValues();" />
+				// 					Use Billing Address as Shipping Address</div></td><td>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp(\'daddr\', \'Use Billing address\', \'If you select this,your billing address also as shipping address.\')" onmouseout="HideHelp(\'daddr\');">
+				// 					<div id="daddr" style="left: 50px; top: 50px;"></div></td>
+				// 					
+				// 				</tr>
+		$output1.='</div></div></div></div></div>
+
+		</div>
+		<div class="span6">';
+
+
+
+
+		$output1.='<div class="row-fluid" >
+		<div class="span12"><h2 class="box_head green_bg">Shipping Address</h2>
+		<div class="toggle_container">
+		<div class="clsblock"><div class="clearfix">';
+
+		if(count($output['msg'])>0)
+		{
+			$output1.='<div class="row-fluid">
+			<div class="span12" style="text-align:left;"><div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>';
+
+			$error=array($output["msg"]['txtsname'],$output["msg"]['txtsstreet'],$output["msg"]['txtscity'],$output["msg"]['txtsstate'],$output["msg"]['selshipcountry'],$output["msg"]['txtszipcode']);
+
+
+			foreach ($error as $key => $value) {
+				$output1.=$value."<br/>";
 			}
-			$billCntry.='</select>';
-			
-			$shipCntry='<select name="selshipcountry" id="selshipcountry" style="width:145px">';
-			for($i=0;$i<count($res);$i++)
+
+
+
+			$output1.='</div></div></div>';
+		}
+
+		$output1.='<div class="row-fluid">
+		<div class="span3"><label>Multi Address </label></div><div class="span9">
+		<div id="multiaddressship"></div></div></div>
+		<div class="row-fluid">
+		<div class="span3"><label>Name <font color="red">*</font> </label></div><div class="span9">
+		<input name="txtsname" type="text" class="span6" id="txtsname" value="'.$output["val"]["txtsname"].'"/>
+
+		</div></div>
+		<div class="row-fluid">
+		<div class="span3"><label>Company</label></div><div class="span9">
+		<input name="txtscompany" type="text" class="span6" id="txtscompany"  value="'.$output["val"]["txtscompany"].'"/></div></div>
+		<div class="row-fluid">
+		<div class="span3"><label>
+		Address <font color="red">*</font></label></div><div class="span9">
+		<input name="txtsstreet" type="text" class="span6" id="txtsstreet" value="'.$output["val"]["txtsstreet"].'"/></div></div>
+		<div class="row-fluid">
+		<div class="span3"><label>
+		City <font color="red">*</font></label></div><div class="span9">
+		<input name="txtscity" type="text" class="span6" id="txtscity" value="'.$output["val"]["txtscity"].'"/>
+		</div></div>
+		<div class="row-fluid">
+		<div class="span3"><label>SubUrb </label></div><div class="span9">
+		<input name="txtssuburb" type="text" class="span6" id="txtssuburb" value="'.$output["val"]["txtssuburb"].'"/></div></div>
+		<div class="row-fluid">
+		<div class="span3"><label>
+		State/Province <font color="red">*</font></label></div><div class="span9">
+		<input name="txtsstate" type="text" class="span6" id="txtsstate" value="'.$output["val"]["txtsstate"].'"/>
+		</div></div>
+		<div class="row-fluid">
+		<div class="span3"><label>
+		Country <font color="red">*</font></label></div><div class="span9">
+		'.$shipCntry.'
+		</div></div>
+		<div class="row-fluid">
+		<div class="span3"><label>Zip/Postal Code <font color="red">*</font></label></div><div class="span9">
+		<input name="txtszipcode" type="text" class="span6" id="txtszipcode" value="'.$output["val"]["txtszipcode"].'"/>
+		</div></div>
+
+		</div></div>
+
+		</div></div></div></div></div>
+
+
+		<script> 
+
+		function getValues()
+		{
+			var bname=document.userOrder.txtname;
+			var bcompany=document.userOrder.txtcompany;
+			var bstreet=document.userOrder.txtstreet;
+			var bcity=document.userOrder.txtcity;
+			var bsuburb=document.userOrder.txtsuburb;
+			var bzipcode=document.userOrder.txtzipcode;	
+
+			document.userOrder.selshipcountry.selectedIndex=document.userOrder.selbillcountry.selectedIndex;
+
+
+			var bstate=document.userOrder.txtstate;			  		  
+
+
+			var  sname=document.userOrder.txtsname;
+			var scompany= document.userOrder.txtscompany;
+			var sstreet= document.userOrder.txtsstreet;
+			var scity=document.userOrder.txtscity;
+			var ssuburb=document.userOrder.txtssuburb;
+			var szipcode=document.userOrder.txtszipcode;
+			var scountry=document.userOrder.selshipcountry;
+
+
+			var sstate=document.userOrder.txtsstate;			  		  		  
+
+			var chkstatus=document.userOrder.chkall;
+		//  alert(chkstatus.checked);
+			if(chkstatus.checked)
 			{
-				$shipCntry.='<option value="'.$res[$i]['cou_code'].'">'.$res[$i]['cou_name'].'</option>';
+				sname.value=bname.value;
+				scompany.value=bcompany.value;
+				sstreet.value=bstreet.value;
+				scity.value=bcity.value;
+				ssuburb.value=bsuburb.value;
+				szipcode.value=bzipcode.value;
+
+				sstate.value=bstate.value;
 			}
-			$shipCntry.='</select>';
-				
-
-			$output1='<div id="detail">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="roundbox_top"></td>
-  </tr>
-  <tr>
-    <td valign="top" class="detailBG"><div><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td valign="top" style=""><table width="100%" border="0" cellspacing="0" cellpadding="0">
-          
-          <tr>
-            <td align="left" valign="top"><table width="80%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td colspan=3 class="content_form"><b>Billing Address</b>
-                </tr>
-                <tr style="line-height:30px">
-                  <td width="26%" valign=top class="content_form">Name <span>*</span></td>
-                  <td width="4%"></td>
-                  <td width="70%"><input name="txtname" type="text" id="txtname" value="'.$output["val"]["txtname"].'"/><span style="font-size:9px;color:#FF0000; "> '.$output["msg"]["txtname"].'</span></td>
-                </tr>
-                
-                <tr style="line-height:30px">
-                  <td valign=top class="content_form">Company</td>
-                  <td></td>
-                  <td><input name="txtcompany" type="text" class="txtbox1 w4 TxtC1" id="txtcompany" /></td>
-                </tr>
-                <tr style="line-height:30px">
-                  <td valign=top class="content_form">Address <span>*</span></td>
-                  <td></td>
-                  <td><input name="txtstreet" type="text" class="txtbox1 w4 TxtC1" id="txtstreet" value="'.$output["val"]["txtstreet"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtstreet"].'</span></td>
-                </tr>
-                <tr style="line-height:30px">
-                  <td valign=top class="content_form">City <span>*</span></td>
-                  <td></td>
-                  <td><input name="txtcity" type="text" class="txtbox1 w4 TxtC1" id="txtcity" value="'.$output["val"]["txtcity"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtcity"].'</span></td>
-                </tr>
-				 <tr >
-                  <td valign=top class="content_form">SubUrb <span><!--*--></span></td>
-                  <td></td>
-                  <td><input name="txtsuburb" type="text" class="txtbox1 w4 TxtC1" id="txtsuburb" /></td>
-                </tr>
-                <tr style="line-height:30px">
-                  <td nowrap valign=top class="content_form">State/Province <span>*</span></td>
-                  <td></td>
-                  <td><input name="txtstate" type="text" class="txtbox1 w4 TxtC1" id="txtstate" value="'.$output["val"]["txtstate"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtstate"].'</span></td>
-                </tr>
-				<tr style="line-height:30px">
-                  <td valign=top class="content_form">Country <span>*</span></td>
-                  <td></td>
-                  <td>'.$billCntry.'<span style="font-size:9px;color:#FF0000"> '.$output["msg"]["selbillcountry"].'</span></td>
-                </tr>
-                <tr style="line-height:30px">
-                  <td nowrap valign=top class="content_form">Zip/Postal Code <span>*</span></td>
-                  <td></td>
-                  <td><input name="txtzipcode" type="text" class="txtbox1 w4 TxtC1" id="txtzipcode" value="'.$output["val"]["txtzipcode"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtzipcode"].'</span></td>
-                </tr>
-                
-               
-                <tr>
-                  <td colspan="3" style="padding-top:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td valign="top" class="content_form" nowrap><div>
-                          <input type="checkbox" name="chkall" id="chkall" value="checkbox" onclick="javascript:getValues();" />
-                        Use Billing Address as Shipping Address</div></td><td>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp(\'daddr\', \'Use Billing address\', \'If you select this,your billing address also as shipping address.\')" onmouseout="HideHelp(\'daddr\');">
-			<div id="daddr" style="left: 50px; top: 50px;"></div></td>
-			
-                    </tr>
-                  </table></td>
-                </tr>
-
-            </table></td>
-            <td align="left" valign="top"><table width="80%" border="0" cellspacing="0" cellpadding="0" class="checkout_rigistration">
-              <tr>
-                <td colspan=3 class="content_form"><b>Shipping Address</b></td>
-              </tr>
-              <tr style="line-height:30px">
-                <td width="26%" valign=top class="content_form">Name <span>*</span></td>
-                <td width="4%"></td>
-                <td width="70%"><input name="txtsname" type="text" class="txtbox1 w4 TxtC1" id="txtsname" value="'.$output["val"]["txtsname"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtsname"].'</span></td>
-              </tr>
-              
-              <tr style="line-height:30px">
-                <td valign=top class="content_form">Company</td>
-                <td></td>
-                <td><input name="txtscompany" type="text" class="txtbox1 w4 TxtC1" id="txtscompany" /></td>
-              </tr>
-              <tr style="line-height:30px">
-                <td valign=top class="content_form">Address <span>*</span></td>
-                <td></td>
-                <td><input name="txtsstreet" type="text" class="txtbox1 w4 TxtC1" id="txtsstreet" value="'.$output["val"]["txtsstreet"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtsstreet"].'</span></td>
-              </tr>
-              <tr style="line-height:30px">
-                <td valign=top class="content_form">City <span>*</span></td>
-                <td></td>
-                <td><input name="txtscity" type="text" class="txtbox1 w4 TxtC1" id="txtscity" value="'.$output["val"]["txtscity"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtscity"].'</span></td>
-              </tr>
-			   <tr >
-                <td valign=top class="content_form">SubUrb <span><!--*--></span></td>
-                <td></td>
-                <td valign="top" ><input name="txtssuburb" type="text" class="txtbox1 w4 TxtC1" id="txtssuburb" /></td><td><img src="images/help.gif" onmouseover="ShowHelp(\'durb2\', \'Urban\', \'Enter Sub Urban name.\')" onmouseout="HideHelp(\'durb2\');" style="vertical-align:top">
-			<div id="durb2" style=" position:fixed"></div></td>
-			
-              </tr>
-              <tr style="line-height:30px">
-                <td nowrap valign=top class="content_form">State/Province <span>*</span></td>
-                <td></td>
-                <td><input name="txtsstate" type="text" class="txtbox1 w4 TxtC1" id="txtsstate" value="'.$output["val"]["txtsstate"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtsstate"].'</span></td>
-              </tr>
-              
-              <tr style="line-height:30px">
-                <td valign=top class="content_form">Country <span>*</span></td>
-                <td></td>
-                <td>'.$shipCntry.'<span style="font-size:9px;color:#FF0000"> '.$output["msg"]["selshipcountry"].'</span></td>
-              </tr>
-             <tr style="line-height:30px">
-                <td nowrap valign=top class="content_form">Zip/Postal Code <span>*</span></td>
-                <td></td>
-                <td><input name="txtszipcode" type="text" class="txtbox1 w4 TxtC1" id="txtszipcode" value="'.$output["val"]["txtszipcode"].'"/><span style="font-size:9px;color:#FF0000"> '.$output["msg"]["txtszipcode"].'</span></td>
-              </tr>
-			<tr>
-			<td>&nbsp;
-			</td>
-			</tr>	
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-    </table></td>
-    </tr>
-  
-</table>
-</div>
-	</td>
-  </tr>
-  <tr>
-    <td class="roundbox_bottom" ></td>
-  </tr>
-</table>
-</div><script> function getValues()
+			else
 			{
-			  var bname=document.userOrder.txtname;
-			  var bcompany=document.userOrder.txtcompany;
-			  var bstreet=document.userOrder.txtstreet;
-			  var bcity=document.userOrder.txtcity;
-			  var bsuburb=document.userOrder.txtsuburb;
-  			  var bzipcode=document.userOrder.txtzipcode;	
-   			  
-			  document.userOrder.selshipcountry.selectedIndex=document.userOrder.selbillcountry.selectedIndex;
+				sname.value="";
+				scompany.value="";
+				sstreet.value="";
+				scity.value="";
+				ssuburb.value="";
+				szipcode.value="";
+				scountry.value="";
+				sstate.value="";
+			}
 
-			  		  		  
-   			  var bstate=document.userOrder.txtstate;			  		  
-			  
-			  
-			  var  sname=document.userOrder.txtsname;
-			  var scompany= document.userOrder.txtscompany;
-			  var sstreet= document.userOrder.txtsstreet;
-			  var scity=document.userOrder.txtscity;
-			  var ssuburb=document.userOrder.txtssuburb;
-   			  var szipcode=document.userOrder.txtszipcode;
-  			  var scountry=document.userOrder.selshipcountry;
-
-   			  
-   			  var sstate=document.userOrder.txtsstate;			  		  		  
-			  
-			  var chkstatus=document.userOrder.chkall;
-			//  alert(chkstatus.checked);
-			  if(chkstatus.checked)
-			  {
-				  sname.value=bname.value;
-				  scompany.value=bcompany.value;
-				  sstreet.value=bstreet.value;
-				  scity.value=bcity.value;
-				  ssuburb.value=bsuburb.value;
-				  szipcode.value=bzipcode.value;
-				
-				  sstate.value=bstate.value;
-			  }
-			  else
-			  {
-			      sname.value="";
-				  scompany.value="";
-				  sstreet.value="";
-				  scity.value="";
-				  ssuburb.value="";
-				  szipcode.value="";
-				  scountry.value="";
-				  sstate.value="";
-			  }
-	 
-			}</script>
-';
+		}</script>';
 		return $output1;
 	}
 	

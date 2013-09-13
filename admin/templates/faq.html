@@ -18,24 +18,103 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
-<table width="97%" border="0" cellspacing="0" cellpadding="">
-  <tr>
-    <td colspan="5" align="left" class="content_title">Faqs<!--&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dfaq', 'Meta Key', 'Add here')" onmouseout="HideHelp('dfaq');">
-			<div id="dfaq" style="left: 50px; top: 50px;"></div>--></td>
-  </tr>
-  <tr>
-    <td colspan="3" align="left"><AJDF:output>$message</AJDF:output></td>
-  </tr>
-  <tr>
-    <td colspan="3" align="left" style="padding-top:5px;"><AJDF:output>$result</AJDF:output></td>
-  </tr>
-  <tr>
-    <td colspan="3" align="left">&nbsp;</td>
-  </tr>
-</table>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Faqs</h2>
+    </div>
+     <div class="span3" >
+
+      <ul class="bttn_right">
+            <li>
+            	<a href="?do=faq&action=add" class="add_icon1" ></a> </li>
+            	      <li><a href="#myModal" data-toggle="modal"  class="delete_icon1"  id="faqdelete"></a>
+                 </li>
+          </ul>
+
+    </div>
+
+  </div>
+</div>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Are you sure to delete the Faq?</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<a href="javascript:void(0);" id="deletefaq" class="btn btn-primary" >Save changes</a>
+</div>
+</div>
+
+<div id="deletealert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Please select one checkbox</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+</div>
+</div>
+<AJDF:output>if $smarty.session.msgfaqadded neq ''</AJDF:output>
+<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+<AJDF:output>$faqmsg</AJDF:output>
+</div>
+<AJDF:output>/if</AJDF:output>
+  <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">
+<AJDF:output>$result</AJDF:output>
+</div></div>
 <AJDF:output>include file="footer.html"</AJDF:output>
 <script type="text/javascript">
+ $(document).ready(function (){
+
+$('#faqdelete').click(function () {
+
+var countvalue=$('input:checkbox:checked').length;
+ 	
+
+ 	if(countvalue=='0')
+ 	{
+ 		$('#deletealert').modal('show');
+ 		return false;
+ 	}
+ 	else
+ 	{
+ 		return true;
+ 	}
+
+
+});
+
+$('#deletefaq').live('click',function(){
+	document.faqDelete.submit();
+});
+
+
+
+});
+
+
+
+
+function toggleChecked(status) {
+$(".chkbox").each( function() {
+$(this).attr("checked",status);
+})
+}
+
+
+
+
 function showDesc(id)
 {
 	count=document.getElementById('hidDiv').value;

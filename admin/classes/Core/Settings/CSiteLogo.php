@@ -66,7 +66,8 @@ class Core_Settings_CSiteLogo
 			
 		  if(count($file) > 2  || !in_array($_FILES['logo']['type'],$imagetypes))
 		  {			
-  			return '<div class="error_msgbox">Invalid image file format</div>';	
+  			return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Invalid image file format</div>';	
 		  }	 
 
 		include('classes/Lib/FileOperations.php');
@@ -82,7 +83,8 @@ class Core_Settings_CSiteLogo
 			list($img_w,$img_h, $type, $attr) = getimagesize($sfile);			
 
 			if($img_h > 70)
-				return '<div class="error_msgbox" style="width:644px;">The Height of the logo should be lessthan or equal to 70px to suit properly.</div>';				
+				return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button>The Height of the logo should be lessthan or equal to 70px to suit properly.</div>';				
 			
 			if($img_w > 253)
 				new Lib_ThumbImage('thumb',ROOT_FOLDER.$dbpath,ROOT_FOLDER."images/logo",253);
@@ -90,12 +92,15 @@ class Core_Settings_CSiteLogo
 			$sql = "UPDATE admin_settings_table SET set_value='".$dbpath."' where set_name='Site Logo'";
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
-				return '<div class="success_msgbox" style="width:644px;">Logo updated Successfully</div>';
+				return '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> Logo updated Successfully</div>';
 			else
-				return '<div class="error_msgbox" style="width:644px;">Error while updating logo!</div>';
+				return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Error while updating logo!</div>';
 		}	
 		else
-		 	return '<div class="error_msgbox" style="width:644px;">Invalid image file.Please try again !</div>';
+		 	return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Invalid image file.Please try again !</div>';
 	}
 	
 }

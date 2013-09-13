@@ -38,93 +38,166 @@ class Display_DShowMainCategory
 	 * @param   integer $flag
 	 * @return string
 	 */	
-	function showCategory($arr,$flag)
+	function showCategory($arr,$flag,$paging,$prev,$next)
 	{
-		$output = "";
 		
-		$output .= '';
+		
+		$output = '';
 
-		$output.='<tr>
-            <td align="left"><table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-              <tr>
-                <td class="content_list_head" align="center" width="5%">S.no.</td>
-                <!--<td class="content_list_head" width="20%">Category Icon</td>-->
-                <td class="content_list_head" width="30%">Category Name</td>
-                <td class="content_list_head" width="40%">Category Description</td>
-				<td class="content_list_head">Status</td>
-                <td class="content_list_head" colspan=2>Actions</td>
-              </tr>
-              <tr>
-                <td colspan="7" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-                </tr>';  
-				
-		
-			  $output .= '<form name="search1" method="post" action="?do=showmain&action=search" > <tr class="list_search_bg"><td class="content_list_txt2"></td><!--<td class="content_list_txt2"></td>--><td class="content_list_txt2"><input type="text"  name="catname" size="19" value="'.$_POST['catname'].'" id="catname"/></td><td class="content_list_txt2"><input type="text" size="27" name="catdesc" value="'.$_POST['catdesc'].'"/></td><td class="content_list_txt2">
-<select id="visibility" name="status"  style="width: 60px;" type="select" >';
-if($_POST['status']=="")
-{
-	$output.='<option value="" selected="selected" >All</option>
-	<option value="1" >Enabled</option>
-	<option value="0" >Disabled</option>';
-	
-}
-elseif($_POST['status']==1)
-{
-	$output.='<option value="" >All</option>
-	<option value="1" selected="selected" >Enabled</option>
-	<option value="0" >Disabled</option>';
-}	
-else
-{
-	$output.='
-	<option value="" >All</option>
-	<option value="1" >Enabled</option>
-	<option value="0" selected="selected" >Disabled</option>';
-}
-$output.='
-</select></td><td class="content_list_txt2" colspan=2><input type="submit" class="all_bttn" name="search" value="Search"/></td></tr></form>';
-	if($flag=='0')
-			return $output .= '<tr><td align="center" colspan="7"><font color="orange"><b>No Category Matched</b></font></td></tr>';
-	else
-	{
-	$cnt = count($arr);
-	
-		for ($i=0;$i<count($arr);$i++)
+		$output.='<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+		<thead class="green_bg">
+		<tr>		
+		<th align="left"><input type="checkbox" class="select_rows" onclick="checkall();"></th>		
+		<th align="left">Category Name</th>
+		<th align="left">Status</th>
+		<th align="left" style="width:10px">Actions</th>
+		</tr>
+		</thead>
+		<tbody>';	
+		$output .= '<form name="search1" method="post" action="?do=showmain&action=search" > <tr class="list_search_bg"><td class="content_list_txt2"></td><td class="content_list_txt2"><input type="text"  name="catname" value="'.$_POST['catname'].'" id="catname"/></td><td class="content_list_txt2">
+		<select id="visibility" name="status"  style="width: 60px;" type="select" >';
+		if($_POST['status']=="")
 		{
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
-			if($arr[$i]['category_status']==0)
-			{
-				$catstatus='inactive_link';
-			}
-			else
-			{
-				$catstatus='active_link';
-			}
-							
-			$temp=$arr[$i]['category_image'];
-			$img=explode('/',$temp);
-			$output.='<input type="hidden" name="mainindex" value="">';
-			$output .= '<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.' >'.($i+1).'</td>';
-			/*$output .='<td '.$classtd.' align="center">';
-if(file_exists('../uploadedimages/caticons/thumb/thumb_'.$img[2]))
-	$output.='<img src="../uploadedimages/caticons/thumb/thumb_'.$img[2].'" name="image1"  id="image2" border="0"/></td>';
-else
-	$output.='<img src="../images/noimage.jpg" border="0"/></td>';*/
-			
-			
-			$output .='<td '.$classtd.'><a href="?do=showsub&action=show&id='.$arr[$i]['category_id'].'" >'.$arr[$i]['category_name'].'</a></td><td '.$classtd.'>'.$arr[$i]['category_desc'].'</td>';
-			
-$output.='</td>
-			<td '.$classtd.' align="center"><span class="'.$catstatus.'"></span></td>';
-			$output.='<td '.$classtd.'><a href="?do=showmain&action=disp&id='.$arr[$i]['category_id'].'" class="edit_bttn" >&nbsp;</a></td>';
-			$output.='<td '.$classtd.'> <a href="?do=showmain&action=delete&id='.$arr[$i]['category_id'].'" onclick="return confirm(\'Are you sure want to Delete this Category?\')"  class="delete_bttn" >&nbsp;</a></td></tr>';
-			
+			$output.='<option value="" selected="selected" >All</option>
+			<option value="1" >Enabled</option>
+			<option value="0" >Disabled</option>';
+
 		}
-	}		//$output .= '</table>';
-			return $output;
+		elseif($_POST['status']==1)
+		{
+			$output.='<option value="" >All</option>
+			<option value="1" selected="selected" >Enabled</option>
+			<option value="0" >Disabled</option>';
+		}	
+		else
+		{
+			$output.='
+			<option value="" >All</option>
+			<option value="1" >Enabled</option>
+			<option value="0" selected="selected" >Disabled</option>';
+		}
+		$output.='
+		</select></td><td class="content_list_txt2" colspan=2><input type="submit" class="clsBigBtn" name="search" value="Search"/></td></tr></form>';
+		if($flag=='0')
+			$output .= '<tr><td align="center" colspan="7"><font color="orange"><b>No Category Matched</b></font></td></tr>';
+		else
+		{
+			$cnt = count($arr);
+
+			for ($i=0;$i<count($arr);$i++)
+			{
+				if($i % 2 == 0)
+					$classtd='class="content_list_txt1"';
+				else
+					$classtd='class="content_list_txt2"';
+				if($arr[$i]['category_status']==0)
+				{
+					$catstatus='Disable';
+				}
+				else
+				{
+					$catstatus='Enable';
+				}
+
+				$temp=$arr[$i]['category_image'];
+				$img=explode('/',$temp);
+				$output.='<input type="hidden" name="mainindex" value="">';
+				$output .= '<tr><td><input type="checkbox" class="catagorydel" name="categoryid[]" value='.$arr[$i]['category_id'].'></td>';
+				/*$output .='<td '.$classtd.' align="center">';
+				if(file_exists('../uploadedimages/caticons/thumb/thumb_'.$img[2]))
+					$output.='<img src="../uploadedimages/caticons/thumb/thumb_'.$img[2].'" name="image1"  id="image2" border="0"/></td>';
+				else
+				$output.='<img src="../images/noimage.jpg" border="0"/></td>';*/
+				
+				
+				$output .='<td '.$classtd.'><a href="?do=showmain&action=disp&id='.$arr[$i]['category_id'].'" >'.$arr[$i]['category_name'].'</a></td>';
+				
+				$output.='
+				<td '.$classtd.' align="center">'.$catstatus.'</td>';
+				// $output.='<td '.$classtd.'><a href="?do=showmain&action=disp&id='.$arr[$i]['category_id'].'" class="edit_bttn" >&nbsp;</a></td>';
+				$output.='<td '.$classtd.'> <a href="?do=showmain&action=delete&id='.$arr[$i]['category_id'].'" onclick="return confirm(\'Are you sure want to Delete this Category?\')" ><i class="icon-trash"></i></a></td></tr>';
+				$output.=self:: getSubFamiliesList(0,$arr[$i]['category_id']);
+			}
+		}	
+		$output .='<tr>
+			<td colspan="7" class="clsAlignRight">
+			<div class="dt-row dt-bottom-row">
+			<div class="row-fluid">
+			<div class="dataTables_paginate paging_bootstrap pagination">
+			<ul>'.$prev.' ';
+			
+			for($i=1;$i<=count($paging);$i++)
+				$pagingvalues .= $paging[$i]."  ";
+			
+			$output .= $pagingvalues.' '.$next.'</ul></div>
+			</div>
+			</div>
+			</td>
+			</tr>';
+
+		$output.= '</tbody></table>';
+		return $output;
+	}
+		/**
+	 * Function generates an drop down list with the category details.in sub child
+	 * 
+	 * 
+	 * @return array
+	 */		
+	function getSubFamiliesList($level,$id) 
+	{
+		
+		$level++;
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+		$resultSubFamilies = mysql_query($sqlSubFamilies);
+		if (mysql_num_rows($resultSubFamilies) > 0) {
+		
+			while($recordsSubFamiles = mysql_fetch_assoc($resultSubFamilies)) {
+
+				if($level % 2 == 0)
+					$classtd='class="content_list_txt1"';
+				else
+					$classtd='class="content_list_txt2"';
+				if($recordsSubFamiles['category_status']==0)
+				{
+					$catstatus='Disable';
+				}
+				else
+				{
+					$catstatus='Enable';
+				}
+
+				$temp=$recordsSubFamiles['category_image'];
+				$img=explode('/',$temp);
+				$output.='<input type="hidden" name="mainindex" value="">';
+				$output .= '<tr><td><input type="checkbox" class="catagorydel" name="categoryid[]" value='.$recordsSubFamiles['category_id'].'></td>';
+				/*$output .='<td '.$classtd.' align="center">';
+				if(file_exists('../uploadedimages/caticons/thumb/thumb_'.$img[2]))
+					$output.='<img src="../uploadedimages/caticons/thumb/thumb_'.$img[2].'" name="image1"  id="image2" border="0"/></td>';
+				else
+				$output.='<img src="../images/noimage.jpg" border="0"/></td>';*/
+				
+				
+				$output .='<td '.$classtd.'>';
+					for($a=1;$a<$level+1;$a++)
+					{
+					$output.='- &nbsp;';
+						
+					}	
+				$output.='<a href="?do=showmain&action=disp&id='.$recordsSubFamiles['category_id'].'" >'.$recordsSubFamiles['category_name'].'</a>';
+				
+				$output.='</td>
+				<td '.$classtd.' align="center">'.$catstatus.'</td>';
+				// $output.='<td '.$classtd.'><a href="?do=showmain&action=disp&id='.$arr[$i]['category_id'].'" class="edit_bttn" >&nbsp;</a></td>';
+				$output.='<td '.$classtd.'> <a href="?do=showmain&action=delete&id='.$recordsSubFamiles['category_id'].'" onclick="return confirm(\'Are you sure want to Delete this Category?\')"   ><i class="icon-trash"></i></a></td></tr>';
+				$output.=self:: getSubFamiliesList($level,$recordsSubFamiles['category_id']);
+				
+				
+			}
+		
+		}
+		
+		return $output;
 	}
 	/**
 	 * Function  to  display the main category
@@ -133,56 +206,134 @@ $output.='</td>
 	 */	
 	function displayMainCategory($arr)
 	{
+
+
 		$output ="";
+		$maincat='<select name="category"><option value="0">No parent</option>';
 	
+		$sql = "SELECT * FROM category_table WHERE category_parent_id='0' AND category_id!='".$_GET['id']."'" ;
+		$cquery = new Bin_Query();
+		if($cquery->executeQuery($sql))
+		{
+			for($k=0;$k<count($cquery->records);$k++)
+			{
+				if($arr[0]['category_parent_id']==$cquery->records[$k]['category_id'])
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected="";
+				}
+				
+				$maincat.='<option value='.$cquery->records[$k]['category_id'].' '.$selected.'>'.$cquery->records[$k]['category_name'].'</option>';
+				$maincat.=self:: getEditSubFamilies(0,$cquery->records[$k]['category_id'] ,$arr[0]['category_parent_id']);
+				
+			}
+		}
+		$maincat.='</select>';
+
 		$temp=$arr[0]['category_image'];
 		$img=explode('/',$temp);
-		$output.='<form name="formmaincatedit" action="?do=showmain&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">';
-		$output.='<table width="100%" border="0" cellspacing="0" cellpadding="0">';
+		$output.='<form name="formmaincatedit" action="?do=showmain&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data" id="updateCategoryform">';
 		
-		$output.='<input type="hidden" name="index" value="">';
-		$output .= '<tr><td  align="left" class="content_form">Category Name :</td>
-            <td colspan="3" class=""><p><input type="text" name="category" class="txt_box250" id="cat" value="'.$arr[0]['category_name'].'" />
-            </p>
-            </td>
-              </tr>
-			
-<tr><td align="left" class="content_form">Category Description:</td>
-                <td colspan="3" class=""><input type="text" name="categorydesc" class="txt_box250" id="catdesc" value="'.$arr[0]['category_desc'].'" /></td>
-              </tr>
-              <tr><td width="25%" align="left" class="content_form">Category Image:</td>
-<td colspan="3" ><input type="file" name="caticon" id="caticon" /></td>
-<td ></td>
+		$output .= '<div class="row-fluid">
+		<div class="span12"><label>Category Name </label>
+		<input type="text" name="categoryname" class="txt_box250" id="cat" value="'.$arr[0]['category_name'].'" />
+		</div></div>';
 
-<td colspan="3" ><img src="../uploadedimages/caticons/thumb/thumb_'.$img[2].'" name="image1"  id="image2" border="0"/></td></tr>
-			  
-			  
-		 <tr>
-            <td align="left" class="content_form">Status :</td>
-            <td colspan="3" class=""><span>';
-			if($arr[0]['category_status']=='1')
-			{
-			$output.='  <input type="radio" name="status" value="1" checked="checked">
-              ON &nbsp;&nbsp;
-              <input type="radio" name="status" value="0"  >
-              Off</span></td>';
-			}
-			else
-			{
-				$output.='  <input type="radio" name="status" value="1" >
-              ON &nbsp;&nbsp;
-              <input type="radio" name="status" value="0" checked="checked" >
-              Off</span></td>';
-			 } 
-          $output.='</tr>';
-		  if($arr[0]['html_content']!='')
-		  {
-		  $output.='<tr><td align="right" class="content_form">Landing Content:</td>
-		  <td align="" class="">'.$arr[0]['html_content'].'</td></tr>';
-		  }
-$output.='</tr>';
 		
-	return $output;
+		$output .= '<div class="row-fluid">
+		<div class="span12"><label>Select Parent Category  </label>
+		'.$maincat.'</div></div>';
+		
+		
+		$output .= '<div class="row-fluid">
+		<div class="span12"><label>Category Description</label>
+		<input type="text" name="categorydesc" class="txt_box250" id="catdesc" value="'.$arr[0]['category_desc'].'" /></div></div><div class="row-fluid">
+		<div class="span12"><label>Category Image</label>
+
+		<div class="fileupload fileupload-new" data-provides="fileupload">
+		<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+		<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+		<div>
+		<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="caticon" id="caticon" /></span>
+		<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+		</div>
+		</div>
+		
+
+		<img src="../uploadedimages/caticons/thumb/thumb_'.$img[2].'" name="image1"  id="image2" border="0"/></div></div><div class="row-fluid">
+		<div class="span12"><label>Status :</label><div class="ibutton-group">
+		';
+		if($arr[0]['category_status']=='1')
+		{
+			$checked="checked";
+		}
+		else
+		{
+			$checked="";
+		} 
+
+		$output.='<input type="checkbox" name="status" value="1" '.$checked.'>';
+
+		$output.='</div></div></div><div class="row-fluid">
+		<div class="span12">';
+		if($arr[0]['html_content']!='')
+		{
+			$output.='<label>Landing Content</label>
+			'.$arr[0]['html_content'].'</div></div>';
+		}
+		
+		
+		return $output;
+	}
+
+	/**
+	 * Function generates an drop down list with the category details.in sub child
+	 * 
+	 * 
+	 * @return array
+	 */		
+	function getEditSubFamilies($level,$id,$catid) {
+	
+		
+			$level++;
+
+			if($catid!=0)
+			{
+			$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+			$resultSubFamilies = mysql_query($sqlSubFamilies);
+			if (mysql_num_rows($resultSubFamilies) > 0) {
+			
+				while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies)) {
+	
+					$countpath=explode(',',$rowSubFamilies['subcat_path']);
+					if($catid==$rowSubFamilies['category_id'])
+					{
+						$selected="selected";
+					}
+					else
+					{
+						$selected='';
+					}	
+		
+					$output.= "<option value=".$rowSubFamilies['category_id']."  ".$selected.">";
+	
+					for($a=0;$a<$level;$a++)
+					{
+					$output.='- &nbsp;';
+						
+					}
+					$output.=$rowSubFamilies['category_name']."</option>";
+					$output.=self:: getEditSubFamilies($level, $rowSubFamilies['category_id'],$catid);
+					
+				}
+		
+			}
+		}
+
+		return $output;
 	}
 }
 ?>

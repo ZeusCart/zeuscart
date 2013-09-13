@@ -129,12 +129,12 @@ class Core_CProductDetail
 				$sqlComment='insert into product_reviews_table (product_id,user_id,review_caption,review_txt,review_date,rating,review_status) values('.$id.','.$userid.',"'.$caption.'","'.$review.'","'.date("Y-m-d").'",'.$rating.','.$status.')';
 				$commentqry = new Bin_Query();
 				$commentqry->executeQuery($sqlComment);
-				$_SESSION['reviewResult']='<div class="bs-docs-example">
+				$_SESSION['reviewResultSuccess']='<div class="bs-docs-example">
 				<div class="alert alert-success">
 				<button data-dismiss="alert" class="close" type="button">×</button>Your Review is Posted for Moderation!</div></div>';
 			}
 			else
-				$_SESSION['reviewResult']='<div class="bs-docs-example">
+				$_SESSION['reviewResultSuccess']='<div class="bs-docs-example">
 				<div class="alert alert-error">
 				<button data-dismiss="alert" class="close" type="button">×</button>Review already Posted!</div></div>';
 		}	
@@ -156,7 +156,7 @@ class Core_CProductDetail
 		$imgqry->executeQuery($sqlImages);
 		
 		//Get Tier Price
-		$sql="SELECT distinct quantity,msrp FROM msrp_by_quantity_table WHERE product_id =".(int)$_GET['prodid']; 
+		 $sql="SELECT distinct quantity,msrp FROM msrp_by_quantity_table WHERE product_id =".(int)$_GET['prodid']; 
 		$pquery = new Bin_Query();
 		if($pquery->executeQuery($sql))
 		{		

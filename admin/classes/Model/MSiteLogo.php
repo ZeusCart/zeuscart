@@ -80,7 +80,7 @@ class Model_MSiteLogo
 			include('classes/Core/Settings/CSiteLogo.php');
 			include('classes/Display/DSiteLogo.php');		
 			$output['sitelogo'] = Core_Settings_CSiteLogo::siteLogo();
-			Bin_Template::createTemplate('sitelogo.html',$output);	
+			Bin_Template::createTemplate('sitesettings.html',$output);	
 		}
 		else
 		{

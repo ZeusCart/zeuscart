@@ -93,10 +93,11 @@ class Model_MHome
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();		
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['result'] = $result;
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
 		$output['cartcount']=Core_CAddCart::countCart();				
@@ -144,7 +145,8 @@ class Model_MHome
 			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			$output['result'] = $result;
-			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
 			$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
 			$output['cartcount']=Core_CAddCart::countCart();				
@@ -184,7 +186,8 @@ class Model_MHome
 			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			$output['result'] = $result;
-			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
 			$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
 			$output['categorytree'] = Core_CProductDetail::showCategoryTree();
@@ -209,7 +212,7 @@ class Model_MHome
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
 	
-		echo Bin_Template::createTemplate('giftvouchers.html',$output);
+		Bin_Template::createTemplate('giftvouchers.html',$output);
 
 	}
 	/**
@@ -228,6 +231,53 @@ class Model_MHome
 // 		header('Location:?do=addtocartfromproductdetail&prodid='.$_GET['prodid'].'&vid=1');
 // 	}
 
+	/**
+	* This function is used to show the dynamic cms
+ 	*
+	* @return string
+	*/
+	function showDynamicContent()
+	{	
+		include('classes/Core/CKeywordSearch.php');
+		include('classes/Display/DKeywordSearch.php');
+		include('classes/Core/CUserRegistration.php');
+		include('classes/Display/DUserRegistration.php');
+		include_once('classes/Core/CUserAddressBook.php');
+		include('classes/Core/CHome.php');
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
+		include_once('classes/Core/CLastViewedProducts.php');
+		include_once('classes/Display/DLastViewedProducts.php');
+		include_once('classes/Core/CAddCart.php');
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+
+		$output['sitelogo']=Core_CHome::getLogo();
+		$output['pagetitle']=Core_CHome::pageTitle();
+		$output['timezone']=Core_CHome::setTimeZone();	
+		$output['currentDate']=date('D,M d,Y - h:i A');
+		$output['skinname']=Core_CHome::skinName();
+		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();		
+		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		$output['result'] = $result;
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
+		$output['cartcount']=Core_CAddCart::countCart();				
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();	
+		$output['showpages']=Core_CHome::showDynamicContent();
+		
+		Bin_Template::createTemplate('cms.html',$output);
+	}
 	
 }
 ?>

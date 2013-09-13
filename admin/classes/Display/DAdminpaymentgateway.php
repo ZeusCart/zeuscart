@@ -40,7 +40,9 @@
 	function displayPayements($result)
 	{
 	      
-		      $output.="<form name='edit' action='?do=adminpayment&action=update' method='post'><table cellpadding='3' cellspacing='0' border='0'  class='content_list_bdr' width='100%'> <tr><td colspan='3'>&nbsp;</td></tr>";
+		      $output.='<form id="paymentId" name="edit" action="?do=adminpayment&action=update" method="post"> <div class="row-fluid">
+                                    <div class="span12">
+                                        <div class="accordion" id="accordion1">';
 		  $i=1;
 		  $j=1;
 		  if((count($result)>0))
@@ -52,7 +54,9 @@
 			 $status=$row['gateway_status'];
 			 $merchant_id=base64_decode($row['merchant_id']);	
 			 $image = $row['images'];		
-			 $image="<img src='../".$image."' alt='".$name."'>";
+			 // $image="<img src='../".$image."' alt='".ucfirst($name)."'>";
+
+			 $paymentName=ucfirst($name);
 
 			 if($status)
 			   {
@@ -70,7 +74,7 @@
 			 $paymentgatewaysettings='';
 				
 				
-			 $paymentgatewaysettings='<table width="600" border="0" cellspacing="0" cellpadding="0" >';
+			 $paymentgatewaysettings='';
   				
 			  if($id=='2' || $id=='3')
 			  {		
@@ -78,7 +82,8 @@
 			  }
 			  else
 			  {
-			  $paymentgatewaysettings.='<tr> <td class="content_form" width="200" >Status</td> <td width="200" class="content_form" > <input type="checkbox" '.$status.' name="paymentstatus[]" id="paymentstatus[]" value="'.$id.'" /></td></tr>';
+			 $paymentgatewaysettings.='<div class="row-fluid">
+                                    <div class="span4"> Status </div> <div class="span8"><input type="checkbox" '.$status.' name="paymentstatus[]" id="paymentstatus[]" value="'.$id.'" /></div></div>';
 			  }
 				
 			 if(count($gatewaySettings)>0)
@@ -86,12 +91,13 @@
 			 	 $arr = $gatewaySettings;							 
 				 for($k=0;$k<count($arr);$k++)
 			 	{			 				 	
-				$paymentgatewaysettings .= '<tr> <td class="content_form" width="200" >'.$arr[$k]['setting_name'].'</td> <td class="content_form" width="200" >';
-				$paymentgatewaysettings .= '<input type="text" name="'.$arr[$k]['pg_setting_id'].'" value="'.base64_decode($arr[$k]['setting_values']).'" /> <img onmouseout="HideHelp(\''.$arr[$k]['pg_setting_id'].'\');" onmouseover="ShowHelp(\''.$arr[$k]['pg_setting_id'].'\', \''.$arr[$k]['setting_name'].'\', \''.$arr[$k]['help_text'].'\')" src="images/help.gif"/><div style="left: 50px; top: 50px;" id="'.$arr[$k]['pg_setting_id'].'"/><div style="color: rgb(255, 0, 0);"></div>';	$paymentgatewaysettings .= '</tr> </td>';		 
+				$paymentgatewaysettings .= '<div class="row-fluid">
+                                    <div class="span4">'.$arr[$k]['setting_name'].'</div>';
+				$paymentgatewaysettings .= '<div class="span8"><input type="text" name="'.$arr[$k]['pg_setting_id'].'" value="'.base64_decode($arr[$k]['setting_values']).'" /></div></div>';		 
 			 	}
 			 			
 			 }				  		
-			$paymentgatewaysettings.='</table>';			
+			
 			
 			 
 			   if($id=='2' || $id=='3')
@@ -101,25 +107,26 @@
 			   else
 			   {
 			   if($j%2==0)
-			    $output.="<tr style='background-color:#FFFFFF;'>				
-				<td  colspan='3' ><fieldset class='content_list_bdr'> 
-					<legend > &nbsp;".$image."&nbsp;				
-			</legend>".$paymentgatewaysettings."</fieldset></td></tr><tr><td colspan='3'>&nbsp;</td></tr>";		
+			    $output.='<div class="accordion-group">
+                                                <div class="accordion-heading">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne'.$j.'">'.$paymentName.'</a></div> <div id="collapseOne'.$j.'" class="accordion-body collapse">
+                                                    <div class="accordion-inner">'.$paymentgatewaysettings.'</div></div></div>';		
 				
 					 	 
 			 else
- 					  $output.="<tr style='background-color:#FFFFFF;' >				
-				<td  colspan='3' ><fieldset class='content_list_bdr'> 
-					<legend > &nbsp;".$image."&nbsp;				
-				</legend>".$paymentgatewaysettings."</fieldset></td></tr><tr><td colspan='3'>&nbsp;</td></tr>";		
+ 					   $output.='<div class="accordion-group">
+                                                <div class="accordion-heading">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne'.$j.'">'.$paymentName.'</a></div> <div id="collapseOne'.$j.'" class="accordion-body collapse">
+                                                    <div class="accordion-inner">'.$paymentgatewaysettings.'</div></div></div>';
 						 
 			 $i+=1;
 			 $j++;
 			 }
 		  }		 
 		  $output.="
-		  <tr style='background-color:#FFFFFF;'><td colspan='3' align='center' > <input value='Update' class='all_bttn' type='submit'></td></tr>		 
-		  </table>		  
+		    </div>
+                                        </div>
+                                    </div>	  
 		  </form>";
 		  }
 		  else

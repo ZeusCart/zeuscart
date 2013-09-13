@@ -78,6 +78,7 @@ class Model_MFooterLinks
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['terms'] = Core_CFooterLinks::termsCondition();
 		$output['newstitle'] = Core_CNews::showNewsMenu();
 		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
@@ -125,6 +126,7 @@ class Model_MFooterLinks
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['privacypolicy'] = Core_CFooterLinks::privacyPolicy();
 		$output['newstitle'] = Core_CNews::showNewsMenu();
 		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
@@ -178,6 +180,7 @@ class Model_MFooterLinks
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['contactus'] = Display_DFooterLinks::showContactUs($Err);
 		$output['newstitle'] = Core_CNews::showNewsMenu();
@@ -226,6 +229,7 @@ class Model_MFooterLinks
 		$output['terms']=Core_CFooterLinks::termsCondition();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['message'] = Core_CFooterLinks::validateContactUs();
@@ -275,6 +279,7 @@ class Model_MFooterLinks
 		$output['terms']=Core_CFooterLinks::termsCondition();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['aboutus'] = Core_CFooterLinks::aboutUs();

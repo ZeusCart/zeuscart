@@ -49,7 +49,8 @@ class Core_Settings_CTimeZone
 		}
 		else
 		{
-			return '<div class="success_msgbox" style="width:644px;">Time Zone is Not Selected in the Site</div>';
+			return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Time Zone is Not Selected in the Site</div>';
 		}		
 	}
 	
@@ -93,7 +94,8 @@ class Core_Settings_CTimeZone
 		$sql = "UPDATE admin_settings_table SET set_value='".$_POST['timezone']."' where set_name='Time Zone'";
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
-				return '<div class="success_msgbox" style="width:644px;">Timezone Updated to <b>'.$_POST['timezone'].'</b> Successfully</div>';
+				return '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Timezone Updated to <b>'.$_POST['timezone'].'</b> Successfully</div>';
 		}	
 	}
 }

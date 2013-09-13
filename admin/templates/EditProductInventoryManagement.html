@@ -18,23 +18,40 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
+<script type="text/javascript">
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="left" class="content_title">Edit Product Inventory</td>
-          </tr>
-		  <tr>
-            <td align="left">&nbsp;</td>
-          </tr>
-          <tr>
-            <td align="left"><form name='update' action='?do=productinventory&action=update' method='post'> 
-			<table width="100%" border="0" class="content_list_bdr" cellspacing="0" cellpadding="0">
-			<tr>
-        <td  align="left" class="content_list_head" colspan="2" valign="top">Images Bilk Upload</td>
-	  </tr>
-	  <tr><td>
+$(document).ready(function (){
+  $('#updateInventoryIcon').click(function(){
+    $("#updateInventory").submit();
+  });
+});
+
+
+</script>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2> Edit Product Inventory
+    </h2>
+  </div>
+  <div class="span3" >
+
+      <ul class="bttn_right">
+            <li>
+              <a href="javascript:void(0);" class="update_icon"  id="updateInventoryIcon"></a> </li>
+              
+                   
+             </ul>
+
+         </div>
+
+     </div>
+ </div>
+
+<form name='update' action='?do=productinventory&action=update' method='post' id="updateInventory"> 
+		
+
 			<AJDF:output> $editinventory </AJDF:output></td>
-          </tr></table></form></td></tr></table>
+      </form>
 
 <AJDF:output>include file="footer.html"</AJDF:output>

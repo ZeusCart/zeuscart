@@ -155,6 +155,7 @@ class Core_Settings_CManageProducts
 	
 	function searchProductDetails()
 	{
+
 		$producttitle = $_POST['title'];
 		$brand = $_POST['brand'];
 		$sku =  $_POST['sku'];
@@ -169,87 +170,164 @@ class Core_Settings_CManageProducts
 		$tag =  $_POST['tag'];
 		$fdte =  $_POST['fromdate']; 
 		$tdte =  $_POST['todate']; 
+		$ptype=$_POST['producttype'];
 		
-		//This Code is For Paging 
-		
-		$sql='SELECT distinct pt.title,pt.sku,pt.cse_enabled,pt.status,pt.shipping_cost,pt.tag,pt.intro_date,pt.product_id,pt.brand, pt.price,pt.msrp, pt.status , invt.soh FROM products_table as pt , product_inventory_table as invt  ';
-		$condition=array();
-		
-		if($producttitle!='')
+		if($ptype!=1)
 		{
-			$condition []= "  pt.title like '%".$producttitle."%'";
-		}
-		if($brand!='')
-		{
-			$condition[]= " pt.brand like  '%".$brand."%'";
-		}
-		if($sku!='')
-		{
-			$condition []= "  pt.sku like  '%".$brand."%'";
-		}
-		if($qty!='')
-		{
-			$condition []= "  invt.soh like  '%".$qty."%'";
-		}
-		if($frommsrp!='' && $tomsrp!='')
-		{
-			$condition []= "  pt.msrp between '".$frommsrp."' and  '".$tomsrp."'";
-		}
-		if($frommsrp!='' && $tomsrp=='')
-		{
-			$condition []= "  pt.msrp > '".$frommsrp."'";
-		}if($frommsrp=='' && $tomsrp!='')
-		{
-			$condition []= "  pt.msrp < '".$tomsrp."'";
-		}
-		if($fromprice!='' && $toprice!='')
-		{
-			$condition []= "  pt.price between   '".$fromprice."' and  '".$toprice."'";
-		}
-		if($fromprice!='' && $toprice=='')
-		{
-			$condition []= "  pt.price >   '".$fromprice."'";
-		}
-		if($fromprice=='' && $toprice!='')
-		{
-			$condition []= "  pt.price <   '".$fromprice."'";
-		}
-		if($scost!='')
-		{
-			$condition []= "  pt.shipping_cost like  '%".$scost."%'";
-		}
-		if($status!='' && $status>-1)
-		{
-			$condition []= "  pt.status = '".$status."'";
-		}
-		
-		if($cse!='' && $cse>-1)
-		{
-			$condition []= "  pt.cse_enabled like  '%".$cse."%'";
-		}
-		if($tag!='')
-		{
-			$condition []= "  pt.tag like  '%".$tag."%'";
-		}
-		
-		if($fdte!='' && $tdte!='')
-		{
-			$condition []= "  pt.intro_date between '".$fdte."' and '".$tdte."'";
-		}
+			$sql='SELECT distinct pt.title,pt.sku,pt.cse_enabled,pt.status,pt.shipping_cost,pt.tag,pt.intro_date,pt.product_id,pt.brand, pt.price,pt.msrp, pt.status , invt.soh FROM products_table as pt , product_inventory_table as invt  ';
+			$condition=array();
 			
-		if(count($condition)>1)
-			 
-			$sql.= ' where '. implode(' and ', $condition) .'and pt.product_id=invt.product_id';
-			 
-		elseif(count($condition)>0)
-		{
-			$sql.= ' where  '. implode('', $condition) .' and pt.product_id=invt.product_id';
+			if($producttitle!='')
+			{
+				$condition []= "  pt.title like '%".$producttitle."%'";
+			}
+			if($brand!='')
+			{
+				$condition[]= " pt.brand like  '%".$brand."%'";
+			}
+			
+			if($sku!='')
+			{
+				$condition []= "  pt.sku like  '%".$brand."%'";
+			}
+			if($qty!='')
+			{
+				$condition []= "  invt.soh like  '%".$qty."%'";
+			}
+			if($frommsrp!='' && $tomsrp!='')
+			{
+				$condition []= "  pt.msrp between '".$frommsrp."' and  '".$tomsrp."'";
+			}
+			if($frommsrp!='' && $tomsrp=='')
+			{
+				$condition []= "  pt.msrp > '".$frommsrp."'";
+			}if($frommsrp=='' && $tomsrp!='')
+			{
+				$condition []= "  pt.msrp < '".$tomsrp."'";
+			}
+			if($fromprice!='' && $toprice!='')
+			{
+				$condition []= "  pt.price between   '".$fromprice."' and  '".$toprice."'";
+			}
+			if($fromprice!='' && $toprice=='')
+			{
+				$condition []= "  pt.price >   '".$fromprice."'";
+			}
+			if($fromprice=='' && $toprice!='')
+			{
+				$condition []= "  pt.price <   '".$fromprice."'";
+			}
+			if($scost!='')
+			{
+				$condition []= "  pt.shipping_cost like  '%".$scost."%'";
+			}
+			if($status!='' && $status>-1)
+			{
+				$condition []= "  pt.status = '".$status."'";
+			}
+			
+			if($cse!='' && $cse>-1)
+			{
+				$condition []= "  pt.cse_enabled like  '%".$cse."%'";
+			}
+			if($tag!='')
+			{
+				$condition []= "  pt.tag like  '%".$tag."%'";
+			}
+			
+			if($fdte!='' && $tdte!='')
+			{
+
+				$condition []= "date_format(pt.intro_date,'%m/%d/%Y') between '".$fdte."' and '".$tdte."'";
+			}
+				
+			if(count($condition)>1 )
+				
+				$sql.= ' where '. implode(' and ', $condition) .'and pt.product_id=invt.product_id';
+				
+			elseif(count($condition)>0 )
+			{
+				$sql.= ' where  '. implode('', $condition) .' and pt.product_id=invt.product_id'; 
+			}
+			elseif(count($condition)==0 )
+			{
+				$sql.= ' where pt.product_id=invt.product_id';
+			}
+			
 		}
-		elseif(count($condition)==0)
+		else
 		{
-			$sql.= ' where pt.product_id=invt.product_id';
+			$sql='SELECT * FROM products_table   ';
+			$condition=array();
+			
+			if($producttitle!='')
+			{
+				$condition []= " title like '%".$producttitle."%'";
+			}
+			
+			if($sku!='')
+			{
+				$condition []= " sku like  '%".$brand."%'";
+			}
+			
+			if($frommsrp!='' && $tomsrp!='')
+			{
+				$condition []= "  msrp between '".$frommsrp."' and  '".$tomsrp."'";
+			}
+			if($frommsrp!='' && $tomsrp=='')
+			{
+				$condition []= "  msrp > '".$frommsrp."'";
+			}if($frommsrp=='' && $tomsrp!='')
+			{
+				$condition []= "  msrp < '".$tomsrp."'";
+			}
+			if($fromprice!='' && $toprice!='')
+			{
+				$condition []= "  price between   '".$fromprice."' and  '".$toprice."'";
+			}
+			if($fromprice!='' && $toprice=='')
+			{
+				$condition []= "  price >   '".$fromprice."'";
+			}
+			if($fromprice=='' && $toprice!='')
+			{
+				$condition []= "  price <   '".$fromprice."'";
+			}
+			if($scost!='')
+			{
+				$condition []= " shipping_cost like  '%".$scost."%'";
+			}
+			if($status!='' && $status>-1)
+			{
+				$condition []= " status = '".$status."'";
+			}
+			
+			
+			if($tag!='')
+			{
+				$condition []= " tag like  '%".$tag."%'";
+			}
+			
+			if($fdte!='' && $tdte!='')
+			{
+				$condition []= " intro_date between '".$fdte."' and '".$tdte."'";
+			}
+				
+			if(count($condition)>1 )
+				
+				 $sql.= ' where '. implode(' and ', $condition) .' and digital="1"';
+				
+			elseif(count($condition)>0 )
+			{
+				 $sql.= ' where  '. implode('', $condition) .' and digital="1"';
+			}
+			elseif(count($condition)==0 )
+			{
+				$sql.= ' where digital="1"';
+			}
+			
+
 		}
-		
 		if($_POST['search']=='Search')
 		{
 			$obj = new Bin_Query();
@@ -266,6 +344,7 @@ class Core_Settings_CManageProducts
 			
 			return $output;
 		}
+		
 		else
 		{
 			return Core_Settings_CManageProducts::showAllProducts($sql,$this->data['paging'],$this->data['prev'],$this->data['next'],0);
@@ -284,6 +363,7 @@ class Core_Settings_CManageProducts
 	
 	function updateProducts()
 	{
+
 		$temparray = array();
 		
 		$prodid=$_SESSION['prodid']; 
@@ -385,14 +465,25 @@ class Core_Settings_CManageProducts
 	
 	function displayCategory($catid)
 	{
-/*
 		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0";
 		
 		$query = new Bin_Query();
 		
 		$query->executeQuery($sql);
+
+		$id=$_GET['prodid'];
+
+		if(((int)$id)>0)
+		{
+			$sql1='select * from products_table where product_id='.$id;		
+			$obj1=new Bin_Query();			
+			$obj1->executeQuery($sql1);						
+			$category=$obj1->records[0]['category_id'];
+			
 		
-		return Display_DManageProducts::displayCategory($query->records,$catid);	*/	
+	    	}
+		
+		return Display_DManageProducts::displayCategory($query->records,$category);	
 	}
 	
 	/**
@@ -423,13 +514,20 @@ class Core_Settings_CManageProducts
 		}
 		else
 		{
-				 $sql = "SELECT * FROM category_table where category_parent_id=".$subcatid." AND sub_category_parent_id=0" ;
-				
-				$query = new Bin_Query();
-				
-				$query->executeQuery($sql);
-				
-				return Display_DManageProducts::displaySubCategory($query->records,$subcatid);
+
+			$sqlpro="SELECT * FROM products_table WHERE  product_id ='".$_GET['prodid']."'";
+			$objpro=new Bin_Query();
+			$objpro->executeQuery($sqlpro);
+			$subcatid=$objpro->records[0]['category_id'];
+			$subselected=$objpro->records[0]['sub_category_id'];
+						
+			$sql = "SELECT * FROM category_table where category_parent_id=".$subcatid." AND sub_category_parent_id=0" ;
+			
+			$query = new Bin_Query();
+			
+			$query->executeQuery($sql);
+			
+			return Display_DManageProducts::displaySubCategory($query->records,$subselected);
 		}
 			
 	}
@@ -501,14 +599,14 @@ class Core_Settings_CManageProducts
 			
 			$sql1 = "SELECT category_id,category_name FROM category_table where category_parent_id=0";
 		
-		$query1 = new Bin_Query();
+			$query1 = new Bin_Query();
 		
-		$query1->executeQuery($sql1);
+			$query1->executeQuery($sql1);
 		
 
-		return Display_DManageProducts::displayCategory($query1->records,$query->records[0]['category_id']);
+			return Display_DManageProducts::displayCategory($query1->records,$query->records[0]['category_id']);
 			
-// 			return $category;
+		// 			return $category;
 	    }
 	}
 	
@@ -539,8 +637,7 @@ class Core_Settings_CManageProducts
 			
 			$category=Core_Settings_CManageProducts::displayCategory($query->records[0]['category_parent_id']);
 			
-			$sqlid='select category_id from category_table where category_id in(select category_id 
-			from products_table where product_id='.$id.')';
+			$sqlid='select category_id from category_table where category_id in(select sub_category_id from products_table where product_id='.$id.')';
 			
 			$query=new Bin_Query();
 			
@@ -651,8 +748,7 @@ class Core_Settings_CManageProducts
 	 * 
 	 * 
 	 * @return string
-	 */	 	
-	
+	 */	 
 	
 	function editRelated()
 	{
@@ -823,11 +919,40 @@ class Core_Settings_CManageProducts
 	 
 	function updateProduct()
 	{
+
+		//convert all special charactor into hyphens and lower case
+		if($_POST['product_alias']!='')
+		{
+			
+			$sluggable=$_POST['product_alias'];			
+			
+		}
+		else
+		{
+			$sqlcheck="SELECT * FROM products_table WHERE alias='".$_POST['product_title']."'";
+			$objcheck=new Bin_Query();
+			if(!$objcheck->executeQuery($sqlcheck))	
+			{
+				$sluggable=$_POST['product_title'];
+			}
+				
+		}
+		//convert all special charactor into hyphens and lower case
+		$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $sluggable);
+		$sluggable = trim($sluggable, '-');
+		if( function_exists('mb_strtolower') ) { 
+			$sluggable = mb_strtolower( $sluggable );
+		} else { 
+			$sluggable = strtolower( $sluggable );
+		}
+		$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
 		include('classes/Lib/ThumbImage.php');
 		
-		$category_id=(int)$_POST['selcatgory'];
-		$category_parent_id=(int)$_POST['selsubcatgory'];
-		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
+// 		$category_id=(int)$_POST['selcatgory'];
+		$category_id = implode(",",$_POST['selcatgory']);
+// 		$category_parent_id=(int)$_POST['selsubcatgory'];
+// 		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
 		$title=$_POST['product_title'];
 		$description=$_POST['desc'];
 		$sku=$_POST['sku'];
@@ -895,12 +1020,12 @@ class Core_Settings_CManageProducts
 		
 		if(trim($brand)=='')
 		   $brand=$_POST['selbrand'];
-	/*	if(((int)$weight)>0)
+		/*	if(((int)$weight)>0)
 		   $weight.=' '.$units;
 		else
 		   $weight='';
 		$dimension=$_POST['dimension'];
-*/		
+		*/		
 		$pweight=trim($_POST['txtweight']);
 		$pwidth=trim($_POST['txtwidth']);
 		$pheight=trim($_POST['txtheight']);
@@ -933,137 +1058,415 @@ class Core_Settings_CManageProducts
 			}
 		
 		 //$sql="update products_table set  category_id = '".$category_id."',sku = '".$sku."',title = '".$title."',description = '".$description."', brand = '".$brand."',model = '".$model."',msrp = '".$msrp_org."',price = '".$price."', cse_enabled = '".$cse_enabled."',weight = '".$weight."',dimension = '".$dimension."',shipping_cost = '".$shipping_cost."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."',thumb_image = '".$thumb_image."',image = '".$image."' where product_id =".((int)$_GET['prodid'] );
-		 if($_POST['cse_enabled']=='on'&&$csekeyid!='')
+		if($_POST['cse_enabled']=='on'&&$csekeyid!='')
 		{
-		 $sql="update products_table set  category_id = '".$category_id."',sub_category_id ='".$category_parent_id."',sub_under_category_id='".$sub_category_parent_id."',sku = '".$sku."',title = '".$title."',description = '".$description."', brand = '".$brand."',model = '".$model."',msrp = '".$msrp_org."',price = '".$price."', cse_enabled = '".$cse_enabled."',cse_key='".$csekeyid."',weight = '".$weight."',dimension = '".$dimension."',shipping_cost = '".$shipping_cost."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."',product_status='".$product_status."' where product_id =".((int)$_GET['prodid'] );
+		    $sql="update products_table set  category_id = '".$category_id."',sku = '".$sku."',title = '".$title."',description = '".$description."', brand = '".$brand."',model = '".$model."',msrp = '".$msrp_org."',price = '".$price."', cse_enabled = '".$cse_enabled."',cse_key='".$csekeyid."',weight = '".$weight."',dimension = '".$dimension."',shipping_cost = '".$shipping_cost."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."',product_status='".$product_status."',alias='".$sluggable."' where product_id =".((int)$_GET['prodid'] ); 
 		}
 		else
 		{
-		    $sql="update products_table set  category_id = '".$category_id."',sub_category_id ='".$category_parent_id."',sub_under_category_id='".$sub_category_parent_id."',sku = '".$sku."',title = '".$title."',description = '".$description."', brand = '".$brand."',model = '".$model."',msrp = '".$msrp_org."',price = '".$price."', cse_enabled = '".$cse_enabled."',weight = '".$weight."',dimension = '".$dimension."',shipping_cost = '".$shipping_cost."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."',product_status='".$product_status."'  where product_id =".((int)$_GET['prodid'] ); 
+		    $sql="update products_table set  category_id = '".$category_id."',sku = '".$sku."',title = '".$title."',description = '".$description."', brand = '".$brand."',model = '".$model."',msrp = '".$msrp_org."',price = '".$price."', cse_enabled = '".$cse_enabled."',weight = '".$weight."',dimension = '".$dimension."',shipping_cost = '".$shipping_cost."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."',product_status='".$product_status."',alias='".$sluggable."'  where product_id =".((int)$_GET['prodid'] );
 		}
 		$obj1234=new Bin_Query();
-		$obj1234->updateQuery($sql);
-
-		
-		
-		// For Image Uploading//
-
-		if(count($_FILES['ufile']['tmp_name']) > 0)
-		{
-			$obj_insert= new Bin_Query();
-			$product_id=(int)$_GET['prodid'];
-				for($i=0;$i<count($_FILES['ufile']['name']);$i++)
-				{
-					$imgfilename= $_FILES['ufile']['name'][$i];
-					if($imgfilename!='')
+		if($obj1234->updateQuery($sql))
+		{	
+			
+			// For Image Uploading//
+	
+			if(count($_FILES['ufile']['tmp_name']) > 0)
+			{
+				$obj_insert= new Bin_Query();
+				$product_id=(int)$_GET['prodid'];
+					for($i=0;$i<count($_FILES['ufile']['name']);$i++)
 					{
-						$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
-						
-						$image="images/products/". $imgfilename; // updated into DB
-						$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
-						$large_image="images/products/large_image/".$imgfilename; // updated large image into DB
-						$stpath=ROOT_FOLDER.$image;
-						$imageDir=ROOT_FOLDER."images/products";
-						$thumbDir=ROOT_FOLDER."images/products/thumb";
-						$largeDir=ROOT_FOLDER."images/products/large_image";
-						if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
+						$imgfilename= $_FILES['ufile']['name'][$i];
+						if($imgfilename!='')
 						{
-							new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);				
-							new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
-							new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
-						}
-						if($i==0)
-						{	
-							if($_POST['ufile_id'][$i]!='')
+							$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+							
+							$image="images/products/". $imgfilename; // updated into DB
+							$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
+							$large_image="images/products/large_image/".$imgfilename; // updated large image into DB
+							$stpath=ROOT_FOLDER.$image;
+							$imageDir=ROOT_FOLDER."images/products";
+							$thumbDir=ROOT_FOLDER."images/products/thumb";
+							$largeDir=ROOT_FOLDER."images/products/large_image";
+							if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
 							{
-								$spl="UPDATE product_images_table SET image_path='$image', thumb_image_path='$thumb_image',large_image_path='$large_image' WHERE product_images_id='".$_POST['ufile_id'][$i]."'";
+								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);				
+								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
+								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+							}
+							if($i==0)
+							{	
+								if($_POST['ufile_id'][$i]!='')
+								{
+									$spl="UPDATE product_images_table SET image_path='$image', thumb_image_path='$thumb_image',large_image_path='$large_image' WHERE product_images_id='".$_POST['ufile_id'][$i]."'";
+									$obj_insert->updateQuery($spl);
+								}
+								else
+								{
+									$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','main','$large_image')";
+									$obj_insert->updateQuery($spl);
+								}
+								$update="UPDATE products_table set image='$image',thumb_image='$thumb_image',large_image_path='$large_image' where product_id='".$product_id."'";
+								
+								$obj_insert->updateQuery($update);
 							}
 							else
 							{
-								$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','main','$large_image')";
+								
+								if($_POST['ufile_id'][$i]!='')
+								{
+									$spl="UPDATE product_images_table SET image_path='$image', thumb_image_path='$thumb_image',large_image_path='$large_image' WHERE product_images_id='".$_POST['ufile_id'][$i]."'";
+								}
+								else
+								{
+									$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','sub','$large_image')";				
+								}
 							}
-							$update="UPDATE products_table set image='$image',thumb_image='$thumb_image',large_image_path='$large_image' where product_id='".$product_id."'";
 							
-							$obj_insert->updateQuery($update);
+							$obj_insert->updateQuery($spl);
 						}
-						else
-						{
-							
-							if($_POST['ufile_id'][$i]!='')
-							{
-								$spl="UPDATE product_images_table SET image_path='$image', thumb_image_path='$thumb_image',large_image_path='$large_image' WHERE product_images_id='".$_POST['ufile_id'][$i]."'";
-							}
-							else
-							{
-								$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','sub',$large_image)";				
-							}
-						}
-						
-						$obj_insert->updateQuery($spl);
+					}
+					
+					
+				}
+			
+			
+			// END ///
+			
+			
+			
+			$sql="update product_inventory_table set rol=".$rol.", soh=".$soh." where product_id =".((int)$_GET['prodid'] );
+			$obj_upd=new Bin_Query();
+			$obj_upd->updateQuery($sql);
+			
+			$sql="delete from product_attrib_values_table where product_id =".((int)$_GET['prodid'] );
+			$obj_del=new Bin_Query();
+			$obj_del->updateQuery($sql);
+			
+				
+			if(count($attribute) > 0)
+			{
+				for($i=0;$i<count($attribute);$i++)
+				{
+					if($attribute[$i] !=0)
+					$sq="INSERT INTO product_attrib_values_table(product_id,attrib_value_id) VALUES ('".((int)$_GET['prodid'] )."',$attribute[$i])";
+					$obj_ins_1=new Bin_Query();
+					$obj_ins_1->updateQuery($sq);
+				}
+			}
+			
+				
+			if(count($msrp) > 0)
+			{
+				$obj1=new Bin_Query();
+				$sql="delete from msrp_by_quantity_table where product_id =".((int)$_GET['prodid'] );
+				$obj1->updateQuery($sql);
+				
+				
+				for($i=0;$i<count($msrp);$i++)
+				{
+					if($msrp[$i]!='' && $quantity[$i]!='')
+					{
+						$sq12="INSERT INTO msrp_by_quantity_table(product_id,quantity,msrp) VALUES ('".((int)$_GET['prodid'] )."',$quantity[$i],$msrp[$i])";
+						$obj_ins=new Bin_Query();
+						$obj_ins->updateQuery($sq12);
 					}
 				}
-				
-				
 			}
-		
-		
-		// END ///
-		
-		
-		
-		$sql="update product_inventory_table set rol=".$rol.", soh=".$soh." where product_id =".((int)$_GET['prodid'] );
-		$obj_upd=new Bin_Query();
-		$obj_upd->updateQuery($sql);
-		
-		$sql="delete from product_attrib_values_table where product_id =".((int)$_GET['prodid'] );
-		$obj_del=new Bin_Query();
-		$obj_del->updateQuery($sql);
-		
 			
-		if(count($attribute) > 0)
-		{
-			for($i=0;$i<count($attribute);$i++)
-			{
-				if($attribute[$i] !=0)
-				$sq="INSERT INTO product_attrib_values_table(product_id,attrib_value_id) VALUES ('".((int)$_GET['prodid'] )."',$attribute[$i])";
-				$obj_ins_1=new Bin_Query();
-				$obj_ins_1->updateQuery($sq);
-			}
+		
+			$output='	<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has been updated successfully</div>';
+
 		}
-		
-			
-		if(count($msrp) > 0)
+		else
 		{
-			$obj1=new Bin_Query();
-			$sql="delete from msrp_by_quantity_table where product_id =".((int)$_GET['prodid'] );
-			$obj1->updateQuery($sql);
-			
-			
-			for($i=0;$i<count($msrp);$i++)
-			{
-				if($msrp[$i]!='' && $quantity[$i]!='')
-				{
-					$sq12="INSERT INTO msrp_by_quantity_table(product_id,quantity,msrp) VALUES ('".((int)$_GET['prodid'] )."',$quantity[$i],$msrp[$i])";
-					$obj_ins=new Bin_Query();
-					$obj_ins->updateQuery($sq12);
-				}
-			}
+			$output='	<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has not been updated</div>';
+	
 		}
-		
-			
-			 $_SESSION['update_msg']='<div class="success_msgbox">Product <b>'.$title.'</b> Updated Successfully</div>';
-			 header('Location:?do=manageproducts');
-			 exit();
-		
+		return $output;
+	
 		
 	}
 	
-	
-	//***********************END******************************************************//
-	
-	
+	/**
+	 * Function updates the changes made in the digital product details
+	 * 
+	 * 
+	 * @return array
+	 */	 
+	 
+	function updateDigitalProduct()
+	{
 
+
+		include('classes/Lib/ThumbImage.php');
+		
+		$category_id=(int)$_POST['selcatgory'];
+		$category_parent_id=(int)$_POST['selsubcatgory'];
+		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
+		$title=$_POST['product_title'];
+		$description=addslashes(htmlentities($_POST['desc']));
+		$sku=$_POST['sku'];
+		$tag=$_POST['tag'];
+		$product_video=htmlentities($_POST['videotag']);
+		
+		if($_POST['intro_date']!='')
+		$intro_date= $_POST['intro_date'];
+		else
+		$intro_date= date('Y/m/d');
+		
+		
+			
+		if($_POST['is_feautured']=='on')
+			$is_feautured=1;
+		else
+			$is_feautured=0;
+			
+		if($_POST['status']=='on')
+			$status=1;
+		else
+			$status=0;	
+		
+		
+		
+		$price=(float)$_POST['price'];
+		$msrp_org=(float)$_POST['msrp_org'];
+		$msrp=$_POST['msrp'];
+		
+		$meta_keywords=$_POST['meta_keywords'];
+		$meta_desc=$_POST['meta_desc'];
+		
+		if($_FILES['digitalfile']['name']!='')
+		{
+			$digitfilename=$_FILES['digitalfile']['tmp_name'];
+			$digitfilepath="download/".date("YmdHis").$_FILES['digitalfile']['name'];
+			move_uploaded_file($digitfilename,$digitfilepath);
+			
+			 $sql="update  products_table set  category_id = '".$category_id."',sub_category_id ='".$category_parent_id."',sub_under_category_id='".$sub_category_parent_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."',digital_product_path='".$digitfilepath."'  where product_id =".((int)$_GET['prodid'] );
+		}
+		else
+		{
+			$sql="update products_table set  category_id = '".$category_id."',sub_category_id ='".$category_parent_id."',sub_under_category_id='".$sub_category_parent_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."' where product_id =".((int)$_GET['prodid'] );
+		}
+
+		
+		
+		$obj1234=new Bin_Query();
+		if($obj1234->updateQuery($sql))
+		{		
+			// For Image Uploading//
 	
+			if(count($_FILES['ufile']['tmp_name']) > 0)
+			{
+				$obj_insert= new Bin_Query();
+				$product_id=(int)$_GET['prodid'];
+					for($i=0;$i<count($_FILES['ufile']['name']);$i++)
+					{
+						$imgfilename= $_FILES['ufile']['name'][$i];
+						if($imgfilename!='')
+						{
+							$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+							
+							$image="images/products/". $imgfilename; // updated into DB
+							$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
+							$large_image="images/products/large_image/".$imgfilename; // updated large image into DB
+							$stpath=ROOT_FOLDER.$image;
+							$imageDir=ROOT_FOLDER."images/products";
+							$thumbDir=ROOT_FOLDER."images/products/thumb";
+							$largeDir=ROOT_FOLDER."images/products/large_image";
+							if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
+							{
+								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);				
+								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
+								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+							}
+							if($i==0)
+							{	
+								if($_POST['ufile_id'][$i]!='')
+								{
+									$spl="UPDATE product_images_table SET image_path='$image', thumb_image_path='$thumb_image',large_image_path='$large_image' WHERE product_images_id='".$_POST['ufile_id'][$i]."'";
+									$obj_insert->updateQuery($spl);
+								}
+								else
+								{
+									$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','main','$large_image')";
+									$obj_insert->updateQuery($spl);
+								}
+								$update="UPDATE products_table set image='$image',thumb_image='$thumb_image',large_image_path='$large_image' where product_id='".$product_id."'";
+								
+								$obj_insert->updateQuery($update);
+							}
+							else
+							{
+								
+								if($_POST['ufile_id'][$i]!='')
+								{
+									$spl="UPDATE product_images_table SET image_path='$image', thumb_image_path='$thumb_image',large_image_path='$large_image' WHERE product_images_id='".$_POST['ufile_id'][$i]."'";
+								}
+								else
+								{
+									$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','sub','$large_image')";				
+								}
+							}
+							
+							$obj_insert->updateQuery($spl);
+						}
+					}
+					
+	
+					
+				}
+		
+				$output='	<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has been updated successfully</div>';
+
+		}
+		else
+		{
+			$output='	<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has not been updated</div>';
+	
+		}
+		
+		return  $output;
+					
+	}
+	
+	/**
+	 * Function updates the changes made in the gift product details
+	 * 
+	 * 
+	 * @return array
+	 */	 
+	 
+	function updateGiftProduct()
+	{
+
+
+		include('classes/Lib/ThumbImage.php');
+		
+		$category_id=(int)$_POST['selcatgory'];
+		$category_parent_id=(int)$_POST['selsubcatgory'];
+		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
+		$title=$_POST['product_title'];
+		$description=addslashes(htmlentities($_POST['desc']));
+		$sku=$_POST['sku'];
+		$tag=$_POST['tag'];
+		$product_video=htmlentities($_POST['videotag']);
+		
+		if($_POST['intro_date']!='')
+		$intro_date= $_POST['intro_date'];
+		else
+		$intro_date= date('Y/m/d');
+		
+		
+			
+		if($_POST['is_feautured']=='on')
+			$is_feautured=1;
+		else
+			$is_feautured=0;
+			
+		if($_POST['status']=='on')
+			$status=1;
+		else
+			$status=0;	
+		
+		
+		
+		$price=(float)$_POST['price'];
+		$msrp_org=(float)$_POST['msrp_org'];
+		$msrp=$_POST['msrp'];
+		
+		$meta_keywords=$_POST['meta_keywords'];
+		$meta_desc=$_POST['meta_desc'];
+		
+			
+		$sql="update products_table set  category_id = '".$category_id."',sub_category_id ='".$category_parent_id."',sub_under_category_id='".$sub_category_parent_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."' where product_id =".((int)$_GET['prodid'] );
+		
+		$obj1234=new Bin_Query();
+		if($obj1234->updateQuery($sql))
+		{
+		
+			
+			// For Image Uploading//
+	
+			if(count($_FILES['ufile']['tmp_name']) > 0)
+			{
+				$obj_insert= new Bin_Query();
+				$product_id=(int)$_GET['prodid'];
+					for($i=0;$i<count($_FILES['ufile']['name']);$i++)
+					{
+						$imgfilename= $_FILES['ufile']['name'][$i];
+						if($imgfilename!='')
+						{
+							$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+							
+							$image="images/products/". $imgfilename; // updated into DB
+							$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
+							$large_image="images/products/large_image/".$imgfilename; // updated large image into DB
+							$stpath=ROOT_FOLDER.$image;
+							$imageDir=ROOT_FOLDER."images/products";
+							$thumbDir=ROOT_FOLDER."images/products/thumb";
+							$largeDir=ROOT_FOLDER."images/products/large_image";
+							if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
+							{
+								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);				
+								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
+								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+							}
+							if($i==0)
+							{	
+								if($_POST['ufile_id'][$i]!='')
+								{
+									$spl="UPDATE product_images_table SET image_path='$image', thumb_image_path='$thumb_image',large_image_path='$large_image' WHERE product_images_id='".$_POST['ufile_id'][$i]."'";
+									$obj_insert->updateQuery($spl);
+								}
+								else
+								{
+									$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','main','$large_image')";
+									$obj_insert->updateQuery($spl);
+								}
+								$update="UPDATE products_table set image='$image',thumb_image='$thumb_image',large_image_path='$large_image' where product_id='".$product_id."'";
+								
+								$obj_insert->updateQuery($update);
+							}
+							else
+							{
+								
+								if($_POST['ufile_id'][$i]!='')
+								{
+									$spl="UPDATE product_images_table SET image_path='$image', thumb_image_path='$thumb_image',large_image_path='$large_image' WHERE product_images_id='".$_POST['ufile_id'][$i]."'";
+								}
+								else
+								{
+									$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','sub','$large_image')";				
+								}
+							}
+							
+							$obj_insert->updateQuery($spl);
+						}
+					}
+				
+				}
+				
+			$output='	<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has been updated successfully</div>';
+
+		}
+		else
+		{
+			$output='	<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has not been updated</div>';
+	
+		}
+		
+		return  $output;
+					
+	}
 	
 	/**
 	 * Function selects the data from the table need for generating auto complete popup window. 
@@ -1155,4 +1558,6 @@ class Core_Settings_CManageProducts
 		}
 					
 	}
+
+	
 }	

@@ -52,7 +52,7 @@ class Core_Settings_CAddMainCategory
 		{
 		$this->data['showcategory'] = "No Category Found";
 		}
-		$this->makeconstant($this->data);
+		$this->makeconstant($this->data,$prefix='');
 		
     }
 	
@@ -105,7 +105,7 @@ class Core_Settings_CAddMainCategory
 		{
 			$this->data['dispcategory'] = "No Category Found";
 		}
-		$this->makeconstant($this->data);
+		$this->makeconstant($this->data,$prefix='');
 		
     }
 	

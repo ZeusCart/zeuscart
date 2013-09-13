@@ -93,7 +93,7 @@ class Model_MPriceCompare
 		
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
-			
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 			$default=new Core_CNewProducts();
 			$output['newproducts']=$default->newProducts();
 			

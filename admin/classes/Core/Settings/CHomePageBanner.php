@@ -69,7 +69,8 @@ class Core_Settings_CHomePageBanner
 		}
 		else
 		{
-			return '<div class="success_msgbox" style="width:645px;">Not Found</div>';
+			return '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> Not Found</div>';
 		}
 	}
 	
@@ -146,9 +147,11 @@ class Core_Settings_CHomePageBanner
 
 				
 			}
+			
 
 
-			return '<div class="success_msgbox" style="width:645px;"> Home Page Slider Inserted Successfully</div>';
+			return '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Home Page Slider Inserted Successfully</div>';
 				
 
 		}	

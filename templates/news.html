@@ -39,15 +39,7 @@
 </div>
 </div>
 
-<!--<div id="middle">
-<AJDF:output>$newsletter</AJDF:output>
-<AJDF:output>$subcatlandcontent</AJDF:output>
-<AJDF:output>$maincatlandcontent</AJDF:output>
-<AJDF:output>$maincatproduct</AJDF:output>
-<AJDF:output>$product</AJDF:output>
-<AJDF:output>$feturedproduct</AJDF:output>
-</div>
- -->
+
 
 <AJDF:output>include file="footer.html"</AJDF:output>
 <script type="text/javascript">
@@ -55,12 +47,12 @@ function showCat(arg)
 {
 if(document.getElementById('divCat').style.display=='none')
 {
-	arg.src="images/close.jpg";
+	arg.src="<AJDF:output>$smarty.session.base_url</AJDF:output>/images/close.jpg";
 	document.getElementById('divCat').style.display='block';
 }	
 else
 {
-	arg.src="images/expand.jpg";
+	arg.src="<AJDF:output>$smarty.session.base_url</AJDF:output>/images/expand.jpg";
 	document.getElementById('divCat').style.display='none';
 }	
 return false;	

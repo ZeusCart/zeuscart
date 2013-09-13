@@ -26,7 +26,7 @@
  * @category    	Display
  * @author    		AJ Square Inc Dev Team
  * @link   		http://www.zeuscart.com
-  * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
+ * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.
  * @version   		Version 4.0
  */
 class Display_DHome
@@ -46,7 +46,7 @@ class Display_DHome
 			$output=' <ul class="sociallist">';
 			for($i=0;$i<count($arr);$i++)
 			{
-				$output.='<li><a target="_blank" href="'.$arr[$i]['social_link_url'].'" ><img src="'.$arr[$i]['social_link_logo'].'"></a></li>';
+				$output.='<li><a target="_blank" href="'.$arr[$i]['social_link_url'].'" ><img src="'.$_SESSION['base_url'].'/'.$arr[$i]['social_link_logo'].'"></a></li>';
 			}
 			$output.='</ul>';
 		}
@@ -69,7 +69,7 @@ class Display_DHome
 		for ($i=0;$i<count($arr);$i++)
 		{
 		
-		$output.='<a href="userpage/'.$arr[$i]['link_url'].'" name="link" >'.$arr[$i]['link_name'].'</a>';
+		$output.='<a href="'.$_SESSION['base_url'].'/userpage/'.$arr[$i]['link_url'].'" name="link" >'.$arr[$i]['link_name'].'</a>';
 		
 		}
 		$output.='</td></tr> </table></div>';
@@ -85,7 +85,7 @@ class Display_DHome
 	{
 		return '<div style="margin-bottom:14px">
 				<a href="'.$arr['bannerUrl'].'">
-					<img src="'.$arr['bannerImage'].'" width="464" height="174" border="0"/>
+					<img src="'.$_SESSION['base_url'].'/'.$arr['bannerImage'].'" width="464" height="174" border="0"/>
 				</a>
 			</div>';
 	}
@@ -98,19 +98,22 @@ class Display_DHome
 	{
 
 		 $output='<div class="title_fnt">
-		<h1>Find Your Favorite Brand </h1>
+		<h1>All Brands </h1>
 		</div>';
 
 		$srhlist='';
 		foreach(range('A', 'Z') as $letter) {
-   		 $srhlist.='<a href="?do=brands&schltr='.$letter.'" class="btn_address">'.$letter.'</a>';
+   		 $srhlist.='<a href="'.$_SESSION['base_url'].'/index.php?do=brands&schltr='.$letter.'" class="btn_address">'.$letter.'</a>';
 		}
-		$srhlist.='&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="?do=brands&schltr=All"class="btn">All</a>';
+		foreach(range('0', '9') as $letter) {
+   		 $srhlist.='<a href="'.$_SESSION['base_url'].'/index.php?do=brands&schltr='.$letter.'" class="btn_address">'.$letter.'</a>';
+		}
+		$srhlist.='&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="'.$_SESSION['base_url'].'/index.php?do=brands&schltr=All"class="btn">All</a>';
 		$output.='<div class="span12">
 				
 		<div>&nbsp;</div>';
 		
-		$output.='<div style="padding-left:100px;" class="btn-toolbar">
+		$output.='<div  class="btn-toolbar">
 		<div class="btn">'.$srhlist.' 
 		</div>
 		</div>';
@@ -126,7 +129,7 @@ class Display_DHome
 				for($i=0;$i<count($records);$i++)
 				{
 		
-					$output.='<div><h4><a href="?do=viewbrands&brand='.$records[$i]['brand'].'">'.$records[$i]['brand'].'</a></h4></div><br/>';	
+					$output.='<div><h4><a href="'.$_SESSION['base_url'].'/index.php?do=viewbrands&brand='.$records[$i]['brand'].'">'.($i+1).'.'.$records[$i]['brand'].'</a></h4></div><br/>';	
 		
 				}
 		
@@ -143,20 +146,17 @@ class Display_DHome
 		}
 		elseif($_GET['schltr']=='All')
 		{
-
 			if(count($records)>0)
 			{
-				
 				$output.='<div><table>
-					<div class="title_fnt">
-					<h1>'.$_GET['schltr'].' Favorite Brand </h1>
+					<div class="title_fnt">					
 					</div></div><div>&nbsp;</div>';
 
 				for($i=0;$i<count($records);$i++)
 				{
 					
 						
-					$output.='<div><h4><a href="?do=viewbrands&brand='.$records[$i]['brand'].'">'.$records[$i]['brand'].'</a></h4></div><br/>';	
+					$output.='<div><h4><a href="?do=viewbrands&brand='.$records[$i]['brand'].'">'.($i+1).'.'.$records[$i]['brand'].'</a></h4></div><br/>';	
 		
 				}
 		
@@ -192,21 +192,21 @@ class Display_DHome
 				for($i=0;$i<count($records);$i++)
 				{
 					
-					$output.='<li><form name="product" method="post" action="?do=addtocart&prodid='.$records[$i]['product_id'].'">
+					$output.='<li><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$records[$i]['product_id'].'">
                     	
 						<div id="listproduct">';
 
 						if($records[$i]['product_status']==1)
 						{
-							$output.='<div class="ribbion_div"><img src="assets/img/ribbion/new.png" alt="new" /></div> ';
+							$output.='<div class="ribbion_div"><img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new" /></div> ';
 						}
 						elseif($records[$i]['product_status']==2)
 						{
-							$output.='<div class="ribbion_div"><img src="assets/img/ribbion/sale.png" alt="sale" /> </div>';
+							$output.='<div class="ribbion_div"><img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale" /> </div>';
 						}
-						$output.='<div class="productimg"><a href="?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'"><img src="assets/js/timthumb.php?src='.$records[$i]['large_image_path'].'&h=150&w=150&zc=0&s=1&f=4,11&q=100&ct=1" alt="'.$records[$i]['title'].'"> 
+						$output.='<div class="productimg"><a href="?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$records[$i]['large_image_path'].'&h=150&w=150&zc=0&s=1&f=4,11&q=100&ct=1" alt="'.$records[$i]['title'].'"> 
 						</a></div>
-						<div class="description_div"><h3><a href="?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'">'.$records[$i]['title'].'</a></h3>
+						<div class="description_div"><h3><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'">'.$records[$i]['title'].'</a></h3>
 						'.trim($records[$i]['description']).'
 						</div>
 						<div class="dollar_div">
@@ -249,18 +249,18 @@ class Display_DHome
 			{
 				for($i=0;$i<count($records);$i++)
 				{	
-					$output.='<li class="bags"><form name="product" method="post" action="?do=addtocart&prodid='.$records[$i]['product_id'].'">
+					$output.='<li class="bags"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$records[$i]['product_id'].'">
 					';
 				
 					if($records[$i]['product_status']==1)
 					{
-						$output.='<div class="ribbion_div"> <img src="assets/img/ribbion/new.png" alt="new"></div>';
+						$output.='<div class="ribbion_div"> <img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new"></div>';
 					}
 					elseif($records[$i]['product_status']==2)
 					{
-						$output.='<div class="ribbion_div"> <img src="assets/img/ribbion/sale.png" alt="sale"/></div>';
+						$output.='<div class="ribbion_div"> <img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale"/></div>';
 					}
-					$output.='<div class="galleryImage"><img src="assets/js/timthumb.php?src='.$records[$i]['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'">
+					$output.='<div class="galleryImage"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$records[$i]['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'">
 
 					<div class="info">  
 					<h2>'.$records[$i]['title'].'</h2>
@@ -316,6 +316,75 @@ class Display_DHome
 
 		return $output;
 
+
+	}
+	/**
+	* This function is used to Display the Page Info for product detail page
+	* @name pageInfo
+	* @param mixed $arr
+	* @return string
+ 	*/
+	function pageTitle($arr)
+	{
+
+
+		$output.='<title> '.ucfirst($arr[0]['title']).' </title>
+				<meta name="description" content="'. $arr[0]['meta_desc'] .'" />
+				<meta name="keywords" content="'.$arr[0]['meta_keywords'] .'" />';
+		
+		
+			return $output;	
+	}
+	/**
+	* This function is used to Display the site meta information 
+	* @name siteMetaInformation
+	* @param mixed $arr
+	* @return string
+ 	*/
+	function siteMetaInformation($arr)
+	{
+
+		if($arr[0]['meta_kerwords']=='')
+		{
+			$meta_kerwords='zeuscart';			
+		}
+		else
+		{
+			$meta_kerwords=	$arr[0]['meta_kerwords'];
+		}
+		if($arr[0]['meta_description']=='')
+		{
+			$meta_description='zeuscart';			
+		}
+		else
+		{
+			$meta_description=$arr[0]['meta_description'];
+		}
+			$output.='<title>'.ucfirst($arr[0]['site_moto']).' </title>
+			<meta name="keywords" content="'.$meta_kerwords.'" />
+			<meta name="description" content="'.$meta_description.'" />';
+
+		
+		return $output;	
+
+	}
+	/**
+	* This function is used to Display the site meta information 
+	* @name siteMetaInformation
+	* @param mixed $arr
+	* @return string
+ 	*/
+	function pageCategory($arr)
+	{
+
+		
+			 $output.='
+			<title>'.ucfirst($arr[0]['category_name']).' </title>
+			<meta name="keywords" content="" />
+			<meta name="description" content="'.$arr[0]['category_desc'].'" />';
+
+		
+		return $output;	
 
 	}
 }	

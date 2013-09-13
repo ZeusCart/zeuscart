@@ -97,7 +97,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=index");
+				header("Location:".$_SESSION['base_url']."/index.php?do=index");
 				exit();
 			}
 		}
@@ -124,7 +124,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=showcart&action=validateShippingMethod");
+				header("Location:".$_SESSION['base_url']."/index.php?do=showcart&action=validateShippingMethod");
 				exit();
 			}
 		}
@@ -151,7 +151,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=showcart&action=validateShippingAddress");
+				header("Location:".$_SESSION['base_url']."/index.php?do=showcart&action=validateShippingAddress");
 				exit();
 			}
 		}
@@ -179,7 +179,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=showcart&action=validatebillingaddress");
+				header("Location:".$_SESSION['base_url']."/index.php?do=showcart&action=validatebillingaddress");
 				exit();
 			}
 		}
@@ -207,7 +207,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=userregistration");
+				header("Location:".$_SESSION['base_url']."/index.php?do=userregistration");
 				exit();
 			}
 		}
@@ -231,7 +231,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=contactus");
+				header("Location:".$_SESSION['base_url']."/index.php?do=contactus");
 				exit();
 			}
 		}
@@ -255,7 +255,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=login");
+				header("Location:".$_SESSION['base_url']."/index.php?do=login");
 				exit();
 			}
 		}
@@ -280,7 +280,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=myprofile");
+				header("Location:".$_SESSION['base_url']."/index.php?do=myprofile");
 				exit();
 			}
 		}
@@ -305,7 +305,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=forgetpwd");
+				header("Location:".$_SESSION['base_url']."/index.php?do=forgetpwd");
 				exit();
 			}
 		}
@@ -330,7 +330,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=productreview&action=showproductreview&prodid=".$_REQUEST['prodid']);
+				header("Location:".$_SESSION['base_url']."/index.php?do=productreview&action=showproductreview&prodid=".$_REQUEST['prodid']);
 				exit();
 			}
 		}
@@ -356,7 +356,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=addtocart");
+				header("Location:".$_SESSION['base_url']."/index.php?do=addtocart");
 				exit();
 			}
 
@@ -382,7 +382,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{	
-				header("Location:?do=wishlist");
+				header("Location:".$_SESSION['base_url']."/index.php?do=wishlist");
 				exit();
 			}
 		}
@@ -405,7 +405,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{	
-				header("Location:?do=accountinfo");
+				header("Location:".$_SESSION['base_url']."/index.php?do=accountinfo");
 				exit();
 			}
 		}
@@ -429,7 +429,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{	
-				header("Location:?do=changepassword");
+				header("Location:".$_SESSION['base_url']."/index.php?do=changepassword");
 				exit();
 			}
 		}
@@ -453,7 +453,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{	
-				header("Location:?do=addaddress");
+				header("Location:".$_SESSION['base_url']."/index.php?do=addaddress");
 				exit();
 			}
 		}
@@ -479,7 +479,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{	
-				header("Location:?do=showcart&action=showquickregistration");
+				header("Location:".$_SESSION['base_url']."/index.php?do=showcart&action=showquickregistration");
 				exit();
 			}
 		}

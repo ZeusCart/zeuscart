@@ -99,6 +99,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 			UNSET($_SESSION['cartmsg']);
@@ -143,6 +144,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 			UNSET($_SESSION['cartmsg']);
@@ -159,7 +161,6 @@ class Model_MAddCart
 	function addCartFromProductDetail()
 	{
 
-
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -173,7 +174,7 @@ class Model_MAddCart
 			Thank you for purchasing a gift certificate! Once you have completed your order your gift voucher recipient will be sent an email with details how to redeem their gift voucher.
 			</div>';
 		}
-		if(!isset($_SESSION['user_id']))
+		if(!isset($_SESSION['user_id']) && isset($_POST['addtocart']))
 		{
 			$prodid = $_GET['prodid'];
 			
@@ -217,6 +218,8 @@ class Model_MAddCart
 			
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 			UNSET($_SESSION['cartmsg']);
@@ -262,6 +265,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 			UNSET($_SESSION['cartmsg']);
@@ -278,8 +282,6 @@ class Model_MAddCart
 	function showCart() 
 	{
 
-
-	
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -326,6 +328,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -370,6 +373,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -417,6 +421,7 @@ class Model_MAddCart
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
    		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['signup']=Display_DUserRegistration::signUp();
 		$output['cartcount']=Core_CAddCart::countCart();
@@ -469,6 +474,7 @@ class Model_MAddCart
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 		$output['updatecart']=$default->updateCart();
@@ -507,6 +513,8 @@ class Model_MAddCart
 		if(!isset($_SESSION['user_id']))
 		{
 
+
+
 			$prodid = $_GET['prodid'];
 			$_SESSION['RequestUrl'] = '?do=showcart';
 			
@@ -544,6 +552,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -567,7 +576,7 @@ class Model_MAddCart
 	function doQuickRegistration() 
 	{
 
-		
+
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 			
@@ -620,17 +629,18 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			Bin_Template::createTemplate('addtocart.html',$output);
 		
 		}
-		if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+		if(count($_SESSION['mycart'])<count($_SESSION['gift']) && isset($_SESSION['mycart']))
 		{	
-		header("Location:?do=showcart&action=getaddressdetails&chk=$chk");	
+			header("Location:?do=showcart&action=showorderconfirmation&vid=1");		
 		}
 		else
 		{
-		header("Location:?do=showcart&action=showorderconfirmation");	
+			header("Location:?do=showcart&action=getaddressdetails&chk=$chk");
 
 		}
 		
@@ -645,14 +655,14 @@ class Model_MAddCart
 	 */
 	function showBillingDetails()
 	{
+
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
 	
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
-		if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
-		{	
+			
 			
 			if($_SESSION['user_id']!='')
 			{
@@ -693,6 +703,7 @@ class Model_MAddCart
 				$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 				$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 				$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+				$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 				$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 				Bin_Template::createTemplate('addtocart.html',$output);
@@ -701,13 +712,7 @@ class Model_MAddCart
 			{
 				header('Location:?do=showcart');
 			}
-		}
-		else
-		{
-		header("Location:?do=showcart&action=showorderconfirmation");	
 
-		}
-		
 		
 	
 	}
@@ -767,6 +772,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -833,6 +839,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -902,6 +909,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -967,6 +975,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1026,7 +1035,6 @@ class Model_MAddCart
 
 			$output['couponmessage']=Core_CAddCart::validateCoupon();
 
-
 			$output['showcart']=$default->showOrderConfirmation($output['couponmessage']);
 			
 			$output['tagClouds']=Core_CTagClouds::displayTagClouds();
@@ -1034,6 +1042,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1095,6 +1104,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1160,6 +1170,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1225,6 +1236,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1290,6 +1302,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 			
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1355,6 +1368,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1420,6 +1434,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		
 			Bin_Template::createTemplate('addtocart.html',$output);
@@ -1484,6 +1499,7 @@ class Model_MAddCart
 			$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+			$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 			$output['headertext'] = Core_CUserRegistration::showHeaderText();
 	
 			Bin_Template::createTemplate('addtocart.html',$output);

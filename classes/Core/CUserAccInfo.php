@@ -61,7 +61,7 @@ class Core_CUserAccInfo
 	{
 		include('classes/Display/DUserAccount.php');
 		
-		$sqlselect = "SELECT a.user_id,a.user_fname,a.user_lname,a.user_email,a.user_pwd,b.subsciption_id from users_table a,newsletter_subscription_table b where a.user_email=b.email and a.user_status=1 and a.user_id=".$_SESSION['user_id'];	
+		$sqlselect = "SELECT a.user_id,a.user_fname,a.user_lname,a.user_email,a.user_pwd,b.subsciption_id from users_table a,newsletter_subscription_table b where a.user_email=b.email and a.user_status=1 and a.user_id=".$_SESSION['user_id']; 
 		
 		$obj = new Bin_Query();
 
@@ -139,7 +139,7 @@ class Core_CUserAccInfo
 		$pwd=$_POST['txtNPwd'];
 		$obj = new Bin_Query();
 
-		$sqlselect="update users_table set user_pwd='".base64_encode($pwd)."' where user_id=".$_SESSION['user_id']; 
+		$sqlselect="update users_table set user_pwd='".md5($pwd)."' where user_id=".$_SESSION['user_id']; 
 		$obj->updateQuery($sqlselect);
 		
 				

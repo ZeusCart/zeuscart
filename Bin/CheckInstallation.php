@@ -18,38 +18,30 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
-/**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package   		AJDF
- * @author    		AjSquareInc Dev Team
- * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version  		Version 4.0
- * @created   		January 15 2013
- */
 
 /**
  * This class contains functions related to installation  process
  *
  * @package  		Bin
  * @author    		AjSquareInc Dev Team
- * @link   		http://www.zeuscart.com
+ * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
+ * @link    		http://www.zeuscart.com
+ * @version  		Version 4.0
+ * @created   		January 15 2013
  */
+
 /**
 * Checking whether the installation completed or not
 */
 
-/*include_once('Bin/Security.php');
-$obj=new Bin_Configuration();
-
-if($obj->config['HOST']=='') 
-{
-	header('Location: install');
-	exit();
-}*/
+// include_once('Bin/Security.php');
+// $obj=new Bin_Configuration();
+// 
+// if($obj->config['HOST']=='') 
+// {
+// 	header('Location: install');
+// 	exit();
+// }
 
 /**
 * Checking whether the installation folder removed or not
@@ -58,6 +50,6 @@ if($obj->config['HOST']=='')
 if(file_exists('install'))
 {
 	global $install_error;
-	$install_error ='<div align=center style="background-color:#ff0000; border:1px solid #00ff00; color:#ffffff"><img src="images/warning.gif">Warning: Installation directory exists ZEUSCART ROOT DIRECTORY/install. Please remove/rename this directory for security reasons.</div>';	
+	$install_error ='<div align=center style="background-color:#ff0000; border:1px solid #00ff00; color:#ffffff"><img src="assets/img/warning.gif">Warning: Installation directory exists ZEUSCART ROOT DIRECTORY/install. Please remove/rename this directory for security reasons.</div>';	
 }
 ?>

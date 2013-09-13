@@ -18,21 +18,55 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td colspan="3" align="left" class="content_title">Edit Attributes Values</td>
-            <td class="content_title" width="20%" align="right"><a href="javascript:history.back()" class="more_page" onclick="">Back</a></td>
-          </tr>
-          <tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>
-         <tr>
-		  <td>
-		  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">
-			<tr><td class="content_list_head" colspan="3">Edit Attribute Values</td></tr>
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#updateAttributevalues').click(function(){
+    $("#updateAttributevalue").submit();
+  });
+});
+</script>
+
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Edit Attributes Values</h2>
+
+    </div>
+    <div class="span3" >
+
+
+      <ul class="bttn_right">
+      
+        <li><a href="javascript:void(0);" class="update_icon"  id="updateAttributevalues"></a></li>
+          <li> <a href="javascript:history.back()" class="back_icon1"></a></li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+ <AJDF:output>if count($msg) gt 0</AJDF:output>
+       <div class="alert alert-error">
+             			 <button type="button" class="close" data-dismiss="alert">×</button> 
+                <AJDF:output>foreach name=err item=err from=$msg</AJDF:output>
+                <AJDF:output>$err</AJDF:output>
+                <br>
+                <AJDF:output>/foreach</AJDF:output>
+              </div>
+            <AJDF:output>/if</AJDF:output>
+
+<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Update Attributes Values</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+
 <AJDF:output>$dispattributevalues</AJDF:output>   
-</table></td></tr>         
-</table>
-</form>
+</div>
+</div>
+</div>
+</div></div>    
 <AJDF:output>include file="footer.html"</AJDF:output>

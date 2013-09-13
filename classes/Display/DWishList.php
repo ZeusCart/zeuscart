@@ -62,47 +62,47 @@ class Display_DWishList
 		{
 			
 			$output .='<tr>
-        <td width="32%"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
-	$filename=$arr[$i]['thumb_image'];
-	if(file_exists($filename))
-		$output.='<img src="'.$arr[$i]['thumb_image'].'" width=63 height=63 border="0"/>';
-	else
-		$output.=" <img border='0'  src='images/noimage.jpg' width='63' height='63' border='0' />";	
-	$output.='</a></td>
-        <td width="68%"><table width="95%" border="0" align="center" cellpadding="2" cellspacing="2">
-            <tr>
-              <td class="text"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" >'.$arr[$i]['title'].'</a></td>
-              <td valign="top" class="text"><a href="?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'" ><img src="css/default/images/remove.jpg" width="12" height="11" border="0"/></a></td>
-            </tr>
-            <tr>
-              <td align="left" class="rate_text">'.$r[$j]['msrp'].'</td>
-              <td align="left" class="rate_text">&nbsp;</td>
-            </tr>';
-		  
-		  if($arr[$i]['soh']>0)
-			{
-			$output.='
-            <tr>
-              <td width="81%" align="left" class="addtocart"><a href="?do=addtocart&prodid='.$arr[$i]['product_id'].'"><img src="images/addtocart.jpg" border="0"></a></td>
-              <td width="19%" align="left">&nbsp;</td>
-            </tr>';
-			}
-			$output.='
-        </table></td>
-      </tr>';
-	  $limit++;$j++;
+			<td width="32%"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
+			$filename=$arr[$i]['thumb_image'];
+			if(file_exists($filename))
+				$output.='<img src="'.$_SESSION['base_url'].'/'.$arr[$i]['thumb_image'].'" width=63 height=63 border="0"/>';
+			else
+				$output.=" <img border='0'  src='images/noimage.jpg' width='63' height='63' border='0' />";	
+			$output.='</a></td>
+			<td width="68%"><table width="95%" border="0" align="center" cellpadding="2" cellspacing="2">
+			<tr>
+			<td class="text"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" >'.$arr[$i]['title'].'</a></td>
+			<td valign="top" class="text"><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'" ><img src="css/default/images/remove.jpg" width="12" height="11" border="0"/></a></td>
+			</tr>
+			<tr>
+			<td align="left" class="rate_text">'.$r[$j]['msrp'].'</td>
+			<td align="left" class="rate_text">&nbsp;</td>
+			</tr>';
+				
+				if($arr[$i]['soh']>0)
+					{
+					$output.='
+			<tr>
+			<td width="81%" align="left" class="addtocart"><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'"><img src="images/addtocart.jpg" border="0"></a></td>
+			<td width="19%" align="left">&nbsp;</td>
+			</tr>';
+					}
+					$output.='
+			</table></td>
+		</tr>';
+	 	 $limit++;$j++;
 		if($limit!=$cnt)
 			$output .=' <tr><td colspan="2" class="line"></td></tr>';
 		
 		
 		}
 		$output .= '</table></td></tr><tr><td><div width="53%" class="text">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-      <td align=right colspan=2 class="addtowishlist"><a href="?do=wishlist&action=showwishlist">Go to Wishlist </a></td>
-    </tr>
-  </table></div></td></tr></table>';
-		$output.='</div>';
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td align=right colspan=2 class="addtowishlist"><a href="?do=wishlist&action=showwishlist">Go to Wishlist </a></td>
+		</tr>
+		</table></div></td></tr></table>';
+				$output.='</div>';
 		return $output;
 	}
 	/**
@@ -116,11 +116,11 @@ class Display_DWishList
 			$output.='<tr><td class="text"><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">';
 			$output .='<tr><td width="32%"><font color="orange"><b>No item in wishlist</b></font></td></tr>';
 			$output .= '</table></td></tr><tr><td><div width="53%" class="text">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>     
-     <td align=right colspan=2 class="addtowishlist"><a href="?do=wishlist&action=showwishlist">Go to Wishlist </a></td>
-    </tr>
-  </table></div></td></tr></table></div>';
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>     
+		<td align=right colspan=2 class="addtowishlist"><a href="?do=wishlist&action=showwishlist">Go to Wishlist </a></td>
+		</tr>
+		</table></div></td></tr></table></div>';
 			
 			return $output;
 	}
@@ -136,24 +136,24 @@ class Display_DWishList
 	{
 		
 		$output ='<table width="100%" border="0" cellpadding="0" cellspacing="0">
-  	<tr>
-    	<td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="4" class="product_header" >My Wish List </td>
-    </tr>
-    <tr>
-      <td colspan="4" class="product_header" >
-      	<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr>
-            <td width="10%">Product</td>
-            <td width="22%"><label></label></td>
-        <td colspan="2" >Added on</td>
-           
-            <td width="14%">&nbsp;</td>
-          </tr>
-      </table></td>
-    </tr>';
+			<tr>
+			<td colspan="4"></td>
+		</tr>
+		<tr>
+		<td colspan="4" class="product_header" >My Wish List </td>
+		</tr>
+		<tr>
+		<td colspan="4" class="product_header" >
+			<table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+			<tr>
+			<td width="10%">Product</td>
+			<td width="22%"><label></label></td>
+			<td colspan="2" >Added on</td>
+			
+			<td width="14%">&nbsp;</td>
+			</tr>
+		</table></td>
+		</tr>';
 		$cnt =count($arr); 
 		for ($i=0;$i<$cnt;$i++)
 		{
@@ -162,16 +162,16 @@ class Display_DWishList
 							<td class="product_tbbg1">
 				<table width="95%" border="0" align="center" cellpadding="2" cellspacing="2">
 			<tr>
-			  <td align="left"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
-	$filename=$arr[$i]['thumb_image'];
-	if(file_exists($filename))
-		$output.='<img src="'.$arr[$i]['thumb_image'].'" width="90" height="67" border="0"/>';
-	else
-		$output.=" <img border='0'  src='images/noimage.jpg' width='90' height='67'/>";	
-	$output.='</a></td>
+			  <td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">';
+			$filename=$arr[$i]['thumb_image'];
+			if(file_exists($filename))
+				$output.='<img src="'.$_SESSION['base_url'].'/'.$arr[$i]['thumb_image'].'" width="90" height="67" border="0"/>';
+			else
+				$output.=" <img border='0'  src='".$_SESSION['base_url']."/images/noimage.jpg' width='90' height='67'/>";	
+			$output.='</a></td>
 			  </tr>
 			<tr>
-			  <td class="text"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
+			  <td class="text"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
 			</tr>
 			<tr>
 
@@ -196,28 +196,28 @@ class Display_DWishList
 			<br />
 			</span>
 		
-			<a href="?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'" class="ad_text">Remove</a>          </td>
-    </tr>
-    <tr>
-      <td colspan="4" class="line"></td>
-      </tr>';
+			<a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'" class="ad_text">Remove</a>          </td>
+			</tr>
+			<tr>
+			<td colspan="4" class="line"></td>
+			</tr>';
+						
+					}
+					$output.='<table width="85%" border="0" align="right" cellpadding="0" cellspacing="0">
+			<tr>
+			<td colspan="2">&nbsp;</td>
+			<td width="30%">&nbsp;</td>
+			</tr>
+			<tr>
 			
-		}
-		$output.='<table width="85%" border="0" align="right" cellpadding="0" cellspacing="0">
-  <tr>
-    <td colspan="2">&nbsp;</td>
-    <td width="30%">&nbsp;</td>
-  </tr>
-  <tr>
-  
-    <td width="37%"><a href="?do=indexpage" class="All_text_head">
-	<button type="button" class="form-button"><span>Continue shopping </span></button>
-	</a></td>
-    <td width="33%"><a href="?do=wishlist&action=clearwishlist" class="All_text_head"><button type="button" class="form-button"><span>Clear Wishlist</span></button></a></td>';
-	
-	
-    $output .='</tr></table>';
-	$output.='</table>';
+			<td width="37%"><a href="'.$_SESSION['base_url'].'/index.php?do=indexpage" class="All_text_head">
+				<button type="button" class="form-button"><span>Continue shopping </span></button>
+				</a></td>
+			<td width="33%"><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=clearwishlist" class="All_text_head"><button type="button" class="form-button"><span>Clear Wishlist</span></button></a></td>';
+				
+				
+			$output .='</tr></table>';
+				$output.='</table>';
 		
 		return $output;
 	}
@@ -246,21 +246,21 @@ class Display_DWishList
 				<td width="19%">Added on </td>
 				<td width="14%">&nbsp;</td>
 			  </tr>
-		  </table></td>
-		</tr>';
-				$output.='<tr><td class="product_tbbg1" colspan="4" height="50" align="center"><font color="orange"><b>'.$result.'</b></font></td>';
-				$output.='<table width="85%" border="0" align="right" cellpadding="0" cellspacing="0">
-	  <tr>
-		<td colspan="2">&nbsp;</td>
-		<td width="30%">&nbsp;</td>
-	  </tr>
-	  <tr>
-	  
-		<td width="37%" colspan="3" align="center"><a href="?do=indexpage" class="All_text_head"><button type="button" class="form-button"><span>&lt;&lt; Continue Shopping </span></button></a></td>
+			</table></td>
+			</tr>';
+					$output.='<tr><td class="product_tbbg1" colspan="4" height="50" align="center"><font color="orange"><b>'.$result.'</b></font></td>';
+					$output.='<table width="85%" border="0" align="right" cellpadding="0" cellspacing="0">
+		<tr>
+			<td colspan="2">&nbsp;</td>
+			<td width="30%">&nbsp;</td>
+		</tr>
+		<tr>
 		
-		
-	  </tr>
-	  </table>';
+			<td width="37%" colspan="3" align="center"><a href="?do=indexpage" class="All_text_head"><button type="button" class="form-button"><span>&lt;&lt; Continue Shopping </span></button></a></td>
+			
+			
+		</tr>
+		</table>';
 			$output.='</table>';
 			return $output;
 	}
@@ -302,7 +302,7 @@ class Display_DWishList
 			$output['a'] ='<ul class="compare">';
 			for ($i=0;$i<$cnt;$i++)
 			{
-				$output['a'] .= '<li><a href="?do=compareproduct&action=deletecompareproductfromhome&prodid='.$arr[$i]['product_id'].'" style="padding-top:5px;"></a><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" style="padding-left:10px;">'.( (strlen($arr[$i]['title'])>20) ? substr($arr[$i]['title'],0,20).'...' : $arr[$i]['title'] ).'</a></li>';
+				$output['a'] .= '<li><a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=deletecompareproductfromhome&prodid='.$arr[$i]['product_id'].'" style="padding-top:5px;"></a><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" style="padding-left:10px;">'.( (strlen($arr[$i]['title'])>20) ? substr($arr[$i]['title'],0,20).'...' : $arr[$i]['title'] ).'</a></li>';
 						
 		  	}
 			$output['a'].='</ul></td></tr>';
@@ -310,7 +310,7 @@ class Display_DWishList
 			if($cnt>0)
 			{
 				$output['a'] .='<tr>
-        <td class="border1" align="center"><a href="?do=compareproduct&action=deleteallitem"><img src="css/default/images/clearall.jpg" alt="Clear All" border="0" /></a>&nbsp;&nbsp;<a href="?do=compareproduct&action=viewcompareproduct"><img src="css/default/images/compare.jpg" alt="" width="76" height="22" border="0" /></a></td></tr>';
+				<td class="border1" align="center"><a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=deleteallitem"><img src="css/default/images/clearall.jpg" alt="Clear All" border="0" /></a>&nbsp;&nbsp;<a href="?do=compareproduct&action=viewcompareproduct"><img src="css/default/images/compare.jpg" alt="" width="76" height="22" border="0" /></a></td></tr>';
 			}
 			
 			
@@ -383,16 +383,16 @@ class Display_DWishList
 							<td class="compare_remove"><a href="?do=compareproduct&action=deletecompareproduct&prodid='.$arr[$i]['product_id'].'">Remove</a></td>
 						  </tr>
 						  <tr>
-							<td align="center"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="'.$imgPath.'" alt="'.addslashes($arr[$i]['title']).'" width="'.THUMB_WIDTH.'" border=0 /></a></td>
+							<td align="center"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="'.$_SESSION['base_url'].'/'.$imgPath.'" alt="'.addslashes($arr[$i]['title']).'" width="'.THUMB_WIDTH.'" border=0 /></a></td>
 						  </tr>
 						  <tr>
-							<td class="compare_title" align="center"><div class="featureTXT"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></div></td>
+							<td class="compare_title" align="center"><div class="featureTXT"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></div></td>
 						  </tr>
 						  <tr>
 							<td class="compare_title" align="center"><div class="featureTXT"><span><!--$--> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['price']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></div></td>
 						  </tr>
 						  <tr>
-							<td align="left" valign="top" style="padding:5px 0px 0px 10px">'.$ratepath.'</td>
+							<td align="left" valign="top" style="padding:5px 0px 0px 10px">'.$_SESSION['base_url'].'/'.$ratepath.'</td>
 						  </tr>
 						</table>
 					</td>';
@@ -409,7 +409,7 @@ class Display_DWishList
 						  <tr>
 						  
 							<td align="right" valign="top"><input type="button" class="button button_left " /></td>
-							<td><a href="?do=addtocart&prodid='.$arr[$i]['product_id'].'">
+							<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'">
 							<input type="submit" name="Submit222" value="Add to Cart" class="button" /></a></td>
 							<td valign="top"> <input type="button" class="button button_right"> </td>
 						  
@@ -466,14 +466,14 @@ class Display_DWishList
 					<table width="90%" border="0" cellspacing="0" cellpadding="0">
 					  
 					  <tr>
-						<td class="compare_title"><div class="featureTXT"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></div></td>
+						<td class="compare_title"><div class="featureTXT"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></div></td>
 					  </tr>
 					 <tr>
 						<td class="compare_title"><div class="featureTXT"><span><!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].' '.number_format($arr[$i]['price']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span>
 						</div></td>
 					  </tr>					  
 					  <tr>
-						<td align="left" valign="top" style="padding:5px 0px 0px 10px">'.$ratepath.'</td>
+						<td align="left" valign="top" style="padding:5px 0px 0px 10px">'.$_SESSION['base_url'].'/'.$ratepath.'</td>
 					  </tr>
 					  <tr></tr>
 					</table></td>';
@@ -510,13 +510,13 @@ class Display_DWishList
 		$j=0;
 		
 		$output='<div style="margin-top:14px"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td><div class="heading"><span class="headingTXT">My Wishlist</span></div></td>
-        </tr>
-        <tr>
-          <td class="border1" style="padding:7px">';
+        	<tr>
+		<td><div class="heading"><span class="headingTXT">My Wishlist</span></div></td>
+		</tr>
+		<tr>
+		<td class="border1" style="padding:7px">';
       
-	  $cnt =count($arr); 
+	 	 $cnt =count($arr); 
 		for ($i=0;$i<$cnt;$i++)
 		{
 			$filename=$arr[$i]['thumb_image'];
@@ -525,26 +525,26 @@ class Display_DWishList
 			else
 				$imgfile='images/noimage.jpg';
 				
-	  $output.=' <table width="100%" border="0" cellspacing="2" cellpadding="0" class="recent">
+		  $output.=' <table width="100%" border="0" cellspacing="2" cellpadding="0" class="recent">
   			<tr>
-                  <td width="40%" rowspan="2"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="'.$imgfile.'" alt="'.addslashes($arr[$i]['title']).'" width="63" height="63" border="0"/></a></td>
-                  <td width="60%" valign="top" class="recentTXT"><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br />
+                  <td width="40%" rowspan="2"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="'.$_SESSION['base_url'].'/'.$imgfile.'" alt="'.addslashes($arr[$i]['title']).'" width="63" height="63" border="0"/></a></td>
+                  <td width="60%" valign="top" class="recentTXT"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br />
                   </a><span>'.$r[$j]['msrp'].'</span></td>
                 </tr>
-<tr><td align="right" valign="bottom" colspan="2"><a href="?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'"><img src="images/close_button.gif" border="0" title="Remove from my Wishlist" /></a></td></tr>                 </table>';
+		<tr><td align="right" valign="bottom" colspan="2"><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'"><img src="images/close_button.gif" border="0" title="Remove from my Wishlist" /></a></td></tr>                 </table>';
 		}
-	
-	$output.='</td>
-        </tr>
-        <tr>
-          <td valign="top" class="seePRODUCT border1"><a href="?do=wishlist">Go To Wishlist </a></td>
-        </tr>
-        <tr>
-          <td class="roundbox1_bottom"></td>
-        </tr>
-      </table>
-    </div>';
-	return $output;
+
+		$output.='</td>
+		</tr>
+		<tr>
+		<td valign="top" class="seePRODUCT border1"><a href="?do=wishlist">Go To Wishlist </a></td>
+		</tr>
+		<tr>
+		<td class="roundbox1_bottom"></td>
+		</tr>
+		</table>
+		</div>';
+		return $output;
 	}
 	/**
 	* This function is used to Display the snap shot in page 
@@ -554,23 +554,23 @@ class Display_DWishList
 	function snapshotElseForHome()
 	{
 		$output='<div style="margin-top:14px"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td><div class="heading"><span class="headingTXT">My Wishlist</span></div></td>
-        </tr><tr>
-          <td class="border1" style="padding:7px">
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="recent">
-	  			<tr>
-                  <td width="32%"><font color="orange"><b>No item in wishlist</b></font></td></tr></table></td>
-        </tr>
-				  <tr>
-          <td valign="top" class="seePRODUCT border1"><a href="?do=wishlist">Go To Wishlist </a></td>
-        </tr>
-        <tr>
-          <td class="roundbox1_bottom"></td>
-        </tr>
-      </table>
-    </div>';
-	return $output;
+			<tr>
+			<td><div class="heading"><span class="headingTXT">My Wishlist</span></div></td>
+			</tr><tr>
+			<td class="border1" style="padding:7px">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="recent">
+						<tr>
+				<td width="32%"><font color="orange"><b>No item in wishlist</b></font></td></tr></table></td>
+			</tr>
+						<tr>
+			<td valign="top" class="seePRODUCT border1"><a href="?do=wishlist">Go To Wishlist </a></td>
+			</tr>
+			<tr>
+			<td class="roundbox1_bottom"></td>
+			</tr>
+		</table>
+		</div>';
+		return $output;
 	}
 		
 

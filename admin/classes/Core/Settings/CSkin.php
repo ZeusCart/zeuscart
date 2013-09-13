@@ -99,12 +99,14 @@ class Core_Settings_CSkin
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
 			{
-				return '<div class="success_msgbox" style="width:648px;">Updated Successfully</div>';
+				return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Updated Successfully</div>';
 				//$_SESSION['msg']= "Added Successfully";
 			}
 			else
 			{
-				return '<div class="error_msgbox" style="width:648px;">Problem while insert</div>';
+				return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>  Problem while insert</div>';
 				//$_SESSION['msg']= "Problem while insert";
 			}
 		}
@@ -125,13 +127,15 @@ class Core_Settings_CSkin
 		  $file = explode(".",$_FILES['zip_file']['name']);	
 		  if(count($file) > 2  || $file[1] != 'zip')
 		  {			
-  			return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
+  			return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> The file you are attempting to upload is not supported by this server</div>';		
 		  }	 	
 			
 		  $file_ext = strtolower(end(explode(".",$_FILES['zip_file']['name'])));	
 		  if (!in_array ($file_ext, $legal_extentions))
 		  {
-  		  return '<div class="error_msgbox">The file you are attempting to upload is not supported by this server</div>';		
+  		  return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> The file you are attempting to upload is not supported by this server</div>';		
           	  }		
 
 
@@ -148,7 +152,8 @@ class Core_Settings_CSkin
 					return $this->extractZip($dpath);
 				}
 				else 
-					return '<div class="error_msgbox" style="width:648px;">Please Upload Zip File</div>';			
+					return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Please Upload Zip File</div>';			
 			}
 		}
 	}
@@ -181,6 +186,5 @@ class Core_Settings_CSkin
 	}				
 	
 }
-
 
 ?>

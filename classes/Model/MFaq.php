@@ -73,6 +73,7 @@ class Model_MFaq
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();

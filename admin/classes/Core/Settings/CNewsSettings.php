@@ -47,22 +47,27 @@ class Core_Settings_CNewsSettings
 		
 		if(trim($_POST['newstitle'])!='')		
 		{
-		  if($_POST['statusVal']!='')
-			 $status=$_POST['statusVal'];
-		  else
-		     $status=0; 	
+			if($_POST['statusVal']!='')
+				$status=$_POST['statusVal'];
+			else
+				$status=0; 	
 			
-			 $sql = "INSERT INTO news_table (news_title,news_desc,news_date,news_status) VALUES ('".$_POST['newstitle']."','".$_POST['newscontent']."','".date("Y.m.d")."',".$status.")"; 
+			$sql = "INSERT INTO news_table (news_title,news_desc,news_date,news_status) VALUES ('".$_POST['newstitle']."','".$_POST['newscontent']."','".date("Y.m.d")."',".$status.")"; 
 			
 			$query = new Bin_Query();
-		
+
 			if($query->updateQuery($sql))
-		return '<div class="success_msgbox">News <b>'.$_POST['newstitle'].'</b> Created successfully</div> ';
+				return '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Well done!</strong> News <b>'.$_POST['newstitle'].'</b> Created successfully</div> ';
 			else
-				return '<div class="error_msgbox">Error while creating News.</div> ';
+
+				return '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button>Error while creating News.</div>';
 		}
 		else
-			return '<div class="error_msgbox">Error while creating News.</div> ';
+			return '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button>Error while creating News.</div> ';
 
 	}
 	
@@ -77,11 +82,12 @@ class Core_Settings_CNewsSettings
 	
 	function showNews()
 	{
+
 		include("classes/Display/DNewsSettings.php");
 		$pagesize=5;
-	    if(isset($_GET['page']))
+		if(isset($_GET['page']))
 		{
-		    
+
 			$start = trim($_GET['page']-1) *  $pagesize;
 			$end =  $pagesize;
 		}
@@ -103,22 +109,18 @@ class Core_Settings_CNewsSettings
 			$this->data['prev'] =$tmp->prev;
 			$this->data['next'] = $tmp->next;
 			
-		$sql = "SELECT * FROM news_table order by news_date desc LIMIT $start,$end ";
+			$sql = "SELECT * FROM news_table order by news_date desc LIMIT $start,$end ";
 			$query1 = new Bin_Query();
 			
-			if($query1->executeQuery($sql))
-			{
-				return Display_DNewsSettings::showNews($query1->records,1,$this->data['paging'],$this->data['prev'],$this->data['next']);
-			}
+			$query1->executeQuery($sql);
+			
+			
+
 		}
-		else
-		{
-			return "No News Found";
-		}
-	
+		return Display_DNewsSettings::showNews($query1->records,1,$this->data['paging'],$this->data['prev'],$this->data['next']);
 	}
-	
-	
+
+
 	/**
 	 * Function gets the news details from the news table for the selected news id 
 	 * 
@@ -128,10 +130,10 @@ class Core_Settings_CNewsSettings
 
 	
 	function viewNews()
-    {
-        include("classes/Display/DNewsSettings.php");
+	{
+		include("classes/Display/DNewsSettings.php");
 		
-		 $sql = "SELECT * FROM news_table where news_id=".(int)$_GET['id'];
+		$sql = "SELECT * FROM news_table where news_id=".(int)$_GET['id'];
 		
 		
 		$query = new Bin_Query();
@@ -141,11 +143,12 @@ class Core_Settings_CNewsSettings
 		}
 		else
 		{
-			return '<div class="success_msgbox">No News Found</div>';
+			return '<div class="alert alert-info">
+				<button type="button" class="close" data-dismiss="alert">×</button>No News Found.</div>';
 		}
 		
 		
-    }
+	}
 	
 	/**
 	 * Function updates the changes in the news details into the table 
@@ -162,10 +165,12 @@ class Core_Settings_CNewsSettings
 		$query = new Bin_Query();
 		
 		if($query->updateQuery($sql))
-		$_SESSION['msg'] = '<div class="success_msgbox">News Updated successfully</div> ';
-			
+			$_SESSION['msg'] = '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Well done!</strong> News Updated successfully</div> ';
+
 			//$_SESSION['msg']= "Updated Successfully";
-			
+
 	}
 	
 	/**
@@ -177,28 +182,31 @@ class Core_Settings_CNewsSettings
 	
 	function deleteNews()
 	{
-		
-	
-		if(isset($_POST['deletenews']) &&  $_POST['deletenews']!='' )
-        {
-		   $value=$_POST['deletenews'];
-		   $id='';
-	
-		   for ($i=0;$i<count($value);$i++)
-			   $id.= "'".$value[$i]."',"; 
-	
-		   $newsid=substr($id,0,-1);
-		   $sql = "DELETE FROM news_table WHERE news_id in(".$newsid.")";
-		   $query = new Bin_Query();
+
+
+		if(isset($_POST['newscheck']) &&  $_POST['newscheck']!='' )
+		{
+			$value=$_POST['newscheck'];
+			$id='';
+
+			for ($i=0;$i<count($value);$i++)
+				$id.= "'".$value[$i]."',"; 
+
+			$newsid=substr($id,0,-1);
+			$sql = "DELETE FROM news_table WHERE news_id in(".$newsid.")";
+			$query = new Bin_Query();
 			
-		   if($query->updateQuery($sql))
-		   $_SESSION['msg'] = '<div class="success_msgbox">News  Deleted Successfully</div>';
+			if($query->updateQuery($sql))
+				$_SESSION['msg'] = '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Well done!</strong> News  Deleted Successfully</div>';
 		  //return '<div class="success_msgbox">News  Deleted Successfully</div>';
 		}
 		else
-		 $_SESSION['msg'] = '<div class="error_msgbox">Please Select Atleast One News for Delete </div>';
+			$_SESSION['msg'] = '<div class="alert alert-error">
+		<button type="button" class="close" data-dismiss="alert">×</button> Please Select Atleast One News for Delete </div>';
 		 //return '<div class="error_msgbox">Please Select Atleast One News for Delete </div>';	
-			
+
 	}
 	
 	/**
@@ -212,18 +220,20 @@ class Core_Settings_CNewsSettings
 	{
 		
 		if($_GET['status']==1)
-		$status=0;
+			$status=0;
 		else
-		$status=1;
+			$status=1;
 		
-	
-	    $sql = "UPDATE  news_table set news_status=".$status." WHERE news_id=".(int)$_GET['id']; 
+
+		$sql = "UPDATE  news_table set news_status=".$status." WHERE news_id=".(int)$_GET['id']; 
 
 		$query = new Bin_Query();
 		
 		if($query->updateQuery($sql))
-			return '<div class="success_msgbox">News  Status Modified</div>';
-			
+			return '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Well done!</strong> News  Status Modified</div>';
+
 	}
 	
 	

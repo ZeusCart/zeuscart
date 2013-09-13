@@ -43,11 +43,12 @@
 		$output='';
 		if(file_exists(ROOT_FOLDER . $arr[0]['set_value']))
 		{
-		$output = '<tr>
-          <td align="left" class="content_form" valign="center">
-	       Site Logo:</td>
-		   <td class="content_form" >
-		   <img src="'.ROOT_FOLDER.$arr[0]['set_value'].'" name="logo" /></td></tr>';	
+			$output = '
+			<div class="row-fluid">
+   			 <div class="span2" style="margin-top:30px;">
+	      		 <label>Site Logo</label></div> <div class="span10" style="float:left;">
+		  
+		   	<img src="'.ROOT_FOLDER.$arr[0]['set_value'].'" name="logo" /></div></div>';	
 		}			
 		return $output;
 	}

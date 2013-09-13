@@ -52,52 +52,164 @@ class Display_DUserRegistration
  	*/
 	function showHeaderMenu($arr)
 	{
+// 		$cnt= count($arr);
+// 		if($cnt>0)
+// 		{
+// 			for($i=0;$i<$cnt;$i++)
+// 			{
+// 
+// 
+// 				$output.='<li><a href="'.$_SESSION['base_url'].'/'.urlencode($arr[$i]['category_name']).'.html" class="arrow">'.$arr[$i]['category_name'].'</a>
+// 				<div class="mega-menu full-width">';
+// 					$sqlsub="SELECT * FROM  category_table WHERE  category_parent_id='".$arr[$i]['category_id']."' AND sub_category_parent_id ='0'";
+// 					$objsub=new Bin_Query();
+// 					$objsub->executeQuery($sqlsub);
+// 					$recordssub=$objsub->records;
+// 					for($j=0;$j<count($recordssub);$j++)
+// 					{
+// 
+// 
+// 						$output.='<div class="col-1">
+// 						<a href="'.$_SESSION['base_url'].'/'.urlencode($arr[$i]['category_name']).'/'.urlencode($recordssub[$i]['category_name']).'.html"><h4>'.$recordssub[$j]['category_name'].'</h4></a>
+// 						<ol>';
+// 							
+// 							$query = new Bin_Query(); 
+// 							$sql = "SELECT * FROM `category_table` WHERE sub_category_parent_id =".$recordssub[$j]['category_id']." AND category_status =1 order by category_name limit 16";
+// 							$query->executeQuery($sql);
+// 							$count=count($query->records);
+// 							$records=$query->records;
+// 							if($count>0)
+// 							{
+// 
+// 
+// 								for($k=0;$k<$count;$k++)
+// 								{
+// 									$output.='<li><a href="'.$_SESSION['base_url'].'/'.urlencode($arr[$i]['category_name']).'/'.urlencode($recordssub[$i]['category_name']).'/'.$records[$k]['category_name'].'.html">'.$records[$k]['category_name'].'</a></li>';
+// 	
+// 								}
+// 							}
+// 						$output.='</ol>
+// 						</div>';
+// 	
+// 	
+// 					}
+// 	
+// 					
+// 					$output.='</div>
+// 					</li>';
+// 	
+// 			}
+// 	
+// 		}
+		
+
 		$cnt= count($arr);
 		if($cnt>0)
 		{
 			for($i=0;$i<$cnt;$i++)
 			{
-				$output.='<li><a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'" class="arrow">'.$arr[$i]['category_name'].'</a>
+				$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $arr[$i]['category_name']);
+				$sluggable = trim($sluggable, '-');
+				if( function_exists('mb_strtolower') ) { 
+					$sluggable = mb_strtolower( $sluggable );
+				} else { 
+					$sluggable = strtolower( $sluggable );
+				}
+
+				$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+				$output.='<li><a href="'.$_SESSION['base_url'].'/'.$sluggable.'.html" class="arrow">'.$arr[$i]['category_name'].'</a>
 				<div class="mega-menu full-width">';
-					$sqlsub="SELECT * FROM  category_table WHERE  category_parent_id='".$arr[$i]['category_id']."' AND sub_category_parent_id ='0'";
-					$objsub=new Bin_Query();
-					$objsub->executeQuery($sqlsub);
-					$recordssub=$objsub->records;
-					for($j=0;$j<count($recordssub);$j++)
-					{
-						$output.='<div class="col-1">
-						<a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'"><h4>'.$recordssub[$j]['category_name'].'</h4></a>
-						<ol>';
-							
-							$query = new Bin_Query(); 
-							$sql = "SELECT * FROM `category_table` WHERE sub_category_parent_id =".$recordssub[$j]['category_id']." AND category_status =1 order by category_name limit 16";
-							$query->executeQuery($sql);
-							$count=count($query->records);
-							$records=$query->records;
-							if($count>0)
-							{
-								for($k=0;$k<$count;$k++)
-								{
-									$output.='<li><a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'&subundercat='.$records[$k]['category_name'].'">'.$records[$k]['category_name'].'</a></li>';
-	
-								}
-							}
-						$output.='</ol>
-						</div>';
-	
-	
-	
-					}
-	
+				$output.=self::getSubFamilies(0,$arr[$i]['category_id'],0);
 					
 					$output.='</div>
 					</li>';
 	
 			}
-	
+			
 		}
 		
 		return $output;
+	}
+	/**
+	 * Function generates an drop down list for the sub category  
+	 * 
+	 * 
+	 * @return array
+	 */		
+	function getSubFamilies($level,$id,$k) {
+	
+		$level++;
+		
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id.""; 
+		$resultSubFamilies = mysql_query($sqlSubFamilies);
+		if (mysql_num_rows($resultSubFamilies) > 0 ) {
+			
+			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies )) {
+				$k=$k+10;
+				$categoryname=self::getSubFamiliesPath($rowSubFamilies['subcat_path']);
+
+				if($rowSubFamilies['category_id'])
+					
+					if($level=='1')
+					{
+
+						$output.='<div class="col-1"><ol><a href="'.$_SESSION['base_url'].'/'.$categoryname.'.html"><h4>'.$rowSubFamilies['category_name'].'</h4></a>';	
+						$output.=self::getSubFamilies($level, $rowSubFamilies['category_id'],$k);	
+						$output.='</ol></div>';	
+					}
+					else
+					{
+
+						$output.='
+						<li ><a href="'.$_SESSION['base_url'].'/'.$categoryname.'.html"> '.$rowSubFamilies['category_name'].'</a></li>';
+						
+						$output.=self::getSubFamilies($level, $rowSubFamilies['category_id'],$k);
+		
+						
+					}
+
+				}
+				
+				
+		}
+		
+		return $output;
+	} 
+	/**
+	 * Function gets the sub category name
+	 * 
+	 * 
+	 * @return array
+	 */
+	function getSubFamiliesPath($cat)
+	{
+		 $cat=explode(',',$cat);
+
+		for($m=0;$m<count($cat);$m++)
+		{
+			$sql = "SELECT * from category_table WHERE  category_id = ".$cat[$m].""; 
+			$obj=new Bin_Query();
+			$obj->executeQuery($sql);
+			$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $obj->records[0]['category_name']);
+			$sluggable = trim($sluggable, '-');
+			if( function_exists('mb_strtolower') ) { 
+				$sluggable = mb_strtolower( $sluggable );
+			} else { 
+				$sluggable = strtolower( $sluggable );
+			}
+			$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+		
+			if($m<(count($cat)-1))
+			{
+				$catname.=$sluggable. '/';
+			}
+			else
+			{
+				$catname.=$sluggable;
+			}	
+		}
+		return $catname;
 	}
 	/**
 	* This function is used to Display the Header Menu Hidden Desktop for mobile,,tablet
@@ -112,7 +224,7 @@ class Display_DUserRegistration
 		{
 			for($i=0;$i<$cnt;$i++)
 			{
-				$output.='<li><a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'" class="arrow">'.$arr[$i]['category_name'].'</a></li>';
+				$output.='<li class="menuselect"><a href="'.$_SESSION['base_url'].'/index.php?do=viewproducts&cat='.$arr[$i]['category_name'].'" class="arrow">'.$arr[$i]['category_name'].'</a></li>';
 
 					$sqlsub="SELECT * FROM  category_table WHERE  category_parent_id='".$arr[$i]['category_id']."' AND sub_category_parent_id ='0'";
 					$objsub=new Bin_Query();
@@ -121,7 +233,7 @@ class Display_DUserRegistration
 					for($j=0;$j<count($recordssub);$j++)
 					{
 						$output.='<li>
-						<a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'"><h4>'.$recordssub[$j]['category_name'].'</h4></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'"><h4><img src="'.$_SESSION['base_url'].'/assets/img/s-arrow.png">&nbsp;'.$recordssub[$j]['category_name'].'</h4></a>
 						</li>';
 							
 							$query = new Bin_Query(); 
@@ -133,7 +245,7 @@ class Display_DUserRegistration
 							{
 								for($k=0;$k<$count;$k++)
 								{
-									$output.='<li><a href="?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'&subundercat='.$records[$k]['category_name'].'">'.$records[$k]['category_name'].'</a></li>';
+									$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'&subundercat='.$records[$k]['category_name'].'">-&nbsp;'.$records[$k]['category_name'].'</a></li>';
 	
 								}
 							}
@@ -159,7 +271,7 @@ class Display_DUserRegistration
 		$output='<ul class="categoriesList">';
 		for($i=0;$i<$cnt;$i++)
 		{
-			$output.='<li><a href="?do=featured&action=showfeaturedproduct&subcatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></li>';
 		}
 		$output.='</ul>';
 		return $output;
@@ -173,7 +285,7 @@ class Display_DUserRegistration
 	function showMyProfile($arr)
 	{
 		$pswd  = base64_decode($arr[0]['user_pwd']);
-		$out ='<form id="form1" name="form1" method="post" action="?do=myprofile&action=updateMyProfile">
+		$out ='<form id="form1" name="form1" method="post" action="'.$_SESSION['base_url'].'/index.php?do=myprofile&action=updateMyProfile">
           <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="table">
             <tr>
               <td class="product_header" >My Profile</td>
@@ -272,8 +384,8 @@ class Display_DUserRegistration
 	function signUp()
 	{
 		if($_SESSION['user_id']=='')
-				$output='<td align="left"><img src="images/ico_register.png" alt="" width="25" height="25" /></td>
-            <td align="left"><a href="?do=userregistration">Sign Up</a></td>
+				$output='<td align="left"><img src="'.$_SESSION['base_url'].'/images/ico_register.png" alt="" width="25" height="25" /></td>
+            <td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=userregistration">Sign Up</a></td>
             <td width="4%" align="left" class="separator">&nbsp;</td>';
 		else
 			$output='';
@@ -310,76 +422,84 @@ class Display_DUserRegistration
                    	 <ul class="accountlists">';
 			if($_GET['do']=='dashboard')
 			{
-				$output.='<li><a href="?do=dashboard" class="select"><i class="icon-chevron-right"></i> Account Dashboard</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard" class="select"><i class="icon-chevron-right"></i> Account Dashboard</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="?do=dashboard" class="unselect"><i class="icon-chevron-right"></i> Account Dashboard</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard" class="unselect"><i class="icon-chevron-right"></i> Account Dashboard</a></li>';
 			}	
 				
 			if($_GET['do']=='accountinfo')
 			{
-				$output.='<li><a href="?do=accountinfo" class="select"><i class="icon-chevron-right"></i> Account Information</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo" class="select"><i class="icon-chevron-right"></i> Account Information</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="?do=accountinfo" class="unselect"><i class="icon-chevron-right"></i> Account Information</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo" class="unselect"><i class="icon-chevron-right"></i> Account Information</a></li>';
 			}
 			if($_GET['do']=='changepassword')
 			{
-				$output.='<li><a href="?do=changepassword" class="select"><i class="icon-chevron-right"></i> Change Password</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=changepassword" class="select"><i class="icon-chevron-right"></i> Change Password</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="?do=changepassword" class="unselect"><i class="icon-chevron-right"></i>Change Password</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=changepassword" class="unselect"><i class="icon-chevron-right"></i>Change Password</a></li>';
 			}
 			
                     	if($_GET['do']=='addressbook' || $_GET['do']=='addaddress')
 			{
-				$output.='<li><a href="?do=addressbook" class="select"><i class="icon-chevron-right"></i> Address Book</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=addressbook" class="select"><i class="icon-chevron-right"></i> Address Book</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="?do=addressbook" class="unselect"><i class="icon-chevron-right"></i> Address Book</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=addressbook" class="unselect"><i class="icon-chevron-right"></i> Address Book</a></li>';
 			}
                     	if($_GET['do']=='myorder' || $_GET['do']=='orderdetail')
 			{
-				$output.='<li><a href="?do=myorder" class="select"><i class="icon-chevron-right"></i> My Orders</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder" class="select"><i class="icon-chevron-right"></i> My Orders</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="?do=myorder" class="unselect"><i class="icon-chevron-right"></i> My Orders</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder" class="unselect"><i class="icon-chevron-right"></i> My Orders</a></li>';
 			}
                     	if($_GET['do']=='orders')
 			{
-				$output.='<li><a href="?do=orders" class="select"><i class="icon-chevron-right"></i> My Product Reviews</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders" class="select"><i class="icon-chevron-right"></i> My Product Reviews</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="?do=orders" class="unselect"><i class="icon-chevron-right"></i> My Product Reviews</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders" class="unselect"><i class="icon-chevron-right"></i> My Product Reviews</a></li>';
 			}
  
 			if($_GET['do']=='newsletter')
 			{
-			$output.='<li><a href="?do=newsletter" class="select"><i class="icon-circle-arrow-right"></i>Newsletter Subscriptions</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter" class="select"><i class="icon-circle-arrow-right"></i>Newsletter Subscriptions</a></li>';
 			}
 			else
 			{	
-			$output.='<li><a href="?do=newsletter" class="unselect"><i class="icon-circle-arrow-right"></i>Newsletter Subscriptions</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter" class="unselect"><i class="icon-circle-arrow-right"></i>Newsletter Subscriptions</a></li>';
 			}
 			if($_GET['do']=='wishlist')
 			{
-			$output.='<li><a href="?do=wishlist" class="select"><i class="icon-circle-arrow-right"></i>My Wishlist</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist" class="select"><i class="icon-circle-arrow-right"></i>My Wishlist</a></li>';
 			}
 			else
 			{
-			$output.='<li><a href="?do=wishlist" class="unselect"><i class="icon-circle-arrow-right"></i>My Wishlist</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist" class="unselect"><i class="icon-circle-arrow-right"></i>My Wishlist</a></li>';
+			}
+			if($_GET['do']=='digitdown')
+			{
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=digitdown" class="select"><i class="icon-circle-arrow-right"></i>My Downloads</a></li>';
+			}
+			else
+			{
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=digitdown" class="unselect"><i class="icon-circle-arrow-right"></i>My Downloads</a></li>';
 			}
                    $output.=' </ul>
             </div>
@@ -388,29 +508,48 @@ class Display_DUserRegistration
 	}
 
  	/**
+	* This function is used to Display the Dynamic cms
+	* @param mixed $arr
+	* @return string
+ 	*/
+	function showDynamicCms($arr)
+	{
+		$output='<a href="'.$_SESSION['base_url'].'/index.php?do=indexpage">Home</a>&nbsp;';
+		for($i=0;$i<count($arr);$i++)
+		{	
+		
+			$output.='<a href="'.$_SESSION['base_url'].'/index.php?do=dynamiccms&id='.
+			$arr[$i]['cms_id'].'">'.$arr[$i]['cms_page_title'].'</a>&nbsp;';
+				
+				
+		}
+		
+	   return $output;
+	}
+	/**
 	* This function is used to Display the Main Menu in Header
 	* @param mixed $arr
 	* @return string
  	*/
 	function showHeaderMainMenu($arr)
 	{
-		$output='<div id="chromemenu"><ul><li><a href="?do=indexpage">Home</a></li>';
+		$output='<a href="'.$_SESSION['base_url'].'/index.php?do=indexpage">Home</a>&nbsp;';
 		for($i=0,$j=0;$i<count($arr);$i++)
 		{	
 			if(file_exists($arr[$i]['page_url']))
 			{
 				if($j<5)
-					$output.='<li><a href="'.$arr[$i]['page_url'].'">'.$arr[$i]['page_name'].'</a></li>';
+					$output.='<a href="'.$_SESSION['base_url'].'/index.php'.$arr[$i]['page_url'].'">'.$arr[$i]['page_name'].'</a>&nbsp;';
 				else if($j==5)
-					$output.='<li><a href="#" rel="dropmenu7">&nbsp;More</a></li></ul></div>
+					$output.='<a href="#" rel="dropmenu7">&nbsp;More</a>
 							  <div id="dropmenu7" class="dropmenudiv">
-							  <a href="'.$arr[$i]['page_url'].'">'.$arr[$i]['page_name'].'</a>';
+							  <a href="'.$arr[$i]['page_url'].'">'.$arr[$i]['page_name'].'</a>&nbsp;';
 				else	
 					$output.='<a href="'.$arr[$i]['page_url'].'">'.$arr[$i]['page_name'].'</a>';
 				$j++;	
 			}		
 		}
-		$output.='</div>';
+		
 	   return $output;
 	}
 	/**
@@ -481,7 +620,7 @@ class Display_DUserRegistration
 			$output='<select class="select_dollar" onchange="selectCurrency(this.value)">';
 			for($i=0;$i<count($recordSet);$i++)
 			{	
-				if($_SESSION['currencysetting']['selected_currency_id']==$recordSet[$i]['id'])
+				if($_SESSION['currencysetting']['selected_currency_id']['']==$recordSet[$i]['id'])
 				{
 					$selected='selected';
 				}

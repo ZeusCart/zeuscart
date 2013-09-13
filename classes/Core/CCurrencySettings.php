@@ -46,18 +46,16 @@ class Core_CCurrencySettings
 	 */
 	function getDefaultCurrency()
 	{
-		$sql="SELECT currency_name,currency_code,country_code,conversion_rate,currency_tocken FROM currency_master_table WHERE id=1 AND default_currency=1";
+		$sql="SELECT currency_name,currency_code,country_code,conversion_rate,currency_tocken FROM currency_master_table WHERE id=1 AND default_currency=1"; 
 		$qry=new Bin_Query();
 		$qry->executeQuery($sql);
-		
-			
-		$_SESSION['currencysetting']['default_currency']=$qry->records[0];
-		if ( ($_SESSION['currencysetting']['selected_currency_id']==0) || ($_SESSION['currencysetting']['selected_currency_id']=='') ||(!(isset($_SESSION['currencysetting']['selected_currency_id']))) )
+		if($_SESSION['currencysetting']['selected_currency_id']=='')
 		{
+			$_SESSION['currencysetting']['default_currency']=$qry->records[0];
 			$_SESSION['currencysetting']['selected_currency_id']=1;
-			$_SESSION['currencysetting']['selected_currency_settings']=$qry->records[0];
+			$_SESSION['currencysetting']['selected_currency_settings']=$qry->records[0]; 
 		}
-	
+			
 		
 	}
 	/**
@@ -68,12 +66,13 @@ class Core_CCurrencySettings
 	 */
 	function changeCurrency()
 	{
-		$selcurrsql="SELECT currency_name,currency_code,country_code,conversion_rate,currency_tocken FROM currency_master_table WHERE id=".(int)$_GET['id'];
+		UNSET($_SESSION['currencysetting']);
+		 $selcurrsql="SELECT currency_name,currency_code,country_code,conversion_rate,currency_tocken FROM currency_master_table WHERE id=".(int)$_GET['id']; 
 		$selcurrqry=new Bin_Query();
 		if ($selcurrqry->executeQuery($selcurrsql))
 		{
-			$_SESSION['currencysetting']['selected_currency_id']=(int)$_GET['id'];
-			$_SESSION['currencysetting']['selected_currency_settings']=$selcurrqry->records[0];;
+			$_SESSION['currencysetting']['selected_currency_id']=$_GET['id'];
+			$_SESSION['currencysetting']['selected_currency_settings']=$selcurrqry->records[0];
 		}
 		
 		header('Location:'.$_SERVER['HTTP_REFERER']);

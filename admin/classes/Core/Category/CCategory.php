@@ -88,7 +88,7 @@ class Core_Category_CCategory
 		$components = new Lib_Components();
 		$this->data['allatt'] = $components->createComponent('combobox',$this->getAttribListValues('attrib'),'name=id 		class=attrib_box',$_GET['attid']);
 		
-		$this->makeConstants($this->data);
+		$this->makeConstants($this->data,$prefix='');
 	}
 	
 	

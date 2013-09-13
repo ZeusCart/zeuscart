@@ -72,8 +72,10 @@ class Model_MUserAccount
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();		
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['result'] = $result;
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
@@ -117,6 +119,7 @@ class Model_MUserAccount
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
@@ -160,12 +163,13 @@ class Model_MUserAccount
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['result'] = $result;					
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
-		$output['cartcount']=Core_CAddCart::countCart();
-	
+		$output['cartcount']=Core_CAddCart::countCart();	
 		$output['userRight'] = "userdashboard.html";					
 		$output['rows']=Core_CUserAccInfo::showAccInfo();
 
@@ -207,6 +211,8 @@ class Model_MUserAccount
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['result'] = $result;					
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
@@ -293,6 +299,8 @@ class Model_MUserAccount
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
@@ -345,7 +353,9 @@ class Model_MUserAccount
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['divStat']=Core_CUserWishList::getStatus();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
-		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();	
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();			$output['cartcount']=Core_CAddCart::countCart();	
 		$output['userRight'] = "userWishlist.html";					
 		$output['rows']=Core_CUserWishList::showWishList($result);
@@ -419,6 +429,9 @@ class Model_MUserAccount
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
@@ -462,6 +475,9 @@ class Model_MUserAccount
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();
 		$output['cartcount']=Core_CAddCart::countCart();			
@@ -503,6 +519,9 @@ class Model_MUserAccount
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		//$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
@@ -546,8 +565,10 @@ class Model_MUserAccount
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-				
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();		
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();
 		$output['cartcount']=Core_CAddCart::countCart();
 		$output['userRight'] = "userdashboard.html";					
@@ -588,10 +609,11 @@ class Model_MUserAccount
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();	
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();	
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['result'] = $result;
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
 		$output['cartcount']=Core_CAddCart::countCart();				
@@ -636,7 +658,8 @@ class Model_MUserAccount
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['result'] = $result;
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();	
 		$output['cartcount']=Core_CAddCart::countCart();		
@@ -680,10 +703,11 @@ class Model_MUserAccount
 		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
 		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();		
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['result'] = $result;
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();	
 		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();			$output['cartcount']=Core_CAddCart::countCart();		
 		$output['userRight'] = "userdashboard.html";					
@@ -760,5 +784,125 @@ class Model_MUserAccount
 		}
 	}
 
+	/**
+	* This function is used to print the order details 
+ 	*
+ 	* @return string
+	*/
+	function printOrderDetails()
+	{
+
+		include('classes/Core/CUserOrder.php');
+		
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+
+		Core_CUserOrder::printOrderDetail();	
+
+	}
+	/**
+	* This function is used to show  the digital product for my downloads
+ 	*
+ 	* @return string
+	*/
+	function showDigitalProduct()
+	{
+		$this->checkLogin();	
+		include('classes/Core/CKeywordSearch.php');
+		include('classes/Display/DKeywordSearch.php');
+		include('classes/Core/CUserRegistration.php');
+		include('classes/Display/DUserRegistration.php');
+		include_once('classes/Core/CUserWishList.php');
+		include_once('classes/Core/CHome.php');
+		include("classes/Lib/HandleErrors.php");
+		include_once('classes/Core/CLastViewedProducts.php');
+		include_once('classes/Display/DLastViewedProducts.php');
+		include_once('classes/Core/CAddCart.php');
+		include_once('classes/Core/CUserOrder.php');
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+		
+		Core_CUserWishList::Ulogin($Err);
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
+
+		$output['sitelogo']=Core_CHome::getLogo();
+		$output['pagetitle']=Core_CHome::pageTitle();
+		$output['timezone']=Core_CHome::setTimeZone();	
+		$output['currentDate']=date('D,M d,Y - h:i A');
+		$output['skinname']=Core_CHome::skinName();
+		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		$output['divStat']=Core_CUserWishList::getStatus();
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();	
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();			$output['cartcount']=Core_CAddCart::countCart();	
+		$output['userRight'] = "userdashboard.html";					
+		$output['rows']=Core_CUserOrder::showDigitalProduct($result);
+
+		
+		Bin_Template::createTemplate('userIndex.html',$output);
+	}
+	/**
+	* This function is used to  check and download digital product for my downloads
+ 	*
+ 	* @return string
+	*/
+	function CheckDigitalProduct()
+	{
+		$this->checkLogin();	
+		include('classes/Core/CKeywordSearch.php');
+		include('classes/Display/DKeywordSearch.php');
+		include('classes/Core/CUserRegistration.php');
+		include('classes/Display/DUserRegistration.php');
+		include_once('classes/Core/CUserWishList.php');
+		include_once('classes/Core/CHome.php');
+		include("classes/Lib/HandleErrors.php");
+		include_once('classes/Core/CLastViewedProducts.php');
+		include_once('classes/Display/DLastViewedProducts.php');
+		include_once('classes/Core/CAddCart.php');
+		include_once('classes/Core/CUserOrder.php');
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+		
+		Core_CUserWishList::Ulogin($Err);
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
+
+		$output['sitelogo']=Core_CHome::getLogo();
+		$output['pagetitle']=Core_CHome::pageTitle();
+		$output['timezone']=Core_CHome::setTimeZone();	
+		$output['currentDate']=date('D,M d,Y - h:i A');
+		$output['skinname']=Core_CHome::skinName();
+		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['googlead']=Core_CHome::getGoogleAd();
+		$output['footer']=Core_CHome::footer();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headertext'] = Core_CUserRegistration::showHeaderText();
+		$output['divStat']=Core_CUserWishList::getStatus();
+		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();	
+		$output['lastviewedproducts']=Core_CLastViewedProducts::lastViewedProducts();			$output['cartcount']=Core_CAddCart::countCart();	
+		$output['userRight'] = "userdashboard.html";					
+		$output['rows']=Core_CUserOrder::CheckDigitalProduct($result);
+
+		
+		Bin_Template::createTemplate('userIndex.html',$output);
+	}
 }
 ?>

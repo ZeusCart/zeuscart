@@ -63,75 +63,75 @@ class Display_DProductReview
 			$output['val']=$Err->values;
 			$output['msg']=$Err->messages;
 		}
-		$out='<form action="?do=productreview&action=addproductreview&prodid='.$arr[0]['product_id'].'" method="post" name="frm">
+		$out='<form action="'.$_SESSION['base_url'].'/index.php?do=productreview&action=addproductreview&prodid='.$arr[0]['product_id'].'" method="post" name="frm">
 		 <table>
-    <tr>
-      <td>'.$breadcrumb.'</td>
-    </tr> <tr>
-    	<td>
-		<table width="100%" border="0" cellpadding="0" cellspacing="0">
-      <tr>
-        <td width="100%" class="product_header">'.$arr[0]['title'].'<input type="hidden" name="prodid" value ="'.$arr[0]['product_id'].'"/></td>
-      </tr>
-      <tr>
-        <td >&nbsp;</td>
-      </tr>
-      <tr>
-        <td ><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
-            <tr>
-              <td width="32%"><img src="'.$arr[0]['thumb_image'].'"/></td>
-              <td width="37%"><table width="95%" border="0" align="center" cellpadding="2" cellspacing="2">
-                  <tr>
-                    <td class="text"><a href="?do=prodetail&action=showprod&prodid='.$arr[0]['product_id'].'">'.$arr[0]['title'].'</a></td>
-                  </tr>';
+		<tr>
+		<td>'.$breadcrumb.'</td>
+		</tr> <tr>
+			<td>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="100%" class="product_header">'.$arr[0]['title'].'<input type="hidden" name="prodid" value ="'.$arr[0]['product_id'].'"/></td>
+		</tr>
+		<tr>
+			<td >&nbsp;</td>
+		</tr>
+		<tr>
+			<td ><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+			<tr>
+			<td width="32%"><img src="'.$_SESSION['base_url'].'/'.$arr[0]['thumb_image'].'"/></td>
+			<td width="37%"><table width="95%" border="0" align="center" cellpadding="2" cellspacing="2">
+				<tr>
+				<td class="text"><a href="?do=prodetail&action=showprod&prodid='.$arr[0]['product_id'].'">'.$arr[0]['title'].'</a></td>
+				</tr>';
 				
 				if($arr[0]['rating']==1)
 					  $out .= '<tr>
-							<td align="left"><img src="images/star1.jpg" width="83" height="16" /></td>
+							<td align="left"><img src="'.$_SESSION['base_url'].'/images/star1.jpg" width="83" height="16" /></td>
 						  </tr>';
 				elseif($arr[0]['rating']==2)
 				  	$out .= '<tr>
-						<td align="left"><img src="images/star2.jpg" width="83" height="16" /></td>
+						<td align="left"><img src="'.$_SESSION['base_url'].'/images/star2.jpg" width="83" height="16" /></td>
 					  </tr>';
 				elseif($arr[0]['rating']==3)
 					  $out .= '<tr>
-							<td align="left"><img src="images/star3.jpg" width="83" height="16" /></td>
+							<td align="left"><img src="'.$_SESSION['base_url'].'/images/star3.jpg" width="83" height="16" /></td>
 						  </tr>';
 				elseif($arr[0]['rating']==4)
 					  $out .= '<tr>
-							<td align="left"><img src="images/star4.jpg" width="83" height="16" /></td>
+							<td align="left"><img src="'.$_SESSION['base_url'].'/images/star4.jpg" width="83" height="16" /></td>
 						  </tr>';
 				elseif($arr[0]['rating']==5)
 					  $out .= '<tr>
-							<td align="left"><img src="images/star5.jpg" width="83" height="16" /></td>
+							<td align="left"><img src="'.$_SESSION['base_url'].'/images/star5.jpg" width="83" height="16" /></td>
 						  </tr>';
-              $out .='<tr>
-                    <td align="left" class="text"><a href="?do=productreview&action=showproductreview&prodid='.$arr[0]['product_id'].'">'.$totreview.' Reviews</a></td>
-                  </tr>
-                  <tr>
-                    <td align="left"><a href="?do=addtocart&prodid='.$arr[0]['product_id'].'">
-<img src="images/addtocart.jpg" border="0"></a></td>
-                  </tr>
-                  <tr>
-                    <td align="left" class="addtowishlist"><a href="?do=wishlist&action=viewwishlist&id='.$arr[0]['product_id'].'">Add to Wishlist</a> </td>
-                  </tr>
-                  <tr>
-                    <td align="left" class="addtocompare"><a href="?do=compareproduct&action=addtocompareproduct&prodid='.$arr[0]['product_id'].'">Add to Compare</a></td>
-                  </tr>
-                </table></td>
-              <td width="31%" align="center" class="addtocompare">&nbsp;</td>
-            </tr>
-          </table></td>
-      </tr>
-      <tr>
-        <td >&nbsp;</td>
-      </tr>';
+			$out .='<tr>
+				<td align="left" class="text"><a href="'.$_SESSION['base_url'].'/index.php?do=productreview&action=showproductreview&prodid='.$arr[0]['product_id'].'">'.$totreview.' Reviews</a></td>
+				</tr>
+				<tr>
+				<td align="left"><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[0]['product_id'].'">
+				<img src="'.$_SESSION['base_url'].'/images/addtocart.jpg" border="0"></a></td>
+				</tr>
+				<tr>
+				<td align="left" class="addtowishlist"><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&id='.$arr[0]['product_id'].'">Add to Wishlist</a> </td>
+				</tr>
+				<tr>
+				<td align="left" class="addtocompare"><a href="'.$_SESSION['base_url'].'/index.php?do=compareproduct&action=addtocompareproduct&prodid='.$arr[0]['product_id'].'">Add to Compare</a></td>
+				</tr>
+				</table></td>
+			<td width="31%" align="center" class="addtocompare">&nbsp;</td>
+			</tr>
+			</table></td>
+		</tr>
+		<tr>
+			<td >&nbsp;</td>
+		</tr>';
       
 	  	$cnt = count($arr);
 		if($totreview > 0)
 		{
 		  $out .= '<tr>
-        <td ><div id="ad_text"><a href="#" class="ad_text"></a> </div></td></tr>
+       		 <td ><div id="ad_text"><a href="#" class="ad_text"></a> </div></td></tr>
 		<tr>
 			<td class="product_header">Customer Review</td>
 		  </tr>';
@@ -249,7 +249,7 @@ class Display_DProductReview
 				<td >&nbsp;</td>
 			  </tr>
 			 </table></tr>
-  </table> </form> ';
+  			</table> </form> ';
 		
 		return $out;
 	}
@@ -264,7 +264,7 @@ class Display_DProductReview
 		
 		$bread='<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="resultDETAILS">
               <tr>
-                  <td align="left" scope="col"><a href="?do=indexpage">Home</a> > <a href="?do=featured&action=showmaincatlanding&maincatid='.$arr[0]['maincatid'].'">'.$arr[0]['Category'].'</a> > <a href="?do=featured&action=showfeaturedproduct&subcatid='.$arr[0]['category_id'].'">'.$arr[0]['SubCategory'].'</a> > '.$arr[0]['title'].' </td></tr></table>';
+                  <td align="left" scope="col"><a href="'.$_SESSION['base_url'].'/index.php?do=indexpage">Home</a> > <a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showmaincatlanding&maincatid='.$arr[0]['maincatid'].'">'.$arr[0]['Category'].'</a> > <a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showfeaturedproduct&subcatid='.$arr[0]['category_id'].'">'.$arr[0]['SubCategory'].'</a> > '.$arr[0]['title'].' </td></tr></table>';
 		return $bread;
 	}
 }

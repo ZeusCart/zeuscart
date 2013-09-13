@@ -52,16 +52,89 @@ class Core_Settings_CCategoryManagement
 	 * 
 	 * @return array
 	 */
-	function showSubChildParent()
+	function showCategoryParent()
 	{
 	
 
-		$components = new Lib_Components();
-		
-		return $this->data['subcatparent'] = $components->createComponent('combobox',$this->getListValues('category'),'name="category" class="txt_box200" style="width:260px;" id="category" onchange="callsubChild(this.value);"');
-		$this->makeConstants($this->data);
+		$output='<select name="category" class="span4"><option value="0">No parent</option>';
+// 
+// 		$sql = "SELECT * FROM category_table WHERE category_parent_id='0'" ;
+// 		$cquery = new Bin_Query();
+// 		if($cquery->executeQuery($sql))
+// 		for($k=0;$k<count($cquery->records);$k++)
+// 		{
+// 			$maincategory = $cquery->records[$k]['category_id'];
+// 			echo $sql1 = "SELECT * FROM category_table WHERE  FIND_IN_SET('".$maincategory."',subcat_path) OR category_id='".$maincategory."' " ; exit;
+// 			$cquery1 = new Bin_Query();
+// 			if($cquery1->executeQuery($sql1))
+// 			$records = $cquery1->records;
+// 			for ($i=0;$i<count($records);$i++)
+// 			{	
+// 				$countpath=explode(',',$records[$i]['subcat_path']);
+// 				$output.='<option value="'.$records[$i]['category_id'].'">';
+// 
+// 				for($a=1;$a<count($countpath);$a++)
+// 				{
+// 				$output.='-&nbsp;';
+// 					
+// 				}
+// 
+// 			$output.= $records[$i]['category_name'].'</option>';
+// 		
+// 			}
+// 
+// 		}
+// 
 
+		
+				
+		$sql = "SELECT * FROM category_table WHERE category_parent_id='0'" ;
+		$cquery = new Bin_Query();
+		if($cquery->executeQuery($sql))
+		for($k=0;$k<count($cquery->records);$k++)
+		{
+			$output.='<option value='.$cquery->records[$k]['category_id'].'>'.$cquery->records[$k]['category_name'].'</option>';
+                	$output.=self:: getSubFamilies(0,$cquery->records[$k]['category_id']);
+
+		
+            	}
+
+		$output.='</select>';
+ 		 return $output;
 	}
+
+	/**
+	 * Function generates an drop down list with the category details.in sub child
+	 * 
+	 * 
+	 * @return array
+	 */		
+	function getSubFamilies($level, $id) {
+		$level++;
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+		$resultSubFamilies = mysql_query($sqlSubFamilies);
+		if (mysql_num_rows($resultSubFamilies) > 0) {
+		
+			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies)) {
+
+				$countpath=explode(',',$rowSubFamilies['subcat_path']);
+				$output.= "<option value=".$rowSubFamilies['category_id'].">";
+
+				for($a=1;$a<count($countpath);$a++)
+				{
+				$output.='- &nbsp;';
+					
+				}
+				$output.=$rowSubFamilies['category_name']."</option>";
+				$output.=self:: getSubFamilies($level, $rowSubFamilies['category_id']);
+				
+			}
+		
+		}
+		
+		return $output;
+	}
+
 
 
 	/**
@@ -118,14 +191,29 @@ class Core_Settings_CCategoryManagement
 
 		if($name == 'category')
 		{
-			 $sql = "SELECT * FROM category_table where category_parent_id=0 order by category_name";
+			 $sql = "SELECT * FROM category_table WHERE category_parent_id='0'" ;
 			$cquery = new Bin_Query();
 			if($cquery->executeQuery($sql))
-				$records = $cquery->records;
-			$category = array("category"=>"All Categories");
-			for ($i=0;$i<count($records);$i++)
-				$category[$records[$i]['category_id']] = $records[$i]['category_name'];
-			return $category;
+			for($k=0;$k<count($cquery->records);$k++)
+			{
+				$maincategory = $cquery->records[$k]['category_id'];
+				$sql1 = "SELECT * FROM category_table WHERE  FIND_IN_SET('".$maincategory."',subcat_path) OR category_id='".$maincategory."' " ;
+				$cquery1 = new Bin_Query();
+				if($cquery1->executeQuery($sql1))
+					$records = $cquery1->records;
+	
+	
+				$category = array("category"=>"All Categories");
+				for ($i=0;$i<count($records);$i++)
+				{	
+					
+					$output.='<option value="'.$records[$i]['category_id'].'">'. $records[$i]['category_name'].'</option>';
+			
+				}
+	
+			}
+
+		return $output;
 			
 		}
 		
@@ -175,6 +263,7 @@ class Core_Settings_CCategoryManagement
 	
 	function addCategory()
 	{
+
 		$imagetypes=array ('image/jpeg' ,'image/pjpeg' , 'image/bmp' , 'image/gif' , 'image/png','image/x-png');
 		$query = new Bin_Query();
 		
@@ -184,17 +273,11 @@ class Core_Settings_CCategoryManagement
 		 $file = explode("/",$_FILES['caticon']['type']);		
 			
 		  if(count($file) > 2  || !in_array($_FILES['caticon']['type'],$imagetypes))
-		  {			
-  			return '<div class="error_msgbox">Invalid image file format</div>';	
+		  {		
+  			return '<div class="alert alert-error">
+             			 <button type="button" class="close" data-dismiss="alert">×</button> Invalid image file format</div>	';	
 		  }	 	
-		if($_POST['category']=='' || !isset($_POST['group1']))
-		{
-			
-			 return '<div class="error_msgbox">Select Category Level</div>' ;
-			 
-		}
-		else
-		{
+		
 			$sql = "SELECT count(*) as cnt FROM category_table WHERE category_name ='".$_POST['category']."' AND category_parent_id=='0'"; 
 			$query->executeQuery($sql);
 
@@ -211,57 +294,65 @@ class Core_Settings_CCategoryManagement
 						if(move_uploaded_file($_FILES['caticon']['tmp_name'],$uploadfile))
 							new Lib_ThumbImage('thumb',$uploadfile,$imageDir,THUMB_WIDTH);
 						else
-							return '<div class="error_msgbox">Sorry Image Not Uploaded</div>';	
+							return '<div class="alert alert-error">
+             					 <button type="button" class="close" data-dismiss="alert">×</button> Sorry Image Not Uploaded</div>';	
 					}
 					else
-						return '<div class="error_msgbox">Invalid image file format</div>';
+						return '<div class="alert alert-error">
+              					<button type="button" class="close" data-dismiss="alert">×</button> Invalid image file format</div>';
 				}
 				else
 					$caticonpath='';	
-						
-				if($_POST['group1']==1) // if creating parent category
-				{
-					$sql = "INSERT INTO category_table (category_name,category_parent_id,category_image, category_desc, category_status, category_content_id) VALUES ('".trim($_POST['categoryname'])."','0','". $caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."')";
-					if($query->updateQuery($sql))
-						return '<div class="success_msgbox">Category Added Successfully</div>' ;
+					
+					if($_POST['category']=='0')
+					{
+						$categoryparent=0;	
+							
+						$count=0;
+					}
 					else
-						return '<div class="error_msgbox">Error while adding the category </div>';
-				}
-				elseif($_POST['group1']==2) //create sub category
-				{
-					$sql = "INSERT INTO category_table (category_name,category_parent_id,	sub_category_parent_id,category_image,category_desc,category_status,category_content_id) VALUES ('".trim($_POST['categoryname'])."','".$_POST['category']."','".$_POST['subcategory']."','".$caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."')";
-					
-					if($query->updateQuery($sql))
 					{
-						return '<div class="success_msgbox">Category Added Successfully</div>' ;
-					}
-				}
-				else // if creating sub category 
-				{
-					$sql = "INSERT INTO category_table (category_name,category_parent_id,category_image,category_desc,category_status,category_content_id) VALUES ('".trim($_POST['categoryname'])."','".$_POST['catid']."','".$caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."')";
-					
-					if($query->updateQuery($sql))
-					{
+						$sqlsel="SELECT * FROM category_table WHERE category_id='".$_POST['category']."' ";
+						$objsel=new Bin_Query();
+						$objsel->executeQuery($sqlsel);
+						$path=$objsel->records[0]['subcat_path'];
+						$categoryparent=$_POST['category'];
 						
-						$catinsertid=$query->insertid;
-						$temparray = array();
-						$temparray = $_POST['attributes'];
-						$cnt=count($temparray);
-						if($cnt > 0)								
-						for($i=0;$i<$cnt;$i++)
+						$pathcount=explode(',',$path);
+						$count=count($pathcount);	
+
+					}	
+
+						 $sql = "INSERT INTO category_table (category_name,category_parent_id,category_image,category_desc,category_status,category_content_id,count) VALUES ('".trim($_POST['categoryname'])."','".$categoryparent."','".$caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."','".$count."')"; 
+						$query->updateQuery($sql);
+						
+						$subcategorypathid=mysql_insert_id();
+
+
+						if($_POST['category']=='0')
 						{
-							$sql = "INSERT INTO category_attrib_table (subcategory_id,attrib_id) values('".$catinsertid."','".$temparray[$i]."') ";
-							$query->updateQuery($sql);
-						}								
-						return '<div class="success_msgbox">Category Added Successfully</div>' ;
-					}
+							$subcategorypath=$subcategorypathid;
+						}
+						else
+						{
+							$subcategorypath=$path.','.$subcategorypathid;	
+	
+						}
+								
+						$sqlSub="UPDATE category_table SET subcat_path='".$subcategorypath."'
+						WHERE category_id='".$subcategorypathid."'"; 
+						$objSub=new Bin_Query();
+						if($objSub->updateQuery($sqlSub))
+						return '<div class="alert alert-success">
+						<button type="button" class="close" data-dismiss="alert">×</button> Category Added Successfully</div>' ;
+										else
+											return '<div class="alert alert-error">
+						<button type="button" class="close" data-dismiss="alert">×</button> Error while adding the category </div>';
+					
 				}
 					
-				
-			 }
-			else
-				return '<div class="error_msgbox">Category already exists</div>';
-		}
+
+			
 		
 	}
 	/**
@@ -279,7 +370,8 @@ class Core_Settings_CCategoryManagement
 		if($query->executeQuery($sql))
 			return $query->records[0]['html_content'];
 		else
-			return "Select Content";
+			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Select Content</div>';
 	}
 	
 }

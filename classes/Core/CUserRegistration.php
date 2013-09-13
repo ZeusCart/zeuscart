@@ -70,8 +70,8 @@ class Core_CUserRegistration
 			if( $displayname!= '' and $firstname  != '' and $lastname != '' and $email != '' and $pswd != '')
 			{
 				
-				$pswd=base64_encode($pswd);
-				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country,ipaddress) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',1,'".$date."','".$country."','".$_SERVER['REMOTE_ADDR']."')";
+				$pswd=md5($pswd);
+				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country,ipaddress,user_group) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',1,'".$date."','".$country."','".$_SERVER['REMOTE_ADDR']."','1')";
 				$obj = new Bin_Query();
 				if($obj->updateQuery($sql))
 				{
@@ -140,7 +140,7 @@ class Core_CUserRegistration
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sqlselect))
 		{
-			$pwd = base64_decode($obj->records[0]['user_pwd']);
+			$pwd = md5($obj->records[0]['user_pwd']);
 			$output['displayname'] =$obj->records[0]['user_display_name'] ;
 			$output['firstname'] =$obj->records[0]['user_fname'] ;
 			$output['lastname'] =$obj->records[0]['user_lname'] ;
@@ -167,7 +167,7 @@ class Core_CUserRegistration
 		$lname=$_POST['lastname'];
 		$email=$_POST['email'];
 		$pwd=$_POST['passwd'];
-		$pwd = base64_encode($pwd);
+		$pwd = md5($pwd);
 		$newsletter =$_POST['newsletterSubscribeY'];
 		$newslettersubid =$_POST['newslettersubid'];
 		
@@ -282,14 +282,14 @@ class Core_CUserRegistration
 		if($_SESSION['user_id']!='')
 		{
 			$str='Logout';
-			$output['logout']='<a href="?do=logout">'.$str.'</a>';
+			$output['logout']='<a href="'.$_SESSION['base_url'].'/logout.html">'.$str.'</a>';
 			$output['username']='Welcome '.$_SESSION['user_name'];
 			$output['user']=$_SESSION['user_name'];			
 		}
 		else
 		{
 			$str='Login';
-			$output['logout']='<a href="?do=login">'.$str.'</a>';
+			$output['logout']='<a href="'.$_SESSION['base_url'].'/login.html">'.$str.'</a>';
 			$output['username']='Welcome Guest';
 			$output['user']='Guest';						
 		}
@@ -331,13 +331,13 @@ class Core_CUserRegistration
 	
 	    	$query = new Bin_Query(); 
 		
-		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1 AND category_name!='Gift Voucher' ";
+		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1  ";
 		if($query->executeQuery($sql))
 		{
 			$output = Display_DUserRegistration::showHeaderMenu($query->records);
 		}
 		else
-			$output='No Category Found';
+			$output='';
 		return $output;
 	}
 	/**
@@ -351,13 +351,13 @@ class Core_CUserRegistration
 	{
 		$query = new Bin_Query(); 
 		
-		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1 ";
+		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1 AND  category_name!='Gift Voucher'  ";
 		if($query->executeQuery($sql))
 		{
 			$output = Display_DUserRegistration::showHeaderMenuHidden($query->records);
 		}
 		else
-			$output='No Category Found';
+			$output='';
 		return $output;
 
 	}
@@ -529,14 +529,28 @@ class Core_CUserRegistration
 	 */
 	function showHeaderMainMenu()
 	{
-		$query = new Bin_Query(); 
-		$sql = "SELECT * from custompage_table where status=1";
-		if($query->executeQuery($sql))
+		if($_GET['do']=='dynamiccms')
 		{
-			$output = Display_DUserRegistration::showHeaderMainMenu($query->records);
+			$query = new Bin_Query(); 
+			$sql = "SELECT * from cms_table WHERE cms_page_status=1";
+			if($query->executeQuery($sql))
+			{
+				$output = Display_DUserRegistration::showDynamicCms($query->records);
+			}			
+			
 		}
 		else
-			$output = '<div id="chromemenu"><ul><li><a href="?do=indexpage">Home</a></li></ul></div>';
+		{	
+			$query = new Bin_Query(); 
+			$sql = "SELECT * from custompage_table where status=1";
+			if($query->executeQuery($sql))
+			{
+				$output = Display_DUserRegistration::showHeaderMainMenu($query->records);
+			}
+
+
+		}
+
 		return $output;
 	}
 	/**
@@ -569,10 +583,7 @@ class Core_CUserRegistration
 		$output = $query->records[0]['set_value'];
 	
 		if($output!='')
-		return '<div style="height:10px;"></div>
-		<div style="padding-left:14px;">
-		<div class="flash_News">'.$output.'</div>
-		</div>';
+		return '<div class="flash_News">'.$output.'</div>';
 	}
 	/**
 	 * This function is used to get  contry list from db  
@@ -650,7 +661,7 @@ class Core_CUserRegistration
 	 function autoRegister($me)
     	 {
 
-		$db = file_get_contents('../../Bin/Configuration.php');
+		$db = file_get_contents('../../../Bin/Configuration.php');
 		$exp_db = array();
 		$exp_db = explode('\'',$db);
 	

@@ -117,7 +117,7 @@
 			
 			<do name="viewproducts" model="MNewProducts" function="viewProducts" />	
 			
-			<do name="viewproducts" model="MNewProducts" function="gridViewProducts"  action="grid"/>		
+			<do name="viewproducts" model="MNewProducts" function="viewProducts"  action="grid"/>		
 			
 			<do name="prodetail" model="MProductDetail" function="showProducts"	/>
 			<do name="prodetail" model="MProductDetail" action="showprod" function="productDetail"	/>
@@ -155,11 +155,13 @@
 			<do name="addaddress" model="MUserAccount" function="showAddAddress"/>															
 			<do name="addaddress" action="add" model="MUserAccount" function="addAddress"/>	
 			<do name="addaddress" action="edit" model="MUserAccount" function="editAddress"/>																		
-			<do name="deladdress" model="MUserAccount" function="delAddress"/>																					
-			
+			<do name="deladdress" model="MUserAccount" function="delAddress"/>														
+			<do name="digitdown" model="MUserAccount" function="showDigitalProduct"/>							
+			<do name="prodown" model="MUserAccount" function="CheckDigitalProduct"/>
 			<do name="quickinfo" model="MQuickInfo" function="showQuickInfo"/>
 			<do name="allNew" model="MUserAccount"  function="showAllNew" />
 			<do name="orderdetail" model="MUserAccount" function="showOrderDetails"/>
+			<do name="orderdetail" model="MUserAccount" function="printOrderDetails" action="print"/>
 			<do name="faq" model="MFaq" function="showFaq"/>
 			<do name="allFeatured" model="MUserAccount"  function="showAllFeatured" />
 			<do name="sitemap" model="MSiteMap"  function="showMap" />
@@ -173,6 +175,10 @@
 			
 			------------------social link ------------------------------------
 			<do name="productreg" model="MUserRegistration" function="showLoginPage"/>
+			
+			
+			----------------------------cms----------------------------------------------
+			<do name="test" model="MHome" function="showTest"/>
 			
 		</domapping>
 	

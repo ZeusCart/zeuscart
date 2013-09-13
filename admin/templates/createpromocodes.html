@@ -21,27 +21,34 @@
 <script type="text/javascript" src="js/calendar/calendar.js"></script>
 <script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
 <script type="text/javascript" src="js/calendar/calendar-en.js"></script>
-<tr>
-       <td >
-<table width="99%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td colspan="8" align="left"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td class="content_title" width="80%">Coupon Codes Management</td>
-          <td class="content_title" width="30%" align="right"><!--<a href="javascript:history.back()" class="more_page">Back</a>--></td>
-        </tr>
-      </table></td>
-  </tr>
-  <!-- <tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>-->
-  <tr>
-    <td colspan="3" align="left" style="padding-top:10px;"><AJDF:output>$insertmsg</AJDF:output>
+
+<script type="text/javascript">
+$(function () {
+$("select").chosen({allow_single_deselect:true});
+
+});
+</script>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Coupon Codes Management</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a class="add_icon1" href="?do=createpromotionalcodes"><!-- Create Coupon --> </a></li>
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<AJDF:output>$insertmsg</AJDF:output>
       <AJDF:output>$display</AJDF:output>
       <AJDF:output>$displaysearch</AJDF:output>
-      <br />
+  
       <AJDF:output>$displayusers</AJDF:output>
-    </td>
-  </tr>
-</table>
+    
 <AJDF:output>include file="footer.html"</AJDF:output>

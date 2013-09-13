@@ -47,12 +47,15 @@ class Core_Settings_CNewsletterSettings
 			$query = new Bin_Query();
 		
 			if($query->updateQuery($sql))
-				return '<div class="success_msgbox">Newsletter <b>'.$_POST['newslettertitle'].'</b> Created successfully</div> ';
+				return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Newsletter <b>'.$_POST['newslettertitle'].'</b> Created successfully.</div> ';
 			else
-				return '<div class="error_msgbox">Error while creating Newsletter.</div> ';
+				return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Error while creating Newsletter.</div> ';
 		}
 		else
-			return '<div class="error_msgbox">Error while creating Newsletter.</div> ';
+			return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Error while creating Newsletter.</div> ';
 
 	}
 	
@@ -100,7 +103,7 @@ class Core_Settings_CNewsletterSettings
 		}
 		else
 		{
-			return '<div class="success_msgbox">No Newsletter Found</div>';
+			return '<div class="success_msgbox">No Newsletter Found.</div>';
 		}
 		
 		
@@ -116,12 +119,13 @@ class Core_Settings_CNewsletterSettings
 	function editNewsletter()
 	{
 		
-		$sql = "UPDATE newsletter_table SET newsletter_content = '".$_POST['newsletter']."' WHERE newsletter_id=".(int)$_GET['id']; 
+		$sql = "UPDATE newsletter_table SET newsletter_title='".$_POST['newslettertitle']."',newsletter_content = '".$_POST['newsletter']."' WHERE newsletter_id=".(int)$_GET['id']; 
 
 		$query = new Bin_Query();
 		
 		if($query->updateQuery($sql))
-			return '<div class="success_msgbox">Newsletter Updated successfully</div> ';
+			return '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Newsletter Updated successfully.</div> ';
 			//$_SESSION['msg']= "Updated Successfully";
 			
 	}
@@ -135,13 +139,19 @@ class Core_Settings_CNewsletterSettings
 	
 	function deleteNewsletter()
 	{
-		
-		$sql = "DELETE FROM newsletter_table WHERE newsletter_id=".(int)$_GET['id']; 
+		foreach ($_POST['newslettercheck'] as $key => $value) {
+
+			$sql = "DELETE FROM newsletter_table WHERE newsletter_id='".$value."'"; 
 
 		$query = new Bin_Query();
 		
 		if($query->updateQuery($sql))
-			return '<div class="success_msgbox">News Letter Deleted Successfully</div>';
+			$result ='<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button>  News Letter Deleted Successfully.</div>';
+		
+		}
+		
+		return $result;
 			
 	}
 	
@@ -178,12 +188,13 @@ class Core_Settings_CNewsletterSettings
 		
 				if($query->updateQuery($sql))
 				{
-					$result = "<div class='success_msgbox'>Newsletter has been sent successfully</div>";
+					$result = '<div class="alert alert-success">
+			<button data-dismiss="alert" class="close" type="button">×</button> Newsletter has been sent successfully.</div>';
 				}
 			}
 			else
 			{
-				$result = '<div class="exc_msgbox">Invalid User</div>';
+				$result = '<div class="exc_msgbox">Invalid User.</div>';
 				
 			}
 		}

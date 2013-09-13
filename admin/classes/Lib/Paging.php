@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V4.
+* This file is part of ZeusCart V2.3.
 
-* ZeusCart V4 is free software: you can redistribute it and/or modify
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 4 of the License, or
+* the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V4 is distributed in the hope that it will be useful,
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,54 +19,19 @@
 *
 */
 
-
-/**
- * This class contains functions related  pagination process
- *
- * @package  		Lib_Paging
- * @category  		Library
- * @author    		AjSquareInc Dev Team
- * @link   		http://www.zeuscart.com
-  * @copyright 		Copyright (c) 2008 - 2013, AjSquare, Inc.
- * @version  		Version 4.0
- */
 class Lib_Paging
 {
-	/**
-	 * Stores the ouptut
-	 *
-	 * @var array 
-	 */	 
+	
 	var $output=array();
-	/**
-	 * Stores the previous page number 
-	 *
-	 * @var integer 
-	 */
 	var $prev;
-	/**
-	 * Stores the next page number
-	 *
-	 * @var integer 
-	 */
 	var $next;
-
-	/**
-	 * Function is used in pagination related process 
-	 * @param string $model
-	 * @param array  $par
-	 * @param  string $cssstyle	
-	 */	 
+	
 	function Lib_Paging($model,$par,$cssstyle)
 	{
 		if($model='classic')
 			$this->doClassicPaging($par,$cssstyle);
 	}
-	/**
-	 * Function is used in pagination related process 
-	 * @param array  $par
-	 * @param  string $cssstyle	
-	 */	
+	
 	function doClassicPaging($par = array(),$cssstyle)
 	{
 
@@ -82,14 +47,14 @@ class Lib_Paging
 				{
 					$tmp = $_SERVER['QUERY_STRING']."&page=".$i;
 					if($_GET['page'] == "" && $i==1)
-						$this->output[++$s]= '<span class="current">'.$i.'</span>';				
+						$this->output[++$s]= '<li class="active"><a href="javascript:void(0);">'.$i.'</a></li>';				
 					else
-						$this->output[++$s]= '<a href="?'.$tmp.'" class=\''.$cssstyle.'\'>'.$i.'</a>';				
+						$this->output[++$s]= '<li><a href="?'.$tmp.'" class=\''.$cssstyle.'\'>'.$i.'</a></li>';				
 				}
 				if($par['totalpages']>$par['length'])
 				{
 					$tmp = $_SERVER['QUERY_STRING']."&page=".($start+1);
-					$this->next = '<a href="?'.($tmp).'"  class=\''.$cssstyle.'\'>Next </a>';
+					$this->next = '<li class="next"><a href="?'.($tmp).'"  class=\''.$cssstyle.'\'>Next </a></li>';
 				}
 				return true;
 			}
@@ -116,11 +81,11 @@ class Lib_Paging
 					$tmp = split('&',$tmp[1]);					
 					$q .= (strlen(trim($tmp[1]) > 0) ? '&'.$tmp[1] : '');
 					if($_GET['page']==$i)
-						$this->output[++$s] = '<span class="current">'.$i.'</span>';
+						$this->output[++$s] = '<li class="active"><a href="javascript:void(0);">'.$i.'</a></li>';
 					else
 					{
 						if($i<=$par['totalpages'])
-						$this->output[++$s] = '<a href="?'.$q.' " class=\''.$cssstyle.'\'>'.$i.'</a>';				
+						$this->output[++$s] = '<li><a href="?'.$q.' " class=\''.$cssstyle.'\'>'.$i.'</a></li>';				
 					}
 				}
 				if ($_GET['page']<$par['totalpages'])
@@ -129,7 +94,7 @@ class Lib_Paging
 					$q = $tmp[0]."page=".($_GET['page']+1);
 					$tmp = split('&',$tmp[1]);					
 					$q .= (strlen(trim($tmp[1]) > 0) ? '&'.$tmp[1] : '');
-					$this->next = '<a href="?'.($q).' " class=\''.$cssstyle.'\'>Next </a>';
+					$this->next = '<li class="next"><a href="?'.($q).' " class=\''.$cssstyle.'\'>Next </a></li>';
 				}
 				if($_GET['page']>1)
 				{
@@ -137,7 +102,7 @@ class Lib_Paging
 					$q = $tmp[0]."page=".($_GET['page']-1);
 					$tmp = split('&',$tmp[1]);					
 					$q .= (strlen(trim($tmp[1]) > 0) ? '&'.$tmp[1] : '');
-					$this->prev .= ' <a href="?'.($q).'"  class=\''.$cssstyle.'\'>Prev</a>';
+					$this->prev .= '<li class="prev"> <a href="?'.($q).'"  class=\''.$cssstyle.'\'>Prev</a></li>';
 				}
 			}			
 		}

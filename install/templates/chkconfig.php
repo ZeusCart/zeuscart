@@ -2,14 +2,14 @@
 /**
 * GNU General Public License.
 
-* This file is part of ZeusCart V2.3.
+* This file is part of ZeusCart V4.
 
-* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* ZeusCart V4 is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
+* the Free Software Foundation, either version 4 of the License, or
 * (at your option) any later version.
 * 
-* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* ZeusCart V4 is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 * GNU General Public License for more details.
@@ -19,153 +19,95 @@
 *
 */
 ?>
-<div class="scroll_txt">
-<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr>
-            <td align="left" class="title">Check for Prerequisite</td>
-          </tr>
-          <tr>
-            <td align="left">&nbsp;</td>
-          </tr>
-          
-          <tr>
-            <td align="left">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="53%" align="left" class="text pad"><strong>PHP Settings</strong></td>
-                <td width="4%" align="left" class="text">&nbsp;</td>
-                <td width="43%" align="left" class="text">&nbsp;</td>
-              </tr>
-             
-              <tr>
-                <td align="left" class="text pad">PHP Version 5.2.0 or later [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['php'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">register_globals [optional]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" class=""><?php echo $this->config['regglobals'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">GD Library Intallation [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['gd'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">CURL [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left"><?php echo $this->config['curl'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">Simple XML [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left"><?php echo $this->config['sxml'] ?></td>
-              </tr>
-              
-              
-              <tr>
-                <td align="left" class="text pad"><strong>Data Base</strong></td>
-                <td align="left" class="text">&nbsp;</td>
-                <td align="left" class="text">&nbsp;</td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">MySQL [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['mysql'] ?></td>
-              </tr>
-              
-              <tr>
-                <td align="left" class="text pad"><strong>Write Permission</strong></td>
-                <td align="left" class="text">&nbsp;</td>
-                <td align="left" class="installed">&nbsp;</td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\images [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit1'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\images\banners [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit2'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\images\logo [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit3'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\images\products [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit4'] ?></td>
-              </tr>
-               <tr>
-                <td align="left" class="text pad">root\images\products\thumb [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit5'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\Bin [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit6'] ?></td>
-              </tr>
-	 	<tr>
-                <td align="left" class="text pad">root\Bin\Configuration.php [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit7'] ?></td>
-              </tr>	
-              <tr>
-                <td align="left" class="text pad">root\Built [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit8'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\cache [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit9'] ?></td>
-              </tr>
-               <tr>
-                <td align="left" class="text pad">root\uploadedimages [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit10'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\userpage [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit11'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\upload_bulk_products [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit12'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\admin\cache [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit13'] ?></td>
-              </tr>
-               <tr>
-                <td align="left" class="text pad">root\admin\uploadedtsvfile [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit14'] ?></td>
-              </tr>
-              <tr>
-                <td align="left" class="text pad">root\admin\uploadedbulkimages [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit15'] ?></td>
-              </tr>
-               <tr>
-                <td align="left" class="text pad">root\includes\Charts [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit16'] ?></td>
-              </tr>
-               <tr>
-                <td align="left" class="text pad">root\includes [required]</td>
-                <td align="left" class="text">:</td>
-                <td align="left" ><?php echo $this->config['filepermit17'] ?></td>
-              </tr>
-            </table>
-		</td>
-          </tr>
-        </table></div>
+    <h1>Check for Prerequisite</h1>
+<?php echo $_SESSION['error'] ?></span>
+<div class="body_cnt" id="container">
+           		  <div class="scroll-pane">
+                  	<h2>PHP Settings</h2>
+
+           		   			<dl class="setting">
+                            	<dt>PHP Version 5.2.0 or later [required]</dt>
+                                <dd><?php echo $this->config['php'] ?><span style="color:#FF0000"> <?php echo $Err->messages['phperr'] ?></span> </dd>
+				
+                            	<dt>register_globals [optional]</dt>
+                                <dd><span><?php echo $this->config['regglobals'] ?></span></dd>
+                            	<dt>GD Library Intallation [required]</dt>
+                                <dd><?php echo $this->config['gd'] ?><span style="color:#FF0000"> <?php echo $Err->messages['gdlib'] ?></span> </dd>
+				
+                            	<dt>CURL [required]</dt>
+                                <dd><?php echo $this->config['curl'] ?> 	<span style="color:#FF0000"> <?php echo $Err->messages['curl'] ?></span> </dd>
+
+				<dt>Simple XML [required]</dt>
+                                <dd><?php echo $this->config['sxml'] ?><span style="color:#FF0000"> <?php echo $Err->messages['sxml'] ?></span> </dd>
+	
+                            </dl>
+                            <div class="clear"></div>
+                            <h2>Data Base</h2>
+           		   	<dl class="setting">
+                            	<dt>MySQL [required]</dt>
+                                <dd><?php echo $this->config['mysql'] ?></dd>
+			<span style="color:#FF0000"> <?php echo $Err->messages['mysql'] ?></span> 
+                                   </dl>
+      			 <div class="clear"></div>
+				<h2>Write Permission</h2>
+					<dl class="setting">
+                            	<dt>root\images [required]</dt>
+                                <dd><?php echo $this->config['filepermit1'] ?><span style="color:#FF0000"> <?php echo $Err->messages['image'] ?></span> </dd>
+
+				<dt>root\images\slidesupload [required]</dt>
+                                <dd><?php echo $this->config['filepermit2'] ?><span style="color:#FF0000"> <?php echo $Err->messages['slide'] ?></span></dd>
+
+					<dt>root\images\slidesupload\thumb [required]</dt>
+                                <dd><?php echo $this->config['filepermit3'] ?><span style="color:#FF0000"> <?php echo $Err->messages['slidethumb'] ?></span></dd>	
+
+
+
+			<dt>root\images\logo [required]</dt>
+                                <dd><?php echo $this->config['filepermit4'] ?><span style="color:#FF0000"> <?php echo $Err->messages['logo'] ?></span></dd>
+		
+			<dt>root\images\products [required]</dt>
+                                <dd><?php echo $this->config['filepermit5'] ?><span style="color:#FF0000"> <?php echo $Err->messages['products'] ?></span></dd>
+
+
+			<dt>root\images\products\thumb [required]</dt>
+                                <dd><?php echo $this->config['filepermit6'] ?><span style="color:#FF0000"> <?php echo $Err->messages['prothumb'] ?></span></dd>
+			<dt>root\Bin [required]</dt>
+                                <dd><?php echo $this->config['filepermit7'] ?><span style="color:#FF0000"> <?php echo $Err->messages['bin'] ?></span></dd>
+
+				<dt>root\Bin\Configuration.php [required]</dt>
+                                <dd><?php echo $this->config['filepermit8'] ?><span style="color:#FF0000"> <?php echo $Err->messages['bincon'] ?></span></dd>
+
+			<dt>root\Built [required]</dt>
+                                <dd><?php echo $this->config['filepermit9'] ?><span style="color:#FF0000"> <?php echo $Err->messages['bulid'] ?></span></dd>
+		
+			<dt>root\cache [required]</dt>
+                                <dd><?php echo $this->config['filepermit10'] ?><span style="color:#FF0000"> <?php echo $Err->messages['cache'] ?></span></dd>
+			<dt>root\uploadedimages [required]</dt>
+                                <dd><?php echo $this->config['filepermit11'] ?><span style="color:#FF0000"> <?php echo $Err->messages['uploadedimages'] ?></span></dd>
+
+				<dt>root\userpage [required]</dt>
+                                <dd><?php echo $this->config['filepermit12'] ?><span style="color:#FF0000"> <?php echo $Err->messages['userpage'] ?></span></dd>
+
+			<dt>root\upload_bulk_products [required]</dt>
+                                <dd><?php echo $this->config['filepermit13'] ?><span style="color:#FF0000"> <?php echo $Err->messages['uploadprobulk'] ?></span></dd>
+		
+			<dt>root\admin\cache [required]</dt>
+                                <dd><?php echo $this->config['filepermit14'] ?><span style="color:#FF0000"> <?php echo $Err->messages['admincache'] ?></span></dd>
+			<dt>root\admin\uploadedtsvfile [required]</dt>
+                                <dd><?php echo $this->config['filepermit15'] ?><span style="color:#FF0000"> <?php echo $Err->messages['uploadtsv'] ?></span></dd>
+
+				<dt>root\admin\uploadedbulkimages [required]</dt>
+                                <dd><?php echo $this->config['filepermit16'] ?><span style="color:#FF0000"> <?php echo $Err->messages['uploadbulkimage'] ?></span></dd>			
+		
+			<dt>root\includes [required]</dt>
+                                <dd><?php echo $this->config['filepermit17'] ?><span style="color:#FF0000"> <?php echo $Err->messages['include'] ?></span></dd>
+
+			<dt>root\includes\Charts [required]</dt>
+                                <dd><?php echo $this->config['filepermit18'] ?><span style="color:#FF0000"> <?php echo $Err->messages['includecharts'] ?></span></dd>
+
+		<dt>root\timthumb [required]</dt>
+                                <dd><?php echo $this->config['filepermit19'] ?><span style="color:#FF0000"> <?php echo $Err->messages['timthumb'] ?></span></dd>
+	
+		 <div class="clear"></div>
+       		      </div>
+           		</div>

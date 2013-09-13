@@ -18,70 +18,105 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
-<form name="frmcontent" method="post" enctype="multipart/form-data">
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
-		
-          <tr>
-            <td colspan="3" align="left" class="content_title">News List</td>
-          </tr>
-          <!--<tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>-->
-          <tr><td></td>
-			  <td class="" align="right" style="padding-top:10px; padding-left:400px;"><a href="?do=news"  class="add_link" >Create News</a>
-			   <td class="" align="right" style="padding-top:10px;"><a href="#" onclick="deletenews()"  class="del_link" >Delete News</a>
-			  </td>
-		  </tr>
-           <!--<tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>-->
-           <tr>
-            <td colspan="3" align="left" style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$updatemsg</AJDF:output> 
-            <AJDF:output>$addnewsmsg</AJDF:output> 
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>News List</h2>
+    </div>
+     <div class="span3" >
+
+      <ul class="bttn_right">
+            <li>
+            	<a href="?do=news"  class="add_icon1" ></a> </li>
+            	      <li><a href="#myModal" data-toggle="modal"  class="delete_icon1"  id="newsDelete"></a>
+                 </li>
+          </ul>
+
+    </div>
+
+  </div>
+</div>
+
+
+<form name="frmcontent" action="?do=news&action=delete" id="frmnews" method="post" enctype="multipart/form-data">
+
+			  <AJDF:output>$updatemsg</AJDF:output> 
+            <AJDF:output>$addnewssmsg</AJDF:output> 
             <AJDF:output>$deletemsg</AJDF:output> 
-            <AJDF:output>$sendmsg</AJDF:output> 
-            </td>
-          </tr>
-          <!--<tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>-->
-          <tr>
-            <td colspan="3" align="left">
+              <AJDF:output>$statusmsg</AJDF:output> 
+            
+    <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">          <AJDF:output>$sendmsg</AJDF:output> 
+           
 <AJDF:output>$shownews</AJDF:output> 
-<!--</div>
-<div align="center" style="color:red"><strong><AJDF:output>$msg</AJDF:output></strong>
-</div>
-</div>
-<div align="center" style="color:red"><strong><AJDF:output>$msg</AJDF:output></strong>
-</div>-->
-</td>
-</table>
+</div></div>
 </form>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Are you sure to delete the News?</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<a href="javascript:void(0);" id="deletenewsid" class="btn btn-primary" >Save changes</a>
+</div>
+</div>
+
+<div id="deletealert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Please select one checkbox</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+</div>
+</div>
+
+
 <AJDF:output>include file="footer.html"</AJDF:output>
 <script type="text/javascript" language="javascript">
-function  deletenews()
-{
-	
-	var total=""
-	for(var i=0; i < document.frmcontent.deletenews.length; i++)
-	{
-		if(document.frmcontent.deletenews[i].checked)
-		total +=total + 1 
-	}
-	if(total==0)
-	{
-	alert("Select Atleast One News to Delete");
-	}
-	else
-	{
-	 	if(confirm('Are You Sure Want to Delete'))
-		{
-		document.frmcontent.action='?do=news&action=delete';
-		document.frmcontent.submit();		
-		}
-	}     
 
+$(document).ready(function (){
+
+$('#newsDelete').click(function () {
+
+var countvalue=$('input:checkbox:checked').length;
+ 	
+
+ 	if(countvalue=='0')
+ 	{
+ 		$('#deletealert').modal('show');
+ 		return false;
+ 	}
+ 	else
+ 	{
+ 		return true;
+ 	}
+
+
+});
+
+$('#deletenewsid').live('click',function(){
+	
+	$('#frmnews').submit();
+});
+
+
+
+});
+
+
+function togglenewsChecked(status) {
+$(".chknewsbox").each( function() {
+$(this).attr("checked",status);
+})
 }
 
 function view(id)

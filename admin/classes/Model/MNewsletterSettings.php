@@ -32,6 +32,8 @@
  * @version  		Version 4.0
  */
 
+
+
 class Model_MNewsletterSettings
 {
 	
@@ -130,10 +132,10 @@ class Model_MNewsletterSettings
 		{
 			include("classes/Core/Settings/CNewsletterSettings.php");			
 			$default = new Core_Settings_CNewsletterSettings();	
-			$output['addnewslettersmsg'] =$default -> addNewsletter();
-			$output['shownewsletters'] =$default -> showNewsletter();
-			Bin_Template::createTemplate('newsletter.html',$output);
-			//header("Location:?do=newsletter&action=show");
+			$_SESSION['msgAddnewsletter'] =$default -> addNewsletter();
+			
+			header("Location:?do=newsletter&action=show");
+			exit;
 		}
 		else
 		{
@@ -183,7 +185,15 @@ class Model_MNewsletterSettings
 			include("classes/Core/Settings/CNewsletterSettings.php");
 			$default = new Core_Settings_CNewsletterSettings();				
 			$output['shownewsletters'] =$default -> showNewsletter();
+			$output['deletemsg']=$_SESSION['msgDeletenewsletter'];
+			$output['addnewslettersmsg']=$_SESSION['msgAddnewsletter'];
+			$output['updatemsg']=$_SESSION['msgUpdateNewsletter'];
+			$output['sendmsg']=$_SESSION['msgSendNewsletter'];
 			Bin_Template::createTemplate('newsletter.html',$output);
+			unset($_SESSION['msgDeletenewsletter']);
+			unset($_SESSION['msgAddnewsletter']);
+			unset($_SESSION['msgUpdateNewsletter']);
+			unset($_SESSION['msgSendNewsletter']);
 		}
 		else
 		{
@@ -282,9 +292,9 @@ class Model_MNewsletterSettings
 		{
 			include("classes/Core/Settings/CNewsletterSettings.php");
 			$default = new Core_Settings_CNewsletterSettings();
-			$output['updatemsg']=$default->editNewsletter();
-			$output['shownewsletters'] =$default -> showNewsletter();			
-			Bin_Template::createTemplate('newsletter.html',$output);
+			$_SESSION['msgUpdateNewsletter']=$default->editNewsletter();
+			header('Location:?do=newsletter&action=show');
+			exit;
 		}
 		else
 		{
@@ -304,6 +314,7 @@ class Model_MNewsletterSettings
 	
 	function deleteNewsletter()
 	{
+
 	 	include('classes/Core/CRoleChecking.php');
 		include('classes/Core/CAdminHome.php');
 		$output['username']=Core_CAdminHome::userName();
@@ -333,9 +344,9 @@ class Model_MNewsletterSettings
 		{
 			include("classes/Core/Settings/CNewsletterSettings.php");
 			$default = new Core_Settings_CNewsletterSettings();
-			$output['deletemsg']=$default->deleteNewsletter();
-			$output['shownewsletters'] =$default -> showNewsletter();			
-			Bin_Template::createTemplate('newsletter.html',$output);
+			$_SESSION['msgDeletenewsletter']=$default->deleteNewsletter();
+			header('Location:?do=newsletter&action=show');
+			exit;
 		}
 		else
 		{
@@ -384,9 +395,9 @@ class Model_MNewsletterSettings
 		{
 			include("classes/Core/Settings/CNewsletterSettings.php");
 			$default = new Core_Settings_CNewsletterSettings();
-			$output['sendmsg']=$default->getEmailIds();
-			$output['shownewsletters'] =$default -> showNewsletter();
-			Bin_Template::createTemplate('newsletter.html',$output);
+			$_SESSION['msgSendNewsletter']=$default->getEmailIds();
+			header('Location:?do=newsletter&action=show');
+			exit;
 		}
 		else
 		{

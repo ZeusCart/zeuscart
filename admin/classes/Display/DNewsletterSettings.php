@@ -45,19 +45,20 @@ class Display_DNewsletterSettings
 	
 		$output = "";
 		
-		$output .= '<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-              <tr>
-                <td class="content_list_head">S.No</td>
-                <td class="content_list_head">NewsLetter Title</td>
-				<td align="center" class="content_list_head">Created Date</td>
-				<td align="center" class="content_list_head">Status</td>
-			
-                <td colspan="2" align="center" class="content_list_head">Delete</td>
-                </tr>
-              <tr>
-                <td colspan="6" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              </tr>
-			  ';
+		$output .= '
+
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
+		<tr>
+		<th  align="left"><input type="checkbox"  onclick="toggleChecked(this.checked)" name="newslettercheckall"></th>
+		<th  align="left">S.No</th>
+		<th align="left">NewsLetter Title</th>
+		<th align="left" >Created Date</th>
+		<th align="left" >Status</th>
+		</tr>
+		</thead>
+		<tbody>';
 		//$output.='<th>S.no.</th><th>Newsletter title</th><th>Created Date</th><th>Status</th><th colspan="2">Options</th>';
 		for ($i=0;$i<count($arr);$i++)
 		{
@@ -67,10 +68,7 @@ class Display_DNewsletterSettings
 			$n_time = explode(":",$n_date_time[1]);
 			$ndate=date("l, M d, Y ",mktime($n_time[0],$n_time[1],$n_time[2],$n_date[1],$n_date[2],$n_date[0]));
 			
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
+		
 			$status=$arr[$i]['newsletter_status'];
 			if($status==1)
 			{
@@ -80,15 +78,14 @@ class Display_DNewsletterSettings
 			{
 			$status='inactive_link'; //Not Sent
 			}
-			$output .= '<tr style="background-color: rgb(255, 255, 255);" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.'">'.($i+1).'</td><td align="" '.$classtd.'"><a href="?do=newsletter&action=disp&id='.$arr[$i]['newsletter_id'].'" >'.$arr[$i]['newsletter_title'].' </a></td>';
-			$output .= '<td align="center" '.$classtd.'">'.$ndate.'</td>';
-			$output .= '<td align="center" '.$classtd.'"><span class='.$status.'>&nbsp;</span></td>';
-			//$output .= '<td>'.$msg.'</td>';	
-			//$output.='<td align="center" '.$classtd.'"><input type="button" name="View"  title="View" value="View" onclick=view('.$arr[$i]['newsletter_id'].') /></td>';		
-			$output.='<td align="center" '.$classtd.'"><input type="button" name="delete" class="delete_bttn"  title="delete" value="" onclick=deletenews('.$arr[$i]['newsletter_id'].') /></td>';
+			$output .= '<tr>
+			<td><input type="checkbox" name="newslettercheck[]" class="chkbox" value="'.$arr[$i]['newsletter_id'].'"></td><td align="center" >'.($i+1).'</td><td align="" ><a href="?do=newsletter&action=disp&id='.$arr[$i]['newsletter_id'].'" >'.$arr[$i]['newsletter_title'].' </a></td>';
+			$output .= '<td align="center" >'.$ndate.'</td>';
+			$output .= '<td align="center" ><span class='.$status.'>&nbsp;</span></td></tr>';
+			
 		}
 			
-		$output.='</td></tr></table>';
+		$output.='</tbody></table>';
 		return $output;
 			
 	}
@@ -105,31 +102,31 @@ class Display_DNewsletterSettings
 	
 		$output = "";
 		// ?do=newsletter&action=edit&id='.(int)$_GET['id'].'
-		$output.='<form name="viewnewsletter" action="" method="post" >';
-		//$output .= '<table border="1"><tr><td>';
+		$output.='<form name="viewnewsletter" id="editNewsletterId" action="?do=newsletter&action=edit&id='.$arr[0]['newsletter_id'].'" method="post" id="">
+		<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Mangage:'.$arr[0]['newsletter_title'].'</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+
+		';
 		
-		$output.='<table width="97%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr" align="center">
-			
-				<tr class="content_list_txt1">
-            <td width="" align="left" class="label_name">Newsletter Title:  <input type="text" name="newslettertitle" id="newslettertitle" class="txt_box200" value="'.$arr[0]['newsletter_title'].'" />&nbsp;<a href="?do=newsletter" class="add_link" >Add Newsletter</a></td></tr>
-<tr>
-            <td colspan="3" align="left">&nbsp;</td>
-          </tr>
-          <tr class="content_list_txt1">';
-		$output.='<tr class="content_list_txt1">
-            <td width="" align="left" class="label_name">NewsLetter Content: 
-<div><textarea name="newsletter" id="newsletter" cols="85" rows="20" >'.$arr[0]['newsletter_content'].'</textarea>
-</td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr class="content_list_txt1">
-<td class="content_list_txt1" align="center"><input type="submit" name="update" id="update" class="all_bttn" value="Update Newletter" onclick="edit('.$arr[0]['newsletter_id'].')" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="submit" name="send" id="send" value="Send Newsletter" class="all_bttn" onclick="sendmail('.$arr[0]['newsletter_id'].')" /></td></tr>
+		$output.='	<div class="row-fluid">
+  <div class="span6"><label>Newsletter Title</label> <input type="text" name="newslettertitle" id="newslettertitle" class="span8" value="'.$arr[0]['newsletter_title'].'" /></div></div>
 ';
-		$output.='
-                
-               
-              </tr>';		
-		$output .= '</td></tr></table></form>';
+		$output.='	<div class="row-fluid">
+  <div class="span12"><label>NewsLetter Content</label>
+		<textarea name="newsletter" class="ckeditor" id="newsletter" cols="85" rows="20" >'.$arr[0]['newsletter_content'].'</textarea></div></div>
+
+';
+			
+		$output .= '</div>
+</div>
+</div>
+</div></div></form>';
 
 		return $output;
 	}	
@@ -149,27 +146,22 @@ class Display_DNewsletterSettings
 	
 		$output = "";
 		 // ?do=newsletter&action=edit&id='.(int)$_GET['id'].'
-		$output .= '<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-              <tr>
-                <td class="content_list_head" align="center">S.No</td>
-                <td class="content_list_head">Email</td>
+		$output .= '
 
-				<td align="left" class="content_list_head">Status</td>
-			
-                
-                </tr>
-              <tr>
-                <td colspan="3" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              </tr>
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
+		<tr>
+		<th  align="left">S.No</th>
+		<th  align="left">Email</th>
+		<th  align="left">Status</th>
+		</tr>
+		<tbody>
 			  ';
 		
 		for ($i=0;$i<count($arr);$i++)
 		{
 		
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
 			$status=$arr[$i]['newsletter_status'];
 			if($arr[$i]['status']==1)
 			{
@@ -179,21 +171,28 @@ class Display_DNewsletterSettings
 			{
 			$status='inactive_link';
 			}
-			$output .= '<tr style="background-color: rgb(255, 255, 255);" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.'">'.($i+1).'</td><td align="" '.$classtd.'">'.$arr[$i]['email'].' <br />
+			$output .= '<tr><td align="center" >'.($i+1).'</td><td align="" >'.$arr[$i]['email'].' <br />
 			</td>';			
-			$output .= '<td align="center" '.$classtd.'"><span class="'.$status.'">&nbsp;</span></td>';
+			$output .= '<td align="center" ><span class="'.$status.'">&nbsp;</span></td>';
 			}
 			
 		$output.='</tr>';
 		$output.='<tr>
-                <td colspan="3" class="content_list_txt1" align="center">'.$prev.' ';
+			<td colspan="3" class="clsAlignRight">
+			<div class="dt-row dt-bottom-row">
+			<div class="row-fluid">
+			<div class="dataTables_paginate paging_bootstrap pagination">
+			<ul>'.$prev.' ';
 		
 		    for($i=1;$i<=count($paging);$i++)
 				 $pagingvalues .= $paging[$i]."  ";
 		
-			$output .= $pagingvalues.' '.$next.'</td>
-              </tr>';
-		$output.='</table>';
+			$output .= $pagingvalues.' '.$next.'</ul></div>
+			</div>
+			</div>
+			</td>
+			</tr>';
+		$output.='</tbody></table>';
 		return $output;
 	}	
 }

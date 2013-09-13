@@ -86,6 +86,38 @@ class Model_MAddAttributes
 	
 	function addAttributes()
 	{
+
+		include('classes/Lib/CheckInputs.php');
+		include('classes/Core/CRoleChecking.php');
+		
+		$obj = new Lib_CheckInputs('attributes');
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{
+			include("classes/Core/Settings/CAddAttributes.php");
+			$default = new Core_Settings_CAddAttributes();
+			
+			$output['showattributes']=$default->showAttributes($Err);
+			Bin_Template::createTemplate('addAttributename.html',$output);	
+		}
+		else
+		{
+		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+			
+		}	
+	}	
+	
+	
+	/**
+	 * Function used to display the insert of Attribute     
+	 * at admin side
+	 * 
+	 * @return array
+	 */
+	function insertAttributes()
+	{
 		include('classes/Lib/CheckInputs.php');
 		include('classes/Core/CRoleChecking.php');
 		
@@ -106,7 +138,9 @@ class Model_MAddAttributes
 			Bin_Template::createTemplate('Errors.html',$output);
 			
 		}	
-	}	
+
+
+	}
 	
 	/**
 	 * Function used to display the list of Attributes available     
@@ -204,6 +238,32 @@ class Model_MAddAttributes
 			
 		}	
 					
-	}	
+	}
+
+	function addAttibutename()
+	{
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Model/MSiteStatistics.php');
+		
+		$output=Model_MSiteStatistics::SiteStatistics();
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{
+			include("classes/Core/Settings/CAddAttributes.php");
+			$default = new Core_Settings_CAddAttributes();
+			$output['attribmsg']=$default->deleteAttributes();
+			$output['showattributes']=$default->showAttributes($Err);
+			Bin_Template::createTemplate('addAttributename.html',$output);	
+		}
+		else
+		{
+		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+			
+		}	
+		
+	}
+
 }
 ?>

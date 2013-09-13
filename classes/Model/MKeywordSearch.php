@@ -48,6 +48,7 @@ class Model_MKeywordSearch
 	*/
 	function keywordsearch()
 	{
+
 		include('classes/Core/CFeaturedItems.php');
 		include('classes/Core/CUserRegistration.php');
 		include('classes/Core/CHome.php');
@@ -95,7 +96,7 @@ class Model_MKeywordSearch
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		if (isset($_GET['search']))
 			$search=$_GET['search'];
 		else
@@ -202,7 +203,7 @@ class Model_MKeywordSearch
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['timezone']=Core_CHome::setTimeZone();	
@@ -282,7 +283,7 @@ class Model_MKeywordSearch
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['timezone']=Core_CHome::setTimeZone();	
@@ -354,7 +355,7 @@ class Model_MKeywordSearch
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
 		include('classes/Core/CHome.php');

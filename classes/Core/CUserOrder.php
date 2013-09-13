@@ -96,5 +96,128 @@ class Core_CUserOrder
     		return Display_DUserAccount::showOrderDetails($obj->records);
 
 	}
+	/**
+	 * This function is used to get  the   order details for print
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
+	function printOrderDetail()
+	{
+		include('classes/Display/DUserAccount.php');
+		$id=(int)$_GET['id'];
+		$sqlselect = "SELECT a.*,date_format(a.date_purchased,'%e/%c/%Y') as purDate,date_format(a.orders_date_closed,'%e/%c/%Y') as closeDate,b.orders_status_name,c.*,d.title,e.gateway_name,e.merchant_id,f.cou_name as shipcountry,g.cou_name as billcountry FROM `orders_table` a,orders_status_table b,order_products_table c,products_table d,paymentgateways_table e,country_table f,country_table g WHERE a.shipping_country=f.cou_code and a.billing_country=g.cou_code and a.payment_method=e.gateway_id and a.orders_status=b.orders_status_id and a.orders_id=c.order_id and c.product_id=d.product_id and a.orders_id=".$id;
+		$obj = new Bin_Query();
+
+		$obj->executeQuery($sqlselect);
+    		return Display_DUserAccount::printOrderDetail($obj->records);
+	}
+	/**
+	 * This function is used to get  the  digital product list for my downloads
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
+	function showDigitalProduct()
+	{
+		include('classes/Display/DUserAccount.php');
+		if(isset($_GET['totrec'])&&$_GET['totrec']>0)
+			$pagesize=$_GET['totrec'];
+		else
+			$pagesize=10;
+		//$pagesize=10;
+  	  	if(isset($_GET['page']))
+		{
+		    
+			$start = trim($_GET['page']-1) *  $pagesize;
+			$end =  $pagesize;
+		}
+		else 
+		{
+			$start = 0;
+			$end =  $pagesize;
+		}
+		$total = 0;
+		$id=$_SESSION['user_id'];
+		//$id=51;
+		$sqlselect="SELECT a.orders_id, b.product_id, c.title,date_format(a.date_purchased,'%e/%c/%Y') as pdate,date_format(date_add(a.date_purchased,INTERVAL 7 DAY),'%e/%c/%Y') as expdate
+		FROM orders_table a
+		INNER JOIN order_products_table b ON a.orders_id = b.order_id
+		INNER JOIN products_table c ON c.product_id = b.product_id
+		AND c.digital =1
+		WHERE a.customers_id =".$id;
+		
+		$query = new Bin_Query();
+		if($query->executeQuery($sqlselect))
+		{	
+			$total = ceil($query->totrows/ $pagesize);
+			include('classes/Lib/Paging.php');
+			$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
+			$this->data['paging'] = $tmp->output;
+			$this->data['prev'] =$tmp->prev;
+			$this->data['next'] = $tmp->next;	
+		}
+			
+		$sqlselect="SELECT a.orders_id, b.product_id, c.title,date_format(a.date_purchased,'%e/%c/%Y') as pdate,date_format(date_add(a.date_purchased,INTERVAL 7 DAY),'%e/%c/%Y') as expdate
+		FROM orders_table a
+		INNER JOIN order_products_table b ON a.orders_id = b.order_id
+		INNER JOIN products_table c ON c.product_id = b.product_id
+		AND c.digital =1
+		WHERE a.customers_id =".$id." LIMIT $start,$end";		
+		$obj = new Bin_Query();
+
+		$obj->executeQuery($sqlselect);
+		return Display_DUserAccount::showDigitalProduct($obj->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
+		
+	}
+	/**
+	 * This function is used to download  the  digital product  
+	 *
+	 * .
+	 * 
+	 * @return string
+	 */
+	function CheckDigitalProduct()
+	{
+		$orderid=(int)$_GET['rid'];
+		$productid=(int)$_GET['pid'];
+		$userid=$_SESSION['user_id'];
+		$sql="select * from orders_table where orders_id=".$orderid." and date_add(date_purchased,INTERVAL 7 DAY)>=curdate() and customers_id=".$userid;
+		$obj=new Bin_Query();
+		if($obj->executeQuery($sql))
+		{
+			$sql1="select * from order_products_table where order_id=".$orderid." and product_id=".$productid;
+			if($obj->executeQuery($sql1))
+			{
+				$sql2="select digital_product_path from products_table where digital=1 and product_id=".$productid;
+				$obj->executeQuery($sql2);
+				$downurl="Location:admin/".$obj->records[0]['digital_product_path'];
+				header($downurl);
+				exit();
+			}
+			else
+			{
+
+				$_SESSION['errmsg']='<div class="alert alert-info">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				<strong>You Can not download this product</strong> 
+				</div>';
+				header('Location:?do=digitdown');
+				exit();
+			}
+		}
+		else
+		{
+			$_SESSION['errmsg']='<div class="alert alert-info">
+				<button data-dismiss="alert" class="close" type="button">×</button>
+				<strong>You Can not download this product</strong> 
+				</div>';
+			header('Location:?do=digitdown');
+			exit();
+		}
+	
+	}
 }
 ?>

@@ -61,6 +61,8 @@ class Lib_CheckInputs
 			$this->validateEntryUpdate();
 		else if($module=='useraccregister')
 			$this->validateUserRegister();
+		else if($module=='useraccregisterlight')
+			$this->validateUserRegisterLight();
 		else if($module=='frmship')
 			$this->validateCheckout();
 		else if($module=='regionwisetax')
@@ -77,6 +79,329 @@ class Lib_CheckInputs
 			$this->validateAddSocialLink();
 		else if($module=='updatesociallink')
 			$this->validateUpdateSocialLink();
+		else if($module=='addhomepageads')
+			$this->validateAddHomePageAds();
+		else if($module=='edithomepageads')
+			$this->validateEditHomePageAds();
+		else if($module=='dynamiccms')
+			$this->validateDynamicCms();
+		else if($module=='editdynamiccms')
+			$this->validateEditDynamicCms();
+		else if($module=='csevalidation')
+			$this->validateCsevalidation();
+		else if($module=='digitalproductreg')
+			$this->validateDigitalEntry();
+		else if($module=='giftproductreg')
+			$this->validateGiftEntry();
+		else if($module=='customergroup')
+			$this->validateCustomerGroup();	
+		else if($module=='editcustomergroup')
+			$this->validateEditCustomerGroup();
+		else if($module=='useraccupdate')
+			$this->validateUserUpdate();
+		else if($module=='addattributevalues')
+			$this->validateAddAttributeValues();
+		else if($module=='editattributevalues')
+			$this->validateEditAttributeValues();
+		else if($module=='sitesettings')
+			$this->validateSiteSettings();
+	}
+
+	function validateSiteSettings()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			
+			if($_POST['site_moto']=='' || $_POST['attributevalues']!='' || $_POST['admin_email']=='' || $_POST['admin_email']!='')
+			{
+				
+				$obj = new Lib_FormValidation('sitesettings');
+			}
+			else 
+			{
+				header("Location:?do=site");
+				exit();
+			}
+
+
+		}
+
+	}
+
+	function validateEditAttributeValues()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			
+			if($_POST['attributevalues']=='' || $_POST['attributevalues']!='')
+			{
+				
+				$obj = new Lib_FormValidation('editattributevalues');
+			}
+			else 
+			{
+				header("Location:?do=addattributevalues&action=disp&id=".(int)$_GET['id']);
+				exit();
+			}
+
+
+		}
+
+	}
+	function validateAddAttributeValues()
+	{
+
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			
+			if($_POST['attributevalues']=='' || $_POST['attributevalues']!='')
+			{
+				
+				$obj = new Lib_FormValidation('addattributevalues');
+			}
+			else 
+			{
+				header("Location:?do=addattributevalues&action=showadd");
+				exit();
+			}
+
+
+		}
+
+	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	
+	function validateUserUpdate()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['txtdisname']=='' or $_POST['txtlname']=='' or $_POST['txtfname']=='' or $_POST['txtemail']==''
+			or $_POST['txtpwd']=='' or $_POST['txtdisname']!='' or $_POST['txtlname']!='' or $_POST['txtfname']!='' 
+			or $_POST['txtemail']!='' or $_POST['txtpwd']!='')
+			{
+				
+				$obj = new Lib_FormValidation('useraccupdate');
+			}
+			else 
+			{	
+				$userid=$_GET['userid'];
+				header('?do=editreg&action=edit&userid='.$userid);
+				exit();
+			}
+		}
+	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	
+	function validateGiftEntry()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			
+			if($_POST['price']==''||$_POST['price']!='')
+			{
+				
+				$obj = new Lib_FormValidation('giftproductreg');
+			}
+			else 
+			{
+				header("Location:?do=giftproductentry");
+				exit();
+			}
+
+
+		}
+	
+	}
+
+	
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	
+	function validateDigitalEntry()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			
+			if($_POST['price']==''||$_POST['price']!='')
+			{
+				
+				$obj = new Lib_FormValidation('digitalproductreg');
+			}
+			else 
+			{
+				header("Location:?do=digitproductentry");
+				exit();
+			}
+
+
+		}
+	
+	}
+
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateCsevalidation()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+
+			if($_POST['regid']=='' or $_POST['regid']!='' )
+			{
+			
+
+				$obj = new Lib_FormValidation('checkCse');
+			}
+			else 
+			{
+				header('Location:?do=cse');
+				exit();
+			}
+		}	
+
+
+	}	
+
+
+
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateEditDynamicCms()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+
+			if($_POST['cms_page_alias']=='' or $_POST['cms_page_alias']!='' )
+			{
+			
+
+				$obj = new Lib_FormValidation('editdynamiccms');
+			}
+			else 
+			{
+				header('Location:?do=dynamiccms&action=edit&id='.$_GET['id']);
+				exit();
+			}
+		}	
+
+
+	}	
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateDynamicCms()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+
+			if($_POST['cms_page_alias']=='' or $_POST['cms_page_alias']!='' )
+			{
+			
+
+				$obj = new Lib_FormValidation('dynamiccms');
+			}
+			else 
+			{
+				header('Location:?do=dynamiccms');
+				exit();
+			}
+		}	
+
+
+	}	
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateAddHomePageAds()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['title']==''or $_POST['title']!='' or $_POST['url']=='' or $_POST['url']!='' or $_FILES['logo']['name']=='' or $_FILES['logo']['name']!='' )
+			{
+			
+				$obj = new Lib_FormValidation('addhomepageads');
+			}
+			else 
+			{
+				header('Location:?do=homepageads&action=show');
+				exit();
+			}
+		}
+
+	}
+
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateEditHomePageAds()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['home_page_ads_title']==''or $_POST['home_page_ads_title']!='' or $_POST['home_page_ads_url']=='' or $_POST['home_page_ads_url']!='' or $_FILES['home_page_ads_logo']['name']=='' or $_FILES['home_page_ads_logo']['name']!='' )
+			{
+			
+				$obj = new Lib_FormValidation('edithomepageads');
+			}
+			else 
+			{
+				header('Location:?do=homepageads&action=edit&id='.$_GET['id']);
+				exit();
+			}
+		}
+
 	}
 	/**
 	 * Function checks whether the request method is post and invokes the validation module  
@@ -170,7 +495,7 @@ class Lib_CheckInputs
 		include('classes/Lib/FormValidation.php');
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
-			if($_POST['txtname']=='' or $_POST['txtstreet']=='' or $_POST['txtsuburb']=='' or $_POST['txtzipcode']!='' or $_POST['txtcountry']!='' or $_POST['txtstate']!='' or $_POST['txtsname']!='' or $_POST['txtsstreet']!='' or $_POST['txtssuburb']!='' or $_POST['txtszipcode']!='' or $_POST['txtscountry']!=''  or $_POST['txtsstate']!='' or $_POST['selshipcountry']!='' or $_POST['selbillcountry']!='' or $_POST['txtzipcode']!='')
+			if($_POST['txtname']=='' or $_POST['txtstreet']=='' or $_POST['txtsuburb']=='' or $_POST['txtzipcode']!='' or $_POST['txtcountry']!='' or $_POST['txtstate']!='' or $_POST['txtsname']!='' or $_POST['txtsstreet']!='' or $_POST['txtssuburb']!='' or $_POST['txtszipcode']!='' or $_POST['txtscountry']!=''  or $_POST['txtsstate']!='' or $_POST['selshipcountry']!='' or $_POST['selbillcountry']!='' or $_POST['txtzipcode']!='' or $_POST['selCustomer']!=''  or $_POST['selCustomer']=='')
 			{
 			
 				$obj = new Lib_FormValidation('frmship');
@@ -209,6 +534,33 @@ class Lib_CheckInputs
 				exit();
 			}
 		}
+	}
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */
+	function validateUserRegisterLight()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['txtdisname']=='' or $_POST['txtlname']=='' or $_POST['txtfname']=='' or $_POST['txtemail']==''
+			   or $_POST['txtpwd']=='' or $_POST['txtdisname']!='' or $_POST['txtlname']!='' or $_POST['txtfname']!='' 
+			   or $_POST['txtemail']!='' or $_POST['txtpwd']!='')
+			{
+				
+				$obj = new Lib_FormValidation('useraccregisterlight');
+			}
+			else 
+			{
+				header("Location:?do=addUserAccountLight");
+				exit();
+			}
+		}
+
 	}
 	/**
 	 * Function checks whether the request method is post and invokes the validation module  
@@ -469,8 +821,43 @@ class Lib_CheckInputs
 			}
 		}	
 	}
-	
-	
+	function validateCustomerGroup()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if(isset($_POST))
+			{
+				$obj = new Lib_FormValidation('customergrp');
+			}
+			else 
+			{
+				header("Location:?do=custgroup&action=add");
+				exit();
+			}
+		}
+
+
+	}
+	function validateEditCustomerGroup()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if(isset($_POST))
+			{
+				$obj = new Lib_FormValidation('editcustomergrp');
+			}
+			else 
+			{
+				$id = $_POST['groupid'];
+				header("Location:?do=custgroup&action=edit&id=".$id);
+				exit();
+			}
+		}
+
+	}		
+
 }
 
 ?>

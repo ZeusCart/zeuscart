@@ -42,9 +42,9 @@ class Display_DCategory
 	 */
 	function allCat($arr)
 	{
-	include 'admin/cache/sitesettings.php';
-	$path='classes/Lib/Local/'.$sitesettings['language'].'/localization.php';
-	include $path;
+		include 'admin/cache/sitesettings.php';
+		$path='classes/Lib/Local/'.$sitesettings['language'].'/localization.php';
+		include $path;
 		$output="";
 		$cont=count($arr);
 		for($i=0; $i<$cont; $i++)
@@ -66,9 +66,9 @@ class Display_DCategory
 	
 	function showSub($arr)
 	{
-	include 'admin/cache/sitesettings.php';
-	$path='classes/Lib/Local/'.$sitesettings['language'].'/localization.php';
-	include $path;		 
+		include 'admin/cache/sitesettings.php';
+		$path='classes/Lib/Local/'.$sitesettings['language'].'/localization.php';
+		include $path;		 
 		$obj=new Core_Category_CCategory();
 	 	$output="";
 		$cont=count($arr);

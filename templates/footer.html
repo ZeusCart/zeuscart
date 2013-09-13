@@ -19,16 +19,19 @@
 </AJDF:output>
 <!--Footer-->
   <footer>
-      
+ 
     <div id="order_div">
     	<div class="container">
         	<div class="row-fluid">
         	<div class="span7"><h3>Free Shipping on orders over <span>$99</span></h3></div>
-            <div class="span5"><form class="form-inline" style="float:right">
+
+            <div class="span5">      <AJDF:output>$newsletter</AJDF:output>
+<form name="newsletter" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=subnewsletter" method="post" class="form-inline" style="float:right">
             <label class="checkbox">
 Sign up for our Newsletter 
 </label>
-<input type="text" class="input-small" placeholder="Enter Email Address">
+<input name="email" class="input-small"  type="text"  maxlength="100" value="Your Email" onblur="if(this.value=='') this.value='Your Email'" onfocus="this.value=''" /> 
+
 <button type="submit" class="btn btn-danger">Submit</button>
 </form></div>
         </div></div>
@@ -37,45 +40,49 @@ Sign up for our Newsletter
 	<div class="ftr_cnt_area">
     	<div class="container">
         	<div class="row-fluid">
-            	<div class="span3">
-                	<h3>My account</h3>
-                   <ul class="ftrlist">
-                    	<li><a href="#">My account</a></li>
-                    	<li><a href="#">Secure Shopping</a></li>
-                         <li><a href="#">Advanced Search</a></li>
-                    	<li><a href="#">Addresses</a></li>
-                    	<li><a href="#">Secure Shopping</a></li>
-                    </ul>
-                </div>
-            	<div class="span3">
-                	<h3>Extras</h3>
-                   <ul class="ftrlist">
-			<li><a href="?do=contactus">Contact us</a></li>
-                    	<li><a href="#">Brands</a></li>
-                    	<li><a href="#">Gift Vouchers</a></li>
-                    	<li><a href="#">Affiliates</a></li>
-                    	<li><a href="#">Specials</a></li>
-                    	<li><a href="#">Feature Sale</a></li>
-                    	<li><a href="#">Latest Sale</a></li>
-                    </ul>
-                </div>
-            	<div class="span3">
+
+		<div class="span2">
                 	<h3>Information</h3>
                    <ul class="ftrlist">
-                    	<li><a href="?do=aboutus">About Us</a></li>
-                    	<li><a href="?do=privacypolicy">Privacy policy</a></li>
-                    	<li><a href="?do=termsandcondition">Terms & Conditions</a></li>
-                    	<li><a href="?do=faq">FAQ</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/aboutus.html">About Us</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/policy.html">Privacy policy</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/terms.html">Terms & Conditions</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/faq.html">FAQ</a></li>
                     </ul>
                 </div>
+
+		<div class="span3">
+                	<h3>Customer Service</h3>
+                   <ul class="ftrlist">
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/contact.html">Contact us</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/site.html">Site Map</a></li>
+                    	
+                    </ul>
+                </div>
+            	<div class="span2">
+                	<h3>My account</h3>
+                   <ul class="ftrlist">
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard">My account</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist">Wish List</a></li>
+                    </ul>
+                </div>
+            	<div class="span2">
+                	<h3>Extras</h3>
+                   <ul class="ftrlist">
+			
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=brands&schltr=All">Brands</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=viewproducts&cat=Gift Voucher">Gift Vouchers</a></li>
+                            	
+                    </ul>
+                </div>
+            	
            	  <div class="span3">
                	<h3>Connect with us</h3>
                  <ul class="cntwithus">
-               		  <li><img src="assets/img/phone-icn.png" alt="phone"> Call Us +001 555 801</li>
-               		  <li><img src="assets/img/mail-icn.png" alt="phone"> email@example.com</li>
-               		  <li><img src="assets/img/print-icn.png" alt="phone"> Fax +001 555 802</li>
-               		  <li><img src="assets/img/skype-icn.png" alt="phone"> Your Skype name here</li>
-               		  <li><img src="assets/img/map-icn.png" alt="phone"> Location : Bangalore</li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/phone-icn.png" alt="phone"> Call Us +<AJDF:output>$footerconnect.callus</AJDF:output></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/mail-icn.png" alt="phone">Email :<a href="mailto:<AJDF:output>$footerconnect.email</AJDF:output>" > <AJDF:output>$footerconnect.email</AJDF:output></a></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/print-icn.png" alt="phone"> Fax +<AJDF:output>$footerconnect.fax</AJDF:output></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/map-icn.png" alt="phone"> Location : <AJDF:output>$footerconnect.location</AJDF:output></li>
                  </ul>
                 </div>
             </div>
@@ -84,164 +91,50 @@ Sign up for our Newsletter
     <div class="footer_inbx1" id="cpy_div">
             <div class="container">
                 <div class="row-fluid">
-                	<div class="span6"><p>Copyright © 2013. All rights reserved.    <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a></p></div>
-                    <div class="span4"><img src="assets/img/payment.png" alt="payment"></div>
-                  <div class="span2">
-                   <ul class="sociallist">
-                   	<li><a href="#" class="in_btn"></a></li>
-                   	<li><a href="#" class="yt_btn"></a></li>
-                     <li><a href="#" class="fb_btn"></a></li>
-                   	<li><a href="#" class="tw_btn"></a></li>
-
-                   </ul>
+                	<div class="span6"><p><AJDF:output>$footerconnect.footercontent </AJDF:output> </p></div>
+                    <div class="span1"><!--<img src="assets/img/payment.png" alt="payment">--></div>
+                  <div class="span5">
+                <AJDF:output>$sociallink</AJDF:output>
                     </div>
                 </div>
-            </div>
+            </div></br>
+ <AJDF:output>$headerMainMenu</AJDF:output>
         </div>
   </footer>                               
 
         <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-    <script src="assets/js/google-code-prettify/prettify.js"></script>
-    <script src="assets/js/transition.js"></script>
-    <script src="assets/js/alert.js"></script>
-    <script src="assets/js/modal.js"></script>
-    <script src="assets/js/dropdown.js"></script>
-    <script src="assets/js/scrollspy.js"></script>
-    <script src="assets/js/tab.js"></script>
-    <script src="assets/js/tooltip.js"></script>
-    <script src="assets/js/popover.js"></script>
-    <script src="assets/js/button.js"></script>
-    <script src="assets/js/collapse.js"></script>
-    <script src="assets/js/carousel.js"></script>
-    <script src="assets/js/typeahead.js"></script>
-    <script src="assets/js/application.js"></script>
-
-
-<AJDF:output>if $smarty.get.do ne 'index'</AJDF:output>
-<script type="text/javascript">
-var arr3=["account_id","details_id"];
-function showAccnt(divid)
-{
-	if(document.getElementById(divid).style.display=="none")
-	{
-		for(var i=0;i<arr3.length;i++)
-			{
-				document.getElementById(arr3[i]).style.display="none";
-				document.getElementById(arr3[i]+"1").className="acc_unselect";
-			}
-			viewAccnt(divid);
-	}
-	
-}
-function viewAccnt(div_id)
-{
-	$("#"+ div_id).fadeIn('slow');
-	document.getElementById(div_id+"1").className="acc_select";
-}
-</script>
-
-<AJDF:output>/if</AJDF:output>
-<script type="text/javascript">
-function selectCurrency(id)
-{
-
-$.ajax({
-		type: "GET",
-		url: "?do=changecurrency",
-		data: "id="+id,
-		success: function(result){
-		
-		window.location.href=window.location.href;
+    <script type="text/javascript" src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/widgets.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/google-code-prettify/prettify.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/transition.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/alert.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/modal.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/dropdown.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/scrollspy.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/tab.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/tooltip.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/popover.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/button.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/collapse.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/carousel.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/typeahead.js"></script>
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/application.js"></script>
+    <AJDF:output>if $smarty.get.do eq '' || $smarty.get.do eq 'index' || $smarty.get.do eq 'logout' </AJDF:output>
+	<script type="text/javascript">
+	$('.search_icn').on("click",function () {	
+	var productId = $(this).data('id');
+	$.ajax({
+	url:'<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=prodetail&action=showpopupprod',
+	data: 'prodid='+productId,
+	type: 'GET',
+	success: function (resp) {
+	document.getElementById('popupproductdetails').innerHTML=resp;
 	}
 	});
-}
-</script>
-<AJDF:output>if $smarty.get.do eq 'addtocartfromproductdetail' || $smarty.get.do eq 'addtocart' || $smarty.get.do eq 'showcart'</AJDF:output>
-<script type="text/javascript" language="javascript">
-function call()
-{
-  window.location= "?do=indexpage";
-}
-
-</script>
-<AJDF:output>/if</AJDF:output>
-<AJDF:output>if $smarty.get.do eq 'orders' || $smarty.get.do eq 'myorder'</AJDF:output>
-<script type="text/javascript">
-function changepagesize(optn,sel)
-{
-	if(optn=='order')
-	window.location.href='?do=myorder&totrec='+sel;
-	if(optn=='review')
-	window.location.href='?do=orders&totrec='+sel;
-	if(optn=='digitorder')
-	window.location.href='?do=digitdown&totrec='+sel;
-	
-}
-
-function changeyear(option,val)
-{
-if(option=='order')
-	window.location.href='?do=myorder&year='+val;
-}
-</script>
-<AJDF:output>/if</AJDF:output>
-
-<AJDF:output>if $smarty.get.do eq 'prodetail'</AJDF:output>
-<script type="text/javascript">
-var globVal=0;
-function fun(s)
-{
-
-globVal=0;
-	for (var i=1;i<=s;i++)
-	{
-	document.frm["img"+i].src="assets/img/star.png";
-	}
-	document.frm.hidRate.value=s;
-}
-
-
-function fun1(s)
-{
-if(globVal==0)
-{
-	for (var i=1;i<=5;i++)
-	{
-	document.frm["img"+i].src="assets/img/star-gray.png";
-	}
-	document.frm.hidRate.value="";
-}
-}
-
-function fun2(s)
-{
-globVal=1;
-	for (var i=1;i<=s;i++)
-	{
-	document.frm["img"+i].src="assets/img/star.png";
-	}
-
-}
-
-var presh = -1
-function shuffle()
-{
-		curr = Math.ceil(Math.random()*100);
-	document.getElementById('captcha').src="?do=captcha&"+ (curr==presh ? Math.ceil(Math.random()*100) : curr);				
-		presh = curr;
-
-}
-</script>
-<AJDF:output>if $smarty.session.reviewResult ne ''</AJDF:output>
-<script type="text/javascript">
-document.getElementById('details_id').style.display="block";
-</script>
-<AJDF:output>/if</AJDF:output>
-
-<AJDF:output>/if</AJDF:output>
+	});
+	</script>
+	<AJDF:output>/if</AJDF:output>
 </body>
 </html>
 

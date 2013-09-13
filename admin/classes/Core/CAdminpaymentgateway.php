@@ -132,7 +132,8 @@ class Core_CAdminpaymentgateway
 		$obj=new Bin_Query();
 		$obj->updateQuery($sql);	
 		}	
-		return '<div class="success_msgbox">PaymentGateWay Updated Successfully</div>';
+		return '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> PaymentGateWay Updated Successfully</div>';
 		
 		
 	}

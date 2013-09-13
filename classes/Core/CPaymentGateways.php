@@ -362,7 +362,17 @@ class Core_CPaymentGateways
 									$obj=new Bin_Query();
 									$obj->updateQuery($sql);
 									
-									
+									// update gift voucher 
+									if($row['gift_product']==1)
+									{
+										$sql_gift="UPDATE gift_voucher_table SET  order_id='".$maxid."' WHERE  cart_id='".$row['cart_id']."'";
+										$obj_gift=new Bin_Query();
+										$obj_gift->updateQuery($sql_gift);
+										
+							
+										Core_CPaymentGateways::sendingMail($maxid);
+
+									}
 									
 									
 								}
@@ -381,14 +391,14 @@ class Core_CPaymentGateways
 							}				
 					}
 
-						// insert gift voucher 
+					// insert gift voucher 
 
-					if(count($_SESSION['gift'])!='')
+					/*if($_SESSION['gift']!='')
 					{
 						for($g=0;$g<count($_SESSION['gift']);$g++)
 						{
 
-							/*Generate the gift Code */
+							
 							$characters='4';	
 							$possible = '1234567890';
 								$code = '';
@@ -410,7 +420,7 @@ class Core_CPaymentGateways
 							Core_CPaymentGateways::sendingMail($_SESSION['gift'][$g]['email'],$_SESSION['gift'][$g]['remail'],$code);
 
 						}
-					}					
+					}	*/				
 					/*$mail_sql="select a.user_email from users_table a where a.user_id=".customers_id;
 					$obj_mail=new Bin_Query();
 					$obj_mail=executeQuery($mail_sql);
@@ -438,33 +448,47 @@ class Core_CPaymentGateways
 		}
 		/**
 		* This function is used to send  the  email for gift voucher
-		* @param string  $to_mail
-		* @param string  $title
-		* @param string  $mail_content
+		* @param int  $orderid
+		* 
+		* 
 		* 
 		* @return string
 		*/		
-		function sendingMail($from_email,$to_mail,$title,$code)
+		function sendingMail($orderid)
 		{
+			
+			$sql="SELECT * FROM  gift_voucher_table WHERE order_id='".$orderid."'";
+			$obj=new Bin_Query();
+			$obj->executeQuery($sql);
+			$records=$obj->records;
+			if(count($records)>0)
+			{
+				for($i=0;$i<count($records);$i++)
+				{
+					$from_email=$records[$i]['email'];
+					$code=$records[$i]['gift_code'];
+					$to_mail=$records[$i]['recipient_email'];
+			
+					$subject = 'Gift Voucher From '.$from_email;
+					$headers  = "MIME-Version: 1.0\n";
+					$headers .= "Content-type: text/html; charset=UTF-8\n";
+					$headers .= "From: ".$from."\n";
+					
+					$mailContent.='<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+					<td valign="top" align="left" style="margin:0; padding:0 0 10px 0; line-height:20px; font-size:12px; color:rgb(51,51,51);"><b>Gift Voucher</b></td>
+					</tr>
+					<tr>
+					<td valign="top" align="left" style="margin:0; padding:0 0 10px 0; line-height:20px; font-size:12px; color:rgb(51,51,51);">Your Gift Voucher Code '.$code.'</td>
+					</tr>			
+					</table>';
+					
 		
-			
-			$subject = 'Gift Voucher From '.$from_email;
-			$headers  = "MIME-Version: 1.0\n";
-			$headers .= "Content-type: text/html; charset=UTF-8\n";
-			$headers .= "From: ".$from."\n";
-			
-			$mailContent.='<table width="100%" cellpadding="0" cellspacing="0" border="0">
-			<tr>
-			<td valign="top" align="left" style="margin:0; padding:0 0 10px 0; line-height:20px; font-size:12px; color:rgb(51,51,51);"><b>Gift Voucher</b></td>
-			</tr>
-			<tr>
-			<td valign="top" align="left" style="margin:0; padding:0 0 10px 0; line-height:20px; font-size:12px; color:rgb(51,51,51);">Your Gift Voucher Code '.$code.'</td>
-			</tr>			
-			</table>';
-			
+					$mailContent = stripslashes($mailContent);
+					mail($to_mail,$subject,$mailContent,$headers);
+				}
 
-			$mailContent = stripslashes($mailContent);
-			mail($to_mail,$subject,$mailContent,$headers);
+			}
 			
 			
 		}

@@ -61,12 +61,16 @@
 	
 	function updateCustomHeader()
 	{
+
+
 		$sql="update admin_settings_table set set_value='". trim($_POST['headerContent']) . "' where set_name='Custom Header'";
 		$obj=new Bin_Query();
 		if($obj->updateQuery($sql))
-			return '<div class="success_msgbox" style="width:652px;">Custom Header changed Successfully</div>';
+			return '<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Custom Header changed Successfully</div>';
 		else
-			return '<div class="error_msgbox" style="width:652px;">Unable to change Custom Header</div>';			
+			return '<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> Unable to change Custom Header</div>';			
 
 	}
 }

@@ -20,26 +20,14 @@
 */
 
 /**
- * AJDF
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package 		AJDF
- * @author   	 	AJ Square Inc Dev Team
- * @copyright 	    Copyright (c) 2008 - 2013, AJ Square, Inc.
- * @link    		http://www.ajsquare.com/ajhome.php
- * @version   		Version 4.0
- * @created   		January 15 2013
- */
-
-/**
  * installation process the  related  class
  *
- * @package   		install
- * @subpackage  	Model
+ * @package   		Model_MInstall
  * @category    	Model
  * @author    		AJ Square Inc Dev Team
- * @link   		  http://www.zeuscart.com
+ * @link   		http://www.zeuscart.com
+ * @version   		Version 4.0	
+ * @copyright 	        Copyright (c) 2008 - 2013, AJ Square, Inc.	
  */
 class Model_MInstall
 {
@@ -57,14 +45,14 @@ class Model_MInstall
 			$shownavigation =3;
 			$next = '?do=installterms';
 			$prv = 'index.php';
-			$menus='<ul>
-					<li><h1>Introduction</h1></li>
-					<li><h1>Terms & Conditions</h1></li>
-					<li><h1>Check for Prerequisite</h1></li>
-					<li><h1>Datebase Configuration</h1></li>
-					<li><h1>Admin Configuartion</h1></li>
-					<li><h1>Store Setting</h1></li>
-					</ul>';
+			$menus='<ul class="install">
+					<li class="inactive"><b>1</b> Installation</li>
+					<li class="inactive"><b>2</b> Terms & Conditions</li>
+					<li class="inactive"><b>3</b> Check for Prerequisite</li>
+					<li class="inactive"><b>4</b> Database Configuration</li>
+					<li class="inactive"><b>5</b> Admin Configuration</li>
+					<li class="inactive"><b>6</b> Store Setting</li>	
+				</ul>';
 		$template = 'homepage.php';
 		include('templates/home.php');
 	}
@@ -76,20 +64,23 @@ class Model_MInstall
 	 * @return void
 	 */
 	public function termsPage()
-	{		
-		$menus='<ul>
-					<li><h2>Introduction</h2></li>
-					<li><h1>Terms & Conditions</h1></li>
-					<li><h1>Check for Prerequisite</h1></li>
-					<li><h1>Datebase Configuration</h1></li>
-					<li><h1>Admin Configuartion</h1></li>
-					<li><h1>Store Setting</h1></li>
-					</ul>';
+	{	
+		include('classes/Lib/HandleErrors.php');
+	
+		$menus='<ul class="install">
+					<li class="active"><b>1</b> Installation</li>
+					<li class="active"><b>2</b> Terms & Conditions</li>
+					<li class="inactive"><b>3</b> Check for Prerequisite</li>
+					<li class="inactive"><b>4</b> Database Configuration</li>
+					<li class="inactive"><b>5</b> Admin Configuration</li>	
+					<li class="inactive"><b>6</b> Store Setting</li>
+				</ul>';
 			$shownavigation = 1;
 			$next = '?do=chkconfig';
 			$prv = 'index.php';
 			$template = 'terms.html';
 		include('templates/home.php');	
+		UNSET($_SESSION['error']);
 	}
 	/**
 	 * This function is used to show the configuration page  in installation process
@@ -100,23 +91,33 @@ class Model_MInstall
 	 */
 	public function showConfig()
 	{
-		$menus='<ul>
-					<li><h2>Introduction</h2></li>
-					<li><h2>Terms & Conditions</h2></li>
-					<li><h1>Check for Prerequisite</h1></li>
-					<li><h1>Datebase Configuration</h1></li>
-					<li><h1>Admin Configuartion</h1></li>
-					<li><h1>Store Setting</h1></li>
-					</ul>';
-			if(!isset($_POST['accterms']))	
-				header('Location:?do=installterms');		
-			$shownavigation = 1;
-			$this->chkConfig();	
-				$next = '?do=db';
-				$prv = '?do=installterms';	
+
+		if(!isset($_POST['accterms']) && isset($_POST['check']))
+		{	
+			$_SESSION['error']='Accept The Terms of Use Agreement';
+			header('Location:?do=installterms');
+		}
+		include('classes/Lib/HandleErrors.php');
+		$menus='<ul class="install">
+				<li class="active"><b>1</b> Installation</li>
+				<li class="active"><b>2</b> Terms & Conditions</li>
+				<li class="inactive"><b>3</b> Check for Prerequisite</li>
+				<li class="inactive"><b>4</b> Database Configuration</li>
+				<li class="inactive"><b>5</b> Admin Configuration</li>
+				<li class="inactive"><b>6</b> Store Setting</li>
+			</ul>';
 				
-			$template = 'chkconfig.php';			
-		include('templates/home.php');		
+		$shownavigation = 1;
+		$this->chkConfig();
+
+		
+		$next = '?do=db';
+		$prv = '?do=installterms';	
+	
+		$template = 'chkconfig.php';			
+		include('templates/home.php');	
+		
+			
 	}
 	/**
 	 * This function is used to show the db configuration  in installation process
@@ -127,20 +128,30 @@ class Model_MInstall
 	 */
 	public function showDbConfig()
 	{
-		$menus='<ul>
-					<li><h2>Introduction</h2></li>
-					<li><h2>Terms & Conditions</h2></li>
-					<li><h2>Check for Prerequisite</h2></li>
-					<li><h1>Datebase Configuration</h1></li>
-					<li><h1>Admin Configuartion</h1></li>
-					<li><h1>Store Setting</h1></li>
-					</ul>';
+
+		$this->chkrequiredfields();	
+
+		
+			$menus='<ul class="install">
+				<li class="active"><b>1</b> Installation</li>
+				<li class="active"><b>2</b> Terms & Conditions</li>
+				<li class="active"><b>3</b> Check for Prerequisite</li>
+				<li class="inactive"><b>4</b> Database Configuration</li>
+				<li class="inactive"><b>5</b> Admin Configuration</li>
+				<li class="inactive"><b>6</b> Store Setting</li>
+			</ul>';
 			include('classes/Lib/HandleErrors.php');
+			if($Err->values['sampledata']==1)
+			{ 
+				$checked='checked';
+			}
 			$shownavigation = 1;
 			$next = '?do=dbadd';
 			$prv = '?do=chkconfig';
 			$template = 'dbconfig.php';
-		include('templates/home.php');	
+			include('templates/home.php');
+			
+		
 	}
 	/**
 	 * This function is used to insert the db   in installation process
@@ -151,6 +162,9 @@ class Model_MInstall
 	 */
 	public function insertDatabase()
 	{
+
+		if($_POST['sampledata']==1)
+		{	
 			if($this->chkDbConnection())
 			{	
 				include('classes/Core/CQuery.php');
@@ -158,6 +172,20 @@ class Model_MInstall
 				$this->writeDbDetails();
 				header('Location:?do=admdts');
 			}
+		}
+		else
+		{
+			
+			if($this->chkDbConnection())
+			{	
+				include('classes/Core/CQueryEmptyData.php');
+				new Core_CQuery();
+				$this->writeDbDetails();
+				header('Location:?do=admdts');
+			}
+
+
+		}
 	}
 	/**
 	 * This function is used to write in cahce  in installation process
@@ -212,14 +240,14 @@ class Model_MInstall
 	 */
 	public function showAdmin()
 	{
-		$menus='<ul>
-					<li><h2>Introduction</h2></li>
-					<li><h2>Terms & Conditions</h2></li>
-					<li><h2>Check for Prerequisite</h2></li>
-					<li><h2>Datebase Configuration</h2></li>
-					<li><h1>Admin Configuartion</h1></li>
-					<li><h1>Store Setting</h1></li>
-					</ul>';
+		$menus='<ul class="install">
+					<li class="active"><b>1</b> Installation</li>
+					<li class="active"><b>2</b> Terms & Conditions</li>
+					<li class="active"><b>3</b> Check for Prerequisite</li>
+					<li class="active"><b>4</b> Database Configuration</li>
+					<li class="inactive"><b>5</b> Admin Configuration</li>
+					<li class="inactive"><b>6</b> Store Setting</li>
+				</ul>';
 			include('classes/Lib/HandleErrors.php');
 			$shownavigation = 1;
 			$next = '?do=finish';
@@ -236,14 +264,14 @@ class Model_MInstall
 	 */
 	public function showStore()
 	{
-		$menus='<ul>
-					<li><h2>Introduction</h2></li>
-					<li><h2>Terms & Conditions</h2></li>
-					<li><h2>Check for Prerequisite</h2></li>
-					<li><h2>Datebase Configuration</h2></li>
-					<li><h2>Admin Configuartion</h2></li>
-					<li><h1>Store Setting</h1></li>
-					</ul>';
+		$menus='<ul class="install">
+			<li class="active"><b>1</b> Installation</li>
+			<li class="active"><b>2</b> Terms & Conditions</li>
+			<li class="active"><b>3</b> Check for Prerequisite</li>
+			<li class="active"><b>4</b> Database Configuration</li>
+			<li class="active"><b>5</b> Admin Configuration</li>
+			<li class="inactive"><b>6</b> Store Setting</li>
+			</ul>';
 			include('classes/Lib/HandleErrors.php');
 			$shownavigation = 1;
 			$next = '?do=curset';
@@ -255,7 +283,7 @@ class Model_MInstall
 			mysql_select_db($db->config["DB"],$conn);
 			$sql="SELECT distinct currency_code FROM currency_codes_table ORDER BY currency_code";
 			$result=mysql_query($sql);
-			$selcurrencycode='<select name="currcode" id="currcode" style="width:153px;" class="textarea">';
+			$selcurrencycode='<select name="currcode" id="currcode" style="width:80px;" >';
 			while($arry=mysql_fetch_array($result))
 			{
 				$selcurrencycode.='<option value="'.$arry['currency_code'].'"  '.(($arry['currency_code']=='USD') ? ' selected ="selected" ' : '' ).'>'.$arry['currency_code'].'</option>';
@@ -264,7 +292,7 @@ class Model_MInstall
 			
 			$sql="SELECT cou_code,name FROM country_table ORDER BY name";
 			$result2=mysql_query($sql);
-			$selcountrycode='<select name="taxratecountry" id="taxratecountry" style="width:153px;" class="textarea">';
+			$selcountrycode='<select name="taxratecountry" id="taxratecountry" style="width:210px;" >';
 			while($arry=mysql_fetch_array($result2))
 			{
 				$selcountrycode.='<option value="'.$arry['cou_code'].'" '.(($arry['cou_code']=='US') ? ' selected ="selected" ' : '' ).' >'.$arry['name'].'</option>';
@@ -282,6 +310,8 @@ class Model_MInstall
 	 */
 	public function finish()
 	{
+
+
 			if(!isset($_POST['email']) || !isset($_POST['uname']) || !isset($_POST['pass']) || !isset($_POST['cpass'])|| !isset($_POST['domain']))
 				header('Location:?do=admdts');
 			$val = new Lib_Validation_Handler();
@@ -303,58 +333,33 @@ class Model_MInstall
 			$domainname =trim($_POST['domain']);
 			$adminemail = trim($_POST['email']);
 			$adminname = trim($_POST['uname']);
-			$password = base64_encode($_POST['pass']);
+			$password = md5($_POST['pass']);
 			
 			$sql="DELETE FROM admin_table";
 			$result=mysql_query($sql);
 			$sql="INSERT INTO admin_table VALUES('1','$adminname','$password')"; 
 			$result=mysql_query($sql);
 			
-$sql="DELETE FROM admin_settings_table";
-$result=mysql_query($sql);			
-$sql="INSERT INTO admin_settings_table VALUES('1','Footer Content','')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('2','Custom Header','<font color=blue><p>Exciting offers for this month !!!!&nbsp;</p></font>')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('3','Site Logo','images/logo/logo.gif')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('4','Google Analytics Code','')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('5','Google AdSense code','')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('6','Time Zone','')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('7','www.pricerunner.com Affiliate ID','')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('8','Homepage Banner Image','images/banner/banner.jpg')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('9','Site Moto','ZeusCart V 2.3')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('11','Homepage Banner URL','http://www.zeuscart.com/')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('12','Site Skin','default')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('13','Copy Rights','Copy Rights info')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('14','Admin Email','$adminemail')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('15','About Us','')"; 
-$result=mysql_query($sql);
-$sql="INSERT INTO admin_settings_table VALUES('16','Domain Name','$domainname')";  
-$result=mysql_query($sql);
-	header("Location:?do=store");
+		$sql="DELETE FROM admin_settings_table";
+		$result=mysql_query($sql);			
+		$sql="INSERT INTO `admin_settings_table` (`set_id`, `customer_header`, `site_logo`, `google_analytics`, `time_zone`, `site_moto`, `site_skin`, `admin_email`, `meta_kerwords`, `meta_description`) VALUES
+		(1, 'Exciting offers for this month !!!!&nbsp;', 'images/logo.gif', '', '', 'zeuscart', '', 'revathy@ajsquare.net', '', '')"; 
+		$result=mysql_query($sql);
+		
+		header("Location:?do=store");
 	}
 	
 	public function currencySet()
 	{
+
 			if(!isset($_POST['currname'])|| !isset($_POST['currtoken'])|| !isset($_POST['currcode']))
 				header('Location:?do=store');
 			$val = new Lib_Validation_Handler();
 			$val->Assign('currname',trim($_POST['currname']),'noempty','Required Field Cannot be left blank');
 			$val->Assign('currtoken',trim($_POST['currtoken']),'noempty','Required Field Cannot be left blank');
 			$val->Assign('currcode',trim($_POST['currcode']),'noempty','Required Field Cannot be left blank');
-// 			$val->Assign('currval',trim($_POST['currval']),'noempty/nostring','Required Field Cannot be left blank/Invalsid data');
-// 			$currencyrate=trim($_POST['currval']);
+			$val->Assign('currval',trim($_POST['currval']),'noempty','Required Field Cannot be left blank');
+			$currencyrate=trim($_POST['currval']);
 			/*if($currencyrate<=0)
 				$val->Assign('currval','','noempty',"Currency rate should be greater than 0.");		
 			if(!is_numeric($currencyrate)&&!empty($currencyrate))
@@ -379,25 +384,29 @@ $result=mysql_query($sql);
 			
 			
 			$folders777=array(
-		'../images',
-		'../images/banner',
-		'../images/logo',
-		'../images/products',
-		'../images/products/thumb',		
-		'../Bin', 
-		'../Built', 
-		'../cache', 
-		'../uploadedimages',
-		'../userpage',  
-		'../upload_bulk_products', 
-		'../admin/cache', 
-		'../admin/uploadedtsvfile',
-		'../admin/uploadedbulkimages',
-		'../includes',
-		'../includes/Charts'); 
+			'../images',
+			'../images/slidesupload',
+			'../images/slidesupload/thumb',
+			'../images/logo',
+			'../images/products',
+			'../images/products/thumb',
+			'../images/products/large_image',
+			'../images/products/sociallink',		
+			'../Bin', 
+			'../Built', 
+			'../cache', 
+			'../uploadedimages',
+			'../uploadedimages/caticons',			 
+			'../upload_bulk_products', 
+			'../admin/cache', 
+			'../admin/uploadedtsvfile',
+			'../admin/uploadedbulkimages',
+			'../includes',
+			'../includes/Charts',
+			'../timthumb'); 
 			foreach($folders777 as $folder)
 		chmod($folder,0777);
-$this->complete();
+		$this->complete();
 	}
 	
 	/**
@@ -409,14 +418,14 @@ $this->complete();
 	 */
 	public function complete()
 	{
-		$menus='<ul>
-					<li><h2>Introduction</h2></li>
-					<li><h2>Terms & Conditions</h2></li>
-					<li><h2>Check for Prerequisite</h2></li>
-					<li><h2>Datebase Configuration</h2></li>
-					<li><h2>Admin Configuartion</h2></li>
-					<li><h2>Store Setting</h2></li>
-					</ul>';
+		$menus='<ul class="install">
+					<li class="active"><b>1</b> Installation</li>
+					<li class="active"><b>2</b> Terms & Conditions</li>
+					<li class="active"><b>3</b> Check for Prerequisite</li>
+					<li class="active"><b>4</b> Database Configuration</li>
+					<li class="active"><b>5</b> Admin Configuration</li>
+					<li class="active"><b>6</b> Store Setting</li>
+				</ul>';
 		$shownavigation = 2;
 			$template = "templates/finish.php";		
 			include('templates/home.php');	
@@ -430,6 +439,12 @@ $this->complete();
 	 */
 	private function writeDbDetails()
 	{
+
+		$url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$url=explode('install',$url);
+		$url=$url[0];
+		$url = rtrim($url,"/");
+
 		$dbfile="../Bin/Configuration.php";
 		@chmod($dbfile,0777);
 		if(is_writable($dbfile))
@@ -443,17 +458,22 @@ $this->complete();
 			fwrite($f,'$this->config["HOST"] = \''.trim($_POST['host']). "';  \n");
 			fwrite($f,'$this->config["USER"] = \''.trim($_POST['uname']). "';  \n");
 			fwrite($f,'$this->config["PASSWORD"] = \''.trim($_POST['pass']). "';  \n");
-			fwrite($f,'$this->config["DB"] = \''.trim($_POST['dbname']). "';  \n");
+			fwrite($f,'$this->config["DB"] = \''.trim($_POST['dbname']). "';  \n");			
+			
+			
 			fwrite($f,"} }  \n");
 			fwrite($f,"define(\"IMAGE1_WIDTH\",225);  \n");
 			fwrite($f,"define(\"IMAGE1_HEIGHT\",180);  \n");
 			fwrite($f,"define(\"THUMB_WIDTH\", 90);  \n");
 			fwrite($f,"define(\"THUMB_HEIGHT\",80);  \n");
+			fwrite($f,'$_SESSION["base_url"]= \''.trim($url). "'; \n");
+
 			fwrite($f,"?>");			
 			fclose($f);
 			@chmod($dbfile,0644);			
 		}	
 	}
+	
 	/**
 	 * This function is used to check db details in installation process
 	 *
@@ -464,7 +484,7 @@ $this->complete();
 	private function chkDbConnection()
 	{
 		if(!isset($_POST['host']) || !isset($_POST['uname']) || !isset($_POST['pass']) || !isset($_POST['dbname']))
-			header('Location:?do=db');
+		header('Location:?do=db');
 		$val = new Lib_Validation_Handler();
 		$val->Assign('host',trim($_POST['host']),'noempty','Required Field Cannot be left blank');
 		$val->Assign('uname',trim($_POST['uname']),'noempty','Required Field Cannot be left blank');
@@ -496,6 +516,123 @@ $this->complete();
 			$val->PerformValidation('?do=db');
 		}
 		
+	}
+	/**
+	 * This function is used to check reuired fields in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
+	function chkrequiredfields()
+	{
+		
+		$val = new Lib_Validation_Handler();
+		if(version_compare(PHP_VERSION,"5.2.0")<=0)
+		$val->Assign('phperr','','noempty','PHP Version 5.2.0  must be installed');
+
+		if(!extension_loaded('gd') && !function_exists('gd_info'))
+		$val->Assign('gdlib','','noempty','GD Library must be installed');
+		
+		if(!extension_loaded('CURL'))
+		$val->Assign('curl','','noempty','CURL must be installed');
+
+		if(!extension_loaded('SimpleXML'))
+		$val->Assign('sxml','','noempty','Simple XML must be installed');
+
+		if(!extension_loaded('MySQL'))
+		$val->Assign('mysql','','noempty','MySQL must be installed');
+
+
+		
+		if(!@is_writable('../images')) 
+		  {
+			$val->Assign('image','','noempty','Path : root\images must be writable');	
+		  }
+		 if(!@is_writable('../images/slidesupload')) 
+		  {
+			$val->Assign('slide','','noempty','Path : root\images\slidesupload must be writable');	
+		  }
+		 if(!@is_writable('../images/slidesupload/thumb')) 
+		  {
+			$val->Assign('slidethumb','','noempty','Path : root\images\slidesupload\thumb must be writable');	
+		  }
+		 if(!@is_writable('../images/logo')) 
+		  {
+			$val->Assign('logo','','noempty','Path : root\images\logo must be writable');	
+		  }
+		 if(!@is_writable('../images/products')) 
+		  {
+			$val->Assign('products','','noempty','Path : root\images\products must be writable');	
+		  }
+		 if(!@is_writable('../images/products/thumb')) 
+		  {
+			$val->Assign('prothumb','','noempty','Path : root\images\products\thumb must be installed');	
+		  }
+		 if(!@is_writable('../Bin')) 
+		  {
+			$val->Assign('bin','','noempty','Path : root\Bin  must be installed');	
+		  }
+			
+	
+	
+		 if(!@is_writable('../Bin/Configuration.php')) 
+		  {
+			$val->Assign('bincon','','noempty','Path : root\Bin\Configuration.php must be installed');	
+		  }
+		 if(!@is_writable('../Built')) 
+		  {
+			$val->Assign('bulid','','noempty','Path : root\Built   must be installed');	
+		  }
+
+
+		 if(!@is_writable('../cache')) 
+		  {
+			$val->Assign('cache','','noempty','Path : root\cache   must be installed');	
+		  }
+		 if(!@is_writable('../uploadedimages')) 
+		  {
+			$val->Assign('uploadedimages','','noempty','Path : root\uploadedimages must be installed');	
+		  }
+// 		 if(!@is_writable('../userpage')) 
+// 		  {
+// 			$val->Assign('userpage','','noempty','Path : root\userpage  must be installed');	
+// 		  }
+
+ 		 if(!@is_writable('../upload_bulk_products')) 
+		  {
+			$val->Assign('uploadprobulk','','noempty','Path : root\upload_bulk_products  must be installed');	
+		  }
+			 if(!@is_writable('../admin/cache')) 
+		  {
+			$val->Assign('admincache','','noempty','Path : root\admin\cache   must be installed');	
+		  }
+		 if(!@is_writable('../admin/uploadedtsvfile')) 
+		  {
+			$val->Assign('uploadtsv','','noempty','Path : root\admin\uploadedtsvfile must be installed');	
+		  }
+		 if(!@is_writable('../admin/uploadedbulkimages')) 
+		  {
+			$val->Assign('uploadbulkimage','','noempty','Path : root\admin\uploadedbulkimages  must be installed');	
+		  }
+
+
+		 if(!@is_writable('../includes')) 
+		  {
+			$val->Assign('include','','noempty','Path : root\includes    must be installed');	
+		  }
+		 
+		 if(!@is_writable('../includes/Charts')) 
+		  {
+			$val->Assign('includecharts','','noempty','Path : root\includes\Charts must be installed');	
+		  }	
+		 
+		 if(!@is_writable('../timthumb')) 
+		  {
+			$val->Assign('timthumb','','noempty','Path : root\timthumb must be installed');	
+		  }	
+		$val->PerformValidation('?do=chkconfig');
+
 	}
 	/**
 	 * This function is used to check configuration in installation process
@@ -555,25 +692,29 @@ $this->complete();
 		
 		
 		$folders777=array(
-		'../images',
-		'../images/banner',
-		'../images/logo',
-		'../images/products',
-		'../images/products/thumb',		
-		'../Bin', 
-		'../Bin/Configuration.php', 
-		'../Built', 
-		'../cache', 
-		'../uploadedimages',
-		'../userpage',  
-		'../upload_bulk_products', 
-		'../admin/cache', 
-		'../admin/uploadedtsvfile',
-		'../admin/uploadedbulkimages',
-		'../includes',
-		'../includes/Charts'); 
-	$i=1;
-	foreach($folders777 as $folder)
+			'../images',
+			'../images/slidesupload',
+			'../images/slidesupload/thumb',
+			'../images/logo',
+			'../images/products',
+			'../images/products/thumb',
+			'../images/products/large_image',
+			'../images/products/sociallink',		
+			'../Bin', 
+			'../Built', 
+			'../cache', 
+			'../uploadedimages',
+			'../uploadedimages/caticons',			 
+			'../upload_bulk_products', 
+			'../admin/cache', 
+			'../admin/uploadedtsvfile',
+			'../admin/uploadedbulkimages',
+			'../includes',
+			'../includes/Charts',
+			'../timthumb'); 	
+		
+		$i=1;
+		foreach($folders777 as $folder)
 		{
 		  if(@is_writable($folder)) 
 		  {

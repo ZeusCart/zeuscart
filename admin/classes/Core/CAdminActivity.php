@@ -125,12 +125,16 @@ class Core_CAdminActivity
 	
 	function deleteActivity()
 	{
+	
 		$sql="TRUNCATE TABLE admin_activity_table ";
 		$query = new Bin_Query();
 		if($query->updateQuery($sql))
-			return '<div class=success_msgbox width="100%">Admin Activity records deleted successfully</div>';		
+			return '<div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Well done!</strong> Admin Activity records deleted successfully.</div>';		
 		else
-			return '<div class=error_msgbox width="100%">Unable to delete Admin Activity records</div>';		
+			return '<div class="alert alert-error">
+              <button type="button" class="close" data-dismiss="alert">×</button> Unable to delete Admin Activity records.</div>';		
 	}
 }
 ?>

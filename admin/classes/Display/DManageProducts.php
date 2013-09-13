@@ -93,13 +93,19 @@ class Display_DManageProducts
 		//echo $output;
 		
 		return $output;
+
+
+
+		
+
+		
 	}
 	 
 	/**
 	 * Function creates a template to display all the products available in the database. 
 	 * @param array $arr
-     * @param integer $flag
-     * @param integer $paging
+         * @param integer $flag
+         * @param integer $paging
 	 * @param integer $prev	 
 	 * @param integer $next	 
 	 * @param integer $start	 	
@@ -108,39 +114,41 @@ class Display_DManageProducts
 	 
 	function showAllProducts($arr,$flag,$paging,$prev,$next,$start)
 	{	
-		$output.='<form name="search" method="post" action="?do=manageproducts&action=search" ><table class="content_list_bdr" border="0" cellpadding="0" cellspacing="0" width="100%"> 
-		<tr>		
-			<td class="content_list_head" align="center" width="150">Name</td>
-			<td class="content_list_head" align="center">Brand</td>
-			<td class="content_list_head" align="center"><a onmouseover="ShowHelp(\'dsku\', \'SKU\', \'Stock Keeping Unit for a product\')" onmouseout="HideHelp(\'dsku\');">SKU </a>
-			<div id="dsku" style="left: 50px; top: 50px;"></div></td>
-			<td class="content_list_head" align="center"><a onmouseover="ShowHelp(\'dmsrp\', \'MSRP\', \'Manufacturer&acute;s Suggested Retail Price\')" onmouseout="HideHelp(\'dmsrp\');">MSRP </a>
-			<div id="dmsrp" style="left: 50px; top: 50px;"></div></td>
-	        <td  class="content_list_head" align="center">Price </td>
-			<td class="content_list_head" align="center">Status </td>
-			<td class="content_list_head" align="center"><a onmouseover="ShowHelp(\'dcse\', \'CSE\', \'Comparison Shopping Engine\')" onmouseout="HideHelp(\'dcse\');">CSE </a>
-			<div id="dcse" style="left: 50px; top: 50px;"></div></td>
-			<td class="content_list_head" align="center" ><a onmouseover="ShowHelp(\'dptg\', \'Tag\', \'The keywords that are related to product name\')" onmouseout="HideHelp(\'dptg\');">Tag </a>
-			<div id="dptg" style="left: 50px; top: 50px;"></div></td>
-			<td class="content_list_head" align="center"><a onmouseover="ShowHelp(\'dindt\', \'Introdution Date\', \'Product release date\')" onmouseout="HideHelp(\'dindt\');">Intro Date </a>
-			<div id="dindt" style="left: 50px; top: 50px;"></div> </td>
-			<td colspan="2" align="center" class="content_list_head">Options</td>
-		</tr>
+
+		$output = '<form name="search" method="post" action="?do=manageproducts&action=search" >';
+		$output .= '';	
+		
+		$output.='  <div class="blocks" style="opacity: 1;">
+		<div class="clsListing clearfix"><table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
 		<tr>
-                	<td colspan="13" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              	</tr>';
 		
+		<th align="left">Name</th>
+		<th align="left">Brand</th>
+		<th align="left">SKU</th>
+		<th align="left">MSRP</th>
+		<th align="left">Price</th>
+		<th align="left">Status</th>
+	
+		<th align="left">Type</th>
+		<th align="left">Tag</th>
+		<th align="left">Intro Date</th>
+		<th align="left">Options</th>
+		</tr>
+		</thead>
+		<tbody>';
 		$cnt = count($arr);
-		
-		$output .= '<tr class="list_search_bg" >
-		
-		<td class="content_list_txt1" valign="top"><input type="text"  name="title" style="width:100px;" id="title" value="'.$_POST['title'].'"  /> <!--onKeyUp="callAjax()" onKeyPress="callAjax()"<div id="titlescheck" style="background:#99CC00;position:absolute"></div>--></td><br />
-		
-		<td class="content_list_txt1" valign="top"><input type="text"  style="width:70px;" name="brand" value="'.$_POST['brand'].'"/></td>
-		<td class="content_list_txt1" valign="top"><input type="text"  name="sku" size="4" value="'.$_POST['sku'].'"/></td>
-		<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;">From:<input type="text" name="frommsrp" size="4" value="'.$_POST['frommsrp'].'"/><br/><br/>To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="tomsrp" size="4" value="'.$_POST['tomsrp'].'"/></td>
-		<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;">From:<input type="text"  name="fromprice" size="4" value="'.$_POST['fromprice'].'"/><br/><br/>To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  name="toprice" size="4" value="'.$_POST['toprice'].'"/></td>
-		<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;"><select id="visibility" name="status" type="select" style="width:60px" >';
+		$output .= '<tr >
+			   <td ><input type="text"  name="title" style="width:100px;" id="title" value="'.$_POST['title'].'"  /></td>
+			   <td ><input type="text"  style="width:70px;" name="brand" value="'.$_POST['brand'].'"/></td>
+			   <td ><input type="text"  name="sku" size="4" value="'.$_POST['sku'].'"/></td>
+
+
+
+			   <td ><table style="margin-top:-5px;"><tr><td style="border:none">From</td><td style="border:none"><input type="text" name="frommsrp" id="frommsrp" size=3  value="'.$_POST['frommsrp'].'"  /></td></tr><tr><td style="border:none">To</td><td style="border:none"><input type="text" name="tomsrp" id="tomsrp" size=3   value="'.$_POST['tomsrp'].'"/></td></tr></table></td>
+			    <td ><table style="margin-top:-5px;"><tr><td style="border:none">From</td><td style="border:none"><input type="text" name="fromprice" id="fromprice" size=3 value="'.$_POST['fromprice'].'"  /></td></tr><tr><td style="border:none">To</td><td style="border:none"><input type="text" name="toprice" id="toprice" size=3   value="'.$_POST['toprice'].'"/></td></tr></table></td>
+			   <td ><select id="visibility" name="status" type="select" style="width:60px" >';
 
 		$pstatus=array("All"=>"-1",'Enabled'=>1,'Disabled'=>0);
 		if($_POST['status']=='')
@@ -152,64 +160,87 @@ class Display_DManageProducts
 			$output .=  ($stat == $val)? '<option value="'.$val.'" selected="selected">'.$key.'</option>' : '<option value="'.$val.'" >'.$key.'</option>' ;
 		}
 
-		$output.='</select></td>
-		<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;"><select id="visibility" name="cse" type="select" style="width:60px" >';
-		$pcse=array("All"=>"-1",'Enabled'=>1,'Disabled'=>0);
-		if($_POST['cse']=='')
-		$cse=-1;
+		$output.='</select></td>';
+//			    <td><select id="visibility1" name="cse" type="select" style="width:60px" >';
+// 		$pcse=array("All"=>"-1",'Enabled'=>1,'Disabled'=>0);
+// 		if($_POST['cse']=='')
+// 		$cse=-1;
+// 		else
+// 		$cse=$_POST['cse'];
+// 		foreach($pcse as $key=>$val)
+// 		{
+// 			$output .=  ($cse == $val)? '<option value="'.$val.'" selected="selected">'.$key.'</option>' : '<option value="'.$val.'" >'.$key.'</option>' ;
+// 		}
+// 	
+// 		$output.='</select></td>
+			
+		$output.=' <td ><select id="producttype" name="producttype" type="select" style="width:60px" >';
+		$ptype=array("All"=>"-1",'Physical'=>0,'Digital'=>1,'Gift'=>2);
+		if($_POST['producttype']=='')
+		$producttype=-1;
 		else
-		$cse=$_POST['cse'];
-		foreach($pcse as $key=>$val)
+		$producttype=$_POST['producttype'];
+		foreach($ptype as $key=>$val)
 		{
-			$output .=  ($cse == $val)? '<option value="'.$val.'" selected="selected">'.$key.'</option>' : '<option value="'.$val.'" >'.$key.'</option>' ;
+			$output .=  ($producttype == $val)? '<option value="'.$val.'" selected="selected">'.$key.'</option>' : '<option value="'.$val.'" >'.$key.'</option>' ;
 		}
 	
 		$output.='</select></td>
-			<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;"><input type="text"  name="tag" size="9" value="'.$_POST['tag'].'"/></td>
-			<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;">From:<input type="text" id="cal-field-1" name="fromdate" size="7" value="'.$_POST['fromdate'].'" />&nbsp;<input type="image" src="images/icon_calender.gif" id="cal-button-1" value="cal"><br><br>To :&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="cal-field-2" name="todate" size="7" value="'.$_POST['todate'].'"/>&nbsp;<input type="image" src="images/icon_calender.gif" id="cal-button-2" value="cal" >
-		 <script type="text/javascript">
-			Calendar.setup({
-		      inputField    : "cal-field-1",
-		      button        : "cal-button-1",
-		      align         : "Tr"
-		    }); </script>
-				<script type="text/javascript">
-		    Calendar.setup({
-		      inputField    : "cal-field-2",
-		      button        : "cal-button-2",
-		      align         : "Tr"
-		    }); </script>
-		</td>
-		<td class="content_list_txt1" align="center"><input class="all_bttn" type="submit" name="search" value="Search"/></td></tr></form>
-		<tr><td id="titlescoll" style="postion:absolute"></td></tr>';
-	
-		if(count($arr) > 0)
-			$count=count($arr);
+
+
+			    <td ><input type="text"  name="tag" size="3" value="'.$_POST['tag'].'"/></td>
+			   <td ><table style="margin-top:-5px;"><tr><td style="border:none">From</td><td style="border:none"><input type="text" name="fromdate" id="fromdate" size=3  value="'.$_POST['fromdate'].'"  /></td></tr><tr><td style="border:none">To</td><td style="border:none"><input type="text" name="todate" id="todate" size=3   value="'.$_POST['todate'].'"/></td></tr></table></td>
+			   ';
+		$output.='<td ><input class="clsBtn" type="submit" name="search" value="Search"/></td></tr></form>';
+		//$output .='<tr><td colspan="8" align="right"><b>Search</b>&nbsp;&nbsp;<input type="text" name="search">
+					//<input type="button" name="btnsearch" value="Search"></td></tr>';
+		//$output.='<th>S.no.</th><th>Display Name</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Edit</th>
+					//  <th>Delete</th><th>Status</th>';
+		
 		if($flag=='0')
-			return $output .= '<tr><td align="center" colspan="7"><font color="orange"><b>No Products Matched</b></font></td></tr>';
+			return $output.= '<tr><td align="center" colspan="10"><font color="orange"><b>No Products Matched</b></font></td></tr>';
 		else
 		{
-			for($i=0;$i<$count; $i++)
+			for($i=0;$i<$cnt; $i++)
 			{
 				$introdatetime=$arr[$i]['intro_date'];
-				$intro_date_time = explode(" ",$introdatetime);
-				$intro_date = explode("-",$intro_date_time[0]);
-				$intro_time = explode(":",$intro_date_time[1]);
-				$introdate=date("M d, Y",mktime(0,0,0,$intro_date[1],$intro_date[2],$intro_date[0]));
-				if($i % 2 == 0)
-					$classtd='class="content_list_txt1"';
+				if($introdatetime!='0000-00-00')		
+				{
+					$intro_date_time = explode(" ",$introdatetime);
+					$intro_date = explode("-",$intro_date_time[0]);
+					$intro_time = explode(":",$intro_date_time[1]);
+					$introdate=date("M d, Y",mktime(0,0,0,$intro_date[1],$intro_date[2],$intro_date[0]));
+				}
 				else
-					$classtd='class="content_list_txt2"';
+				{
+					$introdate=$introdatetime;
+				}
 					
 				$temp=$arr[$i]['image'];
 				$img=explode('/',$temp);
-				
+				if($arr[$i]['digital']==0 && $arr[$i]['gift']==0)
+				{	
+					$ptypes="physical";
+					$typetitle='Physical'; 
+				}
+				elseif($arr[$i]['digital']==1 && $arr[$i]['gift']==0)
+				{	
+					$ptypes="digital";	
+					$typetitle='Digital'; 
+				}
+				elseif($arr[$i]['digital']==0 && $arr[$i]['gift']==1)
+				{	
+					$ptypes="gift";	
+					$typetitle='Gift'; 
+				}
 				if($arr[$i]['status']==0)
-				{	$status="inactive_link";
-					$stitle='Inactive'; }
+				{	$status="badge badge-important";
+					$stitle="Disabled"; 
+				}
 				else
-				{	$status="active_link";	
-					$stitle='Active'; }
+				{	$status="badge badge-info";	
+					$stitle='Enabled'; 
+				}
 				
 				if($arr[$i]['cse_enabled']==0)
 				{   $cse="inactive_link"; $cstitle='Inactive'; }
@@ -217,27 +248,58 @@ class Display_DManageProducts
 				{	$cse="active_link";	 $cstitle='Active'; }
 					
 				$output.='<input type="hidden" name="mainindex" value="">';
-				$output .='<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);">';
+				$output.='<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);">';
 				
 				$title=(strlen($arr[$i]['title'])>20) ? substr($arr[$i]['title'],0,20).'...' : $arr[$i]['title'] ;
-				$output .= '<td '.$classtd.' align="left"><a class="content_list_link" href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$title.'</a></td><td '.$classtd.'>'.$arr[$i]['brand'].'</td><td '.$classtd.'>'.$arr[$i]['sku'].'</td><td '.$classtd.' align="right">'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['msrp'],2).'</td><td  align="right" '.$classtd.'>'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['price'],2).'</td><td '.$classtd.' align="center"><span class="'.$status.'" title="'.$stitle.'"></span></td><td '.$classtd.' align="center"><span class="'.$cse.'" title="'.$cstitle.'"></span></td><td '.$classtd.'>'.$arr[$i]['tag'].'</td><td '.$classtd.'>'.$introdate.'</td>';
-				
-				$output.='<td '.$classtd.'  style="padding-left:3px; padding-right:3px;" align=center><span><a href="?do=manageproducts&action=editprod&prodid='.$arr[$i]['product_id'].'"><img src="images/icon_edit1.gif" border="0" title="Edit Product" alt="Edit" /></a> </span> &nbsp;&nbsp;&nbsp;&nbsp;				 
-					<span><a href="?do=manageproducts&action=delete&prodid='.$arr[$i]['product_id'].'" onclick="return confirm(\'Are you sure want to Delete this Product?\')" ><img src="images/icon_delete1.gif" border="0" title="Delete Product" alt="Delete" /></a></span></td></tr>';
+				$output .= '<td  align="left"><a  href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$title.'</a></td>
+				<td >'.$arr[$i]['brand'].'</td>
+				<td '.$classtd.'>'.$arr[$i]['sku'].'</td>
+				<td '.$classtd.' align="right">'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['msrp'],2).'</td>
+				<td  align="right" >'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['price'],2).'</td>
+				<td align="center"><span class="'.$status.'" title="'.$stitle.'">'.$stitle.'</span></td>';
+// 				$output.='<td  align="center"><span class="'.$cse.'" title="'.$cstitle.'"></span></td>';
+				$output.='<td  align="center">'.$typetitle.'</td>
+				<td >'.$arr[$i]['tag'].'</td><td '.$classtd.'>'.$introdate.'</td>';
+				if($arr[$i]['digital']==1 && $arr[$i]['gift']==0)
+				{
+					$editurl='digiteditprod';
+				}
+				elseif($arr[$i]['digital']==0 && $arr[$i]['gift']==1)
+				{
+					$editurl='gifteditprod';
+				}	
+				else
+				{
+					$editurl='editprod';
+				}
+
+
+				$output.='<td align=center><span><a href="?do=manageproducts&action='.$editurl.'&prodid='.$arr[$i]['product_id'].'"><i class="icon icon-edit"></i></a> </span>	&nbsp;&nbsp;				 
+					<span><a href="?do=manageproducts&action=delete&prodid='.$arr[$i]['product_id'].'" onclick="return confirm(\'Are you sure want to Delete this Product?\')" ><i class="icon-trash"></i></a></span></td></tr>';
 				$output.='<input type="hidden" name="productid[]" value="'.$arr[$i]['product_id'].'" />';
 				$start++;
-			}
-			
-			$output.='<tr align="center"><td colspan="11"  class="content_list_footer" >'.' '.$prev.' ';
-			
-			for($i=1;$i<=count($paging);$i++)
-				$pagingvalues .= $paging[$i]."  ";
-			
-			$output.= $pagingvalues.' '.$next.'</td></tr></table>';
-			
-			return $output;
+			}	
 		}
-	
+		$output .='<tr>
+		<td colspan="11" class="clsAlignRight">
+		<div class="dt-row dt-bottom-row">
+		<div class="row-fluid">
+		<div class="dataTables_paginate paging_bootstrap pagination">
+		<ul>'.$prev.' ';
+		
+		for($i=1;$i<=count($paging);$i++)
+			$pagingvalues .= $paging[$i]."  ";
+		
+		$output .= $pagingvalues.' '.$next.'</ul></div>
+		</div>
+		</div>
+		</td>
+		</tr>';
+		
+
+		$output .= '</tbody></table></div></div>';
+		return $output;
+
 	}
 	
 	/**
@@ -499,40 +561,40 @@ class Display_DManageProducts
 		$output.='
 		
 		<div style="text-align:right; width:90%; padding-bottom:10px"><input class="all_bttn" type="button" name="search" value="Reset Filter"  onclick="searchProducts(\'all\');"/>&nbsp;&nbsp;&nbsp;<input class="all_bttn" type="button" name="search" value="Search"  onclick="searchProducts(\'sear\');"/></div>
-		<table cellpadding="0" cellspacing="0" border="0" width="90%" class="content_list_bdr">
+		  <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+	
+		<thead class="green_bg">
 		<TR>
-                  <td class="content_list_head" width="5%"></td>
-		  <td class="content_list_head" width="21%">Product Name</td>
-		  <td class="content_list_head" width="17%">Brand</td>
-		  <td class="content_list_head" width="14%">MSRP <!--<a onmouseover="ShowHelp(\'dmsrp\', \'MSRP\', \'Manufacturer&acute;s Suggested Retail Price\')" onmouseout="HideHelp(\'dmsrp\');"></a>
-			<div id="dmsrp" style="left: 50px; top: 50px;"></div>--></td>
-		  <td class="content_list_head" width="14%">Price</td>		  
-		  </TR>';
+           <th width="2%" ></th>
+		  <th >Product Name</th>
+		  <th width="10%">Brand</th>
+		  <th width="15%">MSRP</th>
+		  <th width="17%">Price</th>		  
+		  </TR>
+		  </thead><tbody ID="search" >';
 		
 		$cnt = count($arr);
 		
-		$output .= '<tr class="list_search_bg" >
-		<td class="content_list_txt1" align="center"><input type="checkbox" name="chkMain" onClick="chkall();" value=1></td>
-		<td class="content_list_txt1" valign="top"><input type="text" id="title1"  name="title" style="width:130px;" value="'.$_POST['title'].'" /></td>
-		<td class="content_list_txt1" valign="top"><input type="text"  style="width:100px;" name="brand" id="brand1"  value="'.$_POST['brand'].'"/></td>
-		<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;">From:<input type="text" name="frommsrp" id="frommsrp1" size="4" value="'.$_POST['frommsrp'].'"/><br/><br/>To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="tomsrp" id="tomsrp1" size="4" value="'.$_POST['tomsrp'].'"/></td>
-		<td class="content_list_txt1" valign="top" style="padding-left:3px; padding-right:3px;">From:<input type="text"  name="fromprice" id="fromprice1" size="4" value="'.$_POST['fromprice'].'"/><br/><br/>To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  name="toprice" id="toprice1" size="4" value="'.$_POST['toprice'].'"/></td>';
+		$output .= '<tr>
+		<td><input type="checkbox" name="chkMain" onClick="chkall();" value=1></td>
+		<td><input type="text" id="title1"  name="title" style="width:130px;" value="'.$_POST['title'].'" /></td>
+		<td><input type="text"  style="width:100px;" name="brand" id="brand1"  value="'.$_POST['brand'].'"/></td>
+		<td>From:<input type="text" name="frommsrp" id="frommsrp1" size="4" value="'.$_POST['frommsrp'].'"/>To:<input type="text" name="tomsrp" id="tomsrp1" size="4" value="'.$_POST['tomsrp'].'"/></td>
+		<td>From:<input type="text"  name="fromprice" id="fromprice1" size="4" value="'.$_POST['fromprice'].'"/>To:&nbsp;&nbsp;<input type="text"  name="toprice" id="toprice1" size="4" value="'.$_POST['toprice'].'"/></td>';
 
 		$output.='</tr>';
-		$output.='<tr><td ID="search" colspan="7">
-		<table cellpadding="0" cellspacing="0" border="0" width="100%" >';	
+		//$output.='<tr><td ID="search" colspan="7"><table cellpadding="0" cellspacing="0" border="0" width="100%" >';	
 		if(count($arr) > 0)
 			$count=count($arr);
 		if($flag=='0')
-			return $output .= '<tr><td align="center" colspan="7"><font color="orange"><b>No Products Matched</b></font></td></tr>';
+			 $output .= '<tr><td align="center" colspan="7"><font color="orange"><b>No Products Matched</b></font></td></tr>';
 		else
 		{
 			for($i=0;$i<$count; $i++)
 			{
-				if($i % 2 == 0)
-					$classtd='class="content_list_txt1"';
-				else
-					$classtd='class="content_list_txt2"';
+			
 					
 				$temp=$arr[$i]['image'];
 				$img=explode('/',$temp);
@@ -552,10 +614,10 @@ class Display_DManageProducts
 					$status="Enabled";	
 				
 				$output.='<input type="hidden" name="mainindex" value="">';
-				$output .='<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.' width="5%"><input name="chkSub[]" id="chkSub" type="checkbox" value="'.$arr[$i]['product_id'].'" '.$check.'></td>';
+				$output .='<tr ><td ><input name="chkSub[]" id="chkSub" type="checkbox" value="'.$arr[$i]['product_id'].'" '.$check.'></td>';
 				
 				$title=(strlen($arr[$i]['title'])>25) ? substr($arr[$i]['title'],0,25).'...' : $arr[$i]['title'] ;
-				$output .= '<td '.$classtd.' align="left" width="21%"><a class="content_list_link" href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$title.'</a></td><td '.$classtd.' width="17%">'.$arr[$i]['brand'].'</td><td '.$classtd.' width="14%" align="right">'.$arr[$i]['msrp'].'</td><td '.$classtd.' width="14%" align="right">'.$arr[$i]['price'].'	</td>';
+				$output .= '<td ><a class="content_list_link" href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$title.'</a></td><td >'.$arr[$i]['brand'].'</td><td width="14%" align="right">'.$arr[$i]['msrp'].'</td><td>'.$arr[$i]['price'].'	</td>';
 				
 				$output.='</tr>';
 				$start++;
@@ -566,7 +628,7 @@ class Display_DManageProducts
 			for($i=1;$i<=count($paging);$i++)
 				$pagingvalues .= $paging[$i]."  ";*/
 			
-			$output.= '</td></tr></table></td></tr></table>';
+			$output.= '</td></tr></tbody></table></div></div>';
 			
 			//$output.= '</td></tr></table>';
 			return $output;
@@ -587,13 +649,20 @@ class Display_DManageProducts
 			for($i=1;$i<=count($sub);$i++)
 			{
 				
-				$output.='<tr>
-	                        <td width="31%" valign="top" class="content_form"> Sub Product Image </td>
-        	                <td colspan="2" valign="top"><INPUT type="hidden" name="ufile_id['.$i.']" id="ufile_id['.$i.']" VALUE="'.$sub[$i-1]['product_images_id'].'">
-                        	<INPUT NAME="ufile['.$i.']" ID="ufile['.$i.']"  type="file" />
-				 </td>
-				<td> <img src="../'.$sub[$i-1]['thumb_image_path'].'" height="50" weight=50  alt="Image" /></td>
-        			</tr>';
+				$output.='
+
+				<div class="row-fluid">
+ 		<div style="width:350px;" ><label>Sub Product Image <font color="#FF0000">*</font></label>
+			<INPUT type="hidden" name="ufile_id['.$i.']" id="ufile_id['.$i.']" VALUE="'.$sub[$i-1]['product_images_id'].'">
+<div class="fileupload fileupload-new" data-provides="fileupload"><div style="float:right"><img src="../'.$sub[$i-1]['thumb_image_path'].'" height="50" weight=50  alt="Image" /></div>
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                  <div>
+                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span> <INPUT NAME="ufile['.$i.']" ID="ufile['.$i.']"  type="file" /></span>
+                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                  </div>
+                </div> </div>
+                </div>';
 			}
 			
 		}
@@ -604,13 +673,22 @@ class Display_DManageProducts
 		
 		for($j=$cnt;$j<4;$j++)
 		{
-			$output.='<tr>
-	                        <td width="31%" valign="top" class="content_form"> Sub Product Image </td>
-        	                <td colspan="2" valign="top"><INPUT type="hidden" name="ufile_id['.($j+1).']" id="ufile_id['.($j+1).']" >
-                        	<INPUT NAME="ufile['.($j+1).']" ID="ufile['.($j+1).']"  type="file" />
-				 </td>
-				<td>&nbsp;</td>
-        			</tr>';
+			$output.='<div class="row-fluid">
+ 		<div class="span12"><label> Sub Product Image </label>
+        	                <INPUT type="hidden" name="ufile_id['.($j+1).']" id="ufile_id['.($j+1).']" >
+
+        	                   <div class="fileupload fileupload-new" data-provides="fileupload">
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                  <div>
+                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><INPUT NAME="ufile['.($j+1).']" ID="ufile['.($j+1).']"  type="file" /></span>
+                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                  </div>
+                </div> </div>
+                </div>
+
+                        	
+				';
 		}
 		return $output;
 	}
@@ -626,25 +704,38 @@ class Display_DManageProducts
 	{
 		if($main != 0)
 		{
-			$output='<tr>
-                        <td width="31%" valign="top" class="content_form"> Main Product Image <font color="#FF0000">*</font></td>
-                        <td colspan="2" valign="top"><INPUT type="hidden" name="ufile_id[0]" id="ufile_id[0]" VALUE="'.$main['product_images_id'].'">
-                            <INPUT NAME="ufile[0]" ID="ufile[0]"  type="file" />
-                            
-			    </td>
-			    <td> <img src="../'.$main['thumb_image_path'].'" height="50" weight=50  alt="Image" /></td>
-                    </tr>';
+			$output='   <div class="row-fluid">
+ 		<div class="span12"><label> Main Product Image <font color="#FF0000">*</font></label>
+			<INPUT type="hidden" name="ufile_id[0]" id="ufile_id[0]" VALUE="'.$main['product_images_id'].'">
+
+
+						<div class="fileupload fileupload-new" data-provides="fileupload" style="width:350px;"><div  class="thumbnail" style="float:right"><img src="../'.$main['thumb_image_path'].'" height="50" weight=50  alt="Image" /></div>
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                  <div>
+                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span> <INPUT NAME="ufile[0]" ID="ufile[0]"  type="file" /></span>
+                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                  </div>
+                </div> </div>
+                </div>';
 				
 		}
 		else
 		{
-			$output='<tr>
-                        <td width="31%" valign="top" class="content_form"> Main Product Image <font color="#FF0000">*</font></td>
-                        <td colspan="2" valign="top"><INPUT type="hidden" name="ufile_id[0]" id="ufile_id[0]">
-                         <INPUT NAME="ufile[0]" ID="ufile[0]"  type="file" />
-                         </td>
-			    <td>&nbsp;</td>
-                    </tr>';
+			$output=' <div class="row-fluid">
+ 		<div class="span12"><label> Main Product Image <font color="#FF0000">*</font></label>
+			<INPUT type="hidden" name="ufile_id[0]" id="ufile_id[0]" VALUE="'.$main['product_images_id'].'">
+
+
+						<div class="fileupload fileupload-new" data-provides="fileupload"><div style="float:right"><img src="../'.$main['thumb_image_path'].'" height="50" weight=50  alt="Image" /></div>
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                  <div>
+                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span> <INPUT NAME="ufile[0]" ID="ufile[0]"  type="file" /></span>
+                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                  </div>
+                </div> </div>
+                </div>';
 			
 		}
 		
@@ -736,48 +827,84 @@ class Display_DManageProducts
 	
 	}
 	
-	
-	//****************** END**************************************************//
-	
 	/**
 	 * Function displays a template for the categories available. 
 	 * @param array $result
 	 * @param integer $catid
 	 * @return string
 	 */		
-	
-	
 	function displayCategory($result,$catid)
 	{
 
-	    if((count($result))>0)
+	    $displayCategory=explode(",", $catid);
+		if((count($result))>0)
 		{
-		    $output='<select name="selcatgory" id="selcatgory" onchange="showSubCat(this.value);"><option value="">Select</option>';
-			if(count($result)>0)
-			
-		    foreach($result as $row) 			
+		   	 $output='<select name="selcatgory[]" id="selcatgory" style="width: 292px;height:150px" multiple><option value="Choose Category">Choose Category</option>';	
+		
+			for($k=0;$k<count($result);$k++)
 			{
-				//while(list($id,$name)=$row)
-				
-			   $id=$row['category_id'];
-			   $name=$row['category_name'];
-			 
-			   if($catid==$id)
-			   {
 
-			   $output.='<option value="'.$id.'" selected >'.$name.'</option>';
-			   }
-			   else
-			   {
-			   	$output.='<option value="'.$id.'"  >'.$name.'</option>';
-			   }
+				if(in_array($result[$k]['category_id'], $displayCategory))
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected='';
+				}
+				
+				$output.='<option value='.$result[$k]['category_id'].' '.$selected.'>'.$result[$k]['category_name'].'</option>';
+				$output.=self:: getSubFamilies(0,$result[$k]['category_id'],$catid);
+	
+			
 			}
 
-			$output.='</select>';
+		$output.='</select>';
 		}
+
 		return $output;
 	}
-	
+	/**
+	 * Function generates an drop down list with the category details.in sub child
+	 * 
+	 * 
+	 * @return array
+	 */		
+	function getSubFamilies($level, $id,$catid) {
+
+		$level++;
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+		$resultSubFamilies = mysql_query($sqlSubFamilies);
+		if (mysql_num_rows($resultSubFamilies) > 0) {
+		
+			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies)) {
+
+				$displayCategory=explode(",", $catid);
+				if(in_array($rowSubFamilies['category_id'], $displayCategory))
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected='';
+				}
+				
+				$output.= "<option value=".$rowSubFamilies['category_id']."  ".$selected.">";
+
+				for($a=1;$a<$level+1;$a++)
+				{
+				$output.='- &nbsp;';
+					
+				}
+				$output.=$rowSubFamilies['category_name']."</option>";
+				$output.=self:: getSubFamilies($level, $rowSubFamilies['category_id'],$catid);
+				
+			}
+		
+		}
+		
+		return $output;
+	}
 	/**
 	 * Function displays a template for the sub categories available. 
 	 * @param array $result
@@ -796,11 +923,11 @@ class Display_DManageProducts
 		  
 			foreach($result as $row)
 			{
-			
+		
 				$id=$row['category_id'];
 			   	$name=$row['category_name'];
-							
-				if($subcatid==$row['category_parent_id'])
+		
+				if($subcatid==$row['category_id'])
 			   	{
 
 			   		$output.='<option value="'.$id.'" selected>'.$name.'</option>';
@@ -828,7 +955,7 @@ class Display_DManageProducts
 	function displaySubUnderCategory($result,$subcatid)
 	{
 
-		$output='<select name="selsubundercatgory" id="selsubundercatgory"><option value="">Select</option>';
+		$output='<select name="selsubundersubcatgory" id="selsubundersubcatgory"><option value="">Select</option>';
 		
 		if((count($result))>0)
 		{

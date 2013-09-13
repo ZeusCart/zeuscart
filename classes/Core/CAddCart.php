@@ -1,5 +1,4 @@
 <?php
-// error_reporting(E_ALL);
 /**
 * GNU General Public License.
 
@@ -123,8 +122,7 @@ class Core_CAddCart
 								$query->updateQuery($sql);
 							}	
 						}
-					}
-					
+					}					
 					else // if cart is not available for the user  cnt ==0
 					{
 						$sql_originalprice='SELECT msrp from products_table where product_id='.$_GET['prodid'];
@@ -173,7 +171,6 @@ class Core_CAddCart
 							{
 								$mycart['product_id']=$product_id;
 								$mycart['qty']= 1;
-								$mycart['giftvoucher']= $_POST['giftvoucher'];
 								$_SESSION['mycart'][]=$mycart;
 							}
 							
@@ -183,7 +180,6 @@ class Core_CAddCart
 				
 							$mycart['product_id']=$product_id;
 							$mycart['qty']= 1;
-							$mycart['giftvoucher']= $_POST['giftvoucher'];
 							$_SESSION['mycart'][]=$mycart;
 						}
 					
@@ -205,13 +201,20 @@ class Core_CAddCart
 	function addCartFromProductDetail()
 	{
 
-		if($_POST['giftqty']=='')
+		$defaultobject=new Core_CAddCart();
+		if ($defaultobject->isDigitalProduct((int)$_GET['prodid']))
+		{
+			$qtyfrmproduct=1;
+		}
+		elseif($_POST['giftqty']=='')
 		{
 		$qtyfrmproduct=(int)$_POST['qty'][0];
+		
 		}
 		else
 		{		
 		$qtyfrmproduct=$_POST['giftqty'];
+		
 		}
 		
 		//------------Added to calculate MSRP---------------
@@ -227,8 +230,11 @@ class Core_CAddCart
 			$msrp=$this->getMsrpByQuantity($_GET['prodid'],$qtyfrmproduct);
 		else
 			$msrp=$originalprice;
-		
 
+		// group discount
+		$defobjj=new Core_CAddCart();
+		$groupdiscount=$defobjj->getUserGroupDiscount();
+		$msrp=$msrp-($msrp*($groupdiscount/100));
 		//------------Added to calculate MSRP---------------
 	
 		if($_GET['prodid']!='' && $qtyfrmproduct!='' && $qtyfrmproduct!=0)
@@ -239,16 +245,17 @@ class Core_CAddCart
 
 				// check wheter  cart is exists for the user
 				$cartid=$this->getCartIdOfUser();
+				$sqlship="SELECT shipping_cost FROM products_table WHERE product_id =".(int)$_GET['prodid'];
+				$queryship=new Bin_Query();
+				$queryship->executeQuery($sqlship);
+				$shiprow=$queryship->records; 
+			
+				$shippingcost=$qtyfrmproduct*$shiprow[0]['shipping_cost'];
 							
 				if( $cartid!=0) // if cart available for the user
 				{
 					
-					$sqlship="SELECT shipping_cost FROM products_table WHERE product_id =".(int)$_GET['prodid'];
-					$queryship=new Bin_Query();
-					$queryship->executeQuery($sqlship);
-					$shiprow=$queryship->records; 
-				
-					$shippingcost=$qtyfrmproduct*$shiprow[0]['shipping_cost'];
+					
 					
 				
 					$sql="UPDATE shopping_cart_table SET cart_date='".date('Y-m-d')."' WHERE cart_id='".$cartid."'";
@@ -290,7 +297,7 @@ class Core_CAddCart
 						//insert the cart id , product id , product qty(1) 
 						if($soh!=0)
 						{
-							$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price,shipping_cost) values (".$cartid.','. $_GET['prodid'].",".$qtyfrmproduct.",'".date('Y-m-d')."',".$msrp.",".$shippingcost.")";
+							$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price,shipping_cost,gift_product) values (".$cartid.','. $_GET['prodid'].",".$qtyfrmproduct.",'".date('Y-m-d')."',".$msrp.",".$shippingcost.",'".$_GET['vid']."')"; 
 							$query->updateQuery($sql);
 						}	
 					}
@@ -302,7 +309,7 @@ class Core_CAddCart
 						$query = new Bin_Query();
 						$query->updateQuery($sql);
 						$cartid=$this->getCartIdOfUser();
-					$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price,shipping_cost) values (".$cartid.','. $_GET['prodid'].",".$qtyfrmproduct.",'".date('Y-m-d')."',".$msrp.",".$shippingcost.")";
+					$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price,shipping_cost,gift_product) values (".$cartid.','. $_GET['prodid'].",".$qtyfrmproduct.",'".date('Y-m-d')."',".$msrp.",".$shippingcost.",'".$_GET['vid']."')";
 						$query = new Bin_Query();
 						$query->updateQuery($sql);
 					
@@ -355,6 +362,7 @@ class Core_CAddCart
 						{
 							$mycart['product_id']=$product_id;
 							$mycart['qty']= $qtyfrmproduct;
+							$mycart['gift']=$_GET['vid'];
 							$_SESSION['mycart'][]=$mycart;
 						}
 						
@@ -365,6 +373,7 @@ class Core_CAddCart
 			
 						$mycart['product_id']=$product_id;
 						$mycart['qty']= $qtyfrmproduct;
+						$mycart['gift']=$_GET['vid'];
 						$_SESSION['mycart'][]=$mycart;
 					}
 				
@@ -392,6 +401,20 @@ class Core_CAddCart
 		{
 			return (int) $query->records[0]['cart_id'];
 		}
+	}
+	/**
+	 * This function is used to get  the user discount
+	 *
+	 * 
+	 * 
+	 * @return array 
+	 */
+	function getUserGroupDiscount()
+	{
+		$sql="SELECT a.* FROM users_group_table a,users_table b WHERE b.user_group=a.group_id AND b.user_id=".(int)$_SESSION['user_id'];
+		$qry=new Bin_Query();
+		$qry->executeQuery($sql);
+		return (float)$qry->records[0]['group_discount'];
 	}
 	
 	/**
@@ -809,7 +832,7 @@ class Core_CAddCart
 	{
 	
 
-		if (isset($_SESSION['mycart']))
+		if(isset($_SESSION['mycart']))
 		{
 		
 			$product_array=$_SESSION['mycart'];
@@ -834,8 +857,7 @@ class Core_CAddCart
 				$cartproducts=array();
 		
 			foreach ($_SESSION['mycart'] as $key=>$val)
-			{
-							
+			{							
 				
 				$sql='select soh from product_inventory_table where product_id='.$val['product_id'];
 				$query = new Bin_Query();
@@ -863,7 +885,12 @@ class Core_CAddCart
 						$msrp_query->executeQuery($msrp_sql);
 						$msrp=$msrp_query->records[0][msrp];
 					}
-					if (in_array($val['product_id'],$cartproducts))
+					
+					$defobjj=new Core_CAddCart();
+					$groupdiscount=$defobjj->getUserGroupDiscount();
+					$msrp=$msrp-($msrp*($groupdiscount/100));
+
+					if(in_array($val['product_id'],$cartproducts))
 					{
 						$sql = "UPDATE shopping_cart_products_table SET product_qty=".$val['qty'].",product_unit_price=".$msrp." where product_id=".$val['product_id']." and cart_id=".$cartid;
 					}
@@ -1018,7 +1045,7 @@ class Core_CAddCart
 					
 			###  $ch = curl_init("https://test.authorize.net/gateway/transact.dll"); 
 			###  Uncomment the line ABOVE for test accounts or BELOW for live merchant accounts
-				 $ch = curl_init("https://secure.authorize.net/gateway/transact.dll"); 
+			$ch = curl_init("https://secure.authorize.net/gateway/transact.dll"); 
 			curl_setopt($ch, CURLOPT_HEADER, 0); // set to 0 to eliminate header info from response
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Returns response data instead of TRUE(1)
 			curl_setopt($ch, CURLOPT_POSTFIELDS, rtrim( $fields, "& " )); // use HTTP POST to send form data
@@ -1093,7 +1120,7 @@ class Core_CAddCart
 					{
 						$pswd=base64_encode($pswd);
 						$sql = "insert into users_table (user_display_name,user_email,user_pwd,user_status,user_doj) values('".$displayname."','".$email."','".$pswd."',1,'".$date."')";
-					$obj = new Bin_Query();
+						$obj = new Bin_Query();
 					
 						if($obj->updateQuery($sql))
 						{
@@ -1138,6 +1165,37 @@ class Core_CAddCart
 
 	function showBillingDetails($Err)
 	{
+
+
+		if(!isset($_SESSION['mycart']))
+		{
+
+			$sqlgift="select a.* from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']."";
+			$objgift=new Bin_Query();
+			$objgift->executeQuery($sqlgift);
+			$records_gift=$objgift->records;
+			$recordstot=count($records_gift);
+			if($recordstot>0)
+			{
+				$k=0;
+				for($i=0;$i<$recordstot;$i++)
+				{
+					
+					if($records_gift[$i]['gift_product']==1)
+					{
+						$gifttot=$k+1;
+						$k++;
+					}
+					
+				}
+			}
+
+			if($gifttot==$recordstot)
+			{
+				header("Location:?do=showcart&action=showorderconfirmation&vid=1");	
+			}
+
+		}
 		$obj=new Bin_Query();
 		$sql="SELECT * FROM  addressbook_table WHERE  user_id ='".$_SESSION['user_id']."'";
 		$obj->executeQuery($sql);
@@ -1232,6 +1290,7 @@ class Core_CAddCart
 		if($_SESSION['user_id']!='' && $_SESSION['mycart']=='') 
 		{	
 
+			$_SESSION['digitalproducts']=0;
 			Core_CAddCart::insertShipping();
 			$cartid=Core_CAddCart::getCartIdOfUser();	
 			
@@ -1260,18 +1319,26 @@ class Core_CAddCart
 					{
 					
 
-						 $sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp as msrp1,shopping_cart_products_table.product_unit_price AS msrp, pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. *
+						 $sql='SELECT pt.title, pt.model, pt.product_id,pt.digital, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp as msrp1,shopping_cart_products_table.product_unit_price AS msrp, pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. *
 						FROM (
 						products_table pt
 						INNER JOIN shopping_cart_products_table ON pt.product_id = shopping_cart_products_table.product_id
 						)
 						LEFT JOIN shopping_cart_table ON shopping_cart_products_table.cart_id = shopping_cart_table.cart_id
 						INNER JOIN product_inventory_table AS pinv ON pinv.product_id = shopping_cart_products_table.product_id
-						WHERE shopping_cart_table.user_id ='. $_SESSION['user_id'];
+						WHERE shopping_cart_table.user_id ='. $_SESSION['user_id']; 
 			 
 						$query = new Bin_Query();
 						$query->executeQuery($sql);
 						$flag=$query->totrows;
+						for($ii1=0;$ii1<$flag;$ii1++)
+						{
+							
+							if (Core_CAddCart::isDigitalProduct($query->records[$ii1]['product_id']))
+							{
+								$_SESSION['digitalproducts']=$_SESSION['digitalproducts']+1;
+							}
+						}
 						if($flag==0)
 							return '<div class="alert alert-info">
 							<button type="button" class="close" data-dismiss="alert">×</button>
@@ -1285,18 +1352,26 @@ class Core_CAddCart
 					{
 
 						$query = new Bin_Query();
-						 $sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost as shipingamount, pt.sku, shopping_cart_products_table.product_unit_price AS msrp, pt.msrp as msrp1, pt.image, pt.thumb_image, pinv.soh,shopping_cart_products_table. * , shopping_cart_table. *
+						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand,pt.digital, shopping_cart_products_table.shipping_cost as shipingamount, pt.sku, shopping_cart_products_table.product_unit_price AS msrp, pt.msrp as msrp1, pt.image, pt.thumb_image, pinv.soh,shopping_cart_products_table. * , shopping_cart_table. *
 						FROM (
 						products_table pt
 						INNER JOIN shopping_cart_products_table ON pt.product_id = shopping_cart_products_table.product_id
 						)
 						LEFT JOIN shopping_cart_table ON shopping_cart_products_table.cart_id = shopping_cart_table.cart_id
 						INNER JOIN product_inventory_table AS pinv ON pinv.product_id = shopping_cart_products_table.product_id
-						WHERE shopping_cart_table.user_id ='. $_SESSION['user_id'] .'';  
+						WHERE shopping_cart_table.user_id ='. $_SESSION['user_id'] .''; 
 			 
 					
 						$query->executeQuery($sql);
 						$flag=$query->totrows;
+						for($ii1=0;$ii1<$flag;$ii1++)
+						{
+														
+							if (Core_CAddCart::isDigitalProduct($query->records[$ii1]['product_id']))
+							{
+								$_SESSION['digitalproducts']=$_SESSION['digitalproducts']+1;
+							}
+						}
 						if($flag==0)
 						{
 							return '<div class="alert alert-info">
@@ -1326,7 +1401,6 @@ class Core_CAddCart
 		else //-----------------For Guest User-------------------
 		{
 			
-
 
 
 				if($cartid =='' && isset($_SESSION['mycart']) && $_SESSION['mycart']!='')
@@ -1360,7 +1434,11 @@ class Core_CAddCart
 						$product_unit_prince=$query->records[0]['msrp'];
 						$query->records[0]['shipingamount']=$val['qty']*$query->records[0]['shipingamount'];
 
-					  	$sqlinsert ="insert into shopping_cart_products_table (cart_id,product_id,product_qty, date_added,product_unit_price,shipping_cost) values ('".$cartid."','".$val['product_id']."','".$val['qty']."','".date('Y-m-d')."','".$product_unit_prince."','".$query->records[0]['shipingamount']."')"; 
+							$defobjj=new Core_CAddCart();
+							$groupdiscount=$defobjj->getUserGroupDiscount();
+							$msrp=$product_unit_prince-($product_unit_prince*($groupdiscount/100));
+
+					  	$sqlinsert ="insert into shopping_cart_products_table (cart_id,product_id,product_qty, date_added,product_unit_price,shipping_cost,gift_product) values ('".$cartid."','".$val['product_id']."','".$val['qty']."','".date('Y-m-d')."','".$msrp."','".$query->records[0]['shipingamount']."','".$val['gift']."')"; 
 						$objinsert=new Bin_Query(); 
 						$objinsert->updateQuery($sqlinsert);	
 
@@ -1373,10 +1451,11 @@ class Core_CAddCart
 					{
 						
 		
-						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, pt.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.image, pt.thumb_image, pinv.soh
+						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, pt.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.image, pt.thumb_image, pinv.soh,scp.cart_id,scp.product_id,scp. product_unit_price 
 						FROM products_table pt
 						LEFT JOIN product_inventory_table AS pinv ON pt.product_id = pinv.product_id
-						WHERE pt.product_id ='.$val['product_id']; 
+						LEFT JOIN shopping_cart_products_table AS scp ON scp.product_id = pinv.product_id	
+						WHERE pt.product_id ='.$val['product_id'].' AND scp.cart_id='.$cartid ;  
 									
 						$query = new Bin_Query();
 						$query->executeQuery($sql);
@@ -1401,8 +1480,31 @@ class Core_CAddCart
 							$productarray[]=$query->records[0];
 						}
 					
-				}
-			
+					}
+// 					if($_SESSION['gift']!='')
+// 					{
+// 						for($g=0;$g<count($_SESSION['gift']);$g++)
+// 						{
+// 
+// 							/*Generate the gift Code */
+// 							$characters='4';	
+// 							$possible = '1234567890';
+// 								$code = '';
+// 								$i = 0;
+// 								while ($i < $characters) { 
+// 									$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
+// 									$i++;
+// 						
+// 								}
+// 							
+// 							$code="AJGC".$code;
+// 			
+// 							$sqlgift="INSERT INTO  gift_voucher_table(cart_id, 	gift_product_id,recipient_name,recipient_email,name,email, 	certificate_theme,message,gift_code)VALUES('".$cartid."','".$_SESSION['gift'][$g]['proid']."','".$_SESSION['gift'][$g]['rname']."','".$_SESSION['gift'][$g]['remail']."','".$_SESSION['gift'][$g]['name']."','".$_SESSION['gift'][$g]['email']."','".$_SESSION['gift'][$g]['gctheme']."','".$_SESSION['gift'][$g]['message']."','".$code."')";
+// 							$objgift=new Bin_Query();
+// 							$objgift->updateQuery($sqlgift);
+// 	
+// 						}
+// 					}	
 		
 			
 				return Display_DAddCart::showOrderConfirmation($productarray,$obj3->records,$taxarray,$message);
@@ -1447,9 +1549,7 @@ class Core_CAddCart
 		//shipping address
 		$obj_ship=new Bin_Query();
 		$sql_ship="select * from addressbook_table where user_id='".$_SESSION['user_id']."' and id='".$shipping_address_id."'";
-		$obj_ship->executeQuery($sql_ship);
-
-		
+		$obj_ship->executeQuery($sql_ship);		
 
 
 		$orderdetails=array();		
@@ -1515,14 +1615,14 @@ class Core_CAddCart
 	 */
 	function validateCoupon()
 	{
+
+
 		if($_SESSION['user_id']!='') 
 		{
 			$coupon_code=$_POST['coupon_code'];
 			$date=date('Y-m-d');
 			
-			 $sql_coupon_first="SELECT a.coupon_code,a.coupan_name,a.created_date,a.discount_amt,a.discount_type,a.valid_from,valid_to ,a.min_purchase ,a.no_of_uses,b.user_id,b.no_of_uses FROM coupons_table a , coupon_user_relation_table b  WHERE ";
-			
-	
+			  $sql_coupon_first="SELECT a.coupon_code,a.coupan_name,a.created_date,a.discount_amt,a.discount_type,a.valid_from,valid_to ,a.min_purchase ,a.no_of_uses,b.user_id,b.no_of_uses FROM coupons_table a , coupon_user_relation_table b  WHERE ";	
 		
 			$sql_coupon=$sql_coupon_first." a.coupon_code='".$coupon_code."' ";
 			
@@ -1531,29 +1631,30 @@ class Core_CAddCart
 						
 			if($obj_coupon->executeQuery($sql_coupon))
 			{			
-				$sql_coupon_1=$sql_coupon." and a.status=1 ";
+				 $sql_coupon_1=$sql_coupon." and a.status=1 ";
 				if($obj_coupon->executeQuery($sql_coupon_1))
 				{
-					$sql_coupon_2=$sql_coupon_1." and '".$date."' between a.valid_from and a.valid_to ";
+					 $sql_coupon_2=$sql_coupon_1." and '".$date."' between a.valid_from and a.valid_to ";
 					
 					if($obj_coupon->executeQuery($sql_coupon_2))
 					{
-						$sql_coupon_3=$sql_coupon_2." and a.coupon_code=b.coupon_code and b.user_id=".$_SESSION['user_id']." ";
+						 $sql_coupon_3=$sql_coupon_2." and a.coupon_code=b.coupon_code and b.user_id=".$_SESSION['user_id']." ";
 					
 						if($obj_coupon->executeQuery($sql_coupon_3))
 						{
 							
-							$sql_coupon_4=$sql_coupon_3." and a.min_purchase<=".$_SESSION['total']." ";
+							 $sql_coupon_4=$sql_coupon_3." and a.min_purchase<=".$_SESSION['total']." ";
 					
 							if($obj_coupon->executeQuery($sql_coupon_4))
 							{
-								$sql_coupon_5=$sql_coupon_4." and b.no_of_uses < a.no_of_uses ";
+								 $sql_coupon_5=$sql_coupon_4." and b.no_of_uses < a.no_of_uses "; 
 					
 								if($obj_coupon_5->executeQuery($sql_coupon_5))
 								{
 									$default=new Core_CAddCart();
 									return $default->redeemCoupon($obj_coupon_5->records[0]);
 									
+
 								
 								}
 								else
@@ -1617,7 +1718,7 @@ class Core_CAddCart
 	 */
 	function redeemCoupon($arr)
 	{
-		
+	
 		if (!(empty($arr)))
 		{
 			$sql_coupon_categories="SELECT category_id FROM coupon_category_table WHERE coupon_code='".$arr['coupon_code']."'";
@@ -1627,11 +1728,11 @@ class Core_CAddCart
 			{
 				foreach($query_coupon_categories->records as $res)
 					$category_ids[]=$res['category_id'];
-	
-			
 				
 				$default=new Core_CAddCart();
 				$cartdata=$default->getCartData();
+
+
 			
 				if (!(empty($cartdata)))
 				{
@@ -1639,17 +1740,19 @@ class Core_CAddCart
 					$sucessflag=0;
 					foreach ($cartdata as $data)
 					{
-						$cart_categoryid=$default->getCategoryIdByProductId($data['product_id']);
+						 $cart_categoryid=$default->getCategoryIdByProductId($data['product_id']);
+
 						for($i1=0;$i1<count($category_ids);$i1++)
 						{
-							if ($category_ids[$i1]==$cart_categoryid)
+							if($category_ids[$i1]==$cart_categoryid)
 							{
+
 								if ($arr['discount_type']=='percent')
 									$redeem_price=$data['msrp']-($data['msrp']*($arr['discount_amt']/100));
 								else
 									$redeem_price=$data['msrp']-$arr['discount_amt'];
 									
-								$update_amt_sql="UPDATE shopping_cart_products_table SET product_unit_price=".$redeem_price." WHERE cart_id=".$data['cart_id']." and product_id='".$data['product_id']."'";
+								 $update_amt_sql="UPDATE shopping_cart_products_table SET product_unit_price=".$redeem_price." WHERE cart_id=".$data['cart_id']." and product_id='".$data['product_id']."'";
 								
 								$update_coupon_sql="UPDATE coupon_user_relation_table SET no_of_uses=no_of_uses+1 WHERE coupon_code='".$arr['coupon_code']."' AND user_id=".$_SESSION['user_id'];
 	
@@ -1789,11 +1892,11 @@ class Core_CAddCart
 	{
 		if ($productid!='')
 		{
-			$sql="SELECT category_id FROM products_table WHERE product_id=".(int)$productid;
+			$sql="SELECT sub_under_category_id FROM products_table WHERE product_id=".(int)$productid;
 			$qry= new Bin_Query();
 			$qry->executeQuery($sql);
 			
-			return $categoryid=$qry->records[0]['category_id'];
+			return $categoryid=$qry->records[0]['sub_under_category_id'];
 		}
 	}
 	/**
@@ -2012,6 +2115,23 @@ class Core_CAddCart
 			return '0';
 		}
 	
+	}
+	/**
+	 * This function is used to  check the digital product
+	 *
+	 * 
+	 * 
+	 * @return int
+	 */
+	function isDigitalProduct($product_id)
+	{
+		$sql="SELECT digital FROM products_table WHERE product_id=".(int)$product_id;
+		$query=new Bin_Query();
+		
+		if ($query->executeQuery($sql))
+			return (int)$query->records[0]['digital'];
+		else
+			return 0;
 	}
 	
 }

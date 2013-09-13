@@ -48,12 +48,15 @@ class Model_MTaxSettings
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Core/Settings/CTaxSettings.php');
 		include('classes/Display/DTaxSettings.php');
-		
+		include('classes/Core/CAdminHome.php');
 		
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
 		if($chkuser)
 		{
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
+			$output['currency_type']=$_SESSION['currency']['currency_tocken'];	
 			$output['taxsettings'] = Core_Settings_CTaxSettings::showTaxSettings();
 			Bin_Template::createTemplate('taxsettings.html',$output);
 		}
@@ -78,12 +81,15 @@ class Model_MTaxSettings
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Core/Settings/CTaxSettings.php');
 		include('classes/Display/DTaxSettings.php');
-		
+		include('classes/Core/CAdminHome.php');
 		
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
 		if($chkuser)
 		{
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
+			$output['currency_type']=$_SESSION['currency']['currency_tocken'];	
 			$output['insmsg'] = Core_Settings_CTaxSettings::updateTaxSettings();
 			$output['taxsettings'] = Core_Settings_CTaxSettings::showTaxSettings();
 			Bin_Template::createTemplate('taxsettings.html',$output);
@@ -109,12 +115,15 @@ class Model_MTaxSettings
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Core/Settings/CTaxSettings.php');
 		include('classes/Display/DTaxSettings.php');
-		
+		include('classes/Core/CAdminHome.php');
 		
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
 		if($chkuser)
 		{
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
+			$output['currency_type']=$_SESSION['currency']['currency_tocken'];
 			$output['insmsg'] =$_SESSION['rtsinsmsg'];
 			unset($_SESSION['rtsinsmsg']);
 			$output['taxsettings'] = Core_Settings_CTaxSettings::showCountrywiseTaxList();
@@ -143,7 +152,7 @@ class Model_MTaxSettings
 		include('classes/Core/Settings/CTaxSettings.php');
 		include('classes/Display/DTaxSettings.php');
 		include("classes/Lib/HandleErrors.php");
-			
+		include('classes/Core/CAdminHome.php');	
 		//print_r($Err->messages);
 		//$output['val']=$Err->values;
 		//$output['msg']=$Err->messages;
@@ -152,6 +161,9 @@ class Model_MTaxSettings
 		
 		if($chkuser)
 		{
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
+			$output['currency_type']=$_SESSION['currency']['currency_tocken'];
 			$output['taxsettings'] = Core_Settings_CTaxSettings::addCountrywiseTax($Err);
 			Bin_Template::createTemplate('countrywisetaxentryajax.html',$output);
 		}
@@ -184,6 +196,7 @@ class Model_MTaxSettings
 		
 		if($chkuser)
 		{
+			
 			$_SESSION['rtsinsmsg'] = Core_Settings_CTaxSettings::insertCountrywiseTax();
 			header("Location:?do=taxsettings&action=showregionwisetaxlist");
 		}
@@ -211,7 +224,7 @@ class Model_MTaxSettings
 		include('classes/Core/Settings/CTaxSettings.php');
 		include('classes/Display/DTaxSettings.php');
 		include("classes/Lib/HandleErrors.php");
-			
+		include('classes/Core/CAdminHome.php');	
 		//print_r($Err->messages);
 		//$output['val']=$Err->values;
 		//$output['msg']=$Err->messages;
@@ -220,6 +233,9 @@ class Model_MTaxSettings
 		
 		if($chkuser)
 		{
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
+			$output['currency_type']=$_SESSION['currency']['currency_tocken'];
 			$output['taxsettings'] = Core_Settings_CTaxSettings::editCountrywiseTax($Err);
 			Bin_Template::createTemplate('countrywisetaxentryajax.html',$output);
 		}

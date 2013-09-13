@@ -18,38 +18,62 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript" src="assets/js/bootstrap-fileupload.min.js"></script>
+<link rel="stylesheet" href="assets/css/bootstrap-fileupload.min.css">
+<script type="text/javascript">
+ $(document).ready(function (){
+$('#siteMotoupdate').click(function(){
+$("#siteMotoForm").submit();
+});
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Site Sittings </h2>
+    </div>
+     <div class="span3" >
 
-<AJDF:output>include file="left.html"</AJDF:output>
+      <ul class="bttn_right">
+            <li><a href="javascript:void(0);" class="save_icon"  id="siteMotoupdate"></a></li>
+          </ul>
 
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
-  
-  <tr>
-    <td align="left" class="content_title">Site Moto <!--&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dchead', 'Site Moto', 'Add here')" onmouseout="HideHelp('dchead');">
-			<div id="dchead" style="left: 50px; top: 50px;"></div>--></td>
-  </tr>
-  
-  <!--<tr>
-    <td align="left">&nbsp;</td>
-  </tr>-->
-  <tr>
-    <td align="center"  style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$sitemotomsg</AJDF:output></td>
-   </tr>
-   <!--<tr>
-    <td align="left">&nbsp;</td>
-  </tr>-->
-  <tr>
-    <td align="left" class="content_form_bdr">
-    <form name="site" action="?do=site&action=update" method="post" >
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr><td colspan="2" align="left" class="content_list_head">Edit Site Motto</td></tr>
-	<tr>
-    <td align="left">&nbsp;</td>
-  </tr>
-    <AJDF:output>$sitemoto</AJDF:output>        
-          <tr><td colspan="2" align="center" class="content_form_line">
-          <input type="submit" name="button" id="button" value="Submit" class="all_bttn"  /></td>
-          
-        </tr>  
-        </table></form></td></tr>
-        </table>  
+    </div>
+
+  </div>
+</div>
+
+
+<AJDF:output>$sitemotomsg</AJDF:output>
+
+ <AJDF:output>if count($msg) gt 0</AJDF:output>
+       <div class="alert alert-error">
+             			 <button type="button" class="close" data-dismiss="alert">×</button> 
+                <AJDF:output>foreach name=err item=err from=$msg</AJDF:output>
+                <AJDF:output>$err</AJDF:output>
+                <br>
+                <AJDF:output>/foreach</AJDF:output>
+              </div>
+            <AJDF:output>/if</AJDF:output>
+        <form name="site" action="?do=site&action=update" id="siteMotoForm" method="post" enctype="multipart/form-data">
+
+
+  <div class="row-fluid">
+  <div class="span12">
+
+
+    <h2 class="box_head green_bg">Site Sittings</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+    
+		<AJDF:output>$sitesittings</AJDF:output> 
+		
+	
+              </div>
+</div>
+</div>
+
+</div></div>
+
+        </form> 
 <AJDF:output>include file="footer.html"</AJDF:output>

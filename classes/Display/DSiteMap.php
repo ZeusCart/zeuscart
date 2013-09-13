@@ -52,7 +52,7 @@ class Display_DSiteMap
                    <ul class="sitemap">';
                     	for($i=0;$i<count($arr);$i++)
 				{
-					$output.='<li><a href="?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></li>';
+					$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=featured&action=showmaincatlanding&maincatid='.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</a></li>';
 				}
                    $output.=' </ul>
                 </div>
@@ -60,28 +60,28 @@ class Display_DSiteMap
 		<div class="span3">
                 	<h3>Search</h3>
                    <ul class="sitemap">
-                    	<li><a href="?do=search&search=">List All Product </a></li>
+                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=search&search=">List All Product </a></li>
 			
                     </ul>
                 </div>
             	<div class="span3">
                 	<h3>My account</h3>
                    <ul class="sitemap">
-                    	<li><a href="?do=login">Login</a></li>
-			<li><a href="?do=forgetpwd">Forgot Password</a></li>								
-			<li><a href="?do=dashboard">Account Dashboard</a></li>
-			<li><a href="?do=accountinfo">Account Information</a></li>
-			<li><a href="?do=myorder">My Orders</a></li>
-			<li><a href="?do=orders">My Product Reviews</a></li>
-			<li><a href="?do=newsletter">News Letter Subscription</a></li>
-			<li><a href="?do=wishlist">My Wishlist</a></li>
+                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=login">Login</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=forgetpwd">Forgot Password</a></li>								
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard">Account Dashboard</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo">Account Information</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder">My Orders</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders">My Product Reviews</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter">News Letter Subscription</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist">My Wishlist</a></li>
                     </ul>
                 </div>
 
 		<div class="span3">
                 	<h3>Registration</h3>
                    <ul class="sitemap">
-                    	<li><a href="?do=userregistration">User Registration</a></li>
+                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=userregistration">User Registration</a></li>
 	
                     </ul>
                 </div>
@@ -93,15 +93,15 @@ class Display_DSiteMap
 		<div class="span3">
                 	<h3> Connect</h3>
                    <ul class="sitemap">
-			<li><a href="?do=aboutus">About Us</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=aboutus">About Us</a></li>
 				<li><a href="http://www.zeuscart.com">About Zeuscart</a></li>		
                     </ul>
                 </div>
 			<div class="span3">
 				<h3>  Customer Services</h3>
 			<ul class="sitemap">
-				<li><a href="?do=contactus">Contact us</a></li>
-					<li><a href="?do=faq">Fequently Asking Questions</a></li>	
+				<li><a href="'.$_SESSION['base_url'].'/index.php?do=contactus">Contact us</a></li>
+					<li><a href="'.$_SESSION['base_url'].'/index.php?do=faq">Fequently Asking Questions</a></li>	
 			</ul>
 			</div>
 		</div>

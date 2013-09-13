@@ -150,10 +150,13 @@ class Core_CFaq
 	
 	function delete()
 	{
-		$id=(int)$_GET['id'];
-		$sql="delete from faq_table where faq_id=".$id;;
+		$id=$_POST['faqcheck'];
+		foreach ($id as $key => $value) {
+		$sql="delete from faq_table where faq_id=".$value;;
 		$query = new Bin_Query();
 		$query->executeQuery($sql);
+		}
+		
 		return "<div class='success_msgbox'>Deleted Successfully!</div>";
 	}
 	

@@ -180,10 +180,12 @@ class Model_MCurrencySettings
 	 */	
 	function deleteCurrency()
 	{
+		
 		include('classes/Core/Settings/CCurrencySettings.php');
 		$default = new Core_Settings_CCurrencySettings();
 		$_SESSION['rtsinsmsg'] = $default->removeCurrency();
 		header("Location:?do=showcurrencylist");
+		exit;
 	}
 	
 }

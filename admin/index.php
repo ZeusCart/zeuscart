@@ -18,6 +18,8 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 */
+// print_r($_REQUEST); exit;
+
 error_reporting(0);
 ob_start();
 session_start();
@@ -27,6 +29,8 @@ header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 	  
 define("ROOT_FOLDER",'../');
 define("CURRENT_FOLDER",'admin');
+
+
 
 include_once(ROOT_FOLDER.'Bin/Build/Save.php');
 new Bin_Build_Save();

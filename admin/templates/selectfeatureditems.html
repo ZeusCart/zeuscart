@@ -19,7 +19,7 @@
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
 <AJDF:output>include file="left.html"</AJDF:output>
-
+<script type="text/javascript" src="../js/ajax.js"></script>
 <script type="text/javascript">
 var xmlHttp;
 function LoadSubcategory(id,divid)
@@ -34,41 +34,60 @@ function LoadSubcategory(id,divid)
 
 function showProducts(subcatid)
 {
+  
 	url ="?do=selectfeatured&action=showproducts&id=" + subcatid;
 	ajax(url, 'productlist');
 }
 
+$(document).ready(function (){
+  $('#updateFeaturedproductIcon').click(function(){
+    $("#updateFeaturedproduct").submit();
+  });
+});
 </script>
-<form name="frmcat" action="?do=selectfeatured&action=updateProducts" method="post">
-  <table width="97%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-      <td colspan="3" align="left" class="content_title">Select Featured Products</td>
-    </tr>
-    <tr>
-      <td colspan="3" align="left">&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="3" align="left"><AJDF:output>$msg</AJDF:output></td>
-    </tr>
-    <tr>
-      <td align="left"><table><tr>
-            <td class="label_name" align="left">Main Category</td>
-			<td class="label_name" align="left"><select name="cbocat" id="cbocat" class="combo_box2" 
+
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Select Featured Products
+    </h2>
+  </div>
+  <div class="span3" >
+
+      <ul class="bttn_right">
+            <li>
+              <a href="javascript:void(0);" class="update_icon"  id="updateFeaturedproductIcon"></a> </li>
+              
+                   
+             </ul>
+
+         </div>
+
+     </div>
+ </div>
+ <AJDF:output>$msg</AJDF:output>
+<form name="frmcat" action="?do=selectfeatured&action=updateProducts" method="post" id="updateFeaturedproduct">
+
+
+  <div class="row-fluid">
+    
+  <div class="span7" >
+
+ Category
+<!--<select name="cbocat" id="cbocat" class="combo_box2" 
       onClick=	"LoadSubcategory(this.value,'subCategory');">
           <option value="">Select </option>
           <AJDF:output>$maincategory</AJDF:output>
-        </select></td>&nbsp;<td align="left"  class="label_name"><span id='subCategory'><AJDF:output>$subcategory</AJDF:output></span>
-        </td></tr></table></td>
-    </tr>
-    <tr>
-      <td colspan="3" align="left">&nbsp;</td>
-    </tr>
-    
-    <tr>
-      <td colspan="2" align="center" id=productlist><AJDF:output>$product</AJDF:output>
-      </td>
-    </tr>
-   
-  </table>
+        </select>-->
+        <AJDF:output>$maincategory</AJDF:output>
+             </ul>
+
+         </div>
+
+     </div>
+
+
+          <span id="productlist"><AJDF:output>$product</AJDF:output></span>
+      
 </form>
 <AJDF:output>include file="footer.html"</AJDF:output>

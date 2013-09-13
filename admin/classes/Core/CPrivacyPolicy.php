@@ -73,11 +73,14 @@ class Core_CPrivacyPolicy
 		$query = new Bin_Query();
 		if($query->updateQuery($sql))
 		{
-			return '<div class="success_msgbox">Privacy Policy Updated Successfully</div>';
+			return '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Well done!</strong> Privacy Policy Updated Successfully</div>';
 		}
 		else
 		{
-				return '<div class="error_msgbox">Privacy Policy Not Updated </div>';
+			return '<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button> Privacy Policy Not Updated </div>';
 		}
 	}
 	

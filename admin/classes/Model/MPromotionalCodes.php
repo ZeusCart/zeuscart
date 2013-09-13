@@ -73,8 +73,8 @@ class Model_MPromotionalCodes
 			$output['enabledproducts']=Core_CAdminHome::enabledProducts();
 			$output['disabledproducts']=Core_CAdminHome::disabledProducts();
 			$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
-		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
-		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
+			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
+			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 			
 			//$output['display']=Core_CPromotionalCodes::selectMethodToSendPromotionalCode();
 			$output['displaysearch']=Core_CPromotionalCodes::selectMethodToSendPromotionalCode();
@@ -137,7 +137,7 @@ class Model_MPromotionalCodes
 			$output['displaysearch']=Core_CPromotionalCodes::selectMethodToSendPromotionalCode();
 			$output['displayusers']=Core_CPromotionalCodes::displayUsersForPromotionalCode();
 			
-			Bin_Template::createTemplate('createpromocodes.html',$output);
+			Bin_Template::createTemplate('usercoupon.html',$output);
 			//include_once('templates/createpage.php');
 		}
 		else
@@ -296,12 +296,12 @@ class Model_MPromotionalCodes
 			$output['enabledproducts']=Core_CAdminHome::enabledProducts();
 			$output['disabledproducts']=Core_CAdminHome::disabledProducts();
 			$output['pendingorders']=(int)Core_CAdminHome::pendingOrders();
-		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
-		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
+			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
+			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 			
 			$output['display']=Core_CPromotionalCodes::createPromotionalCodes();
 			
-			Bin_Template::createTemplate('createpromocodes.html',$output);
+			Bin_Template::createTemplate('addpromocodes.html',$output);
 			//include_once('templates/createpage.php');
 		}
 		else

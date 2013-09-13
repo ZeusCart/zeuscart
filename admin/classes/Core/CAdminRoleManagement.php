@@ -140,7 +140,8 @@
 	    $sql="update subadmin_roles_table set subadmin_rights=".$status." where subadmin_role_id=".$id;
    	    $obj=new Bin_Query();
 		$obj->updateQuery($sql); 
-		$fin='One Record is Updated Successfully';
+		$fin='<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Updated Successfully.</div>';
 		return $fin;
 	}
 	
@@ -211,7 +212,8 @@
 			$sql="insert into subadmin_roles_table (subadmin_id,subadmin_page_id,subadmin_rights)values(".$subadminid.",".$pageid.",1)";
 			$query->updateQuery($sql);
 		}
-	   $fin='One Record Inserted Successfully';
+		$fin='<div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Updated Successfully.</div>';
 	   return $fin;
 	}
 	

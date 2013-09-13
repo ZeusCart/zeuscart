@@ -93,15 +93,15 @@ class Display_DPriceCompare
 			  <tr>
 				<td width="33%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
 				  <tr>
-					<td><img src="'.$products[product_image_url0].'" alt="camera" width="213" height="153" /></td>
+					<td><img src="'.$_SESSION['base_url'].'/'.$products['product_image_url0'].'" alt="camera" width="213" height="153" /></td>
 				  </tr>
 				</table></td>
 				<td width="67%" valign="top" class="itemDETAIL">
-				<ul>'.$products[product_name].'
-				<li><div>$ '.$products[product_lowest_price].' &nbsp;&nbsp;<a href="#"></a></div> 
+				<ul>'.$products['product_name'].'
+				<li><div>$ '.$products['product_lowest_price'].' &nbsp;&nbsp;<a href="#"></a></div> 
 				</li>
 				<li>User Rating  : '.$img.'</li>
-				<li>Manufaturer  : '.$products[product_manufacturer].'</li>
+				<li>Manufaturer  : '.$products['product_manufacturer'].'</li>
 				</ul></td>
 			  </tr>
 			</table>

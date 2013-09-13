@@ -94,7 +94,7 @@
 				<input type="hidden" name="PAYMENT_URL_METHOD" value="POST">
 				<input type="hidden" name="BAGGAGE_FIELDS" value="PROGL">
 				<input type="hidden" name="PROGL" value="01">
-				<input type=image src="images/payment/egold.jpg" alt="E-Gold">
+				<input type=image src="'.$_SESSION['base_url'].'/images/payment/egold.jpg" alt="E-Gold">
 				</form>	';
 				return $output;
 			
@@ -127,7 +127,7 @@
 				<input type="hidden" name="return_URL" value="'.$success.'">
 				<input type="hidden" name="cancel_URL" value="'.$failure.'">
 				<input type="hidden" name="subject_matter" value="CashCocktail Payment">
-				<input type=image src="images/payment/strompay.jpg" value="Strom Pay">
+				<input type=image src="'.$_SESSION['base_url'].'/images/payment/strompay.jpg" value="Strom Pay">
 				</form>';
 				return $output;
 
@@ -141,10 +141,10 @@
 	function moneyBookers()
 	{
 					$success= $_SERVER['SERVER_NAME'];
-					$success.='/?do=paymentgateway&action=success';
+					$success.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=success';
 					$failure=$_SERVER['SERVER_NAME'];
-					$failure.='/?do=paymentgateway&action=failure';
-					$returnurl=$_SERVER['SERVER_NAME'];$returnurl.='/?do=paymentgateway';
+					$failure.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=failure';
+					$returnurl=$_SERVER['SERVER_NAME'];$returnurl.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway';
 					$amount=$_SESSION['grandtotal'];
 					$productid=$_SESSION['product_id'];
 					$quantity=$_SESSION['quantity'];
@@ -155,7 +155,7 @@
 				<input type="hidden" name="language" value="EN">
 				<input type="hidden" name="amount" value="'.$amount.'">
 				<input type="hidden" name="currency" value="<?= $default_cur_code ?>">
-				<input type="image" src="images/payment/moneybookers.jpg" value="MoneyBooker" name="Pay">
+				<input type="image" src="'.$_SESSION['base_url'].'/images/payment/moneybookers.jpg" value="MoneyBooker" name="Pay">
 				</form>';
 				return $output;
 	}	
@@ -167,10 +167,10 @@
 	function eBullion()
 	{
 					$success= $_SERVER['SERVER_NAME'];
-					$success.='/?do=paymentgateway&action=success';
+					$success.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=success';
 					$failure=$_SERVER['SERVER_NAME'];
-					$failure.='/?do=paymentgateway&action=failure';
-					$returnurl=$_SERVER['SERVER_NAME'];$returnurl.='/?do=paymentgateway';
+					$failure.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=failure';
+					$returnurl=$_SERVER['SERVER_NAME'];$returnurl.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway';
 					$amount=$_SESSION['grandtotal'];
 					$productid=$_SESSION['product_id'];
 					$quantity=$_SESSION['quantity'];
@@ -192,7 +192,7 @@
 				<input type="hidden" name="ATIP_PAYMENT_AMOUNT" value="'.amount.'" size="10"><br></font></span>
 				<input type="hidden" name="ATIP_PAYMENT_UNIT" value="1">
 				<input type="hidden" name="ATIP_PAYMENT_METAL" value="1">
-				<tr><td align=center><input type="image" name="pay" src="images/payment/ebullion.jpg" value="Money Bookers"></form>';
+				<tr><td align=center><input type="image" name="pay" src="'.$_SESSION['base_url'].'/images/payment/ebullion.jpg" value="Money Bookers"></form>';
 				return $bullion;
 	
 	}
@@ -204,10 +204,10 @@
 	function intGold()
 	{
 				$success= $_SERVER['SERVER_NAME'];
-				$success.='/?do=paymentgateway&action=success';
+				$success.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=success';
 				$failure=$_SERVER['SERVER_NAME'];
-				$failure.='/?do=paymentgateway&action=failure';
-				$returnurl=$_SERVER['SERVER_NAME'];$returnurl.='/?do=paymentgateway';
+				$failure.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=failure';
+				$returnurl=$_SERVER['SERVER_NAME'];$returnurl.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway';
 				$amount=$_SESSION['grandtotal'];
 				$productid=$_SESSION['product_id'];
 				$quantity=$_SESSION['quantity'];
@@ -224,7 +224,7 @@
 				<input type="hidden" name="METHOD" value="POST">
 				<input type="hidden" name="RETURNPAGE" value="HTML">
 				<input type="hidden" name="AMOUNT" value=\''.$amount.'\'>
-				<input type="image" src="images/payment/intgold.jpg" name="submit" alt="Int Gold">
+				<input type="image" src="'.$_SESSION['base_url'].'/images/payment/intgold.jpg" name="submit" alt="Int Gold">
 				</form>';
 				return $output;
 	}
@@ -236,10 +236,10 @@
 	function securePay()
 	{
 				$success= $_SERVER['SERVER_NAME'];
-					$success.='/?do=paymentgateway&action=success';
+					$success.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=success';
 					$failure=$_SERVER['SERVER_NAME'];
-					$failure.='/?do=paymentgateway&action=failure';
-					$returnurl=$_SERVER['SERVER_NAME'];$returnurl.='/?do=paymentgateway';
+					$failure.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=failure';
+					$returnurl=$_SERVER['SERVER_NAME'];$returnurl.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway';
 					$amount=$_SESSION['grandtotal'];
 					$productid=$_SESSION['product_id'];
 					$quantity=$_SESSION['quantity'];
@@ -262,7 +262,7 @@
 				<input type="hidden" name="country" value="USA"/>
 				<input type="hidden" name="phone" value="000000"/>
 				<input type="hidden" name="email" value="ranjithkumar.s@ajsquare.com"/>
-				<input type="image" src="images/payment/securepay.jpg" name="submit" value="submit securely" />
+				<input type="image" src="'.$_SESSION['base_url'].'/images/payment/securepay.jpg" name="submit" value="submit securely" />
 				</FORM>';
 				return $output;
 	}
@@ -273,10 +273,10 @@
 	function secureBluePay()
 	{
 					$success= $_SERVER['SERVER_NAME'];
-					$success.='/?do=paymentgateway&action=success';
+					$success.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=success';
 					$failure=$_SERVER['SERVER_NAME'];
-					$failure.='/?do=paymentgateway&action=failure';
-					$returnurl=$_SERVER['SERVER_NAME'];$returnurl.='/?do=paymentgateway';
+					$failure.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway&action=failure';
+					$returnurl=$_SERVER['SERVER_NAME'];$returnurl.=''.$_SESSION['base_url'].'/index.php/?do=paymentgateway';
 					$amount=$_SESSION['grandtotal'];
 					$productid=$_SESSION['product_id'];
 					$quantity=$_SESSION['quantity'];
@@ -295,8 +295,8 @@
 				<input type="hidden" name=REB_AMOUNT   value="">
 				<input type="hidden" name=REB_EXPR     value="">
 				<input type="hidden" name=REB_FIRST_DATE value="">
-				<input type="hidden" name=AMOUNT value="'.amount.'" >				  
-				<input type="image" src="images/payment/bluepay.jpg" name="submit" value="submit securely" />
+				<input type="hidden" name=AMOUNT value="'.$amount.'" >				  
+				<input type="image" src="'.$_SESSION['base_url'].'/images/payment/bluepay.jpg" name="submit" value="submit securely" />
 				</form>';
 				return $output;
 	}
@@ -310,11 +310,11 @@
 			$_SESSION['quantity'];
 			$success="http://";
 			$success    .= $_SERVER['SERVER_NAME'];
-			$success.='/zeuscart_new/?do=paymentgateway&action=success';
+			$success.=''.$_SESSION['base_url'].'/index.php?do=paymentgateway&action=success';
 			$failure="http://";
 			$failure    .=$_SERVER['SERVER_NAME'];
-			$failure.='/zeuscart_new/?do=paymentgateway&action=failure';
-			$returnurl  =$_SERVER['SERVER_NAME'];$returnurl.='/?do=paymentgateway';
+			$failure.=''.$_SESSION['base_url'].'/index.php?do=paymentgateway&action=failure';
+			$returnurl  =$_SERVER['SERVER_NAME'];$returnurl.=''.$_SESSION['base_url'].'/index.php?do=paymentgateway';
 			$amount     =$_SESSION['grandtotal'];
 			$productid  =$_SESSION['product_id'];
 			$quantity   =$_SESSION['quantity'];
@@ -349,11 +349,11 @@
 		             $_SESSION['quantity'];
 					 $success="http://";
 					 $success .= $_SERVER['SERVER_NAME'];
-					 $success .= '/zeuscart_new/?do=paymentgateway&action=success';
+					 $success .= ''.$_SESSION['base_url'].'/index.php?do=paymentgateway&action=success';
 					 $failure="http://";
 					 $failure .=$_SERVER['SERVER_NAME'];
-					 $failure.= '/zeuscart_new/?do=paymentgateway&action=failure';
-					 $returnurl  =$_SERVER['SERVER_NAME'];$returnurl.='/?do=paymentgateway';
+					 $failure.= ''.$_SESSION['base_url'].'/index.php?do=paymentgateway&action=failure';
+					 $returnurl  =$_SERVER['SERVER_NAME'];$returnurl.=''.$_SESSION['base_url'].'/index.php?do=paymentgateway';
 					 $amount     =$_SESSION['grandtotal'];
 					 $productid  =$_SESSION['product_id'];
 					 $quantity   =$_SESSION['quantity'];
@@ -370,7 +370,7 @@
                     <input type="hidden" name="return" value="'.$success.'"/>
                     <input type="hidden" name="cancel_return"  value="'.$failure.'"/>
 					<center><br>
-					<input type="image" src="images/payment/paypal.jpg" border="0"  name="submit" alt="PayPal" /></center></form>';
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/paypal.jpg" border="0"  name="submit" alt="PayPal" /></center></form>';
 				    return $output;
 	  }
 		
@@ -381,7 +381,7 @@
 	function success()
 	{
 		$output='<div>Your Payment Has been Successfully Inserted</div>';
-		$output.='<div><a href="?do=paymentgateway">Back</a></div>';
+		$output.='<div><a href="'.$_SESSION['base_url'].'/index.php?do=paymentgateway">Back</a></div>';
 		return $output;
 	}
 		
@@ -392,7 +392,7 @@
 	function failure()
 	{
 		$output='<div>Your Payment Has been failure</div>';
-		$output.='<div><a href="?do=paymentgateway">Back</a></div>';
+		$output.='<div><a href="'.$_SESSION['base_url'].'/index.php?do=paymentgateway">Back</a></div>';
 		return $output;
 	}
 	

@@ -93,6 +93,7 @@ class Model_MNews
 		$output['loginStatus']= Core_CUserRegistration::loginStatus();
 		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['categories'] = Display_DUserRegistration::showMainCat();

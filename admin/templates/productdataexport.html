@@ -18,40 +18,86 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
-<table width="97%" border="0" cellspacing="0" cellpadding="">
-  <tr>
-    <td colspan="5" align="left" class="content_title">Export Product</td>
-  </tr>
-  <tr>
-    <td colspan="3" align="left">&nbsp;</td>
-  </tr>
- 
-  <tr>
-    <td colspan="3" align="left">&nbsp;</td>
-  </tr>
-  <tr><td>
-  <table cellpadding='8' cellspacing='0' border='0'  class='content_list_bdr' width='100%'>
-  <tr><td  class='content_list_head' align="left">Export Product</td></tr>
-  <tr><td align="left">
-  <form name="export" method="post" action="?do=prodexp&action=export">
-   <table border="0" cellpadding='5' cellspacing='0'>
-  <tr><td align="left" class="content_form" nowrap="nowrap" colspan="2"><b>Select Format</b></td></tr>
-    <tr><td align="left" class="content_form" colspan="2">Note: You can Export Products to the following format on your computer.</td></tr>
-  <tr><td align="left" class="content_form" colspan="2" style="padding-left:50px"><input type="radio" value="excel" id="excel" name="export" checked="checked">
-  <label for="excel">Excel</lable></input></td></tr>	
-  <tr><td align="left" class="content_form" colspan="2" style="padding-left:50px">
-  <input type="radio" value="xml" id="xml" name="export"><label for="xml"> XML</lable></input></td></tr>
-  <tr><td align="left" class="content_form" colspan="2" style="padding-left:50px">
-  <input type="radio" value="csv" id="csv" name="export"><label for="csv"> CSV</lable></input></td></tr>
-  <tr><td align="left" class="content_form" colspan="2" style="padding-left:50px">
-  <input type="radio" value="tab" id="tab" name="export"><label for="tab"> TAB</lable></input></td></tr>
- <tr><td colspan="2" style="padding-left:50px"><input type="submit" name="btnreport" value="Export" class="all_bttn"></td></tr>
+<link rel="stylesheet" href="assets/css/jquery.ibutton.min.css" />
+<script src="assets/js/jquery.ibutton.min.js"></script>
+<script src="assets/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#exportProduct').click(function(){
+    $("#exportProductvalue").submit();
+  });
+});
+</script>
 
-  <tr>
-    <td colspan="2" align="left">&nbsp;</td>
-  </tr>
-  </table></form></td></tr>
-</table></td></tr>
-</table>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Export Product</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a href="javascript:void(0);" class="export_icon"  id="exportProduct"></a></li>
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Select Format</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+
+          <form name="export" id="exportProductvalue" method="post" action="?do=prodexp&action=export">
+
+
+            <div class="bs-docs-example">
+              <div class="alert fade in">
+                <strong>Note:</strong> You can Export Products to the following format on your computer.
+              </div>
+            </div>
+
+            <div class="ibutton-group">
+              <div class="row-fluid">
+                <div class="span7">
+                  <div class="span3"> <label>Excel</label><input type="radio" checked="checked" id="default" value="excel" name="export" class="sb_ch1 {labelOn: 'Excel', labelOff: 'OFF'}" /></div>
+                  <div class="span3"><label>XML</label><input type="radio"  value="xml"  name="export" class="sb_ch1 {labelOn: 'XML', labelOff: 'OFF'}" /></div>
+                  <div class="span3"><label>CSV</label><input type="radio"  value="csv"  name="export" class="sb_ch1 {labelOn: 'CSV', labelOff: 'OFF'}" /></div>
+                  <div class="span3"><label>TSV</label><input type="radio"  value="tab"  name="export" class="sb_ch1 {labelOn: 'TSV', labelOff: 'OFF'}" /></div>
+                </div></div>
+              </div>
+
+
+              <!-- <input type="submit" name="btnreport" value="Export" class="clsBigBtn"> -->
+
+
+            </form>
+
+
+            <script type="text/javascript">
+            $(document).ready(function (){
+              $(".ibutton-group").iButton({
+
+              })
+            })
+  // trigger the change event (to update the text)
+  .trigger("change");
+  </script>
+
+
+
+
+
+</div>
+</div>
+</div>
+</div></div>
+  
 <AJDF:output>include file="footer.html"</AJDF:output>

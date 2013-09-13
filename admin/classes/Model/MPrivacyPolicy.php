@@ -72,8 +72,10 @@ class Model_MPrivacyPolicy
 		{
 			include("classes/Core/CPrivacyPolicy.php");
 			$default = new Core_CPrivacyPolicy();
+			$output['updateprivacymsg']=$_SESSION['messagePrivacy'];
 			$output['privacypolicy']=$default->selectPrivacyPolicy();
 			Bin_Template::createTemplate('privacypolicy.html',$output);	
+			unset($_SESSION['messagePrivacy']);
 		}
 		else
 		{
@@ -117,9 +119,14 @@ class Model_MPrivacyPolicy
 		$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 		$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 		$default = new Core_CPrivacyPolicy();
-		$output['updateprivacymsg']=$default->updatePrivacyPolicy();
+		$_SESSION['messagePrivacy']=$default->updatePrivacyPolicy();
+		
 		$output['privacypolicy']=$default->selectPrivacyPolicy();
-		Bin_Template::createTemplate('privacypolicy.html',$output);	
+		// Bin_Template::createTemplate('privacypolicy.html',$output);	
+		header('Location:?do=adminprivacypolicy');
+		exit;
+
+
 
 	}
 	

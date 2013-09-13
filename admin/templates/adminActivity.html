@@ -21,21 +21,46 @@
 <script type="text/javascript" src="script/ajax.js"></script>
 <link href="css/calendar_styles.css" rel="stylesheet" type="text/css" />
 <AJDF:output>include file="left.html"</AJDF:output>
-<table width="97%" border="0" cellspacing="0" cellpadding="">
-  <tr>
-    <td colspan="5" align="left" class="content_title">Admin Activity Report</td>
-  </tr>
-  <tr>
-    <td colspan="3" align="left"><AJDF:output>$message</AJDF:output></td>
-  </tr>
-  <tr>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Admin Activity Report
+</h2>
+    </div>
+     <div class="span3" >    <ul class="bttn_right">
+            <li><a href="#myModal" data-toggle="modal"  class="delete_icon1"  id="adminactivity"></a></li>
+          </ul>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<AJDF:output>$message</AJDF:output>
+<!--   <tr>
     <td colspan="3" align="right" style="padding-top:10px"><a href="#" class="add_link" onclick="if(confirm('Deleting the records will not be available anymore.Are you sure to delete the Admin Activity Records?')) window.location='?do=deleteActivity';">Delete Reports</a></td>
-  </tr>
-  <tr>
-    <td colspan="3" align="left" style="padding-top:5px;"><AJDF:output>$result</AJDF:output></td>
-  </tr>
-  <tr>
-    <td colspan="3" align="left">&nbsp;</td>
-  </tr>
-</table>  
+  </tr> -->
+
+  <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">
+<AJDF:output>$result</AJDF:output>
+</div></div>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Deleting the records will not be available anymore.Are you sure to delete the Admin Activity Records?</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<a href="?do=deleteActivity" class="btn btn-primary" >Save changes</a>
+</div>
+</div>
 <AJDF:output>include file="footer.html"</AJDF:output>
+
+

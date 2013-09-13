@@ -18,21 +18,63 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-   
-   <AJDF:output>$product</AJDF:output>
-   <AJDF:output>$attributes</AJDF:output>
-<table cellpadding="0" cellspacing="0" border="0">
-<tr><td>
-<h3>Related Products</h3></td><td class="">&nbsp;&nbsp;&nbsp;<a href="?do=addcrossproduct" >Add Cross Products To This Product</a>
+<script type="text/javascript">
+ $(document).ready(function (){
+$('#siteMotoupdate').click(function(){
+$("#siteMotoForm").submit();
+});
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Product Detail </h2>
+    </div>
+     <div class="span3" >
 
-</td></tr>
-<tr>
-<AJDF:output>$relprod</AJDF:output>
+      <ul class="bttn_right">
+            <li><a class="back_icon1" href="javascript:history.go(-1)"></a></li>
+		<li><a id="userupdate" class="update_icon" href="?do=?do=manageproducts&action=editprod&prodid=<AJDF:output>$smarty.get.prodid</AJDF:output>"></a></li>
+          </ul>
 
-</tr>
+    </div>
 
-</table>  
+  </div>
+</div>
 
+       
+
+
+  <div class="row-fluid">
+  <div class="span12">
+
+
+    <h2 class="box_head green_bg">Product Detail</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+
+   <AJDF:output>$product</AJDF:output>     
+
+
+		<!--<div class="row-fluid">
+
+		<div class="span12">
+		<p class="formSep"><small class="muted">Display Name :</small> <span class="label label-success">aaaaa</span></p>
+		<p class="formSep"><small class="muted">First Name:</small> aaaaa</p>
+		<p class="formSep"><small class="muted">Last Name :</small> aaaaa </p>
+		<p class="formSep"><small class="muted">Email Address :</small> sss@ajsquare.net</p>
+
+		</div>
+		</div>-->
+		</div>
+				
+</div>
+</div>
+
+</div></div>
+
+      
  <script type="text/javascript" language="javascript">
 function  callid(id)
 {

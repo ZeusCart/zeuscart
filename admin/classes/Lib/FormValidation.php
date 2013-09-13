@@ -44,6 +44,8 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	
 	function Lib_FormValidation($form)
 	{
+		$this->formatmessage = "Invalid Format!";
+
 		if($form=='category')
 			$this->validateCategory();
 		else if($form=='register')
@@ -64,6 +66,8 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateUpdateEntry();
 		else if($form=='useraccregister')
 			$this->validateUserRegister();
+		else if($form=='useraccregisterlight')
+			$this->validateUserRegisterLight();
 		else if($form=='frmship')
 			$this->validateCheckout();
 		else if($form=='regionwisetax')
@@ -80,8 +84,37 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateAddSocialLink();
 		else if($form=='updatesociallink')
 			$this->validateUpdateSocialLink();
+		else if($form=='addhomepageads')
+			$this->validateAddHomePageAds();
+		else if($form=='edithomepageads')
+			$this->validateEditHomePageAds();
+		else if($form=='dynamiccms')
+			$this->validateDynamicCms();
+		else if($form=='editdynamiccms')
+			$this->validateEditDynamicCms();
+		else if($form=='checkCse')
+			$this->validateCse();
+		else if($form=='digitalproductreg')
+			$this->validateDigitalEntry();
+		else if($form=='giftproductreg')
+			$this->validateGiftEntry();
+		else if($form=='customergrp')
+			$this->validateCustomerGroup();	
+		else if($form=='editcustomergrp')
+			$this->validateEditCustomerGroup();
+		else if($form=='useraccupdate')
+			$this->validateUserUpdate();
+		else if($form=='addattributevalues')
+			$this->validateAddAttributeValues();
+		else if($form=='editattributevalues')
+			$this->validateEditAttributeValues();
+		else if($form=='sitesettings')
+			$this->validateSiteSettings();
 	}
+
+
 	
+
 	/**
 	 * Function checks the url 
 	 * 
@@ -94,7 +127,515 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$url = ($urlstart == 'www')?'http://'.$url:$url;
 		return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
 	}
+	function dateCheck($date)
+	{
+		if(preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/",$date,$parts))
+		{
+			if(!checkdate($parts[2],$parts[3],$parts[1]))
+				return false;
+			else
+				return true;
+		}
+		else
+			return false;
+	}
 
+
+	function validateSiteSettings()
+	{
+
+		$message = "Required Field Cannot be blank";
+		$this->Assign("site_moto",trim($_POST['site_moto']),"noempty","Site Moto -".$message);
+		
+		$message = "Admin Email - Required Field Cannot be blank/Invalid Email.";		
+		$this->Assign("admin_email",trim($_POST['admin_email']),"noempty/emailcheck",$message);
+
+
+		if($_FILES['site_logo']['name'] != '')
+		{
+		
+			//Image Validation
+			$ext_array = array('.jpeg','.jpg','.gif','.png','.bmp');
+			$ext = strchr($_FILES['site_logo']['name'],'.');
+			if(!in_array(strtolower($ext),$ext_array))
+				$this->Assign("site_logo","","noempty","Site Logo - ".$this->formatmessage);
+			else
+			{
+				$img = getimagesize($_FILES['site_logo']['tmp_name']);
+				$mime = array('image/jpeg','image/jpg','image/png','image/gif');
+				
+				if(!in_array($img['mime'],$mime))
+					$this->Assign("site_logo","","noempty","Site Logo - ".$this->formatmessage);
+				
+			}
+			
+			
+			
+		}
+		
+		$this->PerformValidation("?do=site");
+
+
+	}	
+	function validateEditAttributeValues()
+	{
+
+		$message = "Required Field Cannot be blank";
+		$this->Assign("attributevalues",trim($_POST['attributevalues']),"noempty",$message);
+
+		$this->PerformValidation("?do=addattributevalues&action=disp&id=".(int)$_GET['id']);
+	}
+	function validateAddAttributeValues()
+	{
+
+		$message = "Required Field Cannot be blank";
+		$this->Assign("attributevalues",trim($_POST['attributevalues']),"noempty",$message);
+
+		$this->PerformValidation('?do=addattributevalues&action=showadd');
+	}
+
+	function validateUserUpdate()
+	{
+	
+		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
+		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty/nonumber/nospecial''",$message);
+		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
+		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty/nonumber/nospecial''",$message);
+		$message = "Required Field Cannot be blank/No special characters allowed";
+		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''",$message);
+		/*if(empty($_POST['txtemail']))
+		{
+		    $message = "Required Field Cannot be blank";
+			$this->Assign("txtemail",
+			'',"noempty",$message);
+		}
+		else if($this->validateEmailAddress($_POST['txtemail']))
+		{
+				exit;
+				
+		}
+		else
+		{
+			
+			$message = "Invalid Emails";
+ 			$this->Assign("txtemail",'',"noempty",$message);
+		}*/
+		$message = "Required Field Cannot be blank/Invalid Email";		
+		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck",$message);
+	
+		if($_POST['txtemail']!='')
+		{
+			$sql = "select * from users_table where user_email='".trim($_POST['txtemail'])."' and user_id!='".$_GET['userid']."'"; 
+			
+			$getMail=new Bin_Query();
+			$getMail->executeQuery($sql);
+			$userRecords = $getMail->records;
+			if(count($userRecords) > 0)
+			{
+				$message = "Email-ID Already Registered. Please Try Another One.";		
+				$this->Assign("txtemail","","noempty",$message);	
+			}						
+			
+		}	
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty",$message);
+		
+		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
+		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty/nonumber/nospecial''",$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"noempty/nonumber/nospecial''",$message);
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
+
+	
+		
+		$message = "Required Field Cannot be blank";
+		
+		
+
+		//and trim($_POST['txtlname']) != '' and trim($_POST['txtdisname'])!='')
+		$fnamelength =strlen($_POST['txtfname']);
+		$lnamelength =strlen($_POST['txtlname']);
+		$dislength =strlen($_POST['txtdisname']);
+
+
+		if(trim($_POST['txtfname']) != '' )
+		{
+			if($fnamelength<3 or $fnamelength>20)
+			{
+				$message = "Minimum length is 3";
+				$this->Assign("txtfname","","noempty",$message);
+			}
+		}
+		
+		if(trim($_POST['txtlname']) != '' )
+		{
+			if($lnamelength<3 or $lnamelength>20)
+			{
+				$message = "Minimum length is 3";
+				$this->Assign("txtlname","","noempty",$message);
+			}
+		
+		}
+		
+		if(trim($_POST['txtdisname']) != '' )	
+		{
+			if($dislength<3 or $dislength>20)
+			{
+				$message = "Minimum length is 3";
+				$this->Assign("txtdisname","","noempty",$message);
+			}
+		}
+		
+		
+		
+		
+		/*if(trim($_POST['txtemail']) != '' and trim($_POST['txtremail']) != '')
+		{
+			if(trim($_POST['txtemail']) != trim($_POST['txtremail']))
+			{
+				$message = "Enter the Confirm Email id correctly";
+				$this->Assign("txtremail","","noempty",$message);
+				
+			}
+		}*/
+		
+		//$message = "Please select terms";
+		//$this->Assign("chkterms",trim($_POST['chkterms']),"noempty",$message);
+		
+		
+		$userid=$_GET['userid'];
+		$this->PerformValidation('?do=editreg&action=edit&userid='.$userid);
+	}
+	/**
+	 * Function validate the gift product
+	 * 
+	 *
+	 * @return string 
+	 */
+	function validateGiftEntry()
+	{
+
+		$cat=trim($_POST['selcatgory']);
+		$message = "Select the Main Category";
+		$this->Assign("selcatgory",$cat,"noempty",$message);
+		
+		$message = "Select the Sub Category";
+		$this->Assign("subcat",trim($_POST['subcat']),"noempty",$message);
+		
+		$message = "Required Field Cannot be blank";
+  	 	$this->Assign("product_title",trim($_POST['product_title']),"noempty",$message);
+		
+		
+				
+		
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("sku",trim($_POST['sku']),"noempty",$message);
+
+
+		if(trim($_POST['sku'])!='')
+		{
+			$getSKU = new Bin_Query();
+			$sqlsku = "select count(*) as count from products_table where sku='".strtolower($_POST['sku'])."'"; 
+			$getSKU->executeQuery($sqlsku);		
+			if($getSKU->records[0]['count'] > 0)
+			{
+				$message = "SKU already available-Enter a Unique SKU ID";
+				$this->Assign("sku","","noempty",$message);
+			}		
+		}
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("ufile",trim($_FILES['ufile']['name'][0]),"noempty",$message);
+				
+		if($_FILES['ufile']['name'][0]!='')
+		{
+			$count=count($_FILES['ufile']['type']);
+			for($i=0;$i<$count;$i++)
+			{
+				if(!$this->validateimages($_FILES['ufile']['type'][$i]))
+				{
+					$message = "Upload images only in the format JPEG,JPG,PNG,BMP";
+					$this->Assign("ufile_value",'',"noempty",$message);
+				}
+			}
+		}
+		
+			
+
+		
+		$this->PerformValidation('?do=giftproductentry');
+	}
+	/**
+	 * Function validate the digital product
+	 * 
+	 *
+	 * @return string 
+	 */
+	function validateDigitalEntry()
+	{
+
+		$cat=trim($_POST['selcatgory']);
+		$message = "Select the Main Category";
+		$this->Assign("selcatgory",$cat,"noempty",$message);
+		
+		$message = "Select the Sub Category";
+		$this->Assign("subcat",trim($_POST['subcat']),"noempty",$message);
+		
+		$message = "Required Field Cannot be blank";
+  	 	$this->Assign("product_title",trim($_POST['product_title']),"noempty",$message);
+		
+		if($_FILES['digitalfile']['name']=='')
+		{
+			$message = "Required Field Cannot be blank";
+  	 		$this->Assign("digitalfile",trim($_FILES['digitalfile']['name']),"noempty",$message);
+		}
+		else
+		{ //echo 'name'.$_FILES['digitalfile']['name'];
+			$file_ext=array();
+			$file_ext=explode('.',$_FILES['digitalfile']['name']);
+			
+			/*if(count($file_ext)>1)
+			{
+				$message = "Invalid file";
+  	 			$this->Assign("digitalfile",'',"noempty",$message);
+			}
+			else
+			{*/
+				if(strtolower($file_ext[count($file_ext)-1])!='zip' || count($file_ext) > 2)
+				{
+					$message = "Upload file should be zip format only";
+					$this->Assign("digitalfile",'',"noempty",$message);
+				}
+				else
+				{
+					$file_size=$_FILES['digitalfile']['size'];
+					if($file_size/1048576>8)
+					{
+						$message = "File size too large";
+						$this->Assign("digitalfile",'',"noempty",$message);
+					}
+	
+				}
+			//}
+			
+		}
+
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("sku",trim($_POST['sku']),"noempty",$message);
+
+
+		if(trim($_POST['sku'])!='')
+		{
+			$getSKU = new Bin_Query();
+			$sqlsku = "select count(*) as count from products_table where sku='".strtolower($_POST['sku'])."'"; 
+			$getSKU->executeQuery($sqlsku);		
+			if($getSKU->records[0]['count'] > 0)
+			{
+				$message = "SKU already available-Enter a Unique SKU ID";
+				$this->Assign("sku","","noempty",$message);
+			}		
+		}
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("ufile",trim($_FILES['ufile']['name'][0]),"noempty",$message);
+				
+		if($_FILES['ufile']['name'][0]!='')
+		{
+			$count=count($_FILES['ufile']['type']);
+			for($i=0;$i<$count;$i++)
+			{
+				if(!$this->validateimages($_FILES['ufile']['type'][$i]))
+				{
+					$message = "Upload images only in the format JPEG,JPG,PNG,BMP";
+					$this->Assign("ufile_value",'',"noempty",$message);
+				}
+			}
+		}
+		
+			
+
+		
+		$this->PerformValidation('?do=digitproductentry');
+	}
+	/**
+	 * Function validate the Edit dynamic cms
+	 * 
+	 *
+	 * @return string 
+	 */
+	function validateEditDynamicCms()
+	{
+
+		$message = "Required Field Cannot be blank";
+
+		$this->Assign("cms_page_alias",trim($_POST['cms_page_alias']),"noempty","Alias - ".$message);
+		$this->Assign("cms_page_content",trim($_POST['cms_page_content']),"noempty","Content - ".$message);
+		$this->Assign("cms_page_title",trim($_POST['cms_page_title']),"noempty","Title - ".$message);
+		if($_POST['cms_page_alias']!='')
+		{
+		
+
+			if(preg_match('/[\'^£$%&*()}{@#~?><>,|=+¬-]/', $_POST['cms_page_alias']))
+			{
+
+				$message = "Page Alias should not contain special charactors";		
+				$this->Assign("cms_page_alias",'',"noempty",$message);
+			}
+				$sql="SELECT * FROM cms_table WHERE  cms_id!='".$_GET['id']."'";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);
+				$records=$obj->records;
+				for($i=0;$i<count($records);$i++)
+				{
+					if($_POST['cms_page_alias']==$records[$i]['cms_page_alias'])
+					{
+						$message = "Page Alias already Exist!.Try again.";		
+						$this->Assign("cms_page_alias",'',"noempty",$message);
+					}
+		
+				}
+			
+		}
+			
+
+		$this->PerformValidation('?do=dynamiccms&action=edit&id='.$_GET['id']);
+	}
+	/**
+	 * Function validate the dynamic cms
+	 * 
+	 *
+	 * @return string 
+	 */
+	function validateDynamicCms()
+	{
+
+		$message = "Required Field Cannot be blank";
+
+		$this->Assign("cms_page_alias",trim($_POST['cms_page_alias']),"noempty","Alias - ".$message);
+		$this->Assign("cms_page_content",trim($_POST['cms_page_content']),"noempty","Content - ".$message);
+		$this->Assign("cms_page_title",trim($_POST['cms_page_title']),"noempty","Title - ".$message);
+		if($_POST['cms_page_alias']!='')
+		{
+		
+
+			if(preg_match('/[\'^£$%&*()}{@#~?><>,|=+¬-]/', $_POST['cms_page_alias']))
+			{
+
+				$message = "Page Alias should not contain special charactors";		
+				$this->Assign("cms_page_alias",'',"noempty",$message);
+			}
+				$sql="SELECT * FROM cms_table ";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);
+				$records=$obj->records;
+				for($i=0;$i<count($records);$i++)
+				{
+					if($_POST['cms_page_alias']==$records[$i]['cms_page_alias'])
+					{
+						$message = "Page Alias already Exist!.Try again.";		
+						$this->Assign("cms_page_alias",'',"noempty",$message);
+					}
+		
+				}
+			
+		}
+			
+
+		$this->PerformValidation('?do=dynamiccms');
+	}
+	
+	/**
+	 * Function validate the add home page ads  
+	 * 
+	 *
+	 * @return string 
+	 */
+	function validateAddHomePageAds()
+	{
+		$message = "Required Field Cannot be blank";
+		$this->Assign("title",trim($_POST['title']),"noempty","Title - ".$message);
+		$this->Assign("url",trim($_POST['url']),"noempty","Url - ".$message);
+
+		$message = "Invalid URL!";		
+		if($_POST['url']!='' && !$this->isValidURL(trim($_POST['url'])))
+		{
+			$this->Assign("url","","noempty",$message);
+		}
+
+		
+		if($_FILES['logo']['name']=='')
+		{
+			$message = "Required Field Cannot be blank";
+  	 		$this->Assign("logo",trim($_FILES['logo']['name']),"noempty","Logo - ".$message);
+		}
+		if(!empty($_FILES['logo']))
+		{			
+			if($_FILES['logo']['name']!='')
+			{
+				if(!$this->validateimages($_FILES['logo']['type']))
+				{
+					$message = "Upload images only in the format JPEG,JPG,PNG,BMP";
+					$this->Assign("logo",'',"noempty",$message);
+				}
+			}
+
+			list($width,$height,$type,$attr) = getimagesize($_FILES['logo']['tmp_name']);
+				$messages = "Logo - Home Page Add should be 570px * 139px";
+				if(($width >'570')||($height > '139'))
+					$this->Assign("logo","","noempty",$messages);
+					
+		}
+
+		$this->PerformValidation('?do=homepageads&action=show');
+
+	}
+	/**
+	 * Function validate the edit home page ads  
+	 * 
+	 *
+	 * @return string 
+	 */	
+	function validateEditHomePageAds()
+	{
+
+		$message = "Required Field Cannot be blank";
+		$this->Assign("home_page_ads_title",trim($_POST['home_page_ads_title']),"noempty","Title - ".$message);
+		$this->Assign("home_page_ads_url",trim($_POST['home_page_ads_url']),"noempty","Url - ".$message);
+
+		$message = "Invalid URL!";		
+		if($_POST['home_page_ads_url']!='' && !$this->isValidURL(trim($_POST['home_page_ads_url'])))
+		{
+			$this->Assign("home_page_ads_url","","noempty",$message);
+		}
+
+		if($_POST['home_page_ads_logo']=='' && ($_FILES['home_page_ads_logo']['name']==''))
+		{
+			if($_FILES['home_page_ads_logo']['name']=='')
+			{
+				$message = "Logo - Required Field Cannot be blank";
+				$this->Assign("home_page_ads_logo",trim($_FILES['logo']['name']),"noempty",$message);
+			}
+			
+		}
+		if($_POST['home_page_ads_logo']!='' && ($_FILES['home_page_ads_logo']['name']!=''))
+		{	
+					
+			if($_FILES['home_page_ads_logo']['name']!='')
+			{
+				if(!$this->validateimages($_FILES['home_page_ads_logo']['type']))
+				{
+					$message = "Logo - Upload images only in the format JPEG,JPG,PNG,BMP";
+					$this->Assign("home_page_ads_logo",'',"noempty",$message);
+				}
+			}			
+		}
+	
+		$this->PerformValidation('?do=homepageads&action=edit&id='.$_GET['id']);
+	}
 	/**
 	 * Function checks the social link for update 
 	 * 
@@ -105,14 +646,14 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	{
 
 		$message = "Required Field Cannot be blank";
-		$this->Assign("social_link_title",trim($_POST['social_link_title']),"noempty",$message);
-		$this->Assign("social_link_url",trim($_POST['social_link_url']),"noempty",$message);
+		$this->Assign("social_link_title",trim($_POST['social_link_title']),"noempty","Title - ".$message);
+		$this->Assign("social_link_url",trim($_POST['social_link_url']),"noempty","Url - ".$message);
 
 		if($_POST['social_link_logo1']=='' && ($_FILES['social_link_logo']['name']==''))
 		{
 			if($_FILES['social_link_logo']['name']=='')
 			{
-				$message = "Required Field Cannot be blank";
+				$message = "Logo - Required Field Cannot be blank";
 				$this->Assign("social_link_logo",trim($_FILES['social_link_logo']['name']),"noempty",$message);
 			}
 			
@@ -143,13 +684,13 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateAddSocialLink()
 	{
 		$message = "Required Field Cannot be blank";
-		$this->Assign("social_link_title",trim($_POST['social_link_title']),"noempty",$message);
-		$this->Assign("social_link_url",trim($_POST['social_link_url']),"noempty",$message);
+		$this->Assign("social_link_title",trim($_POST['social_link_title']),"noempty","Title - ".$message);
+		$this->Assign("social_link_url",trim($_POST['social_link_url']),"noempty","Url - ".$message);
 
 		if($_FILES['social_link_logo']['name']=='')
 		{
 			$message = "Required Field Cannot be blank";
-  	 		$this->Assign("social_link_logo",trim($_FILES['social_link_logo']['name']),"noempty",$message);
+  	 		$this->Assign("social_link_logo",trim($_FILES['social_link_logo']['name']),"noempty","Logo - ".$message);
 		}
 		if(!empty($_FILES['social_link_logo']))
 		{			
@@ -199,22 +740,30 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateCheckout()
 	{
 
+
 		$message = "Required Field Cannot be blank";
-		$this->Assign("txtname",trim($_POST['txtname']),"noempty",$message);
+		$this->Assign("txtname",trim($_POST['txtname']),"noempty","Name - ".$message);
 		//	$this->Assign("txtcompany",trim($_POST['txtcompany']),"noempty",$message);		
-		$this->Assign("txtstreet",trim($_POST['txtstreet']),"noempty",$message);
-		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty",$message);
-		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
-		//$this->Assign("selbillcountry",trim($_POST['selbillcountry']),"noempty",$message);
-		$this->Assign("txtstate",trim($_POST['txtstate']),"noempty",$message);
+		$this->Assign("txtstreet",trim($_POST['txtstreet']),"noempty","Address - ".$message);
+		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty","City - ".$message);
+		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty","Zipcode - ".$message);
+		$this->Assign("selbillcountry",trim($_POST['selbillcountry']),"noempty","Country - ".$message);
+		$this->Assign("txtstate",trim($_POST['txtstate']),"noempty","State - ".$message);
 		
-		$this->Assign("txtsname",trim($_POST['txtsname']),"noempty",$message);
+		$this->Assign("txtsname",trim($_POST['txtsname']),"noempty","Name - ".$message);
 		//	$this->Assign("txtscompany",trim($_POST['txtscompany']),"noempty",$message);
-		$this->Assign("txtsstreet",trim($_POST['txtsstreet']),"noempty",$message);
-		$this->Assign("txtscity",trim($_POST['txtscity']),"noempty",$message);
-		$this->Assign("txtszipcode",trim($_POST['txtszipcode']),"noempty",$message);
-		//$this->Assign("selshipcountry",trim($_POST['selshipcountry']),"noempty",$message);
-		$this->Assign("txtsstate",trim($_POST['txtsstate']),"noempty",$message);
+		$this->Assign("txtsstreet",trim($_POST['txtsstreet']),"noempty","Address - ".$message);
+		$this->Assign("txtscity",trim($_POST['txtscity']),"noempty","City - ".$message);
+		$this->Assign("txtszipcode",trim($_POST['txtszipcode']),"noempty","Zipcode - ".$message);
+		$this->Assign("selshipcountry",trim($_POST['selshipcountry']),"noempty","Country - ".$message);
+		$this->Assign("txtsstate",trim($_POST['txtsstate']),"noempty","State - ".$message);
+		
+
+		if($_POST['selCustomer']=='0')	
+		{
+			$this->Assign("selCustomer",'',"noempty",$message);
+		}
+
 		$this->PerformValidation('?do=addUserProduct');
 	}
 	/**
@@ -226,58 +775,44 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateUserRegister()
 	{
 		
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty/nonumber/nospecial''",$message);
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty/nonumber/nospecial''",$message);
-		$message = "Required Field Cannot be blank/No special characters allowed";
-		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''",$message);
-		/*if(empty($_POST['txtemail']))
-		{
-		    $message = "Required Field Cannot be blank";
-			$this->Assign("txtemail",'',"noempty",$message);
-		}
-		else if($this->validateEmailAddress($_POST['txtemail']))
-		{
-				exit;
-				
-		}
-		else
-		{
-			
-			$message = "Invalid Emails";
- 			$this->Assign("txtemail",'',"noempty",$message);
-		}*/
-		$message = "Required Field Cannot be blank/Invalid Email";		
+		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed.";
+		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty/nonumber/nospecial''","First Name - ".$message);
+		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed.";
+		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty/nonumber/nospecial''","Last Name - ".$message);
+// 		$message = "Required Field Cannot be blank/No special characters allowed.";
+// 		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''","Display Name - ".$message);
+	
+		$message = "Email id - Required Field Cannot be blank/Invalid Email.";		
 		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck",$message);
 		
 		
-		$message = "Required Field Cannot be blank";
+		$message = "Address - Required Field Cannot be blank.";
 		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty",$message);
 		
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty/nonumber/nospecial''",$message);
-		$this->Assign("txtState",trim($_POST['txtState']),"noempty/nonumber/nospecial''",$message);
+		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed.";
+		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty/nonumber/nospecial''","City - ".$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"noempty/nonumber/nospecial''","State - ".$message);
 		
-		$message = "Required Field Cannot be blank";
+		$message = "Zip Code - Required Field Cannot be blank.";
 		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
 
 	
 		
-		$message = "Required Field Cannot be blank";
+		$message = "Password - Required Field Cannot be blank.";
 		$this->Assign("txtpwd",trim($_POST['txtpwd']),"noempty",$message);
+		$message = "Confirm Password - Required Field Cannot be blank.";
 		$this->Assign("txtrepwd",trim($_POST['txtrepwd']),"noempty",$message);
 		if(trim($_POST['txtpwd']) != '' and trim($_POST['txtrepwd']) != '')
 		{
 			$pwdlength =strlen($_POST['txtpwd']);
 			if($pwdlength<6 or $pwdlength>20)
 			{
-				$message = "Password minimum length is 6 & maximum length is 20";
+				$message = "Password minimum length is 6 & maximum length is 20.";
 				$this->Assign("txtpwd","","noempty",$message);
 			}
 			elseif(trim($_POST['txtpwd']) != trim($_POST['txtrepwd']))
 			{
-				$message = "Enter the Confirm Password correctly";
+				$message = "Enter the Confirm Password correctly.";
 				$this->Assign("txtrepwd","","noempty",$message);
 				
 			}
@@ -290,17 +825,17 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$dislength =strlen($_POST['txtdisname']);
 			if($fnamelength<3 or $fnamelength>20)
 			{
-				$message = "Minimum length is 3";
+				$message = "First Name - Minimum length is 3.";
 				$this->Assign("txtfname","","noempty",$message);
 			}
 			if($lnamelength<3 or $lnamelength>20)
 			{
-				$message = "Minimum length is 3";
+				$message = "Last Name - Minimum length is 3.";
 				$this->Assign("txtfname","","noempty",$message);
 			}
 			if($dislength<3 or $dislength>20)
 			{
-				$message = "Minimum length is 3";
+				$message = "Display Name - Minimum length is 3.";
 				$this->Assign("txtdisname","","noempty",$message);
 			}
 		}
@@ -339,6 +874,127 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->PerformValidation('?do=addUserAccount');
 	}
 	/**
+	 * Function checks the whether the registration process parameter supplied has null values or not in light  * box 
+	 * 		 
+	 *
+	 * @return void 
+	 */	 
+	function validateUserRegisterLight()
+	{
+		
+		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
+		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty/nonumber/nospecial''","First Name -".$message);
+		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
+		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty/nonumber/nospecial''","Last Name -".$message);
+		$message = "Required Field Cannot be blank/No special characters allowed";
+		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''","Display Name -".$message);
+		/*if(empty($_POST['txtemail']))
+		{
+		    $message = "Required Field Cannot be blank";
+			$this->Assign("txtemail",'',"noempty",$message);
+		}
+		else if($this->validateEmailAddress($_POST['txtemail']))
+		{
+				exit;
+				
+		}
+		else
+		{
+			
+			$message = "Invalid Emails";
+ 			$this->Assign("txtemail",'',"noempty",$message);
+		}*/
+		$message = "Required Field Cannot be blank/Invalid Email";		
+		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck","Email Address - ".$message);
+		
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty","Address - ".$message);
+		
+		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
+		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty/nonumber/nospecial''","City - ".$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"noempty/nonumber/nospecial''","State - ".$message);
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty","Zip - ".$message);
+
+	
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("txtpwd",trim($_POST['txtpwd']),"noempty","Password - ".$message);
+		$this->Assign("txtrepwd",trim($_POST['txtrepwd']),"noempty","Confirm Password - ".$message);
+		if(trim($_POST['txtpwd']) != '' and trim($_POST['txtrepwd']) != '')
+		{
+			$pwdlength =strlen($_POST['txtpwd']);
+			if($pwdlength<6 or $pwdlength>20)
+			{
+				$message = "Password minimum length is 6 & maximum length is 20";
+				$this->Assign("txtpwd","","noempty","Password - ".$message);
+			}
+			elseif(trim($_POST['txtpwd']) != trim($_POST['txtrepwd']))
+			{
+				$message = "Enter the Confirm Password correctly";
+				$this->Assign("txtrepwd","","noempty","Confirm Password - ".$message);
+				
+			}
+		}
+		
+		if(trim($_POST['txtfname']) != '' and trim($_POST['txtlname']) != '' and trim($_POST['txtdisname'])!='')
+		{
+			$fnamelength =strlen($_POST['txtfname']);
+			$lnamelength =strlen($_POST['txtlname']);
+			$dislength =strlen($_POST['txtdisname']);
+			if($fnamelength<3 or $fnamelength>20)
+			{
+				$message = "Minimum length is 3";
+				$this->Assign("txtfname","","noempty","First Name -".$message);
+			}
+			if($lnamelength<3 or $lnamelength>20)
+			{
+				$message = "Minimum length is 3";
+				$this->Assign("txtfname","","noempty","First Name -".$message);
+			}
+			if($dislength<3 or $dislength>20)
+			{
+				$message = "Minimum length is 3";
+				$this->Assign("txtdisname","","noempty","Display Name -".$message);
+			}
+		}
+		
+		
+		
+		
+		/*if(trim($_POST['txtemail']) != '' and trim($_POST['txtremail']) != '')
+		{
+			if(trim($_POST['txtemail']) != trim($_POST['txtremail']))
+			{
+				$message = "Enter the Confirm Email id correctly";
+				$this->Assign("txtremail","","noempty",$message);
+				
+			}
+		}*/
+		
+		//$message = "Please select terms";
+		//$this->Assign("chkterms",trim($_POST['chkterms']),"noempty",$message);
+		
+		if(trim($_POST['txtdisname']) != ''&&trim($_POST['txtemail']) != '')
+		{
+			//$sqlselect = "select * from users_table where user_display_name='".$_POST['txtdisname']."'";
+			$sqlselect = "select * from users_table where user_email='".$_POST['txtemail']."'";
+			$obj = new Bin_Query();
+			if($obj->executeQuery($sqlselect))
+			{
+				if($obj->totrows>0)
+				{
+					$message = "Username already Exist!.Try again.";		
+					$this->Assign("txtemail",'',"noempty","Email Address - ".$message);
+				}
+			}
+		}
+		
+		$this->PerformValidation('?do=addUserAccountLight');
+	}
+	/**
 	 * Function checks the whether the category value  supplied has null values or not 
 	 * 		 
 	 *
@@ -346,8 +1002,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	 
 	function validateCategory()
 	{
-		$message = "Required Field Cannot be blank/No Special Characters Allowed";
-		$this->Assign("category",trim($_POST['category']),"noempty/nospecial' _'",$message);
+
+				
+
+		$message = "Required Field Cannot be blank";
+		$this->Assign("categoryname",trim($_POST['categoryname']),"noempty",$message);
+
 		//$this->Assign("category",trim($_POST['group1']),"noempty/nonumber",$message);
 		$this->PerformValidation('?do=managecategory');
 	}
@@ -383,7 +1043,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$username = $_POST['username'];
 		$pswd = $_POST['userpwd'];
-		$pswd  = base64_encode($pswd);
+		$pswd  = md5($pswd);
 		//echo $ps= base64_decode('YWRtaW4=');
 		
 		if(trim($username) != '' and trim($pswd) != '')
@@ -402,7 +1062,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 					$obj3->executeQuery($sqlsub);
 					if($obj3->records[0]['temp']==0)
 					{
-						///$div="<div class='exc_msgbox'>"
+						//$div="<div class='exc_msgbox'>"
 						$message = "Invalid Username or Password";
 						//return "Invalid Username or Password";
 						$this->Assign("username",'',"noempty",$message);
@@ -881,20 +1541,20 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateCurrency()
 	{
 	 	
-		    $message = "Required Field Cannot be blank";
+		    $message = "Currency Name - Required Field Cannot be blank.";
 			$this->Assign("currency_name",$_POST['currency_name'],"noempty",$message);
-		    $message = "Required Field Cannot be blank";
+		    $message = "Currency Code - Required Field Cannot be blank.";
 			$this->Assign("currency_code",$_POST['currency_code'],"noempty",$message);
-		    $message = "Required Field Cannot be blank";
+		    $message = "Currency Token - Required Field Cannot be blank.";
 			$this->Assign("currency_tocken",$_POST['currency_tocken'],"noempty",$message);
-		   $message = "Required Field Cannot be blank";
+		   $message = "Conversion Rate- Required Field Cannot be blank.";
 			$this->Assign("conversion_rate",$_POST['conversion_rate'],"noempty",$message);
 		    $curr_rate=trim($_POST['conversion_rate']);
 			$curr_code=trim($_POST['currency_code']);
 			$country_code=trim($_POST['taxratecountry']);
 			if($curr_rate<=0&&is_numeric($curr_rate))
 			{
-				$message = "Conversion rate should be greater than 0";
+				$message = "Conversion rate should be greater than 0.";
 				$this->Assign("conversion_rate",'',"noempty",$message);
 			}
 			$obj1 = new Bin_Query();
@@ -928,29 +1588,29 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 		$currid=trim($_POST['hidecurrencyid']);
 			if($currid==1||$currid=='1')
 			{
-				$message = "Required Field Cannot be blank";
+				$message = "Required Field Cannot be blank.";
 				$this->Assign("conversion_rate",$_POST['conversion_rate'],"noempty",$message);	
 				if($curr_rate<=0&&is_numeric($curr_rate))
 				{
-					$message = "Conversion rate should be greater than 0";
+					$message = "Conversion rate should be greater than 0.";
 					$this->Assign("conversion_rate",'',"noempty",$message);
 				}
 			}
 			else
 			{
-				$message = "Required Field Cannot be blank";
+				$message = "Currency Name - Required Field Cannot be blank.";
 				$this->Assign("currency_name",$_POST['currency_name'],"noempty",$message);
-				$message = "Required Field Cannot be blank";
+				$message = "Currency Code - Required Field Cannot be blank.";
 				$this->Assign("currency_code",$_POST['currency_code'],"noempty",$message);
-				$message = "Required Field Cannot be blank";
+				$message = "Currency Token - Required Field Cannot be blank.";
 				$this->Assign("currency_tocken",$_POST['currency_tocken'],"noempty",$message);
-				$message = "Required Field Cannot be blank";
+				$message = "Conversion Rate - Required Field Cannot be blank";
 				$this->Assign("conversion_rate",$_POST['conversion_rate'],"noempty",$message);
 				$curr_code=trim($_POST['currency_code']);
 				$country_code=trim($_POST['taxratecountry']);
 				if($curr_rate<=0&&is_numeric($curr_rate))
 				{
-					$message = "Conversion rate should be greater than 0";
+					$message = "Conversion rate should be greater than 0.";
 					$this->Assign("conversion_rate",'',"noempty",$message);
 				}
 				$obj1 = new Bin_Query();
@@ -972,5 +1632,101 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			}
 		$this->PerformValidation('?do=editcurrency&cid='.$_POST['hidecurrencyid']);
 	}
+
+
+	/**
+	 * Function checks the url 
+	 * 
+	 *
+	 * @return string 
+	 */	
+	function validateCse()
+	{ 		$message = "Pricerunner Affiliate ID - Required Field Cannot be blank.";
+			$this->Assign("regid",$_POST['regid'],"noempty",$message);
+
+			$this->PerformValidation('?do=cse');
+	}
+
+	function validateCustomerGroup()
+	{
+
+		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
+		$this->Assign("txtgrpname",trim($_POST['txtgrpname']),"noempty/nonumber/nospecial''",$message);
+		$message = "Required Field Cannot be blank/No special characters allowed";
+		$this->Assign("txtdiscount",trim($_POST['txtdiscount']),"noempty/nospecial''",$message);
+		
+
+		if($_POST['txtgrpname'] != '')
+		{
+			$name=  $_POST['txtgrpname'];
+		
+			$sql="select count(*) as cnt from ".TBL_PREFIX."users_group_table where group_name='".$name."'";
+			$obj1=new Bin_Query();
+			$obj1->executeQuery($sql);		
+		
+			if ($obj1->records[0]['cnt'] > 0)
+			{
+				$message = "Customer Group Already Exists";
+				$this->Assign("txtgrpname","","noempty",$message);
+			
+			}
+		}
+		$discount=trim($_POST['txtdiscount']);
+		if($discount!='')
+		{
+			 if(!is_numeric($discount))
+ 		  	 {
+				$message = "Numbers Only Allowed in Discount";
+				$this->Assign("txtdiscount","","noempty",$message);
+			 }
+			 if(is_numeric($discount) && ($discount>=100 || $discount<0) )
+ 		  	 {
+				$message = "Please Enter the Discount between 0 to 99";
+				$this->Assign("txtdiscount","","noempty",$message);
+			 }
+		}
+		$this->PerformValidation('?do=custgroup&action=add');
+	}
+	function validateEditCustomerGroup()
+	{
+
+		$id = $_POST['groupid'];
+
+		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
+		$this->Assign("txtgrpname",trim($_POST['txtgrpname']),"noempty/nonumber/nospecial''",$message);
+		$message = "Required Field Cannot be blank/ No special characters allowed";
+		$this->Assign("txtdiscount",trim($_POST['txtdiscount']),"noempty/nospecial''",$message);
+		
+		if($_POST['txtgrpname']!='')
+		{
+			$getGrpName = new Bin_Query();
+			$sqlGrpName = "select count(*) as count from users_group_table where group_name='".$_POST['txtgrpname']."' and group_id!='".$id."'";
+			$getGrpName->executeQuery($sqlGrpName);
+			if($getGrpName->records[0]['count']>0)
+			{
+				$message = "Customer Group Name Already Exists! Please Try Another One.";
+				$this->Assign("txtgrpname","","noempty",$message);
+			}				
+		}		
+		$discount=trim($_POST['txtdiscount']);
+		if($discount!='')
+		{
+			 if(!is_numeric($discount))
+ 		  	 {
+				$message = "Numbers Only Allowed in Discount";
+				$this->Assign("txtdiscount","","noempty",$message);
+			 }
+			 if(is_numeric($discount) && ($discount>=100 || $discount<0) )
+ 		  	 {
+				$message = "Please Enter the Discount between 0 to 99";
+				$this->Assign("txtdiscount","","noempty",$message);
+			 }
+		}
+		$this->PerformValidation('?do=custgroup&action=edit&id='.$id);
+
+
+	}
+	
+	
 }
 ?>

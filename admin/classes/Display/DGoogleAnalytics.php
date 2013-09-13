@@ -40,7 +40,7 @@ class Display_DGoogleAnalytics
 		
 	function googleAnalyticsCode($arr)
 	{
-		$output = '<textarea name="gcode" rows=10 cols=40>'.$arr[0]['set_value'].'</textarea>';
+		$output = '<textarea name="gcode" rows=10 cols=40 style="width:98%">'.$arr[0]['set_value'].'</textarea>';
 			
 		return $output;
 	}

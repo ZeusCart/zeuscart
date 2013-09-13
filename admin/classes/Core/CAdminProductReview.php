@@ -55,19 +55,51 @@ class Core_CAdminProductReview
 	 */
 	function showReviewDetails()
 	{
+
+		$pagesize=5;
+		if(isset($_GET['page']))
+		{
+		    
+			$start = trim($_GET['page']-1) *  $pagesize;
+			$end =  $pagesize;
+		}
+		else 
+		{
+			$start = 0;
+			$end =  $pagesize;
+		}
+		$total = 0;
+			
+		$sqlselect = "select a.product_id,a.review_caption, a.review_txt,a.review_id, a.review_date,a.review_status,b.user_display_name, a.user_id,c.title from users_table b inner join product_reviews_table a on b.user_id=a.user_id inner join products_table c on a.product_id=c.product_id";
+			
+		$query = new Bin_Query();
+		if($query->executeQuery($sqlselect))
+		{
+			$total = ceil($query->totrows/ $pagesize);
+			include_once('classes/Lib/Paging.php');
+			$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
+			$this->data['paging'] = $tmp->output;
+			$this->data['prev'] =$tmp->prev;
+			$this->data['next'] = $tmp->next;
 			include('classes/Display/DAdminProductReview.php');
-			$sql = "SELECT a.product_id,a.review_caption, a.review_txt, a.review_date,a.review_status,b.user_display_name, a.user_id, c.title FROM product_reviews_table a INNER JOIN users_table b ON a.user_id = b.user_id INNER JOIN products_table c where a.product_id = c.product_id";
+			$sql = "SELECT a.product_id,a.review_caption, a.review_txt, a.review_date,a.review_status,b.user_display_name, a.user_id, c.title FROM product_reviews_table a INNER JOIN users_table b ON a.user_id = b.user_id INNER JOIN products_table c where a.product_id = c.product_id LIMIT $start,$end"; 
 			$obj = new Bin_Query();
 			if($obj->executeQuery($sql))
 			{
-				$output =  Display_DAdminProductReview::showReviewDetails($obj->records,'0');
+				$output =  Display_DAdminProductReview::showReviewDetails($obj->records,1,$this->data['paging'],$this->data['prev'],$this->data['next']);
 			}
 			else
 			{
-				$output = '<div class="success_msgbox">No Reviews Found</div>';
+				$output =  Display_DAdminProductReview::showReviewDetails($obj->records,0,$this->data['paging'],$this->data['prev'],$this->data['next']);
 			}
-			return $output;
 		
+			
+		}
+		else
+		{
+			$output =  Display_DAdminProductReview::showReviewDetails($obj->records,0);
+		}
+		return $output;
   	}
    
   	 /**
@@ -79,65 +111,97 @@ class Core_CAdminProductReview
    
    	function searchReviewDetails()
 	{
+
 		
-			include('classes/Display/DAdminProductReview.php');
-			 $username = $_POST['username'];
-			 $producttitle = $_POST['title'];
-			 $reviewtxt =  $_POST['reviewtxt'];
-			 $review =  $_POST['review'];
-			 $dte =  $_POST['date']; 
+		include('classes/Display/DAdminProductReview.php');
+		$username = $_POST['username'];
+		$producttitle = $_POST['title'];
+		$reviewtxt =  $_POST['reviewtxt'];
+		$review =  $_POST['review'];
+		$dte =  $_POST['date']; 
+		/* if($username=='' and $producttitle=='' and $reviewtxt='' and $review='' and $dte='')
+			{
+			$sql = "SELECT a.product_id,a.review_caption, a.review_txt, a.review_date,a.review_status,b.user_display_name, a.user_id, c.title FROM product_reviews_table a INNER JOIN users_table b ON a.user_id = b.user_id INNER JOIN products_table c where a.product_id = c.product_id";
+			}*/
+		$pagesize=5;
+		if(isset($_GET['page']))
+		{
+		    
+			$start = trim($_GET['page']-1) *  $pagesize;
+			$end =  $pagesize;
+		}
+		else 
+		{
+			$start = 0;
+			$end =  $pagesize;
+		}
+		$total = 0;
 			
-			/* if($username=='' and $producttitle=='' and $reviewtxt='' and $review='' and $dte='')
-			 {
-			 	$sql = "SELECT a.product_id,a.review_caption, a.review_txt, a.review_date,a.review_status,b.user_display_name, a.user_id, c.title FROM product_reviews_table a INNER JOIN users_table b ON a.user_id = b.user_id INNER JOIN products_table c where a.product_id = c.product_id";
-			 }*/
-			 $sql='select a.product_id,a.review_caption, a.review_txt, a.review_date,a.review_status,b.user_display_name, a.user_id,c.title from users_table b inner join product_reviews_table a on b.user_id=a.user_id inner join products_table c on a.product_id=c.product_id ';
-			$condition=array();
+		 $sql = "select a.product_id,a.review_caption, a.review_txt,a.review_id, a.review_date,a.review_status,b.user_display_name, a.user_id,c.title from users_table b inner join product_reviews_table a on b.user_id=a.user_id inner join products_table c on a.product_id=c.product_id";
 			
-			if($username!='')
-			{
-				$condition []= " b.user_display_name like'%".$username."%'";
-			}
-			if($producttitle!='')
-			{
-				$condition[]= " c.title like  '%".$producttitle."%'";
-			}
-			if($reviewtxt!='')
-			{
-				$condition []= "  a.review_txt like  '%".$reviewtxt."%'";
-			}
-			if($review!='')
-			{
-				$condition []= "  a.review_caption like  '%".$review."%'";
-			}
-			if($dte!='')
-			{
-				$condition []= "  a.review_date = '".$dte."'";
-			}
+		
+		$condition=array();
+		
+		if($username!='')
+		{
+			$condition []= " b.user_display_name like'%".$username."%'";
+		}
+		if($producttitle!='')
+		{
+			$condition[]= " c.title like  '%".$producttitle."%'";
+		}
+		if($reviewtxt!='')
+		{
+			$condition []= "  a.review_txt like  '%".$reviewtxt."%'";
+		}
+		if($review!='')
+		{
+			$condition []= "  a.review_caption like  '%".$review."%'";
+		}
+		if($dte!='')
+		{
+			$condition []= "  a.review_date = '".$dte."'";
+		}
+
 		if(count($condition)>1)
-			$sql.= ' where '. implode(' and ', $condition);
+		$sql.= ' where '. implode(' and ', $condition);
 		elseif(count($condition)>0)
-			$sql.= ' where '. implode('', $condition);
-		
-			if($_POST['search']=='Search')
+		$sql.= ' where '. implode('', $condition);
+		$query = new Bin_Query();
+		if($query->executeQuery($sql))
+		{
+			$$total = ceil($query->totrows/ $pagesize);
+			include_once('classes/Lib/Paging.php');
+			$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>10),'pagination');
+			$this->data['paging'] = $tmp->output;
+			$this->data['prev'] =$tmp->prev;
+			$this->data['next'] = $tmp->next;		
+			
+			if (empty($condition))
 			{
-				$obj = new Bin_Query();
-				if($obj->executeQuery($sql))
-				{
-					$output =  Display_DAdminProductReview::showReviewDetails($obj->records,'0');
-				}
-				else
-				{
-					$output =  Display_DAdminProductReview::showReviewDetails($obj->records,'1');
-				}
-				return $output;
-			}
+				$sql1 =$sql.' LIMIT '.$start.','.$end ;				
+			}				
 			else
 			{
-				Core_CAdminProductReview::productReviewReport($sql);
-			}
+				 $sql1 =$sql; 				
+			}				
+			$query1 = new Bin_Query();			
+			$query1->executeQuery($sql1);						
+		}
 		
-   }
+		if(count($condition)<=0)
+		{	
+			
+			return  Display_DAdminProductReview::showReviewDetails($query1->records,1,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
+		}	
+		else
+		{
+
+			return  Display_DAdminProductReview::showReviewDetails($query1->records,1,'','','',0);
+		}	
+			
+		return $output;
+   	}
   
   
   	/**
@@ -154,14 +218,17 @@ class Core_CAdminProductReview
 			$sql = "update product_reviews_table set review_status=1 where product_id=".$prodid." and user_id=".$userid;
 			$obj = new Bin_Query();
 			if($obj->updateQuery($sql))
-				$output = '<div class="success_msgbox">Successfully Activated</div>';
+				$output = '<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product Successfully Activated</div>';
 			else
-				$output = '<div class="success_msgbox">Not Activated</div>';
+				$output = '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Not Activated</div>';
 				
 			//$output .= $this->showReviewDetails();
 			return $output;
 			
 	}
+
 	
    	/**
 	 * Function updates the review status in the prodcut_review_table 
@@ -178,14 +245,40 @@ class Core_CAdminProductReview
 			$sql = "update product_reviews_table set review_status=0 where product_id=".$prodid." and user_id=".$userid;
 			$obj = new Bin_Query();
 			if($obj->updateQuery($sql))
-				$output = '<div class="success_msgbox">Successfully Inactivated</div></br>';
+				$output = '<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Successfully Inactivated</div>';
 			else
-				$output = "<font color='orange'><b>Not Inactivated</b></font>";
+				$output = '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Not Inactivated</div>';
 				
 			//$output .= $this->showReviewDetails();
 			return $output;
 	}
+   	/**
+	 * Function delete the review status in the prodcut_review_table 
+	 * 
+	 * 
+	 * @return string
+	 */
    
+   
+	function deleteReview()
+	{
+			$prodid = $_GET['prodid'];
+			$userid = $_GET['usrid'];
+			$sql = "DELETE FROM  product_reviews_table WHERE product_id=".$prodid." and user_id=".$userid;
+			$obj = new Bin_Query();
+			if($obj->updateQuery($sql))
+				$output = '<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Successfully Deleted</div>';
+			else
+				$output = '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Not Deleted</div>';
+				
+			//$output .= $this->showReviewDetails();
+			return $output;
+	}
+
    	/**
 	 * Function generates a product review report in the file format. 
 	 * @param string $sql

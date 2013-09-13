@@ -96,7 +96,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("email",trim($_POST['email']),"noempty/emailcheck",$message);
 		$this->Assign("remail",trim($_POST['remail']),"noempty/emailcheck",$message);
 
-		$this->PerformValidation('?do=prodetail&action=showprod&prodid='.$_GET['prodid'].'&vid=1');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$_GET['prodid'].'&vid=1');
 
 	}
 	/**
@@ -110,7 +110,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$message = "Required Field Cannot be blank";
 		$this->Assign("shipment_id",trim($_POST['shipment_id']),"noempty",$message);
 
-		$this->PerformValidation("?do=showcart&action=getshippingmethod");
+		$this->PerformValidation("".$_SESSION['base_url']."/index.php?do=showcart&action=getshippingmethod");
 	}
 	/**
 	 * Function checks the check out process shipping address and assign an error
@@ -146,7 +146,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		}
 
 
-		$this->PerformValidation("?do=showcart&action=getshippingaddressdetails");
+		$this->PerformValidation("".$_SESSION['base_url']."/index.php?do=showcart&action=getshippingaddressdetails");
 
 
 	}
@@ -182,7 +182,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 				$this->Assign("txtphone","","noempty","Please enter a valid phone number");
 			}
 		}
-		$this->PerformValidation("?do=showcart&action=getaddressdetails");
+		$this->PerformValidation("".$_SESSION['base_url']."/index.php?do=showcart&action=getaddressdetails");
 
 	}
 	/**
@@ -200,7 +200,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("detail",trim($_POST['detail']),"noempty",$message);
 		$this->Assign("reviewtxt",trim($_POST['reviewtxt']),"noempty",$message);
 		
-		$this->PerformValidation('?do=productreview&action=showproductreview&prodid='.$_REQUEST['prodid']);
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=productreview&action=showproductreview&prodid='.$_REQUEST['prodid']);
 	}
 	/**
 	 * Function checks the contact us  parameter and assign an error
@@ -231,7 +231,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$message = "Required Field Cannot be blank";
 		$this->Assign("txtname",trim($_POST['txtname']),"noempty",$message);
 		
-		$this->PerformValidation('?do=contactus');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=contactus');
 	}
 	/**
 	 * Function checks the profile page parameter  and assign an error
@@ -281,7 +281,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 				
 			}
 		}
-		$this->PerformValidation('?do=myprofile');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=myprofile');
 	}
 	
 	/**
@@ -292,6 +292,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	
 	function validatelogin()
 	{
+
 		
 		/*if(empty($_POST['txtemail']))
 		{
@@ -322,7 +323,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$useremail = $_POST['txtemail'];
 		$pswd = $_POST['txtpass'];
-		$pswd  = base64_encode($pswd);
+		$pswd  = md5($pswd);
 		
 		/*$message = "Characters should match the above image";
 		$code = $_SESSION['security_code'];	*/	
@@ -365,12 +366,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			{
 				unset($_COOKIE['usremail']);
 				$message = "Invalid User Email";
-		    	$this->Assign("txtemail",'',"noempty",$message);
+		    		$this->Assign("txtemail",'',"noempty",$message);
 				
 			}
 		}
 		
-		$this->PerformValidation('?do=login');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=login');
 	}
 	/**
 	 * Function checks the register page parameter  and assign an error
@@ -493,7 +494,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 				}
 			}
 		}
-		$this->PerformValidation('?do=userregistration');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=userregistration');
 	}
 	/**
 	 * Function checks the forgotpassword page parameter  and assign an error
@@ -517,7 +518,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		}
 		$message = "Required Field Cannot be blank/Invalid Email";
 		$this->Assign("email",trim($_POST['email']),"noempty/emailcheck",$message);*/
-		$this->PerformValidation('?do=forgetpwd');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=forgetpwd');
 	}
 	
 	/**
@@ -613,7 +614,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("txtszipcode",trim($_POST['txtszipcode']),"noempty",$message);
 		$this->Assign("selshipcountry",trim($_POST['selshipcountry']),"noempty",$message);
 		$this->Assign("txtsstate",trim($_POST['txtsstate']),"noempty",$message);
-		$this->PerformValidation('?do=showcart&action=getaddressdetails');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails');
 	}
 	/**
 	 * Function checks the add to wishlist parameter address  and assign an error
@@ -626,7 +627,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$message = "Required Field Cannot be blank/Invalid Email Id";
 		$this->Assign("txtEmail",trim($_POST['txtEmail']),"noempty/emailcheck",$message);
 
-		$this->PerformValidation('?do=wishlist');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=wishlist');
 	}
 	/**
 	 * Function checks the user account information page parameter  and assign an error
@@ -646,7 +647,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("txtEmail",trim($_POST['txtEmail']),"noempty/emailcheck",$message);
 
 		
-		$this->PerformValidation('?do=accountinfo');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=accountinfo');
 
 	}
 	/**
@@ -674,7 +675,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 				
 		if($_POST['txtCPwd']!='')
 		{
-			if(base64_encode(trim($_POST['txtCPwd']))!=$cpwd)
+			if(md5(trim($_POST['txtCPwd']))!=$cpwd)
 			{	
 				$message = "Invalid Current Password";
 				$this->Assign("txtCPwd","","noempty",$message);
@@ -711,7 +712,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			}			
 		}
 		
-		$this->PerformValidation('?do=changepassword');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=changepassword');
 	}
 	/**
 	 * Function checks the user address  and assign an error
@@ -756,7 +757,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("txtState",trim($_POST['txtState']),"noempty",$message);
 		$this->Assign("txtZip",trim($_POST['txtZip']),"noempty",$message);
 		
-		$this->PerformValidation('?do=addaddress');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=addaddress');
 
 	}
 	/**
@@ -798,7 +799,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 
 		$useremail = $_POST['txtregemail'];
 		$pswd = $_POST['txtregpass'];
-		$pswd  = base64_encode($pswd);
+		$pswd  = md5($pswd);
 		if(trim($useremail) != '' and trim($pswd) != '' )
 		{
 			
@@ -838,7 +839,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			}
 		}
 
-		$this->PerformValidation('?do=showcart&action=showquickregistration');
+		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=showcart&action=showquickregistration');
 
 	
 	}

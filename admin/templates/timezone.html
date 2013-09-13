@@ -18,44 +18,52 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
-<AJDF:output>include file="left.html"</AJDF:output>
-<table width="97%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td align="left" class="content_title">Time Zone </td>
-  </tr>
-  <!--<tr>
-    <td>&nbsp;</td>
-  </tr>-->
-  <tr>
-    <td align="center"  style="padding-top:5px; padding-bottom:5px;"><AJDF:output>$updatezonemsg</AJDF:output></td>
-  </tr>
-  <!--<tr>
-    <td>&nbsp;</td>
-  </tr>-->
-  <tr>
-    <td align="left" class="content_form_bdr"><form name="site" action="?do=timezone&action=update" method="post" >
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-          <td colspan="2" align="left" class="content_list_head">Select Time Zone</td>
-       </tr>
-	   <tr>
-    <td align="left">&nbsp;</td>
-  </tr>
-        <tr>
-          <td width="24%" align="left" class="content_form">Current Time Zone :</td>
-          <td class="content_form"><AJDF:output>$currentzone</AJDF:output></td>
-        </tr>
-        <tr>
-          <td  class="content_form"  align="left"> Set TimeZone to :</td>
-          <td class="content_form"><AJDF:output>$timezone</AJDF:output>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dtzone', 'Time Zone', 'Select your Time zone.')" onmouseout="HideHelp('dtzone');">
-			<div id="dtzone" style="left: 50px; top: 50px;"></div></td>
-        </tr>
-        <tr>
-          <td colspan="2" align="center" height="50"><input type="submit" name="button" id="button" value="Set TimeZone" class="all_bttn"  />
-     </td>
-  </tr>
-</table> </form>
-</td>
-</tr>
-</table>
-<AJDF:output>include file="footer.html"</AJDF:output>
+
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#adminTimezonebutton').click(function(){
+    $("#timeZoneform").submit();
+  });
+  $("select").chosen({allow_single_deselect:true});
+});
+</script>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Time Zone</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a href="javascript:void(0);" class="update_icon"  id="adminTimezonebutton"></a></li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+
+<AJDF:output>$updatezonemsg</AJDF:output>
+
+<form name="site" action="?do=timezone&action=update" method="post" id="timeZoneform">
+  <div class="row-fluid">
+    <div class="span12"><h2 class="box_head green_bg">Select Time Zone</h2>
+      <div class="toggle_container">
+        <div class="clsblock">
+          <div class="clearfix"> 
+           <div class="row-fluid">
+            <div class="span2">
+              <label> Current Time Zone :</label></div>
+              <div class="span9">
+               <AJDF:output>$currentzone</AJDF:output></div></div>
+               <div class="row-fluid">
+                <div class="span2">
+                  <label>  Set TimeZone to :</label></div>
+                  <div class="span9"> <AJDF:output>$timezone</AJDF:output></div></div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </form>
+        <AJDF:output>include file="footer.html"</AJDF:output>

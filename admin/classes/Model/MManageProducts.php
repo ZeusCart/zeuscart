@@ -62,6 +62,7 @@ class Model_MManageProducts
 			$default = new Core_Settings_CManageProducts();
 			$output['updateproduct']=$_SESSION['update_msg'];
 			$_SESSION['update_msg']='';
+
 			$output['currentDate']=date('l, M d, Y H:i:s');
 			$output['username']=Core_CAdminHome::userName();
 			$output['allproducts']=$default->showAllProducts();
@@ -110,6 +111,7 @@ class Model_MManageProducts
 		{
 			$default = new Core_Settings_CManageProducts();			
 			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
 			$output['products']=$default->showProducts();
 		}
 		else
@@ -141,6 +143,7 @@ class Model_MManageProducts
 		{
 			$default = new Core_Settings_CManageProducts();
 			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
 			$output['allproducts']=$default->showAllProducts();
 		
 			Bin_Template::createTemplate('manageproducts.html',$output);	
@@ -159,13 +162,11 @@ class Model_MManageProducts
 	 * 
 	 * @return array
 	 */
-	
 	function updateProducts()
 	{
 	  	include('classes/Core/CRoleChecking.php');
 		include_once('classes/Core/Settings/CAddCrossProducts.php');
-		include_once('classes/Display/DAddCrossProducts.php');
-		
+		include_once('classes/Display/DAddCrossProducts.php');		
 		
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
@@ -254,14 +255,15 @@ class Model_MManageProducts
 			$default = new Core_Settings_CManageProducts();
 			
 			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
 			$output['dropcategory'] =$default->displayCategory($id);	
 			$output['dispproduct']=$default->editProduct();
 			
 			
 			$output['id']=$default->getId();
-			$output['editMainCategory']=$default->editMainCategory();
-			$output['editSubCategory']=$default->editSubCategory();
-			$output['editSubUnderCategory']=$default->editSubUnderCategory();
+// 			$output['editMainCategory']=$default->editMainCategory();
+// 			$output['editSubCategory']=$default->editSubCategory();
+// 			$output['editSubUnderCategory']=$default->editSubUnderCategory();
 			$output['editMainImage']=$default->editMainImage();
 			/*$output['thumb_image_path']=$output['editMainImage']['thumb_image_path'];
 			$output['product_images_id']=$output['editMainImage']['product_images_id'];*/
@@ -276,7 +278,8 @@ class Model_MManageProducts
 			$output['category_id']=$output['editGeneral']['category_id'];
 			$output['sku']=$output['editGeneral']['sku'];
 			$output['product_title']=$output['editGeneral']['title'];
-			$output['description']=$output['editGeneral']['description'];
+			$output['product_alias']=$output['editGeneral']['alias'];
+			$output['description']=$output['editGeneral']['description'];			
 			$output['brand']=$output['editGeneral']['brand'];
 			$output['corbrand']=$default->corBrand($output['brand']);
 			$output['model']=$output['editGeneral']['model'];
@@ -351,7 +354,199 @@ class Model_MManageProducts
 	
 	}
 	
+	/**
+	 * Function displays a edit template for updating a digital product
+	 * 
+	 * 
+	 * @return array
+	 */
+	function editDigitalProduct()
+	{
+		include('classes/Core/CRoleChecking.php');
+		include_once('classes/Core/Settings/CManageProducts.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Core/CProductEntry.php');
+		include('classes/Display/DManageProducts.php');
+		include('classes/Display/DProductEntry.php');	
+		
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{
+			$default = new Core_Settings_CManageProducts();
+			
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
+			$output['dropcategory'] =$default->displayCategory($id);	
+			$output['dispproduct']=$default->editProduct();
+			
+			
+			$output['id']=$default->getId();
+			$output['editMainCategory']=$default->editMainCategory();
+			$output['editSubCategory']=$default->editSubCategory();
+			$output['editSubUnderCategory']=$default->editSubUnderCategory();
+			$output['editMainImage']=$default->editMainImage();
+			/*$output['thumb_image_path']=$output['editMainImage']['thumb_image_path'];
+			$output['product_images_id']=$output['editMainImage']['product_images_id'];*/
+			$output['editImage']=$default->editImage();
+			$output['editRelated']=$default->editRelated();
+			$output['editAttributes']=$default->editAttributes();
+			$output['editTierPrice']=$default->editTierPrice();
+			
+			
+			$output['editGeneral']=$default->editGeneral();
+			$output['product_id']=$output['editGeneral']['product_id'];
+			$output['category_id']=$output['editGeneral']['category_id'];
+			$output['sku']=$output['editGeneral']['sku'];
+			$output['product_title']=$output['editGeneral']['title'];
+			$output['description']=$output['editGeneral']['description'];
+			$output['digitalfilepath']=$output['editGeneral']['digital_product_path'];
+			
+			$output['currencycode']=$_SESSION['currency']['currency_code'];	
+			$output['msrp_org']=$output['editGeneral']['msrp'];
+			$output['price']=$output['editGeneral']['price'];
+			$output['thumb_image']=$output['editGeneral']['thumb_image'];
+			$output['image']=$output['editGeneral']['image'];
+			$output['shipcost']=$output['editGeneral']['shipping_cost'];
+			$output['tag']=$output['editGeneral']['tag'];
+			$output['intro_date']=$output['editGeneral']['intro_date'];
+			$output['meta_desc']=$output['editGeneral']['meta_desc'];
+			$output['meta_keywords']=$output['editGeneral']['meta_keywords'];
+			$output['csekeyid']=$output['editGeneral']['cse_key'];
+			if($output['editGeneral']['is_featured']==1)
+				$output['is_featured']='checked="checked"';
+			else
+				$output['is_featured']='';
+
+				
+			if($output['editGeneral']['product_status']==1)
+				$output['is_new_product']='checked="checked"';
+			else
+				$output['is_new_product']='';
+			
+
+			if($output['editGeneral']['product_status']==2)
+				$output['is_discount_product']='checked="checked"';
+			else
+				$output['is_discount_product']='';
+			
+			
+			
+			if($output['editGeneral']['status']==1)
+				$output['status']='checked="checked"';
+			else
+				$output['status']='';
+			
+
+			
+			Bin_Template::createTemplate('digitaleditproduct.html',$output);
+		}
+		else
+		{
+		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			
+			Bin_Template::createTemplate('Errors.html',$output);
+		}
 	
+	
+	}
+
+	/**
+	 * Function displays a edit template for updating a gift product
+	 * 
+	 * 
+	 * @return array
+	 */
+	function editGiftProduct()
+	{
+		include('classes/Core/CRoleChecking.php');
+		include_once('classes/Core/Settings/CManageProducts.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Core/CProductEntry.php');
+		include('classes/Display/DManageProducts.php');
+		include('classes/Display/DProductEntry.php');	
+		
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{
+			$default = new Core_Settings_CManageProducts();
+			
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
+			$output['dropcategory'] =$default->displayCategory($id);	
+			$output['dispproduct']=$default->editProduct();
+			
+			
+			$output['id']=$default->getId();
+			$output['editMainCategory']=$default->editMainCategory();
+			$output['editSubCategory']=$default->editSubCategory();
+			$output['editSubUnderCategory']=$default->editSubUnderCategory();
+			$output['editMainImage']=$default->editMainImage();
+			/*$output['thumb_image_path']=$output['editMainImage']['thumb_image_path'];
+			$output['product_images_id']=$output['editMainImage']['product_images_id'];*/
+			$output['editImage']=$default->editImage();
+			$output['editRelated']=$default->editRelated();
+			$output['editAttributes']=$default->editAttributes();
+			$output['editTierPrice']=$default->editTierPrice();
+			
+			
+			$output['editGeneral']=$default->editGeneral();
+			$output['product_id']=$output['editGeneral']['product_id'];
+			$output['category_id']=$output['editGeneral']['category_id'];
+			$output['sku']=$output['editGeneral']['sku'];
+			$output['product_title']=$output['editGeneral']['title'];
+			$output['description']=$output['editGeneral']['description'];
+			
+			
+			$output['currencycode']=$_SESSION['currency']['currency_code'];	
+			$output['msrp_org']=$output['editGeneral']['msrp'];
+			$output['price']=$output['editGeneral']['price'];
+			$output['thumb_image']=$output['editGeneral']['thumb_image'];
+			$output['image']=$output['editGeneral']['image'];
+			$output['shipcost']=$output['editGeneral']['shipping_cost'];
+			$output['tag']=$output['editGeneral']['tag'];
+			$output['intro_date']=$output['editGeneral']['intro_date'];
+			$output['meta_desc']=$output['editGeneral']['meta_desc'];
+			$output['meta_keywords']=$output['editGeneral']['meta_keywords'];
+			
+			if($output['editGeneral']['is_featured']==1)
+				$output['is_featured']='checked="checked"';
+			else
+				$output['is_featured']='';
+
+				
+			if($output['editGeneral']['product_status']==1)
+				$output['is_new_product']='checked="checked"';
+			else
+				$output['is_new_product']='';
+			
+
+			if($output['editGeneral']['product_status']==2)
+				$output['is_discount_product']='checked="checked"';
+			else
+				$output['is_discount_product']='';
+			
+			
+			
+			if($output['editGeneral']['status']==1)
+				$output['status']='checked="checked"';
+			else
+				$output['status']='';
+			
+
+			
+			Bin_Template::createTemplate('gifteditproduct.html',$output);
+		}
+		else
+		{
+		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			
+			Bin_Template::createTemplate('Errors.html',$output);
+		}
+	
+	
+	}
 	/**
 	 * Function displays a search list for the existing products 
 	 * 
@@ -366,11 +561,12 @@ class Model_MManageProducts
 
 		include_once('classes/Core/Settings/CManageProducts.php');
 		include_once('classes/Display/DManageProducts.php');
-		
+		include('classes/Core/CAdminHome.php');
 		$default = new Core_Settings_CManageProducts();
 		
 		$output['searchproduct']=$default->searchProductDetails();
-		
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');
 		Bin_Template::createTemplate('manageproducts.html',$output);
 	}
 	
@@ -380,9 +576,7 @@ class Model_MManageProducts
 	 * 
 	 * @return array
 	 */
-	
-	
-	
+
 	function updateProduct()
 	{
 		include("classes/Lib/CheckInputs.php");
@@ -398,11 +592,9 @@ class Model_MManageProducts
 		if($chkuser)
 		{
 			$default = new Core_Settings_CManageProducts();
-		
-			$output['updateproduct']=$default->updateProduct();
-			$output['allproducts']=$default->showAllProducts();
-			
-			Bin_Template::createTemplate('manageproducts.html',$output);
+			$_SESSION['update_msg']=$default->updateProduct();
+
+			header('Location:?do=manageproducts');
 		}
 		else
 		{
@@ -413,7 +605,77 @@ class Model_MManageProducts
 	
 	
 	}
+	/**
+	 * Function updates a digital product
+	 * 
+	 * 
+	 * @return array
+	 */
+
+	function updateDigitalProduct()
+	{
+		include("classes/Lib/CheckInputs.php");
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/Settings/CManageProducts.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Display/DManageProducts.php');
+		
+		//$obj = new Lib_CheckInputs('productupdate');
+		
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{
+			$default = new Core_Settings_CManageProducts();
+		
+			$_SESSION['update_msg']=$default->updateDigitalProduct();	
+			header('Location:?do=manageproducts');
+		}
+		else
+		{
+		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+		
+			Bin_Template::createTemplate('Errors.html',$output);
+		}
 	
+	
+	}
+
+	/**
+	 * Function updates a gift product
+	 * 
+	 * 
+	 * @return array
+	 */
+
+	function updateGiftProduct()
+	{
+		include("classes/Lib/CheckInputs.php");
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/Settings/CManageProducts.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Display/DManageProducts.php');
+		
+		//$obj = new Lib_CheckInputs('productupdate');
+		
+		$chkuser=Core_CRoleChecking::checkRoles();
+		
+		if($chkuser)
+		{
+			$default = new Core_Settings_CManageProducts();
+		
+			$_SESSION['update_msg']=$default->updateGiftProduct();	
+			header('Location:?do=manageproducts');
+		}
+		else
+		{
+		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+		
+			Bin_Template::createTemplate('Errors.html',$output);
+		}
+	
+	
+	}
 	/**
 	 * Function gets the title for the selected product
 	 * 
@@ -439,8 +701,7 @@ class Model_MManageProducts
 	 * 
 	 * @return array
 	 */	
-	 
-	 
+	 	 
 	function autoComplete()
 	{
 		include('classes/Core/Settings/CManageProducts.php');
@@ -448,5 +709,6 @@ class Model_MManageProducts
 		$output['title']=$default->autoComplete();
 		//Bin_Template::createTemplate('autocomplete.html',$output);
 	}
+	
 }	
 ?>

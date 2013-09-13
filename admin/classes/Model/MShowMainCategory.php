@@ -62,6 +62,7 @@ class Model_MShowMainCategory
 			$output['showmaincat']=$maincat->showMainCategory();
 			
 			Bin_Template::createTemplate('showmaincategory.html',$output);
+			UNSET($_SESSION['updatemiancatmsg']);
 		}
 		else
 		{
@@ -193,6 +194,7 @@ class Model_MShowMainCategory
 	
 	function searchMainCategory()
 	{
+
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Core/CAdminHome.php');
 		$output['username']=Core_CAdminHome::userName();

@@ -37,15 +37,74 @@ class Display_DFeaturedItems
 	 * @param array $arr
 	 * @return string
 	 */	
-	function listCategory($arr)
+	function listCategory($result)
 	{
-		$output = "";
-		for ($i=0;$i<count($arr);$i++)
+		if((count($result))>0)
 		{
-			$output .= '<option value="'.$arr[$i]['category_id'].'">'.$arr[$i]['category_name'].'</option>';
-		}
+		   	 $output='<select name="selcatgory[]" id="selcatgory"   onchange="showProducts(this.value);" ><option value="Choose Category">Choose Category</option>';	
+		
+			for($k=0;$k<count($result);$k++)
+			{
+				if($catid==$result[$k]['category_id'])
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected='';
+				}
+				
+				$output.='<option value='.$result[$k]['category_id'].' '.$selected.'>'.$result[$k]['category_name'].'</option>';
+				$output.=self:: getSubFamilies(0,$result[$k]['category_id'] );
+	
 			
-			return $output;
+			}
+
+		$output.='</select>';
+		}
+
+		return $output;
+	}
+	/**
+	 * Function generates an drop down list with the category details.in sub child
+	 * 
+	 * 
+	 * @return array
+	 */		
+	function getSubFamilies($level, $id) {
+
+		$level++;
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+		$resultSubFamilies = mysql_query($sqlSubFamilies);
+		if (mysql_num_rows($resultSubFamilies) > 0) {
+		
+			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies)) {
+
+				
+				if($catid==$rowSubFamilies['category_id'])
+				{
+					$selected="selected";
+				}
+				else
+				{
+					$selected='';
+				}
+				
+				$output.= "<option value=".$rowSubFamilies['category_id']."  ".$selected.">";
+
+				for($a=1;$a<$level+1;$a++)
+				{
+				$output.='- &nbsp;';
+					
+				}
+				$output.=$rowSubFamilies['category_name']."</option>";
+				$output.=self:: getSubFamilies($level, $rowSubFamilies['category_id']);
+				
+			}
+		
+		}
+		
+		return $output;
 	}
 	/**
 	 * Function  to  display the  sub category list
@@ -82,60 +141,79 @@ class Display_DFeaturedItems
 	 * @param array $arr
 	 * @return string
 	 */	
-	function productList($arr)
+	function productList($arr,$paging,$prev,$next)
 	{
 		$output = "";
 		//$output .= '<table border="1">';
 		//$output.='<th>S.no.</th><th>Image</th><th>Product Name</th><th>Brand</th><th>Model</th><th>Msrp</th><th>Select Featured</th><th colspan="2">Options</th>';
-		$output.='<table class="content_list_bdr" border="0" cellpadding="0" cellspacing="0" width="100%"><tr>
-                <td class="content_list_head">S.No</td>
-				<td class="content_list_head">Image</td>
-				
-				<td class="content_list_head">Product Name</td>
-				<td class="content_list_head">Brand</td>
-				<td class="content_list_head">Model</td>
-                <td class="content_list_head"><a onmouseover="ShowHelp(\'dmsrp\', \'MSRP\', \'Manufacturer&acute;s Suggested Retail Price\')" onmouseout="HideHelp(\'dmsrp\');">MSRP </a>
-			<div id="dmsrp" style="left: 50px; top: 50px;"></div></td>
-                <td colspan="2" align="center" class="content_list_head">Featured</td>
-                </tr>
-              <tr>
-                <td colspan="8" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              </tr>';
+		$output.='<div class="blocks" style="opacity: 1;">
+		<div class="clsListing clearfix"><table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
+		<tr>
+		<th>ID</th>
+		<th>Image</th>
+
+		<th>Product Name</th>
+		<th>Brand</th>
+		<th>Model</th>
+		<th>MSRP</th>
+		<th colspan="2">Featured</th>
+		</tr>
+		</thead>
+		<tbody>';
 		if(count($arr) > 0)
+		{
 			$count=count($arr);
 		for($i=0;$i<$count; $i++)
 		{
-			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
-			else
-				$classtd='class="content_list_txt2"';
-				
+			
+
 			$temp=$arr[$i]['image'];
 			$img=explode('/',$temp);
 			$output.='<input type="hidden" name="mainindex" value="">';
 			//$output .='<tr><td align="center" '.$classtd.'">'.($i+1).'</td><td align="center" '.$classtd.'><img src="uploadedimages/thumb/thumb_'.$img[2].'" name="image1"  id="image1"/></td>';
-			$output .='<tr><td align="center" '.$classtd.'">'.($i+1).'</td><td align="center" '.$classtd.'><img   src="'.
+			$output .='<tr><td align="center" '.$classtd.'">'.$arr[$i]['product_id'].'</td><td align="center" '.$classtd.'><img   src="'.
 			((file_exists('../images/products/thumb/'.$img[2])) ? '../images/products/thumb/'.$img[2] : '../images/noimage.jpg').'" name="image1"  id="image1" alt="Product Image"/></td>';
 			$output .= '<td '.$classtd.' align="left">'.$arr[$i]['title'].'</td><td '.$classtd.'>'.$arr[$i]['brand'].'</td><td '.$classtd.'>'.$arr[$i]['model'].'</td><td '.$classtd.' align="right">'.$_SESSION['currency']['currency_tocken'].' '.number_format($arr[$i]['msrp'],2).'</td>';
 
 			if($arr[$i]['is_featured']==1)
 			{
 				$output .= '<td '.$classtd.' align="center"><input name="checkbox[]" type="checkbox" checked="checked" value="'.$arr[$i]['product_id'].'" /></td>';}
-			else
-			{
-				$output .= '<td '.$classtd.' align="center"><input name="checkbox[]" type="checkbox" value="'.$arr[$i]['product_id'].'" /></td>'; 
-			}
-			
-			
-			//$output.='<td '.$classtd.' align="center"><a href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">View</a></td></tr>';
-			$output.='<input type="hidden" name="productid[]" value="'.$arr[$i]['product_id'].'" />';
-		}
-		$output.='<tr><td align="right" colspan="7"><input type="submit" name="btnSubmit" class="all_bttn" value="Update Featured" id="submit" onclick="" / ></td></tr>';
-		$output.='</table>';
-		
+				else
+				{
+					$output .= '<td '.$classtd.' align="center"><input name="checkbox[]" type="checkbox" value="'.$arr[$i]['product_id'].'" /></td>'; 
+				}
 
-		return $output;
-	}
-	 
-}	
-?>
+
+			//$output.='<td '.$classtd.' align="center"><a href="?do=aprodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">View</a></td></tr>';
+				$output.='<input type="hidden" name="productid[]" value="'.$arr[$i]['product_id'].'" /></tr>';
+			}
+		}
+		else
+		{
+				$output .='<tr><td colspan="8">No Products Found in this Category</td></tr>';
+		}
+		$output .='<tr>
+		<td colspan="8" class="clsAlignRight">
+		<div class="dt-row dt-bottom-row">
+		<div class="row-fluid">
+		<div class="dataTables_paginate paging_bootstrap pagination">
+		<ul>'.$prev.' ';
+		
+		for($i=1;$i<=count($paging);$i++)
+			$pagingvalues .= $paging[$i]."  ";
+		
+		$output .= $pagingvalues.' '.$next.'</ul></div>
+		</div>
+		</div>
+		</td>
+		</tr>';
+			$output.='</tbody></table></div></div>';
+
+
+			return $output;
+		}
+
+	}	
+	?>
