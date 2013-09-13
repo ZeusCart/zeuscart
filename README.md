@@ -10,6 +10,8 @@ License : GPL
 
 Official Website : http://zeuscart.com
 
+Live Demo : http://www.zeuscart.com/demo/
+
 Supported by : AJ Square Inc (http://ajsquare.com)
 
 
@@ -33,4 +35,32 @@ Key Features
 * Address Book Management
 * Easy to Install
 
+LIVE DEMO
+---------
 
+Live demo of Zeuscart V4 is available here. 
+
+http://www.zeuscart.com/demo/
+
+
+What's NEXT
+-----------
+
+Documentation : We are working on wiki-based documentation and will update soon
+
+Admin Panel Design : We are planning to change the Admin Panel also to Bootstrap
+
+Localisation : We are working on Multi-language features & localisation
+
+Support to INDIAN CURRENCY & PAYMENT GATEWAYS : we are planning to make zeuscart v4 by deafult supports indian payment gateways like CCAvenue, InstaMojo, Payzippy, BillDesk etc., We rewuest developers to support us.
+
+Customization
+-------------
+
+Are you looking for new features & improvements, please contact support@zeuscart.com
+
+
+Templates
+---------
+
+We are working on to bring new templates. Check our template gallery
