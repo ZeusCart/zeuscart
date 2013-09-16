@@ -44,7 +44,7 @@ class Display_DKeywordSearch
  	*/
 	function displaySearch($result,$mode,$paging,$prev,$next)
 	{
-		
+
 		if($_GET['action']=='')	
 		{
 

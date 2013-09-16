@@ -77,7 +77,10 @@ class Core_Settings_DynamicCms
 		}
 		else
 		{
-			return "No dynamic cms page found";
+			return "<div class='clsListing clearfix'><div class='alert alert-info'>            
+           			No dynamic cms page found
+          			</div>
+				</div>";
 		}	
 
 	

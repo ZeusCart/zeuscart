@@ -360,7 +360,7 @@ function productalias(val)
 
 <div class="menu_new clsBtm_20">
 	<div class="row-fluid">
-		<div class="span9"><h2> Edit GIFT PRODUCTS 
+		<div class="span9"><h2> EDIT GIFT PRODUCT 
 		</h2>
 	</div>
 	<div class="span3" >
@@ -469,7 +469,7 @@ function productalias(val)
         							<div class="row-fluid">
         								<div class="span12"><label> Product Tags </label>
         									<INPUT NAME="tag"  type="text" ID="tag" VALUE="<AJDF:output>$tag</AJDF:output>" />
-        										<div><font size="-2">(Ex: tag1, tag2,etc..)</font></div><div valign="top">
+        										 <code><font size="-2">(Ex: tag1, tag2,etc..)</font></code><div valign="top">
         										<div id="dptag" style="left: 50px; top: 50px;"></div></div>
         									</div> </div>
 
@@ -485,21 +485,23 @@ function productalias(val)
         												<div class="row-fluid">
         													<div class="span12"><label>Is Featured</label>
         														<INPUT NAME="is_feautured" class="checkButton" TYPE="checkbox" <AJDF:output>$is_featured</AJDF:output>/> 
-        															(Check if the product is Featured product)
+        															<p style="margin-top:-20px;margin-left:90px;"><code>(Enable if the product is Featured product)</code></p>
         														</div>
         													</div>
 
         													<div class="row-fluid">
  		<div class="span12"><label>Is New Product</label>
-                  <INPUT NAME="is__product_status" TYPE="radio" <AJDF:output>$is_new_product</AJDF:output> value='1'/> 
-                  (enable if the product is new product)&nbsp;Is Discount Product<INPUT NAME="is__product_status" TYPE="radio" <AJDF:output>$is_discount_product</AJDF:output> value='2'/> 
-                  (enable if the product is discount  product)</div></div>
+                  <INPUT NAME="is__product_status" checked="checked" TYPE="radio" <AJDF:output>$is_new_product</AJDF:output> value='1'/> 
+                 <p style="margin-top:-20px;margin-left:90px;">  <code> (Enable if the product is new product)</code></p>
+                  Is Discount Product<INPUT NAME="is__product_status" TYPE="radio" <AJDF:output>$is_discount_product</AJDF:output> value='2'/> 
+                       <p style="margin-top:-20px;margin-left:90px;"> <code> (Enable if the product is discount  product)</code></p></div>
+                </div>
 
 
         													<div class="row-fluid">
         														<div class="span12"><label>Visibility at Store Front </label>
         															<INPUT NAME="status" class="checkButton" TYPE="checkbox" checked="checked"  <AJDF:output>$status</AJDF:output>/>
-        															(Check if you want to show the product at Store Front)
+        															 <p style="margin-top:-20px;margin-left:90px;"> <code>(Check if you want to show the product at Store Front)</code></p>
         															<div id="dstrfrnt" style=" position:fixed"></div> </div>
         														</div>
 
@@ -574,11 +576,11 @@ function productalias(val)
         													<div class="tab-pane swMain" id="tab7">
         														<div class="row-fluid"><div class="span12"><label>Meta Keywords </label>
 	
-		  		<INPUT NAME="meta_keywords" wrap="off" TYPE="text" ID="meta_keywords"   VALUE="<AJDF:output>$meta_keywords</AJDF:output>"/>
+		  		  <textarea style="width: 279px; height: 159px;" id="meta_keywords" name="meta_kerwords"><AJDF:output>$meta_keywords</AJDF:output></textarea>
 		  			<div id="dmeteaky" style="left: 50px; top: 50px;"></div></div>
 		  		</div>
 		  		<div class="row-fluid"><div class="span12"><label>Meta Description </label>
-		  			<TD align="left"><INPUT NAME="meta_desc"   type="text"  id="meta_desc" VALUE="<AJDF:output>$meta_desc</AJDF:output>" />
+		  			<TD align="left"><textarea style="width: 279px; height: 159px;" id="meta_desc" name="meta_desc"><AJDF:output>$meta_desc</AJDF:output></textarea>
 		  				<div id="dmetadesc" style="left: 50px; top: 50px;"></div>
 		  				    </div>
 		  			</div>

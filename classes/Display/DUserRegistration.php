@@ -284,7 +284,7 @@ class Display_DUserRegistration
  	*/
 	function showMyProfile($arr)
 	{
-		$pswd  = base64_decode($arr[0]['user_pwd']);
+		$pswd  = md5($arr[0]['user_pwd']);
 		$out ='<form id="form1" name="form1" method="post" action="'.$_SESSION['base_url'].'/index.php?do=myprofile&action=updateMyProfile">
           <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="table">
             <tr>

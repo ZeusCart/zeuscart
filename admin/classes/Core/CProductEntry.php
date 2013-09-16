@@ -46,6 +46,7 @@
 	function insertProduct()
 	{
 
+
 		if($_POST['product_alias']!='')
 		{
 			
@@ -140,6 +141,7 @@
 			$related_val=substr($related_val,0,$len);
 		}
 		
+
 		if(trim($brand)=='')
 		   $brand=$_POST['selbrand'];
 	/*	if(((int)$weight)>0)
@@ -195,7 +197,7 @@
 		{
 		    	$product_id=$obj->insertid;
 			
-			$sql = "insert into cross_products_table (product_id,cross_product_ids) values('".$product_id."','".$related_val."')";
+			$sql = "insert into cross_products_table (product_id,cross_product_ids) values('".$product_id."','".$related_val."')"; 
 			$query = new Bin_Query();
 			$query->updateQuery($sql);
 			
@@ -246,12 +248,11 @@
 					{
 						list($img_w,$img_h, $type, $attr) = getimagesize($stpath);
 						
-						if($img_w > THUMB_WIDTH)
-							new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);	
+						new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
+								
 							
-						if($img_w > IMAGE1_WIDTH)
-							new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);
-						new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+						new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);
+						new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);
 					
 					}
 					if($i==0)
@@ -641,7 +642,7 @@
 	
 		
 		include('classes/Lib/ThumbImage.php');
-			if($_POST['product_alias']!='')
+		if($_POST['product_alias']!='')
 		{
 			
 			$sluggable=$_POST['product_alias'];			
@@ -761,12 +762,12 @@
 						{
 							list($img_w,$img_h, $type, $attr) = getimagesize($stpath);
 							
-							if($img_w > THUMB_WIDTH)
-								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);	
+							
+							new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
 								
-							if($img_w > IMAGE1_WIDTH)
-								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);
-							new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+							
+							new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);
+							new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);
 						
 						}
 						if($i==0)
@@ -783,17 +784,20 @@
 					}
 				}
 			
-				$_SESSION['update_msg']='<div class="success_msgbox">Product '.$title.' Inserted Successfullly</div>';
+				$_SESSION['update_msg']='<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has been inserted successfully</div>';
 				header('Location:?do=manageproducts');			
 				exit;		
 			}
 		}		
 		else
 		 {
+
 			@unlink(ROOT_FOLDER.$image); 
 			@unlink(ROOT_FOLDER.$thumb_image);
 			@unlink(ROOT_FOLDER.$large_image);	
-			return '<div class="error_msgbox">Unable to create product</div>';	
+			return '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Unable to create product</div>';	
 		 }
 		
 	}
@@ -920,12 +924,11 @@
 						{
 							list($img_w,$img_h, $type, $attr) = getimagesize($stpath);
 							
-							if($img_w > THUMB_WIDTH)
-								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);	
+							new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
 								
-							if($img_w > IMAGE1_WIDTH)
-								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);
-							new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+							
+							new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);
+							new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);
 						
 						}
 						if($i==0)
@@ -942,11 +945,20 @@
 					}
 				}
 			
-				$_SESSION['update_msg']='<div class="success_msgbox">Product '.$title.' Inserted Successfullly</div>';
+				$_SESSION['update_msg']='<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has been inserted successfully</div>';
 				header('Location:?do=manageproducts');			
 				exit;		
-			}
-		
+		}
+		else
+		{
+
+		@unlink(ROOT_FOLDER.$image); 
+		@unlink(ROOT_FOLDER.$thumb_image);
+		@unlink(ROOT_FOLDER.$large_image);	
+		return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button>Unable to create product</div>';	
+		}
 			
 		
 	}

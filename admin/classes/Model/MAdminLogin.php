@@ -179,8 +179,8 @@ class Model_MAdminLogin
 		if($chkuser)
 		{
 		
-			$output['latestcustomers']=Core_CAdminHome::getLatestCustomers();
-			$output['latestorders']=Core_CAdminHome::latestOrders();
+			//$output['latestcustomers']=Core_CAdminHome::getLatestCustomers();
+			//$output['latestorders']=Core_CAdminHome::latestOrders();
 		
 			Bin_Template::createTemplate('index.html',$output);
 		}

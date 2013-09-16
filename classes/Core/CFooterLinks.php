@@ -105,7 +105,7 @@ class Core_CFooterLinks
 			Core_CFooterLinks::sendingMail($from_mail,$to_mail,$mail_content);
 			$output = '<div class="alert alert-success">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Comment was submitted.
+			Your Comments have  been submitted.
 			</div>';
 
 
@@ -115,7 +115,7 @@ class Core_CFooterLinks
 
 			$output = '<div class="alert alert-error">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Comment was not submitted
+			Your Comments have  been  not submitted
 			</div>';
 		return $output;
 	}

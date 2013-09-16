@@ -94,7 +94,8 @@ class Display_DProductDetail
  	*/
 	function productDetail($arr,$diffrate,$features,$rating,$breadCrumb,$reviewCount,$reviewArr,$imgArr,$tierArr,$relArr)
 	{
-	
+
+
 		// category name selection
 		$sql="SELECT * FROM category_table WHERE category_id ='".$arr[0]['category_id']."'";
 		$obj=new Bin_Query();
@@ -112,14 +113,29 @@ class Display_DProductDetail
 		<div id="gallery_div">
 		<div class="row-fluid">';
 
-		$output.='<span class="hidden-phone"><div class="span6">   <div class="clearfix" id="content" >
+		$output.='<span class="hidden-phone"><div class="span6">  
+
+		 <div class="clearfix" id="content" >
 			<div class="clearfix">
 			<a href="'.$_SESSION['base_url'].'/'.$arr[0]['large_image_path'].'" class="jqzoom" rel="gal1"   title="'.$arr[0]['title'].'" >
 			<img src="'.$_SESSION['base_url'].'/'.$arr[0]['image'].'"  title="'.$arr[0]['title'].'"  style="border: 0px solid #ccc;">
 			</a>
 			</div>
-			<br/>';			
-		$output.='</div></div> </span>';
+			<br/>
+			<div class="clearfix" >
+				<ul id="thumblist" class="clearfix" >
+				<li><a class="zoomThumbActive" href=\'javascript:void(0);\' rel="{gallery: \'gal1\', smallimage: \''.$arr[0]['image'].'\',largeimage: \''.$_SESSION['base_url'].'/'.$arr[0]['large_image_path'].'\'}"><img src=\''.$_SESSION['base_url'].'/'.$arr[0]['thumb_image'].'\'></a></li>';
+			
+				for($l=0;$l<count($imgArr);$l++)
+				{
+				$output.=' <li><a href=\'javascript:void(0);\' rel="{gallery: \'gal1\', smallimage: \''.$_SESSION['base_url'].'/'.$imgArr[$l]['image_path'].'\',largeimage: \''.$_SESSION['base_url'].'/'.$imgArr[$l]['large_image_path'].'\'}" ><img src=\''.$_SESSION['base_url'].'/'.$imgArr[$l]['thumb_image_path'].'\'></a></li>';
+				}
+			
+				$output.='</ul>
+				</div>';		
+		$output.='</div></div> 
+
+		</span>';
 		$output.='<span class="visible-phone"><div class="span6">   <div class="clearfix" id="content" >
 			<div class="clearfix">
 			
@@ -364,6 +380,7 @@ class Display_DProductDetail
  	*/
 	function relatedProducts($arr,$flag,$r)
 	{
+
 		
 		if($flag==1)
 			$output='<br/><span class="head_text">Related Products </span><div id="middle_details"><div id="product_tbbg_details">
@@ -444,26 +461,57 @@ class Display_DProductDetail
  	*/
 	function dispRelatedProduct($arr)
 	{
+// echo "<pre>";
+// print_r($arr);
+// exit;
+
+// 		if(count($arr > 0))
+// 		{
+// 			$output='<table width="100%" border="0" cellspacing="0" cellpadding="0">
+// 			      <tr>
+// 				<td><div class="heading"><span class="headingTXT">Browse Similar Items</span></div></td>
+// 			      </tr>
+// 			      <tr>
+// 				<td class="border1">
+// 					<ul class="categoriesList">';
+// 			for($i=0;$i<count($arr);$i++)
+// 			{
+// 				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></li>';
+// 			}
+// 			$output.='</ul>		</td>
+// 			      </tr>
+// 			      <tr>
+// 				<td valign="top" class="roundbox1_bottom" ><!--<img src="images/bot.gif" alt="" width="189" height="4" />-->&nbsp;</td>
+// 			      </tr>
+// 			    </table>';
+// 		}
+
+		$output='  <div id="feature_event">
+       			 <h4>Related Product </h4><div id="special_product">
+     			 <ul class="eventlist">';
+
+
 		if(count($arr > 0))
 		{
-			$output='<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			      <tr>
-				<td><div class="heading"><span class="headingTXT">Browse Similar Items</span></div></td>
-			      </tr>
-			      <tr>
-				<td class="border1">
-					<ul class="categoriesList">';
+			
 			for($i=0;$i<count($arr);$i++)
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></li>';
+				$output.='<li><div id="eventlist"><table width="100%" border="0">
+				<tr>
+				<td align="left" valign="top"><div class="eventimg"><img src="'.$_SESSION['base_url'].'/'.$arr[$i]['thumb_image'].'" alt="01"></div></td>
+				<td align="left" valign="top"><h5><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></h5><p></p>
+				<b>$ '.$arr[$i]['msrp'].' </br><a href="?do=addtocart&prodid='.$arr[$i]['product_id'].'" class="btn btn-danger btn-mini">Add to Cart</a> 
+				</td>
+				</tr>
+				</table></div></li>';
 			}
-			$output.='</ul>		</td>
-			      </tr>
-			      <tr>
-				<td valign="top" class="roundbox1_bottom" ><!--<img src="images/bot.gif" alt="" width="189" height="4" />-->&nbsp;</td>
-			      </tr>
-			    </table>';
+		
 		}
+
+        	$output.='</ul></div></div>';
+
+
+
 		return $output;
 	}
 	

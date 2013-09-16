@@ -312,33 +312,33 @@ class Model_MInstall
 	{
 
 
-			if(!isset($_POST['email']) || !isset($_POST['uname']) || !isset($_POST['pass']) || !isset($_POST['cpass'])|| !isset($_POST['domain']))
-				header('Location:?do=admdts');
-			$val = new Lib_Validation_Handler();
-			$val->Assign('email',trim($_POST['email']),'noempty/emailcheck','Required Field Cannot be left blank/Invalid Email');
-			$val->Assign('uname',trim($_POST['uname']),'noempty','Required Field Cannot be left blank');
-			$val->Assign('pass',trim($_POST['pass']),'noempty','Required Field Cannot be left blank');
-			$val->Assign('cpass',trim($_POST['cpass']),'noempty','Required Field Cannot be left blank');
-			$val->Assign('domain',trim($_POST['domain']),'noempty','Required Field Cannot be left blank');
-			if(trim($_POST['pass']) != trim($_POST['cpass']))
-				$val->Assign('cpass','','noempty',"Confirm password doesn't match with password");
-			if(strlen(trim($_POST['pass']))>32)
-				$val->Assign('pass','','noempty',"Password should below 32 characters");				
-			$val->PerformValidation('?do=admdts');
-			//define(ROOT_FOLDER,'../');
-			include('Bin/Configuration.php');	  
-			$db = new Bin_Configuration();
-			$conn = mysql_connect($db->config["HOST"],$db->config["USER"],$db->config["PASSWORD"]);
-			mysql_select_db($db->config["DB"],$conn);
-			$domainname =trim($_POST['domain']);
-			$adminemail = trim($_POST['email']);
-			$adminname = trim($_POST['uname']);
-			$password = md5($_POST['pass']);
-			
-			$sql="DELETE FROM admin_table";
-			$result=mysql_query($sql);
-			$sql="INSERT INTO admin_table VALUES('1','$adminname','$password')"; 
-			$result=mysql_query($sql);
+		if(!isset($_POST['email']) || !isset($_POST['uname']) || !isset($_POST['pass']) || !isset($_POST['cpass'])|| !isset($_POST['domain']))
+			header('Location:?do=admdts');
+		$val = new Lib_Validation_Handler();
+		$val->Assign('email',trim($_POST['email']),'noempty/emailcheck','Required Field Cannot be left blank/Invalid Email');
+		$val->Assign('uname',trim($_POST['uname']),'noempty','Required Field Cannot be left blank');
+		$val->Assign('pass',trim($_POST['pass']),'noempty','Required Field Cannot be left blank');
+		$val->Assign('cpass',trim($_POST['cpass']),'noempty','Required Field Cannot be left blank');
+		$val->Assign('domain',trim($_POST['domain']),'noempty','Required Field Cannot be left blank');
+		if(trim($_POST['pass']) != trim($_POST['cpass']))
+			$val->Assign('cpass','','noempty',"Confirm password doesn't match with password");
+		if(strlen(trim($_POST['pass']))>32)
+			$val->Assign('pass','','noempty',"Password should below 32 characters");				
+		$val->PerformValidation('?do=admdts');
+		//define(ROOT_FOLDER,'../');
+		include('Bin/Configuration.php');	  
+		$db = new Bin_Configuration();
+		$conn = mysql_connect($db->config["HOST"],$db->config["USER"],$db->config["PASSWORD"]);
+		mysql_select_db($db->config["DB"],$conn);
+		$domainname =trim($_POST['domain']);
+		$adminemail = trim($_POST['email']);
+		$adminname = trim($_POST['uname']);
+		$password = md5($_POST['pass']);
+		
+		$sql="DELETE FROM admin_table";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO admin_table VALUES('1','$adminname','$password')"; 
+		$result=mysql_query($sql);
 			
 		$sql="DELETE FROM admin_settings_table";
 		$result=mysql_query($sql);			
@@ -385,6 +385,8 @@ class Model_MInstall
 			
 			$folders777=array(
 			'../images',
+			'../images/homepageads',
+			'../images/invoice',
 			'../images/slidesupload',
 			'../images/slidesupload/thumb',
 			'../images/logo',
@@ -400,6 +402,7 @@ class Model_MInstall
 			'../upload_bulk_products', 
 			'../admin/cache', 
 			'../admin/uploadedtsvfile',
+			'../admin/download',
 			'../admin/uploadedbulkimages',
 			'../includes',
 			'../includes/Charts',
@@ -462,10 +465,13 @@ class Model_MInstall
 			
 			
 			fwrite($f,"} }  \n");
-			fwrite($f,"define(\"IMAGE1_WIDTH\",225);  \n");
-			fwrite($f,"define(\"IMAGE1_HEIGHT\",180);  \n");
-			fwrite($f,"define(\"THUMB_WIDTH\", 90);  \n");
-			fwrite($f,"define(\"THUMB_HEIGHT\",80);  \n");
+			fwrite($f,"define(\"IMAGE2_WIDTH\",800);  \n");
+			fwrite($f,"define(\"IMAGE2_HEIGHT\",868);  \n");
+			fwrite($f,"define(\"IMAGE1_WIDTH\",350);  \n");
+			fwrite($f,"define(\"IMAGE1_HEIGHT\",358);  \n");
+			fwrite($f,"define(\"THUMB_WIDTH\", 68);  \n");
+			fwrite($f,"define(\"THUMB_HEIGHT\",68);  \n");
+			
 			fwrite($f,'$_SESSION["base_url"]= \''.trim($url). "'; \n");
 
 			fwrite($f,"?>");			
@@ -549,6 +555,15 @@ class Model_MInstall
 		  {
 			$val->Assign('image','','noempty','Path : root\images must be writable');	
 		  }
+		if(!@is_writable('../images/homepageads')) 
+		  {
+			$val->Assign('image/homepageads','','noempty','Path : root\images\homepageads must be writable');	
+		  }
+
+		if(!@is_writable('../images/invoice')) 
+		  {
+			$val->Assign('image/invoice','','noempty','Path : root\images\invoice must be writable');	
+		  }
 		 if(!@is_writable('../images/slidesupload')) 
 		  {
 			$val->Assign('slide','','noempty','Path : root\images\slidesupload must be writable');	
@@ -564,6 +579,10 @@ class Model_MInstall
 		 if(!@is_writable('../images/products')) 
 		  {
 			$val->Assign('products','','noempty','Path : root\images\products must be writable');	
+		  }
+		 if(!@is_writable('../images/products/large_image')) 
+		  {
+			$val->Assign('prolarge_image','','noempty','Path : root\images\products\large_image must be installed');	
 		  }
 		 if(!@is_writable('../images/products/thumb')) 
 		  {
@@ -614,6 +633,10 @@ class Model_MInstall
 		 if(!@is_writable('../admin/uploadedbulkimages')) 
 		  {
 			$val->Assign('uploadbulkimage','','noempty','Path : root\admin\uploadedbulkimages  must be installed');	
+		  }
+		if(!@is_writable('../admin/download')) 
+		  {
+			$val->Assign('download','','noempty','Path : root\admin\download  must be installed');	
 		  }
 
 
@@ -693,6 +716,7 @@ class Model_MInstall
 		
 		$folders777=array(
 			'../images',
+			'../images/homepageads',
 			'../images/slidesupload',
 			'../images/slidesupload/thumb',
 			'../images/logo',
@@ -708,6 +732,7 @@ class Model_MInstall
 			'../upload_bulk_products', 
 			'../admin/cache', 
 			'../admin/uploadedtsvfile',
+			'../admin/download',
 			'../admin/uploadedbulkimages',
 			'../includes',
 			'../includes/Charts',

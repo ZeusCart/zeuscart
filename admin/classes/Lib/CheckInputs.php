@@ -105,8 +105,29 @@ class Lib_CheckInputs
 			$this->validateEditAttributeValues();
 		else if($module=='sitesettings')
 			$this->validateSiteSettings();
+		else if($module=='editcategory')
+			$this->validateEditCategory();
 	}
 
+	function validateEditCategory()
+	{	
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['category']!='' or $_POST['category']=='')
+			{
+
+				$obj = new Lib_FormValidation('editcategory');
+			}
+			else 
+			{
+				header("Location:?do=showmain&action=disp&id=".$_GET['id']);
+				exit();
+			}
+		}
+
+	}
 	function validateSiteSettings()
 	{
 		include('classes/Lib/FormValidation.php');

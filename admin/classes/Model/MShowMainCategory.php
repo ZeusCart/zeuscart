@@ -92,11 +92,14 @@ class Model_MShowMainCategory
 			include("classes/Core/Settings/CCategoryManagement.php");
 			include("classes/Core/Category/CShowMainCategory.php");
 			include_once('classes/Display/DCategoryManagement.php');
-			
+			include("classes/Lib/HandleErrors.php");
+			$output['val']=$Err->values;
+			$output['msg']=$Err->messages;
+
 			$default = new Core_Category_CShowMainCategory();
 			$content= new Core_Settings_CCategoryManagement();
 			
-			$output['editmaincat']=$default->displayMainCategory();
+			$output['editmaincat']=$default->displayMainCategory($Err);
 			$output['content']=$content->showContent();
 			
 			Bin_Template::createTemplate('editmaincategory.html',$output);
@@ -121,6 +124,9 @@ class Model_MShowMainCategory
 	
 	function editMainCategory()
 	{
+
+		include('classes/Lib/CheckInputs.php');
+		$obj = new Lib_CheckInputs('editcategory');
 		include('classes/Core/CRoleChecking.php');
 		include("classes/Model/MSiteStatistics.php");
 		

@@ -1092,9 +1092,12 @@ class Core_Settings_CManageProducts
 							$largeDir=ROOT_FOLDER."images/products/large_image";
 							if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
 							{
-								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);				
-								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
-								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+							
+								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
+								
+							
+								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);
+								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);
 							}
 							if($i==0)
 							{	
@@ -1133,9 +1136,9 @@ class Core_Settings_CManageProducts
 				}
 			
 			
-			// END ///
-			
-			
+			$sqlrelated="insert into cross_products_table (product_id,cross_product_ids) values('".$product_id."','".$related_val."')";
+			$objrelated=new Bin_Query();		
+			$objrelated->updateQuery($sqlrelated);
 			
 			$sql="update product_inventory_table set rol=".$rol.", soh=".$soh." where product_id =".((int)$_GET['prodid'] );
 			$obj_upd=new Bin_Query();
@@ -1205,7 +1208,7 @@ class Core_Settings_CManageProducts
 
 		include('classes/Lib/ThumbImage.php');
 		
-		$category_id=(int)$_POST['selcatgory'];
+		$category_id = implode(",",$_POST['selcatgory']);
 		$category_parent_id=(int)$_POST['selsubcatgory'];
 		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
 		$title=$_POST['product_title'];
@@ -1246,11 +1249,11 @@ class Core_Settings_CManageProducts
 			$digitfilepath="download/".date("YmdHis").$_FILES['digitalfile']['name'];
 			move_uploaded_file($digitfilename,$digitfilepath);
 			
-			 $sql="update  products_table set  category_id = '".$category_id."',sub_category_id ='".$category_parent_id."',sub_under_category_id='".$sub_category_parent_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."',digital_product_path='".$digitfilepath."'  where product_id =".((int)$_GET['prodid'] );
+			 $sql="update  products_table set  category_id = '".$category_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."',digital_product_path='".$digitfilepath."'  where product_id =".((int)$_GET['prodid'] ); 
 		}
 		else
 		{
-			$sql="update products_table set  category_id = '".$category_id."',sub_category_id ='".$category_parent_id."',sub_under_category_id='".$sub_category_parent_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."' where product_id =".((int)$_GET['prodid'] );
+			$sql="update products_table set  category_id = '".$category_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."' where product_id =".((int)$_GET['prodid'] ); 
 		}
 
 		
@@ -1280,9 +1283,11 @@ class Core_Settings_CManageProducts
 							$largeDir=ROOT_FOLDER."images/products/large_image";
 							if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
 							{
-								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);				
-								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
-								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
+								
+							
+								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);
+								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);
 							}
 							if($i==0)
 							{	
@@ -1346,12 +1351,11 @@ class Core_Settings_CManageProducts
 	function updateGiftProduct()
 	{
 
-
 		include('classes/Lib/ThumbImage.php');
 		
-		$category_id=(int)$_POST['selcatgory'];
-		$category_parent_id=(int)$_POST['selsubcatgory'];
-		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
+		$category_id = implode(",",$_POST['selcatgory']);
+// 		$category_parent_id=(int)$_POST['selsubcatgory'];
+// 		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
 		$title=$_POST['product_title'];
 		$description=addslashes(htmlentities($_POST['desc']));
 		$sku=$_POST['sku'];
@@ -1385,7 +1389,7 @@ class Core_Settings_CManageProducts
 		$meta_desc=$_POST['meta_desc'];
 		
 			
-		$sql="update products_table set  category_id = '".$category_id."',sub_category_id ='".$category_parent_id."',sub_under_category_id='".$sub_category_parent_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."' where product_id =".((int)$_GET['prodid'] );
+		$sql="update products_table set  category_id = '".$category_id."',sku = '".$sku."',title = '".$title."',description = '".$description."',msrp = '".$msrp_org."',price = '".$price."',status = '".$status."',tag = '".$tag."',meta_desc = '".$meta_desc."',meta_keywords = '".$meta_keywords."',intro_date = '".$intro_date."',is_featured = '".$is_feautured."' where product_id =".((int)$_GET['prodid'] );
 		
 		$obj1234=new Bin_Query();
 		if($obj1234->updateQuery($sql))
@@ -1414,9 +1418,11 @@ class Core_Settings_CManageProducts
 							$largeDir=ROOT_FOLDER."images/products/large_image";
 							if(move_uploaded_file($_FILES["ufile"]["tmp_name"][$i],$stpath))
 							{
-								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH);				
-								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
-								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH);
+								new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
+								
+							
+								new Lib_ThumbImage('thumb',$stpath,$imageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);
+								new Lib_ThumbImage('thumb',$stpath,$largeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);
 							}
 							if($i==0)
 							{	

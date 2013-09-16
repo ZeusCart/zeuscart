@@ -110,6 +110,8 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateEditAttributeValues();
 		else if($form=='sitesettings')
 			$this->validateSiteSettings();
+		else if($form=='editcategory')
+			$this->validateEditCategory();
 	}
 
 
@@ -140,6 +142,45 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			return false;
 	}
 
+
+	function validateEditCategory()
+	{
+
+		$message = "Required Field Cannot be blank/No Special Characters Allowed";
+		$this->Assign("category",trim($_POST['category']),"noempty/nospecial' _'",$message);		
+		if($_POST['category']=='all')	
+		{	
+			$message="Required Field Cannot be blank";
+			$this->Assign("category","","noempty",$message);		
+		}	
+		if($_POST['category']!='')
+		{	
+			$sql="SELECT * FROM category_table WHERE category_parent_id='".$_POST['category']."' AND category_name='".$_POST['categoryname']."' AND category_id!='".$_GET['id']."' ";  
+			$obj=new Bin_Query();
+			if($obj->executeQuery($sql))
+			{
+				$message = "Category name already exists";
+					$this->Assign("category",'',"noempty",$message);
+			}
+		}	
+		
+		if(!empty($_FILES['caticon']))
+		{			
+			if($_FILES['caticon']['name']!='')
+			{
+				if(!$this->validateimages($_FILES['caticon']['type']))
+				{
+					$message = "Upload images only in the format JPEG,JPG,PNG,BMP";
+					$this->Assign("caticon",'',"noempty",$message);
+				}
+			}			
+		}
+		
+
+		$this->PerformValidation("?do=showmain&action=disp&id=".$_GET['id']);
+
+
+	}	
 
 	function validateSiteSettings()
 	{

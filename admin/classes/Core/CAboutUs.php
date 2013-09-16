@@ -46,11 +46,11 @@ class Core_CAboutUs
 	
 	function showAboutUs()
 	{
-		$sql = "SELECT set_name,set_value FROM `admin_settings_table` where set_id=15";
+		$sql = "SELECT *  FROM aboutus_table ";
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
 		{		
-			return $query->records[0]['set_value'];
+			return $query->records[0];
 		}
 		
 	}
@@ -66,7 +66,7 @@ class Core_CAboutUs
 	function updateAboutUs()
 	{
 		
-		$sql="update admin_settings_table set set_value='". trim($_POST['aboutus']) . "' where set_id=15";
+		$sql="update aboutus_table set content='". trim($_POST['aboutus']) . "' where id=1";
 		$obj=new Bin_Query();
 		if($obj->updateQuery($sql))
 			return '<div class="alert alert-success">

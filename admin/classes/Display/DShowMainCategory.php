@@ -41,7 +41,7 @@ class Display_DShowMainCategory
 	function showCategory($arr,$flag,$paging,$prev,$next)
 	{
 		
-		
+
 		$output = '';
 
 		$output.='<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
@@ -114,8 +114,8 @@ class Display_DShowMainCategory
 				
 				$output.='
 				<td '.$classtd.' align="center">'.$catstatus.'</td>';
-				// $output.='<td '.$classtd.'><a href="?do=showmain&action=disp&id='.$arr[$i]['category_id'].'" class="edit_bttn" >&nbsp;</a></td>';
-				$output.='<td '.$classtd.'> <a href="?do=showmain&action=delete&id='.$arr[$i]['category_id'].'" onclick="return confirm(\'Are you sure want to Delete this Category?\')" ><i class="icon-trash"></i></a></td></tr>';
+				// $output.='<td '.$classtd.'></td>';
+				$output.='<td '.$classtd.'><a href="?do=showmain&action=disp&id='.$arr[$i]['category_id'].'"  ><i class="icon icon-edit"></i></a> &nbsp;<a href="?do=showmain&action=delete&id='.$arr[$i]['category_id'].'" onclick="return confirm(\'Are you sure want to Delete this Category?\')" ><i class="icon-trash"></i></a></td></tr>';
 				$output.=self:: getSubFamiliesList(0,$arr[$i]['category_id']);
 			}
 		}	
@@ -189,7 +189,7 @@ class Display_DShowMainCategory
 				$output.='</td>
 				<td '.$classtd.' align="center">'.$catstatus.'</td>';
 				// $output.='<td '.$classtd.'><a href="?do=showmain&action=disp&id='.$arr[$i]['category_id'].'" class="edit_bttn" >&nbsp;</a></td>';
-				$output.='<td '.$classtd.'> <a href="?do=showmain&action=delete&id='.$recordsSubFamiles['category_id'].'" onclick="return confirm(\'Are you sure want to Delete this Category?\')"   ><i class="icon-trash"></i></a></td></tr>';
+				$output.='<td '.$classtd.'><a href="?do=showmain&action=disp&id='.$recordsSubFamiles['category_id'].'"  ><i class="icon icon-edit"></i></a> &nbsp; <a href="?do=showmain&action=delete&id='.$recordsSubFamiles['category_id'].'" onclick="return confirm(\'Are you sure want to Delete this Category?\')"   ><i class="icon-trash"></i></a></td></tr>';
 				$output.=self:: getSubFamiliesList($level,$recordsSubFamiles['category_id']);
 				
 				
@@ -204,9 +204,23 @@ class Display_DShowMainCategory
 	 * @param array $arr
 	 * @return string
 	 */	
-	function displayMainCategory($arr)
+	function displayMainCategory($arr,$Err)
 	{
 
+		if(!empty($Err->messages))
+		{
+			$catid=$Err->values['catid'];
+			$categoryname=$Err->values['category'];
+			$visibilitystattus=$Err->values['category_status'];
+			$catdesc=$Err->values['categorydesc'];
+		}
+		else
+		{
+			$catid=$arr[0]['category_parent_id'];
+			$categoryname=$arr[0]['category_name'];
+			$visibilitystattus=$arr[0]['category_status'];
+			$catdesc=$arr[0]['category_desc'];
+		}
 
 		$output ="";
 		$maincat='<select name="category"><option value="0">No parent</option>';

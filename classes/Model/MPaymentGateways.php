@@ -120,12 +120,13 @@ class Model_MPaymentGateways
 		Your Order has been Placed Successfully .
 		</div>';
 
-	
+	/*
 		$output['footer']=Core_CHome::footer();	
 		$output['footerconnect']=Core_CHome::getfooterconnect();
 		$output['sociallink']=Core_CHome::showSocialLinks();
 		$output['cartcount']=Core_CAddCart::countCart();			
-		Bin_Template::createTemplate('success.html',$output);
+		Bin_Template::createTemplate('success.html',$output);*/
+		header('Location:?do=myorder');
 	
 	}
 	/**

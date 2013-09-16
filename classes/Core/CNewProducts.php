@@ -128,6 +128,7 @@ class Core_CNewProducts
 	function viewProducts()
 	{
 
+
 		$pagesize=9;
   	    	if(isset($_GET['page']))
 		{
@@ -142,87 +143,44 @@ class Core_CNewProducts
 		}
 		$total = 0;
 
-		$category=$_GET['cat'];
-		$totcategory=explode('/',$_GET['cat']);
-		$last=str_replace('-',' ',$totcategory);
 
-// 		$category=$totcategory[0];
-// 		$subcat=$totcategory[1];
-// 		$subcatunder=$totcategory[2];
-// // 		
-// print_r($totcategory);
-// 
-// exit;
-
-		
-		$sql="SELECT * FROM category_table WHERE category_name ='".end($last)."'"; 
-		$obj=new Bin_Query();
-		$obj->executeQuery($sql);
-		$categoryid=$obj->records[0]['category_id'];
-		$subcatpath=$obj->records[0]['subcat_path']; 
-		$subcatid=explode(',',$subcatpath);	
-
-
-		if(count($subcatid)>1)
+		if(trim($_GET['do'])!='giftviewproducts')
 		{
-			for($j=1;$j<count($subcatid);$j++)
-			{
-				$subcategory.="category_id ='".$subcatid[$j]."'";
-				if(($j+1)!=count($subcatid))
-				{
-					$subcategory.=' OR ';	
-				}
-			}	
-
-
-		}	
+			$url=$_SERVER['REQUEST_URI'];
+			$results = explode('/', trim($url,'/'));
+			if(count($results) > 0){
+			//get the last record
+			$last = $results[count($results) - 1];
+			$last=explode('.',$last);
+			$last=$last[0];
+			}
+	
+			$last=str_replace('-',' ',$last);
+			
+	
+			$sql="SELECT * from category_table WHERE category_name='".$last."'";  
+			$obj=new Bin_Query();
+			$obj->executeQuery($sql);
+			$catid=$obj->records[0]['category_id'];
+		
+			$sql1="SELECT category_id,subcat_path from category_table WHERE FIND_IN_SET(".$catid.",subcat_path)";  
+			$res1=mysql_query($sql1);
+			while($row1=mysql_fetch_array($res1)){ 
+				$fromdate=$row1['category_id'];
+					$result[] =  $fromdate ;
+			}
+			$categoryid=implode( ',', $result );
+		
+		
+			//product selection
+			$sqlpro="SELECT * FROM products_table WHERE  category_id   IN ($categoryid)"; 
+		}
 		else
 		{
-			$subcategory=$categoryid;
-		}
-
-// 		if(($category!='') && ($subcat=='') && ($subcatunder==''))
-// 		{
-// 			$sql="SELECT * from category_table where category_name ='".$category."'";
-// 			$obj=new Bin_Query();
-// 			$obj->executeQuery($sql);
-// 			$records=$obj->records;
-// 			$objpro=new Bin_Query();
-
 			//product selection
-			$sqlpro="SELECT * FROM products_table WHERE ".$subcategory.""; 
-
-// 		}
-// 		elseif(($subcat!='') && ($category!='') && ($subcatunder==''))
-// 		{
-//  			$sql="SELECT * FROM  category_table WHERE category_parent_id IN(SELECT category_id 
-// 			from category_table where category_name ='".$category."') AND category_name='".$subcat."'"; 
-// 
-// 			$obj=new Bin_Query();
-// 			$obj->executeQuery($sql);
-// 			$records=$obj->records;
-// 			$objpro=new Bin_Query();
-// 
-// 			//product selection
-// 		 	$sqlpro="SELECT * FROM products_table WHERE sub_category_id='".$records[0]['category_id']."' ";
-// 
-// 		}
-// 		elseif(($subcatunder!='')&&($subcat!='') && ($category!=''))
-// 		{	
-// 			 $sql="SELECT * FROM  category_table WHERE category_parent_id IN(SELECT category_id 
-// 			from category_table where category_name ='".$category."') AND category_id  IN (SELECT category_id from category_table where category_name ='".$subcatunder."')"; 
-// 			
-// 			$obj=new Bin_Query();
-// 			$obj->executeQuery($sql);
-// 			$records=$obj->records;
-// 			$objpro=new Bin_Query();
-// 
-// 			//product selection
-// 		 	$sqlpro="SELECT * FROM products_table WHERE category_id='".
-// 			$records[0]['category_parent_id']."' AND sub_category_id='".$records[0]['sub_category_parent_id']."' AND 	sub_under_category_id='".$records[0]['category_id']."'  ";
-// 		}
-// 
-
+			$sqlpro="SELECT * FROM products_table WHERE  gift='1'"; 
+		
+		}
 		$objpro=new Bin_Query();
 		if($objpro->executeQuery($sqlpro))
 		{	

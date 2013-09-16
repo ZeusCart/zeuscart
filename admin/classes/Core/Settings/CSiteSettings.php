@@ -64,19 +64,14 @@ class Core_Settings_CSiteSettings
 	
 		$sql = "SELECT * FROM admin_settings_table "; 
 		$query = new Bin_Query();
-		if($query->executeQuery($sql))
-		{
-			$sqlTime = "SELECT tz_timezone FROM `timezone_table` order by tz_timezone";
-			$queryTime = new Bin_Query();
-			if($queryTime->executeQuery($sqlTime))		
-			
-			return Display_DSiteSettings::siteSittings($query->records[0],$queryTime->records,$Err);
-		}
-		else
-		{
-			return '<div class="alert alert-error">
-			<button type="button" class="close" data-dismiss="alert">×</button> Site  Settings Not Found</div>';
-		}
+		$query->executeQuery($sql);
+		
+		$sqlTime = "SELECT tz_timezone FROM `timezone_table` order by tz_timezone";
+		$queryTime = new Bin_Query();
+		if($queryTime->executeQuery($sqlTime))		
+		
+		return Display_DSiteSettings::siteSittings($query->records[0],$queryTime->records,$Err);
+		
 	}
 	
 	/**

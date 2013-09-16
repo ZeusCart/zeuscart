@@ -430,7 +430,7 @@ class Core_CProductDetail
 		{		
 			$val= $query->records[0]['cross_product_ids'];
 		}
-		$sql= "Select product_id,title FROM products_table WHERE product_id IN (".$val.")";
+		$sql= "Select product_id,title,thumb_image,msrp FROM products_table WHERE product_id IN (".$val.")";
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
 		{		

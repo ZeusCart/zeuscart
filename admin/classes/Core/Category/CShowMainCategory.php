@@ -98,7 +98,7 @@ class Core_Category_CShowMainCategory
 	 *@return string 
 	 */	
 	
-	function displayMainCategory()
+	function displayMainCategory($Err)
 	{
         	include_once("classes/Display/DShowMainCategory.php");
 		
@@ -116,7 +116,7 @@ class Core_Category_CShowMainCategory
 			if($query->executeQuery($sql))
 			{	
 					
-				return Display_DShowMainCategory::displayMainCategory($query->records);
+				return Display_DShowMainCategory::displayMainCategory($query->records,$Err);
 			}
 			else
 			{
@@ -135,7 +135,7 @@ class Core_Category_CShowMainCategory
 			if($query->executeQuery($sql))
 			{	
 					
-				return Display_DShowMainCategory::displayMainCategory($query->records);
+				return Display_DShowMainCategory::displayMainCategory($query->records,$Err);
 			}
 			else
 			{

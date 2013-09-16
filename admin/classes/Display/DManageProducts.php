@@ -560,14 +560,17 @@ class Display_DManageProducts
 			
 		$output.='
 		
-		<div style="text-align:right; width:90%; padding-bottom:10px"><input class="all_bttn" type="button" name="search" value="Reset Filter"  onclick="searchProducts(\'all\');"/>&nbsp;&nbsp;&nbsp;<input class="all_bttn" type="button" name="search" value="Search"  onclick="searchProducts(\'sear\');"/></div>
+		<div style="text-align:right;"><p>
+              <button class="btn btn-mini btn-primary" type="button"  onclick="searchProducts(\'all\');">Reset Filter</button>
+              <button class="btn btn-mini" type="button" onclick="searchProducts(\'sear\');">Search</button>
+            </p></div>
 		  <div class="blocks" style="opacity: 1;">
-<div class="clsListing clearfix">
+		<div class="clsListing clearfix">
 		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
 	
 		<thead class="green_bg">
 		<TR>
-           <th width="2%" ></th>
+         	  <th width="2%" ></th>
 		  <th >Product Name</th>
 		  <th width="10%">Brand</th>
 		  <th width="15%">MSRP</th>
@@ -581,8 +584,8 @@ class Display_DManageProducts
 		<td><input type="checkbox" name="chkMain" onClick="chkall();" value=1></td>
 		<td><input type="text" id="title1"  name="title" style="width:130px;" value="'.$_POST['title'].'" /></td>
 		<td><input type="text"  style="width:100px;" name="brand" id="brand1"  value="'.$_POST['brand'].'"/></td>
-		<td>From:<input type="text" name="frommsrp" id="frommsrp1" size="4" value="'.$_POST['frommsrp'].'"/>To:<input type="text" name="tomsrp" id="tomsrp1" size="4" value="'.$_POST['tomsrp'].'"/></td>
-		<td>From:<input type="text"  name="fromprice" id="fromprice1" size="4" value="'.$_POST['fromprice'].'"/>To:&nbsp;&nbsp;<input type="text"  name="toprice" id="toprice1" size="4" value="'.$_POST['toprice'].'"/></td>';
+		<td><table><tr><td  style="border:none">From:</td><td  style="border:none"><input type="text" name="frommsrp" id="frommsrp1" size="5" value="'.$_POST['frommsrp'].'"/></td></tr><tr><td  style="border:none">To:</td><td  style="border:none"> <input type="text" name="tomsrp" id="tomsrp1" size="5" value="'.$_POST['tomsrp'].'"/></td></tr></table></td>
+		<td><table><tr><td  style="border:none">From:</td><td  style="border:none"><input type="text"  name="fromprice" id="fromprice1" size="5" value="'.$_POST['fromprice'].'"/></td></tr><tr><td  style="border:none">To:</td><td  style="border:none"> <input type="text"  name="toprice" id="toprice1" size="5" value="'.$_POST['toprice'].'"/></td></tr></table></td>';
 
 		$output.='</tr>';
 		//$output.='<tr><td ID="search" colspan="7"><table cellpadding="0" cellspacing="0" border="0" width="100%" >';	

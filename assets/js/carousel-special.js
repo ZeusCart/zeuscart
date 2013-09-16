@@ -354,7 +354,7 @@ $(function() {
 	$("#special_product").jCarouselLite({
 		vertical: true,
 		hoverPause:true,
-		visible: 3,
+		visible: 1,
 	   circular: true,
 	   auto:2000,
 	   speed:1500,

@@ -43,6 +43,7 @@ class Bin_Core_Assembler
 			$this->do = trim($_GET['do']).':'.trim($_GET['action']);
 		else
 			$this->do = trim($_GET['do']);
+
 			
 		if(array_key_exists($this->do,$domapping))
 		{

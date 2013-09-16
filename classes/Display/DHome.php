@@ -98,7 +98,7 @@ class Display_DHome
 	{
 
 		 $output='<div class="title_fnt">
-		<h1>All Brands </h1>
+		<h1>Brands </h1>
 		</div>';
 
 		$srhlist='';

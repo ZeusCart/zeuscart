@@ -47,7 +47,7 @@ $("#aboutusupdate").submit();
       <div class="clsblock">
         <div class="clearfix">
           <form name="frmAboutUs" action="?do=aboutus&action=update" id="aboutusupdate" method="post" enctype="multipart/form-data">
-           <textarea name="aboutus" id="aboutusid" class="ckeditor" cols="85" rows="20"><AJDF:output>$aboutus</AJDF:output></textarea><br/><!-- <input type="submit" name="btnSubmit" id="sub" class="clsBigBtn" value="Update About Us" onclick="update()" /> -->
+           <textarea name="aboutus" id="aboutusid" class="ckeditor" cols="85" rows="20"><AJDF:output>$aboutus.content</AJDF:output></textarea><br/><!-- <input type="submit" name="btnSubmit" id="sub" class="clsBigBtn" value="Update About Us" onclick="update()" /> -->
          </form>
        </div></div></div></div></div>
        <AJDF:output>include file="footer.html"</AJDF:output>

@@ -25,42 +25,6 @@
     'function' => 'showIndexPage',
     'loadlib' => '1',
   ),
-  'brands' => 
-  array (
-    'model' => 'MHome',
-    'function' => 'showBrands',
-    'loadlib' => '1',
-  ),
-  'viewbrands' => 
-  array (
-    'model' => 'MHome',
-    'function' => 'viewBrandsList',
-    'loadlib' => '1',
-  ),
-  'viewbrands:grid' => 
-  array (
-    'model' => 'MHome',
-    'function' => 'viewBrandsList',
-    'loadlib' => '1',
-  ),
-  'voucher' => 
-  array (
-    'model' => 'MHome',
-    'function' => 'showVoucher',
-    'loadlib' => '1',
-  ),
-  'voucher:add' => 
-  array (
-    'model' => 'MHome',
-    'function' => 'showAddVoucher',
-    'loadlib' => '1',
-  ),
-  'voucher:showcart' => 
-  array (
-    'model' => 'MHome',
-    'function' => 'showCart',
-    'loadlib' => '1',
-  ),
   'login' => 
   array (
     'model' => 'MUserRegistration',
@@ -85,6 +49,42 @@
     'function' => 'logoutStatus',
     'loadlib' => '1',
   ),
+  'brands' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showBrands',
+    'loadlib' => '1',
+  ),
+  'voucher' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showVoucher',
+    'loadlib' => '1',
+  ),
+  'viewbrands' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'viewBrandsList',
+    'loadlib' => '1',
+  ),
+  'viewbrands:grid' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'viewBrandsList',
+    'loadlib' => '1',
+  ),
+  'voucher:add' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showAddVoucher',
+    'loadlib' => '1',
+  ),
+  'voucher:showcart' => 
+  array (
+    'model' => 'MHome',
+    'function' => 'showCart',
+    'loadlib' => '1',
+  ),
   'pricecompare:compareproductprice' => 
   array (
     'model' => 'MPriceCompare',
@@ -95,12 +95,6 @@
   array (
     'model' => 'MUserRegistration',
     'function' => 'displayRegPage',
-    'loadlib' => '1',
-  ),
-  'twitterreg' => 
-  array (
-    'model' => 'MUserRegistration',
-    'function' => 'twitterRegister',
     'loadlib' => '1',
   ),
   'userregistration:addreg' => 
@@ -132,6 +126,12 @@
     'model' => 'MUserRegistration',
     'function' => 'retrivePwdPage',
     'loadlib' => '1',
+  ),
+  'twitterreg' => 
+  array (
+    'model' => '',
+    'function' => 'twitterRegister',
+    'loadlib' => 'L_ALL',
   ),
   'wishlist:showwishlist' => 
   array (
@@ -463,6 +463,12 @@
     'function' => 'girdViewProducts',
     'loadlib' => '1',
   ),
+ 'giftviewproducts' => 
+  array (
+    'model' => 'MNewProducts',
+    'function' => 'viewProducts',
+    'loadlib' => '1',
+  ),
   'prodetail' => 
   array (
     'model' => 'MProductDetail',
@@ -499,16 +505,16 @@
     'function' => 'keywordsearch',
     'loadlib' => '1',
   ),
-  'search:narrowsearch' => 
-  array (
-    'model' => 'MKeywordSearch',
-    'function' => 'narrowSearch',
-    'loadlib' => '1',
-  ),
   'search:grid' => 
   array (
     'model' => 'MKeywordSearch',
     'function' => 'keywordsearch',
+    'loadlib' => '1',
+  ),
+  'search:narrowsearch' => 
+  array (
+    'model' => 'MKeywordSearch',
+    'function' => 'narrowSearch',
     'loadlib' => '1',
   ),
   'search:pricerange' => 
@@ -559,18 +565,6 @@
     'function' => 'showNewsLetter',
     'loadlib' => '1',
   ),
-  'changepassword' => 
-  array (
-    'model' => 'MUserAccount',
-    'function' => 'showChangePassword',
-    'loadlib' => '1',
-  ),
-  'changepassword:update' => 
-  array (
-    'model' => 'MUserAccount',
-    'function' => 'editChangePassword',
-    'loadlib' => '1',
-  ),
   'newsletter:add' => 
   array (
     'model' => 'MUserAccount',
@@ -593,6 +587,18 @@
   array (
     'model' => 'MUserAccount',
     'function' => 'editAccountInfo',
+    'loadlib' => '1',
+  ),
+  'changepassword' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'showChangePassword',
+    'loadlib' => '1',
+  ),
+  'changepassword:update' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'editChangePassword',
     'loadlib' => '1',
   ),
   'orders' => 
@@ -653,6 +659,18 @@
   array (
     'model' => 'MUserAccount',
     'function' => 'delAddress',
+    'loadlib' => '1',
+  ),
+  'digitdown' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'showDigitalProduct',
+    'loadlib' => '1',
+  ),
+  'prodown' => 
+  array (
+    'model' => 'MUserAccount',
+    'function' => 'CheckDigitalProduct',
     'loadlib' => '1',
   ),
   'quickinfo' => 
@@ -721,22 +739,10 @@
     'function' => 'showNewsPage',
     'loadlib' => '1',
   ),
-  'dynamiccms' => 
+  'test' => 
   array (
     'model' => 'MHome',
-    'function' => 'showDynamicContent',
-    'loadlib' => '1',
-  ),
-  'digitdown' => 
-  array (
-    'model' => 'MUserAccount',
-    'function' => 'showDigitalProduct',
-    'loadlib' => '1',
-  ),
- 'prodown' => 
-  array (
-    'model' => 'MUserAccount',
-    'function' => 'CheckDigitalProduct',
+    'function' => 'showTest',
     'loadlib' => '1',
   ),
 );

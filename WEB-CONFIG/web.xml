@@ -14,7 +14,7 @@
 		<configs for="admin">
 			<paramvalue>controller-config2</paramvalue> 
 		</configs>	
-		<configs for="zeusinstall">
+		<configs for="install">
 			<paramvalue>controller-config3</paramvalue> 
 		</configs>	
 		

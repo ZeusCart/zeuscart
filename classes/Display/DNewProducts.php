@@ -169,7 +169,7 @@ class Display_DNewProducts
 				<span class="ribbion_div">'.$imagetag.'</span>
 				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
 				<div class="mask"><span class="visible-phone">
-					<h2><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+					<h2><a href="'.$_SESSION['base_url'].'/detail/'.$records[$i]['alias'].'.html">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				</span><span class="hidden-phone">
 					<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 					
@@ -221,8 +221,7 @@ class Display_DNewProducts
 	function viewProducts($records,$paging,$prev,$next,$val)
 	{
 
-
-		if($_GET['do']=='viewproducts')
+		if($_GET['do']=='viewproducts' || $_GET['do']=='giftviewproducts')
 		{
 			$output='<ul class="productlists">';
 
@@ -289,7 +288,7 @@ class Display_DNewProducts
                 $output.='</ul>';
 
 		}
-		elseif($_GET['do']=='girdviewproducts')
+		elseif($_GET['do']=='girdviewproducts' || $_GET['do']=='giftviewproducts')
 		{
 		
 			$output='  <span class="visible-desktop">
@@ -311,7 +310,7 @@ class Display_DNewProducts
 					{
 						$output.='<div class="ribbion_div"> <img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale"/></div>';
 					}
-					$output.='<div class="galleryImage"><a href="?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$records[$i]['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'"></a>
+					$output.='<div class="galleryImage"><a href="'.$_SESSION['base_url'].'/'.$records[$i]['alias'].'.html"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$records[$i]['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'"></a>
 
 					<div class="info">  
 					<h2>'.$records[$i]['title'].'</h2>

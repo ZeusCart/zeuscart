@@ -132,6 +132,7 @@ class Model_MNewProducts
 	function girdViewProducts()
 	{
 
+
 		include_once('classes/Core/CNewProducts.php');
 		include_once('classes/Display/DNewProducts.php');
 		include('classes/Core/CKeywordSearch.php');

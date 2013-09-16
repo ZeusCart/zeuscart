@@ -321,7 +321,7 @@ class Model_MProductEntry
 		include('classes/Core/CAdminHome.php');
 		include('classes/Display/DProductEntry.php');		
 		
-		$obj = new Lib_CheckInputs('digitalproductreg');
+		//$obj = new Lib_CheckInputs('digitalproductreg');
 		
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -411,7 +411,7 @@ class Model_MProductEntry
 		include('classes/Core/CAdminHome.php');
 		include('classes/Display/DProductEntry.php');		
 		
-		$obj = new Lib_CheckInputs('giftproductreg');
+		//$obj = new Lib_CheckInputs('giftproductreg');
 		
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;

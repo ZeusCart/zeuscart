@@ -117,8 +117,9 @@
 			
 			<do name="viewproducts" model="MNewProducts" function="viewProducts" />	
 			
-			<do name="viewproducts" model="MNewProducts" function="viewProducts"  action="grid"/>		
-			
+			<do name="girdviewproducts" model="MNewProducts" function="girdViewProducts"  />	
+			<do name="giftviewproducts" model="MNewProducts" function="viewproducts"  />	
+						
 			<do name="prodetail" model="MProductDetail" function="showProducts"	/>
 			<do name="prodetail" model="MProductDetail" action="showprod" function="productDetail"	/>
 			<do name="prodetail" model="MProductDetail" action="sendproduct" function="sendProduct"	/>

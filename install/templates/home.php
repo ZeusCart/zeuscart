@@ -87,7 +87,7 @@ function MM_swapImage() { //v3.0
  <form name="frm" method="post" action="<?php echo $next ?>">
     		<!--header start here-->
             <div class="header_div">
-       	    <img src="images/header.jpg" alt="AJ HYIP" /></div>
+       	    <img src="images/header.jpg" alt="AJ SHOPPING CART" /></div>
             <!--body start here-->
             <div class="body_div">
             	 <?php echo $menus;?>

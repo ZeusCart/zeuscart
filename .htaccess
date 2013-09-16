@@ -14,14 +14,17 @@ RewriteRule ^logout.html$ index.php?do=logout
 RewriteRule ^register.html$ index.php?do=userregistration
 RewriteRule ^forgotpassword.html$ index.php?do=forgetpwd
 
+
+
+RewriteRule ^(responsive) - [L]
+RewriteRule ^gift/(.*).html$ index.php?do=giftviewproducts&cat=$1&%{QUERY_STRING}
+
 RewriteRule ^(responsive) - [L]
 RewriteRule ^grid/(.*).html$ index.php?do=girdviewproducts&cat=$1&%{QUERY_STRING}
 
 
 RewriteRule ^(responsive) - [L]
 RewriteRule ^(.*).html$ index.php?do=viewproducts&cat=$1&%{QUERY_STRING}
-
-
 
 
 

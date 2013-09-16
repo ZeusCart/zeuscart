@@ -8,9 +8,11 @@ $this->config["USER"] = '';
 $this->config["PASSWORD"] = '';  
 $this->config["DB"] = '';  
 } }  
-define("IMAGE1_WIDTH",225);  
-define("IMAGE1_HEIGHT",180);  
-define("THUMB_WIDTH", 90);  
-define("THUMB_HEIGHT",80);  
+define("IMAGE2_WIDTH",800);  
+define("IMAGE2_HEIGHT",868);  
+define("IMAGE1_WIDTH",350);  
+define("IMAGE1_HEIGHT",358);  
+define("THUMB_WIDTH", 68);  
+define("THUMB_HEIGHT",68);  
 $_SESSION["base_url"]= ''; 
 ?>

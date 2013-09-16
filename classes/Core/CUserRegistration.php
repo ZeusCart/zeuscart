@@ -93,7 +93,7 @@ class Core_CUserRegistration
 	
 						$result = '<div class="alert alert-success">
 						<button data-dismiss="alert" class="close" type="button">×</button>
-						Account has been CreatedSuccessfully
+						Account has been Created Successfully
 						</div>';
 						$pwd = $_POST['txtpwd'];
 						$title="Zeuscart";

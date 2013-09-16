@@ -43,6 +43,20 @@ class Core_CQuery
 	function Core_CQuery()
 	{
 
+		$sql="DROP TABLE IF EXISTS `aboutus_table`";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `aboutus_table` (
+		`id` int(15) NOT NULL AUTO_INCREMENT,
+		`content` text NOT NULL,
+		PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `aboutus_table` (`id`, `content`) VALUES
+		(1, '<p>aboutus content comes here</p>\r\n');";
+		$result=mysql_query($sql);
+
+
+
 		$sql="DROP TABLE IF EXISTS `addressbook_table`";
 		$result=mysql_query($sql);
 
@@ -195,13 +209,28 @@ class Core_CQuery
 
 
 		
-
+		$sql="Drop table if exists cms_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `cms_table` (
+		`cms_id` int(20) NOT NULL AUTO_INCREMENT,
+		`cms_page_title` varchar(200) NOT NULL,
+		`cms_page_alias` varchar(50) NOT NULL,
+		`cms_meta_content` varchar(240) NOT NULL,
+		`cms_meta_keyword` varchar(240) NOT NULL,
+		`cms_page_content` text NOT NULL,
+		`cms_page_status` int(20) NOT NULL,
+		`cms_create_date` datetime NOT NULL,
+		PRIMARY KEY (`cms_id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ";
+		$result=mysql_query($sql);
 
 
 		$sql="Drop table if exists countrywisetax_settings_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE countrywisetax_settings_table (id int(11) NOT NULL auto_increment,tax_name varchar(200) NOT NULL,based_on_amount varchar(200) NOT NULL,country_code varchar(25) NOT NULL,based_on_address varchar(200) NOT NULL,tax_rate_percent float NOT NULL,status int(11) NOT NULL,PRIMARY KEY  (id))";
 		$result=mysql_query($sql);
+
+		
 
 
 		$sql="Drop table if exists country_table";
@@ -1096,9 +1125,8 @@ class Core_CQuery
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `products_table` (`product_id`, `category_id`, `sku`, `title`, `alias`, `description`, `brand`, `model`, `msrp`, `price`, `cse_enabled`, `cse_key`, `weight`, `dimension`, `thumb_image`, `image`, `large_image_path`, `shipping_cost`, `status`, `tag`, `meta_desc`, `meta_keywords`, `intro_date`, `is_featured`, `digital`, `gift`, `digital_product_path`, `product_status`) VALUES
-		(1, '18', '10', 'shoes', 'shoes', '', '', '', 150, 100, 0, '', '', '', 'images/products/thumb/shoes_is93535.jpg', 'images/products/shoes_is93535.jpg', 'images/products/large_image/shoes_is93535.jpg', 0, 1, '', '', '', '0000-00-00', 1, 0, 0, '', 0),
-		(2, '11', '10', 'watches', 'watches', '', '', '', 800, 500, 0, '', '', '', 'images/products/thumb/2013-03-02-122103analog-watches03.jpg', 'images/products/2013-03-02-122103analog-watches03.jpg', 'images/products/large_image/2013-03-02-122103analog-watches03.jpg', 0, 1, '', '', '', '0000-00-00', 0, 0, 0, '', 0);
-		";
+		(1, '18', '10', 'shoes', 'shoes', '', '', '', 150, 100, 0, '', '', '', 'images/products/thumb/yonsht250wb.jpg', 'images/products/yonsht250wb.jpg', 'images/products/large_image/yonsht250wb.jpg', 0, 1, '', '', '', '0000-00-00', 1, 0, 0, '', 1),
+		(2, '11', '10', 'watches', 'watches', '', '', '', 800, 500, 0, '', '', '', 'images/products/thumb/2013-03-02-122103analog-watches03.jpg', 'images/products/2013-03-02-122103analog-watches03.jpg', 'images/products/large_image/2013-03-02-122103analog-watches03.jpg', 0, 1, '', '', '', '0000-00-00', 0, 0, 0, '', 0)";
 		$result=mysql_query($sql);
 
 		$sql="Drop table if exists search_tags_table";
@@ -1217,6 +1245,20 @@ class Core_CQuery
 		$result=mysql_query($sql);
 
 
+
+		
+		$sql="Drop table if exists users_group_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `users_group_table` (
+		`group_id` int(11) NOT NULL AUTO_INCREMENT,
+		`group_name` varchar(60) DEFAULT NULL,
+		`group_discount` varchar(50) DEFAULT NULL,
+		PRIMARY KEY (`group_id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		$result=mysql_query($sql);
+		
+
+
 		$sql="Drop table if exists uniquetax_settings_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE uniquetax_settings_table (tax_name varchar(200) NOT NULL,based_on_amount varchar(200) NOT NULL,tax_rate_percent float NOT NULL)";
@@ -1228,10 +1270,26 @@ class Core_CQuery
 
 		$sql="Drop table if exists users_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE users_table(user_id  INT(25) NOT NULL PRIMARY KEY AUTO_INCREMENT,user_display_name  VARCHAR(50) NOT NULL,user_fname  VARCHAR(50) NOT NULL,user_lname  VARCHAR(50) NOT NULL,user_email  VARCHAR(50) NOT NULL,user_pwd  VARCHAR(150) NOT NULL,user_country varchar(100) NOT NULL,user_status  INT(2) NOT NULL,user_doj  date NOT NULL ,billing_address_id INT(10) NOT NULL,shipping_address_id INT(10) NOT NULL,ipaddress VARCHAR(100) NOT NULL,social_link_id VARCHAR(100) NOT NULL,is_from_social_link INT(20) NOT NULL)";
+		$sql="CREATE TABLE IF NOT EXISTS `users_table` (
+		`user_id` int(25) NOT NULL AUTO_INCREMENT,
+		`user_display_name` varchar(50) NOT NULL,
+		`user_fname` varchar(50) NOT NULL,
+		`user_lname` varchar(50) NOT NULL,
+		`user_email` varchar(50) NOT NULL,
+		`user_pwd` varchar(150) NOT NULL,
+		`user_group` int(11) NOT NULL,
+		`user_country` varchar(100) NOT NULL,
+		`user_status` int(2) NOT NULL,
+		`user_doj` date NOT NULL,
+		`billing_address_id` int(10) NOT NULL,
+		`shipping_address_id` int(10) NOT NULL,
+		`ipaddress` varchar(100) NOT NULL,
+		`social_link_id` varchar(100) NOT NULL,
+		`is_from_social_link` int(20) NOT NULL,
+		PRIMARY KEY (`user_id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `users_table` (`user_id`, `user_display_name`, `user_fname`, `user_lname`, `user_email`, `user_pwd`, `user_country`, `user_status`, `user_doj`, `billing_address_id`, `shipping_address_id`, `ipaddress`, `social_link_id`, `is_from_social_link`) VALUES
-		(1, 'Demouser', 'Demouser', 'Demouser', 'demouser@ajsquare.net', 'MTIzNDU2', 'AF', 1, '2013-02-23', 1, 3, '', '', 0)";
+		$sql="INSERT INTO `users_table` (`user_id`, `user_display_name`, `user_fname`, `user_lname`, `user_email`, `user_pwd`, `user_group`, `user_country`, `user_status`, `user_doj`, `billing_address_id`, `shipping_address_id`, `ipaddress`, `social_link_id`, `is_from_social_link`) VALUES(1, 'revathy', 'revathy', 'revathy', 'revathy@ajsquare.net', 'e10adc3949ba59abbe56e057f20f883e', 1, 'IN', 1, '2013-09-12', 1, 1, '192.168.1.69', '', 0)";
 		$result=mysql_query($sql);
 
 

@@ -626,6 +626,7 @@ class Model_MManageProducts
 		
 		if($chkuser)
 		{
+
 			$default = new Core_Settings_CManageProducts();
 		
 			$_SESSION['update_msg']=$default->updateDigitalProduct();	

@@ -154,7 +154,7 @@ class Display_DFooterLinks
           
             <div class="control-group">
               <div class="controls">
-                <button class="btn btn-danger" type="submit">Sign in</button>
+                <button class="btn btn-danger" type="submit">Submit</button>
               </div>
             </div>
           </form>           </div>';
