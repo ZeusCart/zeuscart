@@ -57,7 +57,8 @@
 				<dt>root\images\homepageads [required]</dt>
                                 <dd><?php echo $this->config['filepermit1'] ?><span style="color:#FF0000"> <?php echo $Err->messages['homepageads'] ?></span> </dd>
 
-				
+				<dt>root\images\invoice [required]</dt>
+                                <dd><?php echo $this->config['filepermit2'] ?><span style="color:#FF0000"> <?php echo $Err->messages['invoice'] ?></span></dd>
 
 				<dt>root\images\slidesupload [required]</dt>
                                 <dd><?php echo $this->config['filepermit2'] ?><span style="color:#FF0000"> <?php echo $Err->messages['slide'] ?></span></dd>

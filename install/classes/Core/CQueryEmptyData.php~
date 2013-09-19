@@ -588,6 +588,8 @@ class Core_CQuery
 		$result=mysql_query($sql);
 
 
+		
+
 
 		$sql="Drop table if exists mail_messages_table";
 		$result=mysql_query($sql);

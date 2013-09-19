@@ -17,28 +17,104 @@
 * along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 *
 </AJDF:output>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
+<AJDF:output>include file="header.html"</AJDF:output>
 
-<body>
-<form name="frmcontent" method="post" action="" enctype="multipart/form-data">
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Mail Management</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+       
+
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+
+<AJDF:output> $successmsg </AJDF:output>
+
+
+<div class="blocks" style="opacity: 1;">
+  <div class="clsListing clearfix">
 <AJDF:output>$showmailmessages</AJDF:output> 
-<!--</div>
-<div align="center" style="color:red"><strong><AJDF:output>$msg</AJDF:output></strong>
-</div>-->
-</form>
-</body>
-</html>
-<script type="text/javascript" language="javascript">
+  </div></div>
 
-function edit(id)
-{
-//alert(id);
 
-	window.location= "?do=mailmessages&action=disp&id="+id;
+
+
+  <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Are you sure to delete the Dynamic Cms?</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<a href="javascript:void(0);" id="deleteDynamincpage" class="btn btn-primary" >Save changes</a>
+</div>
+</div>
+
+<div id="deletealert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Please select one checkbox</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+</div>
+</div>
+
+<script type="text/javascript">
+ $(document).ready(function (){
+
+$('#dynamicPagedelete').click(function () {
+
+var countvalue=$('input:checkbox:checked').length;
+  
+
+  if(countvalue=='0')
+  {
+    $('#deletealert').modal('show');
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+
+
+});
+
+$('#deleteDynamincpage').live('click',function(){
+  $('#dynamicPagedeleteForm').submit();
+});
+
+
+
+});
+
+
+
+
+function toggleChecked(status) {
+$(".chkbox").each( function() {
+$(this).attr("checked",status);
+})
 }
+
+
 </script>
+
+
+  <AJDF:output>include file="footer.html"</AJDF:output>

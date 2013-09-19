@@ -136,7 +136,7 @@ class Model_MInstall
 				<li class="active"><b>1</b> Installation</li>
 				<li class="active"><b>2</b> Terms & Conditions</li>
 				<li class="active"><b>3</b> Check for Prerequisite</li>
-				<li class="active"><b>4</b> Database Configuration</li>
+				<li class="inactive"><b>4</b> Database Configuration</li>
 				<li class="inactive"><b>5</b> Admin Configuration</li>
 				<li class="inactive"><b>6</b> Store Setting</li>
 			</ul>';

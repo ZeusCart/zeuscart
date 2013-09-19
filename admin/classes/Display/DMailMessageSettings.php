@@ -43,24 +43,47 @@ class Display_DMailMessageSettings
 	
 	function showMailMessages($arr)
 	{
-	
-		$output = "";
+
+		$output.='<form action="?do=dynamiccms&action=delete" method="post"  id="dynamicPagedeleteForm">
+		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
+
+		<thead class="green_bg">
+		<tr>
+
+		<th align="left">S.No</th>
+		<th align="left">Title</th>
 		
-		$output .= '<table border="1">';
-		$output.='<th>S.no.</th><th>Mail Subject</th><th>Mail Message</th><th colspan="2">Options</th>';
-		for ($i=0;$i<count($arr);$i++)
+		<th align="left" width="8%">Options</th>
+		</tr>
+		</thead>
+		<tbody>';
+
+		$cnt = count($arr);
+
+		if($flag=='0')
+			$output .= '<tr><td align="center" colspan="6"><font color="orange"><b>No Record Found</b></font></td></tr>';
+		else
 		{
+			for ($i=0;$i<count($arr);$i++)
+			{
+				
+				$message=$arr[$i]['mail_msg'];
+				$msg=str_replace('==',' ',$message);
+				$msg=substr($msg,0,30).'..';
 	
-			$message=$arr[$i]['mail_msg'];
-			$msg=str_replace('==',' ',$message);
-			$msg=substr($msg,0,30).'..';
-			
-			$output .= '<tr><td>'.($i+1).'</td><td>'.$arr[$i]['mail_msg_subject'].'</td>';
-			$output .= '<td>'.$msg.'</td>';			
-			$output.='<td><input type="button" name="Edit"  title="Edit" value="Edit" onclick=edit('.$arr[$i]['mail_msg_id'].') /></td>';
+				$output .= '<tr ><td >'.($i+1).'</td><td>'.$arr[$i]['mail_msg_subject'].'</td>';				
+				
+				
+				$output .='<td align="center"><a  href="?do=mailmessages&amp;action=disp&amp;id='.
+				$arr[$i]['mail_msg_id'].'"><i class="icon icon-edit"></i></a></td></tr>';
+				$output .='</tr>';
+			}
+		
+
 		}
-		$output .= '</td></tr></table>';
+		$output .= '</tbody></table>';
 		return $output;
+
 			
 	}
 	
@@ -76,18 +99,18 @@ class Display_DMailMessageSettings
 	{
 	
 		$output = "";
-		//echo "<pre>";
-		//print_r($arr);
-		$output.='<form name="formeditmessages" action="?do=mailmessages&action=edit&id='.(int)$_GET['id'].'" method="post" >';
-		$output .= '<table border="1"><tr><td>';
-		
-		$output.='<div> Mail Subject: '.$arr[0]['mail_msg_subject'].' </div>&nbsp;';
-		$output.='<div>Mail Message: </div> 
-<div><textarea name="mailmessages" id="mailmessages" cols="80" rows="20" >'.$arr[0]['mail_msg'].'</textarea>
-</div>
-<div  style="text-align:right"><input type="submit" name="submit1" id="sub1" value="Update" /></div>';
-		
-		$output .= '</td></tr></table></form>';
+	
+		$output.='<div class="clearfix">
+			<div class="row-fluid">
+			<div class="span6"><label> Mail Subject : </label>
+				'.$arr[0]['mail_msg_subject'].'</div></div>
+			<div class="row-fluid">
+			<div class="span6">
+			<label>Mail Message : </label>
+				<textarea style="width: 286px; height: 171px;" name="mailmessages">'.$arr[0]['mail_msg'].'</textarea>
+				</div></div>
+
+			</div>';
 		return $output;
 	}	
 	

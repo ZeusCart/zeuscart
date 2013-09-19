@@ -90,11 +90,12 @@ class Core_Settings_CMailMessageSettings
 	
 	function editMessage()
 	{
-		
+
 		$sql = "UPDATE mail_messages_table SET mail_msg = '".$_POST['mailmessages']."' WHERE mail_msg_id=".(int)$_GET['id']; 
 		$query = new Bin_Query();		
 		if($query->updateQuery($sql))		
-		$_SESSION['msg']= "Edited Successfully";		
+		$_SESSION['successmsg']= "<div class='alert alert-success'>
+ 		 <button data-dismiss='alert' class='close' type='button'>×</button>Updated Successfully</div>";		
 	}
 }
 ?>

@@ -83,7 +83,7 @@ class Model_MMailMessageSettings
 			$default = new Core_Settings_CMailMessageSettings();	
 			$output['showmailmessages'] =$default -> showMailMessages();
 			Bin_Template::createTemplate('showmailmessages.html',$output);
-			//include("templates/showcontent.php");
+			UNSET($_SESSION['successmsg']);
 		}
 		else
 		{
