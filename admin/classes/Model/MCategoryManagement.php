@@ -174,13 +174,13 @@ class Model_MCategoryManagement
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
-		$content= new Core_Settings_CCategoryManagement();
-		 $output['htmlcontent']=$content->showPreview();
+		     $content= new Core_Settings_CCategoryManagement();
+		     $output['htmlcontent']=$content->showPreview();
 		}
 		else
 		{
-		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
+		     $output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+		     Bin_Template::createTemplate('Errors.html',$output);
 		}
 		
 

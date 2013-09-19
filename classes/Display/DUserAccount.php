@@ -1072,16 +1072,16 @@ class Display_DUserAccount
 					<p>'.$arr[$k]['city'].', '.$arr[$k]['state'].'</p>
 					<p>'.$arr[$k]['zip'].'</p>	
 					<p><a class="btn btn-success " href="'.$_SESSION['base_url'].'/index.php?do=addaddress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">Edit</a><a class="btn btn-danger " onclick="return confirm(\'Are you Sure to delete?\');" href="'.$_SESSION['base_url'].'/index.php?do=deladdress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">Delete</a>';
-					if($recordsadd['billing_address_id']==$arr[$k]['id'])
-					{
-
-					$output.='<img src="'.$_SESSION['base_url'].'/assets/img/address.gif" title="Default Billing Address">';
-					}
-					if($recordsadd['shipping_address_id']==$arr[$k]['id'])
-					{
-
-					$output.='<img src="'.$_SESSION['base_url'].'/assets/img/address.gif" title="Default Shipping Address">';
-					}
+// 					if($recordsadd['billing_address_id']==$arr[$k]['id'])
+// 					{
+// 
+// 					$output.='<img src="'.$_SESSION['base_url'].'/assets/img/address.gif" title="Default Billing Address">';
+// 					}
+// 					if($recordsadd['shipping_address_id']==$arr[$k]['id'])
+// 					{
+// 
+// 					$output.='<img src="'.$_SESSION['base_url'].'/assets/img/address.gif" title="Default Shipping Address">';
+// 					}
 					$output.='</p>
 
                                     </address></li></ul>
@@ -1691,7 +1691,7 @@ class Display_DUserAccount
 			{
 				$output.='<tr><td colspan="6"><div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				<strong>No Products Wishlist Found</strong> 
+				<strong>No Products  Found</strong> 
 				</div></td></tr>';
 
 			}	

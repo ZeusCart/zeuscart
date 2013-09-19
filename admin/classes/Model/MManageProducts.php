@@ -281,6 +281,8 @@ class Model_MManageProducts
 			$output['product_alias']=$output['editGeneral']['alias'];
 			$output['description']=$output['editGeneral']['description'];			
 			$output['brand']=$output['editGeneral']['brand'];
+			$output['dispbrand']=Core_CProductEntry::dispBrand($output['brand']);
+
 			$output['corbrand']=$default->corBrand($output['brand']);
 			$output['model']=$output['editGeneral']['model'];
 			

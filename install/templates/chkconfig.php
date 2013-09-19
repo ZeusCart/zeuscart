@@ -26,7 +26,7 @@
                   	<h2>PHP Settings</h2>
 
            		   			<dl class="setting">
-                            	<dt>PHP Version 5.2.0 or later [required]</dt>
+                            	<dt>PHP Version 5.4.0 or later [required]</dt>
                                 <dd><?php echo $this->config['php'] ?><span style="color:#FF0000"> <?php echo $Err->messages['phperr'] ?></span> </dd>
 				
                             	<dt>register_globals [optional]</dt>

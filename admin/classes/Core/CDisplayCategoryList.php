@@ -43,7 +43,7 @@
 	 * @return string
 	 */	
 	
- 	 function dispCategory()
+ 	function dispCategory()
 	{
 	    $id=4;
 		$sql="select * from html_contents_table where html_content_name='Category Content'";

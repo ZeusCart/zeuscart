@@ -171,9 +171,8 @@ class Display_DFooterLinks
 	
 		$output ='<div id="myaccount_div">
 		<form class="form-horizontal"  >
-
             <div class="control-group">
-            '.$arr[0]['set_value'].'
+            '.$arr[0]['content'].'
              </div>
 		</form></div>';
 	  return $output;

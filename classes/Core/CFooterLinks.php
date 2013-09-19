@@ -146,7 +146,7 @@ class Core_CFooterLinks
 	 */
 	function aboutUs()
 	{
-		$sql = "SELECT set_value from admin_settings_table where set_id=15";
+		$sql = "SELECT * from aboutus_table ";
 		$obj = new Bin_Query();
 		$obj->executeQuery($sql);
 		$output =  Display_DFooterLinks::aboutUs($obj->records);

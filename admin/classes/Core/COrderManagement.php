@@ -586,7 +586,7 @@
 			
 			//Start Of Send Mail
 
-			$cmp_logo_query="select * from  admin_settings_table where set_id='3'";
+			/*$cmp_logo_query="select * from  admin_settings_table where set_id='3'";
 			$getlogo = new Bin_Query();
 			$getlogo->executeQuery($cmp_logo_query);
 			$URL = "http://".$_SERVER["SERVER_NAME"].$_SERVER["PHP_SELF"];
@@ -613,7 +613,7 @@
 			$contentorderstatus .= str_replace("[STATUS]",'Cancelled',$contentlogo);			
 			$mail_content.=$contentorderstatus;	
 			
-			Core_COrderManagement::sendingMail($to_mail,$title,$mail_content);			
+			Core_COrderManagement::sendingMail($to_mail,$title,$mail_content);		*/	
 			//End of Send Mail 
 			
 		

@@ -44,8 +44,7 @@ class Display_DAdminEmailSettings
 		$output = '	<div class="row-fluid">
 		<div class="span6">
 		<label>Administrator Email:</label>
-	    
-        <input type="text" name="email"  value="'.$arr[0]['set_value'].'" class="span8" /> </div></div>  ';
+        	<input type="text" name="email"  value="'.$arr[0]['set_value'].'" class="span8" /> </div></div>  ';
 			
 		return $output;
 	}
