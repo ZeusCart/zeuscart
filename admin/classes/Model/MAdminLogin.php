@@ -178,9 +178,13 @@ class Model_MAdminLogin
 		
 		if($chkuser)
 		{
-		
-			//$output['latestcustomers']=Core_CAdminHome::getLatestCustomers();
-			//$output['latestorders']=Core_CAdminHome::latestOrders();
+			$output['users_chart']=Core_CAdminHome::getUserschart();
+			$output['sales_chart']=Core_CAdminHome::getSaleschart();
+			$output['latestcustomers']=Core_CAdminHome::getLatestCustomers();
+			$output['latestorders']=Core_CAdminHome::latestOrders();
+
+			// echo "<pre>";
+			// print_r($output['users_chart']);exit;
 		
 			Bin_Template::createTemplate('index.html',$output);
 		}

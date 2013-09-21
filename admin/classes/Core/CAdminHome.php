@@ -553,7 +553,7 @@ class Core_CAdminHome
 	function getLatestCustomers()
 	{
 		//include('classes/Display/DAdminHome.php');
-		$sql = "SELECT * FROM users_table order by user_doj desc limit 0,5";
+		$sql = "SELECT * FROM users_table order by user_id desc limit 0,7";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sql))
 		{		
@@ -600,11 +600,11 @@ class Core_CAdminHome
 	
 	function latestOrders()
 	{
-	    $sql="select a.orders_id,b.user_display_name,c.orders_status_name,a.date_purchased,a.order_total from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on a.orders_status=c.orders_status_id order by a.date_purchased desc limit 0,10";
+	    $sql="select a.orders_id,a.orders_status,b.user_display_name,c.orders_status_name,a.date_purchased,a.order_total from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on a.orders_status=c.orders_status_id order by a.date_purchased desc limit 0,6";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
-		   $sql1="select a.order_total from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on a.orders_status=c.orders_status_id order by a.date_purchased desc limit 0,10";
+		   $sql1="select a.order_total,a.orders_status from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on a.orders_status=c.orders_status_id order by a.date_purchased desc limit 0,6";
 		   $obj1=new Bin_Query();
 		   $obj1->executeQuery($sql1);
 		   $res1=$obj1->records;
@@ -630,5 +630,86 @@ class Core_CAdminHome
 	   $obj->executeQuery($sql);
 	   return  Display_DAdminHome::newCustomers($obj->records);
 	}
+
+
+	function getUserschart()
+	{
+		$sql = "SELECT day(last_day(NOW())) AS day_count";
+		$obj = new Bin_Query();
+		$obj->executeQuery($sql);
+		$records=$obj->records;
+		$daycount=$records[0]['day_count'];
+		$regcount=0;
+		
+
+		$output='';
+
+		for($i=1;$i<=$daycount;$i++){
+
+			$date=date('Y-m-'.$i.'');
+			
+			$sql_query="SELECT COUNT(*) as reg FROM users_table WHERE  user_doj='".$date."'";
+			$obj_query = new Bin_Query();
+			$obj_query->executeQuery($sql_query);
+			$records_query=$obj_query->records[0]['reg'];
+
+			$output.='['.$i.','.$records_query.']';
+
+			
+
+			if($i!=$daycount){
+
+				$output.=',';
+			}
+
+
+		}
+
+		return $output;
+		
+	}
+
+	function getSaleschart()
+	{
+		$sql = "SELECT count(*) AS sales_count,day(last_day(NOW())) AS day_count FROM orders_table  WHERE MONTH(`date_purchased`)=MONTH(NOW())";
+		$obj = new Bin_Query();
+		$obj->executeQuery($sql);
+		$records=$obj->records;
+		$daycount=$records[0]['day_count'];
+		$salescount=$records[0]['sales_count'];
+
+		$output='';
+
+		for($i=1;$i<=$daycount;$i++){
+
+
+			$output.='['.$i.','.$salescount.']';
+
+			if($i!=$daycount){
+
+				$output.=',';
+			}
+
+
+		}
+
+		return $output;
+
+		
+	}
+
+
+	function orderstatus($value)
+	{
+		$sql="SELECT * FROM `orders_status_table` WHERE `orders_status_id`='".$value."'";
+		$query=new Bin_Query();
+		$query->executeQuery($sql);
+		$records=$query->records[0]['orders_status_name'];
+
+		return $records;
+
+	}
+
+
 }
 ?>	

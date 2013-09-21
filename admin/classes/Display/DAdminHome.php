@@ -40,34 +40,27 @@ class Display_DAdminHome
 	function getLatestCustomers($arr)
 	{
 		$output = "";
-		$output .= '
-		  ';
-		$output.='<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr">
-                <tr>
-				<td class="content_list_head">S.No</td>
-                  <td class="content_list_head">Customer Name</td>
-                  <td class="content_list_head">E-Mail</td>
-                  <td class="content_list_head">Join Date</td>
-                  
-                </tr>
-                <tr>
-                  <td colspan="5" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-                </tr>';  
+		
+			$output=' <ul class="stats">';
+
+	
 		for ($i=0;$i<count($arr);$i++)
 		{
 			if($i % 2 == 0)
-				$classtd='class="content_list_txt1"';
+				$class='odd';
 			else
-				$classtd='class="content_list_txt2"';
+				$class='even';
 			$usr_date = explode("-",$arr[$i]['user_doj']);
 			$doj=date("l, M d, Y",mktime(0,0,0,$usr_date[1],$usr_date[2],$usr_date[0]));
 			
-			$output .= '<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.' >'.($i+1).'</td><td '.$classtd.'>'.$arr[$i]['user_display_name'].'</td>';
-			$output .='<td '.$classtd.'><a href="mailto:'.$arr[$i]['user_email'].'">'.$arr[$i]['user_email'].'</a></td><td '.$classtd.'>'.$doj.'</td>
-			</tr>';
+			// $output .= '<tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);"><td align="center" '.$classtd.' >'.($i+1).'</td><td '.$classtd.'>'.$arr[$i]['user_display_name'].'</td>';
+			// $output .='<td '.$classtd.'><a href="mailto:'.$arr[$i]['user_email'].'">'.$arr[$i]['user_email'].'</a></td><td '.$classtd.'>'.$doj.'</td>
+			// </tr>';
+
+			$output.='<li class="'.$class.'"><a href="mailto:'.$arr[$i]['user_email'].'">'.$arr[$i]['user_email'].'</a> - '.$doj.'</li>';
 			
 		}
-			$output .= '</table>';
+			$output .= '</ul>';
 			return $output;
 	}
 	
@@ -93,6 +86,7 @@ class Display_DAdminHome
 			  <tr>
                 <td colspan="5" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
               </tr>';
+
 		     foreach($result as $row)
 			 {
 			 
@@ -135,23 +129,47 @@ class Display_DAdminHome
 	{
 	      if(count($result)>0)
 		{
-		     $output='<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr"> <tr>
-                <td  class="content_list_head" >Order ID</td>
-                <td  class="content_list_head" align="center">Customers</td>
-                <td  class="content_list_head" align="center">Status</td>
-                <td  class="content_list_head" align="center">Date Added</td>
-                <td  class="content_list_head" align="center">Total</td>
-              </tr>
-			  <tr>
-                <td colspan="5" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
-              </tr>';
+		   //   $output='<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content_list_bdr"> <tr>
+     //            <td  class="content_list_head" >Order ID</td>
+     //            <td  class="content_list_head" align="center">Customers</td>
+     //            <td  class="content_list_head" align="center">Status</td>
+     //            <td  class="content_list_head" align="center">Date Added</td>
+     //            <td  class="content_list_head" align="center">Total</td>
+     //          </tr>
+			  // <tr>
+     //            <td colspan="5" class="cnt_list_bot_bdr"><img src="images/list_bdr.gif" alt="" width="1" height="2" /></td>
+     //          </tr>';
+
+				$output=' <ul class="stats">';
+
+				$i=1;
 		     foreach($result as $row)
 			 {
+			 	if($i%2=='0'){
+
+			 		$class='odd';
+
+			 	}else{
+			 		$class='even';
+			 	}
+
 			   $orders_id=$row['orders_id'];
 			   $userdisplayname=$row['user_display_name'];
 				 if(strlen($userdisplayname)>25)
 				     $userdisplayname=substr($userdisplayname,0,25). "..";
-				$status=$row['orders_status_name'];
+
+				$status=Core_CAdminHome::orderstatus($row['orders_status']);
+
+			
+				if($row['orders_status']=='1'){
+					$statusclass="badge badge-important";
+				}elseif($row['orders_status']=='2'){
+					$statusclass="badge badge-warning";
+				}elseif($row['orders_status']=='3'){
+					$statusclass="badge badge-success";
+				}else{
+					$statusclass="badge badge-info";
+				}
 				
 				$ord_date_time = explode(" ",$row['date_purchased']);
 			    $ord_date = explode("-",$ord_date_time[0]);
@@ -161,20 +179,41 @@ class Display_DAdminHome
 				$total=number_format($row['order_total'],2);
 				 
 				
-			     $output.=' <tr style="background-color:#FFFFFF;" onmouseout="listbg(this, 0);" onmouseover="listbg(this, 1);">
-                <td class="content_list_txt1"><a href="?do=disporders&action=detail&id='.$orders_id.'">'.$orders_id.'</a></td>
-                <td class="content_list_txt1" align="left"><a href="?do=disporders&action=detail&id='.$orders_id.'">'.$userdisplayname.'</a></td>
-                <td class="content_list_txt1" align="left">'.$status.'</td>
-                <td class="content_list_txt1" align="left">'.$dateadded.'</td>
-                <td class="content_list_txt1" align="right">'.$_SESSION['currency']['currency_tocken'].$total.'</td>
-              </tr>';
+			     $output.=' <li class="'.$class.'">
+
+			     <table width="100%" cellpadding="0" cellspacing="0" border="0">
+			     <tr>
+			     <td width="5%">
+               <a href="?do=disporders&action=detail&id='.$orders_id.'" style="color:#000;font-weight:bold;">#'.$orders_id.'</a> 
+               </td>
+               <td  width="20%"  align="left" >
+               <a class="clsanchor" href="?do=disporders&action=detail&id='.$orders_id.'">'.$userdisplayname.'</a>
+               </td>
+               <td  width="25%"  align="left" >
+               <span class="clsstatus '.$statusclass.'"  style="font-weight:normal;">'.$status.'</span> 
+               </td>
+               <td  width="35%"  align="left" >
+               <span class="clsdate" style="font-weight:normal;">'.$dateadded.'</span>
+               </td>
+               <td   width="15%" align="right">
+               <span class="clscurrency" style="font-weight:normal">'.$_SESSION['currency']['currency_tocken'].' '.$total.'</span>
+               </td>
+               </tr></table></li>';
+
+
+               $i++;
 			 }
-			   $output.='<tr >
-                <td colspan="4" align="right" class="order_footer"><strong>GRAND TOTAL :</strong></td>
-                <td class="order_footer" align="right" style="padding-right:10px"><strong>'.$_SESSION['currency']['currency_tocken'].' '.number_format($subtotal,2).'</strong></td>
-              </tr>
+
+
+			 $output.='</ul>';
+			   
+
+			   // $output.='<tr >
+      //           <td colspan="4" align="right" class="order_footer"><strong>GRAND TOTAL :</strong></td>
+      //           <td class="order_footer" align="right" style="padding-right:10px"><strong>'.$_SESSION['currency']['currency_tocken'].' '.number_format($subtotal,2).'</strong></td>
+      //         </tr>
               
-            </table>';
+      //       </table>';
 			}
 			return $output;
 	}

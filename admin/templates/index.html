@@ -18,6 +18,12 @@
 *
 </AJDF:output>
 <AJDF:output>include file="header.html"</AJDF:output>
+<script src="assets/js/jquery.flot.js"></script>
+<script src="assets/js/jquery.flot.resize.js"></script>
+<script src="assets/js/jquery.flot.pie.js"></script>
+<script src="assets/js/jquery.flot.orderBars.js"></script>
+<script src="assets/js/jquery.flot.tooltip.js"></script>
+<script src="assets/js/jquery.flot.time.js"></script>
 <style>
 .demo-placeholder {
     font-size: 14px;
@@ -33,7 +39,7 @@
 	font-size:11px !important;
 }
 .demo-container{
-	padding:10px 0;
+	padding:10px 0 15px 15px;
 }
 #flot-tooltip {
     font-size: 12px;
@@ -67,17 +73,17 @@
     <div class="span8">
         <h2 class="box_head gray_bg">Analytics</span></h2>
         <div class="block" style="opacity: 1;">
-        <ul class="nav nav-tabs" id="myTab">
+        <!--<ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#users">Users</a></li>
-            <li><a href="#sales">Sales</a></li>
-        </ul>
+             <li><a href="#sales">Sales</a></li> 
+        </ul>-->
         <div class="tab-content">
             <div class="tab-pane active" id="users">
             	<div class="toggle_container">
                     <div class="" style="opacity: 1;">
                         <div class="clearfix">
                             <div class="demo-container">
-                                <div id="placeholder" class="demo-placeholder"> </div>
+                                <div id="placeholder" class="demo-placeholder"></div>
                             </div>
                 
                         </div>
@@ -99,13 +105,15 @@
          </div>
     </div>
     <div class="span4">
-        <h2 class="box_head green_bg">PRODUCT INVENTORY</span></h2>
+        <h2 class="box_head green_bg">Latest Users</span></h2>
         <div class="toggle_container">
             <div class="block" style="opacity: 1;">
                 <div class="clearfix">
-                  <ul class="stats">
+                  <!-- <ul class="stats">
                     <li class="odd last"><span><AJDF:output>$lowstock</AJDF:output> </span>No of Product in Low Stock</li>
-                  </ul>
+                  </ul> -->
+
+                  <AJDF:output>$latestcustomers</AJDF:output>
                 </div>
             </div>
         </div>
@@ -120,25 +128,11 @@
 
 		var data = [  
         {  
-            label: "USA", 
+            label: "Users", 
 			color:"#208BBD",
-            data: [[2003, 10882],  
-                [2002, 10383],  
-                [2001, 10020],  
-                [2000, 9762],  
-                [1999, 9213],  
-                [1998, 8720]]  
+            data: [<AJDF:output>$users_chart</AJDF:output>]  
         },  
-        {  
-            label: "EU",  
-			color:"#749A00",
-            data: [[2003, 10970],  
-                [2002, 9040],  
-                [2001, 8303],  
-                [2000, 8234],  
-                [1999, 8901],  
-                [1998, 8889]]  
-        }];
+        ];
 		
 		
 
@@ -217,33 +211,14 @@
         [1328054400000, 70],
         [1330560000000, 100],
         [1333238400000, 60],
-        [1335830400000, 35]
+        [1335830400000, 35],
+        [1335830400000, 50],
+        [1335830400000, 35],
+        [1335830400000, 50]
+
     ];
  
-    var d1_2 = [
-        [1325376000000, 80],
-        [1328054400000, 60],
-        [1330560000000, 30],
-        [1333238400000, 35],
-        [1335830400000, 30]
-    ];
- 
-    var d1_3 = [
-        [1325376000000, 80],
-        [1328054400000, 40],
-        [1330560000000, 30],
-        [1333238400000, 20],
-        [1335830400000, 10]
-    ];
- 
-    var d1_4 = [
-        [1325376000000, 15],
-        [1328054400000, 10],
-        [1330560000000, 15],
-        [1333238400000, 20],
-        [1335830400000, 15]
-    ];
- 
+    
     var data1 = [
         {
             label: "Product 1",
@@ -257,45 +232,6 @@
                 fillColor:  "#208BBD"
             },
             color: "#208BBD"
-        },
-        {
-            label: "Product 2",
-            data: d1_2,
-            bars: {
-                show: true,
-                barWidth: 12*24*60*60*300,
-                fill: true,
-                lineWidth: 1,
-                order: 2,
-                fillColor:  "#749A00"
-            },
-            color: "#749A00"
-        },
-        {
-            label: "Product 3",
-            data: d1_3,
-            bars: {
-                show: true,
-                barWidth: 12*24*60*60*300,
-                fill: true,
-                lineWidth: 1,
-                order: 3,
-                fillColor:  "#A2A2A2"
-            },
-            color: "#A2A2A2"
-        },
-        {
-            label: "Product 4",
-            data: d1_4,
-            bars: {
-                    show: true,
-                barWidth: 12*24*60*60*300,
-                fill: true,
-                lineWidth: 1,
-                order: 4,
-                fillColor:  "#DD8500"
-            },
-            color: "#DD8500"
         }
     ];
 	
@@ -308,7 +244,7 @@
             mode: "time",
             timeformat: "%b",
             tickSize: [1, "month"],
-            monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            monthNames: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
             tickLength: 0, // hide gridlines
             axisLabel: 'Month',
             axisLabelUseCanvas: true,
@@ -349,7 +285,7 @@
         var d = new Date(newTimestamp);
  
         var numericMonth = d.getMonth();
-        var monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var monthArray = ["1", "2", "3", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
  
         var alphaMonth = monthArray[numericMonth];
  
@@ -380,7 +316,7 @@
                 z = item.series.color;
  
                 showTooltip(item.pageX, item.pageY,
-                    "<b>" + item.series.label + "</b><br /> " + x + " = " + y + "&deg;C",
+                    "<b>" + item.series.label + "</b><br /> " + x + " = " + y + "",
                     z);
             }
         } else {
@@ -392,6 +328,8 @@
    
 	});
 	</script>
+
+   
 <!--
 <div class="row-fluid show-grid clsBtm_20">
     <div class="span4">
@@ -465,18 +403,20 @@
 
     
     <div class="span8">
-        <h2 class="box_head gray_bg">Activity Log</span></h2>
+        <h2 class="box_head gray_bg">Latest Orders</span></h2>
         <div class="toggle_container">
             <div class="block" style="opacity: 1;">
                 <div class="clearfix">
-                  <ul class="stats">
-                    <li class="odd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
+
+
+                       <AJDF:output>$latestorders</AJDF:output>
+                    <!-- <li class="odd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
                     <li class="even">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc </li>
                     <li class="odd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
                     <li class="even">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
                     <li class="odd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
-                    <li class="even last">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc </li>
-                  </ul>
+                    <li class="even last">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc </li> -->
+  
                 </div>
             </div>
         </div>
@@ -484,8 +424,8 @@
     
     
 </div>
-<div class="row-fluid show-grid clsBtm_20">
+<!-- <div class="row-fluid show-grid clsBtm_20">
     <AJDF:output>$latestorders</AJDF:output>
     <AJDF:output>$latestcustomers</AJDF:output>
-</div>
+</div> -->
 <AJDF:output>include file="footer.html"</AJDF:output>
