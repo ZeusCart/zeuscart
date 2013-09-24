@@ -343,7 +343,7 @@ class Model_MInstall
 		$sql="DELETE FROM admin_settings_table";
 		$result=mysql_query($sql);			
 		$sql="INSERT INTO `admin_settings_table` (`set_id`, `customer_header`, `site_logo`, `google_analytics`, `time_zone`, `site_moto`, `site_skin`, `admin_email`, `meta_kerwords`, `meta_description`) VALUES
-		(1, 'Exciting offers for this month !!!!&nbsp;', 'images/logo.gif', '', '', '".$domainname."', '', '".$adminemail."', '', '')"; 
+		(1, 'Exciting offers for this month !!!!&nbsp;', 'images/logo.gif', '', '', '".$domainname."', 'default', '".$adminemail."', '', '')"; 
 		$result=mysql_query($sql);
 
 		$sql="DELETE FROM footer_settings_table";
