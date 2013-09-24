@@ -590,7 +590,7 @@ class Core_CQuery
 		`location` varchar(100) NOT NULL,
 		`footercontent` text NOT NULL,
 		PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;";
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 		$result=mysql_query($sql);
 		
 
@@ -1148,8 +1148,7 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE skins_table(skin_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,skin_name  VARCHAR(50) NOT NULL,skin_status  INT(4) NOT NULL)";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `skins_table` (`skin_id`, `skin_name`, `skin_status`) VALUES(1, 'default', 1),(2, 'blue', 0),(3, 'black', 0),(4, 'cyan', 0)";
-		$result=mysql_query($sql);
+		
 
 
 		$sql="Drop table if exists social_links_table";
