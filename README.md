@@ -42,7 +42,7 @@ Admin Panel Design : We are planning to change the Admin Panel also to Bootstrap
 
 Localisation : We are working on Multi-language features & localisation
 
-Support to INDIAN CURRENCY & PAYMENT GATEWAYS : we are planning to make zeuscart v4 by deafult supports indian payment gateways like CCAvenue, InstaMojo, Payzippy, BillDesk etc., We rewuest developers to support us.
+Support to INDIAN CURRENCY & PAYMENT GATEWAYS : we are planning to make zeuscart v4 by deafult supports indian payment gateways like CCAvenue, InstaMojo, Payzippy, BillDesk etc., We request developers to support us.
 
 Customization
 =============
