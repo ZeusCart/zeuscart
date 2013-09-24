@@ -394,7 +394,7 @@ class Core_CAdminUserRegistration
 			
 			if($obj->updateQuery($sqlupdate))
 				$output = '<div class="alert alert-success">
-			<button data-dismiss="alert" class="close" type="button">×</button> Successfully Updated.</div>';
+			<button data-dismiss="alert" class="close" type="button">×</button>Customer Profile Successfully Updated.</div>';
 			else
 				$output = '<div class="alert alert-success">
 			<button data-dismiss="alert" class="close" type="button">×</button> Not Updated</div>';
@@ -422,6 +422,24 @@ class Core_CAdminUserRegistration
 		 $arrGroup['selGroup']=Display_DAdminUserRegistration::editGroup($query->records,$groupid);
 		 return $arrGroup;
 	}
+	/**
+	 * Function gets the  content group 
+	 * 
+	 * @param   string  $groupid  $groupid
+	 * @return array
+	 */
+	function getGroup($Err)
+	{
+		$query = new Bin_Query(); 
+		$sql = "SELECT group_id, group_name from users_group_table ";
+		$query->executeQuery($sql);
+		include_once('classes/Display/DAdminUserRegistration.php');
+		
+		
+		
+		 $arrGroup['selGroup']=Display_DAdminUserRegistration::getGroup($query->records,$Err);
+		 return $arrGroup;
+	}	
 	 /**
 	 * Function gets the edit country  
 	 * 
@@ -453,30 +471,46 @@ class Core_CAdminUserRegistration
 				$excel=new ExcelWriter("User_Detail.xls");
 				
 				if($excel==false)	
-					echo $excel->error;
-				$myArr=array("No","First Name","Last Name","Display Name","Email");
+					$excel->error;
+				$myArr=array("No","Display Name","First Name","Last Name","Email","Address","City","State","Zip Code","Country");
 				$excel->writeLine($myArr);
 				$j=1;
-				$sql ='select user_fname,user_lname,user_display_name,user_email,user_doj from users_table';
+				$sql ='select * from users_table';
 				$obj = new Bin_Query();
 				if($obj->executeQuery($sql))
 				{
 					$cnt=count($obj->records);
 					for($i=0;$i<$cnt;$i++)
 					{
+
+						$sqlAdd="SELECT a.*,b.cou_code,b.cou_name FROM addressbook_table AS a LEFT JOIN country_table AS b ON b.cou_code=a.country   WHERE a.user_id='".$obj->records[$i]['user_id']."'"; 
+						$objAdd=new Bin_Query();
+						$objAdd->executeQuery($sqlAdd);
+						
+						$display_name = $obj->records[$i]['user_display_name'];
 						$first_name = $obj->records[$i]['user_fname'];
 						$last_name = $obj->records[$i]['user_lname'];
-						$display_name = $obj->records[$i]['user_display_name'];
-						$email = $obj->records[$i]['user_email'];
-						//$doj =  $obj->records[$i]['user_doj'];
 						
+						$email = $obj->records[$i]['user_email'];
+						$address= $objAdd->records[0]['address'];
+						$city= $objAdd->records[0]['city'];
+						$state= $objAdd->records[0]['state'];
+						$zip= $objAdd->records[0]['zip'];
+						$country= $objAdd->records[0]['cou_name'];
+						$doj =  $obj->records[$i]['user_doj'];
+
 						$excel->writeRow();
 						$excel->writeCol($j);
-						$excel->writeCol($first_name );
-						$excel->writeCol($last_name);
 						$excel->writeCol($display_name);
+						$excel->writeCol($first_name );
+						$excel->writeCol($last_name);						
 						$excel->writeCol($email);
-						//$excel->writeCol($doj);
+						$excel->writeCol($address);
+						$excel->writeCol($city);
+						$excel->writeCol($state);
+						$excel->writeCol($zip);
+						$excel->writeCol($country);
+						$excel->writeCol($doj);
 						$j++;
 					}
 					$excel->close();
@@ -522,12 +556,23 @@ class Core_CAdminUserRegistration
 							echo("<userdetails>\n");
 							$count=count($obj->records);
 							for($i=0;$i<$count;$i++)
-							{							
+							{	
+
+								$sqlAdd="SELECT a.*,b.cou_code,b.cou_name FROM addressbook_table AS a LEFT JOIN country_table AS b ON b.cou_code=a.country   WHERE a.user_id='".$obj->records[$i]['user_id']."'"; 
+								$objAdd=new Bin_Query();
+								$objAdd->executeQuery($sqlAdd);
+						
 								echo ("<userid>".$obj->records[$i]['user_id']."</userid>\n");
+								echo ("<displayname>". $obj->records[$i]['user_display_name'] ."</displayname>\n");
+	
 								echo ("<firstname>". $obj->records[$i]['user_fname'] ."</firstname>\n");
 								echo ("<lastname>". $obj->records[$i]['user_lname'] ."</lastname>\n");
-								echo ("<displayname>". $obj->records[$i]['user_display_name'] ."</displayname>\n");
 								echo ("<email>". $obj->records[$i]['user_email'] ."</email>\n");
+								echo ("<address>". $objAdd->records[0]['address'] ."</address>\n");
+								echo ("<city>". $objAdd->records[0]['city'] ."</city>\n");	
+								echo ("<state>". $objAdd->records[0]['state'] ."</state>\n");	
+								echo ("<zipcode>". $objAdd->records[0]['zip'] ."</zipcode>\n");
+								echo ("<country>". $objAdd->records[0]['cou_name'] ."</country>\n");	
 								echo ("<userdoj>". $obj->records[$i]['user_doj'] ."</userdoj>\n");
 							}
 							echo("</userdetails>\n");
@@ -553,14 +598,27 @@ class Core_CAdminUserRegistration
 							$schema_insert  .= $csv_enclosed.Email.$csv_enclosed.$csv_separator;
 							$schema_insert  .= $csv_enclosed.DateofJoin.$csv_enclosed;
 							
-						$count=count($obj->records);
+							$count=count($obj->records);
 							for ($i = 0; $i < $count; $i++)
 							{
+
+								$sqlAdd="SELECT a.*,b.cou_code,b.cou_name FROM addressbook_table AS a LEFT JOIN country_table AS b ON b.cou_code=a.country   WHERE a.user_id='".$obj->records[$i]['user_id']."'"; 
+								$objAdd=new Bin_Query();
+								$objAdd->executeQuery($sqlAdd);
+
 								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_id']. $csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_display_name'].$csv_enclosed.$csv_separator;
 								$schema_insert .= $csv_enclosed.$obj->records[$i]['user_fname'].$csv_enclosed.$csv_separator;
 								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_lname'].$csv_enclosed.$csv_separator;
-								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_display_name'].$csv_enclosed.$csv_separator;
+								
 								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_email'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$objAdd->records[0]['address'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$objAdd->records[0]['city'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$objAdd->records[0]['state'].$csv_enclosed.$csv_separator;
+								$schema_insert .= $csv_enclosed .$objAdd->records[0]['zip'].$csv_enclosed.$csv_separator;	
+								$schema_insert .= $csv_enclosed .$objAdd->records[0]['cou_name'].$csv_enclosed.$csv_separator;	
+
+
 								$schema_insert .= $csv_enclosed .$obj->records[$i]['user_doj'].$csv_enclosed;
 							}
 							$out .= $schema_insert;
@@ -588,22 +646,41 @@ class Core_CAdminUserRegistration
 					$obj = new Bin_Query();
 					if($obj->executeQuery($sqlselect))
 					{
+						
+
 							$schema_insert = '';
 							$schema_insert  .= $tab_enclosed.No.$tab_enclosed.$tab_separator;
-							$schema_insert  .= $tab_enclosed.FirstName.$tab_enclosed.$tab_separator;
-							$schema_insert  .= $tab_enclosed.LastName.$tab_enclosed.$tab_separator;
 							$schema_insert  .= $tab_enclosed.DisplayName.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.FirstName.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.LastName.$tab_enclosed.$tab_separator;			
 							$schema_insert  .= $tab_enclosed.Email.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.Address.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.City.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.State.$tab_enclosed.$tab_separator;	
+							$schema_insert  .= $tab_enclosed.Zipcode.$tab_enclosed.$tab_separator;
+							$schema_insert  .= $tab_enclosed.Country.$tab_enclosed.$tab_separator;
+					
 							$schema_insert  .= $tab_enclosed.DateofJoin.$tab_enclosed;
 							
 						$count=count($obj->records);
 							for ($i = 0; $i < $count; $i++)
 							{
+
+								$sqlAdd="SELECT a.*,b.cou_code,b.cou_name FROM addressbook_table AS a LEFT JOIN country_table AS b ON b.cou_code=a.country   WHERE 	a.user_id='".$obj->records[$i]['user_id']."'"; 
+								$objAdd=new Bin_Query();
+								$objAdd->executeQuery($sqlAdd);	
+
 								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_id']. $tab_enclosed.$tab_separator;
 								$schema_insert .= $tab_enclosed.$obj->records[$i]['user_fname'].$tab_enclosed.$tab_separator;
 								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_lname'].$tab_enclosed.$tab_separator;
 								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_display_name'].$tab_enclosed.$tab_separator;
 								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_email'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$objAdd->records[0]['address'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$objAdd->records[0]['city'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$objAdd->records[0]['state'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$objAdd->records[0]['zip'].$tab_enclosed.$tab_separator;
+								$schema_insert .= $tab_enclosed .$objAdd->records[0]['cou_name'].$tab_enclosed.$tab_separator;	
+
 								$schema_insert .= $tab_enclosed .$obj->records[$i]['user_doj'].$tab_enclosed;
 							}
 							$out .= $schema_insert;
@@ -642,7 +719,8 @@ class Core_CAdminUserRegistration
 	
 	function addAccount()
 	{
-		
+
+	
 		$displayname = $_POST['txtdisname'];
 		$firstname = $_POST['txtfname'];
 		$lastname = $_POST['txtlname'];
@@ -657,6 +735,7 @@ class Core_CAdminUserRegistration
 		$zipcode= $_POST['txtzipcode'];
 		$country= $_POST['selCountry'];
 		
+		$group=$_POST['getGroup'];
 		if($newsletter == '')
 			$newsletter = 0;
 			
@@ -672,8 +751,8 @@ class Core_CAdminUserRegistration
 			{
 				
 				$pswd=md5($pswd);
-				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',1,'".$date."','".$country."')";
-			$obj = new Bin_Query();
+				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country,user_group) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',1,'".$date."','".$country."','".$group."')";
+				$obj = new Bin_Query();
 			
 			
 			if($obj->updateQuery($sql))
@@ -687,14 +766,14 @@ class Core_CAdminUserRegistration
 				if(count($qry1->records)>0)
 				{
 					$newuserid=$qry1->records[0]['user_id'];
-					$adrsql="insert into addressbook_table(user_id,contact_name,first_name,last_name,company,email,address,city,suburb,state,country,zip,phone_no,fax) values($newuserid,'Primary','$firstname','$lastname','','$email','$address','$city','','$state','$country','$zipcode','','')";
+					$adrsql="insert into addressbook_table(user_id,contact_name,first_name,last_name,company,email,address,city,suburb,state,country,zip,phone_no,fax) values($newuserid,'$displayname','$firstname','$lastname','','$email','$address','$city','','$state','$country','$zipcode','','')";
 					$qry1->updateQuery($adrsql);
 				
 				$sql = "insert into newsletter_subscription_table(email,status)values('".$email."',".$newsletter.")";
 				if($obj->updateQuery($sql))
 				{
 					$result = '<div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Account has been Created Successfully</div></br>';
+   					 <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Account has been Created Successfully</div>';
 					$pwd = $_POST['txtpwd'];
 					$title="Zeuscart";
 					$mail_content="Thank you for registering with us. Your Login Details are given below<br>
@@ -703,15 +782,15 @@ class Core_CAdminUserRegistration
 				}
 				else
 					$result = '<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div></br>';
+    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
 				}
 				else
 					$result = '<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div></br>';
+    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
 			}
 			else
 				$result = '<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div></br>';
+    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
 			}
 		}
 		return $result;

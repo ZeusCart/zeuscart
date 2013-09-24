@@ -9,9 +9,11 @@
     <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/style.css" rel="stylesheet">
     <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/responsive.css" rel="stylesheet">
     <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/docs.css" rel="stylesheet">
-    
-   <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/menu.css" rel="stylesheet" type="text/css" />
-  <!-- <link href="assets/themes/green/css/menu.css" rel="stylesheet" type="text/css" />-->
+<AJDF:output>if $skinname eq 'default'</AJDF:output>
+<link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/menu.css" rel="stylesheet" type="text/css" />
+<AJDF:output>else</AJDF:output>
+<link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/<AJDF:output>$skinname</AJDF:output>/<AJDF:output>$skinname</AJDF:output>/css/menu.css" rel="stylesheet" type="text/css" />
+<AJDF:output>/if</AJDF:output>
     <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery.min.js"></script>
         <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery.cycle.all.js"></script>
    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery.js"></script>

@@ -34,9 +34,15 @@ function LoadSubcategory(id,divid)
 
 function showProducts(subcatid)
 {
-  
-	url ="?do=selectfeatured&action=showproducts&id=" + subcatid;
-	ajax(url, 'productlist');
+$.ajax({
+	url:'?do=selectfeatured&action=showproducts',
+	data: 'id='+subcatid,
+	type: 'GET',
+	success: function (resp) {
+	document.getElementById('productlist').innerHTML=resp;
+	}
+	});
+	
 }
 
 $(document).ready(function (){
@@ -49,10 +55,10 @@ $(document).ready(function (){
 
 <div class="menu_new clsBtm_20">
   <div class="row-fluid">
-    <div class="span9"><h2>Select Featured Products
+    <div class="span6"><h2>Select Featured Products
     </h2>
-  </div>
-  <div class="span3" >
+  </div><div class="span5"><ul class="bttn_right"><li>  <AJDF:output>$maincategory</AJDF:output></li></div>
+  <div class="span1" >
 
       <ul class="bttn_right">
             <li>
@@ -69,22 +75,22 @@ $(document).ready(function (){
 <form name="frmcat" action="?do=selectfeatured&action=updateProducts" method="post" id="updateFeaturedproduct">
 
 
-  <div class="row-fluid">
+  <!--<div class="row-fluid">
     
   <div class="span7" >
 
  Category
-<!--<select name="cbocat" id="cbocat" class="combo_box2" 
+<select name="cbocat" id="cbocat" class="combo_box2" 
       onClick=	"LoadSubcategory(this.value,'subCategory');">
           <option value="">Select </option>
           <AJDF:output>$maincategory</AJDF:output>
-        </select>-->
+        </select>
         <AJDF:output>$maincategory</AJDF:output>
              </ul>
 
          </div>
 
-     </div>
+     </div>-->
 
 
           <span id="productlist"><AJDF:output>$product</AJDF:output></span>

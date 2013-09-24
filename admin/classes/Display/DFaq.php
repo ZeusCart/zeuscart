@@ -119,7 +119,7 @@ class Display_DFaq
 		$ans='';
 		$btnCaption='Add FAQ';
 		$action='insert';
-		$icon="add_icon1";
+		$icon="save_icon";
 		if($_GET['flag']=='1')
 		{
 			$qn=$arr['faq_qn'];

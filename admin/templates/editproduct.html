@@ -245,7 +245,8 @@ function removeTier(divNum)
 }
 function checkInputs()
 {
-	if (document.getElementById('selcatgory').value=='') 
+
+	if(document.getElementById('selcatgory').value=='') 
 	{
 		alert("Please enter the mandatory fields In Category");
 		tabOpenvalidation('1');
@@ -261,53 +262,90 @@ function checkInputs()
 		}
 		else
 		{
-				flg=0;
-				for(i=1;i<=5;i++)
-				{
-				if(parseFloat(document.getElementById('msrp['+i+']').value)>0)
-				{
-					if ((parseFloat(document.productupdate.msrp_org.value) < parseFloat(document.getElementById('msrp['+i+']').value))||(parseFloat(document.getElementById('msrp['+i+']').value)<parseFloat(document.productupdate.price.value))) 	
-					{
-						flg=1;
-					}
-				}
-				}
-				if(flg==1) 
-				{  
-					alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');
-					return false;
-				}
-				else
-				{
+
+			if(isNaN(document.productupdate.txtweight.value))
+			{
+				alert('Invalid Inputs In Weight');
+				tabOpenvalidation('2');
+				return false;
+			}
+			
+			else
+			{
+
 				
-				if ((document.productupdate.price.value=='')|| (document.productupdate.msrp_org.value==''))
+				if ((document.productupdate.price.value=='')|| (document.productupdate.msrp.value=='')  )
 				{
 					alert('Please enter the mandatory fields In Price');
-					tabOpenvalidation('5');
+				tabOpenvalidation('5');
 					return false;
 				}
-				else if ( isNaN(document.productupdate.price.value)|| isNaN(document.productupdate.msrp_org.value)|| isNaN(document.productupdate.shipcost.value))
+				
+				else
 				{
-					alert('Invalid Inputs In Price');
-					tabOpenvalidation('5');
-					return false;
+					 if ( isNaN(document.productupdate.price.value)|| isNaN(document.productupdate.msrp.value))
+					{
+						alert('Invalid Inputs In Price');
+						tabOpenvalidation('5');
+						return false;
+					}
+// 					for(i=1;i<=5;i++)
+// 					{
+// 					
+// 						if(document.getElementById("my"+i+"Tier"))
+// 						{
+// 					
+// 						if(document.getElementById("quantityfrom"+i).value==''||document.getElementById("quantityto"+i).value==''||document.getElementById("msrp"+i).value=='')
+// 							{
+// 							alert('Please enter the mandatory fields In Price'+i);
+// 							clk('Image55','images/tab_images/tab_price_hov.gif',8);
+// 							return false;
+// 							}else
+// 							{
+// 								if (isNaN(document.getElementById("quantityfrom"+i).value)|| isNaN(document.getElementById("quantityto"+i).value)||isNaN(document.getElementById("msrp"+i).value))
+// 									{
+// 										alert('Quantity From,Quantity To,MSRP Per Unit 	 should be allowed numeric only.');
+// 										clk('Image55','images/tab_images/tab_price_hov.gif.gif',8);
+// 										return false;
+// 									}
+// 									
+// 							}
+// 						}
+// 					}	
+					if (parseFloat(document.productupdate.msrp.value)<parseFloat(document.productupdate.price.value))
+					{
+						alert('Product MSRP Should Be Greater Than Product Price');
+						tabOpenvalidation('5');
+						return false;
+					}
+					else
+					{	
+
+						if(document.productupdate.soh.value=='')
+						{
+							alert('Please Enter the Stock on Hand Quantity');
+							tabOpenvalidation('6');
+							return false;
+						}
+						if (isNaN(document.productupdate.soh.value))
+						{
+							alert('Invalid Inputs In Inventory');
+							tabOpenvalidation('6');
+							return false;
+						}
+		
+
+					
+					}			
+					
+	
+	
 				}
-				}
+			}
 			
 		}
 	}
-	if (parseFloat(document.productupdate.msrp_org.value)<parseFloat(document.productupdate.price.value))
-	{
-		alert('Product MSRP Should Be Greater Than Product Price');
-		tabOpenvalidation('5');
-		return false;
-	}
-	if ( isNaN(document.productupdate.rol.value)|| isNaN(document.productupdate.soh.value))
-	{
-		alert('Invalid Inputs In Inventory');
-		tabOpenvalidation('6');
-		return false;
-	}
+	
 	return true;
 }
 

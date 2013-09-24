@@ -112,6 +112,8 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateSiteSettings();
 		else if($form=='editcategory')
 			$this->validateEditCategory();
+		else if($form=='footercontent')
+			$this->validateFooterConnect();
 	}
 
 
@@ -142,12 +144,42 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			return false;
 	}
 
+	function validateFooterConnect()
+	{
+		$message = "Required Field Cannot be blank";
+		$this->Assign("callus",trim($_POST['callus']),"noempty","Call Us - " .$message);
+	
+		if(trim($_POST['callus'])!='' && (!(preg_match("([0-9-]+)", $_POST['callus']) )))
+		{
+
+			$message = "Invalid";
+			$this->Assign("callus","","noempty","Call Us - " .$message);
+		}
+		$message = "Required Field Cannot be blank";
+		$this->Assign("email",trim($_POST['email']),"noempty","Email - " .$message);
+
+		$this->Assign("email",trim($_POST['email']),"emailcheck","Email Address - Invalid Email" );
+
+		$this->Assign("fax",trim($_POST['fax']),"noempty","Fax  - " .$message);
+		if(trim($_POST['fax'])!='' && (!(preg_match("([0-9-]+)", $_POST['fax']) )))
+		{
+
+			$message = "Invalid";
+			$this->Assign("fax","","noempty","Fax- " .$message);
+		}
+		$message = "Required Field Cannot be blank";
+		$this->Assign("location",trim($_POST['location']),"noempty","Location  - " .$message);
+		$this->Assign("footercontent",trim($_POST['footercontent']),"noempty","Footer Content - " .$message);
+
+		$this->PerformValidation("?do=footersettings&action=connect");
+	}
+
 
 	function validateEditCategory()
 	{
 
 		$message = "Required Field Cannot be blank/No Special Characters Allowed";
-		$this->Assign("category",trim($_POST['category']),"noempty/nospecial' _'",$message);		
+		$this->Assign("categoryname",trim($_POST['categoryname']),"noempty/nospecial' _'",$message);		
 		if($_POST['category']=='all')	
 		{	
 			$message="Required Field Cannot be blank";
@@ -238,12 +270,16 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateUserUpdate()
 	{
 	
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty/nonumber/nospecial''",$message);
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty/nonumber/nospecial''",$message);
-		$message = "Required Field Cannot be blank/No special characters allowed";
-		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''",$message);
+		$message = "Required Field Cannot be blank";
+		$message1="Alphanumeric not allowed";
+		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty","First Name - " .$message);
+		$this->Assign("txtfname",trim($_POST['txtfname']),"nonumber","First Name - " .$message1);
+	
+		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty","Last Name - " .$message);
+		$this->Assign("txtlname",trim($_POST['txtlname']),"nonumber","Last Name - " .$message1);
+	
+		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty","Display Name - " .$message);
+	  	$this->Assign("txtdisname",trim($_POST['txtdisname']),"nonumber","Display Name - " .$message1);
 		/*if(empty($_POST['txtemail']))
 		{
 		    $message = "Required Field Cannot be blank";
@@ -261,9 +297,11 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$message = "Invalid Emails";
  			$this->Assign("txtemail",'',"noempty",$message);
 		}*/
-		$message = "Required Field Cannot be blank/Invalid Email";		
-		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck",$message);
-	
+		$message = "Required Field Cannot be blank";
+		$message1 = "Invalid Email";
+		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty","Email Address - " .$message);
+		$this->Assign("txtemail",trim($_POST['txtemail']),"emailcheck","Email Address - " .$message);
+
 		if($_POST['txtemail']!='')
 		{
 			$sql = "select * from users_table where user_email='".trim($_POST['txtemail'])."' and user_id!='".$_GET['userid']."'"; 
@@ -280,16 +318,24 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		}	
 		
 		$message = "Required Field Cannot be blank";
-		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty",$message);
-		
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty/nonumber/nospecial''",$message);
-		$this->Assign("txtState",trim($_POST['txtState']),"noempty/nonumber/nospecial''",$message);
+		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty","Address - " .$message);
 		
 		$message = "Required Field Cannot be blank";
-		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
+		$message1 = "Alphanumeric not allowed";
+		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty","City - " .$message);
+		$this->Assign("txtcity",trim($_POST['txtcity']),"nonumber","City - " .$message);
 
-	
+		$this->Assign("txtState",trim($_POST['txtState']),"noempty","State - " .$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"nonumber","State - " .$message);
+		$message = "Only numeric values allowed";
+		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty","Zip Code -" .$message);
+
+		if(trim($_POST['txtzipcode'])!='' && !is_numeric($_POST['txtzipcode']))
+		{
+
+			$message = "Only numeric values allowed";
+			$this->Assign("txtzipcode","","noempty","Zip Code - " .$message);
+		}
 		
 		$message = "Required Field Cannot be blank";
 		
@@ -306,7 +352,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			if($fnamelength<3 or $fnamelength>20)
 			{
 				$message = "Minimum length is 3";
-				$this->Assign("txtfname","","noempty",$message);
+				$this->Assign("txtfname","","noempty","First Name - ".$message);
 			}
 		}
 		
@@ -315,7 +361,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			if($lnamelength<3 or $lnamelength>20)
 			{
 				$message = "Minimum length is 3";
-				$this->Assign("txtlname","","noempty",$message);
+				$this->Assign("txtlname","","noempty","Last Name - ".$message);
 			}
 		
 		}
@@ -325,7 +371,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			if($dislength<3 or $dislength>20)
 			{
 				$message = "Minimum length is 3";
-				$this->Assign("txtdisname","","noempty",$message);
+				$this->Assign("txtdisname","","noempty","Display Name - ".$message);
 			}
 		}
 		
@@ -815,30 +861,59 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	 
 	function validateUserRegister()
 	{
+		$message = "Required Field Cannot be blank ";	
+		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty","Display Name - ".$message);
 		
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed.";
-		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty/nonumber/nospecial''","First Name - ".$message);
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed.";
-		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty/nonumber/nospecial''","Last Name - ".$message);
-// 		$message = "Required Field Cannot be blank/No special characters allowed.";
-// 		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''","Display Name - ".$message);
+		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty","First Name - ".$message);
+		
+		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty","Last Name - ".$message);
+		
+
+		$message = "Alphanumeric not allowed";
+		
+		$this->Assign("txtdisname",trim($_POST['txtdisname']),"nonumber","Display Name - ".$message);
+		$this->Assign("txtfname",trim($_POST['txtfname']),"nonumber","First Name - ".$message);
+		
+		$this->Assign("txtlname",trim($_POST['txtlname']),"nonumber","Last Name - ".$message);
+
+
+		// 	$message = "Required Field Cannot be blank/No special characters allowed.";
+		// 	$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''","Display Name - ".$message);
 	
-		$message = "Email id - Required Field Cannot be blank/Invalid Email.";		
-		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck",$message);
+		$message = "Email Id - Required Field Cannot be blank";		
+		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty",$message);
 		
-		
+		$message = "Email Id - Invalid Email.";		
+		$this->Assign("txtemail",trim($_POST['txtemail']),"emailcheck",$message);	
+	
+
 		$message = "Address - Required Field Cannot be blank.";
 		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty",$message);
 		
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed.";
-		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty/nonumber/nospecial''","City - ".$message);
-		$this->Assign("txtState",trim($_POST['txtState']),"noempty/nonumber/nospecial''","State - ".$message);
+		$message = "Required Field Cannot be blank";
+		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty","City - ".$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"noempty","State - ".$message);
 		
+
+		$message = "Alphanumeric not allowed .";
+		$this->Assign("txtcity",trim($_POST['txtcity']),"nonumber","City - ".$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"nonumber","State - ".$message);
+
+
 		$message = "Zip Code - Required Field Cannot be blank.";
 		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
 
-	
+		$message = "Only numeric values allowed";
+		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty","Zip Code -" .$message);
+
+		if(trim($_POST['txtzipcode'])!='' && !is_numeric($_POST['txtzipcode']))
+		{
+
+			$message = "Only numeric values allowed";
+			$this->Assign("txtzipcode","","noempty","Zweip Code - " .$message);
+		}
 		
+
 		$message = "Password - Required Field Cannot be blank.";
 		$this->Assign("txtpwd",trim($_POST['txtpwd']),"noempty",$message);
 		$message = "Confirm Password - Required Field Cannot be blank.";
@@ -897,7 +972,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		//$message = "Please select terms";
 		//$this->Assign("chkterms",trim($_POST['chkterms']),"noempty",$message);
 		
-		if(trim($_POST['txtdisname']) != ''&&trim($_POST['txtemail']) != '')
+		if(trim($_POST['txtdisname']) != '' && trim($_POST['txtemail']) != '')
 		{
 			//$sqlselect = "select * from users_table where user_display_name='".$_POST['txtdisname']."'";
 			$sqlselect = "select * from users_table where user_email='".$_POST['txtemail']."'";
@@ -906,7 +981,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			{
 				if($obj->totrows>0)
 				{
-					$message = "Username already Exist!.Try again.";		
+					$message = "Email Id already Exist!.Try again.";		
 					$this->Assign("txtemail",'',"noempty",$message);
 				}
 			}
@@ -1590,9 +1665,17 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->Assign("currency_tocken",$_POST['currency_tocken'],"noempty",$message);
 		   $message = "Conversion Rate- Required Field Cannot be blank.";
 			$this->Assign("conversion_rate",$_POST['conversion_rate'],"noempty",$message);
+			
+
+
 		    $curr_rate=trim($_POST['conversion_rate']);
 			$curr_code=trim($_POST['currency_code']);
 			$country_code=trim($_POST['taxratecountry']);
+			if( !is_numeric($curr_rate))
+			{
+				$message = "Conversion rate should be numeric";
+				$this->Assign("conversion_rate",'',"noempty",$message);
+			}
 			if($curr_rate<=0&&is_numeric($curr_rate))
 			{
 				$message = "Conversion rate should be greater than 0.";
@@ -1649,6 +1732,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 				$this->Assign("conversion_rate",$_POST['conversion_rate'],"noempty",$message);
 				$curr_code=trim($_POST['currency_code']);
 				$country_code=trim($_POST['taxratecountry']);
+
+				if( !is_numeric($curr_rate))
+				{
+					$message = "Conversion rate should be numeric";
+					$this->Assign("conversion_rate",'',"noempty",$message);
+				}
 				if($curr_rate<=0&&is_numeric($curr_rate))
 				{
 					$message = "Conversion rate should be greater than 0.";

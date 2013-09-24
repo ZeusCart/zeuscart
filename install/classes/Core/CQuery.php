@@ -582,7 +582,15 @@ class Core_CQuery
 
 		$sql="Drop table if exists footer_settings_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE footer_settings_table(id  INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,callus  INT(50) NOT NULL ,email VARCHAR(255) NOT NULL,fax INT(50) NOT NULL,location VARCHAR(100) NOT NULL,footercontent TEXT(65535) NOT NULL)";
+		$sql="CREATE TABLE IF NOT EXISTS `footer_settings_table` (
+		`id` int(10) NOT NULL AUTO_INCREMENT,
+		`callus` varchar(50) NOT NULL,
+		`email` varchar(255) NOT NULL,
+		`fax` varchar(50) NOT NULL,
+		`location` varchar(100) NOT NULL,
+		`footercontent` text NOT NULL,
+		PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;";
 		$result=mysql_query($sql);
 		
 

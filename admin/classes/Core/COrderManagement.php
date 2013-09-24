@@ -243,7 +243,7 @@
 			<button data-dismiss="alert" class="close" type="button">×</button>
 			<strong>Well done!</strong> Updated Successfully</div>';
 
-		header('Location:index.php?do=disporders&action=detail&id='.$order_id);
+		header('Location:index.php?do=disporders');
 		 
 	}
   	

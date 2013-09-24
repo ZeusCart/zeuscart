@@ -197,12 +197,12 @@ class Display_DFeaturedItems
 		{
 			for($i=0;$i<count($arr);$i++)
 			{
-				if($i%8==0 && $i!=0 && $i%4==0 )
+				if( $i!=0 && $i%4==0 )
 				{
 
 					$output.='</div></div><div class="scroller_div"><div class="row-fluid">';
 				}
-				if($i%4==0 && $i!=0 && $i%8==0)
+				if($i%4==0 && $i!=0 )
 				{
 
 					$output.=' </div> <div class="row-fluid">';

@@ -146,7 +146,19 @@ class Core_Settings_CSelectFeaturedItems
 		if($_GET['id']!='')
 		{
 			$_SESSION['catid']=$_GET['id'];
-			$sql = "SELECT 	* FROM products_table where category_id=".(int)$_GET['id'] ; 
+
+
+		
+			$sql1="SELECT category_id,subcat_path from category_table WHERE FIND_IN_SET(".$_GET['id'].",subcat_path)";  
+			$res1=mysql_query($sql1);
+			while($row1=mysql_fetch_array($res1)){ 
+				$fromdate=$row1['category_id'];
+					$result[] =  $fromdate ;
+			}
+			$categoryid=implode( ',', $result );
+
+	
+			$sql = "SELECT * FROM products_table where category_id  IN($categoryid)" ; 
 			$query = new Bin_Query();
 			if($query->executeQuery($sql))
 			{
@@ -156,8 +168,7 @@ class Core_Settings_CSelectFeaturedItems
 				 return  Display_DFeaturedItems::productList($query->records);
 			else
 				return  Display_DFeaturedItems::productList($query->records);
-			// 	return  '<div class="alert alert-error">
-			// <button data-dismiss="alert" class="close" type="button">×</button>No Products Found in this Subcategory </div>';
+			
 			}	
 		else
 		{
@@ -176,28 +187,37 @@ class Core_Settings_CSelectFeaturedItems
 	
 	function updateProducts()
 	{
-		$subcatid=$_POST['cbosubcateg'];
-		$sql = "UPDATE products_table SET is_featured='0' WHERE category_id='".$subcatid."'";
-		$query = new Bin_Query();
-		$query->updateQuery($sql);
-				
+
+		foreach($_POST['productid'] as $key1 =>$value1)
+		{
+
+			$sqlpro = "UPDATE products_table SET is_featured='0' WHERE product_id='".$value1."'";
+			$querypro = new Bin_Query();
+			$querypro->updateQuery($sqlpro);
+			
+			
+		}
+						
 		if(isset($_POST['checkbox']))
-		
-			foreach($_POST['checkbox'] as $val)
+		{
+	
+			foreach($_POST['checkbox'] as $key =>$value)
 			{
-				$sql = "UPDATE products_table SET is_featured='1' WHERE product_id='".$val."'";
+
+				$sql = "UPDATE products_table SET is_featured='1' WHERE product_id='".$value."'";
 				$query = new Bin_Query();
-				if($query->updateQuery($sql))
-				{
-					return '<div class="alert alert-success">
-					<button data-dismiss="alert" class="close" type="button">×</button> Featured Products Added Successfully</div>';
-
-
-				}	
+				$query->updateQuery($sql);
+				
 				
 			}
-					
+		return '<div class="alert alert-success">
+					<button data-dismiss="alert" class="close" type="button">×</button> Featured Products Added Successfully</div>';
+			
 		}
+			
+
+					
+	}
 	
 }	
 ?>

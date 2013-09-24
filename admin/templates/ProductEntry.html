@@ -96,6 +96,13 @@ function checkInputs()
 		}
 		else
 		{
+
+			if(isNaN(document.productreg.txtweight.value))
+			{
+				alert('Invalid Inputs In Weight');
+				tabOpenvalidation('2');
+				return false;
+			}
 			if ((document.getElementById('ufile[0]').value==''))
 			{
 				alert('Please enter the mandatory fields In Images');
@@ -104,34 +111,80 @@ function checkInputs()
 			}
 			else
 			{
-				if ((document.productreg.price.value=='')|| (document.productreg.msrp_org.value==''))
+
+				
+				if ((document.productreg.price.value=='')|| (document.productreg.msrp.value=='')  )
 				{
 					alert('Please enter the mandatory fields In Price');
-					tabOpenvalidation('5');
-					return false;
-				}
-				else if ( isNaN(document.productreg.price.value)|| isNaN(document.productreg.msrp_org.value)|| isNaN(document.productreg.shipcost.value))
-				{
-					alert('Invalid Inputs In Price');
-					tabOpenvalidation('5');
+				tabOpenvalidation('5');
 					return false;
 				}
 				
+				else
+				{
+					 if ( isNaN(document.productreg.price.value)|| isNaN(document.productreg.msrp.value))
+					{
+						alert('Invalid Inputs In Price');
+						tabOpenvalidation('5');
+						return false;
+					}
+// 					for(i=1;i<=5;i++)
+// 					{
+// 					
+// 						if(document.getElementById("my"+i+"Tier"))
+// 						{
+// 					
+// 						if(document.getElementById("quantityfrom"+i).value==''||document.getElementById("quantityto"+i).value==''||document.getElementById("msrp"+i).value=='')
+// 							{
+// 							alert('Please enter the mandatory fields In Price'+i);
+// 							clk('Image55','images/tab_images/tab_price_hov.gif',8);
+// 							return false;
+// 							}else
+// 							{
+// 								if (isNaN(document.getElementById("quantityfrom"+i).value)|| isNaN(document.getElementById("quantityto"+i).value)||isNaN(document.getElementById("msrp"+i).value))
+// 									{
+// 										alert('Quantity From,Quantity To,MSRP Per Unit 	 should be allowed numeric only.');
+// 										clk('Image55','images/tab_images/tab_price_hov.gif.gif',8);
+// 										return false;
+// 									}
+// 									
+// 							}
+// 						}
+// 					}	
+					if (parseFloat(document.productreg.msrp.value)<parseFloat(document.productreg.price.value))
+					{
+						alert('Product MSRP Should Be Greater Than Product Price');
+						tabOpenvalidation('5');
+						return false;
+					}
+					else
+					{	
+
+						if(document.productreg.soh.value=='')
+						{
+							alert('Please Enter the Stock on Hand Quantity');
+							tabOpenvalidation('6');
+							return false;
+						}
+						if (isNaN(document.productreg.soh.value))
+						{
+							alert('Invalid Inputs In Inventory');
+							tabOpenvalidation('6');
+							return false;
+						}
+		
+
+					
+					}			
+					
+	
+	
+				}
 			}
+			
 		}
 	}
-	if (parseFloat(document.productreg.msrp_org.value)<parseFloat(document.productreg.price.value))
-	{
-		alert('Product MSRP Should Be Greater Than Product Price');
-		tabOpenvalidation('5');
-		return false;
-	}
-	if ( isNaN(document.productreg.rol.value)|| isNaN(document.productreg.soh.value))
-	{
-		alert('Invalid Inputs In Inventory');
-		tabOpenvalidation('6');
-		return false;
-	}
+	
 	return true;
 }
 
@@ -150,7 +203,7 @@ function addEvent()
 		var divIdName = "my"+num+"Div";
 		var newdiv = document.createElement('div');
 		newdiv.setAttribute("id",divIdName);
-		//alert(num);
+	
 		newdiv.innerHTML = "<div class=\"row-fluid\"><div class=\"span12\"><label>Sub Product Image</label><div class=\"fileupload fileupload-new\" data-provides=\"fileupload\" style=\"width:350px;\"><div class=\"fileupload-new thumbnail\" style=\"width: 200px; height: 150px;\"><img src=\"assets/img/noimage.gif\" /></div><div class=\"fileupload-preview fileupload-exists thumbnail\" style=\"max-width: 200px; max-height: 150px; line-height: 20px;\"></div><div><span class=\"btn btn-file\"><span class=\"fileupload-new\">Select image</span><span class=\"fileupload-exists\">Change</span><input type=file name=ufile[] id=ufile[]></span><a href=\"#\" class=\"btn fileupload-exists\" data-dismiss=\"fileupload\">Remove</a></div></div>&nbsp;&nbsp;&nbsp;<a href=\"javascript:;\" onclick=\"removeEvent(\'"+divIdName+"\')\"><button class='btn btn-mini btn-danger' type='button'>Remove</button></a><br></div></div>";
 		ni.appendChild(newdiv);
 	}
@@ -267,10 +320,7 @@ function addTier(cursym)
 		var divIdName = "my"+num+"Tier";
 		var newdiv = document.createElement('div');
 		newdiv.setAttribute("id",divIdName);
-		//alert(num);
-// 		newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\"><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td><td  width=\"40%\"><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td  width=\"20%\">&nbsp;<a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\">Remove</a></td></tr></table>";
-
-newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\" style=\"border-left:0\"><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td></td><td width=\"40%\" style=\"border-left:0\"><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td width=\"20%\" style=\"border-left:0\"><a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
+	newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\" style=\"border-left:0\"><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td></td><td width=\"40%\" style=\"border-left:0\"><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td width=\"20%\" style=\"border-left:0\"><a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
 
 		ni.appendChild(newdiv);
 	}
@@ -379,7 +429,7 @@ function productalias(val)
 
       <ul class="bttn_right">
             <li>
-              <a href="javascript:void(0);" class="add_icon1"  id="saveProductId"></a> </li>
+              <a href="javascript:void(0);" class="save_icon"  id="saveProductId"></a> </li>
               
                    
              </ul>
@@ -717,9 +767,9 @@ function productalias(val)
 
         						<div class="tab-pane swMain" id="tab6">
         								<div class="row-fluid"><div class="span12"><label> Re-Order Level Quantity </label>
-        							 <INPUT NAME="rol"  type="text" ID="rol"  VALUE="<AJDF:output>$val.rol</AJDF:output>" />
-							<div id="dreodr" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.rol</AJDF:output> </DIV></div></div>	<div class="row-fluid"><div class="span12"><label>Stock on Hand Quantity </label>
-							<INPUT NAME="soh"  type="text" ID="soh"  VALUE="<AJDF:output>$val.soh</AJDF:output>" />
+        							 <input name="rol"  type="text" id="rol"  VALUE="<AJDF:output>$val.rol</AJDF:output>" />
+							<div id="dreodr" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.rol</AJDF:output> </DIV></div></div>	<div class="row-fluid"><div class="span12"><label>Stock on Hand Quantity <font color="#FF0000">*</font></label>
+							<input name="soh"  type="text" id="soh"  VALUE="<AJDF:output>$val.soh</AJDF:output>" />
 
 								<div id="dsth" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.soh</AJDF:output> </DIV>		</div>		</div>
 

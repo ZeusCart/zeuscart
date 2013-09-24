@@ -36,7 +36,7 @@ $(document).ready(function (){
     <div class="span3" >
 
       <ul class="bttn_right">
-        <li><a href="javascript:void(0);" class="add_icon1"  id="updateSiteskinicon"></a></li>
+        <li><a href="javascript:void(0);" class="save_icon"   id="updateSiteskinicon"></a></li>
         
       </ul>
 
@@ -59,29 +59,27 @@ $(document).ready(function (){
 
               
          <div class="row-fluid">
-  <div class="span12"><label>Skin Name</label>
+  <div class="span12"><label>Skin Name <font color="red">*</font> </label>
       
-        <input type="text" name="skinname" class="txt_box250" /> 
+        <input type="text" name="skinname" class="txt_box250" value="<AJDF:output>$skinname</AJDF:output>"/> 
 
 </div></div>
 
         
          <div class="row-fluid">
-  <div class="span12">Theme Zip File
-
-
+  <div class="span5">Theme Zip File <font color="red">*</font>
 
                 <div class="fileupload fileupload-new" data-provides="fileupload">
-                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+                  <div class="fileupload-new thumbnail" style="width:155px; height: 20px;"></div>
                   <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                   <div>
-                    <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="zip_file" id="zip_file" value="<? echo $_POST['zip_file']; ?>"/></span>
+                    <span class="btn btn-file"><span class="fileupload-new">Select</span><span class="fileupload-exists">Change</span><input type="file" name="zip_file" id="zip_file" value="<? echo $_POST['zip_file']; ?>"/></span>
                     <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
                   </div>
                 </div>
-              </div></div>
-
-
+              </div>  <div class="span5"><p>
+<font color="red">( Important : Please upload the zip file name  is same as  which we enter the skin name  in above text box else the user side style will be corrupted)</font></p></div>
+</div>
 
 
            <div class="row-fluid">

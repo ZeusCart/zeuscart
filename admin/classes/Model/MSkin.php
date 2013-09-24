@@ -78,7 +78,9 @@ class Model_MSkin
 		{
 			include("classes/Core/Settings/CSkin.php");
 			$output['addmsg'] = $_SESSION['addmsg'];
-			$output['showskin'] = Core_Settings_CSkin::displaySkin();		
+			$output['showskin'] = Core_Settings_CSkin::displaySkin();
+			
+		
 			Bin_Template::createTemplate('skin.html',$output);	
 			unset($_SESSION['addmsg']);
 		}
@@ -103,13 +105,15 @@ class Model_MSkin
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
+			
 			include('classes/Lib/FileOperations.php');
 			include("classes/Core/Settings/CSkin.php");
 			$default = new Core_Settings_CSkin();
 			$_SESSION['addmsg']=$default->addSkin($Err);
+			
 			header("Location:?do=skin");
-			//$output['showskin'] =$default->displaySkin();
-			//Bin_Template::createTemplate('skin.html',$output);	
+			/*$output['showskin'] =$default->displaySkin();
+			Bin_Template::createTemplate('skin.html',$output);*/	
 		}
 		else
 		{

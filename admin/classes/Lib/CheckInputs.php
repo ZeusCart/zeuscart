@@ -107,6 +107,31 @@ class Lib_CheckInputs
 			$this->validateSiteSettings();
 		else if($module=='editcategory')
 			$this->validateEditCategory();
+		else if($module=='footercontent')
+			$this->validateFooterConnect();
+
+		
+	}
+
+
+	function validateFooterConnect()
+	{
+		
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['callus']!='' or $_POST['callus']=='' or $_POST['email']!='' or $_POST['email']==''  or $_POST['fax']!='' or $_POST['fax']==''  or $_POST['location']!='' or $_POST['location']==''  or $_POST['footercontent']!='' or $_POST['footercontent']=='')
+			{
+
+				$obj = new Lib_FormValidation('footercontent');
+			}
+			else 
+			{
+				header("Location:?do=footersettings&action=connect");
+				exit();
+			}
+		}
+
 	}
 
 	function validateEditCategory()

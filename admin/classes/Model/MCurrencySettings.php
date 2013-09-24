@@ -83,7 +83,6 @@ class Model_MCurrencySettings
 	
 
 	function showAddCurrency()
-
 	{	
 		$output = array();
 		include("classes/Lib/HandleErrors.php");
@@ -98,6 +97,9 @@ class Model_MCurrencySettings
 		
 		if($chkuser)
 		{
+			
+			$output['msg']=$Err->messages;
+			$output['values']=$Err->values;
 			$output['currencysettings'] = Core_Settings_CCurrencySettings::showAddCurrency($Err);
 			Bin_Template::createTemplate('addcurrencysetting.html',$output);
 		}
@@ -147,6 +149,8 @@ class Model_MCurrencySettings
 		
 		if($chkuser)
 		{
+			$output['msg']=$Err->messages;
+			$output['values']=$Err->values;
 			$output['currencysettings'] = Core_Settings_CCurrencySettings::showEditCurrency($Err);
 			Bin_Template::createTemplate('addcurrencysetting.html',$output);
 		}

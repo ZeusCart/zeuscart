@@ -93,24 +93,24 @@ class Core_Settings_CSkin
 	
 	function insertSkin()
 	{
-		if(isset($_POST['button']))
-		{
+		
 			$sql = "INSERT INTO skins_table (skin_name,skin_status) VALUES ('".$_POST['skinname']."',0)";
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
 			{
+				UNSET($_SESSION['skinname']);
 				return '<div class="alert alert-success">
 			<button data-dismiss="alert" class="close" type="button">×</button> Updated Successfully</div>';
 				//$_SESSION['msg']= "Added Successfully";
 			}
 			else
 			{
+				UNSET($_SESSION['skinname']);
 				return '<div class="alert alert-error">
 			<button data-dismiss="alert" class="close" type="button">×</button>  Problem while insert</div>';
 				//$_SESSION['msg']= "Problem while insert";
 			}
-		}
-		
+	
 	}
 	
 	/**
@@ -122,39 +122,52 @@ class Core_Settings_CSkin
 	private function uploadZipFile()
 	{
 
-		  $tsvfilename= $_FILES['zip_file']['name'];
-		  $legal_extentions = array("zip");  
-		  $file = explode(".",$_FILES['zip_file']['name']);	
-		  if(count($file) > 2  || $file[1] != 'zip')
-		  {			
-  			return '<div class="alert alert-error">
-			<button data-dismiss="alert" class="close" type="button">×</button> The file you are attempting to upload is not supported by this server</div>';		
-		  }	 	
-			
-		  $file_ext = strtolower(end(explode(".",$_FILES['zip_file']['name'])));	
-		  if (!in_array ($file_ext, $legal_extentions))
-		  {
-  		  return '<div class="alert alert-error">
-			<button data-dismiss="alert" class="close" type="button">×</button> The file you are attempting to upload is not supported by this server</div>';		
-          	  }		
-
-
-		if(isset($_FILES['zip_file']['tmp_name']))
+		if( $_POST['skinname']=='')
 		{
-			$spath=$_FILES['zip_file']['tmp_name'];			
-			if (isset($_POST['button']) && $_POST['skinname']!='')
+			return '<div class="alert alert-error">
+			<button data-dismiss="alert" class="close" type="button">×</button> Please Enter The Skin Name</div>';	
+
+		}
+		else
+		{
+		
+			$tsvfilename= $_FILES['zip_file']['name'];
+			$legal_extentions = array("zip");  
+			$file = explode(".",$_FILES['zip_file']['name']);	
+			if(count($file) > 2  || $file[1] != 'zip')
+			{			
+				return '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button> The file you are attempting to upload is not supported by this server</div>';		
+			}	 	
+				
+			$file_ext = strtolower(end(explode(".",$_FILES['zip_file']['name'])));	
+			if (!in_array ($file_ext, $legal_extentions))
 			{
-				if($_FILES['zip_file']['type']=='zip' || $_FILES['zip_file']['type']=='application/x-zip-compressed')
+			return '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button> The file you are attempting to upload is not supported by this server</div>';		
+			}		
+	
+			if(isset($_FILES['zip_file']['tmp_name']))
+			{
+				$spath=$_FILES['zip_file']['tmp_name'];			
+				if ( $_POST['skinname']!='')
 				{
-					$dpath=ROOT_FOLDER."css/".$_POST['skinname'].".zip";
-					$file= new Lib_FileOperations();
-					$file->uploadFile($spath,$dpath);			
-					return $this->extractZip($dpath);
+	
+					if($_FILES['zip_file']['type']=='application/zip'|| $_FILES['zip_file']['type']=='application/x-zip-compressed' )
+					{
+	
+						$dpath=ROOT_FOLDER."assets/css/".$_POST['skinname'].".zip"; 
+						$file= new Lib_FileOperations();
+						$file->uploadFile($spath,$dpath);			
+						return $this->extractZip($dpath);
+					}
+					else 
+						return '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button> Please Upload Zip File</div>';			
 				}
-				else 
-					return '<div class="alert alert-error">
-			<button data-dismiss="alert" class="close" type="button">×</button> Please Upload Zip File</div>';			
+				
 			}
+
 		}
 	}
 	
@@ -168,12 +181,13 @@ class Core_Settings_CSkin
 	
 	private function extractZip($zipfilename)
    	{
+
 		$zip = new ZipArchive;
 		$zipfilename;
 		if ($zip->open($zipfilename) === TRUE)
 			 {
 			 	
-					$unzippath=ROOT_FOLDER.'css/'.$_POST['skinname'].'/';
+					$unzippath=ROOT_FOLDER.'assets/css/'.$_POST['skinname'].'/';
     				$zip->extractTo($unzippath);
    				 	$zip->close();
 					unlink($zipfilename);
@@ -181,6 +195,7 @@ class Core_Settings_CSkin
 			 }
 		else 
 			{
+
    				 echo 'Failed to Extract ';
 			}
 	}				

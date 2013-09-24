@@ -57,7 +57,7 @@ class Display_DAdminHome
 			// $output .='<td '.$classtd.'><a href="mailto:'.$arr[$i]['user_email'].'">'.$arr[$i]['user_email'].'</a></td><td '.$classtd.'>'.$doj.'</td>
 			// </tr>';
 
-			$output.='<li class="'.$class.'"><a href="mailto:'.$arr[$i]['user_email'].'">'.$arr[$i]['user_email'].'</a> - '.$doj.'</li>';
+			$output.='<li class="'.$class.'"><a href="?do=customerdetail&action=detail&userid='.$arr[$i]['user_id'].'">'.$arr[$i]['user_email'].'</a> - '.$doj.'</li>';
 			
 		}
 			$output .= '</ul>';

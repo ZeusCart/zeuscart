@@ -223,7 +223,7 @@ class Display_DShowMainCategory
 		}
 
 		$output ="";
-		$maincat='<select name="category"><option value="0">No parent</option>';
+		$maincat='<select name="category" class="span4"><option value="0">No parent</option>';
 	
 		$sql = "SELECT * FROM category_table WHERE category_parent_id='0' AND category_id!='".$_GET['id']."'" ;
 		$cquery = new Bin_Query();
@@ -252,8 +252,8 @@ class Display_DShowMainCategory
 		$output.='<form name="formmaincatedit" action="?do=showmain&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data" id="updateCategoryform">';
 		
 		$output .= '<div class="row-fluid">
-		<div class="span12"><label>Category Name </label>
-		<input type="text" name="categoryname" class="txt_box250" id="cat" value="'.$arr[0]['category_name'].'" />
+		<div class="span12"><label>Category Name <font color="#FF0000">*</font></label>
+		<input type="text" name="categoryname" class="span4" id="cat" value="'.$arr[0]['category_name'].'" />
 		</div></div>';
 
 		
@@ -263,8 +263,8 @@ class Display_DShowMainCategory
 		
 		
 		$output .= '<div class="row-fluid">
-		<div class="span12"><label>Category Description</label>
-		<input type="text" name="categorydesc" class="txt_box250" id="catdesc" value="'.$arr[0]['category_desc'].'" /></div></div><div class="row-fluid">
+		<div class="span12"><label>Category Description</label><textarea id="catdesc" class="span4" rows="4" cols="30" name="categorydesc">'.$arr[0]['category_desc'].'</textarea>
+		</div></div><div class="row-fluid">
 		<div class="span12"><label>Category Image</label>
 
 		<div class="fileupload fileupload-new" data-provides="fileupload">

@@ -143,11 +143,11 @@ class Core_CHome
 	function skinName()
 	{
 			
-			$sqlselect = "SELECT set_value FROM admin_settings_table WHERE set_name='Site Skin'";
+			$sqlselect = "SELECT set_id,site_skin  FROM admin_settings_table WHERE set_id ='1'";
 			$obj = new Bin_Query();
 			if($obj->executeQuery($sqlselect))
 			{
-				$output =  $obj->records[0]['set_value'];
+				$output =  $obj->records[0]['site_skin'];
 			}
 			else
 			{

@@ -173,7 +173,7 @@ class Display_DAdminUserRegistration
 	 */
 	function dispCountry($arrCountry)
 	{
-		$output1='<select name="selCountry" id="select3" class="listbox1 w4a TxtC1" style="width:255px;">';
+		$output1='<select name="selCountry" id="select3" class="listbox1 w4a TxtC1" style="width:290px;">';
 		if(count($arrCountry)>0)
 		{		
 			for($i=0;$i<count($arrCountry);$i++)
@@ -192,27 +192,59 @@ class Display_DAdminUserRegistration
 	function editGroup($arrGroup,$groupid)
 	{
 		
-		$group='<select name="editGroup" id="select3" class="listbox1 w4a TxtC1" style="width:255px;" >';
-		
-		for($i=0;$i<count($arrGroup);$i++)
+		$group='<select name="editGroup" id="select3" class="listbox1 w4a TxtC1" style="width:290px;" >';
+		if(count($arrGroup)>0)
 		{
-		    $sel='';
-			if($groupid==$arrGroup[$i]['group_id'] ){
-			
-		          $sel='selected';
-			
+			for($i=0;$i<count($arrGroup);$i++)
+			{
+				$sel='';
+				if($groupid==$arrGroup[$i]['group_id'] ){
+				
+				$sel='selected';
+				
+				}
+				
+				$group.='<option value="'.$arrGroup[$i]['group_id'].'" '.$sel.'>'.$arrGroup[$i]['group_name'].'</option>';
 			}
-			
-			$group.='<option value="'.$arrGroup[$i]['group_id'].'" '.$sel.'>'.$arrGroup[$i]['group_name'].'</option>';
 		}
-		 $group.='</select>';
+		else
+		{
+				$group.='<option value="1" '.$sel.'>Default</option>';
+		}
+		$group.='</select>';
+		return $group;
+		
+	}
+	function getGroup($arrGroup,$groupid)
+	{
+		
+		$group='<select name="getGroup" id="select3" class="listbox1 w4a TxtC1" style="width:290px;" >';
+		if(count($arrGroup)>0)
+		{
+			for($i=0;$i<count($arrGroup);$i++)
+			{
+				$sel='';
+				if($groupid==$arrGroup[$i]['group_id'] ){
+				
+				$sel='selected';
+				
+				}
+				
+				$group.='<option value="'.$arrGroup[$i]['group_id'].'" '.$sel.'>'.$arrGroup[$i]['group_name'].'</option>';
+			}
+		}
+		else
+		{
+				$group.='<option value="1" '.$sel.'>Default</option>';
+		}
+		$group.='</select>';
 		return $group;
 		
 	}
 	function editCountry($arrCountry,$cntcode)
 	{
 	 
-		$output1='<select name="editCountry" id="select3" class="listbox1 w4a TxtC1" style="width:255px;">';
+		$output1='<select name="editCountry" id="select3" class="listbox1 w4a TxtC1" style="width:290px;">';
 		if(count($arrCountry)>0)
 		{		
 		 for($i=0;$i<count($arrCountry);$i++)

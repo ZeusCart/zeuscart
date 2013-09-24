@@ -52,43 +52,43 @@ class Display_DSiteSettings
 
 		$output.='<div class="row-fluid">
    		 <div class="span6">
-	        <label>Site Moto:</label>
+	        <label>Site Moto <font color="red">*</font>  </label>
 		<input type="text" name="site_moto"  value="'.$arr['site_moto'].'" class="span8" />
 		</div></div>
 		<div class="row-fluid">
 		<div class="span6">
-		<label> Meta Keywords:</label>	    
+		<label> Meta Keywords   </label>	    
 			<textarea name="meta_kerwords" id="meta_kerwords"  style="width: 279px; height: 159px;">'.$arr['meta_kerwords'].'</textarea>
 		</div>
 		</div> 
 		<div class="row-fluid">
 		<div class="span6">
-		<label>Meta Description:</label>	    
+		<label>Meta Description </label>	    
 			<textarea name="meta_description" id="meta_description"  style="width: 279px; height: 159px;">'.$arr['meta_description'].'</textarea>
 		</div>
 		</div>
 		<div class="row-fluid">
    		 <div class="span12">
-	        <label>Google Analytics Tracking Script:</label>
+	        <label>Google Analytics Tracking Script </label>
 		<textarea name="google_analytics" id="google_analytics"  style="width: 279px; height: 159px;">'.$arr['google_analytics'].'</textarea>
 		</div></div>  ';
 		$output.='<div class="row-fluid">
 		<div class="span12">
-		<label>Custom Header:</label>
+		<label>Custom Header </label>
 		<textarea name="customer_header" id="customer_header" class="ckeditor"  style="width: 279px; height: 159px;">'.$arr['customer_header'].'</textarea>
 		</div>
 		</div>
 		';
 		$output.='<div class="row-fluid">
 		<div class="span6">
-		<label>Administrator Email:</label>	    
+		<label>Administrator Email <font color="red">*</font> </label>	    
 		<input type="text" name="admin_email"  value="'.$arr['admin_email'].'" class="span8" /> 
 		</div>
 		</div> 
 
 		<div class="row-fluid">
    		 <div class="span6">
-	        <label>Set TimeZone to :</label>';		
+	        <label>Set TimeZone to </label>';		
 		$count=count($recordsTime);
 		$output.= '<select name="time_zone" style="width:290px" id="cbosubcat" '.$fun.'>';
 		$output.= '<option value="">Select</option>';	

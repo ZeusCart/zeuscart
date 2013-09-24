@@ -80,11 +80,25 @@ class Model_MFooterSettings
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
+			include("classes/Lib/HandleErrors.php");			
+		
+			$output['msg']=$Err->messages;
+			$output['val']=$Err->values;
+
 			include('classes/Core/Settings/CFooterSettings.php');
-			include('classes/Display/DFooterSettings.php');		
-			$output['footerconnect'] = Core_Settings_CFooterSettings::getFooterConnect();	
+			include('classes/Display/DFooterSettings.php');	
+
+			if(count($output['msg'])>0)
+			{
+				$output['footerconnect'] = $output['val'];
+			}
+			else
+			{	
+				$output['footerconnect'] = Core_Settings_CFooterSettings::getFooterConnect();
+			}	
 				
-		Bin_Template::createTemplate('footer_settings_connect.html',$output);
+
+			Bin_Template::createTemplate('footer_settings_connect.html',$output);
 			UNSET($_SESSION['successmsg']);
 		}
 		else
@@ -103,15 +117,18 @@ class Model_MFooterSettings
 	
 	function updateConnectWithUs()
 	{
-		
-		include("classes/Lib/CheckInputs.php");
+
+	
 		include('classes/Core/CRoleChecking.php');
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
+
 			include('classes/Core/Settings/CFooterSettings.php');
 			include('classes/Display/DFooterSettings.php');	
-			//$obj = new Lib_CheckInputs('updateslideshow');
+			
+			include("classes/Lib/CheckInputs.php");
+			$obj = new Lib_CheckInputs('footercontent');
 			$_SESSION['successmsg'] = Core_Settings_CFooterSettings::updateConnectWithUs();
 		
 			

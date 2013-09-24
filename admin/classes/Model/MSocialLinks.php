@@ -206,9 +206,7 @@ class Model_MSocialLinks
 	
 	function deleteSocialLink()
 	{
-				
-		// echo "<pre>";
-		// print_r($_POST);exit;
+	
 
 		include_once('classes/Core/Settings/CSocialLinks.php');			
 		include('classes/Display/DSocialLinks.php');

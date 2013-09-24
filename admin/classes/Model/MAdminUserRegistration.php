@@ -107,6 +107,7 @@ class Model_MAdminUserRegistration
 		$output['searchuser']=$default->searchUserDetails();
 		
 		Bin_Template::createTemplate('ShowUser.html',$output);
+		unset($_SESSION['rtsinsmsg']);
 	}
 	
 	/**
@@ -148,6 +149,7 @@ class Model_MAdminUserRegistration
 			$output['msg']=$Err->messages;
 			$output['value'] = $Err->values;	
 		}
+
 
 		$output['val']=$default->getEditCountry($output['value']['editCountry']);
 
@@ -256,6 +258,7 @@ class Model_MAdminUserRegistration
 		$output['adminregmsg'] = $default->acceptAccount();
 		$output['adminreg'] = $default->showAccount();
 		Bin_Template::createTemplate('ShowUser.html',$output);
+		unset($_SESSION['rtsinsmsg']);
 		
 	}
 	
@@ -295,6 +298,7 @@ class Model_MAdminUserRegistration
 		$output['adminregmsg'] =  $default->denyAccount();
 		$output['adminreg'] = $default->showAccount();
 		Bin_Template::createTemplate('ShowUser.html',$output);
+		unset($_SESSION['rtsinsmsg']);
 		
 	}
 	
@@ -392,6 +396,8 @@ class Model_MAdminUserRegistration
 			
 			$output['val']=Core_CAdminUserRegistration::getCountry($Err->values);
 			$output['msg']=$Err->messages;
+			$output['group']=Core_CAdminUserRegistration::getGroup($Err->values);
+
 			$output['account'] = $_SESSION['msgCustomersuccess'];
 			Bin_Template::createTemplate('signup.html',$output);
 			unset($_SESSION['msgCustomersuccess']);
@@ -443,9 +449,9 @@ class Model_MAdminUserRegistration
 		$obj = new Lib_CheckInputs('useraccregister');
 			
 			//include_once('classes/Core/CAdminUserRegistration.php');
-		$_SESSION['msgCustomersuccess']= Core_CAdminUserRegistration::addAccount();
+		$_SESSION['rtsinsmsg']= Core_CAdminUserRegistration::addAccount();
 
-		header('Location:?do=addUserAccount');
+		header('Location:?do=adminreg');
 		exit;
 			
 	}

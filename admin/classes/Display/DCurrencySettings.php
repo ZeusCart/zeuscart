@@ -85,8 +85,17 @@ class Display_DCurrencySettings
 				$classname='chkcurrencybox';
 			}
 
-			$output.='<tr><td><input type="checkbox" name="currencycheck[]" class="'.$classname.'" value="'.$arr['id'].'"></td>
-			<td>'.$i.'</td>
+			$output.='<tr>';
+			if($arr['default_currency']==1)
+			{
+				$output.='<td></td>';
+			}
+			else
+			{
+				$output.='<td><input type="checkbox" name="currencycheck[]" class="'.$classname.'" value="'.$arr['id'].'"></td>';
+			}
+
+			$output.='<td>'.$i.'</td>
 
 			<td><a href="?do=editcurrency&cid='.$arr['id'].'">'.$arr['currency_name'].(($arr['default_currency']==1) ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>(Default)</b>' : '' ).'</a></td>
 			<td>'.$arr['currency_code'].'</td>
@@ -255,52 +264,43 @@ class Display_DCurrencySettings
 			$countrylist.='<option value="'.$country['cou_code'].'" '.(($values['taxratecountry']==$country['cou_code']) ? ' selected ="selected" ' : '' ).'>'.$country['cou_name'].'</option>';
 		$countrylist.='</select>';
 		
-		$output = '<form  name="sam" id="addCurrencyId" action="?do=addcurrency" method="post"><div class="row-fluid">
+		$output.= '<form  name="sam" id="addCurrencyId" action="?do=addcurrency" method="post"><div class="row-fluid">
 		<div class="span12"><h2 class="box_head green_bg">Add Currency</h2>
 		<div class="toggle_container">
 		<div class="clsblock">
 		<div class="clearfix">';
-		if(count($Err->messages) > 0)
-		{
-			$output.='<div class="alert alert-error">
-			<button type="button" class="close" data-dismiss="alert">×</button>';
-			foreach ($Err->messages as $key => $value) {
 
-				$output.=$value."<br/>";
-			}
-			$output.='</div>';
-		}
 		$output.='<div class="row-fluid">
 		<div class="span12">
-		<label>Currency Name :</label> 
+		<label>Currency Name <font color="red">*</font> </label> 
 		<input name="currency_name" id="currency_name"   value="'.$values['currency_name'].'" type="text" style="width:178px;"><input type="hidden" name="hidecurrencyid" id="hidecurrencyid"   value="'.$values['hidecurrencyid'].'"/></div></div>
 		<div class="row-fluid">
 		<div class="span12">
-		<label>Currency Tocken :</label> <input name="currency_tocken" id="currency_tocken"  value="'.$values['currency_tocken'].'" type="text" style="width:60px;"></div></div>
-
-
-		<div class="row-fluid">
+		<label>Currency Tocken <font color="red">*</font></label> <input name="currency_tocken" id="currency_tocken"  value="'.$values['currency_tocken'].'" type="text" style="width:60px;"></div></div>
+			<div class="row-fluid">
 		<div class="span12">
-		<label>Country :</label> '.$countrylist.'</div></div>
+		<label>Conversion Rate <font color="red">*</font></label>
 
-
-		<div class="row-fluid">
-		<div class="span12">
-		<label>Currency Code :</label> '.$currencycode.'</div></div>
-
-
-		<div class="row-fluid">
-		<div class="span12">
-		<label>Conversion Rate :</label>
-
-		<input name="conversion_rate" id="conversion_rate"   value="'.$values['conversion_rate'].'" type="text" style="width:178px;">
+		<input name="conversion_rate" id="conversion_rate"   value="'.$values['conversion_rate'].'" type="text" style="width:60px;">
 
 		</div></div>
 
+		<div class="row-fluid">
+		<div class="span12">
+		<label  >Country  </label> '.$countrylist.'</div></div>
+
 
 		<div class="row-fluid">
 		<div class="span12">
-		<label>Status Enable :</label>
+		<label  style="margin-top:10px">Currency Code </label> '.$currencycode.'</div></div>
+
+
+	
+
+
+		<div class="row-fluid">
+		<div class="span12">
+		<label  style="margin-top:10px">Status Enable :</label>
 
 		<input  name="taxratestatus" id="taxratestatus" type="checkbox" value="1" '.(($values['status']==1) ? ' checked="checked" ' : '' ).'></div></div>
 
@@ -348,11 +348,11 @@ class Display_DCurrencySettings
 
 				<div class="row-fluid">
 				<div class="span12">
-				<label>Currency name :</label><b>'.$values['currency_name'].'</b><input type="hidden" name="currency_name" id="hidecurrencyid"   value="'.$values['currency_name'].'"/></div></div>
+				<label>Currency name <font color="red">*</font></label><b>'.$values['currency_name'].'</b><input type="hidden" name="currency_name" id="hidecurrencyid"   value="'.$values['currency_name'].'"/></div></div>
 
 				<div class="row-fluid">
 				<div class="span12">
-				<label>Conversion Rate :</label>
+				<label>Conversion Rate <font color="red">*</font></label>
 
 				<input type="hidden" name="hidecurrencyid" id="hidecurrencyid"   value="'.$values['hidecurrencyid'].'"/>
 				<input name="conversion_rate" id="conversion_rate"   value="'.$values['conversion_rate'].'" type="text" style="width:178px;"></div></div>
@@ -391,47 +391,38 @@ class Display_DCurrencySettings
 				<div class="toggle_container">
 				<div class="clsblock">
 				<div class="clearfix">';
-				if(count($Err->messages) > 0)
-				{
-					$output.='<div class="alert alert-error">
-					<button type="button" class="close" data-dismiss="alert">×</button>';
-					foreach ($Err->messages as $key => $value) {
-
-						$output.=$value."<br/>";
-					}
-					$output.='</div>';
-				}
+				
 				$output.='<div class="row-fluid">
 				<div class="span12">
-				<label>Currency Name :</label> 
+				<label>Currency Name <font color="red">*</font></label> 
 				<input name="currency_name" id="currency_name"   value="'.$values['currency_name'].'" type="text" style="width:178px;"><input type="hidden" name="hidecurrencyid" id="hidecurrencyid"   value="'.$values['hidecurrencyid'].'"/></div></div>
 				<div class="row-fluid">
 				<div class="span12">
-				<label>Currency Tocken :</label> <input name="currency_tocken" id="currency_tocken"  value="'.$values['currency_tocken'].'" type="text" style="width:60px;"></div></div>
-
-
-				<div class="row-fluid">
-				<div class="span12">
-				<label>Country :</label> '.$countrylist.'</div></div>
-
+				<label>Currency Tocken <font color="red">*</font></label> <input name="currency_tocken" id="currency_tocken"  value="'.$values['currency_tocken'].'" type="text" style="width:60px;"></div></div>
 
 				<div class="row-fluid">
 				<div class="span12">
-				<label>Currency Code :</label> '.$currencycode.'</div></div>
-
-
-				<div class="row-fluid">
-				<div class="span12">
-				<label>Conversion Rate :</label>
+				<label>Conversion Rate <font color="red">*</font></label>
 
 				<input name="conversion_rate" id="conversion_rate"   value="'.$values['conversion_rate'].'" type="text" style="width:178px;">
 
-				</div></div>
+				</div></div>	
+				<div class="row-fluid">
+				<div class="span12">
+				<label>Country </label> '.$countrylist.'</div></div>
 
 
 				<div class="row-fluid">
 				<div class="span12">
-				<label>Status Enable :</label>
+				<label style="margin-top:10px">Currency Code </label> '.$currencycode.'</div></div>
+
+
+				
+
+
+				<div class="row-fluid">
+				<div class="span12">
+				<label  style="margin-top:10px">Status Enable :</label>
 
 				<input  name="taxratestatus" id="taxratestatus" type="checkbox" value="1" '.(($values['status']==1) ? ' checked="checked" ' : '' ).'></div></div>
 
