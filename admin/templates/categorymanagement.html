@@ -26,6 +26,8 @@
 <script type="text/javascript" language="javascript">
 function callContent(value)
 {	
+
+	
 	var url= "?do=managecategory&action=preview&id="+value;
 	ajax(url,'htmlPreview');
 	document.getElementById('prev').style.display='block';
@@ -146,7 +148,7 @@ $(document).ready(function (){
 
 													<div class="row-fluid" style="display:none" id='attribContainer'>
 														<div class="span12"><label>
-															Sub category Special Attributes </label>
+															Category Special Attributes </label>
 															<AJDF:output>$attrib</AJDF:output></div>
 														</div>
 														<div class="row-fluid" >
@@ -167,7 +169,13 @@ $(document).ready(function (){
 
 	
 })
+$(document).ready(function (){
+	$("#Attributecat").on('change', function() {
+ 	document.getElementById('attribContainer').style.display='block';
+});
 
+	
+})
 </script>
 												<AJDF:output>include file="footer.html"</AJDF:output>
 												<script>

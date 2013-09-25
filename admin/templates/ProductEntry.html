@@ -68,13 +68,14 @@ function assignSubCat(id)
 
 	if(id!='')
 	{
-
-		document.getElementById('subcat').value=id;
-
-		var url='?do=productentry&action=displaySubUnderCategory&id='+ id;
-		ajax(url,'subcatsunder');
-		var url1='?do=productentry&action=displayAttributes&id='+ id;
-		ajax(url1,'attributes');
+		$.ajax({
+		url:'?do=productentry&action=displayAttributes',
+		data: 'id='+id,
+		type: 'GET',
+		success: function (resp) {
+		document.getElementById('attributes').innerHTML=resp;
+		}
+		});
 
 	}
 }

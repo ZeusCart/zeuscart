@@ -56,7 +56,7 @@ class Core_Settings_CCategoryManagement
 	{
 	
 
-		$output='<select name="category" class="span4"><option value="0">No parent</option>';
+		$output='<select name="category" class="span4" id="Attributecat"><option value="0">No parent</option>';
 // 
 // 		$sql = "SELECT * FROM category_table WHERE category_parent_id='0'" ;
 // 		$cquery = new Bin_Query();
@@ -85,8 +85,7 @@ class Core_Settings_CCategoryManagement
 // 
 // 		}
 // 
-
-		
+	
 				
 		$sql = "SELECT * FROM category_table WHERE category_parent_id='0'" ;
 		$cquery = new Bin_Query();
