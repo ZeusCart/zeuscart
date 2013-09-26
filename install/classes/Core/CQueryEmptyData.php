@@ -533,7 +533,7 @@ class Core_CQuery
 		`location` varchar(100) NOT NULL,
 		`footercontent` text NOT NULL,
 		PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;";
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 		$result=mysql_query($sql);
 		
 
