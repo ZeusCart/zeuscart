@@ -58,7 +58,7 @@ class Model_MAddAttributeValues
 			
 			$output['showattributevalues']=$default->showAttributeValues();
 			 
-			Bin_Template::createTemplate('addattributevalues.html',$output);	
+			Bin_Template::createTemplate('showattributevalues.html',$output);	
 			UNSET($_SESSION['successmsg']);
 		}
 		else
@@ -69,8 +69,9 @@ class Model_MAddAttributeValues
 		}		
 		
 	}
-	function showAddAttributeValue()
+	function showAddAttributeValues()
 	{
+
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Model/MSiteStatistics.php');
 				
@@ -83,9 +84,9 @@ class Model_MAddAttributeValues
 			$default = new Core_Settings_CAddAttributeValues();
 			$output['msg']=$Err->messages;
 			$output['val']=$Err->values;	
-			
-			$output['allatt']=$default->getAttribListValues();
-			Bin_Template::createTemplate('addattributevalues_new.html',$output);	
+
+			$output['allatt']=$default->getAttribListValues($Err);
+			Bin_Template::createTemplate('addattributevalues.html',$output);	
 			
 		}
 		else
@@ -105,18 +106,19 @@ class Model_MAddAttributeValues
 	 */
 	
 	
-	function addAttributeValues()
+	function insertAttributeValues()
 	{
 
 
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Model/MSiteStatistics.php');
-		include('classes/Lib/CheckInputs.php');		
+			
 		$output=Model_MSiteStatistics::siteStatistics();
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
 			include("classes/Core/Settings/CAddAttributeValues.php");
+			include('classes/Lib/CheckInputs.php');	
 			$obj = new Lib_CheckInputs('addattributevalues');
 		
 			$default = new Core_Settings_CAddAttributeValues();
@@ -140,7 +142,7 @@ class Model_MAddAttributeValues
 	 * @return array
 	 */
 	
-	function displayAttributeValues()
+	function showEditAttributeValues()
 	{
 
 
@@ -182,7 +184,7 @@ class Model_MAddAttributeValues
 	 * @return array
 	 */
 	
-	function editAttributeValues()
+	function updateAttributeValues()
 	{
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Model/MSiteStatistics.php');

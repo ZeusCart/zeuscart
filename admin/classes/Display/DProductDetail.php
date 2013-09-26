@@ -66,8 +66,9 @@ class Display_DProductDetail
 	 * @param integer $reviewCount
 	 * @return string
 	 */	
-	function productDetail($arr,$rating,$reviewCount)
+	function productDetail($arr,$rating,$reviewCount,$recordsAttri)
 	{
+
 		//$output .= '<table border="1" width="100%">';
 		//$output.='<th>S.no.</th><th width="100%">Product Name</th><th>Image</th>';
 		//print_r($arr[0]['price']);
@@ -126,20 +127,20 @@ class Display_DProductDetail
 		
 		<p class="formSep"><table width="100%" border="0">
 				<tbody><tr>
-				<td align="left" valign="top"><span>SKU: '.$arr[0]['sku'].'</span></td>
+				<td align="left" valign="top"><span>SKU : '.$arr[0]['sku'].'</span></td>
 				
 				</tr>
 				</tbody></table> </p>
 
 		<p class="formSep"><table width="100%" border="0">
 				<tbody><tr>
-				<td align="left" valign="top"><span>Price: <font color="red">'.$_SESSION['currency']['currency_tocken'].number_format($arr[0]['price'],2).'</font></span></td>
+				<td align="left" valign="top"><span>Price : <font color="red">'.$_SESSION['currency']['currency_tocken'] .number_format($arr[0]['price'],2).'</font></span></td>
 				
 				</tr>
 				</tbody></table></p>
 		<p class="formSep"><table width="100%" border="0">
 				<tbody><tr>
-				<td align="left" valign="top"><span>MSRP: <font color="red">'.$_SESSION['currency']['currency_tocken'].number_format($arr[0]['msrp'],2).'</font></span></td>
+				<td align="left" valign="top"><span>MSRP : <font color="red">'.$_SESSION['currency']['currency_tocken'] .number_format($arr[0]['msrp'],2).'</font></span></td>
 				
 				</tr>
 				</tbody></table></p>';
@@ -148,7 +149,7 @@ class Display_DProductDetail
 			{
 				$output.=' <p class="formSep"><table width="100%" border="0">
 				<tbody><tr>
-				<td align="left" valign="top"><span>Availability: In stock.</span></td>
+				<td align="left" valign="top"><span>Availability :  <span class="label label-info">In stock</span></span></td>
 				
 				</tr>
 				</tbody></table></p>';
@@ -157,7 +158,7 @@ class Display_DProductDetail
 			{
 				$output.=' <p class="formSep"><table width="100%" border="0">
 				<tbody><tr>
-				<td align="left" valign="top"><span>Availability: Out stock.</span></td>
+				<td align="left" valign="top"><span>Availability : <span class="label">Out stock.</span></span></td>
 				
 				</tr>
 				</tbody></table></p>';
@@ -166,7 +167,7 @@ class Display_DProductDetail
 		
 		$output.='<p class="formSep"><table width="100%" border="0">
 				<tbody><tr>
-				<td align="left" valign="top"><span>Tags: '.$arr[0]['tag'].'</span></td>
+				<td align="left" valign="top"><span>Tags : '.$arr[0]['tag'].'</span></td>
 				
 				</tr>
 				</tbody></table></p>
@@ -187,10 +188,10 @@ class Display_DProductDetail
               </div>
               <div id="profile" class="tab-pane fade">
                 <p><tr>
-		<td align="left"><table width="100%" align="center" cellspacing="0" class="content_list_bdr" >
+		<td align="left"><table width="100%" align="center" cellspacing="0"  class="table table-striped">
 		
 		<tbody>
-			
+		
 			<tr>
 			<td width="23%" align="left" >Model</td>
 			<td width="77%" >'.$arr[0]['model'].'</td>
@@ -200,19 +201,31 @@ class Display_DProductDetail
 			<td width="23%" align="left" >Dimensions</td>
 			<td width="77%" >'.$arr[0]['dimension'].'</td>
 					</tr>
-		<tr >
+			<tr >
 			<td width="23%" align="left" >weight</td>
 					
 			<td >'.$arr[0]['weight'].'</td>
-		</tr> </table></td>
+			</tr>';
+			if(count($recordsAttri)>0)
+			{
+				for($k=0;$k<count($recordsAttri);$k++)
+				{
+					$output.='<tr >
+					<td width="23%" align="left" >'.$recordsAttri[$k]['attrib_name'].'</td>
+							
+					<td >'.$recordsAttri[$k]['attrib_value'].'</td>
+					</tr>';
+
+
+				}	
+
+			}
+			
+		$output.=' </table></td>
 		</tr></p>
               </div>
              
           </div>
-		
-		
-		
-		
 		  
 		';
 	 return $output;	
@@ -254,8 +267,8 @@ class Display_DProductDetail
 	 */	
 	function attributeList($arr)
 	{
-		//$output .= '<table border="0" width="">';
-		//$output.=' <td colspan="2"><h4>Special Attributes</h4></td>';
+		$output .= '<table border="0" width="">';
+		$output.=' <td colspan="2"><h4>Special Attributes</h4></td>';
 		
 		for ($i=0;$i<count($arr);$i++)
 		{

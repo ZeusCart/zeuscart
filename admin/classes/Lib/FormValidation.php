@@ -59,7 +59,9 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		else if($form=='productreg')
 			$this->validateEntry();
 		else if($form=='attributes')
-			$this->validateAttributes();	
+			$this->validateAttributes();
+		else if($form=='editattributes')
+			$this->validateEditAttributes();		
 		else if($form=='adminemail')
 			$this->validateAdminEmail();			
 		else if($form=='productupdate')
@@ -254,17 +256,24 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	{
 
 		$message = "Required Field Cannot be blank";
-		$this->Assign("attributevalues",trim($_POST['attributevalues']),"noempty",$message);
+		
+		$this->Assign("attributevalues",trim($_POST['attributevalues']),"noempty","Attribute Values - ".$message);
 
-		$this->PerformValidation("?do=addattributevalues&action=disp&id=".(int)$_GET['id']);
+		$this->PerformValidation("?do=attributevalues&action=edit&id=".(int)$_GET['id']);
 	}
 	function validateAddAttributeValues()
 	{
 
 		$message = "Required Field Cannot be blank";
-		$this->Assign("attributevalues",trim($_POST['attributevalues']),"noempty",$message);
+		if($_POST['id']=='all')
+		{
+			$this->Assign("attribute","","noempty","Attribute  - Please Select the Attribute");	
 
-		$this->PerformValidation('?do=addattributevalues&action=showadd');
+		}
+		$this->Assign("attributevalues",trim($_POST['attributevalues']),"noempty","Attribute Values - ".$message);
+		
+
+		$this->PerformValidation('?do=attributevalues&action=add');
 	}
 
 	function validateUserUpdate()
@@ -1135,15 +1144,55 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	
 	function validateAttributes()
 	{
-		$attrib[] = explode(" ",$_POST['attributes']);
+
+	
+		$message = "Required Field Cannot be blank";
 		
-		$attributes=array_merge($attrib);
+		$this->Assign("attributes",$_POST['attributes'],"noempty","Attribute Name - ".$message);
+
+		$message = "No special characters allowed";	
+		$this->Assign("attributes",$_POST['attributes'],"nospecial","Attribute Name - ".$message);
+
+		if($_POST['attributes']!='')
+		{
+			$sql = "SELECT * FROM attribute_table WHERE attrib_name ='".$_POST['attributes']."'";
+			$query = new Bin_Query();
+			if($query->executeQuery($sql))
+			{
+				$this->Assign("attributes",'',"noempty","Attribute Name - Already this Attribute is Added");
+			}
+
+		}
+		$this->PerformValidation('?do=attributes&action=add');
+	}
+	/**
+	 * Function checks the whether the attributes value  supplied has null values or not 
+	 * 		 
+	 *
+	 * @return void 
+	 */	
+	function validateEditAttributes()
+	{
+
+	
+		$message = "Required Field Cannot be blank";
 		
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
-		
-		$this->Assign("attributes",$attributes,"noempty/nonumber/nospecial''",$message);
-			
-		$this->PerformValidation('?do=addattributes');
+		$this->Assign("attributes",$_POST['attributes'],"noempty","Attribute Name - ".$message);
+
+		$message = "No special characters allowed";	
+		$this->Assign("attributes",$_POST['attributes'],"nospecial","Attribute Name - ".$message);
+
+		if($_POST['attributes']!='')
+		{
+			$sql = "SELECT * FROM attribute_table WHERE attrib_name ='".$_POST['attributes']."' AND attrib_id !=".(int)$_GET['id'];
+			$query = new Bin_Query();
+			if($query->executeQuery($sql))
+			{
+				$this->Assign("attributes",'',"noempty","Attribute Name - Already this Attribute is Added");
+			}
+
+		}
+		$this->PerformValidation('?do=attributes&action=edit&id='.$_GET['id']);
 	}
 	/**
 	 * Function checks the whether the login process  parameter  supplied has null values or not 

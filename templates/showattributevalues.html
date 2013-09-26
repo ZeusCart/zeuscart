@@ -1,0 +1,144 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+
+  <div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Attributes Values</h2>
+    </div>
+     <div class="span3" >
+
+      <ul class="bttn_right">
+            <li>
+              <a href="?do=attributevalues&action=add" class="add_icon1"  id="saveAttributevalue"></a> </li>
+              <li><a href="#myModal" data-toggle="modal"  class="delete_icon1"  id="attributevalueDelete"></a>
+                 </li>
+                   
+                        </ul>
+
+    </div>
+
+  </div>
+</div>
+   
+
+ <AJDF:output>if $smarty.session.successmsg ne ''</AJDF:output>
+               <div class="alert alert-success">
+             			 <button type="button" class="close" data-dismiss="alert">×</button> 
+                <AJDF:output>$smarty.session.successmsg</AJDF:output>
+           
+            </div>
+            <AJDF:output>/if</AJDF:output>
+<form name="formattribval" action="?do=attributevalues&action=delete" id="attributeValueId"  method="post" >
+  <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">
+    <AJDF:output>$showattributevalues</AJDF:output>
+  </div></div>
+  </form>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Are you sure to delete the Attribute values?</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<a href="javascript:void(0);" id="deleteAttributevalue" class="btn btn-primary" >Save changes</a>
+</div>
+</div>
+
+<div id="deletealert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Alert</h3>
+</div>
+<div class="modal-body">
+<p>Please select one checkbox</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+</div>
+</div>
+
+
+
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+<script type="text/javascript" language="javascript">
+
+ $(document).ready(function (){
+
+$('#attributevalueDelete').click(function () {
+
+var countvalue=$('input:checkbox:checked').length;
+  
+
+  if(countvalue=='0')
+  {
+    $('#deletealert').modal('show');
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+
+
+});
+
+$('#deleteAttributevalue').live('click',function(){
+  $('#attributeValueId').submit();
+});
+
+
+
+});
+
+
+
+
+function toggleChecked(status) {
+$(".chkbox").each( function() {
+$(this).attr("checked",status);
+})
+}
+
+function  callattribvalues(id)
+{
+	//alert(id);
+	if(confirm("Are you sure want to Delete?"))
+	{
+		window.location = "?do=attributevalues&action=delete&id="+id;
+	}
+	document.formmaincat.mainindex.value=id;
+
+	//document.formsubcat.submit();
+}
+function edit(id)
+{
+ 
+
+	window.location= "?do=attributevalues&action=disp&id="+id;
+}
+</script>

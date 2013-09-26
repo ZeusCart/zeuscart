@@ -72,7 +72,7 @@ class Display_DAttributeSelection
 			$output .= '<tr>
 			<td><input type="checkbox" name="attributeCheck[]" class="chkbox" value="'.$arr[$i]['attrib_id'].'"></td>
 			<td align="left">'.($val+1).'</td>
-			<td align="left"><a href="?do=addattributes&action=disp&id='.$arr[$i]['attrib_id'].'">'.$arr[$i]['attrib_name'].'</a></td>';
+			<td align="left"><a href="?do=attributes&action=edit&id='.$arr[$i]['attrib_id'].'">'.$arr[$i]['attrib_name'].'</a></td>';
 		
 			//$output.='<td align="center" '.$classtd.'><input type="button" class="edit_bttn" name="Edit"  title="Edit" value="" onclick=edit('.$arr[$i]['attrib_id'].') />&nbsp;&nbsp;<input type="button" name="Delete" class="delete_bttn" title="Delete" value="" onclick=callattribs('.$arr[$i]['attrib_id'].') /></td></tr>';
 			$val++;
@@ -102,16 +102,17 @@ class Display_DAttributeSelection
 	 * @param array $arr
 	 * @return string
 	 */
-	function displayAttributes($arr)
-	{
+	function displayAttributes($arr,$Err)
+	{	
 		$output = "";
 		for ($i=0;$i<count($arr);$i++)
 		{
-			$output.='<form name="formsubcatedit" id="updateAttribute" action="?do=addattributes&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
+			
+			$output.='<form name="formsubcatedit" id="updateAttribute" action="?do=attributes&action=update&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
 			<div class="row-fluid">
-  <div class="span6">
-			 <label>Attribute </label>
-			 <input type="text" class="txt_box200" name="attributes" id="attrib" value="'.$arr[0]['attrib_name'].'" /></div></div>
+			 <div class="span6">
+			 <label>Attribute Name  <font color="red">*</font>  </label>
+			 <input type="text"  name="attributes" id="attrib" value="'.$arr[0]['attrib_name'].'" class="span8"/></div></div>
 			</form>';
 
 		}

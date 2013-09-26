@@ -93,28 +93,27 @@ class Core_Settings_CAddAttributes
 		
 		if($_POST['attributes']!=='')
 		{
-			$sql = "SELECT * FROM attribute_table WHERE attrib_name ='".$_POST['attributes']."'";
-			$query = new Bin_Query();
-			if($query->executeQuery($sql))
-			{
-				return '<div class="alert alert-error">
-              <button type="button" class="close" data-dismiss="alert">×</button> Already this Attribute is Added</div>';
-			}
-			else
-			{
+			
 				$sql = "INSERT INTO attribute_table (attrib_name) VALUES ('".$_POST['attributes']."')";
 				
 				$query = new Bin_Query();
 				if($query->updateQuery($sql))
 				{
-					return '<div class="alert alert-success">
-              <button type="button" class="close" data-dismiss="alert">×</button> Attribute <b>'.$_POST['attributes'].'</b> Added Successfully</div>';
+					$_SESSION['attribmsg']='<div class="alert alert-success">
+              				<button type="button" class="close" data-dismiss="alert">×</button> Attribute <b>'.$_POST['attributes'].'</b> Added Successfully</div>';
+	
+					header('Location:?do=attributes');
 				}
-			}
+		
 		}
 		else
-			return '<div class="alert alert-error">
-              <button type="button" class="close" data-dismiss="alert">×</button> Please Enter Attribute Name</div>';
+		{
+
+			$_SESSION['attribmsg']='<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button> Please Enter Attribute Name</div>';
+			header('Location:?do=attributes&action=add');
+			
+		}
 	}
 	/**
 	 * Function displays the attributes for updation from the table 
@@ -122,8 +121,8 @@ class Core_Settings_CAddAttributes
 	 * 
 	 * @return string
 	 */	 	
-	function displayAttributes()
-    {
+	function displayAttributes($Err)
+        {
 		include("classes/Display/DAddAttributes.php");
        
 		$sql = "SELECT * FROM attribute_table where attrib_id=".(int)$_GET['id'];
@@ -131,12 +130,12 @@ class Core_Settings_CAddAttributes
 		if($query->executeQuery($sql))
 		{		
 			
-			return  Display_DAttributeSelection::displayAttributes($query->records);
+			return  Display_DAttributeSelection::displayAttributes($query->records,$Err);
 		}
 		else
 		{
 			return '<div class="alert alert-error">
-              <button type="button" class="close" data-dismiss="alert">×</button> Attributes Not Found</div>';
+             		 <button type="button" class="close" data-dismiss="alert">×</button> Attributes Not Found</div>';
 		}
 	}
 	/**
@@ -145,21 +144,43 @@ class Core_Settings_CAddAttributes
 	 * 
 	 * @return string
 	 */	 	
-	function editAttributes()
+	function updateAttributes()
 	{
-		$sql = "UPDATE attribute_table SET attrib_name = '".$_POST['attributes']."' WHERE attrib_id =".(int)$_GET['id'];
+
 			
-		$query = new Bin_Query();
-		if($query->updateQuery($sql))
+		if($_POST['attributes']!=='')
 		{
-			return '<div class="alert alert-success">
-              <button type="button" class="close" data-dismiss="alert">×</button> Updated <b>'.$_POST['attributes'].'</b> Successfully</div>';
-		}
+			
+	
+			$sql = "UPDATE attribute_table SET attrib_name = '".$_POST['attributes']."' WHERE attrib_id =".(int)$_GET['id'];
+				
+			$query = new Bin_Query();
+			if($query->updateQuery($sql))
+			{
+				$_SESSION['attribmsg']='<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">×</button> Updated <b>'.$_POST['attributes'].'</b> Successfully</div>';
+	
+				header('Location:?do=attributes');
+				
+			}
+			else
+			{
+				$_SESSION['attribmsg']='<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button> Not Edited</div>';
+	
+				header('Location:?do=attributes');
+				
+			}
+			
+		}	
 		else
 		{
-			return '<div class="alert alert-error">
-              <button type="button" class="close" data-dismiss="alert">×</button> Not Edited</div>';
-		}	
+
+			$_SESSION['attribmsg']='<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button> Please Enter Attribute Name</div>';
+			header('Location:?do=attributes&action=edit&id='.$_GET['id']);
+			
+		}
 	}
 	
 	/**
@@ -185,12 +206,12 @@ class Core_Settings_CAddAttributes
 			if($query->updateQuery($sql))
 			{
 				$result='<div class="alert alert-success">
-              <button type="button" class="close" data-dismiss="alert">×</button> Deleted Successfully</div>';
+            		  <button type="button" class="close" data-dismiss="alert">×</button> Deleted Successfully</div>';
 			}
 			else
 			{
 				$result='<div class="alert alert-error">
-              <button type="button" class="close" data-dismiss="alert">×</button> Not Deleted</div>';
+              		<button type="button" class="close" data-dismiss="alert">×</button> Not Deleted</div>';
 			}
 		}
 

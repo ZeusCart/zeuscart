@@ -43,7 +43,7 @@
 	
 		if((count($result))>0)
 		{
-		   	 $output='<select name="selcatgory[]" id="selcatgory"  style="width: 292px;height:150px" multiple><option value="Choose Category">Choose Category</option>';	
+		   	 $output='<select name="selcatgory[]" id="selcatgory"  style="width: 292px;height:150px" multiple onclick="assignSubCat(this.value);"><option value="Choose Category">Choose Category</option>';	
 		
 			for($k=0;$k<count($result);$k++)
 			{
@@ -396,7 +396,7 @@
 	 */	
 	function displayAttributes($result)
 	{
-		
+
 		$cnt=count($result);
 		
 		$output='<table border="0" width="80%" cellpadding="4" cellspacing="4" align="center">';

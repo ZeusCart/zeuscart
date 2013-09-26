@@ -93,10 +93,20 @@ class Core_CProductDetail
 			$rating=$this->reviewRating();
 			$reviewcount=$this->reviewCount();
 			$count=$reviewcount[0]['review'];
+
+
+			$sqlAttri= "SELECT attrib_name, attrib_value 
+			FROM `attribute_value_table` av, attribute_table at
+			WHERE av.attrib_id = at.attrib_id AND av.attrib_value_id IN (SELECT attrib_value_id 
+			FROM product_attrib_values_table
+			WHERE product_id =".(int)$_GET['prodid'].')';			
+			$queryAttri = new Bin_Query();
+			$queryAttri->executeQuery($sqlAttri);
+			$recordsAttri=$queryAttri->records;
 			
 			if($query->executeQuery($sql))
 			{		
-				return  Display_DProductDetail::productDetail($query->records,$rating,$count);
+				return  Display_DProductDetail::productDetail($query->records,$rating,$count,$recordsAttri);
 			}
 			else
 			{
@@ -115,9 +125,18 @@ class Core_CProductDetail
 			$rating=$this->reviewRating();
 			$reviewcount=$this->reviewCount();
 			
+			$sqlAttri= "SELECT attrib_name, attrib_value 
+			FROM `attribute_value_table` av, attribute_table at
+			WHERE av.attrib_id = at.attrib_id AND av.attrib_value_id IN (SELECT attrib_value_id 
+			FROM product_attrib_values_table
+			WHERE product_id =".(int)$_GET['prodid'].')';			
+			$queryAttri = new Bin_Query();
+			$queryAttri->executeQuery($sqlAttri);
+			$recordsAttri=$queryAttri->records;
+
 			if($query->executeQuery($sql))
 			{		
-				return  Display_DProductDetail::productDetail($query->records,$rating,$reviewCount);
+				return  Display_DProductDetail::productDetail($query->records,$rating,$reviewCount,$recordsAttri);
 			}
 			else
 			{

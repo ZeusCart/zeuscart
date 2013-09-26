@@ -41,7 +41,7 @@ class Core_Settings_CAddAttributeValues
 	 * @return string
 	 */
 	
-	function getAttribListValues() //$name
+	function getAttribListValues($Err) //$name
 	{
 		include("classes/Display/DAddAttributeValues.php");
 		
@@ -52,7 +52,7 @@ class Core_Settings_CAddAttributeValues
 		{
 			$records = $cquery->records;
 		}	
-		return 	Display_DAttributeValueSelection::getAttribListValues($records,$attribname);
+		return 	Display_DAttributeValueSelection::getAttribListValues($records,$attribname,$Err);
 		
 	}
 	
@@ -125,32 +125,19 @@ class Core_Settings_CAddAttributeValues
 	
 	function addAttributeValues()
 	{
-		if($_POST['id']!=='all')
+		
+		if($_POST['attributevalues']!=='' )
 		{
-			if($_POST['attributevalues']!=='' )
-			{
-				$sql = "INSERT INTO attribute_value_table (attrib_id,attrib_value) VALUES ('".$_POST['id']."','".$_POST['attributevalues']."')";
-					
-				$query = new Bin_Query();
-				if($query->updateQuery($sql))
-					$_SESSION['successmsg']='Attribute Values <b>'.$_POST['attributevalues'].'</b> Added Successfully';
-					header('Location:?do=addattributevalues');
-					exit;
-			}			
-			else
-			{
-				$_SESSION['errmsg']=' Please Enter the Attribute Values';
-				header('Location:?do=addattributevalues&action=add');
+			$sql = "INSERT INTO attribute_value_table (attrib_id,attrib_value) VALUES ('".$_POST['id']."','".$_POST['attributevalues']."')";
+				
+			$query = new Bin_Query();
+			if($query->updateQuery($sql))
+				$_SESSION['successmsg']='Attribute Values <b>'.$_POST['attributevalues'].'</b> Added Successfully';
+				header('Location:?do=attributevalues');
 				exit;
-			}		
-		}
-		else
-		{
-			$_SESSION['errmsg']=' Please Select the Attribute ';
-				header('Location:?do=addattributevalues&action=add');
-				exit;
-			
-		}
+		}			
+				
+	
 	}
 	
 	/**
@@ -177,8 +164,7 @@ class Core_Settings_CAddAttributeValues
 			return '<div class="alert alert-error">
              		 <button type="button" class="close" data-dismiss="alert">×</button> No Attribute Values Found</div>';
 		}
-		//$this->makeconstant($this->data);
-		
+			
    	}
 	
 	/**
@@ -196,7 +182,7 @@ class Core_Settings_CAddAttributeValues
 		$query = new Bin_Query();
 		if($query->updateQuery($sql))
 		$_SESSION['successmsg']=' Attribute Value <b> '.$_POST['attributevalues'].'</b> Updated Successfully';
-		header('Location:?do=addattributevalues');
+		header('Location:?do=attributevalues');
 		exit;
 	}
 	

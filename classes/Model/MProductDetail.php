@@ -148,6 +148,8 @@ class Model_MProductDetail
 		$default=new Core_CProductDetail();
 		$output['product']=$default->productDetail();
 // 		$output['pageinfo']=$default->pageInfo();
+		$output['attributes']=$default->attributeList();
+
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['cartcount']=Core_CAddCart::countCart();
 		

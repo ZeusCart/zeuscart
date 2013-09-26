@@ -51,10 +51,7 @@ class Model_MAddAttributes
 	
 	function showAttributes()
 	{
-		include("classes/Lib/HandleErrors.php");
-		$output['val']=$Err->values;
-		$output['msg']=$Err->messages;
-		
+			
 		include('classes/Core/CRoleChecking.php');
 		
 		$chkuser=Core_CRoleChecking::checkRoles();
@@ -67,7 +64,9 @@ class Model_MAddAttributes
 			
 			$output=Model_MSiteStatistics::SiteStatistics();
 			$output['showattributes']=$default->showAttributes($Err);
-			Bin_Template::createTemplate('addattributes.html',$output);	
+			$output['attribmsg']=$_SESSION['attribmsg'];
+			Bin_Template::createTemplate('addattributes.html',$output);
+			UNSET($_SESSION['attribmsg']);	
 		}
 		else
 		{
@@ -84,22 +83,27 @@ class Model_MAddAttributes
 	 * @return array
 	 */
 	
-	function addAttributes()
+	function showAddAttributes()
 	{
-
-		include('classes/Lib/CheckInputs.php');
 		include('classes/Core/CRoleChecking.php');
+		include("classes/Lib/HandleErrors.php");
+		$output['val']=$Err->values;
+		$output['msg']=$Err->messages;
 		
-		$obj = new Lib_CheckInputs('attributes');
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
 		if($chkuser)
 		{
 			include("classes/Core/Settings/CAddAttributes.php");
+			include('classes/Core/CAdminHome.php');
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');
 			$default = new Core_Settings_CAddAttributes();
 			
 			$output['showattributes']=$default->showAttributes($Err);
+			
 			Bin_Template::createTemplate('addAttributename.html',$output);	
+			
 		}
 		else
 		{
@@ -118,19 +122,19 @@ class Model_MAddAttributes
 	 */
 	function insertAttributes()
 	{
-		include('classes/Lib/CheckInputs.php');
+
 		include('classes/Core/CRoleChecking.php');
-		
-		$obj = new Lib_CheckInputs('attributes');
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
 		if($chkuser)
-		{
+		{	
 			include("classes/Core/Settings/CAddAttributes.php");
+			include('classes/Lib/CheckInputs.php');
+	
+			$obj = new Lib_CheckInputs('attributes');
 			$default = new Core_Settings_CAddAttributes();
-			$output['attribmsg']=$default->addAttributes();
-			$output['showattributes']=$default->showAttributes($Err);
-			Bin_Template::createTemplate('addattributes.html',$output);	
+			$default->addAttributes();
+
 		}
 		else
 		{
@@ -148,23 +152,30 @@ class Model_MAddAttributes
 	 * 
 	 * @return array
 	 */
-	
-	
-	function displayAttributes()
+	function showEditAttributes()
 	{
+
 		include('classes/Core/CRoleChecking.php');
-		include("classes/Core/Settings/CAddAttributes.php");		
-		include('classes/Model/MSiteStatistics.php');
-			
-		$output=Model_MSiteStatistics::SiteStatistics();
+		
 		$chkuser=Core_CRoleChecking::checkRoles();
 		
 		if($chkuser)
 		{
-			$default = new Core_Settings_CAddAttributes();
+		
+			include("classes/Lib/HandleErrors.php");
+			include("classes/Core/Settings/CAddAttributes.php");		
+			include('classes/Model/MSiteStatistics.php');
+			
+			$output=Model_MSiteStatistics::SiteStatistics();
+			$output['val']=$Err->values;
+			$output['msg']=$Err->messages;
+			
+			$default = new Core_Settings_CAddAttributes();			
 			$output['customers']=Core_CAdminHome::getCustomers();
-			$output['dispattributes']=$default->displayAttributes();
-			Bin_Template::createTemplate('editattributes.html',$output);	
+			$output['dispattributes']=$default->displayAttributes($Err);
+			
+			Bin_Template::createTemplate('editattributes.html',$output);
+					
 		}
 		else
 		{
@@ -183,8 +194,9 @@ class Model_MAddAttributes
 	 */
 	
 	
-	function editAttributes()
+	function updateAttributes()
 	{
+
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Model/MSiteStatistics.php');
 		
@@ -194,10 +206,12 @@ class Model_MAddAttributes
 		if($chkuser)
 		{
 			include("classes/Core/Settings/CAddAttributes.php");
+			include('classes/Lib/CheckInputs.php');
+			$obj = new Lib_CheckInputs('editattributes');
+
 			$default = new Core_Settings_CAddAttributes();
-			$output['attribmsg']=$default->editAttributes();
-			$output['showattributes']=$default->showAttributes($Err);
-			Bin_Template::createTemplate('addattributes.html',$output);	
+			$default->updateAttributes();
+			
 		}
 		else
 		{
@@ -240,30 +254,7 @@ class Model_MAddAttributes
 					
 	}
 
-	function addAttibutename()
-	{
-		include('classes/Core/CRoleChecking.php');
-		include('classes/Model/MSiteStatistics.php');
-		
-		$output=Model_MSiteStatistics::SiteStatistics();
-		$chkuser=Core_CRoleChecking::checkRoles();
-		
-		if($chkuser)
-		{
-			include("classes/Core/Settings/CAddAttributes.php");
-			$default = new Core_Settings_CAddAttributes();
-			$output['attribmsg']=$default->deleteAttributes();
-			$output['showattributes']=$default->showAttributes($Err);
-			Bin_Template::createTemplate('addAttributename.html',$output);	
-		}
-		else
-		{
-		 	$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
-			Bin_Template::createTemplate('Errors.html',$output);
-			
-		}	
-		
-	}
+	
 
 }
 ?>

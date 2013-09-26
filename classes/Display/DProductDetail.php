@@ -95,7 +95,6 @@ class Display_DProductDetail
 	function productDetail($arr,$diffrate,$features,$rating,$breadCrumb,$reviewCount,$reviewArr,$imgArr,$tierArr,$relArr)
 	{
 
-
 		// category name selection
 		$sql="SELECT * FROM category_table WHERE category_id ='".$arr[0]['category_id']."'";
 		$obj=new Bin_Query();
@@ -187,7 +186,9 @@ class Display_DProductDetail
 				<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['msrp'].'</h1></td>
 				</tr>
 				</table></li>
-						<li><h2>Quick Overview:</h2><p>This midi dress has been made from stretch jersey. The details include: a scoop neckline and sleeveless styling with an open back and latticed deatiling. The dress has been cut with a bodycon fit.</p></li>
+						<li><h2>Quick Overview:</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci
+
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.</p></li>
 				<li>
 				<table width="100%" border="0">
 		<tr>';
@@ -352,22 +353,36 @@ class Display_DProductDetail
  	*/
 	function attributeList($arr)
 	{
-		for ($i=0;$i<count($arr);$i++)
+
+		if($arr!='')
 		{
-			if($i % 2 == 0)
+			$output.='<table id="rt1" class="rt cf">
+				<thead class="cf">
+				<tr>
+				<th colspan="2">Additional Information</th>
+					
+				</tr>
+				</thead>';
+	
+			for ($i=0;$i<count($arr);$i++)
 			{
-				$classval = 'class="odd"';
-				$classtd='class="label"';
-			}	
-			else
-			{
-				$classval = 'class="even"';
-				$classtd='class="label"';
-			}	
+				if($i % 2 == 0)
+				{
+					$classval = 'class="odd"';
 				
-			$output .= '<tr '.$classval.'><td '.$classtd.'>'.$arr[$i]['attrib_name'].'</td><td '.$classval.'>'.$arr[$i]['attrib_value'].'</a></td></tr>';
+				}	
+				else
+				{
+					$classval = 'class="even"';
+					
+				}	
+					
+				$output.= '<tr '.$classval.'><td  width="50%">'.$arr[$i]['attrib_name'].'</td><td '.$classval.'>'.$arr[$i]['attrib_value'].'</a></td></tr>';
+			}
+				$output.= '</tbody></table></td><tr><td width="3%" >&nbsp;</td></tr></table>';
+
 		}
-			$output .= '</tbody></table></td><tr><td width="3%" >&nbsp;</td></tr></table>';
+
 			return $output;	
 	}
 	

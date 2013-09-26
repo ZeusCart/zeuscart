@@ -149,20 +149,25 @@
         <do name="addsubcategory" model="MAddSubCategory" action="edit" function="editSubCategory"/>
         <do name="addsubcategory" model="MAddSubCategory" action="delete" function="deleteSubCategory"/>
          
-        <do name="addattributes" model="MAddAttributes" function="showAttributes"/> 
-        <do name="addattributes" model="MAddAttributes" action="add" function="addAttributes"/> 
-	<do name="addattributes" model="MAddAttributes" action="insert" function="insertAttributes"/> 
-		<do name="addattributes" model="MAddAttributes" action="disp" function="displayAttributes"/> 
-		<do name="addattributes" model="MAddAttributes" action="edit" function="editAttributes"/>
-		<do name="addattributes" model="MAddAttributes" action="delete" function="deleteAttributes"/>
-		
-        <do name="addattributevalues" model="MAddAttributeValues" function="showAttributeValues"/> 
 	
-	<do name="addattributevalues" model="MAddAttributeValues" action="showadd" function="showAddAttributeValue"/>	
-        <do name="addattributevalues" model="MAddAttributeValues" action="add" function="addAttributeValues"/>	
-	<do name="addattributevalues" model="MAddAttributeValues" action="disp" function="displayAttributeValues"/>	
-		<do name="addattributevalues" model="MAddAttributeValues" action="edit" function="editAttributeValues"/>	
-	<do name="addattributevalues" model="MAddAttributeValues" action="delete" function="deleteAttributeValues"/>		
+	-----------------------------Attributes------------------------------------
+	
+	<do name="attributes" model="MAddAttributes" function="showAttributes"/> 
+	<do name="attributes" model="MAddAttributes" action="add" function="showAddAttributes"/> 
+	<do name="attributes" model="MAddAttributes" action="insert" function="insertAttributes"/> 
+	<do name="attributes" model="MAddAttributes" action="edit" function="showEditAttributes"/> 
+	<do name="attributes" model="MAddAttributes" action="update" function="updateAttributes"/>
+	<do name="attributes" model="MAddAttributes" action="delete" function="deleteAttributes"/>
+		
+	<do name="attributevalues" model="MAddAttributeValues" function="showAttributeValues"/> 
+	
+	<do name="attributevalues" model="MAddAttributeValues" action="add" function="showAddAttributeValues"/>	
+	<do name="attributevalues" model="MAddAttributeValues" action="insert" function="insertAttributeValues"/>	
+	<do name="attributevalues" model="MAddAttributeValues" action="edit" function="showEditAttributeValues"/>	
+	<do name="attributevalues" model="MAddAttributeValues" action="update" function="updateAttributeValues"/>	
+	<do name="attributevalues" model="MAddAttributeValues" action="delete" function="deleteAttributeValues"/>	
+	
+	
         
 		<do name="skin" model="MSkin" function="showSkin" />
  		<do name="skin" model="MSkin" action="add" function="addSkin"/>

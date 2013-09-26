@@ -263,6 +263,7 @@ class Core_Settings_CCategoryManagement
 	function addCategory()
 	{
 
+
 		$imagetypes=array ('image/jpeg' ,'image/pjpeg' , 'image/bmp' , 'image/gif' , 'image/png','image/x-png');
 		$query = new Bin_Query();
 		
@@ -325,28 +326,43 @@ class Core_Settings_CCategoryManagement
 						 $sql = "INSERT INTO category_table (category_name,category_parent_id,category_image,category_desc,category_status,category_content_id,count) VALUES ('".trim($_POST['categoryname'])."','".$categoryparent."','".$caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."','".$count."')"; 
 						$query->updateQuery($sql);
 						
-						$subcategorypathid=mysql_insert_id();
+						$catinsertid=mysql_insert_id();
 
 
 						if($_POST['category']=='0')
 						{
-							$subcategorypath=$subcategorypathid;
+							$subcategorypath=$catinsertid;
 						}
 						else
 						{
-							$subcategorypath=$path.','.$subcategorypathid;	
+							$subcategorypath=$path.','.$catinsertid;	
 	
 						}
 								
 						$sqlSub="UPDATE category_table SET subcat_path='".$subcategorypath."'
-						WHERE category_id='".$subcategorypathid."'"; 
+						WHERE category_id='".$catinsertid."'"; 
 						$objSub=new Bin_Query();
 						if($objSub->updateQuery($sqlSub))
-						return '<div class="alert alert-success">
-						<button type="button" class="close" data-dismiss="alert">×</button> Category Added Successfully</div>' ;
-										else
-											return '<div class="alert alert-error">
-						<button type="button" class="close" data-dismiss="alert">×</button> Error while adding the category </div>';
+						{
+							
+							$temparray = array();
+							$temparray = $_POST['attributes'];
+							$cnt=count($temparray);
+							if($cnt > 0)								
+							for($i=0;$i<$cnt;$i++)
+							{
+								$sql = "INSERT INTO category_attrib_table (subcategory_id,attrib_id) values('".$catinsertid."','".$temparray[$i]."') ";
+								$query->updateQuery($sql);
+							}	
+							return '<div class="alert alert-success">
+							<button type="button" class="close" data-dismiss="alert">×</button> Category Added Successfully</div>' ;
+
+						}
+						else
+						{
+							return '<div class="alert alert-error">
+							<button type="button" class="close" data-dismiss="alert">×</button> Error while adding the category </div>';
+						}
 					
 				}
 					

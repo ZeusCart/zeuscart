@@ -55,6 +55,8 @@ class Lib_CheckInputs
 			$this->validateEntry();
 		else if($module=='attributes')
 			$this->validateAttributes();
+		else if($module=='editattributes')
+			$this->validateEditAttributes();
 		else if($module=='adminemail')
 			$this->validateAdminEmail();
 		else if($module=='productupdate')
@@ -200,7 +202,6 @@ class Lib_CheckInputs
 	function validateAddAttributeValues()
 	{
 
-
 		include('classes/Lib/FormValidation.php');
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
@@ -212,7 +213,7 @@ class Lib_CheckInputs
 			}
 			else 
 			{
-				header("Location:?do=addattributevalues&action=showadd");
+				header("Location:?do=attributevalues&action=add");
 				exit();
 			}
 
@@ -656,7 +657,7 @@ class Lib_CheckInputs
 			}
 		}
 	}
-		/**
+	/**
 	 * Function checks whether the request method is post and invokes the validation module  
 	 * 
 	 * 
@@ -671,7 +672,34 @@ class Lib_CheckInputs
 		{
 			if($_POST['attributes']!='' or $_POST['attributes']=='')
 			{
+
 				$obj = new Lib_FormValidation('attributes');
+			}
+			else 
+			{
+				header("Location:?do=adminlogin");
+				exit();
+			}
+		}
+	}
+
+	/**
+	 * Function checks whether the request method is post and invokes the validation module  
+	 * 
+	 * 
+	 *
+	 * @return void 
+	 */	 
+	function validateEditAttributes()
+	{	
+		include('classes/Lib/FormValidation.php');
+		
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['attributes']!='' or $_POST['attributes']=='')
+			{
+
+				$obj = new Lib_FormValidation('editattributes');
 			}
 			else 
 			{

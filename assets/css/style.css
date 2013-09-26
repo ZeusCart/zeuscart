@@ -4538,6 +4538,24 @@ ul.de_div li{}
 	display:block;
 	text-decoration:none;
 	display:block;cursor:pointer;border:0;outline:none;	
+
+}
+.addtocart_button1:hover {
+	background:url(../img/add-to-cart-btn-hov.png) no-repeat;
 }
 
+.wishlist_button {
+	background:url("../img/add-wishlist.jpg") no-repeat;
+	
+	color:#FFFFFF;
+	font-size:11px;
+	border:none;
+	text-align:center;
+	display:block;
+	text-decoration:none;
+	display:block;cursor:pointer;border:0;outline:none;	
 
+}
+.wishlist_button:hover {
+	background:url(../img/add-wishlist-hov.jpg) no-repeat;
+}

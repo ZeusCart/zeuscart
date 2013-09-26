@@ -39,8 +39,15 @@ class Display_DAttributeValueSelection
 	 * @param string $attname
 	 * @return string
 	 */
-	function getAttribListValues($arr,$attname)
-	{ 	
+	function getAttribListValues($arr,$attname,$Err)
+	{ 
+	
+
+		if($Err->messages!='')
+		{
+			$attname=$Err->values['id'];
+		}
+
 		$output.='<select name="id" class="attrib_box"><option value="all">All attributes</option>';
 		for($i=0;$i<count($arr);$i++)
 		{
@@ -87,7 +94,7 @@ class Display_DAttributeValueSelection
 			
 			$output .= '<tr >
 			<td><input type="checkbox" name="attributevalueCheck[]" class="chkbox" value="'.$arr[$i]['attrib_value_id'].'"></td>
-			<td align="left" >'.($val+1).'</td><td align="left" >'.$arr[$i]['attrib_name'].'</td><td align="left" ><a href="?do=addattributevalues&action=disp&id='.$arr[$i]['attrib_value_id'].'">'.$arr[$i]['attrib_value'].'</a></td>';
+			<td align="left" >'.($val+1).'</td><td align="left" >'.$arr[$i]['attrib_name'].'</td><td align="left" ><a href="?do=attributevalues&action=edit&id='.$arr[$i]['attrib_value_id'].'">'.$arr[$i]['attrib_value'].'</a></td>';
 			
 			
 			$output.='</tr>';
@@ -120,18 +127,25 @@ class Display_DAttributeValueSelection
 	 * @param array $arr
 	 * @return string
 	 */
-	function displayAttributeValues($arr)
+	function displayAttributeValues($arr,$Err)
 	{
-		$output = "";
-		for ($i=0;$i<count($arr);$i++)
+		if(!empty($Err->messages))
 		{
-			$output.='<form name="formsubcatedit" id="updateAttributevalue" action="?do=addattributevalues&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
-			<div class="row-fluid">
-			<div class="span12">
-			<label>Attribute Values</label>
-			<input type="text" name="attributevalues" class="txt_box200" id="attrib" value="'.$arr[0]['attrib_value'].'" /></div></div>
-			</form>';
+			$attrib_value=$Err->values['attrib_value'];
 		}
+		else
+		{
+
+			$attrib_value=$arr[0]['attrib_value'];
+		}
+
+		$output='<form name="formsubcatedit" id="updateAttributevalue" action="?do=attributevalues&action=update&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data">
+		<div class="row-fluid">
+		<div class="span12">
+		<label>Attribute Values <font color="red">*</font> </label>
+		<input type="text" name="attributevalues" class="span3" id="attrib" value="'.$attrib_value.'" /></div></div>
+		</form>';
+		
 		return $output;
 	}	
 }

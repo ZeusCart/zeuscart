@@ -559,73 +559,73 @@
     'function' => 'deleteSubCategory',
     'loadlib' => '1',
   ),
-  'addattributes' => 
+  'attributes' => 
   array (
     'model' => 'MAddAttributes',
     'function' => 'showAttributes',
     'loadlib' => '1',
   ),
-  'addattributes:add' => 
+  'attributes:add' => 
   array (
     'model' => 'MAddAttributes',
-    'function' => 'addAttributes',
+    'function' => 'showAddAttributes',
     'loadlib' => '1',
   ),
-  'addattributes:insert' => 
+  'attributes:insert' => 
   array (
     'model' => 'MAddAttributes',
     'function' => 'insertAttributes',
     'loadlib' => '1',
   ),
-  'addattributes:disp' => 
+  'attributes:edit' => 
   array (
     'model' => 'MAddAttributes',
-    'function' => 'displayAttributes',
+    'function' => 'showEditAttributes',
     'loadlib' => '1',
   ),
-  'addattributes:edit' => 
+  'attributes:update' => 
   array (
     'model' => 'MAddAttributes',
-    'function' => 'editAttributes',
+    'function' => 'updateAttributes',
     'loadlib' => '1',
   ),
-  'addattributes:delete' => 
+  'attributes:delete' => 
   array (
     'model' => 'MAddAttributes',
     'function' => 'deleteAttributes',
     'loadlib' => '1',
   ),
-  'addattributevalues' => 
+  'attributevalues' => 
   array (
     'model' => 'MAddAttributeValues',
     'function' => 'showAttributeValues',
     'loadlib' => '1',
   ),
-  'addattributevalues:showadd' => 
+  'attributevalues:add' => 
   array (
     'model' => 'MAddAttributeValues',
-    'function' => 'showAddAttributeValue',
+    'function' => 'showAddAttributeValues',
     'loadlib' => '1',
   ),
-  'addattributevalues:add' => 
+  'attributevalues:insert' => 
   array (
     'model' => 'MAddAttributeValues',
-    'function' => 'addAttributeValues',
+    'function' => 'insertAttributeValues',
     'loadlib' => '1',
   ),
-  'addattributevalues:disp' => 
+  'attributevalues:edit' => 
   array (
     'model' => 'MAddAttributeValues',
-    'function' => 'displayAttributeValues',
+    'function' => 'showEditAttributeValues',
     'loadlib' => '1',
   ),
-  'addattributevalues:edit' => 
+  'attributevalues:update' => 
   array (
     'model' => 'MAddAttributeValues',
-    'function' => 'editAttributeValues',
+    'function' => 'updateAttributeValues',
     'loadlib' => '1',
   ),
-  'addattributevalues:delete' => 
+  'attributevalues:delete' => 
   array (
     'model' => 'MAddAttributeValues',
     'function' => 'deleteAttributeValues',
