@@ -1659,6 +1659,7 @@ class Display_DUserAccount
 					<th>Product </th>
 					<th>Order Date</th>
 					<th>Expire Date</th>
+					<th>Download</th>	
 				</tr>
 			</thead>
 			<tbody>';
@@ -1673,17 +1674,17 @@ class Display_DUserAccount
 	
 					$output.='<tr>
 					
-					<td>#'.$arr[$i]['orders_id'].'</td><td><a href="?do=prodown&rid='.$arr[$i]['orders_id'].'&pid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
+					<td>#'.$arr[$i]['orders_id'].'</td><td><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
 					<td>'.$arr[$i]['pdate'].'</td>';
 					if(Display_DUserAccount::dateDiff("/", date("j/n/Y"),$arr[$i]['expdate'])>0)
 					{
-					$output.='<td bgcolor="#FFFFFF" >Download Expired</td></tr>';
+					$output.='<td bgcolor="#FFFFFF" >Download Expired</td>';
 					}
 					else
 					{
-					$output.='<td bgcolor="#FFFFFF" >'.$arr[$i]['expdate'].'</td></tr>';
+					$output.='<td bgcolor="#FFFFFF" >'.$arr[$i]['expdate'].'</td>';
 					}
-					$output.='</tr>';
+					$output.='<td><a class="btn btn-mini" href="?do=prodown&rid='.$arr[$i]['orders_id'].'&pid='.$arr[$i]['product_id'].'">Download</a></td></tr>';
 				}
 				
 			}

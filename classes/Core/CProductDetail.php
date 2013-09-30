@@ -200,7 +200,7 @@ class Core_CProductDetail
 		else
 		{
 			$sql="SELECT b.product_id,b.title,b.cse_enabled,b.price as oprice,b.msrp,c.msrp as
-			price,c.quantity,b.description,b.tag,b.shipping_cost,b.sku,b.brand,b.weight,b.dimension,b.image,b.model,a.soh,b.meta_desc,b.meta_keywords  
+			price,c.quantity,b.description,b.tag,b.shipping_cost,b.sku,b.brand,b.weight,b.dimension,b.image,b.large_image_path,b.model,a.soh,b.meta_desc,b.meta_keywords  
 			FROM product_inventory_table a
 			INNER JOIN products_table b ON a.product_id = b.product_id 
 			INNER JOIN msrp_by_quantity_table c ON b.product_id=c.product_id WHERE c.product_id =".(int)$_GET['prodid']." AND b.status=1"; 
@@ -321,20 +321,28 @@ class Core_CProductDetail
 	 */
 	function attributeList()
 	{
+
+
+		$sqlfeature="SELECT product_id,sku,brand,weight,dimension,model
+		FROM products_table  WHERE product_id =".(int)$_GET['prodid']." "; 
+		$queryfeature=new Bin_Query();
+		$queryfeature->executeQuery($sqlfeature);
+		$recordsfeature=$queryfeature->records;
+
 		$sql= "SELECT attrib_name, attrib_value 
 		FROM `attribute_value_table` av, attribute_table at
 		WHERE av.attrib_id = at.attrib_id AND av.attrib_value_id IN (SELECT attrib_value_id 
 		FROM product_attrib_values_table
-		WHERE product_id =".(int)$_GET['prodid'].')';
-		
+		WHERE product_id =".(int)$_GET['prodid'].')';		
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
-		{		
-			return  Display_DProductDetail::attributeList($query->records);
+		{	
+		
+			return  Display_DProductDetail::attributeList($query->records,$recordsfeature);
 		}
 		else
 		{
-		    return  Display_DProductDetail::attributeList($flag=0);	//return "Not fggfg Found";
+		    return  Display_DProductDetail::attributeList($flag=0,$recordsfeature);	//return "Not fggfg Found";
 		}
 	}
 	/**

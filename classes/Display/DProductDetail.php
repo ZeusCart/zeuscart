@@ -95,6 +95,7 @@ class Display_DProductDetail
 	function productDetail($arr,$diffrate,$features,$rating,$breadCrumb,$reviewCount,$reviewArr,$imgArr,$tierArr,$relArr)
 	{
 
+
 		// category name selection
 		$sql="SELECT * FROM category_table WHERE category_id ='".$arr[0]['category_id']."'";
 		$obj=new Bin_Query();
@@ -175,43 +176,83 @@ class Display_DProductDetail
 		
 				if($arr[0]['soh']>0)
 				{
-					$output.='<span>Availability: In Stock</span>';
+					$output.='<span>Availability : In Stock</span>';
 				}
 				else
 				{
 					$output.='<span>Availability :  Out Of Stock </span>';
 				}
 		
+				
 				$output.='</td>
+				
 				<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['msrp'].'</h1></td>
-				</tr>
+				</tr>';
+
+				if($arr[0]['shipping_cost']!='0' && $arr[0]['digital']=='0' && $arr[0]['gift']=='0')
+				{
+				
+				$output.='<tr><td align="left" valign="top"><span>Shipping Cost : <span class="red_fnt"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].' '.$arr[0]['shipping_cost'].'</span></span></td></tr>';
+				}
+				elseif($arr[0]['shipping_cost']=='0' && $arr[0]['digital']=='0' && $arr[0]['gift']=='0')
+				{
+					$output.='<tr><td align="left" valign="top"><span>Shipping Cost : <span class="red_fnt"> Free</td></tr>';
+
+				}
+
+				$output.='
 				</table></li>
+
+
+				<li>
+				<tr>				
+
+				<td align="left" valign="top"><span>Tags : ';
+					$tags=explode(',',$arr[0]['tag']);
+				foreach( $tags as $tag)
+				$tagLinks[]='<a href="?do=search&search='.$tag.'">'.$tag.'</a>';
+		
+				$output.=implode(' | ',$tagLinks).'</span></td>';
+				
+			
+				$output.='</tr>
+				
+				</li>
 						<li><h2>Quick Overview:</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci
 
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.</p></li>
 				<li>
 				<table width="100%" border="0">
 		<tr>';
-		if($categoryname!='Gift Voucher')
+		if($categoryname!='Gift Voucher' && $arr[0]['digital']=='0')
 		{
-		$output.='<td> Quantity <select name="qty[]" style="width:60px;">';
-		if($arr[0]['soh']==0)
-			$output.='<option value="0">0</option>';
-		
-		for($s=1;$s<=$arr[0]['soh'];$s++)
-			$output.='<option value="'.$s.'">'.$s.'</option>';
-		$output.='</select></td>';
+// 		$output.='<td> Quantity <select name="qty[]" style="width:60px;">';
+// 		if($arr[0]['soh']==0)
+// 			$output.='<option value="0">0</option>';
+// 		
+// 		for($s=1;$s<=$arr[0]['soh'];$s++)
+// 			$output.='<option value="'.$s.'">'.$s.'</option>';
+// 		$output.='</select></td>';
+		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="'.$_SESSION['error_quantity'].'"></td>';
+			
 		}
-
-	
-		if($arr[0]['soh']>0)
+		if($arr[0]['digital']=='1')
 		{
+		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="1" readonly="true"></td>';
+
+		}
+	
+		
 		$output.='<td align="left" valign="top"> <input type="submit" title="Add to Cart" value="" class="addtocart_button1" style="width:150px;height:50px" name="addtocart"/>&nbsp;&nbsp;
 
-
-		<a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$arr[0]['product_id'].'"><img  src="assets/img/wishlist.png"  style="width:150px;height:40px;	display:block;cursor:pointer;border:0;outline:none;"> </a> </td>';
-		}
+		<a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$arr[0]['product_id'].'"><input type="button" name="wishlist" style="width:150px;height:50px" class="wishlist_button" value="" title="Add to Wislist"></a>
+		 </td>';
 		
+		 $mode='none';
+		if(count($tierArr)>0)
+		$mode='block';
+
+
 		$output.='</tr>
 		</table>
 					
@@ -221,13 +262,13 @@ class Display_DProductDetail
 			
 		</div> </div>
 
-
+		
 		<div id="giftvoucher"></div>
             	<div class="clear"></div><div class="buyauc_div" style="display:block;">
             	 <ul class="view_div">
                         <li ><a href="javascript:showAccnt(\'account_id\'); void(0)" class="acc_select" id="account_id1">Product Description</a></li>
                         <li ><a href="javascript:showAccnt(\'details_id\'); void(0)" class="acc_unselect" id="details_id1">Reviews</a></li>
-                       
+                        <li style="display:'.$mode.'"><a href="javascript:showAccnt(\'divTier\'); void(0)" class="acc_unselect" id="divTier1">Tier Price</a></li>
                 </ul>
 
        
@@ -306,7 +347,19 @@ class Display_DProductDetail
 		</div>
 		</div>
 		</form>
-		</div>
+		</div>';
+
+		$output.='<div id="divTier" style="display:none"><table class="table table-striped">';
+
+			for($t=0;$t<count($tierArr);$t++)
+			{
+
+				$output.='<tr><td >Buy '.$tierArr[$t]['quantity'].' for '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($tierArr[$t]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).' each.</td></tr>';
+			
+				
+
+			}
+			$output.='</table></div>
 		</div>';
 
 		return $output;	
@@ -351,12 +404,11 @@ class Display_DProductDetail
 	* @param mixed $arr
 	* @return string
  	*/
-	function attributeList($arr)
+	function attributeList($arr,$recordsfeature)
 	{
-
-		if($arr!='')
+		if($arr!='' || $recordsfeature!='')
 		{
-			$output.='<table id="rt1" class="rt cf">
+			$output='<table id="rt1" class="rt cf">
 				<thead class="cf">
 				<tr>
 				<th colspan="2">Additional Information</th>
@@ -364,20 +416,22 @@ class Display_DProductDetail
 				</tr>
 				</thead>';
 	
-			for ($i=0;$i<count($arr);$i++)
+			if($recordsfeature[0]['sku']!='')
+				{$output.='<tr ><td  width="50%">SKU </td><td> '.$recordsfeature[0]['sku'].'</td></tr>';}
+			if($recordsfeature[0]['brand']!='')
+				{$output.='<tr ><td  width="50%">Brand </td><td> '.$recordsfeature[0]['brand'].'</td></tr>';}
+			if($recordsfeature[0]['weight']!='')
+				{$output.='<tr ><td  width="50%">Weight </td><td> '.$recordsfeature[0]['weight'].' (lbs)</td></tr>';}
+			if($recordsfeature[0]['dimension']!='')
+				{$output.='<tr ><td  width="50%">Dimension </td><td> '.$recordsfeature[0]['dimension'].' (inches)</td></tr>';}
+
+			if($arr!='')
 			{
-				if($i % 2 == 0)
+				for ($i=0;$i<count($arr);$i++)
 				{
-					$classval = 'class="odd"';
-				
-				}	
-				else
-				{
-					$classval = 'class="even"';
-					
-				}	
-					
-				$output.= '<tr '.$classval.'><td  width="50%">'.$arr[$i]['attrib_name'].'</td><td '.$classval.'>'.$arr[$i]['attrib_value'].'</a></td></tr>';
+	
+					$output.= '<tr ><td  width="50%">'.$arr[$i]['attrib_name'].' </td><td '.$classval.'>'.$arr[$i]['attrib_value'].'</a></td></tr>';
+				}
 			}
 				$output.= '</tbody></table></td><tr><td width="3%" >&nbsp;</td></tr></table>';
 

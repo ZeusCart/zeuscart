@@ -44,6 +44,7 @@ class Model_MPromotionalCodes
 	function selectMethodToSendPromotionalCode()
 	{
 		
+
 		include('classes/Core/CRoleChecking.php');
 		include('classes/Core/CPromotionalCodes.php');
 		include('classes/Display/DPromotionalCodes.php');
@@ -76,7 +77,7 @@ class Model_MPromotionalCodes
 			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 			
-			//$output['display']=Core_CPromotionalCodes::selectMethodToSendPromotionalCode();
+			$output['display']=Core_CPromotionalCodes::selectMethodToSendPromotionalCode();
 			$output['displaysearch']=Core_CPromotionalCodes::selectMethodToSendPromotionalCode();
 			$output['displayusers']=Core_CPromotionalCodes::displayUsersForPromotionalCode();
 			

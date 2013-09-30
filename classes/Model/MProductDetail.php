@@ -93,6 +93,7 @@ class Model_MProductDetail
 	*/	
 	function productDetail()
 	{
+
 		$_SESSION['url']=$_GET['do'];
 		
 		include('classes/Core/CHome.php');
@@ -159,6 +160,8 @@ class Model_MProductDetail
 		Bin_Template::createTemplate('productdetail.html',$output);
 		UNSET($_SESSION['reviewResult']);
 		UNSET($_SESSION['reviewResultSuccess']);
+		UNSET($_SESSION['quantitymsg']);
+		UNSET($_SESSION['error_quantity']);
 		
 	}
 	/**

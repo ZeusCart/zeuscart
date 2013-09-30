@@ -102,7 +102,7 @@ class Model_MProductDetail
 		$output['attributes']=$default->attributeList();
 		$output['rating']=$default->reviewRating();
 		$output['review']=$default->reviewCount();
-		$output['attributes']=$default->attributeList();
+		
 		$output['relprod']=$default->relatedProducts();
 		Bin_Template::createTemplate('productdetail.html',$output);
 	}

@@ -268,7 +268,7 @@ class Display_DShowMainCategory
 		<div class="span12"><label>Category Image</label>
 
 		<div class="fileupload fileupload-new" data-provides="fileupload">
-		<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+		<div class="fileupload-new thumbnail" style="width: 200px; height: 100px;"><img src="../uploadedimages/caticons/'.$img[2].'" /></div>
 		<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
 		<div>
 		<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="caticon" id="caticon" /></span>
@@ -276,8 +276,7 @@ class Display_DShowMainCategory
 		</div>
 		</div>
 		
-
-		<img src="../uploadedimages/caticons/thumb/thumb_'.$img[2].'" name="image1"  id="image2" border="0"/></div></div><div class="row-fluid">
+		</div></div><div class="row-fluid">
 		<div class="span12"><label>Status :</label><div class="ibutton-group">
 		';
 		if($arr[0]['category_status']=='1')

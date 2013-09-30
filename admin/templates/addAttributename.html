@@ -43,8 +43,17 @@ $(document).ready(function (){
 
   </div>
 </div>
+ <AJDF:output>if count($msg) gt 0</AJDF:output>
+       <div class="alert alert-error">
+             			 <button type="button" class="close" data-dismiss="alert">×</button> 
+                <AJDF:output>foreach name=err item=err from=$msg</AJDF:output>
+                <AJDF:output>$err</AJDF:output>
+                <br>
+                <AJDF:output>/foreach</AJDF:output>
+              </div>
+            <AJDF:output>/if</AJDF:output>
 
-<form name="formattrib" action="?do=addattributes&action=insert"  method="post" id="saveAttributeForm">
+<form name="formattrib" action="?do=attributes&action=insert"  method="post" id="saveAttributeForm">
 
 <div class="row-fluid">
   <div class="span12">
@@ -57,10 +66,10 @@ $(document).ready(function (){
 <div class="row-fluid">
   <div class="span6">
 
-<label>Attribute Name:</label>
+<label>Attribute Name  <font color="red">*</font> </label>
 
 <input type="text" name="attributes" id="attrib" class="span8" maxlength="25"  value="<AJDF:output>$val.attributes</AJDF:output>"/>
-<AJDF:output>$msg.attributes</AJDF:output></div>
+</div>
 </div>
 
 

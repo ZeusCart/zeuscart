@@ -44,6 +44,7 @@ class Core_CCategoryBulkUpload
 	{ 
 		 
 		  
+
 		  $tsvfilename= $_FILES['category_file']['tmp_name'];			       
 		   
 		  $legal_extentions = array("tsv");  
@@ -52,17 +53,22 @@ class Core_CCategoryBulkUpload
 
 		  $file_ext = strtolower(end(explode(".",$_FILES['category_file']['name']))); 
 		   
+
 		  if (!in_array ($file_ext, $legal_extentions))
 		  {
+
+
    			return '<div class="alert alert-error">
-              <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
+             		 <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
           	  }			   
 			
-		  $file = explode(".",$_FILES['product_file']['name']);	
+
+		  $file = explode(".",$_FILES['category_file']['name']);	
+
 		  if(count($file) > 2  || $file[1] != 'tsv')
 		  {			
   			return '<div class="alert alert-error">
-              <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to upload is not supported by this server</div>';		
+             		 <button type="button" class="close" data-dismiss="alert">×</button> The file you are attempting to 		upload is not supported by this server</div>';		
 		  }	 	
 				
 
@@ -71,8 +77,7 @@ class Core_CCategoryBulkUpload
 		   {
 				  // $stpath="uploadedtsvfile/".date("YmdHis").$tsvfilename;
 				   $stpath="uploadedtsvfile/".date("YmdHis")."category.tsv";
-				   //echo $stpath;
-				  
+				   				  
 				   if(move_uploaded_file($tsvfilename,$stpath))
 				   {
 						

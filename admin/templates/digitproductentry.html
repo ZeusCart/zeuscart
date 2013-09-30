@@ -116,6 +116,12 @@ function checkInputs()
 					tabOpenvalidation('5');
 					return false;
 				}
+				else if ((document.productreg.price.value=='0')|| (document.productreg.msrp.value=='0'))
+				{
+					alert('Enter the  Inputs In Price Greater than Zero');
+					tabOpenvalidation('5');
+					return false;
+				}
 				
 			}
 		}

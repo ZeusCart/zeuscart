@@ -26,23 +26,23 @@
                   	<h2>Database Information</h2>
            		   			<dl class="setting">
                             	<dt>Database Server Name</dt>
-                                <dd><input name="host" id="host" type="text"  value="<?php echo $Err->values['host'] ?>" />
+                                <dd><input name="host" id="host" type="text"  class="installtext" value="<?php echo $Err->values['host'] ?>" />
                			 <span style="color:#FF0000"> <?php echo $Err->messages['host'] ?></span></dd>
 
                             	<dt>Database Name</dt>
-                                <dd><input name="dbname" type="text"  id="dbname" value="<?php echo $Err->values['dbname'] ?>"/>
+                                <dd><input name="dbname" type="text"  class="installtext"  id="dbname" value="<?php echo $Err->values['dbname'] ?>"/>
                 		 <span style="color:#FF0000"> <?php echo $Err->messages['dbname'] ?></span></dd>
 
                             	<dt>Database User Name</dt>
-                                <dd><input name="uname" id="uname" type="text"  value="<?php echo $Err->values['uname'] ?>"/>
+                                <dd><input name="uname" id="uname" class="installtext"  type="text"  value="<?php echo $Err->values['uname'] ?>"/>
                			 <span style="color:#FF0000"> <?php echo $Err->messages['uname'] ?></span> </dd>
 
                             	<dt>Database Password</dt>
-                                <dd><input name="pass" type="password" id="password" value="<?php echo $Err->values['pass'] ?>" />
+                                <dd><input name="pass" type="password" class="installtext"   id="password" value="<?php echo $Err->values['pass'] ?>" />
                			 <span style="color:#FF0000"> <?php echo $Err->messages['pass'] ?></span>  </dd>
 
 				<dt>Database With Sample Data</dt>
-                                <dd><input name="sampledata" type="checkbox" id="password" value="1" <?php 
+                                <dd><input name="sampledata" type="checkbox"   id="password" value="1" <?php 
 				echo $checked; ?>   />
                			   </dd>
 	

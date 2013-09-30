@@ -115,9 +115,9 @@ class Display_DManageProducts
 	function showAllProducts($arr,$flag,$paging,$prev,$next,$start)
 	{	
 
+
 		$output = '<form name="search" method="post" action="?do=manageproducts&action=search" >';
-		$output .= '';	
-		
+			
 		$output.='  <div class="blocks" style="opacity: 1;">
 		<div class="clsListing clearfix"><table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
 
@@ -191,14 +191,14 @@ class Display_DManageProducts
 			    <td ><input type="text"  name="tag" size="3" value="'.$_POST['tag'].'"/></td>
 			   <td ><table style="margin-top:-5px;"><tr><td style="border:none">From</td><td style="border:none"><input type="text" name="fromdate" id="fromdate" size=3  value="'.$_POST['fromdate'].'"  /></td></tr><tr><td style="border:none">To</td><td style="border:none"><input type="text" name="todate" id="todate" size=3   value="'.$_POST['todate'].'"/></td></tr></table></td>
 			   ';
-		$output.='<td ><input class="clsBtn" type="submit" name="search" value="Search"/></td></tr></form>';
+		$output.='<td ><input class="clsBtn" type="submit" name="search" value="Search"/></td></tr>';
 		//$output .='<tr><td colspan="8" align="right"><b>Search</b>&nbsp;&nbsp;<input type="text" name="search">
 					//<input type="button" name="btnsearch" value="Search"></td></tr>';
 		//$output.='<th>S.no.</th><th>Display Name</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Edit</th>
 					//  <th>Delete</th><th>Status</th>';
 		
 		if($flag=='0')
-			return $output.= '<tr><td align="center" colspan="10"><font color="orange"><b>No Products Matched</b></font></td></tr>';
+			 $output.= '<tr><td align="center" colspan="10"><font color="orange"><b>No Products Matched</b></font></td></tr>';
 		else
 		{
 			for($i=0;$i<$cnt; $i++)
@@ -280,7 +280,7 @@ class Display_DManageProducts
 				$start++;
 			}	
 		}
-		$output .='<tr>
+		$output.='<tr>
 		<td colspan="11" class="clsAlignRight">
 		<div class="dt-row dt-bottom-row">
 		<div class="row-fluid">
@@ -297,7 +297,7 @@ class Display_DManageProducts
 		</tr>';
 		
 
-		$output .= '</tbody></table></div></div>';
+		$output .= '</tbody></table></form></div></div>';
 		return $output;
 
 	}
@@ -474,7 +474,7 @@ class Display_DManageProducts
 					</tr>
 					<tr>
 						<td class='label_name'> Product Meta Description </td>
-						<td class='label_name' colspan='4'><input name='meta_desc'  type='text' value='".meta_desc."'  id='meta_desc' size='80' /></td>
+						<td class='label_name' colspan='4'><input name='meta_desc'  type='text' value='".$meta_desc."'  id='meta_desc' size='80' /></td>
 					</tr>
 					<tr>
 						<td class='label_name'>Product Meta Keywords </td>
@@ -647,6 +647,7 @@ class Display_DManageProducts
 	
 	function editImage($sub)
 	{
+
 		if($sub != 0)
 		{
 			for($i=1;$i<=count($sub);$i++)
@@ -657,8 +658,8 @@ class Display_DManageProducts
 				<div class="row-fluid">
  		<div style="width:350px;" ><label>Sub Product Image <font color="#FF0000">*</font></label>
 			<INPUT type="hidden" name="ufile_id['.$i.']" id="ufile_id['.$i.']" VALUE="'.$sub[$i-1]['product_images_id'].'">
-<div class="fileupload fileupload-new" data-provides="fileupload"><div style="float:right"><img src="../'.$sub[$i-1]['thumb_image_path'].'" height="50" weight=50  alt="Image" /></div>
-                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+		<div class="fileupload fileupload-new" data-provides="fileupload"><div style="float:right"></div>
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="../'.$sub[$i-1]['image_path'].'" /></div>
                   <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                   <div>
                     <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span> <INPUT NAME="ufile['.$i.']" ID="ufile['.$i.']"  type="file" /></span>
@@ -705,6 +706,7 @@ class Display_DManageProducts
 	
 	function editMainImage($main)
 	{
+
 		if($main != 0)
 		{
 			$output='   <div class="row-fluid">
@@ -712,8 +714,8 @@ class Display_DManageProducts
 			<INPUT type="hidden" name="ufile_id[0]" id="ufile_id[0]" VALUE="'.$main['product_images_id'].'">
 
 
-						<div class="fileupload fileupload-new" data-provides="fileupload" style="width:350px;"><div  class="thumbnail" style="float:right"><img src="../'.$main['thumb_image_path'].'" height="50" weight=50  alt="Image" /></div>
-                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+						<div class="fileupload fileupload-new" data-provides="fileupload" style="width:350px;">
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="../'.$main['image_path'].'" /></div>
                   <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                   <div>
                     <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span> <INPUT NAME="ufile[0]" ID="ufile[0]"  type="file" /></span>
@@ -730,7 +732,7 @@ class Display_DManageProducts
 			<INPUT type="hidden" name="ufile_id[0]" id="ufile_id[0]" VALUE="'.$main['product_images_id'].'">
 
 
-						<div class="fileupload fileupload-new" data-provides="fileupload"><div style="float:right"><img src="../'.$main['thumb_image_path'].'" height="50" weight=50  alt="Image" /></div>
+						<div class="fileupload fileupload-new" data-provides="fileupload"><div style="float:right"></div>
                   <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
                   <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                   <div>
@@ -810,13 +812,14 @@ class Display_DManageProducts
 	
 	function editTierPrice($arr)
 	{
+
 		if(count($arr) > 0)
 		{
 			for($i=1;$i<=count($arr);$i++)
 			{
 				$output.="<tr style='background-color:#FFFFFF;' onmouseout='listbg(this, 0);' onmouseover='listbg(this, 1);'>
 			
-			<td class='content_list_txt1' width='40%'><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3'  value='".$arr[($i-1)]['quantity']."'/>&nbsp;and above</td><td width='31%' class='content_list_txt1'><INPUT NAME='msrp[]' ID='msrp[".$i."]'  type='text'  size='5' value='".$arr[($i-1)]['msrp']."'/>&nbsp;<b>[".$_SESSION['currency']['currency_code']."]</b></td></tr>";
+			<td class='content_list_txt1' width='40%'><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  class='span6'  value='".$arr[($i-1)]['quantity']."'/>&nbsp;and above</td><td width='31%' class='content_list_txt1'><INPUT NAME='msrp[]' ID='msrp[".$i."]'  type='text'   value='".$arr[($i-1)]['msrp']."'  class='span6' />&nbsp;<b>[".$_SESSION['currency']['currency_code']."]</b></td></tr>";
 			}
 			
 		}
@@ -824,7 +827,7 @@ class Display_DManageProducts
 		{
 			$output.="<tr>
 			
-			<td class='content_list_txt1' width='40%'><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' />&nbsp;	and above</td><td width='31%' class='content_list_txt1'><INPUT NAME='msrp[]' ID='msrp[".($j+1)."]'  type='text'  size='5' />&nbsp;<b>[USD]</b></td></tr>";
+			<td class='content_list_txt1' width='40%'><INPUT NAME='quantity[]' ID='quantity[]'  type='text' class='span6'  />&nbsp;	and above</td><td width='31%' class='content_list_txt1'><INPUT NAME='msrp[]' ID='msrp[".($j+1)."]'  type='text'  class='span6' />&nbsp;<b>[USD]</b></td></tr>";
 		}
 		return $output;
 	

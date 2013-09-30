@@ -104,8 +104,7 @@ class Core_Settings_CSiteSettings
 			site_logo='".$site_logo."',
 			google_analytics='".trim($_POST['google_analytics'])."',
 			time_zone='".trim($_POST['time_zone'])."',
-			site_moto='".trim($_POST['site_moto'])."',
-			site_skin='".trim($_POST['site_skin'])."',	
+			site_moto='".trim($_POST['site_moto'])."',				
 			admin_email='".trim($_POST['admin_email'])."',
 			meta_kerwords='".stripslashes(trim($_POST['meta_kerwords']))."',
 			meta_description='".stripslashes(trim($_POST['meta_description']))."'

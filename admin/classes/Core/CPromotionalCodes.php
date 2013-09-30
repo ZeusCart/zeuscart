@@ -164,7 +164,7 @@ class Core_CPromotionalCodes
 			elseif($type=='totalorder')
 				$str=' HAVING totalorder '.$order_condition.(int)$_POST['purchase_from'];
 			elseif($type=='user_doj')
-				$str1=" AND user_doj BETWEEN '".$_POST['fromdate']."' AND '".$_POST['todate']."'";
+				$str1=" AND user_doj BETWEEN  date_format('".$_POST['fromdate']."','') AND '".$_POST['todate']."'"; 
 				
 		}
 		if (isset($_GET['cid']))
@@ -413,12 +413,31 @@ class Core_CPromotionalCodes
 			$catid_array=$subcatid_array;
 		elseif (!(empty($maincategories)))
 			$catid_array=$maincatid_array;
-			
+	
+		if($txtfromdate!='')
+		{
+			$txtfromdate=$txtfromdate;
+			$txtfromdate=date("Y-m-d", strtotime($txtfromdate));
+		}
+		else
+		{
+			$txtfromdate= date('Y-m-d');
 
+		}
+		if($txttodate!='')
+		{
+			$txttodate=$txttodate;
+			$txttodate=date("Y-m-d", strtotime($txttodate));
+		}
+		else
+		{
+			$txttodate= date('Y-m-d');
+
+		}
 		 if($days>=0&&$datediff>=0)
 	  	{
 	
-		$sql="INSERT INTO  coupons_table(coupon_code, coupan_name, created_date ,discount_amt ,discount_type ,valid_from ,valid_to ,min_purchase ,no_of_uses,applies_to,status) VALUES ('".$cupon_code."','".$cupon_name."','".$created_date."',".$discount_amt.",'".$discount_type."','".$txtfromdate."','".$txttodate."',". $min_purchase.",".$uses_count.",'".$categories."',1)"; 
+		 $sql="INSERT INTO  coupons_table(coupon_code, coupan_name, created_date ,discount_amt ,discount_type ,valid_from ,valid_to ,min_purchase ,no_of_uses,applies_to,status) VALUES ('".$cupon_code."','".$cupon_name."','".$created_date."',".$discount_amt.",'".$discount_type."','".$txtfromdate."','".$txttodate."',". $min_purchase.",".$uses_count.",'".$categories."',1)";  
 		$obj=new Bin_Query();
 		if($obj->updateQuery($sql))
 		{

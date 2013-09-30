@@ -39,6 +39,7 @@ class Display_DPromotionalCodes
 	function selectMethodToSendPromotionalCode()
 	{
 		
+
 		$output = '';
 		$output .= '';	
 		
@@ -54,13 +55,13 @@ class Display_DPromotionalCodes
 		
 		$output .= '<form method="post" action="?do=createpromotionalcodes&action=usersforcoupon">
 		<div class="row-fluid">
-  <div class="span3">Number Of Orders </div><div class="span3"><select name="order_condition"><option value="&gt">Greater Than</option><option value="&lt;">Less Than</option><option value="=">Equal To</option></select></div><div class="span3"> <input type="text" name="order_from" class="span8" size="9" value="'.$_POST['order_from'].'"></div><div class="span3"><input class="all_bttn" type="submit" name="b1" value="List"/><input type="hidden" name="type" value="ordercount"></form></div></div>';
+  <div class="span3">Number Of Orders </div><div class="span3"><select name="order_condition"><option value="&gt">Greater Than</option><option value="&lt;">Less Than</option><option value="=">Equal To</option></select></div><div class="span3"> <input type="text" name="order_from" class="span8" size="9" value="'.$_POST['order_from'].'"></div><div class="span3"><input class="clsBtn" type="submit" name="b1" value="LIST"/><input type="hidden" name="type" value="ordercount"></form></div></div>';
 		
 		$output .= '<form method="post" action="?do=createpromotionalcodes&action=usersforcoupon"><div class="row-fluid">
-  <div class="span3">Total Purchase </div><div class="span3"><select name="order_condition"><option value="&gt">Greater Than</option><option value="&lt;">Less Than</option><option value="=">Equal To</option></select></div><div class="span3"> <input type="text" name="purchase_from" class="span8" size="9" value="'.$_POST['purchase_from'].'"></div><div class="span3"><input class="all_bttn" type="submit" name="b1" value="List"/><input type="hidden" name="type" value="totalorder"></form></div></div>';
+  <div class="span3">Total Purchase </div><div class="span3"><select name="order_condition"><option value="&gt">Greater Than</option><option value="&lt;">Less Than</option><option value="=">Equal To</option></select></div><div class="span3"> <input type="text" name="purchase_from" class="span8" size="9" value="'.$_POST['purchase_from'].'"></div><div class="span3"><input class="clsBtn" type="submit" name="b1" value="LIST"/><input type="hidden" name="type" value="totalorder"></form></div></div>';
 		
 		$output .= '<form method="post" action="?do=createpromotionalcodes&action=usersforcoupon"><div class="row-fluid">
-  <div class="span3">Date Of Join Between</div><div class="span3"><input class="span5" type="text" id="cal-field-1" name="fromdate" value="'.date('Y/m/d').'" readonly="true"/>&nbsp;</div><div class="span3"><input type="text" id="cal-field-2" name="todate"  value="'.date('Y/m/d').'" class="span5" readonly="true"/>&nbsp;</div><div class="span3"><input class="all_bttn" type="submit" name="b1" value="List"/><input type="hidden" name="type" value="user_doj"></form></div></div>';
+  <div class="span3">Date Of Join Between</div><div class="span3"><input class="span5" type="text" id="cal-field-1" name="fromdate" value="'.$_POST['fromdate'].'" readonly="true"/>&nbsp;</div><div class="span3"><input type="text" id="cal-field-2" name="todate"  value="'.$_POST['todate'].'" class="span5" readonly="true"/>&nbsp;</div><div class="span3"><input class="clsBtn" type="submit" name="b1" value="LIST"/><input type="hidden" name="type" value="user_doj"></form></div></div>';
 
 $output .= '</div>
 </div>
@@ -114,7 +115,8 @@ return $output;
 		$cnt = count($arr);
 
 		if($flag=='0')
-			$output .= '<tr><td align="center" colspan="6"><font color="orange"><b>No Record Found</b></font></td></tr>';
+			$output .= '<div style="border-top:none;" class="clsblock"> 
+			</div><div>&nbsp;</div><tr><td align="center" colspan="6"><font color="orange"><b>No Record Found</b></font></td></tr>';
 		else
 		{
 			for ($i=0;$i<count($arr);$i++)

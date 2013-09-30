@@ -96,10 +96,9 @@ class Display_DNewProducts
 					<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 					
 					<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
-				if($arr[$i]['soh']>0)
-				{
+				
 				$output.='<button class="info" type="submit" >Add to Cart</button>';
-				}
+			
 				$output.='</div>
 				</div><input type="hidden" name="addtocart"></form></div>';
 
@@ -174,10 +173,9 @@ class Display_DNewProducts
 					<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 					
 					<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
-				if($arr[$i]['soh']>0)
-				{
+			
 				$output.='<button class="info" type="submit" >Add to Cart</button>';
-				}
+				
 				$output.='</div>
 				</div><input type="hidden" name="addtocart"></form></div>';
 
@@ -263,11 +261,9 @@ class Display_DNewProducts
 						$obj=new Bin_Query();
 						$obj->executeQuery($sql);
 						$recordssoh=$obj->records;
-						if($recordssoh[0]['soh']>0  ||  $records[$i]['gift'] =='1')
-						{
+						
 						$output.='<button class="add_btn" type="submit" ></button>';
 						
-						}
 						$output.='</div></div>
 						<div class="clear"></div>
 							
@@ -315,7 +311,7 @@ class Display_DNewProducts
 					<div class="info">  
 					<h2>'.$records[$i]['title'].'</h2>
 					
-					'.trim($records[$i]['description']).'
+					'.substr(trim($records[$i]['description']),'0','20').'
 					
 					<h4>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$records[$i]['msrp'].'</h4>
 					<input type="hidden" name="addtocart">';
@@ -324,10 +320,9 @@ class Display_DNewProducts
 					$obj=new Bin_Query();
 					$obj->executeQuery($sql);
 					$recordssoh=$obj->records;
-					if($recordssoh[0]['soh']>0)
-					{
+					
 						$output.='<button class="add_btn" type="submit" ></button>';
-					}
+					
 					$output.='</div>
 					</div>
 					</form></li>';
@@ -354,10 +349,9 @@ class Display_DNewProducts
 					$obj=new Bin_Query();
 					$obj->executeQuery($sql);
 					$recordssoh=$obj->records;
-					if($recordssoh[0]['soh']>0)
-					{
+					
 						$output.='<button class="add_btn" type="submit" ></button>';
-					}
+					
 					$output.='</div><input type="hidden" name="addtocart">
 					</div></form></div>';
 				}

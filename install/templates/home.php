@@ -96,7 +96,7 @@ function MM_swapImage() { //v3.0
 
 		<?php include($template); ?>
 
-                <div class="botton_div"> <h6>  
+                <div class="botton_div"><table><tr><TD><span style="color:#FF0000"> <?php echo $_SESSION['error'] ?></span></TD></tr></table> <h6>  
           <?php if($shownavigation==3) { ?>
 	 <input type="image" src="images/next-btn.png" alt="Next" style="width:76px;height=32px;border-style: none;padding:1px;" border="0" />
 

@@ -51,7 +51,6 @@ class Model_MAddCart
 	function addCart()
 	{
 
-
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -862,7 +861,7 @@ class Model_MAddCart
 	function showOrderConfirmation() 
 	{
 
-				
+			
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 
@@ -991,7 +990,6 @@ class Model_MAddCart
 	 */
 	function validateCoupon()
 	{
-
 
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();

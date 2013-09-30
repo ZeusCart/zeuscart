@@ -44,6 +44,7 @@ class Display_DAddCart
 	function showCart($arr,$result)
 	{
 
+
 		if(!(empty($arr)))
 		{
 		
@@ -1315,6 +1316,7 @@ class Display_DAddCart
 		
 		$getMerchantId = new Core_CAddCart();
 		$recordSet = $getMerchantId->getPaymentGatewaySettings($arr['gateway_id']);				
+
 		for($i=0;$i<count($recordSet);$i++)
 		{
 			if($recordSet[$i]['setting_name']=='Merchant ID')
@@ -1328,7 +1330,7 @@ class Display_DAddCart
 		$amount=$_SESSION['checkout_amount']*$_SESSION['currencysetting']['default_currency']['conversion_rate']; //to covert into equivalent dollar values
 		
 		$payment_html['PayPal']='
-					<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+					<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 					<input name="cmd" value="_xclick" type="hidden">
                     <input name="business" value="'.$merchantid.'" type="hidden">
                     <input name="item_name" value="'.$_SERVER['SERVER_NAME'].' Check out" type="hidden">

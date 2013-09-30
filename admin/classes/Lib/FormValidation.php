@@ -219,6 +219,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateSiteSettings()
 	{
 
+
 		$message = "Required Field Cannot be blank";
 		$this->Assign("site_moto",trim($_POST['site_moto']),"noempty","Site Moto -".$message);
 		

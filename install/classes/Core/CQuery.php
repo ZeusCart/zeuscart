@@ -146,8 +146,7 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE category_attrib_table(category_attrib_id  INT(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,subcategory_id  INT(15) NOT NULL,attrib_id  INT(15) NOT NULL)";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `category_attrib_table` ( `subcategory_id`, `attrib_id`) VALUES( 44, 0)";	
-		$result=mysql_query($sql);
+		
 
 
 
@@ -626,8 +625,8 @@ class Core_CQuery
 		)";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `home_page_ads_table` (`home_page_ads_id`, `home_page_ads_title`, `home_page_ads_logo`, `home_page_ads_url`, `status`) VALUES
-		(1, 'polo', 'images/homepageads/2013-04-11-1442011.gif', 'http://localhost/ajshop/zeuscart', 1),
-		(2, 'polo', 'images/homepageads/2013-04-11-1442252.gif', 'http://localhost/ajshop/zeuscart', 1)";
+		(1, 'polo', 'images/homepageads/2013-04-11-1442011.gif', 'http://www.google.com/', 1),
+		(2, 'polo', 'images/homepageads/2013-04-11-1442252.gif', 'http://www.google.com/', 1)";
 		$result=mysql_query($sql);	
 
 
@@ -730,11 +729,7 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE order_products_table(order_id  INT(25) NOT NULL,product_id  INT(25) NOT NULL,product_qty  INT(10) NOT NULL,product_unit_price  real NOT NULL,shipping_cost  real NOT NULL)";
 		$result=mysql_query($sql);
-// 		$sql="INSERT INTO `order_products_table` (`order_id`, `product_id`, `product_qty`, `product_unit_price`, `shipping_cost`) VALUES
-// 		(1, 4, 4, 600, 20),
-// 		(1, 14, 4, 300, 20),
-// 		(1, 17, 2, 300, 10)";
-// 		$result=mysql_query($sql);
+
 
 
 
@@ -755,9 +750,7 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE orders_table(orders_id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,customers_id  INT(11) NOT NULL,shipping_name  VARCHAR(64) NOT NULL,shipping_company  VARCHAR(32) ,shipping_street_address  VARCHAR(64) NOT NULL,shipping_suburb  VARCHAR(32) ,shipping_city  VARCHAR(32) NOT NULL,shipping_postcode  VARCHAR(10) NOT NULL,shipping_state  VARCHAR(32) ,shipping_country  VARCHAR(32) NOT NULL,billing_name  VARCHAR(64) NOT NULL,billing_company  VARCHAR(32) ,billing_street_address  VARCHAR(64) NOT NULL,billing_suburb  VARCHAR(32) ,billing_city  VARCHAR(32) NOT NULL,billing_postcode  VARCHAR(10) NOT NULL,billing_state  VARCHAR(32) ,billing_country  VARCHAR(32) NOT NULL,payment_method  VARCHAR(128) NOT NULL,shipping_method  VARCHAR(128) NOT NULL,coupon_code  VARCHAR(32) NOT NULL,date_purchased  datetime  ,orders_date_closed  datetime ,orders_status  INT(5) NOT NULL ,order_total  real ,order_tax  real ,ipn_id  INT(11) NOT NULL DEFAULT '0',ip_address  VARCHAR(96) NOT NULL,shipment_id_selected  INT(11) NOT NULL,shipment_track_id  VARCHAR(200) NOT NULL)";
 		$result=mysql_query($sql);
-// 		$sql="INSERT INTO `orders_table` (`orders_id`, `customers_id`, `shipping_name`, `shipping_company`, `shipping_street_address`, `shipping_suburb`, `shipping_city`, `shipping_postcode`, `shipping_state`, `shipping_country`, `billing_name`, `billing_company`, `billing_street_address`, `billing_suburb`, `billing_city`, `billing_postcode`, `billing_state`, `billing_country`, `payment_method`, `shipping_method`, `coupon_code`, `date_purchased`, `orders_date_closed`, `orders_status`, `order_total`, `order_tax`, `ipn_id`, `ip_address`, `shipment_id_selected`, `shipment_track_id`) VALUES
-// 		(1, 11, 'Primary', '', 'koodal nagar', '', 'madurai', '625018', '', 'IN', 'Primary', '', 'koodal nagar', 'tamilnadu', 'madurai', '625018', 'tamilnadu', 'IN', '9', '', '', '2013-03-21 17:29:29', '0000-00-00 00:00:00', 4, 2150, 0, 0, '127.0.0.1', 7, '')";
-// 		$result=mysql_query($sql);
+
 
 
 

@@ -114,7 +114,7 @@ function checkInputs()
 			{
 
 				
-				if ((document.productreg.price.value=='')|| (document.productreg.msrp.value=='')  )
+				if ((document.productreg.price.value=='')|| (document.productreg.msrp.value=='')   )
 				{
 					alert('Please enter the mandatory fields In Price');
 				tabOpenvalidation('5');
@@ -126,6 +126,12 @@ function checkInputs()
 					 if ( isNaN(document.productreg.price.value)|| isNaN(document.productreg.msrp.value))
 					{
 						alert('Invalid Inputs In Price');
+						tabOpenvalidation('5');
+						return false;
+					}
+					else if ((document.productreg.price.value=='0')|| (document.productreg.msrp.value=='0'))
+					{
+						alert('Enter the  Inputs In Price Greater than Zero');
 						tabOpenvalidation('5');
 						return false;
 					}
@@ -321,7 +327,7 @@ function addTier(cursym)
 		var divIdName = "my"+num+"Tier";
 		var newdiv = document.createElement('div');
 		newdiv.setAttribute("id",divIdName);
-	newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\" style=\"border-left:0\"><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td></td><td width=\"40%\" style=\"border-left:0\"><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td width=\"20%\" style=\"border-left:0\"><a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
+	newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\" ><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td></td><td width=\"40%\" ><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td width=\"20%\"><a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
 
 		ni.appendChild(newdiv);
 	}
@@ -737,7 +743,7 @@ function productalias(val)
     									</thead><tbody >
 	
 		<tr>
-			<td colspan="3"><DIV ID="myTier"></DIV>
+			<td colspan="3" style="padding:0"><DIV ID="myTier"></DIV>
 				<A HREF="javascript:;" onClick="addEvent();"></A></td>
 			</tr>
 

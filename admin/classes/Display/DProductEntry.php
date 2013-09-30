@@ -191,15 +191,22 @@
 	 */	
 	function dispBrand($result,$selected='')
 	{
-
 		if((count($result))>0)
 		{
 		   $output="<select name='selbrand' style='width:160px'><option value=''>Select</option>";
 		  	 foreach($result as $row)
 			{
 				if($row['brand']!='')
-				{	
-					$output.="<option value='".$row['brand']."' >".trim($row['brand'])."</option>";
+				{
+					if($selected==$row['brand'])
+					{
+						$select='selected=selected';
+					}
+					else
+					{
+						$select='';	
+					}
+					$output.="<option value='".$row['brand']."' ".$select.">".trim($row['brand'])."</option>";
 				}
 			}
 		   $output.="</select>";

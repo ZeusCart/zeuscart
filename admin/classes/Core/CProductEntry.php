@@ -85,7 +85,16 @@
 		$brand=$_POST['new_brand'];
 		$model=$_POST['model'];
 		$tag=$_POST['tag'];
-		$intro_date= $_POST['intro_date'];
+		if($_POST['intro_date']!='')
+		{
+			$intro_date=$_POST['intro_date'];
+			$intro_date=date("Y-m-d", strtotime($intro_date));
+		}
+		else
+		{
+			$intro_date= date('Y-m-d');
+
+		}
 		if($_POST['cse_enabled']=='on')
 		{
 			$cse_enabled=1;
@@ -184,7 +193,7 @@
 		$images=$_POST['ufile'];
 		
 		$imgfile= $_FILES['ufile']['name'][0];
-				
+		$description=addslashes(stripslashes(trim($description)));		
 		
 	
 		$sql="insert into products_table(category_id, sku, title, description, brand, model, msrp,price,cse_enabled,cse_key, weight, dimension, thumb_image, image, shipping_cost, status, tag, meta_desc, meta_keywords, intro_date, is_featured,product_status,alias)values('".$category_id."','".$sku."','".$title."','".$description."','".$brand."','".$model."','".$msrp_org."','".$price."','".$cse_enabled."','".$csekeyid."','".$weight."','".$dimension."','".$thumb_image."','".$image."','".$shipping_cost."','".$status."','".$tag."','".$meta_desc."','".$meta_keywords."','".$intro_date."','".$is_feautured."','".$product_status."','".$sluggable."')";	
@@ -679,10 +688,14 @@
 		$product_video=htmlentities($_POST['videotag']);
 		$tag=$_POST['tag'];
 		if($_POST['intro_date']!='')
-		$intro_date= $_POST['intro_date'];
+		{
+		$intro_date=$_POST['intro_date'];
+		$intro_date=date("Y-m-d", strtotime($intro_date));
+		}
 		else
+		{
 		$intro_date= date('Y/m/d');
-			
+		}		
 			
 		if($_POST['is_feautured']=='on')
 			$is_feautured=1;
@@ -849,9 +862,14 @@
 		$product_video=htmlentities($_POST['videotag']);
 		$tag=$_POST['tag'];
 		if($_POST['intro_date']!='')
-		$intro_date= $_POST['intro_date'];
+		{
+		$intro_date=$_POST['intro_date'];
+		$intro_date=date("Y-m-d", strtotime($intro_date));
+		}
 		else
+		{
 		$intro_date= date('Y/m/d');
+		}	
 			
 			
 		if($_POST['is_feautured']=='on')

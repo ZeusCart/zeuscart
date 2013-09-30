@@ -111,7 +111,12 @@ function checkInputs()
 					tabOpenvalidation('5');
 					return false;
 				}
-			
+				else if ((document.productupdate.price.value=='0')|| (document.productupdate.msrp.value=='0'))
+				{
+					alert('Enter the  Inputs In Price Greater than Zero');
+					tabOpenvalidation('5');
+					return false;
+				}
 		}
 	}
 	if (parseFloat(document.productupdate.msrp_org.value)<parseFloat(document.productupdate.price.value))
@@ -452,11 +457,11 @@ function productalias(val)
         			<input name="product_alias" id="product_alias" value="<AJDF:output>$product_alias</AJDF:output>"   type="text" size="50" onblur="productalias(this.value);"/>&nbsp;<div style="color:#FF0000" id="checkalias"></div>
         		</div>
         	</div>
-		<div class="row-fluid"><div class="span12"><label>Upload File<font color="#FF0000">*</font></label>
+		<div class="row-fluid"><div class="span5"><label>Upload File<font color="#FF0000">*</font></label>
         						<INPUT VALUE="0" ID="theValue" TYPE="hidden">
 
         							<div class="fileupload fileupload-new" data-provides="fileupload" style="width:350px;">
-		<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
+		<div class="fileupload-new thumbnail" style="width: 365px; height: 20px;" ></div>
 		<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
 		<div>
 		<span class="btn btn-file"><span class="fileupload-new">Select </span><span class="fileupload-exists">Change</span><input type="file" name="digitalfile" id="digitalfile" /></span>
@@ -464,8 +469,8 @@ function productalias(val)
 		</div></div>
         							<div style="color:#FF0000">
         								<AJDF:output>$msg.digitalfile</AJDF:output>
-        							</div><a href="<AJDF:output>$digitalfilepath</AJDF:output>"><button class="btn btn-primary" type="button">Downlaod File</button></a>
-        						</div>
+        							</div><div></div>
+        						</div><div class="span4"><p style="padding:25px"><a href="<AJDF:output>$digitalfilepath</AJDF:output>"><button class="btn btn-primary" type="button">Download File</button></a></i></p></div>
         					</div>
         	<div class="row-fluid">
         		<div class="span12"><label>Product Description </label>

@@ -22,7 +22,7 @@
     <h1>Installation Completed</h1>
 <div class="body_cnt" id="container">
            	
-<h2>Installation Completed</h2>
+<p><p class="finish">Installation Completed</p></h2>
 
 <p><img src="images/logo.gif" alt="aj square inc" width="190" height="74" /></p>
 <p align="justify">Congratulations!<br />

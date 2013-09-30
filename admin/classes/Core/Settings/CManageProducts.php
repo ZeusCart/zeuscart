@@ -188,7 +188,7 @@ class Core_Settings_CManageProducts
 			
 			if($sku!='')
 			{
-				$condition []= "  pt.sku like  '%".$brand."%'";
+				$condition []= "  pt.sku like  '%".$sku."%'";
 			}
 			if($qty!='')
 			{
@@ -253,6 +253,7 @@ class Core_Settings_CManageProducts
 			{
 				$sql.= ' where pt.product_id=invt.product_id';
 			}
+
 			
 		}
 		else
@@ -920,6 +921,7 @@ class Core_Settings_CManageProducts
 	function updateProduct()
 	{
 
+
 		//convert all special charactor into hyphens and lower case
 		if($_POST['product_alias']!='')
 		{
@@ -955,11 +957,22 @@ class Core_Settings_CManageProducts
 // 		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
 		$title=$_POST['product_title'];
 		$description=$_POST['desc'];
+		$description=addslashes(stripslashes(trim($description)));	
 		$sku=$_POST['sku'];
 		$brand=$_POST['new_brand'];
 		$model=$_POST['model'];
 		$tag=$_POST['tag'];
-		$intro_date= $_POST['intro_date'];
+		if($_POST['intro_date']!='')
+		{
+			$intro_date=$_POST['intro_date'];
+			$intro_date=date("Y-m-d", strtotime($intro_date));
+		}
+		else
+		{
+			$intro_date= date('Y-m-d');
+
+		}
+
 		if($_POST['cse_enabled']=='on')
 		{
 			$cse_enabled=1;
@@ -1136,9 +1149,21 @@ class Core_Settings_CManageProducts
 				}
 			
 			
-			$sqlrelated="insert into cross_products_table (product_id,cross_product_ids) values('".$product_id."','".$related_val."')";
-			$objrelated=new Bin_Query();		
-			$objrelated->updateQuery($sqlrelated);
+			$sqlrelcheck="SELECT * FROM  cross_products_table WHERE product_id='".$product_id."'";
+			$objrelcheck=new Bin_Query();
+			if($objrelcheck->executeQuery($sqlrelcheck))
+			{
+				$sqlrelated="update cross_products_table set cross_product_ids='".$related_val."' WHERE product_id='".$product_id."'"; 
+				$objrelated=new Bin_Query();		
+				$objrelated->updateQuery($sqlrelated);
+
+			}
+			else
+			{
+				$sqlrelated="insert into cross_products_table (product_id,cross_product_ids) values('".$product_id."','".$related_val."')"; 
+				$objrelated=new Bin_Query();		
+				$objrelated->updateQuery($sqlrelated);
+			}
 			
 			$sql="update product_inventory_table set rol=".$rol.", soh=".$soh." where product_id =".((int)$_GET['prodid'] );
 			$obj_upd=new Bin_Query();
@@ -1218,9 +1243,15 @@ class Core_Settings_CManageProducts
 		$product_video=htmlentities($_POST['videotag']);
 		
 		if($_POST['intro_date']!='')
-		$intro_date= $_POST['intro_date'];
+		{
+			$intro_date=$_POST['intro_date'];
+			$intro_date=date("Y-m-d", strtotime($intro_date));
+		}
 		else
-		$intro_date= date('Y/m/d');
+		{
+			$intro_date= date('Y-m-d');
+
+		}
 		
 		
 			
@@ -1363,10 +1394,14 @@ class Core_Settings_CManageProducts
 		$product_video=htmlentities($_POST['videotag']);
 		
 		if($_POST['intro_date']!='')
-		$intro_date= $_POST['intro_date'];
+		{
+			$intro_date=$_POST['intro_date'];
+			$intro_date=date("Y-m-d", strtotime($intro_date));
+		}
 		else
-		$intro_date= date('Y/m/d');
-		
+		{
+			$intro_date= date('Y/m/d');
+		}
 		
 			
 		if($_POST['is_feautured']=='on')

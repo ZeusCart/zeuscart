@@ -68,7 +68,7 @@ $(document).ready(function (){
 
       <ul class="bttn_right">
             <li>
-              <a href="?do=addattributes&action=add" class="add_icon1"  id="saveAttribute"></a> </li>
+              <a href="?do=attributes&action=add" class="add_icon1"  id="saveAttribute"></a> </li>
               <li><a href="#myModal" data-toggle="modal"  class="delete_icon1"  id="attributeDelete"></a>
                  </li>
                    
@@ -81,7 +81,7 @@ $(document).ready(function (){
  
 <AJDF:output>$attribmsg</AJDF:output>
 
-<form action="?do=addattributes&action=delete" method="post" id="deleteAttributeId">
+<form action="?do=attributes&action=delete" method="post" id="deleteAttributeId">
 
         <div class="blocks" style="opacity: 1;">
 <div class="clsListing clearfix">
@@ -167,7 +167,7 @@ function  callattribs(id)
 {
 	if(confirm("Are you sure want to Delete?"))
 	{
-		window.location = "?do=addattributes&action=delete&id="+id;
+		window.location = "?do=attributes&action=delete&id="+id;
 	}
 	document.formmaincat.mainindex.value=id;
 

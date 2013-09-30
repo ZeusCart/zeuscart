@@ -26,23 +26,23 @@
                   	<h2>Admin Information</h2>
            		   			<dl class="setting">
                             	<dt>Domain Name</dt>
-                                <dd><input name="domain" type="text" id="domain" value="<?php echo $Err->values['domain']  ?>"/>
+                                <dd><input name="domain" type="text" id="domain" class="installtext"  value="<?php echo $Err->values['domain']  ?>"/>
                  		<span style="color:#FF0000"> <?php echo $Err->messages['domain'] ?></span></dd>
 
                             	<dt>Admin E-mail</dt>
-                                <dd><input name="email" type="text"  id="email" value="<?php echo $Err->values['email']  ?>"/>
+                                <dd><input name="email" type="text"  id="email" class="installtext" value="<?php echo $Err->values['email']  ?>"/>
              			 <span style="color:#FF0000"> <?php echo $Err->messages['email'] ?></span></dd>
 
                             	<dt>Admin User Name</dt>
-                                <dd><input name="uname" type="text"  id="uname" value="<?php echo $Err->values['uname']  ?>"/> 
+                                <dd><input name="uname" type="text" class="installtext" id="uname" value="<?php echo $Err->values['uname']  ?>"/> 
 				<span style="color:#FF0000"> <?php echo $Err->messages['uname'] ?></span> </dd>
 
                             	<dt>Admin Password</dt>
-                                <dd><input name="pass" type="password" id="pass" value="<?php echo $Err->values['pass']  ?>"/>
+                                <dd><input name="pass" type="password" class="installtext" id="pass" value="<?php echo $Err->values['pass']  ?>"/>
                 		 <span style="color:#FF0000"> <?php echo $Err->messages['pass'] ?></span> </dd>
 
 				<dt>Confirm Admin Password</dt>
-                                <dd><input name="cpass" type="password"  id="cpass" value="<?php echo $Err->values['cpass']  ?>"/>
+                                <dd><input name="cpass" type="password" class="installtext" id="cpass" value="<?php echo $Err->values['cpass']  ?>"/>
              			  <span style="color:#FF0000"> <?php echo $Err->messages['cpass'] ?></span>  </dd>
 	
                             </dl>

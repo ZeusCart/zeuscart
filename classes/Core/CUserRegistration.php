@@ -578,9 +578,9 @@ class Core_CUserRegistration
 	function getCustomHeader()
 	{
 		$query = new Bin_Query(); 
-		$sql = "SELECT set_value from admin_settings_table where set_name='Custom Header'";
+		$sql = "SELECT set_id,customer_header from admin_settings_table where  set_id='1'";
 		$query->executeQuery($sql);
-		$output = $query->records[0]['set_value'];
+		$output = $query->records[0]['customer_header'];
 	
 		if($output!='')
 		return '<div class="flash_News">'.$output.'</div>';

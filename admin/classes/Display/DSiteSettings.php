@@ -105,10 +105,10 @@ class Display_DSiteSettings
 		$output.='</div></div>';
 		$output.='<div class="row-fluid">
               <div class="span2">
-                Upload Logo</div><div class="span10" style="float:left;">
+               Site Logo </div><div class="span10" style="float:left;">
 
                 <div class="fileupload fileupload-new" data-provides="fileupload"> 
-                  <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>&nbsp;<div class="thumbnail" style="float:center;"><img src="../'.$arr['site_logo'].'"></div><input type="hidden" name="site_logo" value="'.$arr['site_logo'].'"> 
+                  <div class="fileupload-new thumbnail" style="width: 200px; height: 100px;"><img src="../'.$arr['site_logo'].'"></div><input type="hidden" name="site_logo" value="'.$arr['site_logo'].'"> 
                   <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                   <div>
                     <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="site_logo" /></span>

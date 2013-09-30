@@ -131,8 +131,7 @@ class Core_CPaymentGateways
 		*/
 		function success()
 		{
-			
-				if($_GET['pay_type']=='1')
+			if($_GET['pay_type']=='1')
 				{
 					$order_total=$_POST['mc_gross'];
 					$ipn_id=$_POST['txn_id'];

@@ -249,10 +249,9 @@ class Display_DFeaturedItems
 				<div class="mask">
 				<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
-				if($recordssoh[0]['soh']>0)
-				{
+				
 				$output.='<button class="info" type="submit" >Add to Cart</button>';
-				}
+				
 				$output.='</div>
 				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
 				
