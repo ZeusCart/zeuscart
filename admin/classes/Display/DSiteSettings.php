@@ -52,7 +52,7 @@ class Display_DSiteSettings
 
 		$output.='<div class="row-fluid">
    		 <div class="span6">
-	        <label>Site Moto <font color="red">*</font>  </label>
+	        <label>Site Title <font color="red">*</font>  </label>
 		<input type="text" name="site_moto"  value="'.$arr['site_moto'].'" class="span8" />
 		</div></div>
 		<div class="row-fluid">
@@ -80,13 +80,6 @@ class Display_DSiteSettings
 		</div>
 		';
 		$output.='<div class="row-fluid">
-		<div class="span6">
-		<label>Administrator Email <font color="red">*</font> </label>	    
-		<input type="text" name="admin_email"  value="'.$arr['admin_email'].'" class="span8" /> 
-		</div>
-		</div> 
-
-		<div class="row-fluid">
    		 <div class="span6">
 	        <label>Set TimeZone to </label>';		
 		$count=count($recordsTime);

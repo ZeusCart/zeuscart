@@ -52,7 +52,7 @@ class Display_DMailMessageSettings
 
 		<th align="left">S.No</th>
 		<th align="left">Title</th>
-		
+		<th align="left">Subject</th>
 		<th align="left" width="8%">Options</th>
 		</tr>
 		</thead>
@@ -71,9 +71,8 @@ class Display_DMailMessageSettings
 				$msg=str_replace('==',' ',$message);
 				$msg=substr($msg,0,30).'..';
 	
-				$output .= '<tr ><td >'.($i+1).'</td><td>'.$arr[$i]['mail_msg_subject'].'</td>';				
-				
-				
+				$output .= '<tr ><td >'.($i+1).'</td><td>'.$arr[$i]['mail_msg_title'].'</td><td>'.$arr[$i]['mail_msg_subject'].'</td>';				
+								
 				$output .='<td align="center"><a  href="?do=mailmessages&amp;action=disp&amp;id='.
 				$arr[$i]['mail_msg_id'].'"><i class="icon icon-edit"></i></a></td></tr>';
 				$output .='</tr>';
@@ -102,12 +101,15 @@ class Display_DMailMessageSettings
 	
 		$output.='<div class="clearfix">
 			<div class="row-fluid">
-			<div class="span6"><label> Mail Subject : </label>
-				'.$arr[0]['mail_msg_subject'].'</div></div>
+			<div class="span6"><label> Mail Title  </label>
+				'.$arr[0]['mail_msg_title'].'</div></div>
+			<div class="row-fluid">
+			<div class="span6"><label> Mail Subject <font color="red">*</font>  </label>
+				<input type="text" name="mail_msg_subject" value="'.$arr[0]['mail_msg_subject'].'" class="span12"></div></div>
 			<div class="row-fluid">
 			<div class="span6">
-			<label>Mail Message : </label>
-				<textarea style="width: 286px; height: 171px;" name="mailmessages">'.$arr[0]['mail_msg'].'</textarea>
+			<label>Mail Message <font color="red">*</font> </label>
+				<textarea style="width: 286px; height: 171px;" name="mailmessages" class="ckeditor">'.$arr[0]['mail_msg'].'</textarea>
 				</div></div>
 
 			</div>';

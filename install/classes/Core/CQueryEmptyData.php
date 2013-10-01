@@ -599,7 +599,13 @@ class Core_CQuery
 
 		$sql="Drop table if exists mail_messages_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE mail_messages_table(mail_msg_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,mail_msg_subject  VARCHAR(300) NOT NULL,mail_msg  TEXT(65535) )";
+		$sql="CREATE TABLE IF NOT EXISTS `mail_messages_table` (
+			`mail_msg_id` int(20) NOT NULL auto_increment,
+			`mail_msg_title` varchar(240) NOT NULL,
+			`mail_msg_subject` varchar(300) NOT NULL,
+			`mail_msg` text,
+			PRIMARY KEY  (`mail_msg_id`)
+			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 
 

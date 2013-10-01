@@ -15,6 +15,8 @@
 		<do name="adword" model="MAdWord" action="export" function="exportTSV"/>		
 		
 		<do name="adminlogin" model="MAdminLogin" function="showIndexPage"/>
+		
+		
 		<do name="adminlogin" model="MAdminLogin" action="showpage" function="forgetPasswordPage"/>
 		<do name="adminlogin" model="MAdminLogin" action="sendmail" function="forgetPassword"/>
 		
@@ -505,6 +507,11 @@
 		<do name="custgroup" model="MCustomerGroup" function="editCustomerGroup" action="edit"/>
 		<do name="custgroup" model="MCustomerGroup" function="updateCustomerGroup" action="update"/>
 		<do name="custgroup" model="MCustomerGroup" function="deleteCustomerGroup" action="delete"/>
+		
+		------------------------------admin profile-------------------------------
+		
+		<do name="adminprofile" model="MAdminProfile" function="showAdminProfile"/>
+		<do name="adminprofile" model="MAdminProfile" function="updateAdminProfile" action="update"/>
 	</domapping>
 	
 </controller-config>

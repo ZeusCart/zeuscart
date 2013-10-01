@@ -2083,6 +2083,18 @@
     'function' => 'deleteCustomerGroup',
     'loadlib' => '1',
   ),
+  'adminprofile' => 
+  array (
+    'model' => 'MAdminProfile',
+    'function' => 'showAdminProfile',
+    'loadlib' => '1',
+  ),
+  'adminprofile:update' => 
+  array (
+    'model' => 'MAdminProfile',
+    'function' => 'updateAdminProfile',
+    'loadlib' => '1',
+  ),
 );
  
 

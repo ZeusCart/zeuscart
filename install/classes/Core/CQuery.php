@@ -681,16 +681,22 @@ class Core_CQuery
 
 		$sql="Drop table if exists mail_messages_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE mail_messages_table(mail_msg_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,mail_msg_subject  VARCHAR(300) NOT NULL,mail_msg  TEXT(65535) )";
-		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `mail_messages_table` (
+			`mail_msg_id` int(20) NOT NULL auto_increment,
+			`mail_msg_title` varchar(240) NOT NULL,
+			`mail_msg_subject` varchar(300) NOT NULL,
+			`mail_msg` text,
+			PRIMARY KEY  (`mail_msg_id`)
+			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+					$result=mysql_query($sql);
 
 
-		$sql="INSERT INTO `mail_messages_table` ( `mail_msg_subject`, `mail_msg`) VALUES
-		('Registration Info', '<h2>Dear ==username==,<br /></h2>\r\n<p style=\"padding-left: 30px;\">You have successfully registered in to ==sitename==. Your user name is ==username== and password is ==password==.</p>\r\n<p style=\"padding-left: 30px;\">&nbsp;</p>'),
-		( 'Failure info', '<p>Dear Customer,</p>\r\n<hr />\r\n<h2>Dear customer,<br /> You have not been fully registered in to ==sitename==. click here==link== to complete the registration.<br /></h2>\r\n<p>&nbsp;</p>'),
-		('Request password confirmation', '<p>Dear ==username==,</p>\r\n<p>&nbsp;</p>\r\n<p class=\"MsoPlainText\">You have requested for the new password we send you a new login password for the ==sitename==.</p>\r\n<p class=\"MsoPlainText\">If someone else made this request, or if you have\r\nremembered your password and you no longer wish to change it, you may safely\r\nignore this message. Your old/existing password will continue to work despite\r\nthis new password being created for you.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">~==sitename==</p>\r\n<p>==siteurl==</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>'),
-		( 'New temporary password', '<p>Dear ==username==,</p>\r\n<p>&nbsp;</p>\r\n<p class=\"MsoPlainText\">You have requested for the new password we send you a new login password for the ==sitename==.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">The new password for the user account ==username== is ==newpassword==. You can now log in to ==sitename== using that password.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">If someone else made this request, or if you have\r\nremembered your password and you no longer wish to change it, you may safely\r\nignore this message. Your old/existing password will continue to work despite\r\nthis new password being created for you.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">~==sitename==</p>\r\n<p>==siteurl==</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>'),
-		('text_facebookregister', '<p><strong>Hi</strong> <strong>[firstname] [lastname],</strong></p><p><strong>Congratulations!</strong> Your Registration completed Successfully through Facebook Login in [domainname]</p><p>Your registration is activated successfully.</p><p>Thanks,</p><p>Zeuscart V4 Team.</p>')";
+		$sql="INSERT INTO `mail_messages_table` (`mail_msg_title`, `mail_msg_subject`, `mail_msg`) VALUES
+		('Registration','Registration Info', '<h2>Dear ==username==,<br /></h2>\r\n<p style=\"padding-left: 30px;\">You have successfully registered in to ==sitename==. Your user name is ==username== and password is ==password==.</p>\r\n<p style=\"padding-left: 30px;\">&nbsp;</p>'),
+		('Failure info', 'Failure info', '<p>Dear Customer,</p>\r\n<hr />\r\n<h2>Dear customer,<br /> You have not been fully registered in to ==sitename==. click here==link== to complete the registration.<br /></h2>\r\n<p>&nbsp;</p>'),
+		('Password confirmation','Request password confirmation', '<p>Dear ==username==,</p>\r\n<p>&nbsp;</p>\r\n<p class=\"MsoPlainText\">You have requested for the new password we send you a new login password for the ==sitename==.</p>\r\n<p class=\"MsoPlainText\">If someone else made this request, or if you have\r\nremembered your password and you no longer wish to change it, you may safely\r\nignore this message. Your old/existing password will continue to work despite\r\nthis new password being created for you.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">~==sitename==</p>\r\n<p>==siteurl==</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>'),
+		( 'New password','New temporary password', '<p>Dear ==username==,</p>\r\n<p>&nbsp;</p>\r\n<p class=\"MsoPlainText\">You have requested for the new password we send you a new login password for the ==sitename==.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">The new password for the user account ==username== is ==newpassword==. You can now log in to ==sitename== using that password.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">If someone else made this request, or if you have\r\nremembered your password and you no longer wish to change it, you may safely\r\nignore this message. Your old/existing password will continue to work despite\r\nthis new password being created for you.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">~==sitename==</p>\r\n<p>==siteurl==</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>'),
+		('Facebook','text_facebookregister', '<p><strong>Hi</strong> <strong>[firstname] [lastname],</strong></p><p><strong>Congratulations!</strong> Your Registration completed Successfully through Facebook Login in [domainname]</p><p>Your registration is activated successfully.</p><p>Thanks,</p><p>Zeuscart V4 Team.</p>')";
 		$result=mysql_query($sql);
 
 
