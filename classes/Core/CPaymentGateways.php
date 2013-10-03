@@ -286,7 +286,12 @@ class Core_CPaymentGateways
 			$billing_state =$orderdetails['txtsstate'];
 			$ip_address=$_SERVER['REMOTE_ADDR'];		
 			$shipment_id_selected=$_SESSION['shipment_id_selected'];
+
+
+			$billingaddress = $billing_name.', <br>'.$billing_street_address.', <br>'.$billing_city.', <br>'.$billing_suburb.', <br>'.$billing_country;
 			
+			$shippingaddress = $shipping_name.', <br>'.$shipping_street_address.', <br>'.$shipping_city.', <br>'.$shipping_suburb.', <br>'.$shipping_country;
+
 			if((((int)$customers_id!=0) || ($customers_id!='')) && ($_SESSION['checkout_amount']!=''))
 			{
 					 $sql="insert into orders_table
@@ -317,79 +322,84 @@ class Core_CPaymentGateways
 							$rec=$obj1->records;
 							$maxid=$rec[0]['maxid'];
 							
-							$sql4="select distinct a.cart_id from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id'];
+							$sql4="select distinct a.cart_id from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']; 
 							$obj4=new Bin_Query();
 							$obj4->executeQuery($sql4);
 							$res4=$obj4->records;
 							
-							 $val=$res4[0]['cart_id']; 
-								$cartid=$val;
+// 							 $val=$res4[0]['cart_id']; 
+// 								$cartid=$val;
 							
-							
-						    $sql2="select * from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']." and a.cart_id='".$val."'" ;  
-							$obj2=new Bin_Query();
-							$obj2->executeQuery($sql2);
-							$res=$obj2->records;
-							if(count($res)>0)
-							{
-								foreach($res as $row)
-								{
-									$product_id=$row['product_id'];
-									$product_qty=$row['product_qty'];
-									$sql6="select * from product_inventory_table where product_id=".$product_id;
-									$obj6=new Bin_Query();
-									$obj6->executeQuery($sql6);
-									$res6=$obj6->records;
-									$soh=$res6[0]['soh'];
-									if($soh>$product_qty)
-									{
-									   $mysoh=$soh-$product_qty;
-									}
-									else
-									{
-									  $product_qty=$soh;
-									  $mysoh=$product_qty-$soh;									  
-									}
-									$sql5="update product_inventory_table set soh = '".$mysoh."' where product_id = ".$product_id;
-									$obj5=new Bin_Query();
-									$obj5->updateQuery($sql5);
-  
-									$product_unit_price=$row['product_unit_price'];
-									$shipping_cost=$row['shipping_cost'];
-									
-									 $sql="insert into order_products_table (order_id, product_id, product_qty, product_unit_price,shipping_cost) values  ('".$maxid."','".$product_id."','".$product_qty."','".$product_unit_price."','".$shipping_cost."')"."\n";
-									$obj=new Bin_Query();
-									$obj->updateQuery($sql);
-									
-									// update gift voucher 
-									if($row['gift_product']==1)
-									{
-										$sql_gift="UPDATE gift_voucher_table SET  order_id='".$maxid."' WHERE  cart_id='".$row['cart_id']."'";
-										$obj_gift=new Bin_Query();
-										$obj_gift->updateQuery($sql_gift);
-										
-							
-										Core_CPaymentGateways::sendingMail($maxid);
-
-									}
-									
-									
-								}
-// 								$res1=$obj2->records;
+						if(count($res4)>0)
+						{
+								
+								
+							for($c=0;$c<count($res4);$c++)
+							{	
+								$val=$res4[$c]['cart_id'];
+								$sql2="select * from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']." and a.cart_id='".$val."'" ;  
+								$obj2=new Bin_Query();
+								$obj2->executeQuery($sql2);
+								$res=$obj2->records;
 								if(count($res)>0)
 								{
-									 $sql2="delete from shopping_cart_products_table where cart_id = ".$cartid;
-									 $objdel=new Bin_Query();		
-									 $objdel->updateQuery($sql2);
+									foreach($res as $row)
+									{
+										$product_id=$row['product_id'];
+										$product_qty=$row['product_qty'];
+										$sql6="select * from product_inventory_table where product_id=".$product_id;
+										$obj6=new Bin_Query();
+										$obj6->executeQuery($sql6);
+										$res6=$obj6->records;
+										$soh=$res6[0]['soh'];
+										if($soh>$product_qty)
+										{
+										$mysoh=$soh-$product_qty;
+										}
+										else
+										{
+										$product_qty=$soh;
+										$mysoh=$product_qty-$soh;									  
+										}
+										$sql5="update product_inventory_table set soh = '".$mysoh."' where product_id = ".$product_id;
+										$obj5=new Bin_Query();
+										$obj5->updateQuery($sql5);
 	
-									 $sql3="delete from shopping_cart_table where cart_id = ".$cartid; 
-									 $objselshop=new Bin_Query();
-									 $objselshop->updateQuery($sql3);	
+										$product_unit_price=$row['product_unit_price'];
+										$shipping_cost=$row['shipping_cost'];
+										
+										$sql="insert into order_products_table (order_id, product_id, product_qty, product_unit_price,shipping_cost) values  ('".$maxid."','".$product_id."','".$product_qty."','".$product_unit_price."','".$shipping_cost."')"."\n";
+										$obj=new Bin_Query();
+										$obj->updateQuery($sql);
+										
+										// update gift voucher 
+										if($row['gift_product']==1)
+										{
+											$sql_gift="UPDATE gift_voucher_table SET  order_id='".$maxid."' WHERE  cart_id='".$row['cart_id']."'";
+											$obj_gift=new Bin_Query();
+											$obj_gift->updateQuery($sql_gift);
+											
+								
+											Core_CPaymentGateways::sendingMail($maxid);
+	
+										}
+										
+										
+									}
+	// 								
+									$sql2="delete from shopping_cart_products_table where cart_id = ".$val;
+									$objdel=new Bin_Query();		
+									$objdel->updateQuery($sql2);
+	
+									$sql3="delete from shopping_cart_table where cart_id = ".$val; 
+									$objselshop=new Bin_Query();
+									$objselshop->updateQuery($sql3);	
+									
+	
 								}
-
 							}				
-					}
-
+						}
+				
 					// insert gift voucher 
 
 					/*if($_SESSION['gift']!='')
@@ -435,6 +445,53 @@ class Core_CPaymentGateways
 					$mail_subject = "Successfull Order From ZeusCart"; //subject
 					$mail_header = "From: ". $mail_name . " <" . $mail_email . ">\r\n"; //optional headerfields
 					mail($mail_recipient, $mail_subject, $mail_body, $mail_header);*/
+
+					$sqlmail="select orders_id,user_display_name,user_email from orders_table a inner join users_table b on a.customers_id=b.user_id where a.customers_id='".$_SESSION['user_id']."' order by orders_id desc limit 1";
+					$objmail=new Bin_Query();
+					$objmail->executeQuery($sqlmail);
+					$resmail_id=$objmail->records[0]['orders_id'];
+					$resmail_username=$objmail->records[0]['user_display_name'];
+					$resmail_usermail=$objmail->records[0]['user_email'];
+					
+					$sqllogo="select set_id,site_logo,site_moto,admin_email from admin_settings_table where set_id='1'";
+					$objlogo=new Bin_Query();
+					$objlogo->executeQuery($sqllogo);
+					$admin_logo=$objlogo->records[0]['site_logo'];				
+					$admin_domain=$objlogo->records[0]['site_moto'];	
+				
+					$admin_email=$obj_admin->records[0]['admin_email'];
+			
+					$logo=$admin_domain.'/'.$admin_logo;
+					
+					$outputbody =   Display_DPaymentGateways::successmail($logo,$resmail_username,$resmail_id,$admin_domain,$orderid,$shipping_cost,$billingaddress,$shippingaddress);
+						
+						$adminmailcontent=Display_DPaymentGateways::adminsuccessmail($logo,$resmail_username,$resmail_id,$admin_domain,$orderid,$shipping_cost,$billingaddress,$shippingaddress);					
+						// Send Mail to the User about the Order Placement
+						$mailto=$resmail_usermail;
+						$fromid=$admin_email;
+						$mailsubject='Order has been submitted successfully';
+						$mailbody=$outputbody;
+						
+						$headers  = "MIME-Version: 1.0\n";
+						$headers .= "Content-type: text/html; charset=iso-8859-1\n";
+						$headers .= "From: ". $fromid."\n";
+						$mail = mail($mailto,$mailsubject,stripslashes(html_entity_decode($mailbody)),$headers);
+				
+
+						
+
+						//Send Mail to the admin about the Order Placed.
+
+						$mailto=$admin_email;
+						$fromid=$admin_email;
+						$mailsubject='Order has been submitted successfully';
+						$mailbody=$adminmailcontent;
+						
+						$headers  = "MIME-Version: 1.0\n";
+						$headers .= "Content-type: text/html; charset=iso-8859-1\n";
+						$headers .= "From: ". $fromid."\n";
+						$mail = mail($mailto,$mailsubject,stripslashes(html_entity_decode($mailbody)),$headers);	
+
 					$_SESSION['checkout_amount']='';
 					$_SESSION['order_tax']='';
 					$_SESSION['orderdetails']='';
@@ -442,6 +499,7 @@ class Core_CPaymentGateways
 					$_SESSION['shipment_id_selected']='';
 					$_SESSION['gift']='';	
 					
+				}
 			}	
 					
 		}

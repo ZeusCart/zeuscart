@@ -97,6 +97,12 @@
     'function' => 'displayRegPage',
     'loadlib' => '1',
   ),
+  'registerconfirm' => 
+  array (
+    'model' => 'MUserRegistration',
+    'function' => 'registerConfirm',
+    'loadlib' => '1',
+  ),
   'userregistration:addreg' => 
   array (
     'model' => 'MUserRegistration',

@@ -69,9 +69,18 @@ class Core_CUserRegistration
 		{
 			if( $displayname!= '' and $firstname  != '' and $lastname != '' and $email != '' and $pswd != '')
 			{
-				
+				$characters='8';	
+				$possible = '1234567890';
+					$code = '';
+					$i = 0;
+					while ($i < $characters) {
+						$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
+						$i++;
+			
+					}
+
 				$pswd=md5($pswd);
-				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country,ipaddress,user_group) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',1,'".$date."','".$country."','".$_SERVER['REMOTE_ADDR']."','1')";
+				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country,ipaddress,user_group,confirmation_code) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',0,'".$date."','".$country."','".$_SERVER['REMOTE_ADDR']."','1','".$code."')";
 				$obj = new Bin_Query();
 				if($obj->updateQuery($sql))
 				{
@@ -93,13 +102,31 @@ class Core_CUserRegistration
 	
 						$result = '<div class="alert alert-success">
 						<button data-dismiss="alert" class="close" type="button">×</button>
-						Account has been Created Successfully
+						Account has been created successfully.And the confirmation link send to your email address.
 						</div>';
-						$pwd = $_POST['txtpwd'];
-						$title="Zeuscart";
-						$mail_content="Thank you for registering with us. Your Login Details are given below<br>
-						UserName :".$email."<br>Password:".$pwd;
-						Core_CUserRegistration::sendingMail($email,$title,$mail_content);
+						//select mail setting
+						$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id=1 AND mail_user='0'";
+						$objMail=new Bin_Query();
+						$objMail->executeQuery($sqlMail);
+						$message=$objMail->records[0]['mail_msg'];
+						$title=$objMail->records[0]['mail_msg_title'];
+						$subject=$objMail->records[0]['mail_msg_subject'];
+
+						$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
+						$dir = (dirname($_SERVER['PHP_SELF']) == "\\")?'':dirname($_SERVER['PHP_SELF']);
+						$site = $protocol.$_SERVER['HTTP_HOST'].$dir;
+
+						$link = $site.'/?do=registerconfirm&confirm_code='.$code;
+						$confirm_link = '<a href="'.$link.'">'.$link.'</a>';
+
+						$message = str_replace("[firstname]",$firstname,$message);
+						$message = str_replace("[lastname]",$lastname,$message);
+						$message = str_replace("[confirm_link]",$confirm_link,$message);
+					
+						$message = str_replace("[user_name]",$email,$message);		$message = str_replace("[password]",$_POST['txtpwd'],$message);		
+					
+					
+						Core_CUserRegistration::sendingMail($email,$title,$message);
 					}
 					else
 						$result ='<div class="alert alert-error">
@@ -121,10 +148,69 @@ class Core_CUserRegistration
 							<button data-dismiss="alert" class="close" type="button">×</button>
 							Account Not Created
 							</div>';
+			}
 		}
-	}
-	return $result;
+		return $result;
   	}
+
+
+	/**
+	* This function is used to confirm the user in db
+ 	*
+ 	* @return string
+	*/
+	function registerConfirm()
+	{
+		$sql="SELECT * FROM users_table WHERE confirmation_code='".$_GET['confirm_code']."' ";
+		$obj=new Bin_Query();
+		if($obj->executeQuery($sql))
+		{
+			$user_id=$obj->records[0]['user_id'];
+			$sqlupdate="UPDATE users_table SET user_status='1' WHERE user_id='".$user_id."'";
+			$objupdate=new Bin_Query();
+			if($objupdate->updateQuery($sqlupdate))
+			{
+
+				$_SESSION['success_msg']='<div class="alert alert-success">
+							<button data-dismiss="alert" class="close" type="button">×</button>
+							User has been confirmed
+							</div>';
+
+
+				//select mail setting
+				$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id=4 AND mail_user='1'";
+				$objMail=new Bin_Query();
+				$objMail->executeQuery($sqlMail);
+				$message=$objMail->records[0]['mail_msg'];
+				$title=$objMail->records[0]['mail_msg_title'];
+				$subject=$objMail->records[0]['mail_msg_subject'];	
+
+				$sql = "select set_id,admin_email from admin_settings_table where set_id='1'";
+				$obj = new Bin_Query();
+				$obj->executeQuery($sql);
+				$email=$obj->records[0]['admin_email'];
+			
+
+				Core_CUserRegistration::sendingMail($email,$title,$message);
+
+
+				header('Location:?do=login');
+
+			}
+		}
+		else
+		{
+
+			$_SESSION['success_msg']='<div class="alert alert-error">
+							<button data-dismiss="alert" class="close" type="button">×</button>
+							Invalid User!
+							</div>';
+			header('Location:?do=login');
+		}
+
+			
+
+	}
   	 /**
 	 * This function is used to get  the  user inforamtion 
 	 *
@@ -213,13 +299,35 @@ class Core_CUserRegistration
 			
 			if($obj->executeQuery($sql))
 			{
-	        	
-				$password = $obj->records[0]['user_pwd'];
-				$password = base64_decode($password);
-				$title = 'Login Password';
-				$mail_content = 'Your Password is '.$password;
+				$user_id=$obj->records[0]['user_id'];
+				$characters='8';	
+				$possible = '1234567890';
+					$password = '';
+					$i = 0;
+					while ($i < $characters) {
+						$password .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
+						$i++;
+			
+					}
+
+			
+				$sqlUpdate="UPDATE  users_table SET user_pwd='".md5($password)."' WHERE user_id='".$user_id."'";	
+				$objUpdate=new Bin_Query();
+				$objUpdate->updateQuery($sqlUpdate);	
 				
-				Core_CUserRegistration::sendingMail($email,$title,$mail_content);
+
+				//select mail setting
+				$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id='2' AND mail_user='0'";
+				$objMail=new Bin_Query();
+				$objMail->executeQuery($sqlMail);
+				$message=$objMail->records[0]['mail_msg'];
+				$title=$objMail->records[0]['mail_msg_title'];
+				$subject=$objMail->records[0]['mail_msg_subject'];
+
+				$message = str_replace("[user_password]",$password,$message);
+				
+				
+				Core_CUserRegistration::sendingMail($email,$title,$message);
 				$result = '<div class="alert alert-success">
 				<button data-dismiss="alert" class="close" type="button">×</button>
 				Password has been sent to your mail successfully
@@ -248,13 +356,12 @@ class Core_CUserRegistration
 	
 	function sendingMail($to_mail,$title,$mail_content)
 	{
-		
-		$sql = "select set_value from admin_settings_table where set_name='Admin Email'";
+		$sql = "select set_id,admin_email from admin_settings_table where set_id='1'";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
 			
-			$from =$obj->records[0]['set_value']; 
+			$from =$obj->records[0]['admin_email']; 
 			include('classes/Lib/Mail.php');
 			$mail = new Lib_Mail();
 			$mail->From($from); 
@@ -262,6 +369,7 @@ class Core_CUserRegistration
 			$mail->To($to_mail); 
 			$mail->Subject($title);
 			$mail->Body($mail_content);
+		
 			$mail->Send();
 		}
 		else
@@ -276,11 +384,14 @@ class Core_CUserRegistration
 	 */
 	function loginStatus()
 	{
+
+
 		include_once('classes/Core/CHitCounter.php');
 					
 		$str='';  $salute='';
 		if($_SESSION['user_id']!='')
 		{
+		
 			$str='Logout';
 			$output['logout']='<a href="'.$_SESSION['base_url'].'/logout.html">'.$str.'</a>';
 			$output['username']='Welcome '.$_SESSION['user_name'];

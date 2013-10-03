@@ -26,6 +26,8 @@
 			<do name="userregistration" model="MUserRegistration" function="displayRegPage"/>
 			<do name="userregistration" model="MUserRegistration" function="showValidateRegPage" action="addreg"/>
 			
+			<do name="registerconfirm" model="MUserRegistration" function="registerConfirm" />
+			
 			<do name="myprofile" model="MUserRegistration" function="showMyProfile"/>
 			<do name="myprofile" model="MUserRegistration" function="updateMyProfile" action="updatemyprofile"/>
 			

@@ -81,9 +81,8 @@ class Core_CAdminProfile
 	
 	function updateAdminProfile()
 	{
-
-		
-		if($_POST['admin_password']!='')
+	
+		if($_POST['admin_password']!='' && $_SERVER['HTTP_HOST']!='demo.zeuscart.com')
 		{
 			$admin_password=md5(trim($_POST['admin_password']));	
 			$sql = "UPDATE admin_table SET 
@@ -91,7 +90,7 @@ class Core_CAdminProfile
 			admin_password ='".$admin_password."'			
 			where admin_id='1'";  
 		}
-		else
+		elseif($_SERVER['HTTP_HOST']!='demo.zeuscart.com')
 		{
 			$sql = "UPDATE admin_table SET 
 			admin_name  ='".trim($_POST['admin_name'])."' 					

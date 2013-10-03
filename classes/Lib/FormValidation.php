@@ -311,7 +311,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		
 		
-		
+		unset($_SESSION['mycart']);
 		$message = "Required Field Cannot be blank/Invalid Email";
 		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck",$message);
 		$message = "Required Field Cannot be blank";

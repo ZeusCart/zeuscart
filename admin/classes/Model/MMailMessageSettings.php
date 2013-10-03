@@ -82,6 +82,7 @@ class Model_MMailMessageSettings
 			include("classes/Core/Settings/CMailMessageSettings.php");
 			$default = new Core_Settings_CMailMessageSettings();	
 			$output['showmailmessages'] =$default -> showMailMessages();
+			$output['showadminmailmessages'] =$default -> showAdminMailMessages();
 			Bin_Template::createTemplate('showmailmessages.html',$output);
 			UNSET($_SESSION['successmsg']);
 		}
@@ -106,8 +107,16 @@ class Model_MMailMessageSettings
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
+			include('classes/Core/CAdminHome.php');
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');	
+			$output['currency_type']=$_SESSION['currency']['currency_tocken'];
 			include("classes/Core/Settings/CMailMessageSettings.php");
-			//new Lib_CheckInputs('createcategory');
+			include("classes/Lib/HandleErrors.php");			
+		
+			$output['msg']=$Err->messages;
+			$output['val']=$Err->values;
+	
 			$default = new Core_Settings_CMailMessageSettings();
 			$output['editmessage']=$default->displayMessage();
 			Bin_Template::createTemplate('editmailmessage.html',$output);
@@ -136,8 +145,13 @@ class Model_MMailMessageSettings
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
+			include('classes/Core/CAdminHome.php');
+			$output['username']=Core_CAdminHome::userName();
+			$output['currentDate']=date('l, M d, Y H:i:s');	
+			$output['currency_type']=$_SESSION['currency']['currency_tocken'];
 			include("classes/Core/Settings/CMailMessageSettings.php");
-			//new Lib_CheckInputs('createcategory');
+			include('classes/Lib/CheckInputs.php');	
+			new Lib_CheckInputs('editmailmessage');
 			$default = new Core_Settings_CMailMessageSettings();
 			$default->editMessage();
 			//Bin_Template::createTemplate('editcontents.php',$output);

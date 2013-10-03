@@ -43,7 +43,7 @@ class Core_Settings_CMailMessageSettings
 	function showMailMessages()
 	{
 		include("classes/Display/DMailMessageSettings.php");
-		$sql = "SELECT * FROM mail_messages_table";
+		$sql = "SELECT * FROM mail_messages_table WHERE mail_user=0";
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
 		{	
@@ -55,7 +55,29 @@ class Core_Settings_CMailMessageSettings
 			return "No Maill Messages Found";
 		}
 	}
+	/**
+	 * Function gets all the admin mail messages from the database 
+	 * 
+	 * 
+	 * @return string
+	 */
+	function showAdminMailMessages()
+	{
 	
+		$sql = "SELECT * FROM mail_messages_table WHERE mail_user=1";
+		$query = new Bin_Query();
+		if($query->executeQuery($sql))
+		{	
+		
+			return Display_DMailMessageSettings::showMailMessages($query->records);
+		}
+		else
+		{
+			return "No Maill Messages Found";
+		}
+		
+	}	
+
 	/**
 	 * Function displays the selected mail message from the database for updation 
 	 * 
@@ -64,8 +86,8 @@ class Core_Settings_CMailMessageSettings
 	 */	 
 	
 	function displayMessage()
-    {
-        include("classes/Display/DMailMessageSettings.php");
+    	{
+       		 include("classes/Display/DMailMessageSettings.php");
 		
 		$sql = "SELECT * FROM mail_messages_table where mail_msg_id=".(int)$_GET['id'];
 		

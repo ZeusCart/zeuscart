@@ -99,18 +99,16 @@ class Display_DMailMessageSettings
 	
 		$output = "";
 	
-		$output.='<div class="clearfix">
+		$output.='
 			<div class="row-fluid">
-			<div class="span6"><label> Mail Title  </label>
-				'.$arr[0]['mail_msg_title'].'</div></div>
-			<div class="row-fluid">
-			<div class="span6"><label> Mail Subject <font color="red">*</font>  </label>
-				<input type="text" name="mail_msg_subject" value="'.$arr[0]['mail_msg_subject'].'" class="span12"></div></div>
+			<div class="span6"><label> '.$arr[0]['mail_msg_title'].' </label>
+				<input type="text" name="mail_msg_subject" value="'.$arr[0]['mail_msg_subject'].'" class="span12"></div><div class="span6"><label> &nbsp;</label>Subject</div></div>
 			<div class="row-fluid">
 			<div class="span6">
 			<label>Mail Message <font color="red">*</font> </label>
-				<textarea style="width: 286px; height: 171px;" name="mailmessages" class="ckeditor">'.$arr[0]['mail_msg'].'</textarea>
-				</div></div>
+				<textarea  style="width: 428px; height: 200px;" name="mailmessages" >'.$arr[0]['mail_msg'].'</textarea>
+				</div><div class="span6">
+			<label>&nbsp;</label>Message Body<br/><br/>Short Code : <br/>'.$arr[0]['mail_short_code'].'</div></div>
 
 			</div>';
 		return $output;

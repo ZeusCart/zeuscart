@@ -137,6 +137,19 @@ class Model_MUserRegistration
 
 		Bin_Template::createTemplate('signup.html',$output);
 	}
+
+
+	/**
+	* This function is used to confirm the register
+ 	*
+ 	* @return string
+	*/
+	function registerConfirm()
+	{
+		include('classes/Core/CUserRegistration.php');
+		Core_CUserRegistration::registerConfirm();	
+
+	}
 	/**
 	* This function is used to show my profile  page
  	*
