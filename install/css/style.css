@@ -87,7 +87,7 @@ ul.install {
 }
 ul.install li {
 	float:left;
-	margin-right:10px;
+	margin-right:1px;
 	line-height:26px;
 }
 ul.install li.active {
@@ -120,4 +120,24 @@ dl.setting dd{width:250px; float:left; margin-right:10px; color:#06F; margin-bot
     padding: 5px;
     text-align: center;
     text-transform: capitalize;
+}
+
+.featureTXT {
+	padding-top:5px;
+	height:40px;
+	text-align:center;
+}
+.featureTXT a:link, .featureTXT a:visited {
+	padding-top:5px;
+	height:40px;
+	text-align:center;
+	text-decoration:none;
+	color:#716f6f;
+}
+.featureTXT a:hover {
+	padding-top:5px;
+	height:40px;
+	text-align:center;
+	text-decoration:underline;
+	color:#30a7c7;
 }

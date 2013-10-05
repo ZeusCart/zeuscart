@@ -595,7 +595,20 @@ class Core_CQuery
 		)";
 		$result=mysql_query($sql);
 
+		$sql="Drop table if exists live_chat_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE `zeuscart_master`.`live_chat_table` (
+		`id` INT( 10 ) NOT NULL AUTO_INCREMENT ,
+		`live_chat_script` TEXT NOT NULL ,
+		`live_chat_status` INT( 10 ) NOT NULL COMMENT '0=>on,1=>off',
+		PRIMARY KEY ( `id` )
+		) ENGINE = MYISAM ;";
+		$result=mysql_query($sql);
 
+		$sql="INSERT INTO `live_chat_table` (`live_chat_script`, `live_chat_status`) VALUES
+		('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 0)";
+		$result=mysql_query($sql);
+	
 
 		$sql="Drop table if exists mail_messages_table";
 		$result=mysql_query($sql);
@@ -609,6 +622,9 @@ class Core_CQuery
 		PRIMARY KEY (`mail_msg_id`)
 		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
+
+
+		
 
 
 		$sql="Drop table if exists msrp_by_quantity_table";

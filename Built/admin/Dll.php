@@ -2095,6 +2095,18 @@
     'function' => 'updateAdminProfile',
     'loadlib' => '1',
   ),
+  'livechat' => 
+  array (
+    'model' => 'MLiveChat',
+    'function' => 'showLiveChat',
+    'loadlib' => '1',
+  ),
+  'livechat:update' => 
+  array (
+    'model' => 'MLiveChat',
+    'function' => 'updateLiveChat',
+    'loadlib' => '1',
+  ),
 );
  
 

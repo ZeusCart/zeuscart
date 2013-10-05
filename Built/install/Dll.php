@@ -67,10 +67,34 @@
     'function' => 'finish',
     'loadlib' => '1',
   ),
+  'livechat' => 
+  array (
+    'model' => 'MInstall',
+    'function' => 'showLiveChat',
+    'loadlib' => '1',
+  ),
+  'validatelivechat' => 
+  array (
+    'model' => 'MInstall',
+    'function' => 'validateLiveChat',
+    'loadlib' => '1',
+  ),
+  'finishlivechat' => 
+  array (
+    'model' => 'MInstall',
+    'function' => 'finishLiveChat',
+    'loadlib' => '1',
+  ),
   'complete' => 
   array (
     'model' => 'MInstall',
     'function' => 'complete',
+    'loadlib' => '1',
+  ),
+  'captcha' => 
+  array (
+    'model' => 'MInstall',
+    'function' => 'showCaptcha',
     'loadlib' => '1',
   ),
 );

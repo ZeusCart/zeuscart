@@ -670,12 +670,21 @@ class Core_CQuery
 		PRIMARY KEY (`id`)
 		)";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `invoice_table` (`id`, `order_id`, `invoice_name`, `invoice_path`, `invoice_upload_date`) VALUES
-		(1, 1, '', 'images/invoice/Brand-New-Debtor.pdf', '2013-04-16 18:09:43')";
+	
+
+		$sql="Drop table if exists live_chat_table";
 		$result=mysql_query($sql);
-
-
-
+		$sql="CREATE TABLE `zeuscart_master`.`live_chat_table` (
+		`id` INT( 10 ) NOT NULL AUTO_INCREMENT ,
+		`live_chat_script` TEXT NOT NULL ,
+		`live_chat_status` INT( 10 ) NOT NULL COMMENT '0=>on,1=>off',
+		PRIMARY KEY ( `id` )
+		) ENGINE = MYISAM ;";
+		$result=mysql_query($sql);
+		
+		$sql="INSERT INTO `live_chat_table` (`live_chat_script`, `live_chat_status`) VALUES
+		('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 0)";
+		$result=mysql_query($sql);
 		
 	
 

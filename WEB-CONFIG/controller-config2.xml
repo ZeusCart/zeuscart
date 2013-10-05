@@ -512,6 +512,11 @@
 		
 		<do name="adminprofile" model="MAdminProfile" function="showAdminProfile"/>
 		<do name="adminprofile" model="MAdminProfile" function="updateAdminProfile" action="update"/>
+		
+		--------------Live chat--------------------------------------
+		
+		<do name="livechat" model="MLiveChat" function="showLiveChat"/>
+		<do name="livechat" model="MLiveChat" function="updateLiveChat" action="update"/>
 	</domapping>
 	
 </controller-config>

@@ -109,9 +109,14 @@ function MM_swapImage() { //v3.0
 	  {
 	  ?>
 
+		
 	<a onmouseover="MM_swapImage('Image2','','images/go-to-store-btn-hov.png',1)" onmouseout="MM_swapImgRestore()" href="../" target="_blank"><img  border="0" id="Image2" name="Image2" alt="Back" src="images/go-to-store-btn.png"></a> <a onmouseover="MM_swapImage('Image3','','images/go-to-control-panel-btn-hov.png',1)" onmouseout="MM_swapImgRestore()" href="../admin" target="_blank"><img  border="0" id="Image3" name="Image3" alt="Cancel" src="images/go-to-control-panel-btn.png"></a>
  
-          <?php } ?>
+          <?php }   else if($shownavigation==4){?>
+
+		<a href=" <?php echo $prv ?>" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image2','','images/back-btn-hov.png',1)"><img src="images/back-btn.png" alt="Back" name="Image2" width="76" height="32" border="0" id="Image2" /></a>&nbsp;<a href="?do=complete" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image2','','images/skip-btn-hov.png',1)"><img src="images/skip-btn.png" alt="Back" name="Image2" width="76" height="32" border="0" id="Image2" /></a> <input type="image" src="images/install-btn.png" alt="Next" style="width:76px;height=32px;border-style: none;padding:1px;" border="0" />
+ 
+          <?php } ?>	
           </h6> </div>  
                 <h5>© www.zeuscart.com 2013. All Rights Reserved</h5>
           </div>

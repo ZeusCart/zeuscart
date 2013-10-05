@@ -88,6 +88,15 @@ Sign up for our Newsletter
             </div>
         </div>
     </div>
+
+
+<AJDF:output>php</AJDF:output>
+$sql="SELECT * FROM live_chat_table WHERE id='1'";
+$obj=mysql_query($sql);
+$fetch_icon=mysql_fetch_array($obj);
+echo $fetch_icon['live_chat_script'];
+<AJDF:output>/php</AJDF:output>
+
     <div class="footer_inbx1" id="cpy_div">
             <div class="container">
                 <div class="row-fluid">

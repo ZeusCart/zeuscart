@@ -111,9 +111,115 @@ class Lib_CheckInputs
 			$this->validateEditCategory();
 		else if($module=='footercontent')
 			$this->validateFooterConnect();
-
-		
+		else if($module=='addnews')
+			$this->validateAddNews();
+		else if($module=='editnews')
+			$this->validateEditNews();
+		else if($module=='adminprofile')
+			$this->validateAdminProfile();		
+		else if($module=='editmailmessage')
+			$this->validateEditMailMessage();
+		else if($module=='livechat')
+			$this->validateLiveChat();
 	}
+
+	
+	function validateLiveChat()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_REQUEST['live_chat_script']!='' or $_REQUEST['live_chat_script']=='')
+			{
+
+				$obj = new Lib_FormValidation('livechat');
+			}
+			else 
+			{
+				header("Location:?do=livechat");
+				exit();
+			}
+		}
+
+
+	}
+
+	function validateEditMailMessage()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['mail_msg_subject']!='' or $_POST['mail_msg_subject']=='' or $_POST['mailmessages']!='' or $_POST['mailmessages']=='' )
+			{
+
+				$obj = new Lib_FormValidation('editmailmessage');
+			}
+			else 
+			{
+				header("Location:?do=mailmessages&action=disp&id=".$_GET['id']);
+				exit();
+			}
+		}
+
+	}
+
+	function validateAdminProfile()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['admin_name']!='' or $_POST['admin_name']=='' or $_POST['admin_email']!='' or $_POST['admin_email']==''  or $_POST['admin_password']!='' or $_POST['admin_password']=='')
+			{
+
+				$obj = new Lib_FormValidation('adminprofile');
+			}
+			else 
+			{
+				header("Location:?do=adminprofile");
+				exit();
+			}
+		}
+	
+	}
+
+	function validateEditNews()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['newstitle']!='' or $_POST['newstitle']=='' or $_POST['newscontent']!='' or $_POST['newscontent']=='' )
+			{
+
+				$obj = new Lib_FormValidation('editnews');
+			}
+			else 
+			{
+				header("Location:?do=news&action=disp&id=".$_GET['id']);
+				exit();
+			}
+		}
+	}
+	
+	function validateAddNews()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['newstitle']!='' or $_POST['newstitle']=='' or $_POST['newscontent']!='' or $_POST['newscontent']=='' )
+			{
+
+				$obj = new Lib_FormValidation('addnews');
+			}
+			else 
+			{
+				header("Location:?do=news");
+				exit();
+			}
+		}
+	}
+	
 
 
 	function validateFooterConnect()

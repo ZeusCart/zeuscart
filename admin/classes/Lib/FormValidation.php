@@ -116,6 +116,17 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateEditCategory();
 		else if($form=='footercontent')
 			$this->validateFooterConnect();
+		else if($form=='addnews')
+			$this->validateAddNews();
+		else if($form=='editnews')
+			$this->validateEditNews();
+		else if($form=='adminprofile')
+			$this->validateAdminProfile();
+		else if($form=='editmailmessage')
+			$this->validateEditMailMessage();
+		else if($form=='livechat')
+			$this->validateLiveChat();
+		
 	}
 
 
@@ -144,6 +155,61 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		}
 		else
 			return false;
+	}
+	
+
+	function validateLiveChat()
+	{
+		$message = "Required Field Cannot be blank";
+		$this->Assign("live_chat_script",trim($_REQUEST['live_chat_script']),"noempty","Live Chat API - " .$message);
+
+		$this->PerformValidation("?do=livechat");
+
+	}
+
+
+	function validateEditMailMessage()
+	{
+
+		$message = "Required Field Cannot be blank";
+		$this->Assign("mail_msg_subject",trim($_POST['mail_msg_subject']),"noempty","Mail Subject - " .$message);
+
+		$this->Assign("mailmessages",trim($_POST['mailmessages']),"noempty","Mail Message - " .$message);
+
+		$this->PerformValidation("?do=mailmessages&action=disp&id=".$_GET['id']);
+
+	}
+	function validateAdminProfile()
+	{
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("admin_name",trim($_POST['admin_name']),"noempty","Admin Name- " .$message);
+
+		$this->Assign("admin_email",trim($_POST['admin_email']),"noempty","Admin Email- " .$message);
+
+		$this->Assign("admin_email",trim($_POST['admin_email']),"emailcheck","Email Address - Invalid Email" );
+
+		$this->PerformValidation("?do=adminprofile");
+	}
+	function validateEditNews()
+	{
+
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("newstitle",trim($_POST['newstitle']),"noempty","News Title- " .$message);
+
+		$this->Assign("newsletter",trim($_POST['newsletter']),"noempty","News Content- " .$message);
+		$this->PerformValidation("?do=news&action=disp&id=".$_GET['id']);
+	}
+	function validateAddNews()
+	{
+
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("newstitle",trim($_POST['newstitle']),"noempty","News Title- " .$message);
+
+		$this->Assign("newscontent",trim($_POST['newscontent']),"noempty","News Content- " .$message);
+		$this->PerformValidation("?do=news");
 	}
 
 	function validateFooterConnect()
@@ -223,10 +289,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$message = "Required Field Cannot be blank";
 		$this->Assign("site_moto",trim($_POST['site_moto']),"noempty","Site Moto -".$message);
 		
-		$message = "Admin Email - Required Field Cannot be blank/Invalid Email.";		
-		$this->Assign("admin_email",trim($_POST['admin_email']),"noempty/emailcheck",$message);
-
-
+	
 		if($_FILES['site_logo']['name'] != '')
 		{
 		
@@ -1128,11 +1191,33 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	 
 	function validateCategory()
 	{
-
-				
+	
 
 		$message = "Required Field Cannot be blank";
-		$this->Assign("categoryname",trim($_POST['categoryname']),"noempty",$message);
+		$this->Assign("categoryname",trim($_POST['categoryname']),"noempty",'Category Name - '.$message);
+
+
+		if($_FILES['caticon']['name'] != '')
+		{
+		
+			//Image Validation
+			$ext_array = array('.jpeg','.jpg','.gif','.png','.bmp');
+			$ext = strchr($_FILES['caticon']['name'],'.');
+			if(!in_array(strtolower($ext),$ext_array))
+				$this->Assign("caticon","","noempty","Category Image- ".$this->formatmessage);
+			else
+			{
+				$img = getimagesize($_FILES['caticon']['tmp_name']);
+				$mime = array('image/jpeg','image/jpg','image/png','image/gif');
+				
+				if(!in_array($img['mime'],$mime))
+					$this->Assign("caticon","","noempty","Category Image - ".$this->formatmessage);
+				
+			}
+			
+			
+			
+		}
 
 		//$this->Assign("category",trim($_POST['group1']),"noempty/nonumber",$message);
 		$this->PerformValidation('?do=managecategory');
@@ -1151,9 +1236,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$this->Assign("attributes",$_POST['attributes'],"noempty","Attribute Name - ".$message);
 
-		$message = "No special characters allowed";	
-		$this->Assign("attributes",$_POST['attributes'],"nospecial","Attribute Name - ".$message);
-
+	
 		if($_POST['attributes']!='')
 		{
 			$sql = "SELECT * FROM attribute_table WHERE attrib_name ='".$_POST['attributes']."'";
@@ -1830,12 +1913,21 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateCustomerGroup()
 	{
 
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtgrpname",trim($_POST['txtgrpname']),"noempty/nonumber/nospecial''",$message);
-		$message = "Required Field Cannot be blank/No special characters allowed";
-		$this->Assign("txtdiscount",trim($_POST['txtdiscount']),"noempty/nospecial''",$message);
-		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("txtgrpname",trim($_POST['txtgrpname']),"noempty","Group Name -" .$message);
 
+		$message = "Alphanumeric not allowed";
+		$this->Assign("txtgrpname",trim($_POST['txtgrpname']),"nonumber","Group Name -" .$message);
+
+		$message = "No special characters allowed";
+		$this->Assign("txtgrpname",trim($_POST['txtgrpname']),"nospecial","Group Name -" .$message);
+
+		$message = "Required Field Cannot be blank";
+		$this->Assign("txtdiscount",trim($_POST['txtdiscount']),"noempty","Discount - ".$message);
+		
+		$message = "No special characters allowed";
+		$this->Assign("txtdiscount",trim($_POST['txtdiscount']),"nospecial","Discount - ".$message);	
+	
 		if($_POST['txtgrpname'] != '')
 		{
 			$name=  $_POST['txtgrpname'];

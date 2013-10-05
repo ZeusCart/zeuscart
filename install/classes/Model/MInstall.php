@@ -46,12 +46,13 @@ class Model_MInstall
 			$next = '?do=installterms';
 			$prv = 'index.php';
 			$menus='<ul class="install">
-					<li class="inactive"><b>1</b> Installation</li>
+					<li class="active"><b>1</b> Installation</li>
 					<li class="inactive"><b>2</b> Terms & Conditions</li>
 					<li class="inactive"><b>3</b> Check for Prerequisite</li>
 					<li class="inactive"><b>4</b> Database Configuration</li>
 					<li class="inactive"><b>5</b> Admin Configuration</li>
-					<li class="inactive"><b>6</b> Store Setting</li>	
+					<li class="inactive"><b>6</b> Store Setting</li>
+					<li class="inactive"><b>7</b> Live Chat</li>	
 				</ul>';
 		$template = 'homepage.php';
 		include('templates/home.php');
@@ -74,6 +75,7 @@ class Model_MInstall
 					<li class="inactive"><b>4</b> Database Configuration</li>
 					<li class="inactive"><b>5</b> Admin Configuration</li>	
 					<li class="inactive"><b>6</b> Store Setting</li>
+					<li class="inactive"><b>7</b> Live Chat</li>
 				</ul>';
 			$shownavigation = 1;
 			$next = '?do=chkconfig';
@@ -105,6 +107,7 @@ class Model_MInstall
 				<li class="inactive"><b>4</b> Database Configuration</li>
 				<li class="inactive"><b>5</b> Admin Configuration</li>
 				<li class="inactive"><b>6</b> Store Setting</li>
+				<li class="inactive"><b>7</b> Live Chat</li>
 			</ul>';
 				
 		$shownavigation = 1;
@@ -139,6 +142,7 @@ class Model_MInstall
 				<li class="active"><b>4</b> Database Configuration</li>
 				<li class="inactive"><b>5</b> Admin Configuration</li>
 				<li class="inactive"><b>6</b> Store Setting</li>
+				<li class="inactive"><b>7</b> Live Chat</li>
 			</ul>';
 			include('classes/Lib/HandleErrors.php');
 			if($Err->values['sampledata']==1)
@@ -241,12 +245,13 @@ class Model_MInstall
 	public function showAdmin()
 	{
 		$menus='<ul class="install">
-					<li class="active"><b>1</b> Installation</li>
-					<li class="active"><b>2</b> Terms & Conditions</li>
-					<li class="active"><b>3</b> Check for Prerequisite</li>
-					<li class="active"><b>4</b> Database Configuration</li>
-					<li class="inactive"><b>5</b> Admin Configuration</li>
-					<li class="inactive"><b>6</b> Store Setting</li>
+				<li class="active"><b>1</b> Installation</li>
+				<li class="active"><b>2</b> Terms & Conditions</li>
+				<li class="active"><b>3</b> Check for Prerequisite</li>
+				<li class="active"><b>4</b> Database Configuration</li>
+				<li class="active"><b>5</b> Admin Configuration</li>
+				<li class="inactive"><b>6</b> Store Setting</li>
+				<li class="inactive"><b>7</b> Live Chat</li>
 				</ul>';
 			include('classes/Lib/HandleErrors.php');
 			$shownavigation = 1;
@@ -264,13 +269,15 @@ class Model_MInstall
 	 */
 	public function showStore()
 	{
+
 		$menus='<ul class="install">
 			<li class="active"><b>1</b> Installation</li>
 			<li class="active"><b>2</b> Terms & Conditions</li>
 			<li class="active"><b>3</b> Check for Prerequisite</li>
 			<li class="active"><b>4</b> Database Configuration</li>
 			<li class="active"><b>5</b> Admin Configuration</li>
-			<li class="inactive"><b>6</b> Store Setting</li>
+			<li class="active"><b>6</b> Store Setting</li>
+			<li class="inactive"><b>7</b> Live Chat</li>
 			</ul>';
 			include('classes/Lib/HandleErrors.php');
 			$shownavigation = 1;
@@ -298,8 +305,165 @@ class Model_MInstall
 				$selcountrycode.='<option value="'.$arry['cou_code'].'" '.(($arry['cou_code']=='US') ? ' selected ="selected" ' : '' ).' >'.$arry['name'].'</option>';
 			}
 			$selcountrycode.='</select>';
+
 			$template = 'storeset.php';
 		include('templates/home.php');		
+	}
+
+	/**
+	 * This function is used to show the onetoone live chat in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
+	function showLiveChat()
+	{
+	
+		$menus='<ul class="install">
+				<li class="active"><b>1</b> Installation</li>
+				<li class="active"><b>2</b> Terms & Conditions</li>
+				<li class="active"><b>3</b> Check for Prerequisite</li>
+				<li class="active"><b>4</b> Database Configuration</li>
+				<li class="active"><b>5</b> Admin Configuration</li>
+				<li class="active"><b>6</b> Store Setting</li>
+				<li class="active"><b>7</b> Live Chat</li>
+				</ul>';
+			include('classes/Lib/HandleErrors.php');
+			$shownavigation = 4;
+			$next = '?do=validatelivechat';
+			$prv = '?do=store';
+			$template = 'livechat.php';
+		include('templates/home.php');	
+	}
+	/**
+	 * This function is used to show validate the live chat page in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
+	function validateLiveChat()
+	{
+		
+	
+		if(!isset($_POST['account_name']) || !isset($_POST['password']) || !isset($_POST['con_password']) || !isset($_POST['email_id'])|| !isset($_POST['txtcaptcha']))
+			header('Location:?do=livechat');
+		$val = new Lib_Validation_Handler();
+		$val->Assign('email_id',trim($_POST['email_id']),'noempty/emailcheck','Required Field Cannot be left blank/Invalid Email');
+		$val->Assign('account_name',trim($_POST['account_name']),'noempty','Required Field Cannot be left blank');
+		$val->Assign('password',trim($_POST['password']),'noempty','Required Field Cannot be left blank');
+		$val->Assign('con_password',trim($_POST['con_password']),'noempty','Required Field Cannot be left blank');
+		$val->Assign('txtcaptcha',trim($_POST['txtcaptcha']),'noempty','Required Field Cannot be left blank');
+		if(trim($_POST['password']) != trim($_POST['con_password']))
+			$val->Assign('cpass','','noempty',"Confirm password doesn't match with password");
+		if(strlen(trim($_POST['password']))>32)
+			$val->Assign('pass','','noempty',"Password should below 32 characters");	
+
+
+		$message = "Characters should match the above image";
+		$code = $_SESSION['security_code'];					
+		
+		if(!empty($_POST['txtcaptcha']) && !(strtolower(trim($_POST['txtcaptcha']))==strtolower($code)))
+		{
+			$val->Assign("txtcaptcha","","noempty",$message);	
+			
+		}	
+			
+		
+
+		$val->PerformValidation('?do=livechat');
+
+		include('Bin/Configuration.php');	  
+		$db = new Bin_Configuration();
+		$conn = mysql_connect($db->config["HOST"],$db->config["USER"],$db->config["PASSWORD"]);
+		mysql_select_db($db->config["DB"],$conn);
+	
+
+		 $domin_name='http://'.$_SERVER['HTTP_HOST']; 	 
+
+		$post1='accountname='.$_POST['account_name'].'&accountemail='.$_POST['email_id'].'&password='.$_POST['password'].'&product_name=zeuscart&product_version=v4&product_domain='.$domin_name.'';
+		$url="http://services.onetoonetext.com/flexutil/php_services/product/product.php";
+						
+		$json_array=array();
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$ips_response = curl_exec($ch);
+		curl_close($ch);
+		$json_array=json_decode($ips_response,true);
+			
+
+		 $script_code='<script  type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script><script type="text/javascript" src="http://services.onetoonetext.com/chat/onetoonetext.js"></script>
+		  <span style="left: 0px; top: 30%; position: fixed; z-index: 999;"  id="output" ></span><div id="ajid" style="display:none">'.$json_array['result']['code'].'</div>';
+
+		
+		if( ($json_array['result']['status'] == '1') && ($json_array['result']['message'] == 'Success') )
+		{
+
+		       $sql = "UPDATE live_chat_table SET live_chat_script='".$script_code."' WHERE id='1'"; 
+		       mysql_query($sql); 
+		
+			header('Location:?do=finishlivechat');
+		}
+		else
+		{
+
+			if($json_array['result']['message'] == 'Account name already exists.')
+			{
+
+				$val->Assign('account_name','','noempty',"Account name already exists.");
+			}
+
+			elseif($json_array['result']['message'] == 'Account email id already exists.')
+			{
+
+				$val->Assign('email_id','','noempty',"Email- id already exists.");
+			}
+			else
+			{
+				$val->Assign('account_name','','noempty',"Wrong Account Detail,Please Provide the valid Details .");
+
+			}				
+
+			$val->PerformValidation('?do=livechat');
+		}	
+
+
+
+	}
+	/**
+	 * This function is used to show finish page in for live chat installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
+	function finishLiveChat()
+	{
+		
+
+		$menus='<ul class="install">
+				<li class="active"><b>1</b> Installation</li>
+				<li class="active"><b>2</b> Terms & Conditions</li>
+				<li class="active"><b>3</b> Check for Prerequisite</li>
+				<li class="active"><b>4</b> Database Configuration</li>
+				<li class="active"><b>5</b> Admin Configuration</li>
+				<li class="active"><b>6</b> Store Setting</li>
+				<li class="active"><b>7</b> Live Chat</li>
+				</ul>';
+			include('classes/Lib/HandleErrors.php');
+			$shownavigation = 3;
+			$next = '?do=complete';
+		
+			$template = 'finish_live_chat.php';
+		include('templates/home.php');
+
+
 	}
 	/**
 	 * This function is used to show finish page in installation process
@@ -357,6 +521,17 @@ class Model_MInstall
 	
 	public function currencySet()
 	{
+
+
+		$menus='<ul class="install">
+					<li class="active"><b>1</b> Installation</li>
+					<li class="active"><b>2</b> Terms & Conditions</li>
+					<li class="active"><b>3</b> Check for Prerequisite</li>
+					<li class="active"><b>4</b> Database Configuration</li>
+					<li class="active"><b>5</b> Admin Configuration</li>
+					<li class="active"><b>6</b> Store Setting</li>
+					<li class="active"><b>7</b>Live Chat</li>
+				</ul>';	
 
 			if(!isset($_POST['currname'])|| !isset($_POST['currtoken'])|| !isset($_POST['currcode']))
 				header('Location:?do=store');
@@ -416,7 +591,8 @@ class Model_MInstall
 			'../timthumb/cache'); 
 			foreach($folders777 as $folder)
 		chmod($folder,0777);
-		$this->complete();
+
+		header('Location:?do=livechat');
 	}
 	
 	/**
@@ -435,6 +611,7 @@ class Model_MInstall
 					<li class="active"><b>4</b> Database Configuration</li>
 					<li class="active"><b>5</b> Admin Configuration</li>
 					<li class="active"><b>6</b> Store Setting</li>
+					<li class="active"><b>7</b> Live Chat</li>
 				</ul>';
 		$shownavigation = 2;
 			$template = "templates/finish.php";		
@@ -769,6 +946,18 @@ class Model_MInstall
 		  $i++;
 		}
 		
+	}
+
+	/**
+	 * This function is used to show the capcha in installation process
+	 *
+	 * 
+	 * 
+	 * @return void
+	 */
+	function showCaptcha()
+	{		
+		include('classes/Lib/Captcha.php');	
 	}
 
 }
