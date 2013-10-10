@@ -175,7 +175,7 @@ class Core_CUserRegistration
 	*/
 	function registerConfirm()
 	{
-		$sql="SELECT * FROM users_table WHERE confirmation_code='".$_GET['confirm_code']."' ";
+		 $sql="SELECT * FROM users_table WHERE confirmation_code='".$_GET['confirm_code']."' ";
 		$obj=new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
@@ -197,7 +197,7 @@ class Core_CUserRegistration
 					$objlogo->executeQuery($sqllogo);
 					$site_logo=$objlogo->records[0]['site_logo'];			
 					$site_title=$objlogo->records[0]['site_moto'];			
-					$admin_email=$objlogo->records[0]['admin_email'];
+					$email=$objlogo->records[0]['admin_email'];
 
 
 					//select mail setting
@@ -420,6 +420,7 @@ class Core_CUserRegistration
 		{
 			
 			$from =$obj->records[0]['admin_email']; 
+		
 			include('classes/Lib/Mail.php');
 			$mail = new Lib_Mail();
 			$mail->From($from); 
