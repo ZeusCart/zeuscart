@@ -173,5 +173,93 @@ class Model_MNewProducts
 
 	}
 
+	function giftProducts()
+	{
+
+		include_once('classes/Core/CNewProducts.php');
+		include_once('classes/Display/DNewProducts.php');
+		include('classes/Core/CKeywordSearch.php');
+		include('classes/Display/DKeywordSearch.php');
+		include('classes/Core/CProductDetail.php');
+		include('classes/Core/CUserRegistration.php');
+		include('classes/Display/DUserRegistration.php');
+		include('classes/Display/DProductDetail.php');
+		include('classes/Core/CHome.php');
+		include('classes/Core/CAddCart.php');
+		include('classes/Display/DAddCart.php');
+		
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+		
+		$output['totcategory']=explode('/',$_GET['cat']);
+		$output['title']=end($output['totcategory']);
+		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
+		$output['sitelogo']=Core_CHome::getLogo();
+		$output['pagetitle']=Core_CHome::pageTitle();
+		$output['timezone']=Core_CHome::setTimeZone();	
+		$output['currentDate']=date('D,M d,Y - h:i A');
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
+		$output['skinname']=Core_CHome::skinName();
+		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
+		$default=new Core_CNewProducts();
+		$output['viewproducts']=$default->viewGiftProducts();
+
+		$output['cartcount']=Core_CAddCart::countCart();
+		$output['categorybreadcrumb']=$default->categoryBreadCrumb();
+		Bin_Template::createTemplate('gift_list_products.html',$output);
+	
+	}
+
+
+	function gridGiftProducts()
+	{
+
+		include_once('classes/Core/CNewProducts.php');
+		include_once('classes/Display/DNewProducts.php');
+		include('classes/Core/CKeywordSearch.php');
+		include('classes/Display/DKeywordSearch.php');
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
+		include('classes/Core/CUserRegistration.php');
+		include('classes/Display/DUserRegistration.php');
+		include('classes/Core/CHome.php');
+		include('classes/Core/CAddCart.php');
+		include('classes/Display/DAddCart.php');
+		
+		include_once('classes/Core/CCurrencySettings.php');
+		Core_CCurrencySettings::getDefaultCurrency();
+		
+		$output['title']=end(explode('/',$_GET['cat']));
+		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
+		$output['sitelogo']=Core_CHome::getLogo();
+		$output['pagetitle']=Core_CHome::pageTitle();
+		$output['timezone']=Core_CHome::setTimeZone();	
+		$output['currentDate']=date('D,M d,Y - h:i A');
+		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
+		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
+		$output['loginStatus'] = Core_CUserRegistration::loginStatus();
+		$output['currencysettings']=Core_CUserRegistration::showCurrencySettings();
+		$output['skinname']=Core_CHome::skinName();
+		$output['googleanalytics']=Core_CHome::getGoogleAnalyticsCode();
+		$output['footerconnect']=Core_CHome::getfooterconnect();
+		$output['sociallink']=Core_CHome::showSocialLinks();
+		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
+		$default=new Core_CNewProducts();
+		$output['gridviewproducts']=$default->viewGiftProducts();
+
+		$output['categorybreadcrumb']=$default->categoryBreadCrumb();
+		$output['cartcount']=Core_CAddCart::countCart();
+		Bin_Template::createTemplate('gift_grid_products.html',$output);
+
+	}
+
 }
 ?>

@@ -395,7 +395,69 @@
 		$output.='<div><a href="'.$_SESSION['base_url'].'/index.php?do=paymentgateway">Back</a></div>';
 		return $output;
 	}
+	function successmail($title,$logo,$resmail_username,$resmail_id,$admin_email,$orderid,$shipping_cost,$billingaddress,$shippingaddress)
+	{
+
+		$output=array();
+		$orderamount = 	$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($_SESSION['checkout_amount'],2);	
+		$output='';
+		$getmailcontent=new Bin_Query();
+		$getmailquery="select * from  mail_messages_table where mail_msg_id='4'";
+		$getmailcontent->executeQuery($getmailquery);
+		$message = $getmailcontent->records[0]['mail_msg'];
+		$mailsubject= $getmailcontent->records[0]['mail_msg_subject'];
+
 	
+		$message = str_replace("[title]",$title,$message);
+		$message = str_replace("[logo]",$logo,$message);
+		$message = str_replace("[user_name]",$resmail_username,$message);
+		$message = str_replace("[email]",$resmail_id,$message);
+		$message = str_replace("[orderid]",$orderid,$message);
+	
+		$message = str_replace("[amount]",$orderamount,$message);	
+		
+		$message = str_replace("[billingaddress]",$billingaddress,$message);
+		$message = str_replace("[shippingaddress]",$shippingaddress,$message);				$message = str_replace("[site_email]",$admin_email,$message);
+
+
+		$output=array(0=>$message,1=>$mailsubject);			
+						
+		
+		return $output;
+	}
+
+	function adminsuccessmail($title,$logo,$resmail_username,$resmail_id,$admin_email,$orderid,$shipping_cost,$billingaddress,$shippingaddress)
+	{	
+		
+		
+
+		$output=array();
+		$orderamount = 	$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($_SESSION['checkout_amount'],2);	
+		$output='';
+		$getmailcontent=new Bin_Query();
+		$getmailquery="select * from  mail_messages_table where mail_msg_id='5'";
+		$getmailcontent->executeQuery($getmailquery);
+		$message = $getmailcontent->records[0]['mail_msg'];
+		$mailsubject= $getmailcontent->records[0]['mail_msg_subject'];
+
+	
+		$message = str_replace("[title]",$title,$message);
+		$message = str_replace("[logo]",$logo,$message);
+		$message = str_replace("[user_name]",$resmail_username,$message);
+		$message = str_replace("[email]",$resmail_id,$message);
+		$message = str_replace("[orderid]",$orderid,$message);
+	
+		$message = str_replace("[amount]",$orderamount,$message);	
+		
+		$message = str_replace("[billingaddress]",$billingaddress,$message);
+		$message = str_replace("[shippingaddress]",$shippingaddress,$message);				$message = str_replace("[site_email]",$admin_email,$message);
+
+
+		$output=array(0=>$message,1=>$mailsubject);		
+						
+	
+		return $output;	
+	}
 	
 }
 ?>

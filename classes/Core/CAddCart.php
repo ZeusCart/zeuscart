@@ -1019,91 +1019,51 @@ class Core_CAddCart
 	 */	
 	function doPaymentForAuthorizenet()
 	{
-		if($_SESSION['user_id']!='') 
-			{
-			$ccardno=$_POST['txtCardNumber'];
-			$ccardexpry=$_POST['txt_cem'].$_POST['txt_cey'];
-			
-			$recordSet = $this->getPaymentGatewaySettings('5');			
-			
-			if($recordSet[0]['pg_setting_id']==1 && $recordSet[0]['setting_name']=='API Login ID' && $recordSet[0]['setting_values']!='')
-			{
-			$auth_net_login_id =base64_decode($recordSet[0]['setting_values']);
-			}
-			
-			if ($recordSet[1]['pg_setting_id']==2 && $recordSet[1]['setting_name']=='Transaction Key' && $recordSet[1]['setting_values']!='')
-			{			
-			$auth_net_tran_key = base64_decode($recordSet[1]['setting_values']);
-			}
-			
-	
-			  $auth_net_url				= "https://secure.authorize.net/gateway/transact.dll";
-			
-			
-			if ($recordSet[2]['pg_setting_id']==4 && $recordSet[2]['setting_name']=='Password' && $recordSet[2]['setting_values']!='')
-			{
-			$auth_net_password = base64_decode($recordSet[2]['setting_values']);  
-			$authnet_values				= array
-			(
-				"x_login"				=> $auth_net_login_id,
-				"x_version"				=> "3.1",
-				"x_delim_char"			=> "|",
-				"x_delim_data"			=> "TRUE",
-				"x_type"				=> "AUTH_CAPTURE",
-				"x_method"				=> "CC",
-				"x_tran_key"			=> $auth_net_tran_key,
-				"x_relay_response"		=> "FALSE",
-				"x_card_num"			=> $ccardno, //"4242424242424242",
-				"x_exp_date"			=> $ccardexpry, //"1209"
-				"x_description"			=> "Payment ",
-				"x_amount"				=> $_SESSION['checkout_amount'],
-				"x_first_name"			=> $_SESSION['user_name'],
-				"x_password"			=> $auth_net_password,
-			);
-			}
-			else
-			{				
-			$authnet_values				= array
-			(
-				"x_login"				=> $auth_net_login_id,
-				"x_version"				=> "3.1",
-				"x_delim_char"			=> "|",
-				"x_delim_data"			=> "TRUE",
-				"x_type"				=> "AUTH_CAPTURE",
-				"x_method"				=> "CC",
-				"x_tran_key"			=> $auth_net_tran_key,
-				"x_relay_response"		=> "FALSE",
-				"x_card_num"			=> $ccardno, //"4242424242424242",
-				"x_exp_date"			=> $ccardexpry, //"1209"
-				"x_description"			=> "Recycled Toner Cartridges",
-				"x_amount"				=> $_SESSION['checkout_amount'],
-				"x_first_name"			=> $_SESSION['user_name'],				
-			);			
-			}
-			
-			
-			$fields = "";
-			foreach( $authnet_values as $key => $value ) $fields .= "$key=" . urlencode( $value ) . "&";
-			
-			
-					
-			###  $ch = curl_init("https://test.authorize.net/gateway/transact.dll"); 
-			###  Uncomment the line ABOVE for test accounts or BELOW for live merchant accounts
-			$ch = curl_init("https://secure.authorize.net/gateway/transact.dll"); 
-			curl_setopt($ch, CURLOPT_HEADER, 0); // set to 0 to eliminate header info from response
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Returns response data instead of TRUE(1)
-			curl_setopt($ch, CURLOPT_POSTFIELDS, rtrim( $fields, "& " )); // use HTTP POST to send form data
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); // uncomment this line if you get no gateway response. ###
-			$resp = curl_exec($ch); //execute post and get results
-			curl_close ($ch);
 
-			$tok =explode('|',$resp );
-			if ((count($tok)>0) &&($tok[0]==1) && ($tok[3]=='This transaction has been approved.'))
+			if($_SESSION['user_id']!='') 
+			{
+				 // print_r($_POST);exit;
+			$ccardno = $_POST['txtCardNumber'];
+			$ccardexpry = $_POST['txt_cem'].$_POST['txt_cey'];
+			$cardcode = $_POST['cardcode'];
+			require_once('classes/Lib/authorizenet.class.php');
+			// echo "dfgsdf";exit;
+			$qryuser = new Bin_Query();
+			$sqluser = "SELECT * from paymentgateways_table where gateway_id=5 AND gateway_status=1";
+			$qryuser->executeQuery($sqluser);
+			$records = $qryuser->records;
+			$paym_login = $qryuser->records[0]['merchant_id'];
+			$a = new authorizenet_class;
+			$a->add_field('x_login', '56wsTkC6M');
+			$a->add_field('x_tran_key', '99A47gGGN76mnsuA');
+			$a->add_field('x_version', '3.1');
+			$a->add_field('x_type', 'AUTH_CAPTURE');
+			$a->add_field('x_relay_response', 'FALSE');
+			$a->add_field('x_delim_data', 'TRUE');
+			$a->add_field('x_delim_char', '|');     
+			$a->add_field('x_encap_char', '');
+			$a->add_field('x_method', 'CC');
+			$a->add_field('x_card_num', $ccardno);  //card number
+			$a->add_field('x_amount', $_SESSION['checkout_amount']);
+			$a->add_field('x_exp_date',$ccardexpry);    //expiry date
+			$a->add_field('x_card_code', $_POST['cardcode']); 
+			 //card code
+			// $res = $a->process();
+			// echo "<Pre>";print_r($a);exit;
+			if($a)
+			{
+				// echo "success";exit;
 				header('Location:?do=paymentgateway&action=success&pay_type=5');
+			}
 			else
+			{
+				// echo "failed";exit;
 				header('Location:?do=paymentgateway&action=failure');
-		}
+			}
 
+			// echo"<Pre>";print_r($a);exit;
+
+		}
 	}
 	
 	/**
@@ -1331,7 +1291,6 @@ class Core_CAddCart
 	function showOrderConfirmation($message='')
 	{
 
-
 		if($_SESSION['user_id']!='' && $_SESSION['mycart']=='') 
 		{	
 
@@ -1384,6 +1343,33 @@ class Core_CAddCart
 								$_SESSION['digitalproducts']=$_SESSION['digitalproducts']+1;
 							}
 						}
+
+
+						if($_SESSION['gift']!='')
+						{
+							for($g=0;$g<count($_SESSION['gift']);$g++)
+							{
+	
+								/*Generate the gift Code */
+								$characters='4';	
+								$possible = '1234567890';
+									$code = '';
+									$i = 0;
+									while ($i < $characters) { 
+										$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
+										$i++;
+							
+									}
+								
+								$code="AJGC".$code;
+				
+								$sqlgift="INSERT INTO  gift_voucher_table(cart_id, 	gift_product_id,recipient_name,recipient_email,name,email, 	certificate_theme,message,gift_code)VALUES('".$cartid."','".$_SESSION['gift'][$g]['proid']."','".$_SESSION['gift'][$g]['rname']."','".$_SESSION['gift'][$g]['remail']."','".$_SESSION['gift'][$g]['name']."','".$_SESSION['gift'][$g]['email']."','".$_SESSION['gift'][$g]['gctheme']."','".$_SESSION['gift'][$g]['message']."','".$code."')";
+								$objgift=new Bin_Query();
+								$objgift->updateQuery($sqlgift);
+		
+							}
+						}	
+			
 						if($flag==0)
 							return '<div class="alert alert-info">
 							<button type="button" class="close" data-dismiss="alert">×</button>
@@ -1417,6 +1403,31 @@ class Core_CAddCart
 								$_SESSION['digitalproducts']=$_SESSION['digitalproducts']+1;
 							}
 						}
+						if($_SESSION['gift']!='')
+						{
+							for($g=0;$g<count($_SESSION['gift']);$g++)
+							{
+	
+								/*Generate the gift Code */
+								$characters='4';	
+								$possible = '1234567890';
+									$code = '';
+									$i = 0;
+									while ($i < $characters) { 
+										$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
+										$i++;
+							
+									}
+								
+								$code="AJGC".$code;
+				
+								$sqlgift="INSERT INTO  gift_voucher_table(cart_id, 	gift_product_id,recipient_name,recipient_email,name,email, 	certificate_theme,message,gift_code)VALUES('".$cartid."','".$_SESSION['gift'][$g]['proid']."','".$_SESSION['gift'][$g]['rname']."','".$_SESSION['gift'][$g]['remail']."','".$_SESSION['gift'][$g]['name']."','".$_SESSION['gift'][$g]['email']."','".$_SESSION['gift'][$g]['gctheme']."','".$_SESSION['gift'][$g]['message']."','".$code."')";
+								$objgift=new Bin_Query();
+								$objgift->updateQuery($sqlgift);
+		
+							}
+						}
+
 						if($flag==0)
 						{
 							return '<div class="alert alert-info">
@@ -1531,30 +1542,30 @@ class Core_CAddCart
 						}
 					
 					}
-// 					if($_SESSION['gift']!='')
-// 					{
-// 						for($g=0;$g<count($_SESSION['gift']);$g++)
-// 						{
-// 
-// 							/*Generate the gift Code */
-// 							$characters='4';	
-// 							$possible = '1234567890';
-// 								$code = '';
-// 								$i = 0;
-// 								while ($i < $characters) { 
-// 									$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
-// 									$i++;
-// 						
-// 								}
-// 							
-// 							$code="AJGC".$code;
-// 			
-// 							$sqlgift="INSERT INTO  gift_voucher_table(cart_id, 	gift_product_id,recipient_name,recipient_email,name,email, 	certificate_theme,message,gift_code)VALUES('".$cartid."','".$_SESSION['gift'][$g]['proid']."','".$_SESSION['gift'][$g]['rname']."','".$_SESSION['gift'][$g]['remail']."','".$_SESSION['gift'][$g]['name']."','".$_SESSION['gift'][$g]['email']."','".$_SESSION['gift'][$g]['gctheme']."','".$_SESSION['gift'][$g]['message']."','".$code."')";
-// 							$objgift=new Bin_Query();
-// 							$objgift->updateQuery($sqlgift);
-// 	
-// 						}
-// 					}	
+					if($_SESSION['gift']!='')
+					{
+						for($g=0;$g<count($_SESSION['gift']);$g++)
+						{
+
+							/*Generate the gift Code */
+							$characters='4';	
+							$possible = '1234567890';
+								$code = '';
+								$i = 0;
+								while ($i < $characters) { 
+									$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
+									$i++;
+						
+								}
+							
+							$code="AJGC".$code;
+			
+							$sqlgift="INSERT INTO  gift_voucher_table(cart_id, 	gift_product_id,recipient_name,recipient_email,name,email, 	certificate_theme,message,gift_code)VALUES('".$cartid."','".$_SESSION['gift'][$g]['proid']."','".$_SESSION['gift'][$g]['rname']."','".$_SESSION['gift'][$g]['remail']."','".$_SESSION['gift'][$g]['name']."','".$_SESSION['gift'][$g]['email']."','".$_SESSION['gift'][$g]['gctheme']."','".$_SESSION['gift'][$g]['message']."','".$code."')";
+							$objgift=new Bin_Query();
+							$objgift->updateQuery($sqlgift);
+	
+						}
+					}	
 		
 			
 				return Display_DAddCart::showOrderConfirmation($productarray,$obj3->records,$taxarray,$message);
@@ -2146,7 +2157,7 @@ class Core_CAddCart
 		
 		else if(isset($_SESSION['user_id']))
 		{
-			$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.msrp as msrp1,pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. * FROM (
+			 $sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.msrp as msrp1,pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. * FROM (
 			products_table pt INNER JOIN shopping_cart_products_table ON pt.product_id = shopping_cart_products_table.product_id) LEFT JOIN shopping_cart_table ON shopping_cart_products_table.cart_id = shopping_cart_table.cart_id INNER JOIN product_inventory_table AS pinv ON pinv.product_id = shopping_cart_products_table.product_id WHERE shopping_cart_table.user_id ='. $_SESSION['user_id']; 
 				 
 					$query = new Bin_Query();

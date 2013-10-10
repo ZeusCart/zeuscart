@@ -119,9 +119,10 @@
 			
 			<do name="viewproducts" model="MNewProducts" function="viewProducts" />	
 			
-			<do name="girdviewproducts" model="MNewProducts" function="girdViewProducts"  />	
-			<do name="giftviewproducts" model="MNewProducts" function="viewproducts"  />	
-						
+			<do name="girdviewproducts" model="MNewProducts" function="girdViewProducts"  />
+			
+			<do name="giftproducts" model="MNewProducts" function="giftProducts"  />	
+			<do name="girdgiftproducts" model="MNewProducts" function="gridGiftProducts"  />			
 			<do name="prodetail" model="MProductDetail" function="showProducts"	/>
 			<do name="prodetail" model="MProductDetail" action="showprod" function="productDetail"	/>
 			<do name="prodetail" model="MProductDetail" action="sendproduct" function="sendProduct"	/>

@@ -147,7 +147,7 @@ class Display_DProductDetail
 
 		$output.='<div class="span6">
 				<div class="gallery_detail">';
-				if($categoryname=='Gift Voucher')
+				if($arr[0]['gift']=='1')
 				{
 				$output.='<form method="post"	action="javascript:showGiftVoucher();" name="frmcart">';
 				}
@@ -224,7 +224,7 @@ class Display_DProductDetail
 				<li>
 				<table width="100%" border="0">
 		<tr>';
-		if($categoryname!='Gift Voucher' && $arr[0]['digital']=='0')
+		if($arr[0]['gift']=='0' && $arr[0]['digital']=='0')
 		{
 // 		$output.='<td> Quantity <select name="qty[]" style="width:60px;">';
 // 		if($arr[0]['soh']==0)
@@ -236,6 +236,10 @@ class Display_DProductDetail
 		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="'.$_SESSION['error_quantity'].'"></td>';
 			
 		}
+		
+		$output.='<input type="hidden" name="gift" value='.$arr[0]['gift'].'>';
+		
+
 		if($arr[0]['digital']=='1')
 		{
 		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="1" readonly="true"></td>';

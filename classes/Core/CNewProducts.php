@@ -53,7 +53,7 @@ class Core_CNewProducts
 	function newProducts()
 	{
 		
-		$sql= " SELECT a.product_id, a.title, a.thumb_image,a.image,a.product_status,a.category_id ,a.msrp,a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1  group by a.product_id ORDER BY rand( ) LIMIT 0,12 "; 
+		$sql= " SELECT a.product_id, a.title, a.thumb_image,a.image,a.product_status,a.category_id,a.gift ,a.msrp,a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.gift='0'  group by a.product_id ORDER BY rand( ) LIMIT 0,12 "; 
 			
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
@@ -144,8 +144,8 @@ class Core_CNewProducts
 		$total = 0;
 
 
-		if(trim($_GET['do'])!='giftviewproducts')
-		{
+// 		if(trim($_GET['do'])!='giftviewproducts')
+// 		{
 			$url=$_SERVER['REQUEST_URI'];
 			$results = explode('/', trim($url,'/'));
 			if(count($results) > 0){
@@ -170,17 +170,61 @@ class Core_CNewProducts
 					$result[] =  $fromdate ;
 			}
 			$categoryid=implode( ',', $result );
-		
+
 		
 			//product selection
-			$sqlpro="SELECT * FROM products_table WHERE  category_id   IN ($categoryid)"; 
+			$sqlpro="SELECT a.product_id, a.title, a.thumb_image,a.image,a.large_image_path,a.product_status,a.category_id,a.gift,a.description ,a.msrp,a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.gift!='1' and a.category_id   IN ($categoryid) "; 
+
+
+		$objpro=new Bin_Query();
+		if($objpro->executeQuery($sqlpro))
+		{	
+
+			$sql1=$sqlpro.' LIMIT '.$start.','.$end;
+			$total = ceil($objpro->totrows/ $pagesize);
+			$recordSet=$objpro->records;
+			include('classes/Lib/Paging.php');
+			$tmp = new Lib_Paging('classic',array('totalpages'=>$total, 'length'=>5),'pagination');
+			$this->data['paging'] = $tmp->output;
+			$this->data['prev'] =$tmp->prev;
+			$this->data['next'] = $tmp->next;
+			$query1 = new Bin_Query();
+			$query1->executeQuery($sql1);	
 		}
-		else
+		
+		
+		return Display_DNewProducts::viewProducts($query1->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
+		
+
+	}
+
+	/**
+	 * This function is used to show  the produtcs
+	 * 
+	 * 
+	 * @return HTML data
+	 */	
+	function viewGiftProducts()
+	{
+
+
+		$pagesize=9;
+  	    	if(isset($_GET['page']))
 		{
-			//product selection
-			$sqlpro="SELECT * FROM products_table WHERE  gift='1'"; 
-		
+		    
+			$start = trim($_GET['page']-1) *  $pagesize;
+			$end =  $pagesize;
 		}
+		else 
+		{
+			$start = 0;
+			$end =  $pagesize;
+		}
+		$total = 0;
+
+		
+		 $sqlpro="SELECT a.product_id, a.title,a.large_image_path,a.thumb_image,a.image,a.product_status,a.category_id,a.gift,a.description,a.msrp,a.intro_date,b.soh  as rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.gift='1'";
+		
 		$objpro=new Bin_Query();
 		if($objpro->executeQuery($sqlpro))
 		{	

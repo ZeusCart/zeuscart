@@ -79,9 +79,9 @@ class Core_CProductInventoryManagement
 	 	return Display_DProductInventoryManagement::dispInventory($query1->records,$this->data['paging'],$this->data['prev'],$this->data['next']);
 	 	
 	 	
-	  // $obj=new Bin_Query();
-	   //$obj->executeQuery($sql);
-	  // return Display_DProductInventoryManagement::dispInventory($obj->records);
+		// $obj=new Bin_Query();
+		//$obj->executeQuery($sql);
+		// return Display_DProductInventoryManagement::dispInventory($obj->records);
 	 }
 	 
 	/**
@@ -91,13 +91,13 @@ class Core_CProductInventoryManagement
 	 * @return string
 	 */
 	
-	function editInventory()
+	function editInventory($Err)
 	{
 		$id=$_GET['id']; 
 		$sql='select a.*,b.title from product_inventory_table a inner join products_table b on a.product_id=b.product_id where a.inventory_id='.$id;
 		$obj=new Bin_Query();
 		$obj->executeQuery($sql);
-		return Display_DProductInventoryManagement::editInventory($obj->records);
+		return Display_DProductInventoryManagement::editInventory($obj->records,$Err);
 	}
 	
 	/**
@@ -123,13 +123,78 @@ class Core_CProductInventoryManagement
 	
 	function updateInventory()
 	{
+
 		$id=(int)$_POST['invid'];
 		$rol=(int)$_POST['rol'];
 		$soh=(int)$_POST['soh'];
+		
 		$sql="update product_inventory_table set rol=".$rol.", soh=".$soh." where inventory_id=".$id;
 		$obj=new Bin_Query();
-		$obj->updateQuery($sql);
+		if($obj->updateQuery($sql))
+		{	
+			$_SESSION['siteinventorymsg'] = '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button> Product stock on hands has been updated successfully </div>';
+	
+			//select mail setting
+			$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id='8' AND mail_user='0'";
+			$objMail=new Bin_Query();
+			$objMail->executeQuery($sqlMail);
+			$message=$objMail->records[0]['mail_msg'];
+			$title=$objMail->records[0]['mail_msg_title'];
+			$subject=$objMail->records[0]['mail_msg_subject'];
+
+			$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
+			$dir = (dirname($_SERVER['PHP_SELF']) == "\\")?'':dirname($_SERVER['PHP_SELF']);
+			$site = $protocol.$_SERVER['HTTP_HOST'].$dir;
+
+
+			$message = str_replace("[product_id]",$id,$message);
+			$message = str_replace("[product_name]",$_POST['title'],$message);
+
+			self::sendingMail($email,$title,$message);
+		
+		}
+		else
+		{	
+			$_SESSION['siteinventorymsg'] = '<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button> Product stock on hands has not been  updated successfully </div>';
+
+		}
 		
 	}
+
+
+	/**
+	 * Function sends a mail to the mail id supplied using the Lib_Mail()
+	 * 
+	 * 
+	 * @param array $to_mail
+	 * @param string $title
+	 * @param string $mail_content	 
+	 * @return string
+	 */
+	function sendingMail($to_mail,$title,$mail_content)
+	{
+		
+		$sql = "select set_id,admin_email from admin_settings_table where set_id='1'";
+		$obj = new Bin_Query();
+		if($obj->executeQuery($sql))
+		{
+			
+			$from =$obj->records[0]['admin_email']; 
+			$to_mail=$obj->records[0]['admin_email'];
+			include('classes/Lib/Mail.php');
+			$mail = new Lib_Mail();
+			$mail->From($from); 
+			$mail->ReplyTo($from);
+			$mail->To($to_mail); 
+			$mail->Subject($title);
+			$mail->Body($mail_content);
+			$mail->Send();
+		}
+		else
+			return 'No mail id provided';
+	}
+	
 }
 ?>

@@ -469,10 +469,16 @@
     'function' => 'girdViewProducts',
     'loadlib' => '1',
   ),
- 'giftviewproducts' => 
+ 'giftproducts' => 
   array (
     'model' => 'MNewProducts',
-    'function' => 'viewProducts',
+    'function' => 'giftProducts',
+    'loadlib' => '1',
+  ),
+'girdgiftproducts' => 
+  array (
+    'model' => 'MNewProducts',
+    'function' => 'gridGiftProducts',
     'loadlib' => '1',
   ),
   'prodetail' => 

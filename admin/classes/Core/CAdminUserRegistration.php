@@ -67,7 +67,7 @@ class Core_CAdminUserRegistration
 		}
 		$total = 0;
 			
-		$sqlselect = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table order by user_display_name asc";
+		$sqlselect = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table order by user_id desc";
 			
 		$query = new Bin_Query();
 		if($query->executeQuery($sqlselect))
@@ -79,7 +79,7 @@ class Core_CAdminUserRegistration
 			$this->data['prev'] =$tmp->prev;
 			$this->data['next'] = $tmp->next;
 			
-			$sql1 = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table order by user_display_name asc LIMIT $start,$end";
+			$sql1 = "select user_id,user_display_name,user_fname,user_lname,user_email,user_status from users_table order by user_id desc LIMIT $start,$end";
 			$query1 = new Bin_Query();
 			if($query1->executeQuery($sql1))
 			{
@@ -751,13 +751,12 @@ class Core_CAdminUserRegistration
 			{
 				
 				$pswd=md5($pswd);
-				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country,user_group) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',1,'".$date."','".$country."','".$group."')";
+				$sql = "insert into users_table (user_display_name,user_fname,user_lname,user_email,user_pwd,user_status,user_doj,user_country,user_group) values('".$displayname."','".$firstname."','".$lastname."','".$email."','".$pswd."',1,'".$date."','".$country."','".$group."')"; 
 				$obj = new Bin_Query();
 			
 			
 			if($obj->updateQuery($sql))
 			{
-				
 				
 				//add address detail in address book
 				$sq="select user_id from users_table where user_email='$email' and user_pwd='$pswd'";
@@ -766,31 +765,61 @@ class Core_CAdminUserRegistration
 				if(count($qry1->records)>0)
 				{
 					$newuserid=$qry1->records[0]['user_id'];
-					$adrsql="insert into addressbook_table(user_id,contact_name,first_name,last_name,company,email,address,city,suburb,state,country,zip,phone_no,fax) values($newuserid,'$displayname','$firstname','$lastname','','$email','$address','$city','','$state','$country','$zipcode','','')";
+					$adrsql="insert into addressbook_table(user_id,contact_name,first_name,last_name,company,email,address,city,suburb,state,country,zip,phone_no,fax) values($newuserid,'$displayname','$firstname','$lastname','','$email','$address','$city','','$state','$country','$zipcode','','')"; 
 					$qry1->updateQuery($adrsql);
 				
 				$sql = "insert into newsletter_subscription_table(email,status)values('".$email."',".$newsletter.")";
 				if($obj->updateQuery($sql))
 				{
 					$result = '<div class="alert alert-success">
-   					 <button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Account has been Created Successfully</div>';
-					$pwd = $_POST['txtpwd'];
-					$title="Zeuscart";
-					$mail_content="Thank you for registering with us. Your Login Details are given below<br>
-					UserName :".$email."<br>Password:".$pwd;
-					Core_CAdminUserRegistration::sendingMail($email,$title,$mail_content);
+   					<button type="button" class="close" data-dismiss="alert">×</button> <strong> well done !</strong> Account has been Created Successfully</div>';
+					
+						$sqllogo="select set_id,site_logo,site_moto,admin_email from admin_settings_table where set_id='1'";
+						$objlogo=new Bin_Query();
+						$objlogo->executeQuery($sqllogo);
+						$site_logo=$objlogo->records[0]['site_logo'];				
+						$site_title=$objlogo->records[0]['site_moto'];				
+						$admin_email=$objlogo->records[0]['admin_email'];
+
+
+						//select mail setting
+						$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id=1 AND mail_user='0'";
+						$objMail=new Bin_Query();
+						$objMail->executeQuery($sqlMail);
+						$message=$objMail->records[0]['mail_msg'];
+						$title=$objMail->records[0]['mail_msg_title'];
+						$subject=$objMail->records[0]['mail_msg_subject'];
+
+						$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
+						$dir = (dirname($_SERVER['PHP_SELF']) == "\\")?'':dirname($_SERVER['PHP_SELF']);
+						$site = $protocol.$_SERVER['HTTP_HOST'].$dir;
+						
+						$site_logo=$site.'/'.$site_logo;
+						
+						$site_logo	=$site_logo;
+
+						$message = str_replace("[title]",$site_title,$message);
+						$message = str_replace("[logo]",$site_logo,$message);
+						$message = str_replace("[firstname]",$firstname,$message);
+						$message = str_replace("[lastname]",$lastname,$message);
+											
+						$message = str_replace("[user_name]",$email,$message);		$message = str_replace("[password]",$_POST['txtpwd'],$message);	$message = str_replace("[site_email]",$admin_email,$message);	
+
+					Core_CAdminUserRegistration::sendingMail($email,$title,$message);
+					echo "<script> top.location = top.location; </script>";
+           				
 				}
 				else
 					$result = '<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
+    					<button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
 				}
 				else
 					$result = '<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
+   					 <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
 			}
 			else
 				$result = '<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
+   				 <button type="button" class="close" data-dismiss="alert">×</button> Account Not Created</div>';
 			}
 		}
 		return $result;
@@ -808,12 +837,12 @@ class Core_CAdminUserRegistration
 	function sendingMail($to_mail,$title,$mail_content)
 	{
 		
-		$sql = "select set_value from admin_settings_table where set_name='Admin Email'";
+		$sql = "select set_id,admin_email from admin_settings_table where set_id='1'";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
 			
-			$from =$obj->records[0]['set_value']; 
+			$from =$obj->records[0]['admin_email']; 
 			include('classes/Lib/Mail.php');
 			$mail = new Lib_Mail();
 			$mail->From($from); 

@@ -126,6 +126,9 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->validateEditMailMessage();
 		else if($form=='livechat')
 			$this->validateLiveChat();
+		else if($form=='productinventory')
+			$this->validateProductInventory();
+		
 		
 	}
 
@@ -157,6 +160,31 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			return false;
 	}
 	
+
+	function validateProductInventory()
+	{
+	
+		$message = "Required Field Cannot be blank";
+		$this->Assign("rol",trim($_POST['rol']),"noempty","Re Order List - " .$message);
+		$this->Assign("soh",trim($_POST['soh']),"noempty","Stock on Hand - " .$message);
+
+		if(trim($_POST['rol'])!='' && !is_numeric($_POST['rol']))
+		{
+
+			$message = "Only numeric values allowed";
+			$this->Assign("txtzipcode","","noempty","Re Order List - " .$message);
+		}
+		if(trim($_POST['soh'])!='' && !is_numeric($_POST['soh']))
+		{
+
+			$message = "Only numeric values allowed";
+			$this->Assign("soh","","noempty","Stock on Hand - " .$message);
+		}
+		
+		$this->PerformValidation("?do=productinventory&action=edit&id=".$_POST['invid']);
+
+
+	}
 
 	function validateLiveChat()
 	{
@@ -285,10 +313,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateSiteSettings()
 	{
 
-
 		$message = "Required Field Cannot be blank";
-		$this->Assign("site_moto",trim($_POST['site_moto']),"noempty","Site Moto -".$message);
-		
+		$this->Assign("site_moto",trim($_POST['site_moto']),"noempty","Site Title -".$message);
+		if($_FILES['site_logo']['name']=='' && $_POST['site_logo']=='' )
+		{
+			$this->Assign("site_logo","","noempty","Site Logo -".$message);
+		}
 	
 		if($_FILES['site_logo']['name'] != '')
 		{
@@ -876,6 +906,39 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateSlideShow()
 	{
 
+// echo "<pre>";
+// print_r($_POST);
+// exit;
+// 		$message = "Required Field Cannot be blank";
+// 		
+// 		for($i=0;$i<count($_POST['slide_title']);$i++)
+// 		{
+// 			if($_POST['slide_title'][$i]!='' )
+// 			{
+// 				$j=$i+1;
+// 				$this->Assign("slide_title".$j."","","noempty","Title -".$message);
+// 			}
+// 
+// 			if($_POST['slide_caption'][$i]!='' )
+// 			{
+// 				$j=$i+1;
+// 				$this->Assign("slide_caption".$j."","","noempty","Caption -".$message);
+// 			}
+// 
+// 
+// 			if($_POST['slide_content_image'][$i]!='' )
+// 			{
+// 				$j=$i+1;
+// 				$this->Assign("slide_content_image".$j."","","noempty","Slide Image -".$message);
+// 			}
+// 
+// 
+// 
+// 
+// 
+// 
+// 		}	
+
 		$message = "Invalid URL!";
 
 		for($i=0;$i<count($_POST['slide_url']);$i++)
@@ -950,8 +1013,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$this->Assign("txtlname",trim($_POST['txtlname']),"nonumber","Last Name - ".$message);
 
 
-		// 	$message = "Required Field Cannot be blank/No special characters allowed.";
-		// 	$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''","Display Name - ".$message);
+	
 	
 		$message = "Email Id - Required Field Cannot be blank";		
 		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty",$message);
@@ -983,7 +1045,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		{
 
 			$message = "Only numeric values allowed";
-			$this->Assign("txtzipcode","","noempty","Zweip Code - " .$message);
+			$this->Assign("txtzipcode","","noempty","Zip Code - " .$message);
 		}
 		
 
@@ -1030,32 +1092,31 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		}
 		
 		
-		
-		
-		/*if(trim($_POST['txtemail']) != '' and trim($_POST['txtremail']) != '')
+
+	
+		if(trim($_POST['txtemail']) != '')
 		{
-			if(trim($_POST['txtemail']) != trim($_POST['txtremail']))
-			{
-				$message = "Enter the Confirm Email id correctly";
-				$this->Assign("txtremail","","noempty",$message);
-				
-			}
-		}*/
-		
-		//$message = "Please select terms";
-		//$this->Assign("chkterms",trim($_POST['chkterms']),"noempty",$message);
-		
-		if(trim($_POST['txtdisname']) != '' && trim($_POST['txtemail']) != '')
-		{
-			//$sqlselect = "select * from users_table where user_display_name='".$_POST['txtdisname']."'";
 			$sqlselect = "select * from users_table where user_email='".$_POST['txtemail']."'";
 			$obj = new Bin_Query();
 			if($obj->executeQuery($sqlselect))
 			{
 				if($obj->totrows>0)
 				{
-					$message = "Email Id already Exist!.Try again.";		
-					$this->Assign("txtemail",'',"noempty",$message);
+					$message = "Already Exist!.Try again.";		
+					$this->Assign("txtemail",'',"noempty","Email Address - ".$message);
+				}
+			}
+		}
+		if(trim($_POST['txtdisname']) != '')
+		{
+			$sqlselect = "select * from users_table where user_display_name='".$_POST['txtdisname']."'";
+			$obj = new Bin_Query();
+			if($obj->executeQuery($sqlselect))
+			{
+				if($obj->totrows>0)
+				{
+					$message = "Already Exist!.Try again.";		
+					$this->Assign("txtemail",'',"noempty","Display Name - ".$message);
 				}
 			}
 		}
@@ -1071,59 +1132,74 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateUserRegisterLight()
 	{
 		
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty/nonumber/nospecial''","First Name -".$message);
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty/nonumber/nospecial''","Last Name -".$message);
-		$message = "Required Field Cannot be blank/No special characters allowed";
-		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''","Display Name -".$message);
-		/*if(empty($_POST['txtemail']))
-		{
-		    $message = "Required Field Cannot be blank";
-			$this->Assign("txtemail",'',"noempty",$message);
-		}
-		else if($this->validateEmailAddress($_POST['txtemail']))
-		{
-				exit;
-				
-		}
-		else
-		{
-			
-			$message = "Invalid Emails";
- 			$this->Assign("txtemail",'',"noempty",$message);
-		}*/
-		$message = "Required Field Cannot be blank/Invalid Email";		
-		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck","Email Address - ".$message);
+		$message = "Required Field Cannot be blank ";	
+		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty","Display Name - ".$message);
 		
+		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty","First Name - ".$message);
 		
-		$message = "Required Field Cannot be blank";
-		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty","Address - ".$message);
+		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty","Last Name - ".$message);
 		
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty/nonumber/nospecial''","City - ".$message);
-		$this->Assign("txtState",trim($_POST['txtState']),"noempty/nonumber/nospecial''","State - ".$message);
+
+		$message = "Alphanumeric not allowed";
 		
-		$message = "Required Field Cannot be blank";
-		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty","Zip - ".$message);
+		$this->Assign("txtdisname",trim($_POST['txtdisname']),"nonumber","Display Name - ".$message);
+		$this->Assign("txtfname",trim($_POST['txtfname']),"nonumber","First Name - ".$message);
+		
+		$this->Assign("txtlname",trim($_POST['txtlname']),"nonumber","Last Name - ".$message);
+
 
 	
+	
+		$message = "Email Id - Required Field Cannot be blank";		
+		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty",$message);
+		
+		$message = "Email Id - Invalid Email.";		
+		$this->Assign("txtemail",trim($_POST['txtemail']),"emailcheck",$message);	
+	
+
+		$message = "Address - Required Field Cannot be blank.";
+		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty",$message);
 		
 		$message = "Required Field Cannot be blank";
-		$this->Assign("txtpwd",trim($_POST['txtpwd']),"noempty","Password - ".$message);
-		$this->Assign("txtrepwd",trim($_POST['txtrepwd']),"noempty","Confirm Password - ".$message);
+		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty","City - ".$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"noempty","State - ".$message);
+		
+
+		$message = "Alphanumeric not allowed .";
+		$this->Assign("txtcity",trim($_POST['txtcity']),"nonumber","City - ".$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"nonumber","State - ".$message);
+
+
+		$message = "Zip Code - Required Field Cannot be blank.";
+		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
+
+		$message = "Only numeric values allowed";
+		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty","Zip Code -" .$message);
+
+		if(trim($_POST['txtzipcode'])!='' && !is_numeric($_POST['txtzipcode']))
+		{
+
+			$message = "Only numeric values allowed";
+			$this->Assign("txtzipcode","","noempty","Zip Code - " .$message);
+		}
+		
+
+		$message = "Password - Required Field Cannot be blank.";
+		$this->Assign("txtpwd",trim($_POST['txtpwd']),"noempty",$message);
+		$message = "Confirm Password - Required Field Cannot be blank.";
+		$this->Assign("txtrepwd",trim($_POST['txtrepwd']),"noempty",$message);
 		if(trim($_POST['txtpwd']) != '' and trim($_POST['txtrepwd']) != '')
 		{
 			$pwdlength =strlen($_POST['txtpwd']);
 			if($pwdlength<6 or $pwdlength>20)
 			{
-				$message = "Password minimum length is 6 & maximum length is 20";
-				$this->Assign("txtpwd","","noempty","Password - ".$message);
+				$message = "Password minimum length is 6 & maximum length is 20.";
+				$this->Assign("txtpwd","","noempty",$message);
 			}
 			elseif(trim($_POST['txtpwd']) != trim($_POST['txtrepwd']))
 			{
-				$message = "Enter the Confirm Password correctly";
-				$this->Assign("txtrepwd","","noempty","Confirm Password - ".$message);
+				$message = "Enter the Confirm Password correctly.";
+				$this->Assign("txtrepwd","","noempty",$message);
 				
 			}
 		}
@@ -1135,40 +1211,26 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$dislength =strlen($_POST['txtdisname']);
 			if($fnamelength<3 or $fnamelength>20)
 			{
-				$message = "Minimum length is 3";
-				$this->Assign("txtfname","","noempty","First Name -".$message);
+				$message = "First Name - Minimum length is 3.";
+				$this->Assign("txtfname","","noempty",$message);
 			}
 			if($lnamelength<3 or $lnamelength>20)
 			{
-				$message = "Minimum length is 3";
-				$this->Assign("txtfname","","noempty","First Name -".$message);
+				$message = "Last Name - Minimum length is 3.";
+				$this->Assign("txtfname","","noempty",$message);
 			}
 			if($dislength<3 or $dislength>20)
 			{
-				$message = "Minimum length is 3";
-				$this->Assign("txtdisname","","noempty","Display Name -".$message);
+				$message = "Display Name - Minimum length is 3.";
+				$this->Assign("txtdisname","","noempty",$message);
 			}
 		}
 		
 		
-		
-		
-		/*if(trim($_POST['txtemail']) != '' and trim($_POST['txtremail']) != '')
+
+	
+		if(trim($_POST['txtemail']) != '')
 		{
-			if(trim($_POST['txtemail']) != trim($_POST['txtremail']))
-			{
-				$message = "Enter the Confirm Email id correctly";
-				$this->Assign("txtremail","","noempty",$message);
-				
-			}
-		}*/
-		
-		//$message = "Please select terms";
-		//$this->Assign("chkterms",trim($_POST['chkterms']),"noempty",$message);
-		
-		if(trim($_POST['txtdisname']) != ''&&trim($_POST['txtemail']) != '')
-		{
-			//$sqlselect = "select * from users_table where user_display_name='".$_POST['txtdisname']."'";
 			$sqlselect = "select * from users_table where user_email='".$_POST['txtemail']."'";
 			$obj = new Bin_Query();
 			if($obj->executeQuery($sqlselect))
@@ -1180,7 +1242,19 @@ class Lib_FormValidation extends Lib_Validation_Handler
 				}
 			}
 		}
-		
+		if(trim($_POST['txtdisname']) != '')
+		{
+			$sqlselect = "select * from users_table where user_display_name='".$_POST['txtdisname']."'";
+			$obj = new Bin_Query();
+			if($obj->executeQuery($sqlselect))
+			{
+				if($obj->totrows>0)
+				{
+					$message = "Username already Exist!.Try again.";		
+					$this->Assign("txtemail",'',"noempty","Display Name - ".$message);
+				}
+			}
+		}
 		$this->PerformValidation('?do=addUserAccountLight');
 	}
 	/**

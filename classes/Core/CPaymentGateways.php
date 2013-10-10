@@ -131,6 +131,8 @@ class Core_CPaymentGateways
 		*/
 		function success()
 		{
+
+
 			if($_GET['pay_type']=='1')
 				{
 					$order_total=$_POST['mc_gross'];
@@ -382,6 +384,7 @@ class Core_CPaymentGateways
 								
 											Core_CPaymentGateways::sendingMail($maxid);
 	
+
 										}
 										
 										
@@ -400,51 +403,8 @@ class Core_CPaymentGateways
 							}				
 						}
 				
-					// insert gift voucher 
-
-					/*if($_SESSION['gift']!='')
-					{
-						for($g=0;$g<count($_SESSION['gift']);$g++)
-						{
-
-							
-							$characters='4';	
-							$possible = '1234567890';
-								$code = '';
-								$i = 0;
-								while ($i < $characters) { 
-									$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
-									$i++;
-						
-								}
-							
-							$code="AJGC".$code;
-			
-							 $sqlgift="INSERT INTO  gift_voucher_table(order_id, 	gift_product_id,recipient_name,recipient_email,name,email, 	certificate_theme,message,gift_code)VALUES('".$orderid."','".$_SESSION['gift'][$g]['proid']."','".$_SESSION['gift'][$g]['rname']."','".$_SESSION['gift'][$g]['remail']."','".$_SESSION['gift'][$g]['name']."','".$_SESSION['gift'][$g]['email']."','".$_SESSION['gift'][$g]['gctheme']."','".$_SESSION['gift'][$g]['message']."','".$code."')";
-							$objgift=new Bin_Query();
-							$objgift->updateQuery($sqlgift);
-	
-							$title='Gift Voucher';
-							
-							Core_CPaymentGateways::sendingMail($_SESSION['gift'][$g]['email'],$_SESSION['gift'][$g]['remail'],$code);
-
-						}
-					}	*/				
-					/*$mail_sql="select a.user_email from users_table a where a.user_id=".customers_id;
-					$obj_mail=new Bin_Query();
-					$obj_mail=executeQuery($mail_sql);
-					$user_email=$obj_mail->records[0]['user_email'];					
-					$admin_sql="select set_value from admin_settings_table where set_name='Admin Email'";
-					$obj_admin=new Bin_Query();
-					$obj_admin=executeQuery($admin_sql);
-					$admin_email=$obj_admin->records[0]['set_value'];
-					$mail_name = "Zeus Cart"; //senders name
-					$mail_email = $admin_email; //senders e-mail adress
-					$mail_recipient = $user_email; //recipient
-					$mail_body = "Thank you for using ZeusCart Your Order Has been Successfully Added. The Process will be Shortly Done."; //mail body
-					$mail_subject = "Successfull Order From ZeusCart"; //subject
-					$mail_header = "From: ". $mail_name . " <" . $mail_email . ">\r\n"; //optional headerfields
-					mail($mail_recipient, $mail_subject, $mail_body, $mail_header);*/
+				
+					// Send Mail to the User about the Order Placement
 
 					$sqlmail="select orders_id,user_display_name,user_email from orders_table a inner join users_table b on a.customers_id=b.user_id where a.customers_id='".$_SESSION['user_id']."' order by orders_id desc limit 1";
 					$objmail=new Bin_Query();
@@ -456,41 +416,52 @@ class Core_CPaymentGateways
 					$sqllogo="select set_id,site_logo,site_moto,admin_email from admin_settings_table where set_id='1'";
 					$objlogo=new Bin_Query();
 					$objlogo->executeQuery($sqllogo);
-					$admin_logo=$objlogo->records[0]['site_logo'];				
-					$admin_domain=$objlogo->records[0]['site_moto'];	
-				
+					$logo=$objlogo->records[0]['site_logo'];				
+					$title=$objlogo->records[0]['site_moto'];				
 					$admin_email=$obj_admin->records[0]['admin_email'];
 			
-					$logo=$admin_domain.'/'.$admin_logo;
-					
-					$outputbody =   Display_DPaymentGateways::successmail($logo,$resmail_username,$resmail_id,$admin_domain,$orderid,$shipping_cost,$billingaddress,$shippingaddress);
-						
-						$adminmailcontent=Display_DPaymentGateways::adminsuccessmail($logo,$resmail_username,$resmail_id,$admin_domain,$orderid,$shipping_cost,$billingaddress,$shippingaddress);					
-						// Send Mail to the User about the Order Placement
-						$mailto=$resmail_usermail;
-						$fromid=$admin_email;
-						$mailsubject='Order has been submitted successfully';
-						$mailbody=$outputbody;
-						
-						$headers  = "MIME-Version: 1.0\n";
-						$headers .= "Content-type: text/html; charset=iso-8859-1\n";
-						$headers .= "From: ". $fromid."\n";
-						$mail = mail($mailto,$mailsubject,stripslashes(html_entity_decode($mailbody)),$headers);
 				
+					//Get logo
+					$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
+					$dir = (dirname($_SERVER['PHP_SELF']) == "\\")?'':dirname($_SERVER['PHP_SELF']);
+					$site = $protocol.$_SERVER['HTTP_HOST'].$dir;
+					
+							
+					 $logo_path = $site.'/'.$logo;					
+					
+					$outputbody =   Display_DPaymentGateways::successmail($title,$logo_path,$resmail_username,$resmail_usermail,$admin_email,$orderid,$shipping_cost,$billingaddress,$shippingaddress);
+					$mailsubject=$outputbody[1];
+					$outputbody=$outputbody[0];
+									
+	
+					$mailto=$resmail_usermail;
+					$fromid=$admin_email;
+					$mailsubject=$mailsubject;
+					$mailbody=$outputbody;					
 
-						
 
-						//Send Mail to the admin about the Order Placed.
+					$headers  = "MIME-Version: 1.0\n";
+					$headers .= "Content-type: text/html; charset=iso-8859-1\n";
+					$headers .= "From: ". $fromid."\n";
+					$mail = mail($mailto,$mailsubject,stripslashes(html_entity_decode($mailbody)),$headers);
+				
+					
+					//Send Mail to the admin about the Order Placed.	
+					$adminmailcontent=Display_DPaymentGateways::adminsuccessmail($title,$logo_path,$resmail_username,$resmail_usermail,$admin_email,$orderid,$shipping_cost,$billingaddress,$shippingaddress);	
 
-						$mailto=$admin_email;
-						$fromid=$admin_email;
-						$mailsubject='Order has been submitted successfully';
-						$mailbody=$adminmailcontent;
-						
-						$headers  = "MIME-Version: 1.0\n";
-						$headers .= "Content-type: text/html; charset=iso-8859-1\n";
-						$headers .= "From: ". $fromid."\n";
-						$mail = mail($mailto,$mailsubject,stripslashes(html_entity_decode($mailbody)),$headers);	
+					$adminmailsubject=$adminmailcontent[1];
+					$adminmailcontent=$adminmailcontent[0];
+				
+					$mailto=$admin_email;
+					$fromid=$admin_email;
+					$mailsubject=$adminmailsubject;
+					$mailbody=$adminmailcontent;
+	
+					
+					$headers  = "MIME-Version: 1.0\n";
+					$headers .= "Content-type: text/html; charset=iso-8859-1\n";
+					$headers .= "From: ". $fromid."\n";
+					$mail = mail($mailto,$mailsubject,stripslashes(html_entity_decode($mailbody)),$headers);	
 
 					$_SESSION['checkout_amount']='';
 					$_SESSION['order_tax']='';
@@ -514,7 +485,9 @@ class Core_CPaymentGateways
 		function sendingMail($orderid)
 		{
 			
-			$sql="SELECT * FROM  gift_voucher_table WHERE order_id='".$orderid."'";
+			 $sql="SELECT a.*,b.* FROM  gift_voucher_table AS a
+			      LEFT JOIN products_table  AS b ON a.gift_product_id=b.product_id
+			      WHERE a.order_id='".$orderid."'"; 
 			$obj=new Bin_Query();
 			$obj->executeQuery($sql);
 			$records=$obj->records;
@@ -522,27 +495,63 @@ class Core_CPaymentGateways
 			{
 				for($i=0;$i<count($records);$i++)
 				{
+
+
 					$from_email=$records[$i]['email'];
 					$code=$records[$i]['gift_code'];
 					$to_mail=$records[$i]['recipient_email'];
+					$reciuser=$records[$i]['recipient_name'];
+					$senduser=$records[$i]['name'];
+					$giftimage=$records[$i]['image'];
+					$giftcode=$records[$i]['gift_code'];
+					$amount=$records[$i]['msrp'];
+
+					$getmailcontent=new Bin_Query();
+					$getmailquery="select * from mail_messages_table where mail_msg_id='9'";
+					$getmailcontent->executeQuery($getmailquery);
+
+					$sqllogo="select set_id,site_logo,site_moto,admin_email from admin_settings_table where set_id='1'";
+					$objlogo=new Bin_Query();
+					$objlogo->executeQuery($sqllogo);
+					$site_logo=$objlogo->records[0]['site_logo'];				
+				
+					
+					$orderamount = $_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($amount,2);	
 			
+					$mailcontent = $getmailcontent->records[0]['mail_msg'];
+					$mailsubject= $getmailcontent->records[0]['mail_msg_subject'];
+					$mail_msg= $getmailcontent->records[0]['mail_msg'];
+
+
+					$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
+					$dir = (dirname($_SERVER['PHP_SELF']) == "\\")?'':dirname($_SERVER['PHP_SELF']);
+					$site = $protocol.$_SERVER['HTTP_HOST'].$dir;
+					$logo=$site.'/'.$giftimage;
+					$link = $site.'/?do=index.php';
+
+					$sito_image='<img src='.$site.'/'.$site_logo.' alt=logo>';
+					
+					$giftimage = '<a href="'.$link.'"><img src="'.$logo.'" alt="Gift Voucher"></a>';
+
+
+					$URL = "http://".$_SERVER["SERVER_NAME"].$_SERVER["PHP_SELF"];	
+					$pageURL = str_replace("/index.php","/index.php",$URL);	
+					
+					$contenturl.=str_replace("[URL]",'<a href="'.$pageURL.'">'.$pageURL.'</a>',$contentamount);				
+					$message = str_replace("[logo]",$sito_image,$mail_msg);
+					$message = str_replace("[reciuser]",$reciuser,$message);
+					$message = str_replace("[senduser]",$senduser,$message);
+					$message = str_replace("[giftimage]",$giftimage,$message);
+					$message = str_replace("[giftcode]",$giftcode,$message);
+					$message = str_replace("[amount]",$orderamount,$message);	
+
+
 					$subject = 'Gift Voucher From '.$from_email;
 					$headers  = "MIME-Version: 1.0\n";
 					$headers .= "Content-type: text/html; charset=UTF-8\n";
 					$headers .= "From: ".$from."\n";
-					
-					$mailContent.='<table width="100%" cellpadding="0" cellspacing="0" border="0">
-					<tr>
-					<td valign="top" align="left" style="margin:0; padding:0 0 10px 0; line-height:20px; font-size:12px; color:rgb(51,51,51);"><b>Gift Voucher</b></td>
-					</tr>
-					<tr>
-					<td valign="top" align="left" style="margin:0; padding:0 0 10px 0; line-height:20px; font-size:12px; color:rgb(51,51,51);">Your Gift Voucher Code '.$code.'</td>
-					</tr>			
-					</table>';
-					
 		
-					$mailContent = stripslashes($mailContent);
-					mail($to_mail,$subject,$mailContent,$headers);
+					mail($to_mail,$mailsubject,$message,$headers);
 				}
 
 			}

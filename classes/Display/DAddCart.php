@@ -43,8 +43,6 @@ class Display_DAddCart
 	 */	
 	function showCart($arr,$result)
 	{
-
-
 		if(!(empty($arr)))
 		{
 		
@@ -118,8 +116,8 @@ class Display_DAddCart
 								$out.='<img src="'.$_SESSION['base_url'].'/'.$thumbimage.'" alt='.$arr[$i]['title'].'  />';
 								else
 								$out.='<img src="images/noimage.jpg"  alt='.$arr[$i]['title'].' />';
-		
-		
+	
+
 								$out.='</a></div></td>
 								<td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
 								<td>'.$arr[$i]['product_qty'].'</td>
@@ -251,18 +249,18 @@ class Display_DAddCart
 	   	    $output='<div class="row-fluid">
         		<ul class="steps">';
 			
-			 	 $output.='<li class="act"><a href="#"><span>1. Email Login</span></a></li>'; if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
-				{	
+			 	 $output.='<li class="act"><a href="#"><span>1. Email Login</span></a></li>'; /*if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+				{*/	
 				$output.='<li class="inact"><a href="#"><span>2. Billing Address</span></a></li>
 				<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
 				<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li><li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
 				<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>';
-				}
-				else
-				{
-				 $output.='<li class="inact"><a href="#"><span>2. Order Confirmation</span></a></li>
-				<li class="inact"><a href="#"><span>3. Payment Details</span></a></li>';
-				}
+// 				}
+// 				else
+// 				{
+// 				 $output.='<li class="inact"><a href="#"><span>2. Order Confirmation</span></a></li>
+// 				<li class="inact"><a href="#"><span>3. Payment Details</span></a></li>';
+// 				}
 			
 			  $output.='</ul>	
        			 </div><div class="row-fluid">
@@ -320,7 +318,6 @@ class Display_DAddCart
 	 */
 	function showPaymentPageForAuthorizenet()
 	{
-		
 
 		$output='<div id="myaccount_div">
 
@@ -350,6 +347,13 @@ class Display_DAddCart
 		</div>
 		</div>
 		
+
+		<div class="control-group">
+		<label for="inputEmail" class="control-label">Credit Card Code  <i class="red_fnt">*</i></label>
+		<div class="controls">
+		<input type="text" name="cardcode"  />
+		</div>
+		</div>
 	
 		
 		<div class="control-group">
@@ -359,6 +363,7 @@ class Display_DAddCart
 		</div>
 		</form>      </div>';
 
+		return $output;
 		return $output;
 
 	}
@@ -538,7 +543,8 @@ class Display_DAddCart
 	 */
 	function showPaymentPageFor2Checkout($arr)
 	{
-				$output='<div id="myaccount_div">
+
+		$output='<div id="myaccount_div">
 
 		<form   id="form2co" name="form2co" method="post" 						action="https://www.2checkout.com/2co/buyer/purchase"  class="form-horizontal">
 		
@@ -548,21 +554,18 @@ class Display_DAddCart
 	
 		 <span class="label label-info">Your Checkout Amount is  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].' '.$arr['total'].'</span>
 		
-		
 		<input type="hidden" name="sid" value="'.$arr['sid'].'" />
 		<input type="hidden" name="cart_order_id" value="100" />
-		<input type="hidden" name="total" value="'.$arr['total'].'" /><input type="hidden" name="demo" value="Y" />
-		<input type="hidden" name="fixed" value="Y" /><input type="hidden" name="return_url" value="'.$arr['return_url'].'" />
+		<input type="hidden" name="total" value="'.$arr['total'].'" />
+		<input type="hidden" name="demo"value="Y">
+		<input type="hidden" name="fixed" value="Y" />
+		<input type="hidden" name="return_url" value="'.$arr['return_url'].'" />
 		<input type="hidden" name="lang" value="en" />
 		<input type="hidden" name="card_holder_name" value="" />			
-							
-		
-		
-	
 		
 		<div class="control-group">
 		<div class="controls">
-			<button class="btn btn-danger" type="submit">Submit</button>
+		<button class="btn btn-danger" type="submit">Submit</button>
 		</div>
 		</div>
 		</form>      </div>';
@@ -1170,7 +1173,7 @@ class Display_DAddCart
 		$grandtotal=$total+$shipping+$tax;
 		$_SESSION['grandtotal']=$grandtotal;
 			
-		
+		 $voucherid=$_GET['vid'];
 			$out.='<tr>
 				<td colspan="4" rowspan="4">&nbsp;</td>
 			  <td><strong>Sub Total</strong></td>
@@ -1196,7 +1199,7 @@ class Display_DAddCart
               <p>If you have a coupon code enter it in the box below and click \'Go\'.</p>
              <p> <input type="text" name="coupon_code"></p>
             <input type="submit" name="Submit3" value="Go"  class="btn btn-danger" ></td>
-			  <td colspan="3" align="center" valign="middle"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=displaypaymentgateways&vid='.$_GET['vid'].'" class="btn btn-inverse">Proceed Checkout</a></td>
+	<td colspan="3" align="center" valign="middle"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=displaypaymentgateways&vid='.$voucherid.'" class="btn btn-inverse" >Proceed Checkout</a></td>
 		  </tr>
 
 
@@ -1220,6 +1223,9 @@ class Display_DAddCart
 	 */
 	function displayPaymentGateways($onlinearr,$offlinearr,$domain)
 	{
+
+
+
 		$output='<div class="row-fluid">
         	<ul class="steps">';
 			if($_SESSION['user_id']!='')
@@ -1305,10 +1311,12 @@ class Display_DAddCart
 	 */
 	function getPaymentGatewayForms($arr,$domain)
 	{
-		
-		//$sucess_url='http://'.$_SERVER['SERVER_NAME'].'/zeuscartv21/?do=paymentgateway&action=success';
-		//$cancel_url='http://'.$_SERVER['SERVER_NAME'].'/zeuscartv21/?do=paymentgateway&action=failure';
-		
+
+
+	/*	
+		 $sucess_url='http://'.$_SERVER['SERVER_NAME'].'/?do=paymentgateway&action=success';
+		 $cancel_url='http://'.$_SERVER['SERVER_NAME'].'/?do=paymentgateway&action=failure';*/
+
 		
 		$sucess_url=''.$_SESSION['base_url'].'/index.php?do=paymentgateway&action=success';
 		$cancel_url=''.$_SESSION['base_url'].'/index.php?do=paymentgateway&action=failure';				
@@ -1324,11 +1332,10 @@ class Display_DAddCart
 				$merchantid = base64_decode($recordSet[$i]['setting_values']);
 			}
 		}				
-		
-		
+	
 		//$amount=$_SESSION['checkout_amount'];
 		$amount=$_SESSION['checkout_amount']*$_SESSION['currencysetting']['default_currency']['conversion_rate']; //to covert into equivalent dollar values
-		
+	
 		$payment_html['PayPal']='
 					<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 					<input name="cmd" value="_xclick" type="hidden">
@@ -1379,12 +1386,11 @@ class Display_DAddCart
 					<input type="hidden" name="PROGL" value="01">
 					<input type=image src="'.$_SESSION['base_url'].'/images/payment/egold.jpg" style="height:30;width:100px;">
 					</form>	';
-				
-					
+			
 					$payment_html['google-checkout']=' <!--<form method="POST" 		
 					action="https://sandbox.google.com/checkout/cws/v2/Merchant/'.$merchantid.'/checkoutForm"
      				 accept-charset="utf-8">--><form method="POST" 		
-					action="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/'.$arr['merchant_id'].'"
+					action="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/'.$merchantid.'"
      				 accept-charset="utf-8">
 
 					  <input type="hidden" name="item_name_1" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'"/>
@@ -1433,6 +1439,32 @@ class Display_DAddCart
 					<input type="hidden" name="card_holder_name" value="" /><input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/2checkout.gif" 
 					name="submit" alt="2checkout" style="height:30;width:100px;"/>
 					</form>';
+
+	
+// $payment_html['2checkout']=' <form action="https://www.2checkout.com/checkout/purchase" method="post">
+//   <p>
+//     <input type="hidden" name="c_prod_1" value="1,7" />
+//     <input type="hidden" name="c_name_1" value="science fiction book." />
+//     <input type="hidden" name="c_price_1" value="10.00" />
+//     <input type="hidden" name="c_description_1" value="This is a science fiction book, 276 pages, second edition." />
+//     <input type="hidden" name="c_prod_2" value="2,2" />
+//     <input type="hidden" name="c_price_2" value="20.00" />
+//     <input type="hidden" name="c_name_2" value="non-fiction book" />
+//     <input type="hidden" name="c_description_2" value="This is a non-fiction book, 335 pages, first edition." />
+//     <input type="hidden" name="c_prod_3" value="3,4" />
+//     <input type="hidden" name="c_price_3" value="30.00" />
+//     <input type="hidden" name="c_name_3" value="technical book" />
+//     <input type="hidden" name="c_description_3" value="This is a technical book, 442 pages, third edition." />
+//     <input type="hidden" name="id_type" value="1" />
+//     <input type="hidden" name="cart_order_id" value="example_cart_order_id_abc_123" />
+//     <input type="hidden" name="total" value="230.00" />
+// 
+//     <input type="hidden" name="sid" value="'.$merchantid.'" />
+//     <input type="submit" class="submit" name="purchase" value="Buy from 2CO" />
+//   </p>
+// </form> ';
+
+
 					
 					$payment_html['Authorize.net']=' <form id="form2co" name="form2co" method="post" 		
 					action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showauthorizenet">
@@ -1466,7 +1498,7 @@ class Display_DAddCart
 					<input type="image" src="../worldpay.gif" name="submit" alt="WorldPay">
 					</form>
 					';*/
-					if (!(isset($_SESSION['digitalproducts'])) || ($_SESSION['digitalproducts']==0))
+					if ((!(isset($_SESSION['digitalproducts'])) || ($_SESSION['digitalproducts']==0)) &&(!(isset($_SESSION['gift'])) || ($_SESSION['gift']==0)))
 					{
 					$payment_html['Pay in Store']=' <form action="'.$sucess_url.'&pay_type=8" method=POST>
 					
@@ -1477,7 +1509,7 @@ class Display_DAddCart
 					</form>
 					';
 					}
-					if (!(isset($_SESSION['digitalproducts'])) || ($_SESSION['digitalproducts']==0))
+					if ((!(isset($_SESSION['digitalproducts'])) || ($_SESSION['digitalproducts']==0)) || (!(isset($_SESSION['gift'])) || ($_SESSION['gift']==0)))
 					{
 					$payment_html['Cash on Delivery']=' <form action="'.$sucess_url.'&pay_type=9" method=POST>
 					

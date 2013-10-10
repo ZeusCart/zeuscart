@@ -479,18 +479,31 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$message = "Please select terms";
 		$this->Assign("chkterms",trim($_POST['chkterms']),"noempty",$message);
 		
-		if(trim($_POST['txtdisname']) != ''&&trim($_POST['txtemail']) != '')
+		if(trim($_POST['txtemail']) != '')
 		{
-			//$sqlselect = "select * from users_table where user_display_name='".$_POST['txtdisname']."'";
-
+			
 			$sqlselect = "select * from users_table where user_email='".$_POST['txtemail']."'";
 			$obj = new Bin_Query();
 			if($obj->executeQuery($sqlselect))
 			{
 				if($obj->totrows>0)
 				{
-					$message = "Username already Exist!.Try again.";		
+					$message = "Email already Exist!.Try again.";		
 					$this->Assign("txtemail",'',"noempty",$message);
+				}
+			}
+		}
+		if(trim($_POST['txtdisname']) != '')
+		{
+			
+			$sqlselect = "select * from users_table where user_display_name='".$_POST['txtdisname']."'";
+			$obj = new Bin_Query();
+			if($obj->executeQuery($sqlselect))
+			{
+				if($obj->totrows>0)
+				{
+					$message = "Username already Exist!.Try again.";		
+					$this->Assign("txtdisname",'',"noempty",$message);
 				}
 			}
 		}

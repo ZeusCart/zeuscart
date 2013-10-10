@@ -71,7 +71,7 @@ Sign up for our Newsletter
                    <ul class="ftrlist">
 			
                     	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=brands&schltr=All">Brands</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/gift/viewproducts.html">Gift Vouchers</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/giftproducts.html">Gift Vouchers</a></li>
                             	
                     </ul>
                 </div>
@@ -91,7 +91,7 @@ Sign up for our Newsletter
 
 
 <AJDF:output>php</AJDF:output>
-$sql="SELECT * FROM live_chat_table WHERE id='1'";
+$sql="SELECT * FROM live_chat_table   WHERE id='1' AND live_chat_status='0' ";
 $obj=mysql_query($sql);
 $fetch_icon=mysql_fetch_array($obj);
 echo $fetch_icon['live_chat_script'];

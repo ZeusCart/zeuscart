@@ -17,7 +17,10 @@ RewriteRule ^forgotpassword.html$ index.php?do=forgetpwd
 
 
 RewriteRule ^(manuals) - [L]
-RewriteRule ^gift/(.*).html$ index.php?do=giftviewproducts&cat=$1&%{QUERY_STRING}
+RewriteRule ^giftproducts.html$ index.php?do=giftproducts
+RewriteRule ^(manuals) - [L]
+RewriteRule ^girdgiftproducts.html$ index.php?do=girdgiftproducts
+
 
 RewriteRule ^(manuals) - [L]
 RewriteRule ^grid/(.*).html$ index.php?do=girdviewproducts&cat=$1&%{QUERY_STRING}

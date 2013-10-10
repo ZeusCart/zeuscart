@@ -104,6 +104,16 @@ class Core_CUserRegistration
 						<button data-dismiss="alert" class="close" type="button">×</button>
 						Account has been created successfully.And the confirmation link send to your email address.
 						</div>';
+
+						//admin details
+						$sqllogo="select set_id,site_logo,site_moto,admin_email from admin_settings_table where set_id='1'";
+						$objlogo=new Bin_Query();
+						$objlogo->executeQuery($sqllogo);
+						$site_logo=$objlogo->records[0]['site_logo'];			
+						$site_title=$objlogo->records[0]['site_moto'];			
+						$admin_email=$objlogo->records[0]['admin_email'];
+
+
 						//select mail setting
 						$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id=1 AND mail_user='0'";
 						$objMail=new Bin_Query();
@@ -115,17 +125,21 @@ class Core_CUserRegistration
 						$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
 						$dir = (dirname($_SERVER['PHP_SELF']) == "\\")?'':dirname($_SERVER['PHP_SELF']);
 						$site = $protocol.$_SERVER['HTTP_HOST'].$dir;
-
+						
+						$site_logo=$site.'/'.$site_logo;
 						$link = $site.'/?do=registerconfirm&confirm_code='.$code;
-						$confirm_link = '<a href="'.$link.'">'.$link.'</a>';
+						$confirm_link = '<p style="font-family:Arial, Helvetica, sans-serif, "Myriad Pro", Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;">Click the following link to active your account</p><a href="'.$link.'">'.$link.'</a>';
+						$site_logo	=$site_logo;
 
+						$message = str_replace("[title]",$site_title,$message);
+						$message = str_replace("[logo]",$site_logo,$message);
 						$message = str_replace("[firstname]",$firstname,$message);
 						$message = str_replace("[lastname]",$lastname,$message);
 						$message = str_replace("[confirm_link]",$confirm_link,$message);
 					
-						$message = str_replace("[user_name]",$email,$message);		$message = str_replace("[password]",$_POST['txtpwd'],$message);		
+						$message = str_replace("[user_name]",$email,$message);		$message = str_replace("[password]",$_POST['txtpwd'],$message);	$message = str_replace("[site_email]",$admin_email,$message);	
 					
-					
+			
 						Core_CUserRegistration::sendingMail($email,$title,$message);
 					}
 					else
@@ -177,18 +191,34 @@ class Core_CUserRegistration
 							</div>';
 
 
-				//select mail setting
-				$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id=4 AND mail_user='1'";
-				$objMail=new Bin_Query();
-				$objMail->executeQuery($sqlMail);
-				$message=$objMail->records[0]['mail_msg'];
-				$title=$objMail->records[0]['mail_msg_title'];
-				$subject=$objMail->records[0]['mail_msg_subject'];	
+				//admin details
+					$sqllogo="select set_id,site_logo,site_moto,admin_email from admin_settings_table where set_id='1'";
+					$objlogo=new Bin_Query();
+					$objlogo->executeQuery($sqllogo);
+					$site_logo=$objlogo->records[0]['site_logo'];			
+					$site_title=$objlogo->records[0]['site_moto'];			
+					$admin_email=$objlogo->records[0]['admin_email'];
 
-				$sql = "select set_id,admin_email from admin_settings_table where set_id='1'";
-				$obj = new Bin_Query();
-				$obj->executeQuery($sql);
-				$email=$obj->records[0]['admin_email'];
+
+					//select mail setting
+					$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id=3 AND mail_user='0'";
+					$objMail=new Bin_Query();
+					$objMail->executeQuery($sqlMail);
+					$message=$objMail->records[0]['mail_msg'];
+					$title=$objMail->records[0]['mail_msg_title'];
+					$subject=$objMail->records[0]['mail_msg_subject'];
+
+					$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
+					$dir = (dirname($_SERVER['PHP_SELF']) == "\\")?'':dirname($_SERVER['PHP_SELF']);
+					$site = $protocol.$_SERVER['HTTP_HOST'].$dir;
+					
+					$site_logo=$site.'/'.$site_logo;
+					
+					$site_logo	=$site_logo;
+
+					$message = str_replace("[title]",$site_title,$message);
+					$message = str_replace("[logo]",$site_logo,$message);
+					$message = str_replace("[site_email]",$admin_email,$message);	
 			
 
 				Core_CUserRegistration::sendingMail($email,$title,$message);
@@ -300,6 +330,8 @@ class Core_CUserRegistration
 			if($obj->executeQuery($sql))
 			{
 				$user_id=$obj->records[0]['user_id'];
+				$firstname=$obj->records[0]['user_fname'];
+				$lastname=$obj->records[0]['user_lname'];
 				$characters='8';	
 				$possible = '1234567890';
 					$password = '';
@@ -316,16 +348,42 @@ class Core_CUserRegistration
 				$objUpdate->updateQuery($sqlUpdate);	
 				
 
-				//select mail setting
-				$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id='2' AND mail_user='0'";
-				$objMail=new Bin_Query();
-				$objMail->executeQuery($sqlMail);
-				$message=$objMail->records[0]['mail_msg'];
-				$title=$objMail->records[0]['mail_msg_title'];
-				$subject=$objMail->records[0]['mail_msg_subject'];
+				//admin details
+					$sqllogo="select set_id,site_logo,site_moto,admin_email from admin_settings_table where set_id='1'";
+					$objlogo=new Bin_Query();
+					$objlogo->executeQuery($sqllogo);
+					$site_logo=$objlogo->records[0]['site_logo'];			
+					$site_title=$objlogo->records[0]['site_moto'];			
+					$admin_email=$objlogo->records[0]['admin_email'];
 
-				$message = str_replace("[user_password]",$password,$message);
+
+					//select mail setting
+					$sqlMail="SELECT * FROM mail_messages_table WHERE mail_msg_id=2 AND mail_user='0'";
+					$objMail=new Bin_Query();
+					$objMail->executeQuery($sqlMail);
+					$message=$objMail->records[0]['mail_msg'];
+					$title=$objMail->records[0]['mail_msg_title'];
+					$subject=$objMail->records[0]['mail_msg_subject'];
+
+					$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
+					$dir = (dirname($_SERVER['PHP_SELF']) == "\\")?'':dirname($_SERVER['PHP_SELF']);
+					$site = $protocol.$_SERVER['HTTP_HOST'].$dir;
+					
+
+					 $logo=$site.'/'.$site_logo;
 				
+
+
+				$message = str_replace("[title]",$site_title,$message);
+				$message = str_replace("[logo]",$logo,$message);
+				$message = str_replace("[firstname]",$firstname,$message);
+				$message = str_replace("[lastname]",$lastname,$message);
+				$message = str_replace("[confirm_link]",$confirm_link,$message);
+			
+				$message = str_replace("[user_name]",$email,$message);		
+				$message = str_replace("[password]",$password,$message);	
+				$message = str_replace("[site_email]",$admin_email,$message);	
+
 				
 				Core_CUserRegistration::sendingMail($email,$title,$message);
 				$result = '<div class="alert alert-success">
@@ -442,7 +500,7 @@ class Core_CUserRegistration
 	
 	    	$query = new Bin_Query(); 
 		
-		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1  ";
+		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1 AND category_name!='Gift Voucher' ";
 		if($query->executeQuery($sql))
 		{
 			$output = Display_DUserRegistration::showHeaderMenu($query->records);

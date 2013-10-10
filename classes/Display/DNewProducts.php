@@ -219,7 +219,8 @@ class Display_DNewProducts
 	function viewProducts($records,$paging,$prev,$next,$val)
 	{
 
-		if($_GET['do']=='viewproducts' || $_GET['do']=='giftviewproducts')
+
+		if($_GET['do']=='viewproducts' || $_GET['do']=='giftproducts')
 		{
 			$output='<ul class="productlists">';
 
@@ -229,7 +230,7 @@ class Display_DNewProducts
 				{
 					
 					$output.='<li>';
-					if($_GET['cat']=='Gift Voucher')
+					if($records[$i]['gift']=='1')
 					{
 					$output.='<form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'">';
 					}
@@ -284,7 +285,7 @@ class Display_DNewProducts
                 $output.='</ul>';
 
 		}
-		elseif($_GET['do']=='girdviewproducts' || $_GET['do']=='giftviewproducts')
+		elseif($_GET['do']=='girdviewproducts' || $_GET['do']=='girdgiftproducts')
 		{
 		
 			$output='  <span class="visible-desktop">
@@ -295,8 +296,18 @@ class Display_DNewProducts
 			{
 				for($i=0;$i<count($records);$i++)
 				{	
-					$output.='<li class="bags"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$records[$i]['product_id'].'">
-					';
+
+					$output.='<li class="bags">';	
+					if($records[$i]['gift']=='1')
+					{
+					$output.='<form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'">';
+					}
+					else
+					{
+					$output.='<form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$records[$i]['product_id'].'">';	
+					}
+	
+					$output.='<form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$records[$i]['product_id'].'">';
 				
 					if($records[$i]['product_status']==1)
 					{
@@ -404,8 +415,6 @@ class Display_DNewProducts
 		$categorycount=count($category);
 	
 		
-
-
 		if($categorycount>0)
 		{
 
