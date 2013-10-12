@@ -146,34 +146,46 @@ class Core_CNewProducts
 
 // 		if(trim($_GET['do'])!='giftviewproducts')
 // 		{
-			$url=$_SERVER['REQUEST_URI'];
-			$results = explode('/', trim($url,'/'));
-			if(count($results) > 0){
-			//get the last record
-			$last = $results[count($results) - 1];
-			$last=explode('.',$last);
-			$last=$last[0];
-			}
-	
-			$last=str_replace('-',' ',$last);
-			
-	
-			$sql="SELECT * from category_table WHERE category_name='".$last."'";  
+			$url=$_GET['cat'];
+			$results = explode('/', $url);
+// 			if(count($results) > 0){
+// 			//get the last record
+// 			$last = $results[count($results) - 1];
+// 			$last=explode('.',$last);
+// 			$last=$last[0];
+// 			}
+
+			$results=str_replace('-',' ',$results);
+		
+				
+			 if(count($results) > 1){
+				
+				$sqlBase='SELECT * from category_table WHERE  category_name="'.$results[0].'"';
+				$objBase=new Bin_Query();
+				$objBase->executeQuery($sqlBase);
+				$basecatid=$objBase->records[0]['category_id'];	
+				
+				$sql='AND FIND_IN_SET("'.$basecatid.'",subcat_path)';	
+			  }
+
+	  		$last=end($results);
+			$sql="SELECT * from category_table WHERE category_name='".$last."' ".$sql.""; 
 			$obj=new Bin_Query();
 			$obj->executeQuery($sql);
 			$catid=$obj->records[0]['category_id'];
+			
 		
-			$sql1="SELECT category_id,subcat_path from category_table WHERE FIND_IN_SET(".$catid.",subcat_path)";  
+			$sql1="SELECT category_id,subcat_path from category_table WHERE FIND_IN_SET(".$catid.",subcat_path) ";  
 			$res1=mysql_query($sql1);
 			while($row1=mysql_fetch_array($res1)){ 
 				$fromdate=$row1['category_id'];
 					$result[] =  $fromdate ;
 			}
-			$categoryid=implode( ',', $result );
+		 	$categoryid=implode( ',', $result );
 
-		
+	
 			//product selection
-			$sqlpro="SELECT a.product_id, a.title, a.thumb_image,a.image,a.large_image_path,a.product_status,a.category_id,a.gift,a.description ,a.msrp,a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.gift!='1' and a.category_id   IN ($categoryid) "; 
+			$sqlpro="SELECT a.product_id, a.title, a.thumb_image,a.image,a.large_image_path,a.product_status,a.category_id,a.gift,a.description ,a.msrp,a.intro_date,b.soh FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id   and a.status=1 and a.gift!='1' and a.category_id   IN ($categoryid) ";  
 
 
 		$objpro=new Bin_Query();

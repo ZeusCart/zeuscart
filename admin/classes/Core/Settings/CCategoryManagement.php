@@ -272,11 +272,11 @@ class Core_Settings_CCategoryManagement
 		 $filetypename= $_FILES['caticon']['type'];
 		 $file = explode("/",$_FILES['caticon']['type']);		
 			
-		  if(count($file) > 2  || !in_array($_FILES['caticon']['type'],$imagetypes))
+		/*  if(count($file) > 2  || !in_array($_FILES['caticon']['type'],$imagetypes))
 		  {		
   			return '<div class="alert alert-error">
              			 <button type="button" class="close" data-dismiss="alert">×</button> Invalid image file format</div>	';	
-		  }	 	
+		  }*/	 	
 		
 			$sql = "SELECT count(*) as cnt FROM category_table WHERE category_name ='".$_POST['category']."' AND category_parent_id=='0'"; 
 			$query->executeQuery($sql);
@@ -317,13 +317,13 @@ class Core_Settings_CCategoryManagement
 						$objsel->executeQuery($sqlsel);
 						$path=$objsel->records[0]['subcat_path'];
 						$categoryparent=$_POST['category'];
-						
+						$path=$path.','.$_POST['category'];
 						$pathcount=explode(',',$path);
 						$count=count($pathcount);	
 
 					}	
 
-						 $sql = "INSERT INTO category_table (category_name,category_parent_id,category_image,category_desc,category_status,category_content_id,count) VALUES ('".trim($_POST['categoryname'])."','".$categoryparent."','".$caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."','".$count."')"; 
+						 $sql = "INSERT INTO category_table (category_name,category_parent_id,category_image,category_desc,category_status,category_content_id,count) VALUES ('".trim($_POST['categoryname'])."','".$categoryparent."','".$caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."','".$count."')";  
 						$query->updateQuery($sql);
 						
 						$catinsertid=mysql_insert_id();
@@ -341,7 +341,7 @@ class Core_Settings_CCategoryManagement
 								
 						$sqlSub="UPDATE category_table SET subcat_path='".$subcategorypath."'
 						WHERE category_id='".$catinsertid."'"; 
-						$objSub=new Bin_Query();
+						$objSub=new Bin_Query(); 
 						if($objSub->updateQuery($sqlSub))
 						{
 							

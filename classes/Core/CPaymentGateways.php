@@ -349,19 +349,25 @@ class Core_CPaymentGateways
 									{
 										$product_id=$row['product_id'];
 										$product_qty=$row['product_qty'];
-										$sql6="select * from product_inventory_table where product_id=".$product_id;
-										$obj6=new Bin_Query();
-										$obj6->executeQuery($sql6);
-										$res6=$obj6->records;
-										$soh=$res6[0]['soh'];
-										if($soh>$product_qty)
-										{
-										$mysoh=$soh-$product_qty;
-										}
+
+										if ($defobject->isDigitalProduct($product_id))
+										$mysoh=$product_qty;
 										else
 										{
-										$product_qty=$soh;
-										$mysoh=$product_qty-$soh;									  
+											$sql6="select * from product_inventory_table where product_id=".$product_id;
+											$obj6=new Bin_Query();
+											$obj6->executeQuery($sql6);
+											$res6=$obj6->records;
+											$soh=$res6[0]['soh'];			
+											if($soh>$product_qty)
+											{
+											$mysoh=$soh-$product_qty;
+											}
+											else
+											{
+											$product_qty=$soh;
+											$mysoh=$product_qty-$soh;									  
+											}
 										}
 										$sql5="update product_inventory_table set soh = '".$mysoh."' where product_id = ".$product_id;
 										$obj5=new Bin_Query();
@@ -507,20 +513,21 @@ class Core_CPaymentGateways
 					$amount=$records[$i]['msrp'];
 
 					$getmailcontent=new Bin_Query();
-					$getmailquery="select * from mail_messages_table where mail_msg_id='9'";
+					$getmailquery="select * from mail_messages_table where mail_msg_id='6'";
 					$getmailcontent->executeQuery($getmailquery);
 
 					$sqllogo="select set_id,site_logo,site_moto,admin_email from admin_settings_table where set_id='1'";
 					$objlogo=new Bin_Query();
 					$objlogo->executeQuery($sqllogo);
 					$site_logo=$objlogo->records[0]['site_logo'];				
-				
-					
+					$admin_email=$objlogo->records[0]['admin_email'];
+					$site_title=$objlogo->records[0]['site_moto'];					
+
 					$orderamount = $_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($amount,2);	
 			
 					$mailcontent = $getmailcontent->records[0]['mail_msg'];
 					$mailsubject= $getmailcontent->records[0]['mail_msg_subject'];
-					$mail_msg= $getmailcontent->records[0]['mail_msg'];
+					$message= $getmailcontent->records[0]['mail_msg'];
 
 
 					$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? 'https://': 'http://';
@@ -529,27 +536,27 @@ class Core_CPaymentGateways
 					$logo=$site.'/'.$giftimage;
 					$link = $site.'/?do=index.php';
 
-					$sito_image='<img src='.$site.'/'.$site_logo.' alt=logo>';
-					
+				 	$sito_image=''.$site.'/'.$site_logo.'';		
 					$giftimage = '<a href="'.$link.'"><img src="'.$logo.'" alt="Gift Voucher"></a>';
 
 
 					$URL = "http://".$_SERVER["SERVER_NAME"].$_SERVER["PHP_SELF"];	
-					$pageURL = str_replace("/index.php","/index.php",$URL);	
-					
-					$contenturl.=str_replace("[URL]",'<a href="'.$pageURL.'">'.$pageURL.'</a>',$contentamount);				
-					$message = str_replace("[logo]",$sito_image,$mail_msg);
+					$pageURL = str_replace("/index.php","/index.php",$URL);		
+					$contenturl.=str_replace("[URL]",'<a href="'.$pageURL.'">'.$pageURL.'</a>',$contentamount);	
+		
+					$message = str_replace("[title]",$site_title,$message);	
+					$message = str_replace("[logo]",$sito_image,$message);
 					$message = str_replace("[reciuser]",$reciuser,$message);
 					$message = str_replace("[senduser]",$senduser,$message);
 					$message = str_replace("[giftimage]",$giftimage,$message);
 					$message = str_replace("[giftcode]",$giftcode,$message);
 					$message = str_replace("[amount]",$orderamount,$message);	
-
+					$message = str_replace("[site_email]",$admin_email,$message);
 
 					$subject = 'Gift Voucher From '.$from_email;
 					$headers  = "MIME-Version: 1.0\n";
 					$headers .= "Content-type: text/html; charset=UTF-8\n";
-					$headers .= "From: ".$from."\n";
+					$headers .= "From: ".$from_email."\n";
 		
 					mail($to_mail,$mailsubject,$message,$headers);
 				}
@@ -739,6 +746,20 @@ class Core_CPaymentGateways
 			return 'No Merchant id was found on this '.$gateway.' Payment Gateway ';
 			}
 		}
+		/**
+		* This function is used check the product whether digital or not
+		* @param int $product_id
+		* @return int
+		*/
+		function isDigitalProduct($product_id)
+		{
+			$sql="SELECT digital FROM products_table WHERE product_id=".(int)$product_id;
+			$query=new Bin_Query();
 		
+			if ($query->executeQuery($sql))
+				return (int)$query->records[0]['digital'];
+			else
+				return 0;
+		}
 }
 ?>

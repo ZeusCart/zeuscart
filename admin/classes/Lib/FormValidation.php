@@ -200,9 +200,9 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	{
 
 		$message = "Required Field Cannot be blank";
-		$this->Assign("mail_msg_subject",trim($_POST['mail_msg_subject']),"noempty","Mail Subject - " .$message);
+		$this->Assign("mail_msg_subject",trim($_REQUEST['mail_msg_subject']),"noempty","Mail Subject - " .$message);
 
-		$this->Assign("mailmessages",trim($_POST['mailmessages']),"noempty","Mail Message - " .$message);
+		$this->Assign("mailmessages",trim($_REQUEST['mailmessages']),"noempty","Mail Message - " .$message);
 
 		$this->PerformValidation("?do=mailmessages&action=disp&id=".$_GET['id']);
 

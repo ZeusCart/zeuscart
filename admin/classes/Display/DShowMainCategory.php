@@ -204,7 +204,7 @@ class Display_DShowMainCategory
 	 * @param array $arr
 	 * @return string
 	 */	
-	function displayMainCategory($arr,$Err)
+	function displayMainCategory($arr,$Err,$recordsAtt,$selectedarr)
 	{
 
 		if(!empty($Err->messages))
@@ -247,6 +247,27 @@ class Display_DShowMainCategory
 		}
 		$maincat.='</select>';
 
+
+				if($selectedarr[0]==0)
+			$alert="selected='selected'";
+		else
+			$alert="";
+		$attribute = "<select name='attributes[]' multiple='multiple' size='15' style='width:199px'><option value=''".$alert.">No Attribute(s)</option>";
+		for ($k=0;$k<count($recordsAtt);$k++)
+		{
+			if(in_array($recordsAtt[$k]['attrib_id'],$selectedarr))
+			{
+				
+				$attribute.='<option value="'.$recordsAtt[$k]['attrib_id'].'" selected="selected">'.$recordsAtt[$k]['attrib_name'].'</option>';
+			}
+			else
+			{
+				$attribute.='<option value="'.$recordsAtt[$k]['attrib_id'].'">'.$recordsAtt[$k]['attrib_name'].'</option>';
+			}
+			
+		}
+			$attribute.='</select>';
+
 		$temp=$arr[0]['category_image'];
 		$img=explode('/',$temp);
 		$output.='<form name="formmaincatedit" action="?do=showmain&action=edit&id='.(int)$_GET['id'].'" method="post" enctype="multipart/form-data" id="updateCategoryform">';
@@ -276,7 +297,14 @@ class Display_DShowMainCategory
 		</div>
 		</div>
 		
-		</div></div><div class="row-fluid">
+		</div></div>
+
+		<div class="row-fluid" style="display:block" id="attribContainer">
+		<div class="span12"><label>Category Special Attributes </label>	
+		'.$attribute.'
+		</div>
+		</div>
+		<div class="row-fluid">
 		<div class="span12"><label>Status :</label><div class="ibutton-group">
 		';
 		if($arr[0]['category_status']=='1')

@@ -341,7 +341,13 @@ function checkInputs()
 							return false;
 						}
 		
-
+						if (isNaN(document.productupdate.rol.value))
+						{
+							alert('Invalid Inputs In Inventory');
+							tabOpenvalidation('6');
+							return false;
+						}
+		
 					
 					}			
 					

@@ -115,8 +115,28 @@ class Core_Category_CShowMainCategory
 			$query = new Bin_Query();
 			if($query->executeQuery($sql))
 			{	
-					
-				return Display_DShowMainCategory::displayMainCategory($query->records,$Err);
+				$sqlAttr = "SELECT *  FROM  `category_attrib_table` WHERE  `subcategory_id` =".mysql_escape_string(intval($_GET['id']));
+				$objAttr = new Bin_Query();
+				
+				if($objAttr->executeQuery($sqlAttr))
+					$array=$objAttr->records;
+				if(!empty($array))
+				{
+					for($i=0;$i<count($array);$i++)
+						$selectedarr[]= $array[$i]['attrib_id'];
+				}
+				else
+				{
+					$selectedarr[]="0";
+				}
+				
+				
+				$sql = "SELECT * FROM `attribute_table` order by attrib_name asc ";
+				$cquery = new Bin_Query();
+				if($cquery->executeQuery($sql))	
+				$recordsAtt=$cquery->records;
+				
+				return Display_DShowMainCategory::displayMainCategory($query->records,$Err,$recordsAtt,$selectedarr);
 			}
 			else
 			{
@@ -155,41 +175,74 @@ class Core_Category_CShowMainCategory
 	
 	function editMainCategory()
 	{
-		
 
-		$sql = "UPDATE category_table SET ";
+		if($_POST['categoryname']!='')
+		{
+			if($_POST['category']=='0')
+			{
+				$categoryparent=0;	
+				$subcategorypath=$_GET['id'];
+				$count=0;
+			}
+			else
+			{
+				$sqlsel="SELECT * FROM category_table WHERE category_id='".$_POST['category']."'  ";
+				$objsel=new Bin_Query();
+				$objsel->executeQuery($sqlsel);
+				$path=$objsel->records[0]['subcat_path'];
+				$categoryparent=$_POST['category'];
+				
+				$subcategorypath=$path.','.$_GET['id'];
+				$pathcount=explode(',',$path);
+				$count=count($pathcount);
+				
+			}
+			if($_POST['status']=='')
+			{
 	
-		if($_POST['category']=='0')
-		{
-			$categoryparent=0;	
-			$subcategorypath=0;
-			$count=0;
-		}
-		else
-		{
-			$sqlsel="SELECT * FROM category_table WHERE category_id='".$_POST['category']."'  ";
-			$objsel=new Bin_Query();
-			$objsel->executeQuery($sqlsel);
-			$path=$objsel->records[0]['subcat_path'];
-			$categoryparent=$_POST['category'];
-			$subcategorypath=$path.','.$_POST['category'];
-			$pathcount=explode(',',$path);
-			$count=count($pathcount);
+				$status='0';
+			}
+			else
+			{
+				$status=$_POST['status'];
+	
+			}
 			
-		}
-		
-		$sql.= "category_name = '".$_POST['categoryname']."', category_desc = '".$_POST['categorydesc']. "', category_status='".$_POST['status']."',category_parent_id='".$categoryparent."',subcat_path='".$subcategorypath."',count='".$count."' WHERE category_id =".(int)$_GET['id'];  
-		
-		$query = new Bin_Query();
-		if($query->updateQuery($sql))
-		{
-		return '<div class="alert alert-success">
-            	  <button type="button" class="close" data-dismiss="alert">×</button> Category <b> '.$_POST['categoryname'].'</b> Updated Successfully</div>';
-		}
-		else
-		{
-			return '<div class="alert alert-error">
-             		 <button type="button" class="close" data-dismiss="alert">×</button>  Category Updated Failed(Category can not empty)</div>';
+			$sql= "UPDATE category_table SET category_name = '".$_POST['categoryname']."', category_desc ='".$_POST['categorydesc']. "', category_status='".$_POST['status']."',category_parent_id='".$categoryparent."',subcat_path='".$subcategorypath."',count='".$count."' WHERE category_id =".(int)$_GET['id'];  
+			
+			$query = new Bin_Query();
+			if($query->updateQuery($sql))
+			{
+	
+				$sqlDelete="DELETE FROM category_attrib_table WHERE subcategory_id=".(int)$_GET['id'];
+				$objDelete=new Bin_Query();
+				$objDelete->updateQuery($sqlDelete);
+	
+				$temparray = array();
+				$temparray = $_POST['attributes'];
+	
+					$cnt=count($temparray); 
+					if($cnt > 0)								
+					for($i=0;$i<$cnt;$i++)
+					{
+						if($temparray[$i]!='')
+						{
+							$queryInsert=new Bin_Query();
+							$sqlInsert = "INSERT INTO category_attrib_table (subcategory_id,attrib_id) values('".$_GET['id']."','".$temparray[$i]."') ";
+							$queryInsert->updateQuery($sqlInsert);
+						}
+					}
+	
+	
+	
+				return '<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">×</button> Category <b> '.$_POST['categoryname'].'</b> Updated Successfully</div>';
+			}
+			else
+			{
+				return '<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">×</button>  Category Updated Failed(Category can not empty)</div>';
+			}
 		}
 	}
 	
