@@ -1612,10 +1612,13 @@ class Display_DUserAccount
 			</tr>
 			</tbody>
 		</table>
-		</div>';
+		</div>
 
+		<p class="PageBreak">&nbsp;</p><script type="text/javascript">window.setTimeout("window.print();", 1000);</script></body></html>';
 
-		echo  $output;
+	
+		echo  $output;	
+		
 
 	}
 	/**

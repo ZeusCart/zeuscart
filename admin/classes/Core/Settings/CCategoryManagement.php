@@ -317,7 +317,7 @@ class Core_Settings_CCategoryManagement
 						$objsel->executeQuery($sqlsel);
 						$path=$objsel->records[0]['subcat_path'];
 						$categoryparent=$_POST['category'];
-						$path=$path.','.$_POST['category'];
+						$path=$path;
 						$pathcount=explode(',',$path);
 						$count=count($pathcount);	
 

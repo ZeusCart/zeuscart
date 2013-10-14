@@ -350,7 +350,7 @@ class Core_CPaymentGateways
 										$product_id=$row['product_id'];
 										$product_qty=$row['product_qty'];
 
-										if ($defobject->isDigitalProduct($product_id))
+										if (self::isDigitalProduct($product_id))
 										$mysoh=$product_qty;
 										else
 										{
@@ -424,7 +424,7 @@ class Core_CPaymentGateways
 					$objlogo->executeQuery($sqllogo);
 					$logo=$objlogo->records[0]['site_logo'];				
 					$title=$objlogo->records[0]['site_moto'];				
-					$admin_email=$obj_admin->records[0]['admin_email'];
+					$admin_email=$objlogo->records[0]['admin_email'];
 			
 				
 					//Get logo
@@ -446,9 +446,9 @@ class Core_CPaymentGateways
 					$mailbody=$outputbody;					
 
 
-					$headers  = "MIME-Version: 1.0\n";
-					$headers .= "Content-type: text/html; charset=iso-8859-1\n";
-					$headers .= "From: ". $fromid."\n";
+					$headers = "MIME-Version: 1.0\n";
+					$headers.= "Content-type: text/html; charset=iso-8859-1\n";
+					$headers.= "From: ". $fromid."\n";
 					$mail = mail($mailto,$mailsubject,stripslashes(html_entity_decode($mailbody)),$headers);
 				
 					
