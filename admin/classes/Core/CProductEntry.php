@@ -247,7 +247,7 @@
 						
 						$varimage="images/products/". date("Y-m-d-His").$varimgfilename; //inserted into db
 						$varthumb_image="images/products/thumb/". date("Y-m-d-His").$varimgfilename; //inserted into db
-						$large_image="images/products/large_image/".$varimgfilename; 
+						$varlarge_image="images/products/large_image/".date("Y-m-d-His").$varimgfilename; 
 				
 						$varimageDir=ROOT_FOLDER."images/products"; // to upload the file
 						$varthumbDir=ROOT_FOLDER."images/products/thumb"; //to upload the file
@@ -268,7 +268,7 @@
 						
 					}
 				
-					$sqlvariation="INSERT INTO product_variation_table (product_id,sku,variation_name,msrp,price,weight,dimension,thumb_image,image,shipping_cost,soh,rol,status,large_image) VALUES(".$product_id.",'".$_POST['prsku'][$ii]."','".$_POST['varianname'][$ii]."',".$_POST['prmsrp'][$ii].",".$_POST['prprice'][$ii].",'".$varweight."','".$vardimension."','".$varthumb_image."','".$varimage."',".(float)$_POST['prshipcost'][$ii].",".$_POST['prsoh'][$ii].",".$_POST['prrol'][$ii].",1,'".$large_image."')";
+					$sqlvariation="INSERT INTO product_variation_table (product_id,sku,variation_name,msrp,price,weight,dimension,thumb_image,image,shipping_cost,soh,rol,status,large_image) VALUES(".$product_id.",'".$_POST['prsku'][$ii]."','".$_POST['varianname'][$ii]."',".$_POST['prmsrp'][$ii].",".$_POST['prprice'][$ii].",'".$varweight."','".$vardimension."','".$varthumb_image."','".$varimage."',".(float)$_POST['prshipcost'][$ii].",".$_POST['prsoh'][$ii].",".$_POST['prrol'][$ii].",1,'".$varlarge_image."')";
 					$qryvariation=new Bin_Query();
 					
 					$qryvariation->updateQuery($sqlvariation);
