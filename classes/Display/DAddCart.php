@@ -43,6 +43,7 @@ class Display_DAddCart
 	 */	
 	function showCart($arr,$result)
 	{
+
 		if(!(empty($arr)))
 		{
 		
@@ -1057,7 +1058,6 @@ class Display_DAddCart
 	function showOrderConfirmation($arr,$result,$taxarray,$message)
 	{
  	
-
 	 $out='<div class="row-fluid">
         	<ul class="steps">';
 			if($_SESSION['user_id']!='')
@@ -1110,16 +1110,17 @@ class Display_DAddCart
 			$original_price=$arr[$i]['product_unit_price'];
 			
 			if($arr[$i]['product_unit_price']!=0.00)
-				$msrp=$arr[$i]['product_unit_price']; 
+				 $msrp=$arr[$i]['product_unit_price']; 
 			elseif($arr[$i]['msrp']!=0.00)
-				$msrp=$arr[$i]['msrp']; //$msrp calculated unitpirce
+				 $msrp=$arr[$i]['msrp']; //$msrp calculated unitpirce
 			else
 				$msrp=$arr[$i]['msrp1'];
 			
 			$subtotal[]=$prqty*$msrp;
 			
 			$total=array_sum($subtotal);
-						
+			
+	
 			$shippingcost[]=$arr[$i]['shipingamount'];
 			$shipping=array_sum($shippingcost);
 			

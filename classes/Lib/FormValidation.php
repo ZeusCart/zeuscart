@@ -293,7 +293,6 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validatelogin()
 	{
 
-		
 		/*if(empty($_POST['txtemail']))
 		{
 		    $message = "Required Field Cannot be blank";
@@ -308,8 +307,6 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$message = "Invalid Emails";
  			$this->Assign("txtemail",'',"noempty",$message);
 		}*/
-		
-		
 		
 		unset($_SESSION['mycart']);
 		$message = "Required Field Cannot be blank/Invalid Email";
@@ -354,6 +351,26 @@ class Lib_FormValidation extends Lib_Validation_Handler
 					$_SESSION['user_id'] = $obj1->records[0]['user_id'];
 					$_SESSION['user_name'] = $obj1->records[0]['user_display_name'];
 					$_SESSION['user_email'] = $obj1->records[0]['user_email'];
+
+					$sqlShop="SELECT a.*,b.* FROM shopping_cart_table AS a LEFT JOIN shopping_cart_products_table AS b ON a.cart_id=b.cart_id WHERE a.user_id='". $_SESSION['user_id']."'"; 
+					$objShop=new Bin_Query();
+					$objShop->executeQuery($sqlShop);
+					$records=$objShop->records;
+					if(count($records)>0)
+					{
+						$cartId=$objShop->records[0]['cart_id'];	
+						 $updateCart="UPDATE  shopping_cart_table SET cart_id ='".$cartId."'      WHERE user_id='". $_SESSION['user_id']."'";
+						$objCart=new Bin_Query($updateCart);
+						$objCart->updateQuery();
+						for($i=0;$i<count($records);$i++)
+						{
+				
+							$shopProduct="UPDATE  shopping_cart_products_table  SET cart_id ='".$cartId."'WHERE id='".$objShop->records[$i]['id']."'";
+							$objProduct=new Bin_Query($updateCart);
+							$objProduct->updateQuery($shopProduct);
+						}
+					}
+	
 					if($_POST['remlogin'] == "on")
 						setcookie("usremail", $_POST['txtemail']);						
 					else

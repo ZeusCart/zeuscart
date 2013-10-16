@@ -248,18 +248,42 @@ class Core_CAddCart
 		else
 			$msrp=$originalprice;
 
+			//-----------------Variation price------------
+		if (isset($_POST['variations']) && $_POST['variations']!='')
+		{
+			$isvariation=0;
+			if($this->getVariationPrice($_GET['prodid'],$_POST['variations'])!='')
+			{
+				$msrp=$this->getVariationPrice($_GET['prodid'],$_POST['variations']);
+				$isvariation=1;
+			}
+			else	
+				$msrp=$originalprice;
+		}
+		else
+			$msrp=$originalprice;
+
 		// group discount
 		$defobjj=new Core_CAddCart();
 		$groupdiscount=$defobjj->getUserGroupDiscount();
 		$msrp=$msrp-($msrp*($groupdiscount/100));
 		//------------quantity checking ---------------
 
-		
-		$sql_quantity='select soh from product_inventory_table where product_id='.(int)$_GET['prodid'];
-		$query_quantity = new Bin_Query();
-		$query_quantity->executeQuery($sql_quantity);		
-		$product_quantity=$query_quantity->records[0]['soh'];
+		if($_POST['variations']!='')
+		{
+			$sql_quantity='select * from product_variation_table where product_id='.(int)$_GET['prodid'].' AND variation_id='.$_POST['variations'].' ';
+			$query_quantity = new Bin_Query();
+			$query_quantity->executeQuery($sql_quantity);		
+			$product_quantity=$query_quantity->records[0]['soh'];
 
+		}
+		else
+		{
+			$sql_quantity='select soh from product_inventory_table where product_id='.(int)$_GET['prodid'];
+			$query_quantity = new Bin_Query();
+			$query_quantity->executeQuery($sql_quantity);		
+			$product_quantity=$query_quantity->records[0]['soh'];
+		}
 		if($product_quantity < $qtyfrmproduct || !is_numeric($qtyfrmproduct) )
 		{
 			
@@ -279,7 +303,7 @@ class Core_CAddCart
 			</div>";
 
 			}
-			header('Location:?do=prodetail&action=showprod&prodid='.(int)$_GET['prodid']);
+			header("Location:".$_SERVER['HTTP_REFERER']);
 		}
 		else
 		{
@@ -301,9 +325,16 @@ class Core_CAddCart
 					if( $cartid!=0) // if cart available for the user
 					{
 						
-						
-						
-					
+						if ($isvariation<=0)
+						$sqlship="SELECT shipping_cost FROM products_table WHERE product_id =".(int)$_GET['prodid'];
+						else
+						$sqlship="SELECT shipping_cost FROM product_variation_table WHERE product_id =".(int)$_GET['prodid']." AND variation_id=".(int)$_POST['variations'];
+
+						$queryship=new Bin_Query();
+						$queryship->executeQuery($sqlship);
+						$shiprow=$queryship->records; 					
+						$shippingcost=$qtyfrmproduct*$shiprow[0]['shipping_cost'];
+
 						$sql="UPDATE shopping_cart_table SET cart_date='".date('Y-m-d')."' WHERE cart_id='".$cartid."'";
 						$query = new Bin_Query();
 						$query->updateQuery($sql);
@@ -311,15 +342,18 @@ class Core_CAddCart
 						//check the product id and cart id available in the scpt 
 						if($_GET['vid']!=1)
 						{
-						$sql="SELECT product_id,cart_id,product_qty FROM shopping_cart_products_table WHERE product_id='".(int)$_GET['prodid']."' and cart_id='".$cartid."' ";
+						$sql="SELECT product_id,cart_id,product_qty,variation_id FROM shopping_cart_products_table WHERE product_id='".(int)$_GET['prodid']."' and cart_id='".$cartid."' ";
 						}							
 						//if(yes)
 						if($query->executeQuery($sql))
 						{
 							
 							$req_qty=$query->records[0]['product_qty']+$qtyfrmproduct;
-						
+
+							if ($isvariation<=0)
 							$sql_soh='select soh from product_inventory_table where product_id='.(int)$_GET['prodid'];
+							else
+							$sql_soh='select soh from product_variation_table where product_id='.(int)$_GET['prodid']." AND variation_id=".(int)$_POST['variations'];
 							$query_soh = new Bin_Query();
 							$query_soh->executeQuery($sql_soh);		
 							$soh_product=$query_soh->records[0]['soh'];
@@ -328,7 +362,7 @@ class Core_CAddCart
 							if($soh_product > $req_qty)
 							{
 								//update the scpt with qty and date added fields
-								$sql="UPDATE shopping_cart_products_table SET date_added='".date('Y-m-d')."',product_qty= product_qty+ ".$qtyfrmproduct.",product_unit_price=".$msrp.",shipping_cost=".$shippingcost." WHERE product_id='".(int)$_GET['prodid']."' AND cart_id='".$cartid."'";
+								$sql="UPDATE shopping_cart_products_table SET date_added='".date('Y-m-d')."',product_qty= product_qty+ ".$qtyfrmproduct.",product_unit_price=".$msrp.",shipping_cost=".$shippingcost." WHERE product_id='".(int)$_GET['prodid']."' AND cart_id='".$cartid."' AND variation_id=".(int)$_POST['variations'];
 								$query->updateQuery($sql);
 								//update scpt set product_qty = product_qty+ qty from product detail where cart_id = $cartid
 							}
@@ -343,7 +377,7 @@ class Core_CAddCart
 							//insert the cart id , product id , product qty(1) 
 							if($soh!=0)
 							{
-								$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price,shipping_cost,gift_product) values (".$cartid.','. $_GET['prodid'].",".$qtyfrmproduct.",'".date('Y-m-d')."',".$msrp.",".$shippingcost.",'".$_GET['vid']."')"; 
+								$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price,shipping_cost,gift_product,variation_id) values (".$cartid.','. $_GET['prodid'].",".$qtyfrmproduct.",'".date('Y-m-d')."',".$msrp.",".$shippingcost.",'".$_GET['vid']."',".(int)$_POST['variations'].")"; 
 								$query->updateQuery($sql);
 							}	
 						}
@@ -355,7 +389,18 @@ class Core_CAddCart
 							$query = new Bin_Query();
 							$query->updateQuery($sql);
 							$cartid=$this->getCartIdOfUser();
-						$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price,shipping_cost,gift_product) values (".$cartid.','. $_GET['prodid'].",".$qtyfrmproduct.",'".date('Y-m-d')."',".$msrp.",".$shippingcost.",'".$_GET['vid']."')";
+
+							if ($isvariation<=0)
+							$sqlship="SELECT shipping_cost FROM products_table WHERE product_id =".(int)$_GET['prodid'];
+						else
+							$sqlship="SELECT shipping_cost FROM product_variation_table WHERE product_id =".(int)$_GET['prodid']." AND variation_id=".(int)$_POST['variations'];
+						
+						$queryship=new Bin_Query();
+						$queryship->executeQuery($sqlship);
+						$shiprow=$queryship->records; 
+						
+						$shippingcost=$qtyfrmproduct*$shiprow[0]['shipping_cost'];
+						$sql ="insert into shopping_cart_products_table (cart_id,product_id , product_qty , date_added ,product_unit_price,shipping_cost,gift_product,variation_id) values (".$cartid.','. $_GET['prodid'].",".$qtyfrmproduct.",'".date('Y-m-d')."',".$msrp.",".$shippingcost.",'".$_GET['vid']."',".(int)$_POST['variations'].")";
 							$query = new Bin_Query();
 							$query->updateQuery($sql);
 						
@@ -364,11 +409,10 @@ class Core_CAddCart
 				}		
 				else
 				{
-	
-		
+
 					$mycart=array();
 					$product_id=$_GET['prodid'];
-					
+						$var_id=$_POST['variations'];
 						if (!(empty($_SESSION['mycart'])))
 						{
 						
@@ -376,28 +420,33 @@ class Core_CAddCart
 						
 							foreach ($_SESSION['mycart'] as $key=>$val)
 							{
-								if($_GET['vid']=='')
-								{	
-									if ($_SESSION['mycart'][$key]['product_id']==$product_id)
-									{
-										
-										//---------------------
+								if ($val['product_id']==$product_id && $val['variation_id']==$var_id)
+								{
+									
+									//---------------------
+									if ($var_id=='' || $var_id==0)
 										$sql='select soh from product_inventory_table where product_id='.(int)$_GET['prodid'];
-										$query = new Bin_Query();
-										$query->executeQuery($sql);		
-										$soh=$query->records[0]['soh'];
-										
-										$req_qty=$val['qty']+$qtyfrmproduct;
-										
-										
-										//---------------------
-										if(($soh!=0) && ($soh>$req_qty))
-										{
-											$_SESSION['mycart'][$key]['qty']=$val['qty']+$qtyfrmproduct;
-										}
-										
-										$flg=1;
+									else
+										$sql="SELECT soh FROM product_variation_table WHERE product_id=".$product_id." AND variation_id=".$var_id;
+									
+									$query = new Bin_Query();
+									$query->executeQuery($sql);		
+									$soh=$query->records[0]['soh'];
+									
+									$req_qty=$val['qty']+$qtyfrmproduct;
+									
+									
+									//---------------------
+									
+									if(($soh!=0) && ($soh>$req_qty))
+									{
+										//$_SESSION['mycart'][$product_id]['qty']=$val['qty']+$qtyfrmproduct;
+										//if ();
+		//								echo $key."--".$val['qty'];
+										$_SESSION['mycart'][$key]['qty']=$val['qty']+$qtyfrmproduct;
 									}
+									
+									$flg=1;
 								}
 								else
 								{		
@@ -409,6 +458,7 @@ class Core_CAddCart
 								$mycart['product_id']=$product_id;
 								$mycart['qty']= $qtyfrmproduct;
 								$mycart['gift']=$_GET['vid'];
+								$mycart['variation_id']= $var_id;
 								$_SESSION['mycart'][]=$mycart;
 							}
 							
@@ -420,6 +470,7 @@ class Core_CAddCart
 							$mycart['product_id']=$product_id;
 							$mycart['qty']= $qtyfrmproduct;
 							$mycart['gift']=$_GET['vid'];
+							$mycart['variation_id']= $var_id;
 							$_SESSION['mycart'][]=$mycart;
 						}
 					
@@ -510,6 +561,14 @@ class Core_CAddCart
 						$query = new Bin_Query();
 						$query->executeQuery($sql);
 						$flag=$query->totrows;
+						for($ii1=0;$ii1<$flag;$ii1++)
+						{
+							if (Core_CAddCart::getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id']))
+							{
+								$query->records[$ii1]=(array_merge($query->records[$ii1],Core_CAddCart::getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id'])));
+								$query->records[$ii1]['shipingamount']=$query->records[$ii1]['shipping_cost']*$query->records[$ii1]['product_qty'];
+							}
+						}
 						if($flag==0)
 						{
 							return '<div class="alert alert-info">
@@ -539,6 +598,14 @@ class Core_CAddCart
 						
 						$query->executeQuery($sql);
 						$flag=$query->totrows;
+						for($ii1=0;$ii1<$flag;$ii1++)
+						{
+							if (Core_CAddCart::getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id']))
+							{
+								$query->records[$ii1]=(array_merge($query->records[$ii1],Core_CAddCart::getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id'])));
+								$query->records[$ii1]['shipingamount']=$query->records[$ii1]['shipping_cost']*$query->records[$ii1]['product_qty'];
+							}
+						}	
 						if($flag==0)
 						{
 							return '<div class="alert alert-info">
@@ -548,7 +615,7 @@ class Core_CAddCart
 						}
 						else
 						{
-					return Display_DAddCart::showCart($query->records,$obj3->records);
+							return Display_DAddCart::showCart($query->records,$obj3->records);
 						}
 				
 					}
@@ -584,11 +651,21 @@ class Core_CAddCart
 					{
 						
 						
-							$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, pt.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.image, pt.thumb_image, pinv.soh
-							FROM products_table pt
-							LEFT JOIN product_inventory_table AS pinv ON pt.product_id = pinv.product_id
-							WHERE pt.product_id ='.$val['product_id']; 
-										
+							if ($val['variation_id']=='')
+							{
+								$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, pt.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.image, pt.thumb_image, pinv.soh
+									FROM products_table pt
+								LEFT JOIN product_inventory_table AS pinv ON pt.product_id = pinv.product_id
+								WHERE pt.product_id ='.$val['product_id'];
+							}
+							else
+							{
+								$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, pinv.shipping_cost AS shipingamount, pinv.sku, pinv.msrp, pinv.image, pinv.thumb_image, pinv.soh
+								FROM products_table pt
+								LEFT JOIN product_variation_table AS pinv ON pt.product_id = pinv.product_id
+								WHERE pt.product_id ='.$val['product_id'].' AND pinv.variation_id='.$val['variation_id'];
+							}
+								
 							$query = new Bin_Query();
 							$query->executeQuery($sql);
 							$flag=$query->records[0]['soh']; 
@@ -597,7 +674,7 @@ class Core_CAddCart
 							$query->records[0]['soh']=(int)$query->records[0]['soh'];
 							$query->records[0]['product_qty']=$val['qty'];
 							$query->records[0]['shipingamount']=$val['qty']*$query->records[0]['shipingamount']; //calculating shipping cost
-						
+							$query->records[0]['variation_id']=$val['variation_id'];
 						
 						if($flag==0)
 						{
@@ -789,6 +866,7 @@ class Core_CAddCart
 		}
 		elseif($_SESSION['user_id']!='' || $_SESSION['mycart']!='' )
 		{
+
 			for($i=0;$i<count($_SESSION['mycart']);$i++)
 			{
 				if($_SESSION['mycart'][$i]['product_id']==(int)$_GET['prodid'])
@@ -1291,6 +1369,8 @@ class Core_CAddCart
 	function showOrderConfirmation($message='')
 	{
 
+
+
 		if($_SESSION['user_id']!='' && $_SESSION['mycart']=='') 
 		{	
 
@@ -1337,7 +1417,12 @@ class Core_CAddCart
 						$flag=$query->totrows;
 						for($ii1=0;$ii1<$flag;$ii1++)
 						{
-							
+							if ($this->getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id']))
+							{
+								$query->records[$ii1]=(array_merge($query->records[$ii1],$this->getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id'])));
+								$query->records[$ii1]['shipingamount']=$query->records[$ii1]['shipping_cost']*$query->records[$ii1]['product_qty'];
+							}
+								
 							if (Core_CAddCart::isDigitalProduct($query->records[$ii1]['product_id']))
 							{
 								$_SESSION['digitalproducts']=$_SESSION['digitalproducts']+1;
@@ -1397,7 +1482,13 @@ class Core_CAddCart
 						$flag=$query->totrows;
 						for($ii1=0;$ii1<$flag;$ii1++)
 						{
-														
+							if ($this->getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id']))
+							{
+								$query->records[$ii1]=(array_merge($query->records[$ii1],$this->getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id'])));
+								$query->records[$ii1]['shipingamount']=$query->records[$ii1]['shipping_cost']*$query->records[$ii1]['product_qty'];
+							}
+							
+																			
 							if (Core_CAddCart::isDigitalProduct($query->records[$ii1]['product_id']))
 							{
 								$_SESSION['digitalproducts']=$_SESSION['digitalproducts']+1;
@@ -1456,7 +1547,7 @@ class Core_CAddCart
 
 		else //-----------------For Guest User-------------------
 		{
-		
+
 			if(isset($_SESSION['mycart']) && $_SESSION['mycart']!='' )
 			{
 
@@ -1486,24 +1577,39 @@ class Core_CAddCart
 							$query->executeQuery($sql);
 							$flag=$query->totrows;
 							$product_unit_prince=$query->records[0]['msrp'];
-							$query->records[0]['shipingamount']=$val['qty']*$query->records[0]['shipingamount'];
+
+							if($val['variation_id']!='')
+							{	
+								$sqlShip="SELECT * FROM product_variation_table WHERE variation_id=".$val['variation_id']."
+								AND product_id 	='".$val['product_id']."'";
+								$objShip=new Bin_Query();
+								$objShip->executeQuery($sqlShip);
+								$query->records[0]['shipingamount']=$val['qty']*$objShip->records[0]['shipping_cost'];
+								$msrp=$objShip->records[0]['msrp'];
+								
+								 $original_price =$objShip->records[0]['price'];
+							}
+							else
+							{
+								$query->records[0]['shipingamount']=$val['qty']*$query->records[0]['shipingamount'];
 	
 								$defobjj=new Core_CAddCart();
 								$groupdiscount=$defobjj->getUserGroupDiscount();
 								$msrp=$product_unit_prince-($product_unit_prince*($groupdiscount/100));
-	
+							}
 							if($_GET['action']!='validatecoupon')
 							{
-								$sqlinsert ="insert into shopping_cart_products_table (cart_id,product_id,product_qty, date_added,product_unit_price,shipping_cost,gift_product) values ('".$cartid."','".$val['product_id']."','".$val['qty']."','".date('Y-m-d')."','".$msrp."','".$query->records[0]['shipingamount']."','".$val['gift']."')"; 
+								$sqlinsert ="insert into shopping_cart_products_table (cart_id,product_id,product_qty, date_added,product_unit_price,shipping_cost,gift_product,variation_id,original_price) values ('".$cartid."','".$val['product_id']."','".$val['qty']."','".date('Y-m-d')."','".$msrp."','".$query->records[0]['shipingamount']."','".$val['gift']."','".$val['variation_id']."','".$original_price."')"; 
 								$objinsert=new Bin_Query(); 
 								$objinsert->updateQuery($sqlinsert);	
 							}
-						
+					
 						}
 						$_SESSION['mycart'][0]['cartid']=$cartid;
 						
 					}
 				
+
 					$cartid=$_SESSION['mycart'][0]['cartid'];	
 					$qty=$_SESSION['mycart'];
 					$cnt=count($qty);
@@ -1512,7 +1618,7 @@ class Core_CAddCart
 					{
 						
 		
-						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, pt.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.image, pt.thumb_image, pinv.soh,scp.cart_id,scp.product_id,scp. product_unit_price 
+						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, pt.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.image, pt.thumb_image, pinv.soh,scp.cart_id,scp.product_id,scp. product_unit_price,scp.variation_id,scp.product_qty  
 						FROM products_table pt
 						LEFT JOIN product_inventory_table AS pinv ON pt.product_id = pinv.product_id
 						LEFT JOIN shopping_cart_products_table AS scp ON scp.product_id = pinv.product_id	
@@ -1521,13 +1627,25 @@ class Core_CAddCart
 						$query = new Bin_Query();
 						$query->executeQuery($sql);
 						$flag=$query->totrows;
-						$product_unit_prince=$query->records[0]['msrp'];
-						
-						$query->records[0]['soh']=(int)$query->records[0]['soh'];
-						$query->records[0]['product_qty']=$val['qty'];
-						$query->records[0]['shipingamount']=$val['qty']*$query->records[0]['shipingamount']; //calculating shipping cost
-						
-						
+
+						for($ii1=0;$ii1<$flag;$ii1++)
+						{
+
+							$defaultobj=new Core_CAddCart();
+							if ($defaultobj->getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id']))
+							{
+
+								$query->records[$ii1]=(array_merge($query->records[$ii1],$defaultobj->getVariationDetailsForProduct($query->records[$ii1]['product_id'],$query->records[$ii1]['variation_id'])));
+								$query->records[$ii1]['shipingamount']=$query->records[$ii1]['shipping_cost']*$query->records[$ii1]['product_qty'];
+							}
+
+						}
+// 						$product_unit_prince=$query->records[0]['msrp'];
+// 						
+// 						$query->records[0]['soh']=(int)$query->records[0]['soh'];
+// 						$query->records[0]['product_qty']=$val['qty'];
+// 						$query->records[0]['shipingamount']=$val['qty']*$query->records[0]['shipingamount']; //calculating shipping cost
+
 						if($flag==0)
 						{
 							return '<div class="alert alert-info">
@@ -1538,7 +1656,9 @@ class Core_CAddCart
 						}
 						elseif ($query->records[0]['soh']!=0)
 						{
+
 							$productarray[]=$query->records[0];
+
 						}
 					
 					}
@@ -2191,6 +2311,50 @@ class Core_CAddCart
 			return (int)$query->records[0]['digital'];
 		else
 			return 0;
+	}
+	function getVariationPrice($productid,$varid)
+	{
+		
+		$productid=(int)$productid;
+		$varid=(int)$varid;
+		
+		$sql="SELECT has_variation FROM products_table WHERE product_id=".$productid;
+		$qry=new Bin_Query();
+		$qry->executeQuery($sql);
+		
+		if ($qry->records[0]['has_variation'])
+		{
+			$varsql="SELECT variation_id,sku,variation_name,msrp,weight,dimension,thumb_image,image,shipping_cost,soh FROM product_variation_table WHERE product_id=".$productid." AND status =1 AND variation_id=".$varid;
+			$varqry=new Bin_Query();
+			$varqry->executeQuery($varsql);
+			
+			return $varqry->records[0]['msrp'];
+		}
+		else
+			return ;
+	
+	}
+	function getVariationDetailsForProduct($productid,$varid)
+	{
+		
+		$productid=(int)$productid;
+		$varid=(int)$varid;
+		
+		$sql="SELECT has_variation FROM products_table WHERE product_id=".$productid;
+		$qry=new Bin_Query();
+		$qry->executeQuery($sql);
+		
+		if ($qry->records[0]['has_variation'])
+		{
+			$varsql="SELECT variation_id,sku,variation_name,msrp,weight,dimension,thumb_image,image,shipping_cost,soh FROM product_variation_table WHERE product_id=".$productid." AND status =1 AND variation_id=".$varid;
+			$varqry=new Bin_Query();
+			$varqry->executeQuery($varsql);
+			
+			return $varqry->records[0];
+		}
+		else
+			return ;
+	
 	}
 	
 }

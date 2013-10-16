@@ -821,11 +821,39 @@ class Core_CQuery
 		`digital` int(10) NOT NULL,
 		`gift` int(20) NOT NULL,
 		`digital_product_path` varchar(200) NOT NULL,
+		 `has_variation` tinyint(10) NOT NULL,	
 		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
 		PRIMARY KEY (`product_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 		
+
+
+
+		$sql="Drop table if exists product_variation_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `product_variation_table` (
+			`variation_id` bigint(12) NOT NULL AUTO_INCREMENT,
+			`product_id` bigint(12) NOT NULL,
+			`sku` varchar(100) NOT NULL,
+			`variation_name` varchar(250) NOT NULL,
+			`description` text NOT NULL,
+			`msrp` double NOT NULL,
+			`price` double NOT NULL,
+			`weight` varchar(25) NOT NULL,
+			`dimension` varchar(100) NOT NULL,
+			`thumb_image` varchar(150) NOT NULL,
+			`image` varchar(150) NOT NULL,
+			`large_image` varchar(240) NOT NULL,
+			`shipping_cost` double NOT NULL,
+			`soh` bigint(12) NOT NULL,
+			`rol` bigint(10) NOT NULL,
+			`status` tinyint(1) NOT NULL,
+			PRIMARY KEY (`variation_id`)
+			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
+		$result=mysql_query($sql);
+
+
 		$sql="Drop table if exists search_tags_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE search_tags_table(id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,search_tag  VARCHAR(250) NOT NULL,search_count  INT(11) NOT NULL)";
@@ -841,7 +869,19 @@ class Core_CQuery
 
 		$sql="Drop table if exists shopping_cart_products_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE shopping_cart_products_table(id INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT ,cart_id  INT(25) NOT NULL,product_id  VARCHAR(100) NOT NULL,product_qty  INT(10) NOT NULL,date_added  date NOT NULL ,product_unit_price  real NOT NULL,shipping_cost  real NOT NULL,original_price  real NOT NULL,gift_product INT(11) NOT NULL)";
+		$sql="CREATE TABLE IF NOT EXISTS `shopping_cart_products_table` (
+			`id` int(20) NOT NULL AUTO_INCREMENT,
+			`cart_id` int(25) NOT NULL,
+			`product_id` varchar(100) NOT NULL,
+			`product_qty` int(10) NOT NULL,
+			`date_added` date NOT NULL,
+			`product_unit_price` double NOT NULL,
+			`shipping_cost` double NOT NULL,
+			`variation_id` int(20) NOT NULL,
+			`original_price` double NOT NULL,
+			`gift_product` int(11) NOT NULL,
+			PRIMARY KEY (`id`)
+			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 
 		$sql="DROP TABLE IF EXISTS `site_hit_counter_table`";

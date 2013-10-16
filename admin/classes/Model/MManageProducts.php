@@ -271,7 +271,7 @@ class Model_MManageProducts
 			$output['editRelated']=$default->editRelated();
 			$output['editAttributes']=$default->editAttributes();
 			$output['editTierPrice']=$default->editTierPrice();
-			
+			$output['editVarition']=$default->editVariation();
 			
 			$output['editGeneral']=$default->editGeneral();
 			$output['product_id']=$output['editGeneral']['product_id'];

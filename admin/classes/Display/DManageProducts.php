@@ -988,4 +988,75 @@ class Display_DManageProducts
 
 		return $output;
 	}
+
+	function editVariation($arr)
+	{
+
+		$output.='<table cellspacing="0" cellpadding="0" border="0"  class="variation_head" >
+	
+		<thead class="green_bg">
+    										<tr>
+    											<th width="15%">Variation Name</th>
+    											<th width="5%">SKU</th>
+											<th width="5%">Price</th>
+											<th width="5%">MSRP</th>
+    											<th width="15%">Image</th>
+											<th width="5%">&nbsp;</th>
+											<th width="25%">Dimensions(inches)<br/>Width&nbsp; &nbsp;&nbsp; &nbsp;  height&nbsp;&nbsp;  &nbsp;  Depth</th>
+											<th width="5%">Weight </th>
+											<th width="10%">Shipping Cost('.$_SESSION["currency"]["currency_code"].')</th>
+											<th width="5%">SOH </th>
+											<th width="5%">ROL </th>
+											<th width="5%">Action </th>	
+    										</tr>
+
+    									</thead><tbody >
+<tr>
+			<td colspan="12" style="padding:0">	<div id="productVariationDiv" width="100%">';
+		
+				for($i=1;$i<=count($arr);$i++)
+				{
+				
+				if(!empty($arr[$i-1]['dimension']))
+				{
+					$strdim=array();
+					$strdim=explode('x',$arr[$i-1]['dimension']);
+					$varwidth=trim($strdim[0]);
+					$varheight=trim($strdim[1]);
+					$vardepth=trim($strdim[2]);
+				}
+
+				
+				
+				$output.="<div id='productVariationDiv".$i."'>
+					  <table width='100%' cellspacing='0' cellpadding='0' border='0' align='center' class='variation_head'><tr >
+					 <td width='15%' ><input type='hidden' id='varianid' name='varianid[]' value='".$arr[$i-1]['variation_id']."'  /><input id='varianname".$i."' name='varianname[]' type='text'  value='".$arr[$i-1]['variation_name']."'   class='span12' /></td>
+					 <td width='5%' ><input id='prsku".$i."' name='prsku[]' type='text'  value='".$arr[$i-1]['sku']."' class='span12' /></td>
+					 <td width='5%'  ><input id='prprice".$i."' name='prprice[]' type='text'  value='".$arr[$i-1]['price']."' class='span12' /></td>
+					 <td width='5%' ><input id='prmsrp".$i."' name='prmsrp[]' type='text'  value='".$arr[$i-1]['msrp']."' class='span12' /></td>
+					<td width='15%' ><input id='prvarimage".$i."' name='prvarimage[]' type='file' size='3'/></td><td width='5%' >";
+					  if(file_exists('../'.$arr[$i-1]['thumb_image']))
+					  {
+						$output.="<img src='../".$arr[$i-1]['thumb_image']."' width='35' height='35'>";
+					  }	
+					  else
+					  {
+					  	$output.='<img width="35" height="35" src="../images/noimage.jpg"/>';
+                                  	  } 	
+
+					 $output.="</td><td  width='20%' ><input type='text'  name='prwidth[]' id='prwidth".$i."' value='".$varwidth."'     class='variation_date'/><input type='text'  name='prheight[]' id='prheight".$i."' value='".$varheight."'  class='variation_date'/><input type='text'  name='prdepth[]' id='prdepth".$i."'  value='".$vardepth."'  class='variation_date' /></td>
+					<td width='5%' ><input id='prweight".$i."' name='prweight[]' type='text'  value='".$arr[$i-1]['weight']."' class='span12' /></td>
+					<td width='10%' ><input id='prshipcost".$i."' name='prshipcost[]' type='text'  value='".$arr[$i-1]['shipping_cost']."' class='span12'/></td><td width='5%'   ><input id='prsoh".$i."' name='prsoh[]' type='text' value='".$arr[$i-1]['soh']."' class='span12'/></td><td width='5%' ><input id='prrol".$i."' name='prrol[]' type='text'  value='".$arr[$i-1]['rol']."' class='span12'/></td><td width='5%'  ><a href=\"javascript:;\"  onclick=\"removeVariation('productVariationDiv".$i."')\"><i class='icon-remove'></i></a></td></tr></table></div>";
+				}
+			
+			$output.="</div>
+				</td>
+				</tr>
+				</tbody>
+				</table>";
+					return $output;
+
+
+
+	}
 }	

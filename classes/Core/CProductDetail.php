@@ -155,27 +155,34 @@ class Core_CProductDetail
 		$imgqry = new Bin_Query();
 		$imgqry->executeQuery($sqlImages);
 		
-		//Get Tier Price
-		 $sql="SELECT distinct quantity,msrp FROM msrp_by_quantity_table WHERE product_id =".(int)$_GET['prodid']; 
+		//Get variation Price
+		 $sql="SELECT distinct product_id,msrp FROM product_variation_table WHERE product_id =".(int)$_GET['prodid']; 
 		$pquery = new Bin_Query();
 		if($pquery->executeQuery($sql))
 		{		
-			$flag = $pquery->totrows;
+			 $flag = $pquery->totrows;
 		}
-		
+
 		//Get Related Products from Order_products_table table
 		$sqlRelated="SELECT c.*,a.product_id,count(a.product_id) as cnt FROM `order_products_table` a,`order_products_table` b,products_table c where a.order_id=b.order_id and a.product_id<>b.product_id and a.product_id=c.product_id and b.product_id=".(int)$_GET['prodid']." and c.status=1 group by a.product_id order by cnt desc limit 0,4";
 		$relatedqry = new Bin_Query();
 		$relatedqry->executeQuery($sqlRelated);
 		
+		//-----------variation----------------
 		
+		$varobj=new Core_CProductDetail();
+		$variation_arr=$varobj->getVariationsOfProduct($_GET['prodid']);
+		
+		//-----------variation----------------
+		
+
 		if($flag==0)
 		{
 			
 			$sql= "SELECT * , count( c.product_id ) AS reviewcount
 			FROM product_inventory_table a INNER JOIN products_table b ON a.product_id = b.product_id
 			INNER JOIN product_reviews_table c ON c.product_id = b.product_id WHERE b.product_id =".(int)$_GET['prodid']."
-			and c.review_status=1 GROUP BY c.product_id";
+			and c.review_status=1 GROUP BY c.product_id"; 
 		
 			$query = new Bin_Query();
 			$rating=$this->reviewRating();
@@ -185,7 +192,7 @@ class Core_CProductDetail
 			if($query->executeQuery($sql))
 			{		
 				$count=$query->records[0]['reviewcount'];
-				return  Display_DProductDetail::productDetail($query->records,$r=0,$features=0,$rating,$breadCrumb,$count,$reviewqry->records,$imgqry->records,$pquery->records,$relatedqry->records);
+				return  Display_DProductDetail::productDetail($query->records,$r=0,$features=0,$rating,$breadCrumb,$count,$reviewqry->records,$imgqry->records,$pquery->records,$relatedqry->records,$variation_arr);
 			}
 			else
 			{
@@ -193,18 +200,26 @@ class Core_CProductDetail
 				if($query->executeQuery($sql))
 				{
 					$count='0';
-					return  Display_DProductDetail::productDetail($query->records,$r=0,$features=0,$rating,$breadCrumb,$count,$reviewqry->records,$imgqry->records,$pquery->records,$relatedqry->records);
+					return  Display_DProductDetail::productDetail($query->records,$r=0,$features=0,$rating,$breadCrumb,$count,$reviewqry->records,$imgqry->records,$pquery->records,$relatedqry->records,$variation_arr);
 				}
 			}
 		}
 		else
 		{
-			$sql="SELECT b.product_id,b.title,b.cse_enabled,b.price as oprice,b.msrp,c.msrp as
-			price,c.quantity,b.description,b.tag,b.shipping_cost,b.sku,b.brand,b.weight,b.dimension,b.image,b.large_image_path,b.model,a.soh,b.meta_desc,b.meta_keywords  
-			FROM product_inventory_table a
-			INNER JOIN products_table b ON a.product_id = b.product_id 
-			INNER JOIN msrp_by_quantity_table c ON b.product_id=c.product_id WHERE c.product_id =".(int)$_GET['prodid']." AND b.status=1"; 
-			
+			if (isset($_GET['varid']) && $_GET['varid']!='')
+			{
+			 $sql="SELECT b.product_id, b.title, b.cse_enabled, a.price AS oprice, a.msrp  AS msrp, a.msrp AS price, 
+			b.msrp AS quantity, b.description, b.tag, a.shipping_cost, a.sku, b.brand, a.weight, a.dimension, a.image, b.model,a.large_image AS large_image_path,a.thumb_image,
+			a.soh, b.meta_desc, b.meta_keywords
+			FROM product_variation_table a
+			INNER JOIN products_table b ON a.product_id = b.product_id
+			WHERE b.product_id =".(int)$_GET['prodid']."
+			AND b.status =1
+			AND a.variation_id =".(int)$_GET['varid'].""; 
+			}
+			else
+				$sql="SELECT * FROM product_inventory_table a INNER JOIN products_table b ON a.product_id = b.product_id WHERE b.product_id =".(int)$_GET['prodid']." AND b.status=1 ";
+ 
 			$sqlfeature="SELECT b.product_id,b.title,b.cse_enabled,b.price as oprice,b.msrp,c.msrp as
 			price,c.quantity,b.description,b.tag,b.sku,b.brand,b.weight,b.dimension,b.image,b.model,a.soh,b.meta_desc,b.meta_keywords  
 			FROM product_inventory_table a
@@ -239,7 +254,7 @@ class Core_CProductDetail
 						
 				}				
 			
-				return  Display_DProductDetail::productDetail($query->records,$r,$features->records,$rating,$breadCrumb,$reviewcount,$reviewqry->records,$imgqry->records,$pquery->records,$relatedqry->records);
+				return  Display_DProductDetail::productDetail($query->records,$r,$features->records,$rating,$breadCrumb,$reviewcount,$reviewqry->records,$imgqry->records,$pquery->records,$relatedqry->records,$variation_arr);
 			}
 			else
 			{
@@ -526,5 +541,24 @@ class Core_CProductDetail
 
 		$rating=Core_CProductDetail::reviewRating();
 		return Display_DProductDetail::showPopupProducts($obj->records,$rating);	
+	}
+
+	function getVariationsOfProduct($productid)
+	{
+		$productid=(int)$productid;
+		$sql="SELECT has_variation FROM products_table WHERE product_id=".$productid;
+		$qry=new Bin_Query();
+		$qry->executeQuery($sql);
+		
+		if ($qry->records[0]['has_variation'])
+		{
+			$varsql="SELECT variation_id,sku,variation_name,msrp,weight,dimension,thumb_image,image,shipping_cost,soh FROM product_variation_table WHERE product_id=".$productid." AND status =1";
+			$varqry=new Bin_Query();
+			$varqry->executeQuery($varsql);
+			
+			return $varqry->records;
+		}
+		else
+			return ;
 	}
 }

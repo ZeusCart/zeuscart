@@ -261,7 +261,7 @@ a:focus {
 .navbar-static-top .container,
 .navbar-fixed-top .container,
 .navbar-fixed-bottom .container {
-  width: 940px;
+  width: 1000px;
 }
 .span12 {
   width: 940px;
@@ -6634,3 +6634,28 @@ color:#FFF;
 text-shadow: 0 1px 0px #999;
 
 }
+
+.variation_head th{ color:#fff; padding:15px 5px; text-align:center;  
+}
+.variation_cont{ background:#ffffff;}
+.variation_head td{ color:#000; padding:15px 5px; text-align:left;  
+    }
+.variation_head td input{ width:20px;}
+.variation_date{width: 20%!important; margin-right: 1%;}
+.variation_upload{ width:90%!important;}
+div.upload_bg {
+    width: 102px;
+    height: 34px;
+    background: url(../img/upload.png) no-repeat;
+    overflow: hidden;
+}
+
+div.upload_bg input {
+    display: block !important;
+    width: 88px !important;
+    height: 20px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+}
+
+

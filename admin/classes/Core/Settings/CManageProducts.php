@@ -1083,6 +1083,126 @@ class Core_Settings_CManageProducts
 		if($obj1234->updateQuery($sql))
 		{	
 			
+							
+			//-----------------------Product Variation--------------------------
+				
+			$product_id=(int)$_GET['prodid'];
+			if(count($_POST['varianname'])>0)
+			{
+				for($ii=0;$ii<count($_POST['varianname']);$ii++)
+				{
+					$varpweight=trim($_POST['prweight'][$ii]);
+					$varpwidth=trim($_POST['prwidth'][$ii]);
+					$varpheight=trim($_POST['prheight'][$ii]);
+					$varpdepth=trim($_POST['prdepth'][$ii]);
+					if($varpweight>0)
+						$varweight=$varpweight;
+					else
+						$varweight='';
+					$dimension='';
+					if($varpwidth<=0&&$varpheight<=0&&$varpdepth<=0)
+					{
+						$vardimension='';
+					}
+					else
+					{
+						if($varpwidth>0)
+						$vardimension=$varpwidth.' x ';
+						else
+						$vardimension='0 x ';
+						if($varpheight>0)
+						$vardimension.=$varpheight.' x ';
+						else
+						$vardimension.='0 x ';
+						if($varpdepth>0)
+						$vardimension.=$varpdepth;
+						else
+						$vardimension.='0';
+						//$dimension=$pwidth.'-'.$pheight.'-'.$pdepth;	
+					}
+	
+					if(isset($_POST['varianid'][$ii])&&!empty($_POST['varianid'][$ii]))
+					{
+						if(isset($_POST['varianid'][$ii])&&!empty($_POST['varianid'][$ii]))
+							$varianid=$_POST['varianid'][$ii];
+						else
+							$varianid=0;
+						if($_FILES['prvarimage']['name'][$ii]!='')
+						{
+							$varimgfilename= $_FILES['prvarimage']['name'][$ii];		
+							$varimage="images/products/". date("Y-m-d-His").$varimgfilename; //inserted into db
+							$varthumb_image="images/products/thumb/". date("Y-m-d-His").$varimgfilename; //inserted into db
+							$varlarge_image="images/products/large_image/".date("Y-m-d-His").$varimgfilename; 
+					
+							$varimageDir=ROOT_FOLDER."images/products"; // to upload the file
+							$varthumbDir=ROOT_FOLDER."images/products/thumb"; //to upload the file
+							$varlargeDir=ROOT_FOLDER."images/products/large_image";		
+								
+							$varstpath=ROOT_FOLDER.$varimage;
+							if(move_uploaded_file($_FILES["prvarimage"]["tmp_name"][$ii],$varstpath))
+							{
+								list($varimg_w,$varimg_h, $vartype, $varattr) = getimagesize($varstpath);
+									
+								new Lib_ThumbImage('thumb',$varstpath,$varthumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
+					
+						
+								new Lib_ThumbImage('thumb',$varstpath,$varimageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);	
+								new Lib_ThumbImage('thumb',$varstpath,$varlargeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);					
+							}
+								$sqlvariation="UPDATE product_variation_table SET sku='".$_POST['prsku'][$ii]."',variation_name='".$_POST['varianname'][$ii]."',msrp=".$_POST['prmsrp'][$ii].",price=".$_POST['prprice'][$ii].",weight='".$varpweight."',dimension='".$vardimension."',thumb_image='".$varthumb_image."',image='".$varimage."',shipping_cost=".(float)$_POST['prshipcost'][$ii].",soh=".$_POST['prsoh'][$ii].",rol=".$_POST['prsoh'][$ii].",large_image='".$varlarge_image."' where product_id=".$product_id." and variation_id=".$varianid;
+						}
+						else
+						{
+							$sqlvariation="UPDATE product_variation_table SET sku='".$_POST['prsku'][$ii]."',variation_name='".$_POST['varianname'][$ii]."',msrp=".$_POST['prmsrp'][$ii].",price=".$_POST['prprice'][$ii].",weight='".$varpweight."',dimension='".$vardimension."',shipping_cost=".(float)$_POST['prshipcost'][$ii].",soh=".$_POST['prsoh'][$ii].",rol=".$_POST['prsoh'][$ii]." where product_id=".$product_id." and variation_id=".$varianid;	
+						}
+					}
+					else if(!isset($_POST['varianid'][$ii])&&isset($_POST['varianname'][$ii]))
+					{
+						if($_FILES['prvarimage']['name'][$ii]!='')
+						{
+							$varimgfilename= $_FILES['prvarimage']['name'][$ii];			
+							$varimage="images/products/". date("Y-m-d-His").$varimgfilename; //inserted into db
+							$varthumb_image="images/products/thumb/". date("Y-m-d-His").$varimgfilename; //inserted into db
+							$varlarge_image="images/products/large_image/".date("Y-m-d-His").$varimgfilename; 
+					
+							$varimageDir=ROOT_FOLDER."images/products"; // to upload the file
+							$varthumbDir=ROOT_FOLDER."images/products/thumb"; //to upload the file	
+							$varlargeDir=ROOT_FOLDER."images/products/large_image";		
+							$varstpath=ROOT_FOLDER.$varimage;
+							if(move_uploaded_file($_FILES["prvarimage"]["tmp_name"][$ii],$varstpath))
+							{
+								list($varimg_w,$varimg_h, $vartype, $varattr) = getimagesize($varstpath);
+									
+								new Lib_ThumbImage('thumb',$varstpath,$varthumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
+					
+						
+								new Lib_ThumbImage('thumb',$varstpath,$varimageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);	
+								new Lib_ThumbImage('thumb',$varstpath,$varlargeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);					
+							}
+								$sqlvariation="INSERT INTO product_variation_table (product_id,sku,variation_name,msrp,price,weight,dimension,thumb_image,image,shipping_cost,soh,rol,status,large_image) VALUES(".$product_id.",'".$_POST['prsku'][$ii]."','".$_POST['varianname'][$ii]."',".$_POST['prmsrp'][$ii].",".$_POST['prprice'][$ii].",'".$varpweight."','".$vardimension."','".$varthumb_image."','".$varimage."',".(float)$_POST['prshipcost'][$ii].",".$_POST['prsoh'][$ii].",".$_POST['prrol'][$ii].",1,'".$varlarge_image."')";
+							
+						}
+					}					
+					
+						$qryvariation=new Bin_Query();
+						$qryvariation->updateQuery($sqlvariation);
+						$sqlvariationstatus="UPDATE products_table SET has_variation=1 WHERE product_id=".$product_id;
+						$qryvariationstatus=new Bin_Query();
+						$qryvariationstatus->updateQuery($sqlvariationstatus);
+				}
+				}
+				else
+				{
+					
+						$sqldel="delete  from  product_variation_table where product_id=".$product_id; 
+						$sqldelobj=new Bin_Query();
+						$sqldelobj->updateQuery($sqldel);
+						
+						$sqlvariationstatus="UPDATE  products_table SET has_variation=0 WHERE product_id=".$product_id;
+						$qryvariationstatus=new Bin_Query();
+						$qryvariationstatus->updateQuery($sqlvariationstatus);
+				}
+					//-----------------------Product Variation--------------------------
 			// For Image Uploading//
 	
 			if(count($_FILES['ufile']['tmp_name']) > 0)
@@ -1598,6 +1718,19 @@ class Core_Settings_CManageProducts
 			echo "</results>";
 		}
 					
+	}
+
+	function editVariation()
+	{
+		$id=(int)$_GET['prodid'];
+		if(is_int($id))
+		{
+		$sql="select * from  product_variation_table where product_id=".$id;
+		$qry=new Bin_Query();
+		$qry->executeQuery($sql);
+		return Display_DManageProducts::editVariation($qry->records);
+		}
+
 	}
 
 	

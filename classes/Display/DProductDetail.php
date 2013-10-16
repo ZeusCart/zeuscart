@@ -92,8 +92,9 @@ class Display_DProductDetail
 	* @param mixed $relArr
 	* @return string
  	*/
-	function productDetail($arr,$diffrate,$features,$rating,$breadCrumb,$reviewCount,$reviewArr,$imgArr,$tierArr,$relArr)
+	function productDetail($arr,$diffrate,$features,$rating,$breadCrumb,$reviewCount,$reviewArr,$imgArr,$tierArr,$relArr,$var_arr)
 	{
+
 
 
 		// category name selection
@@ -201,10 +202,32 @@ class Display_DProductDetail
 				}
 
 				$output.='
-				</table></li>
+				</table></li>';
 
+		//----------------variation----------------
+	
+			
+		if (count($var_arr)>0)
+		{
+			
+			$output.='<li style="padding-bottom:20px;">Choose Variation : ';
+			
+			$variation_id=(int)$_GET['varid'];
+			
+			
+			$output.='<select name="variations" >';
+	
+			$output.='<option  value="'.$variations['variation_id'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' onclick="document.frmcart.action=\'?do=prodetail&action=showprod&prodid='.(int)$_GET['prodid'].'\';document.frmcart.submit();">Default</option>';
 
-				<li>
+			foreach($var_arr as $variations)
+			{
+				$output.='<option value="'.$variations['variation_id'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' onclick="document.frmcart.action=\'?do=prodetail&action=showprod&prodid='.(int)$_GET['prodid'].'&varid='.$variations['variation_id'].'\';document.frmcart.submit();">'.$variations['variation_name'].'</option>';
+			}
+			$output.='</select></li>';
+			
+		}
+	//----------------variation----------------
+				$output.='<li>
 				<tr>				
 
 				<td align="left" valign="top"><span>Tags : ';
@@ -224,19 +247,19 @@ class Display_DProductDetail
 				<li>
 				<table width="100%" border="0">
 		<tr>';
-		if($arr[0]['gift']=='0' && $arr[0]['digital']=='0')
+		if($arr[0]['gift']=='0' && $arr[0]['digital']=='0' )
 		{
-// 		$output.='<td> Quantity <select name="qty[]" style="width:60px;">';
-// 		if($arr[0]['soh']==0)
-// 			$output.='<option value="0">0</option>';
-// 		
-// 		for($s=1;$s<=$arr[0]['soh'];$s++)
-// 			$output.='<option value="'.$s.'">'.$s.'</option>';
-// 		$output.='</select></td>';
+
 		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="'.$_SESSION['error_quantity'].'"></td>';
 			
 		}
+		if($_GET['varid']!='')
+		{
+
+		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="'.$_SESSION['error_quantity'].'"></td>';
 		
+			
+		}
 		$output.='<input type="hidden" name="gift" value='.$arr[0]['gift'].'>';
 		
 

@@ -23,6 +23,8 @@
 <script src="assets/js/jquery.ibutton.min.js"></script>
 <script src="assets/js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap-fileupload.min.js"></script>
+
+
 <link rel="stylesheet" href="assets/css/bootstrap-fileupload.min.css">
 
 
@@ -135,29 +137,30 @@ function checkInputs()
 						tabOpenvalidation('5');
 						return false;
 					}
-// 					for(i=1;i<=5;i++)
-// 					{
-// 					
-// 						if(document.getElementById("my"+i+"Tier"))
-// 						{
-// 					
-// 						if(document.getElementById("quantityfrom"+i).value==''||document.getElementById("quantityto"+i).value==''||document.getElementById("msrp"+i).value=='')
-// 							{
-// 							alert('Please enter the mandatory fields In Price'+i);
-// 							clk('Image55','images/tab_images/tab_price_hov.gif',8);
-// 							return false;
-// 							}else
-// 							{
-// 								if (isNaN(document.getElementById("quantityfrom"+i).value)|| isNaN(document.getElementById("quantityto"+i).value)||isNaN(document.getElementById("msrp"+i).value))
-// 									{
-// 										alert('Quantity From,Quantity To,MSRP Per Unit 	 should be allowed numeric only.');
-// 										clk('Image55','images/tab_images/tab_price_hov.gif.gif',8);
-// 										return false;
-// 									}
-// 									
-// 							}
-// 						}
-// 					}	
+
+					for(j=0;j<=5;j++)
+					{
+				
+						if(document.getElementById("my"+j+"Tier"))
+						{
+					
+						if(document.getElementById("msrp"+j).value==''||document.getElementById("quantity"+j).value=='')
+							{
+								alert('Please enter the mandatory fields In Price'+j);
+								tabOpenvalidation('5');
+							return false;
+							}else
+							{
+								if (isNaN(document.getElementById("quantity"+j).value)|| isNaN(document.getElementById("msrp"+j).value))
+									{
+										alert('Quantity ,MSRP Per Unit 	 should be allowed numeric only.');
+										tabOpenvalidation('5');
+										return false;
+									}
+									
+							}
+						}
+					}	
 					if (parseFloat(document.productreg.msrp.value)<parseFloat(document.productreg.price.value))
 					{
 						alert('Product MSRP Should Be Greater Than Product Price');
@@ -185,7 +188,85 @@ function checkInputs()
 							tabOpenvalidation('6');
 							return false;
 						}
-		
+
+						for(i=1;i<=5;i++)
+						{
+					
+						if(document.getElementById("varianname"+i))
+						{
+						if(document.getElementById("varianname"+i).value==''||document.getElementById("prsku"+i).value==''||document.getElementById("prprice"+i).value==''||document.getElementById("prmsrp"+i).value==''||document.getElementById("prvarimage"+i).value==''||document.getElementById("prsoh"+i).value==''||document.getElementById("prrol"+i).value=='')
+							{
+							alert('Please enter the mandatory fields In Variation'+i);
+							tabOpenvalidation('7');
+							return false;
+							}else
+							{
+								if (isNaN(document.getElementById("prprice"+i).value)|| isNaN(document.getElementById("prmsrp"+i).value)||isNaN(document.getElementById("prsoh"+i).value)|| isNaN(document.getElementById("prrol"+i).value) || isNaN(document.getElementById("prshipcost"+i).value))
+									{
+										alert('Price,MSRP,SOH,Shipping Cost and ROL should be allowed numeric only.');
+										tabOpenvalidation('7');
+										return false;
+									}
+									if (parseFloat(document.getElementById("prprice"+i).value)<0|| parseFloat(document.getElementById("prmsrp"+i).value)<0||parseFloat(document.getElementById("prsoh"+i).value)<0|| parseFloat(document.getElementById("prrol"+i).value)<0  || parseFloat(document.getElementById("prshipcost"+i).value)<0)
+									{
+										alert('Price,MSRP,SOH,Shipping Costand ROL should be greater than 0.');
+										tabOpenvalidation('7');
+										return false;
+									}
+									if (parseFloat(document.getElementById("prmsrp"+i).value)<parseFloat(document.getElementById("prprice"+i).value))
+									{
+										alert('Product MSRP Should Be Greater than Product Price');
+										tabOpenvalidation('7');
+										return false;
+									}
+									if(document.getElementById("prwidth"+i).value!='')
+									{
+										if(isNaN(document.getElementById("prwidth"+i).value)||parseFloat(document.getElementById("prwidth"+i).value)<0)
+										{
+											alert('Invalid inputs in width');
+											tabOpenvalidation('7');
+											return false;
+										}
+										
+									}
+									if(document.getElementById("prheight"+i).value!='')
+									{
+										if(isNaN(document.getElementById("prheight"+i).value)||parseFloat(document.getElementById("prheight"+i).value)<0)
+										{
+											alert('Invalid inputs in height');
+											tabOpenvalidation('7');
+											return false;
+										}
+									}
+									if(document.getElementById("prdepth"+i).value!='')
+									{
+										if(isNaN(document.getElementById("prdepth"+i).value)||parseFloat(document.getElementById("prdepth"+i).value)<0)
+										{
+											alert('Invalid inputs in depth');
+											tabOpenvalidation('7');
+											return false;
+										}
+									}
+									if(document.getElementById("prweight"+i).value!='')
+									{
+										if(isNaN(document.getElementById("prweight"+i).value)||parseFloat(document.getElementById("prweight"+i).value)<0)
+										{
+											alert('Invalid inputs in weight');
+											tabOpenvalidation('7');
+											return false;
+										}
+									}
+									if(document.getElementById("prshipcost"+i).value!='')
+									{
+										if(isNaN(document.getElementById("prshipcost"+i).value)||parseFloat(document.getElementById("prshipcost"+i).value)<0)
+										{
+											alert('Invalid inputs in shipping cost');
+											tabOpenvalidation('7');
+											return false;
+										}
+									}
+							}
+						}
 					}			
 					
 	
@@ -194,6 +275,9 @@ function checkInputs()
 			}
 			
 		}
+
+		
+	}
 	}
 	
 	return true;
@@ -248,7 +332,7 @@ function clk(id,source,no)
 	document.getElementById('Image55').src='images/tab_images/attributes.jpg';
 	document.getElementById('Image56').src='images/tab_images/price.jpg';
 	document.getElementById('Image57').src='images/tab_images/inventory.jpg';
-	//document.getElementById('Image58').src='images/tab_images/May_tab1_08.jpg';
+	document.getElementById('Image58').src='images/tab_images/variation.jpg';
 	//document.getElementById('Image59').src='images/tab_images/May_tab1_09.jpg';
 	document.getElementById('Image60').src='images/tab_images/meta.jpg';
 	document.getElementById('Image61').src='images/tab_images/related.jpg';
@@ -331,7 +415,7 @@ function addTier(cursym)
 		var divIdName = "my"+num+"Tier";
 		var newdiv = document.createElement('div');
 		newdiv.setAttribute("id",divIdName);
-	newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\" ><INPUT NAME='quantity[]' ID='quantity[]'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td></td><td width=\"40%\" ><INPUT NAME='msrp[]' ID='msrp[0]'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td width=\"20%\"><a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
+		newdiv.innerHTML = "<table width=\"100%\"><tr><td width=\"40%\" ><INPUT NAME='quantity[]' ID='quantity"+num+"'  type='text'  size='3' onblur=\"if (this.value!='') if (parseFloat(this.value)<=1) {  alert('Enter Quantity Greater Than 1');this.focus(); this.value=''; } \"/>&nbsp;	and above</td></td><td width=\"40%\" ><INPUT NAME='msrp[]' ID='msrp"+num+"'  type='text'  size='5' onblur=\"if (this.value!='') {if ((parseFloat(document.productreg.msrp_org.value) < parseFloat(this.value))||(parseFloat(this.value)<parseFloat(document.productreg.price.value))) {  alert('Tier Price Should Be Greater Then The Product Price And Less Than Product MSRP ');this.focus(); this.value=''; } }\" />&nbsp;<b>["+cursym+"]</b></td><td width=\"20%\"><a href=\"javascript:;\" onclick=\"removeTier(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
 
 		ni.appendChild(newdiv);
 	}
@@ -390,6 +474,34 @@ function productalias(val)
 	}
 
 }
+function addVariation()
+{
+
+ni=document.getElementById('productVariationDiv');
+var num = 5;
+for(i=1;i<=num;i++)
+{
+		if(!document.getElementById("productVariationDiv"+i))
+		{
+		num=i;
+		var newdiv = document.createElement('tr');
+		newdiv.setAttribute("id","productVariationDiv"+i);
+		var divIdName ="productVariationDiv"+i;
+
+
+	newdiv.innerHTML ="<td width='15%'><input id='varianname"+i+"' name='varianname[]' type='text' class='span12'/> </td><td width='5%' ><input id='prsku"+i+"' name='prsku[]' type='text' class='span12'/></td><td width='5%'><input id='prprice"+i+"' name='prprice[]' type='text' class='span12'/></td><td width='5%'><input id='prmsrp"+i+"' name='prmsrp[]' type='text'  class='span12'/></td><td width='15%'> <input type=\"file\" id='prvarimage"+i+"' name='prvarimage[]' size='1'></td><td width='25%'><input id='prwidth"+i+"' name='prwidth[]' type='text' class=\"variation_date\" class='span12'><input id='prheight"+i+"' name='prheight[]' type='text' class=\"variation_date\" class='span12'/><input id='prdepth"+i+"' name='prdepth[]' type='text' class=\"variation_date\"/></td><td width='5%'><input id='prweight"+i+"' name='prweight[]' type='text' class='span12'/></td>	<td width='10%'><input id='prshipcost"+i+"' name='prshipcost[]' type='text' class='span12'/></td><td width='5%'><input id='prsoh"+i+"' name='prsoh[]' type='text' class='span12' /></td><td width='5%'><input id='prrol"+i+"' name='prrol[]' type='text' class='span12'/></td>	<td width='5%'><i class='icon-remove'></i> </a></td></tr>";
+		ni.appendChild(newdiv);
+		}
+	}
+
+}
+function removeVariation(rdiv)
+{
+	ni=document.getElementById('productVariationDiv');
+	var olddiv = document.getElementById(rdiv)
+	ni.removeChild(olddiv);
+}
+
 </script>
 <style>
 /* bordered tabbable  */
@@ -474,8 +586,9 @@ function productalias(val)
  					<li id="Image4" class=""><a href="#tab4" id="Image55" data-toggle="tab">Attributes</a></li>
  					<li id="Image5" class=""><a href="#tab5" id="Image56" data-toggle="tab">Price</a></li>
  					<li id="Image6" class=""><a href="#tab6" id="Image57" data-toggle="tab">Inventory</a></li>
- 					<li id="Image7"  class=""><a href="#tab7" id="Image60" data-toggle="tab">Meta Information</a></li>
- 					<li id="Image8" class=""><a href="#tab8" id="Image61" data-toggle="tab">Related Products</a></li>
+					<li id="Image7" class=""><a href="#tab7" id="Image58" data-toggle="tab">Variation</a></li>
+ 					<li id="Image8"  class=""><a href="#tab8" id="Image60" data-toggle="tab">Meta Information</a></li>
+ 					<li id="Image9" class=""><a href="#tab9" id="Image61" data-toggle="tab">Related Products</a></li>
  				</ul>
  				 <span id="tabs_det" style="display:none"></span>
  				<div class="tab-content">
@@ -796,8 +909,83 @@ function productalias(val)
         													</div>
 
 <!-- Inventory end -->
+<!-- Variation start -->
+
+<div class="tab-pane swMain" id="tab7">
+        									<div class="row-fluid"><div class="span12"><label>
+    								 Product Variation</label></div></div>
+<div class="row-fluid">
+	<div class="span12">
+		  <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix"><div><a href="javascript:void(0);" class="add_icon1"   onClick="addVariation();"/><INPUT VALUE="-1" ID="msrp1" TYPE="hidden"></a></div>
+    									<!--<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover" >
+	
+		<thead class="green_bg">
+    										<tr>
+    											<th width="15%">Variation Name</th>
+    											<th width="5%">SKU</th>
+											<th width="5%">Price</th>
+											<th width="5%">MSRP</th>
+    											<th width="10%">Image</th>
+											<th width="25%">Dimensions(inches)<br/>Width height Depth</th>
+											<th width="5%">Weight </th>
+											<th width="15%">Shipping Cost(USD)</th>
+											<th width="5%">SOH </th>
+											<th width="5%">ROL </th>
+											<th width="5%">Action </th>	
+    										</tr>
+
+    									</thead><tbody >
+
+    				
+<tr>
+			<td colspan="11" style="padding:0">	<div id="productVariationDiv"></div>
+				</td>
+			</tr>
+
+</tbody>
+	</table>--><div class="row-fluid">
+           
+          <table cellpadding="0" cellspacing="0" width="100%" class="variation_head" border="0" >
+          
+          <tr bgcolor="#749A00">
+          <th width="15%">Variation Name</th>
+          <th width="5%">SKU</th>
+          <th width="5%">Price</th>
+          <th width="5%">MSRP</th>
+          <th width="15%">Image</th>
+     
+          <th width="25%">Dimensions(inches)<br> Width &nbsp; height &nbsp; Depth</th>
+          <th width="5%">Weight</th>
+          <th width="10%">Shipping Cost(USD)</th>
+          <th width="5%">SOH</th>
+          <th width="5%">ROL</th>
+          <th width="5%">Action</th>
+          </tr>
+
+  <table cellpadding="0" cellspacing="0" width="100%" class="variation_head" border="0"  id="productVariationDiv" >
+          
+          <table>
+
+          </table>
+          
+         
+            </div></div></div>
+</div>
+</div>
+
+<div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('7','6');" class="btn buttonNext" >Back</a>
+
+        	<a href="javascript:void(0);" onclick="tabOpen('7','8');" class="btn buttonNext" >Next</a></div>
+
+
+
+        													</div>
+<!-- Variation end -->
 <!-- meta  -->
-        													<div class="tab-pane swMain" id="tab7">
+        													<div class="tab-pane swMain" id="tab8">
         														<div class="row-fluid"><div class="span12"><label>Meta Keywords </label>
 	
 		  		
@@ -814,20 +1002,20 @@ function productalias(val)
 
 		  			<div class="actionBar">
 
-        	<a href="javascript:void(0);" onclick="tabOpen('7','6');" class="btn buttonNext" >Back</a>
+        	<a href="javascript:void(0);" onclick="tabOpen('8','7');" class="btn buttonNext" >Back</a>
 
-        	<a href="javascript:void(0);" onclick="tabOpen('7','8');" class="btn buttonNext" >Next</a></div>
+        	<a href="javascript:void(0);" onclick="tabOpen('8','9');" class="btn buttonNext" >Next</a></div>
 
         													</div>
 
 
         													<!-- meta  end -->
 
-        													<div class="tab-pane swMain" id="tab8">
+        													<div class="tab-pane swMain" id="tab9">
         														<div class="row-fluid"><div class="span12"><AJDF:output>$allproducts</AJDF:output>
         													</div>	</div>	<div class="actionBar">
 
-        	<a href="javascript:void(0);" onclick="tabOpen('8','7');" class="btn buttonNext" >Back</a>
+        	<a href="javascript:void(0);" onclick="tabOpen('9','8');" class="btn buttonNext" >Back</a>
 
         	</div>
 </div>

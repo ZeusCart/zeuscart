@@ -120,7 +120,7 @@ function clk(id,source,no)
 	document.getElementById('Image55').src='images/tab_images/attributes.jpg';
 	document.getElementById('Image56').src='images/tab_images/price.jpg';
 	document.getElementById('Image57').src='images/tab_images/inventory.jpg';
-	//document.getElementById('Image58').src='images/tab_images/May_tab1_08.jpg';
+	document.getElementById('Image58').src='images/tab_images/variation.jpg';
 	//document.getElementById('Image59').src='images/tab_images/May_tab1_09.jpg';
 	document.getElementById('Image60').src='images/tab_images/meta.jpg';
 	document.getElementById('Image61').src='images/tab_images/related.jpg';
@@ -347,7 +347,85 @@ function checkInputs()
 							tabOpenvalidation('6');
 							return false;
 						}
-		
+						for(i=1;i<=5;i++)
+	{
+	//alert("varianname"+i);
+	if(document.getElementById("varianname"+i))
+	{
+	if(document.getElementById("varianname"+i).value==''||document.getElementById("prsku"+i).value==''||document.getElementById("prprice"+i).value==''||document.getElementById("prmsrp"+i).value==''||document.getElementById("prsoh"+i).value==''||document.getElementById("prrol"+i).value=='')
+		{
+		alert('Please enter the mandatory fields In Variation'+i);
+		tabOpenvalidation('7');
+		return false;
+		}else
+		{
+			if (isNaN(document.getElementById("prprice"+i).value)|| isNaN(document.getElementById("prmsrp"+i).value)||isNaN(document.getElementById("prsoh"+i).value)|| isNaN(document.getElementById("prrol"+i).value) || isNaN(document.getElementById("prshipcost"+i).value))
+				{
+					alert('Price,MSRP,SOH,Shipping Cost and ROL should be allowed numeric only.');
+					tabOpenvalidation('7');
+					return false;
+				}
+				if (parseFloat(document.getElementById("prprice"+i).value)<0|| parseFloat(document.getElementById("prmsrp"+i).value)<0||parseFloat(document.getElementById("prsoh"+i).value)<0|| parseFloat(document.getElementById("prrol"+i).value)<0 || parseFloat(document.getElementById("prshipcost"+i).value)<0)
+				{
+					alert('Price,MSRP,SOH,Shipping Cost and ROL should be greater than 0.');
+					tabOpenvalidation('7');
+					return false;
+				}
+				if (parseFloat(document.getElementById("prmsrp"+i).value)<parseFloat(document.getElementById("prprice"+i).value))
+				{
+					alert('Product MSRP Should Be Greater than Product Price');
+					tabOpenvalidation('7');
+					return false;
+				}
+				if(document.getElementById("prwidth"+i).value!='')
+				{
+					if(isNaN(document.getElementById("prwidth"+i).value)||parseFloat(document.getElementById("prwidth"+i).value)<0)
+					{
+						alert('Invalid inputs in width');
+						tabOpenvalidation('7');
+						return false;
+					}
+					
+				}
+				if(document.getElementById("prheight"+i).value!='')
+				{
+					if(isNaN(document.getElementById("prheight"+i).value)||parseFloat(document.getElementById("prheight"+i).value)<0)
+					{
+						alert('Invalid inputs in height');
+						tabOpenvalidation('7');
+						return false;
+					}
+				}
+				if(document.getElementById("prdepth"+i).value!='')
+				{
+					if(isNaN(document.getElementById("prdepth"+i).value)||parseFloat(document.getElementById("prdepth"+i).value)<0)
+					{
+						alert('Invalid inputs in depth');
+						tabOpenvalidation('7');
+						return false;
+					}
+				}
+				if(document.getElementById("prweight"+i).value!='')
+				{
+					if(isNaN(document.getElementById("prweight"+i).value)||parseFloat(document.getElementById("prweight"+i).value)<0)
+					{
+						alert('Invalid inputs in weight');
+						tabOpenvalidation('7');
+						return false;
+					}
+				}
+				if(document.getElementById("prshipcost"+i).value!='')
+				{
+					if(isNaN(document.getElementById("prshipcost"+i).value)||parseFloat(document.getElementById("prshipcost"+i).value)<0)
+					{
+						alert('Invalid inputs in shipping cost');
+						tabOpenvalidation('7');
+						return false;
+					}
+				}
+		}
+	}
+	}
 					
 					}			
 					
@@ -409,7 +487,43 @@ function productalias(val)
 	}
 
 }
+function addVariation()
+{
 
+ni=document.getElementById('productVariationDiv');
+var num = 5;
+for(i=1;i<=num;i++)
+{
+		if(!document.getElementById("productVariationDiv"+i))
+		{
+		num=i;
+		var newdiv = document.createElement('div');
+		newdiv.setAttribute("id","productVariationDiv"+i);
+		var divIdName ="productVariationDiv"+i;
+		
+		if(i%2==0)
+		{
+			var tablecl="   class='alert_row2' onmouseover=\"mouse_event(this, 'listrow_bg');\" onmouseout=\"mouse_event(this, 'alert_row2');\" "; 
+		}
+		else
+		{
+			var tablecl="   class='alert_row1' onmouseover=\"mouse_event(this, 'listrow_bg');\" onmouseout=\"mouse_event(this, 'alert_row1');\" "; 
+		}
+		
+		newdiv.innerHTML = "<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0'><tr "+tablecl+" ><td width='15%' ><input id='varianname"+i+"' name='varianname[]' type='text' class='span12'/></td><td width='5%'><input id='prsku"+i+"' name='prsku[]' type='text' class='span12' /></td><td width='5%'><input id='prprice"+i+"' name='prprice[]' type='text'  class='span12'/></td><td width='5%' ><input id='prmsrp"+i+"' name='prmsrp[]' type='text' class='span12'/></td><td width='15%' ><input id='prvarimage"+i+"' name='prvarimage[]' type='file'   size='3' /></td><td width='5%'  ><img src='../images/noimage.jpg' width='35' height='35'></td><td width='20%'><input id='prwidth"+i+"' name='prwidth[]' type='text' class=\"variation_date\"/><input id='prheight"+i+"' name='prheight[]' type='text' class=\"variation_date\"/><input id='prdepth"+i+"' name='prdepth[]' type='text'  class=\"variation_date\"/></td><td width='5%' ><input id='prweight"+i+"' name='prweight[]' type='text' class='span12'/></td><td  width='10%' ><input id='prshipcost"+i+"' name='prshipcost[]' type='text' class='span12'/></td><td  width='5%' ><input id='prsoh"+i+"' name='prsoh[]' type='text' class='span12' /></td><td width='5%' ><input id='prrol"+i+"' name='prrol[]' type='text' class='span12' /></td><td width='5%'  ><a href=\"javascript:;\"  onclick=\"removeVariation(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
+
+		
+		ni.appendChild(newdiv);
+		}
+	}
+
+}
+function removeVariation(rdiv)
+{
+	ni=document.getElementById('productVariationDiv');
+	var olddiv = document.getElementById(rdiv)
+	ni.removeChild(olddiv);
+}
 </script>
 <style>
 /* bordered tabbable  */
@@ -495,8 +609,9 @@ function productalias(val)
  					<li id="Image4" class=""><a href="#tab4" id="Image55" data-toggle="tab">Attributes</a></li>
  					<li id="Image5" class=""><a href="#tab5" id="Image56" data-toggle="tab">Price</a></li>
  					<li id="Image6" class=""><a href="#tab6" id="Image57" data-toggle="tab">Inventory</a></li>
- 					<li id="Image7"  class=""><a href="#tab7" id="Image60" data-toggle="tab">Meta Information</a></li>
- 					<li id="Image8" class=""><a href="#tab8" id="Image61" data-toggle="tab">Related Products</a></li>
+					<li id="Image7" class=""><a href="#tab7" id="Image58" data-toggle="tab">Variation</a></li>	
+ 					<li id="Image8"  class=""><a href="#tab8" id="Image60" data-toggle="tab">Meta Information</a></li>
+ 					<li id="Image9" class=""><a href="#tab9" id="Image61" data-toggle="tab">Related Products</a></li>
  				</ul>
  				 <span id="tabs_det" style="display:none"></span>
  				<div class="tab-content">
@@ -756,8 +871,31 @@ function productalias(val)
  						</div>
 
  							<!-- inventory end -->
+<!-- Variation start -->
+
+<div class="tab-pane swMain" id="tab7">
+        									<div class="row-fluid"><div class="span12"><label>
+    								 Product Variation</label></div></div>
+<div class="row-fluid">
+	<div class="span12">
+		  <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix"><div><a href="javascript:void(0);" class="add_icon1"   onClick="addVariation();"/><INPUT VALUE="-1" ID="msrp1" TYPE="hidden"></a></div>
+    								<AJDF:output>$editVarition</AJDF:output></div></div>
+</div>
+</div>
+
+<div class="actionBar">
+
+        	<a href="javascript:void(0);" onclick="tabOpen('7','6');" class="btn buttonNext" >Back</a>
+
+        	<a href="javascript:void(0);" onclick="tabOpen('7','8');" class="btn buttonNext" >Next</a></div>
+
+
+
+        													</div>
+<!-- Variation end -->
  								<!-- meta info -->
- 						<div class="tab-pane swMain" id="tab7">
+ 						<div class="tab-pane swMain" id="tab8">
 <div class="row-fluid">
  		<div class="span12"><label>Meta Keywords </label>
                   <textarea style="width: 279px; height: 159px;" id="meta_keywords" name="meta_kerwords"><AJDF:output>$meta_keywords</AJDF:output></textarea>
@@ -772,9 +910,9 @@ function productalias(val)
 
                 <div class="actionBar">
 
-        	<a href="javascript:void(0);" onclick="tabOpen('7','6');" class="btn buttonNext" >Back</a>
+        	<a href="javascript:void(0);" onclick="tabOpen('8','7');" class="btn buttonNext" >Back</a>
 
-        	<a href="javascript:void(0);" onclick="tabOpen('7','8');" class="btn buttonNext" >Next</a></div>
+        	<a href="javascript:void(0);" onclick="tabOpen('8','9');" class="btn buttonNext" >Next</a></div>
 
 
 
@@ -782,13 +920,13 @@ function productalias(val)
  							<!-- meta info end -->
  								<!-- related info  -->
 
- 						<div class="tab-pane swMain" id="tab8">
+ 						<div class="tab-pane swMain" id="tab9">
 <AJDF:output>$editRelated</AJDF:output>
 
 
 <div class="actionBar">
 
-        	<a href="javascript:void(0);" onclick="tabOpen('8','7');" class="btn buttonNext" >Back</a>
+        	<a href="javascript:void(0);" onclick="tabOpen('9','8');" class="btn buttonNext" >Back</a>
 
         	</div>
  						</div>

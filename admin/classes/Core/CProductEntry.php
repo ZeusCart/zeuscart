@@ -46,7 +46,6 @@
 	function insertProduct()
 	{
 
-
 		if($_POST['product_alias']!='')
 		{
 			
@@ -205,7 +204,81 @@
 		if($obj->updateQuery($sql))
 		{
 		    	$product_id=$obj->insertid;
+			//-----------------------Product Variation--------------------------
 			
+				
+				for($ii=0;$ii<count($_POST['varianname']);$ii++)
+				{
+					
+					$varpweight=trim($_POST['prweight'][$ii]);
+					$varpwidth=trim($_POST['prwidth'][$ii]);
+					$varpheight=trim($_POST['prheight'][$ii]);
+					$varpdepth=trim($_POST['prdepth'][$ii]);
+					if($varpweight>0)
+						$varweight=$varpweight;
+					else
+						$varweight='';
+					$dimension='';
+					if($varpwidth<=0&&$varpheight<=0&&$varpdepth<=0)
+						{
+							$vardimension='';
+							
+						}
+					else
+						{
+							if($varpwidth>0)
+								$vardimension=$varpwidth.' x ';
+							else
+								$vardimension='0 x ';
+							if($varpheight>0)
+								$vardimension.=$varpheight.' x ';
+							else
+								$vardimension.='0 x ';
+							if($varpdepth>0)
+								$vardimension.=$varpdepth;
+							else
+								$vardimension.='0';
+							//$dimension=$pwidth.'-'.$pheight.'-'.$pdepth;	
+						}
+						
+					if(count($_FILES['prvarimage']['name'][$ii]) > 0)
+					{
+						$varimgfilename= $_FILES['prvarimage']['name'][$ii];
+						
+						$varimage="images/products/". date("Y-m-d-His").$varimgfilename; //inserted into db
+						$varthumb_image="images/products/thumb/". date("Y-m-d-His").$varimgfilename; //inserted into db
+						$large_image="images/products/large_image/".$varimgfilename; 
+				
+						$varimageDir=ROOT_FOLDER."images/products"; // to upload the file
+						$varthumbDir=ROOT_FOLDER."images/products/thumb"; //to upload the file
+						$varlargeDir=ROOT_FOLDER."images/products/large_image";	
+							
+						$varstpath=ROOT_FOLDER.$varimage;
+						if(move_uploaded_file($_FILES["prvarimage"]["tmp_name"][$ii],$varstpath))
+						{
+							list($varimg_w,$varimg_h, $vartype, $varattr) = getimagesize($varstpath);
+							
+								new Lib_ThumbImage('thumb',$varstpath,$varthumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
+					
+						
+								new Lib_ThumbImage('thumb',$varstpath,$varimageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);	
+								new Lib_ThumbImage('thumb',$varstpath,$varlargeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);			
+						}
+							
+						
+					}
+				
+					$sqlvariation="INSERT INTO product_variation_table (product_id,sku,variation_name,msrp,price,weight,dimension,thumb_image,image,shipping_cost,soh,rol,status,large_image) VALUES(".$product_id.",'".$_POST['prsku'][$ii]."','".$_POST['varianname'][$ii]."',".$_POST['prmsrp'][$ii].",".$_POST['prprice'][$ii].",'".$varweight."','".$vardimension."','".$varthumb_image."','".$varimage."',".(float)$_POST['prshipcost'][$ii].",".$_POST['prsoh'][$ii].",".$_POST['prrol'][$ii].",1,'".$large_image."')";
+					$qryvariation=new Bin_Query();
+					
+					$qryvariation->updateQuery($sqlvariation);
+							
+					$sqlvariationstatus="UPDATE  products_table SET has_variation =1 WHERE product_id=".$product_id;
+					$qryvariationstatus=new Bin_Query();
+					$qryvariationstatus->updateQuery($sqlvariationstatus);
+				}
+	
+				//-----------------------Product Variation--------------------------
 			$sql = "insert into cross_products_table (product_id,cross_product_ids) values('".$product_id."','".$related_val."')"; 
 			$query = new Bin_Query();
 			$query->updateQuery($sql);
