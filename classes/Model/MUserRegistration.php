@@ -350,7 +350,7 @@ class Model_MUserRegistration
 		$output['maincatimage']=$default->showMainCategory();
 		$output['allfeaturedproducts']=$default->featuredProducts();
 		$output['allfeaturedproductshidden']=$default->featuredProductsHidden();
-
+		$output['newarrivalproducts']=$default->newArrivalProducts();
 		$output['showBestSellingProducts']=$default->showBestSellingProducts();
 		
 		$default=new Core_CNewProducts();

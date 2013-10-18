@@ -1034,7 +1034,7 @@ class Display_DManageProducts
 					 <td width='5%' ><input id='prsku".$i."' name='prsku[]' type='text'  value='".$arr[$i-1]['sku']."' class='span12' /></td>
 					 <td width='5%'  ><input id='prprice".$i."' name='prprice[]' type='text'  value='".$arr[$i-1]['price']."' class='span12' /></td>
 					 <td width='5%' ><input id='prmsrp".$i."' name='prmsrp[]' type='text'  value='".$arr[$i-1]['msrp']."' class='span12' /></td>
-					<td width='15%' ><input id='prvarimage".$i."' name='prvarimage[]' type='file' size='3'/></td><td width='5%' >";
+					<td width='15%' ><input id='prvarimage".$i."' name='prvarimage[]' type='file' size='3' style='width: 173px ! important;' /></td><td width='5%' >";
 					  if(file_exists('../'.$arr[$i-1]['thumb_image']))
 					  {
 						$output.="<img src='../".$arr[$i-1]['thumb_image']."' width='35' height='35'>";

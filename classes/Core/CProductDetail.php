@@ -338,22 +338,50 @@ class Core_CProductDetail
 	{
 
 
-		$sqlfeature="SELECT product_id,sku,brand,weight,dimension,model
+		$sqlVari="SELECT product_id,has_variation
 		FROM products_table  WHERE product_id =".(int)$_GET['prodid']." "; 
-		$queryfeature=new Bin_Query();
-		$queryfeature->executeQuery($sqlfeature);
-		$recordsfeature=$queryfeature->records;
+		$queryVari=new Bin_Query();
+		$queryVari->executeQuery($sqlVari);
+		$has_variation=$queryVari->records[0]['has_variation'];
+		if($has_variation=='0')
+		{
+				$sqlfeature="SELECT product_id,sku,brand,weight,dimension,model
+				FROM products_table  WHERE product_id =".(int)$_GET['prodid']." "; 
+				$queryfeature=new Bin_Query();
+				$queryfeature->executeQuery($sqlfeature);
+				$recordsfeature=$queryfeature->records;
+				
+				
+				$sql= "SELECT attrib_name, attrib_value 
+				FROM `attribute_value_table` av, attribute_table at
+				WHERE av.attrib_id = at.attrib_id AND av.attrib_value_id IN (SELECT attrib_value_id 
+				FROM product_attrib_values_table
+				WHERE product_id =".(int)$_GET['prodid'].')';		
+				$query = new Bin_Query();
+					
+				
+				return  Display_DProductDetail::attributeList($query->records,$recordsfeature);
+				
+		}
+		if($has_variation=='1')
+		{
+			
+				$sqlfeature="SELECT *
+				FROM product_variation_table  WHERE product_id =".(int)$_GET['prodid']." "; 
+				$queryfeature=new Bin_Query();
+				$queryfeature->executeQuery($sqlfeature);
+				$recordsfeature=$queryfeature->records;
 
-		$sql= "SELECT attrib_name, attrib_value 
-		FROM `attribute_value_table` av, attribute_table at
-		WHERE av.attrib_id = at.attrib_id AND av.attrib_value_id IN (SELECT attrib_value_id 
-		FROM product_attrib_values_table
-		WHERE product_id =".(int)$_GET['prodid'].')';		
-		$query = new Bin_Query();
-		if($query->executeQuery($sql))
-		{	
+				$sql= "SELECT attrib_name, attrib_value 
+				FROM `attribute_value_table` av, attribute_table at
+				WHERE av.attrib_id = at.attrib_id AND av.attrib_value_id IN (SELECT attrib_value_id 
+				FROM product_attrib_values_table
+				WHERE product_id =".(int)$_GET['prodid'].')';	
+				$query = new Bin_Query();
+				
+				
+				return  Display_DProductDetail::attributeList($query->records,$recordsfeature);
 		
-			return  Display_DProductDetail::attributeList($query->records,$recordsfeature);
 		}
 		else
 		{

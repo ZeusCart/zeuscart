@@ -894,7 +894,12 @@ $('#horz_scroll_id1').cycle({
 	next:'#right_arrow',
     timeout: 0
 });
-
+$('#new_product').cycle({ 
+    fx:     'scrollHorz',
+	prev:'#newproductlarrow',
+	next:'#newproductrarrow',
+    timeout: 0
+});
  });
 
 // scrollUp/Down/Left/Right

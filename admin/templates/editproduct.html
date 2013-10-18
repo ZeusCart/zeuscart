@@ -455,7 +455,7 @@ function tabOpen(hide,show)
 
 function tabOpenvalidation(show)
 {
-	for(i=1;i<=8;i++)
+	for(i=1;i<=9;i++)
 	{
 		if(i==show)
 		{
@@ -510,7 +510,7 @@ for(i=1;i<=num;i++)
 			var tablecl="   class='alert_row1' onmouseover=\"mouse_event(this, 'listrow_bg');\" onmouseout=\"mouse_event(this, 'alert_row1');\" "; 
 		}
 		
-		newdiv.innerHTML = "<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0'><tr "+tablecl+" ><td width='15%' ><input id='varianname"+i+"' name='varianname[]' type='text' class='span12'/></td><td width='5%'><input id='prsku"+i+"' name='prsku[]' type='text' class='span12' /></td><td width='5%'><input id='prprice"+i+"' name='prprice[]' type='text'  class='span12'/></td><td width='5%' ><input id='prmsrp"+i+"' name='prmsrp[]' type='text' class='span12'/></td><td width='15%' ><input id='prvarimage"+i+"' name='prvarimage[]' type='file'   size='3' /></td><td width='5%'  ><img src='../images/noimage.jpg' width='35' height='35'></td><td width='20%'><input id='prwidth"+i+"' name='prwidth[]' type='text' class=\"variation_date\"/><input id='prheight"+i+"' name='prheight[]' type='text' class=\"variation_date\"/><input id='prdepth"+i+"' name='prdepth[]' type='text'  class=\"variation_date\"/></td><td width='5%' ><input id='prweight"+i+"' name='prweight[]' type='text' class='span12'/></td><td  width='10%' ><input id='prshipcost"+i+"' name='prshipcost[]' type='text' class='span12'/></td><td  width='5%' ><input id='prsoh"+i+"' name='prsoh[]' type='text' class='span12' /></td><td width='5%' ><input id='prrol"+i+"' name='prrol[]' type='text' class='span12' /></td><td width='5%'  ><a href=\"javascript:;\"  onclick=\"removeVariation(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
+		newdiv.innerHTML = "<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0'><tr "+tablecl+" ><td width='15%' ><input id='varianname"+i+"' name='varianname[]' type='text' class='span12'/></td><td width='5%'><input id='prsku"+i+"' name='prsku[]' type='text' class='span12' /></td><td width='5%'><input id='prprice"+i+"' name='prprice[]' type='text'  class='span12'/></td><td width='5%' ><input id='prmsrp"+i+"' name='prmsrp[]' type='text' class='span12'/></td><td width='15%' ><input id='prvarimage"+i+"' name='prvarimage[]' type='file'   size='3' style='width: 173px ! important;'/></td><td width='5%'  ><img src='../images/noimage.jpg' width='35' height='35'></td><td width='20%'><input id='prwidth"+i+"' name='prwidth[]' type='text' class=\"variation_date\"/><input id='prheight"+i+"' name='prheight[]' type='text' class=\"variation_date\"/><input id='prdepth"+i+"' name='prdepth[]' type='text'  class=\"variation_date\"/></td><td width='5%' ><input id='prweight"+i+"' name='prweight[]' type='text' class='span12'/></td><td  width='10%' ><input id='prshipcost"+i+"' name='prshipcost[]' type='text' class='span12'/></td><td  width='5%' ><input id='prsoh"+i+"' name='prsoh[]' type='text' class='span12' /></td><td width='5%' ><input id='prrol"+i+"' name='prrol[]' type='text' class='span12' /></td><td width='5%'  ><a href=\"javascript:;\"  onclick=\"removeVariation(\'"+divIdName+"\')\"><i class='icon-remove'></i></a></td></tr></table>";
 
 		
 		ni.appendChild(newdiv);

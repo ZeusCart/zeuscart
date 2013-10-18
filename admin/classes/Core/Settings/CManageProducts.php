@@ -957,7 +957,12 @@ class Core_Settings_CManageProducts
 // 		$sub_category_parent_id =(int)$_POST['selsubundersubcatgory'];
 		$title=$_POST['product_title'];
 		$description=$_POST['desc'];
-		$description=addslashes(stripslashes(trim($description)));	
+		$description=addslashes(stripslashes(trim($description)));
+		$description=str_replace(array("\r","\n",'\r','\n'),'', $description);	
+
+		$removal= array("rn");
+		$description= str_replace($removal, "", trim($description));
+
 		$sku=$_POST['sku'];
 		$brand=$_POST['new_brand'];
 		$model=$_POST['model'];
@@ -1214,11 +1219,11 @@ class Core_Settings_CManageProducts
 						$imgfilename= $_FILES['ufile']['name'][$i];
 						if($imgfilename!='')
 						{
-							$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+							$imagefilename = date("Y-m-d-His").$imgfilename ; // generate a new name
 							
-							$image="images/products/". $imgfilename; // updated into DB
-							$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
-							$large_image="images/products/large_image/".$imgfilename; // updated large image into DB
+							$image="images/products/". $imagefilename; // updated into DB
+							$thumb_image="images/products/thumb/".$imagefilename; // updated into DB
+							$large_image="images/products/large_image/".$imagefilename; // updated large image into DB
 							$stpath=ROOT_FOLDER.$image;
 							$imageDir=ROOT_FOLDER."images/products";
 							$thumbDir=ROOT_FOLDER."images/products/thumb";
@@ -1257,7 +1262,7 @@ class Core_Settings_CManageProducts
 								}
 								else
 								{
-									$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','sub','$large_image')";				
+									 $spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','sub','$large_image')";				
 								}
 							}
 							
@@ -1267,8 +1272,7 @@ class Core_Settings_CManageProducts
 					
 					
 				}
-			
-			
+					
 			$sqlrelcheck="SELECT * FROM  cross_products_table WHERE product_id='".$product_id."'";
 			$objrelcheck=new Bin_Query();
 			if($objrelcheck->executeQuery($sqlrelcheck))

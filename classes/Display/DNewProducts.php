@@ -89,7 +89,7 @@ class Display_DNewProducts
 				$output.='
 				<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'"><div class="view view-first">
 				<span class="ribbion_div">'.$imagetag.'</span>
-				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=500" alt="'.$arr[$i]['title'].'">
 				<div class="mask"><span class="visible-phone">
 					<h2><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				</span><span class="hidden-phone">
@@ -166,7 +166,7 @@ class Display_DNewProducts
 				$output.='
 				<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'"><div class="view view-first">
 				<span class="ribbion_div">'.$imagetag.'</span>
-				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=500" alt="'.$arr[$i]['title'].'">
 				<div class="mask"><span class="visible-phone">
 					<h2><a href="'.$_SESSION['base_url'].'/detail/'.$records[$i]['alias'].'.html">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				</span><span class="hidden-phone">
@@ -228,7 +228,12 @@ class Display_DNewProducts
 			{
 				for($i=0;$i<count($records);$i++)
 				{
-					
+				
+
+					$removal= array("rn");
+					$desc= str_replace($removal, "", trim($records[$i]['description']));
+
+
 					$output.='<li>';
 					if($records[$i]['gift']=='1')
 					{
@@ -252,7 +257,8 @@ class Display_DNewProducts
 						$output.='<div class="productlisting"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$records[$i]['large_image_path'].'&h=235&w=235&zc=0&s=1&f=4,11&q=100&ct=1" alt="'.$records[$i]['title'].'"> 
 						</a></div></div></div>
 						<div class="span6"><div class="description_div"><h3><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'">'.$records[$i]['title'].'</a></h3>
-						  <p>'.trim($records[$i]['description']).'</p>
+
+						  <p>'.$desc.'</p>
 						</div></div>
 						 <div class="span3"><div class="dollar_div">
 							<h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$records[$i]['msrp'].'</h1>

@@ -43,6 +43,10 @@ class Display_DAddCart
 	 */	
 	function showCart($arr,$result)
 	{
+/*
+echo "<pre>";
+print_r($arr);
+exit;*/
 
 		if(!(empty($arr)))
 		{
@@ -110,6 +114,17 @@ class Display_DAddCart
 						$temp=$arr[$i]['thumb_image'];
 						$img=explode('/',$temp);
 							
+	
+						
+						//select variation size
+						if($arr[$i]['variation_id']!='')
+						{
+							$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$arr[$i]['variation_id']."' AND product_id='".$arr[$i]['product_id']."'";
+							$objSize=new Bin_Query();
+							$objSize->executeQuery($sqlSize);
+							$size=$objSize->records[0]['variation_name'];
+							$variation='Size - '.''.$size.'';
+						}	
 							$out.='<tr>
 								<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="'.$_SESSION['base_url'].'/assets/img/close_button.gif" alt="close">	</a>		  <div class="showcart_box"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></td><td>';
 								if(file_exists($thumbimage))
@@ -120,7 +135,7 @@ class Display_DAddCart
 	
 
 								$out.='</a></div></td>
-								<td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></td>
+								<td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a><br/>'.$variation.'</td>
 								<td>'.$arr[$i]['product_qty'].'</td>
 								<td><span class="label label-important"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($msrp*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 								<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format(($msrp*$arr[$i]['product_qty'])*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
@@ -1141,6 +1156,16 @@ class Display_DAddCart
 			{
 				$tax=0;
 			}
+
+			//select variation size
+			if($arr[$i]['variation_id']!='')
+			{
+				$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$arr[$i]['variation_id']."' AND product_id='".$arr[$i]['product_id']."'";
+				$objSize=new Bin_Query();
+				$objSize->executeQuery($sqlSize);
+				$size=$objSize->records[0]['variation_name'];
+				$variation='Size - '.''.$size.'';
+			}	
 			
 			/*-------------Tax Calculation-------------*/		
 			
@@ -1161,7 +1186,7 @@ class Display_DAddCart
 		  	$out.='<img src="'.$_SESSION['base_url'].'/images/noimage.jpg" alt="'.$arr[$i]['title'].'"/>';
 
 			$out.='</td>
-			 <td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" name="prodname">'.$arr[$i]['title'].'</a></td>
+			 <td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" name="prodname">'.$arr[$i]['title'].'</a><br/>'.$variation.'</td>
 
 			<td>'.$arr[$i]['product_qty'].'</td>
 			<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($msrp*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>

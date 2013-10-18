@@ -3933,6 +3933,24 @@ a {
 	right:0;
 	top:25px;
 }
+.newproductlarrow {
+	background:url(../img/left-arrow1.png) left top no-repeat;
+	width:18px;
+	height:17px;
+	display:block;
+	position:absolute;
+	right:25px;
+	top:25px;
+}
+.newproductrarrow {
+	background:url(../img/right-arrow3.png) left top no-repeat;
+	width:18px;
+	height:17px;
+	display:block;
+	position:absolute;
+	right:0;
+	top:25px;
+}
 #ad_banner {
 	margin-bottom:15px;
 }

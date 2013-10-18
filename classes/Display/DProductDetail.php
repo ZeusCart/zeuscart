@@ -103,6 +103,9 @@ class Display_DProductDetail
 		$obj->executeQuery($sql);
 		$categoryname=$obj->records[0]['category_name']; 
 
+		$removal= array("rn");
+		$desc= str_replace($removal, "", trim($arr[0]['description']));
+
 		$result=$_SESSION['reviewResult'];
 		
 		$output=''.$result.'';
@@ -210,18 +213,18 @@ class Display_DProductDetail
 		if (count($var_arr)>0)
 		{
 			
-			$output.='<li style="padding-bottom:20px;">Choose Variation : ';
+			$output.='<li style="padding-bottom:20px;">Size : ';
 			
 			$variation_id=(int)$_GET['varid'];
 			
 			
-			$output.='<select name="variations" >';
+			$output.='<select name="variations" onchange="changeVariation('.$arr[0]['product_id'].',this.value);">';
 	
-			$output.='<option  value="'.$variations['variation_id'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' onclick="document.frmcart.action=\'?do=prodetail&action=showprod&prodid='.(int)$_GET['prodid'].'\';document.frmcart.submit();">Default</option>';
+			$output.='<option  value="'.$variations['variation_id'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' >Default</option>';
 
 			foreach($var_arr as $variations)
 			{
-				$output.='<option value="'.$variations['variation_id'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' onclick="document.frmcart.action=\'?do=prodetail&action=showprod&prodid='.(int)$_GET['prodid'].'&varid='.$variations['variation_id'].'\';document.frmcart.submit();">'.$variations['variation_name'].'</option>';
+				$output.='<option value="'.$variations['variation_id'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' >'.$variations['variation_name'].'</option>';
 			}
 			$output.='</select></li>';
 			
@@ -279,6 +282,7 @@ class Display_DProductDetail
 		if(count($tierArr)>0)
 		$mode='block';
 
+		
 
 		$output.='</tr>
 		</table>
@@ -300,7 +304,7 @@ class Display_DProductDetail
 
        
 		<div style="display:block;" id="account_id" class="prd_desc">
-		'.$arr[0]['description'].'
+		'.$desc.'
 		</div>
            
             	 <div style="display:none;" id="details_id">';
@@ -433,6 +437,7 @@ class Display_DProductDetail
  	*/
 	function attributeList($arr,$recordsfeature)
 	{
+
 		if($arr!='' || $recordsfeature!='')
 		{
 			$output='<table id="rt1" class="rt cf">

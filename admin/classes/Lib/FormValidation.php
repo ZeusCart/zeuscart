@@ -1337,9 +1337,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$this->Assign("attributes",$_POST['attributes'],"noempty","Attribute Name - ".$message);
 
-		$message = "No special characters allowed";	
-		$this->Assign("attributes",$_POST['attributes'],"nospecial","Attribute Name - ".$message);
-
+	
 		if($_POST['attributes']!='')
 		{
 			$sql = "SELECT * FROM attribute_table WHERE attrib_name ='".$_POST['attributes']."' AND attrib_id !=".(int)$_GET['id'];

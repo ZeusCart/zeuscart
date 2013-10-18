@@ -274,6 +274,42 @@ class Core_CFeaturedItems
 		return $output;
 	}
 	/**
+	 * This function is used to show the  new product 
+	 * 
+	 * @return string
+	 */
+	function newArrivalProducts()
+	{
+		 $sql = "SELECT a.*,sum(c.rating)/count(c.user_id) as rating FROM `products_table` a left join product_reviews_table c on a.product_id=c.product_id WHERE  a.product_status=1 and a.status=1 and a.intro_date <= '".date('Y-m-d')."' and  a.category_id !='63' group by a.product_id  ORDER BY rand( ) "; 	
+		$query = new Bin_Query();
+		if($query->executeQuery($sql))
+		{
+			$flag='0';
+			$j=0;
+			$cnt=count($query->records);
+			if($cnt>0)
+			{
+				for ($i=0;$i<$cnt;$i++)
+				{		
+					foreach($query->records as $row)
+					{
+						$r[$j]=$row;
+						$prid=$row['product_id'];
+						$minval=Core_CWishList::disRates($prid);
+						if($minval > 0  or $minval!='')
+							$r[$j]['msrp']= '$'.number_format($row['msrp'],2).' - $'.number_format($minval,2);
+						else
+							$r[$j]['msrp']= '$'.number_format($row['msrp'],2);
+						$j++;
+					}
+				}
+				$output= Display_DFeaturedItems::newArrivalProducts($query->records,$flag,$r);
+			}
+		}
+
+		return $output;
+	}
+	/**
 	 * This function is used to show the  show products of sub category
 	 * @param string $skin
 	 * 

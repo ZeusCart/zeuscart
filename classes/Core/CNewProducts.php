@@ -53,7 +53,7 @@ class Core_CNewProducts
 	function newProducts()
 	{
 		
-		$sql= " SELECT a.product_id, a.title, a.thumb_image,a.image,a.product_status,a.category_id,a.gift ,a.msrp,a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.gift='0'  group by a.product_id ORDER BY rand( ) LIMIT 0,12 "; 
+		$sql= " SELECT a.product_id, a.title, a.thumb_image,a.image,a.product_status,a.category_id,a.gift ,a.msrp,a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as rating	FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id  left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.product_status!='1'and a.gift='0'  group by a.product_id ORDER BY rand( ) LIMIT 0,12 "; 
 			
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))

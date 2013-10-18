@@ -90,7 +90,11 @@ $(document).ready(function() {
         });
 });
 
-
+function changeVariation(pid,vid)
+{
+document.frmcart.action='?do=prodetail&action=showprod&prodid='+pid+'&varid='+vid;
+document.frmcart.submit();
+}
 </script>
 <script type="text/javascript">
 var arr3=["account_id","details_id","divTier"];

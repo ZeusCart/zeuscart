@@ -245,7 +245,7 @@ class Display_DFeaturedItems
 				$recordssoh=$obj->records;
 
         			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
-				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=1000" alt="'.$arr[$i]['title'].'">
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=500" alt="'.$arr[$i]['title'].'">
 				<div class="mask">
 				<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
@@ -265,6 +265,90 @@ class Display_DFeaturedItems
 		</div>';	
 		return $output;
 	}
+
+	/**
+	* This function is used to Display the new Product
+	* @param mixed $arr
+	* @param integer $flag
+	* @param array $r
+	* @return string
+ 	*/
+	function newArrivalProducts($arr,$flag,$r)
+	{
+
+		$output='<div class="image_grid portfolio_4col">
+		<div id="new_product">';
+
+		$output.='<div class="scroller_div">
+       		 <div class="row-fluid">';
+
+		if((count($arr)>0))
+		{
+			for($i=0;$i<count($arr);$i++)
+			{
+				if( $i!=0 && $i%4==0 )
+				{
+
+					$output.='</div></div><div class="scroller_div"><div class="row-fluid">';
+				}
+				if($i%4==0 && $i!=0 )
+				{
+
+					$output.=' </div> <div class="row-fluid">';
+				}
+
+				if($arr[$i]['product_status']==1)
+				{
+					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new">';
+				}
+				
+
+				//category name
+				$sql="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['category_id']."'";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);
+				$cat=$obj->records[0]['category_name'];
+
+				//sub category
+				$sqlsub="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_category_id']."'";
+				$objsub=new Bin_Query();
+				$objsub->executeQuery($sqlsub);
+				$subcat=$objsub->records[0]['category_name'];
+
+				//sub under  category
+				$sqlsubun="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_under_category_id']."'";
+				$objsubun=new Bin_Query();
+				$objsubun->executeQuery($sqlsubun);
+				$subuncat=$objsubun->records[0]['category_name'];
+				//soh 
+				$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);
+				$recordssoh=$obj->records;
+
+        			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
+				<span class="ribbion_div">'.$imagetag.'</span>
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=500" alt="'.$arr[$i]['title'].'">
+				<div class="mask">
+				<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
+				
+				$output.='<button class="info" type="submit" >Add to Cart</button>';
+				
+				$output.='</div>
+				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
+				
+			}
+			$output.='</div></div>';
+		}
+    
+
+
+	  $output.='</div>
+		</div>';	
+		return $output;
+	}
+	
 	/**
 	* This function is used to Display the Featured Product Hidden Desktop
 	* @param mixed $arr
