@@ -51,8 +51,12 @@ class Core_Settings_CNewsSettings
 				$status=$_POST['statusVal'];
 			else
 				$status=0; 	
+
 			
-			$sql = "INSERT INTO news_table (news_title,news_desc,news_date,news_status) VALUES ('".$_POST['newstitle']."','".$_POST['newscontent']."','".date("Y.m.d")."',".$status.")"; 
+			$removal= array("rn");
+			$desc= str_replace($removal, "", trim($_POST['newscontent']));
+				
+			$sql = "INSERT INTO news_table (news_title,news_desc,news_date,news_status) VALUES ('".$_POST['newstitle']."','".$desc."','".date("Y.m.d")."',".$status.")"; 
 			
 			$query = new Bin_Query();
 
@@ -129,7 +133,7 @@ class Core_Settings_CNewsSettings
 	 */	 	
 
 	
-	function viewNews()
+	function viewNews($Err)
 	{
 		include("classes/Display/DNewsSettings.php");
 		
@@ -139,7 +143,7 @@ class Core_Settings_CNewsSettings
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
 		{		
-			return Display_DNewsSettings::viewNews($query->records);
+			return Display_DNewsSettings::viewNews($query->records,$Err);
 		}
 		else
 		{
@@ -159,8 +163,9 @@ class Core_Settings_CNewsSettings
 	
 	function editNews()
 	{
-		//print_r($_GET);
-		$sql = "UPDATE news_table SET news_desc='".$_POST['newsletter']."',news_title='".$_POST['newstitle']."' WHERE news_id=".(int)$_GET['id']; 
+		$removal= array("rn");
+		$desc= str_replace($removal, "", trim($_POST['newsletter']));
+		$sql = "UPDATE news_table SET news_desc='".$desc."',news_title='".$_POST['newstitle']."' WHERE news_id=".(int)$_GET['id']; 
 
 		$query = new Bin_Query();
 		
@@ -168,8 +173,6 @@ class Core_Settings_CNewsSettings
 			$_SESSION['msg'] = '<div class="alert alert-success">
 			<button type="button" class="close" data-dismiss="alert">×</button>
 			<strong>Well done!</strong> News Updated successfully</div> ';
-
-			//$_SESSION['msg']= "Updated Successfully";
 
 	}
 	

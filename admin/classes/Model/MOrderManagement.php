@@ -58,6 +58,12 @@ class Model_MOrderManagement
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{		
+
+			$output['username']=Core_CAdminHome::userName();
+		
+			$output['currentDate']=date('l, M d, Y H:i:s');		
+			$output['currency_type']=$_SESSION['currency']['currency_tocken'];		
+			$output['currencycode']=$_SESSION['currency']['currency_code'];	
 			$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
 			$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
 			$output['totalorders']=(int)Core_CAdminHome::totalOrders();
@@ -108,6 +114,13 @@ class Model_MOrderManagement
 		include('classes/Core/COrderManagement.php');
 		include('classes/Display/DOrderManagement.php');		
 		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CAdminHome.php');
+		include('classes/Display/DAdminHome.php');
+
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');		
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];		
+		$output['currencycode']=$_SESSION['currency']['currency_code'];	
 		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
 		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
 		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
@@ -181,7 +194,11 @@ class Model_MOrderManagement
 	   	 include('classes/Core/COrderManagement.php');
 		include('classes/Display/DOrderManagement.php');		
 		include('classes/Core/CRoleChecking.php');
+		$output['username']=Core_CAdminHome::userName();
 		
+		$output['currentDate']=date('l, M d, Y H:i:s');		
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];		
+		$output['currencycode']=$_SESSION['currency']['currency_code'];	
 		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
 		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
 		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
@@ -252,10 +269,14 @@ class Model_MOrderManagement
 
 		include('classes/Core/CAdminHome.php');
 		include('classes/Display/DAdminHome.php');
-	   	 include('classes/Core/COrderManagement.php');
+	   	include('classes/Core/COrderManagement.php');
 		include('classes/Display/DOrderManagement.php');		
 		include('classes/Core/CRoleChecking.php');
-		
+
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');		
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];		
+		$output['currencycode']=$_SESSION['currency']['currency_code'];	
 		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
 		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
 		$output['totalorders']=(int)Core_CAdminHome::totalOrders();

@@ -313,6 +313,8 @@ class Display_DOrderManagement
 	 */
 	function displayDetailOrders($result,$cmbStr,$recordsinv)
 	{
+
+
 		if($_GET['action']=='viewdetail')
 		{
 			if((count($result))>0)
@@ -416,7 +418,7 @@ class Display_DOrderManagement
 
 					<div class="row-fluid">
 					<div class="span3">
-					<label>Order Status</label></div>  <div class="span6"> '.$orders_status.'</div></div>
+					<label>Order Status</label></div>  <div class="span6"> <span class="label label-inverse">'.$orders_status.'</span></div></div>
 					
 
 					<div class="row-fluid">
@@ -429,6 +431,12 @@ class Display_DOrderManagement
 					<div class="span3">
 					<label>
 					Close Date</label></div>  <div class="span6"> '.$ordercloseddate.'</div></div>
+
+
+					<div class="row-fluid">
+					<div class="span3">
+					<label>
+					Paid Through</label></div>  <div class="span6"> <span class="label">'.$row['gateway_name'].'</span></div></div>
 
 					</div></div></div></div></div><br/>';
 
@@ -585,14 +593,15 @@ class Display_DOrderManagement
 					<textarea style="width: 209px; height: 107px;" name="orderhistory"></textarea></div>
 					</div>
 					</div>
+					<div class="row-fluid">
+					<div class="span3">
+					<label>
+					Paid Through</label></div>  <div class="span6"> <span class="label">'.$row['gateway_name'].'</span></div></div>
 
-					</div>
 					</div></div>
-
 					</div>
-
-
-					<form><br/>';
+					
+					<form><div>&nbsp;</div>';
 					//$output='<table width="100%" border="0" cellpadding="4" cellspacing="0"><tr><td class="content_list_txt2"  colspan="2"><h2><strong>Order Details</strong> </h2></td></tr><tr><td class="content_list_txt2"  colspan="2"><hr/></td></tr><tr><td class="content_list_txt2"  ><strong>Order Section</strong></td><td class="content_list_txt2"  >&nbsp;</td></tr><tr><td class="content_list_txt2"  >Order Id </td><td class="content_list_txt2"  >'.$orders_id.'</td></tr><tr><td class="content_list_txt2"  >Customers Name </td><td class="content_list_txt2"  >'.$customers_id.'</td></tr><tr><td class="content_list_txt2"  colspan="2"><hr/></td></tr><tr><td class="content_list_txt2"  ><strong>Shipping Section </strong></td><td class="content_list_txt2"  >&nbsp;</td></tr><tr><td class="content_list_txt2"  >Shipping Name</td><td class="content_list_txt2"  >'.$shipping_name.'</td></tr><tr><td class="content_list_txt2"  >Shipping_company</td><td class="content_list_txt2"  >'.$shipping_company.'</td></tr><tr><td class="content_list_txt2"  >Shipping_street_address</td><td class="content_list_txt2"  >'.$shipping_street_address.'</td></tr><tr>    <td class="content_list_txt2"  >Shipping_suburb</td><td class="content_list_txt2"  >'.$shipping_suburb.'</td></tr><tr><td class="content_list_txt2"  >Shipping_city</td><td class="content_list_txt2"  >'.$shipping_city.'</td></tr><tr><td class="content_list_txt2"  >Shipping_postcode</td><td class="content_list_txt2"  >'.$shipping_postcode.'</td></tr><tr><td class="content_list_txt2"  >Shipping_state</td><td class="content_list_txt2"  >'.$shipping_state.'</td></tr><tr><td class="content_list_txt2"  >Shipping_country</td><td class="content_list_txt2"  >'.$shipping_country.'</td></tr><tr><td class="content_list_txt2"  colspan="2"><hr/></td></tr><tr><td class="content_list_txt2"  ><strong>Billing Section </strong></td><td class="content_list_txt2"  >&nbsp;</td></tr><tr><td class="content_list_txt2"  >Billing_name</td><td class="content_list_txt2"  >'.$billing_name.'</td></tr><tr><td class="content_list_txt2"  >Billing_company</td><td class="content_list_txt2"  >'.$billing_company.'</td></tr><tr><td class="content_list_txt2"  >Billing_street_address</td><td class="content_list_txt2"  >'.$billing_street_address.'</td></tr><tr><td class="content_list_txt2"  >Billing_suburb</td><td class="content_list_txt2"  >'.$billing_suburb.'</td></tr><tr><td class="content_list_txt2"  >Billing_city</td><td class="content_list_txt2"  >'.$billing_city.'</td></tr><tr><td class="content_list_txt2"  >Billing_postcode</td><td class="content_list_txt2"  >'.$billing_postcode.'</td></tr><tr><td class="content_list_txt2"  >Billing_state</td><td class="content_list_txt2"  >'.$billing_state.'</td></tr><tr><td class="content_list_txt2"  >Billing_country</td><td class="content_list_txt2"  >'.$billing_country.'</td></tr><tr><td class="content_list_txt2"  colspan="2"><hr/></td></tr><tr><td class="content_list_txt2"  ><strong>Credit Card Section </strong></td><td class="content_list_txt2"  >&nbsp;</td></tr><tr><td class="content_list_txt2"  >Credit Card Type</td><td class="content_list_txt2"  >'.$cc_type.'</td></tr><tr><td class="content_list_txt2"  >Credit Card Owner</td><td class="content_list_txt2"  >'.$cc_owner.'</td></tr><tr><td class="content_list_txt2"  >Credit Card Number</td><td class="content_list_txt2"  >'.$cc_number.'</td></tr><tr><td class="content_list_txt2"  >Credit Card Expires</td><td class="content_list_txt2"  >'.$cc_expires.'</td></tr><tr><td class="content_list_txt2"  >Credit Card CVV</td><td class="content_list_txt2"  >'.$cc_cvv.'</td></tr><tr><td class="content_list_txt2"  colspan="2"><hr/></td></tr><tr><td class="content_list_txt2"  >Payment Method</td><td class="content_list_txt2"  >'.$payment_method.'</td></tr><tr><td class="content_list_txt2"  >Shipping Method</td><td class="content_list_txt2"  >'.$shipping_method.'</td></tr><tr><td class="content_list_txt2"  >Coupon Code</td><td class="content_list_txt2"  >'.$coupon_code.'</td></tr><tr><td class="content_list_txt2"  >Date Purchased</td><td class="content_list_txt2"  >'.$date_purchased.'</td></tr><tr><td class="content_list_txt2"  >Orders Date Closed</td><td class="content_list_txt2"  >'.$orders_date_closed.'</td></tr><tr><td class="content_list_txt2"  >Orders Status</td><td class="content_list_txt2"  >'.$orders_status.'</td></tr><tr><td class="content_list_txt2"  >Order Total</td><td class="content_list_txt2"  >'.$order_total.'</td></tr><tr><td class="content_list_txt2"  >Order Tax</td><td class="content_list_txt2"  >'.$order_tax.'</td></tr><tr><td class="content_list_txt2"  >Paypal IPN Id</td><td class="content_list_txt2"  >'.$paypal_ipn_id.'</td></tr><tr><td class="content_list_txt2"  >IP Address</td><td class="content_list_txt2"  >'.$ip_address.'</td></tr><tr><td class="content_list_txt2"  colspan="2"><hr/></td></tr><tr><td class="content_list_txt2" ></td><td class="content_list_txt2" ><a href="#" onclick="javascript:history.back();">Back</a></td></tr></table>';
 				}
 				return $output;
@@ -660,15 +669,7 @@ class Display_DOrderManagement
 		</tbody>
 		</table>';
 
-		$output.='<table width="100%" align="center" cellspacing="0" class="content_list_bdr" id="product-attribute-specs-table">			<tbody>';                	
 
-		$output.=' <tr >
-		<td width="46%">Paid Through Address </td>
-		<td>'.$result['gateway_name'].'</td>
-		</tr>
-
-		</tbody>
-		</table>';
 		return $output;
 	}
 	/**
@@ -880,7 +881,6 @@ class Display_DOrderManagement
 	function displayProductsForOrder($result,$grandtotal)
 	{
 
-
 		if(count($result)>0)
 		{
 			$output='  <div class="blocks" style="opacity: 1;">
@@ -902,6 +902,19 @@ class Display_DOrderManagement
 			foreach($result as $row)
 			{
 				
+
+				$variation='';
+				//select variation size
+				if(trim($row['variation_id'])!='0')
+				{
+					$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$row['variation_id']."' AND product_id='".$row['product_id']."'";
+					$objSize=new Bin_Query();
+					$objSize->executeQuery($sqlSize);
+					$size=$objSize->records[0]['variation_name'];
+					$variation='<span class="label">Size - '.''.$size.'</span>';
+				}
+
+
 				$title=$row['title'];
 				if(strlen($title)>25)
 					$title=substr($title,0,25). "..";
@@ -911,11 +924,11 @@ class Display_DOrderManagement
 				$shipcost=number_format($row['product_qty']*$row['shipping_cost'],2);
 				$subtotal=number_format($row['product_qty']*$row['product_unit_price'],2);    			 
 				$output.=' <tr >
-				<td class="content_list_txt1">'.$title.'</td>
-				<td class="content_list_txt1" align="center">'.$_SESSION['currency']['currency_tocken'].$price.'</td>
+				<td class="content_list_txt1">'.$title.' <br/>'.$variation.'</td>
+				<td class="content_list_txt1" align="center"><span class="label label-info">'.$_SESSION['currency']['currency_tocken'].$price.'</span></td>
 				<td class="content_list_txt1" align="center">'.$quantity.'</td>
 				<td class="content_list_txt1" align="center">'.$_SESSION['currency']['currency_tocken'].$shipcost.'</td>
-				<td class="content_list_txt1" align="center">'.$_SESSION['currency']['currency_tocken'].$subtotal.'</td>
+				<td class="content_list_txt1" align="center"><span class="label label-inverse">'.$_SESSION['currency']['currency_tocken'].$subtotal.'</span></td>
 				</tr>';
 
 				$total+=$row['product_qty']*$row['product_unit_price'];
@@ -926,13 +939,13 @@ class Display_DOrderManagement
 			$output.='<tr >
 
 			<td colspan="4" style="text-align:right" ><strong>SUB TOTAL :</strong></td>
-			<td  align="center" style="padding-right:10px"><strong>'.$_SESSION['currency']['currency_tocken'].number_format($total,2).'</strong></td>
+			<td  align="center" style="padding-right:10px"><span class="label label-success"><strong>'.$_SESSION['currency']['currency_tocken'].number_format($total,2).'</strong></span></td>
 			</tr><tr >
 			<td colspan="4" style="text-align:right" ><strong>SHIPPING COST :</strong></td>
-			<td  align="center" style="padding-right:10px"><strong>'.$_SESSION['currency']['currency_tocken'].number_format($shiptotal,2).'</strong></td>
+			<td  align="center" style="padding-right:10px"><span class="label label-warning"><strong>'.$_SESSION['currency']['currency_tocken'].number_format($shiptotal,2).'</strong></span></td>
 			</tr><tr >
 			<td colspan="4" style="text-align:right" ><strong>GRAND TOTAL :</strong></td>
-			<td  align="center" style="padding-right:10px"><strong>'.$_SESSION['currency']['currency_tocken'].number_format($grandtotal,2).'</strong></td>
+			<td  align="center" style="padding-right:10px"><strong><span class="label label-important">'.$_SESSION['currency']['currency_tocken'].number_format($grandtotal,2).'</strong></span></td>
 			</tr>
 			</tbody></table></div></div>';
 			

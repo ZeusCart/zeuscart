@@ -92,8 +92,7 @@ $(document).ready(function() {
 
 function changeVariation(pid,vid)
 {
-document.frmcart.action='?do=prodetail&action=showprod&prodid='+pid+'&varid='+vid;
-document.frmcart.submit();
+	document.location.hash='?do=prodetail&action=showprod&prodid='+pid+'&varid='+vid;
 }
 </script>
 <script type="text/javascript">

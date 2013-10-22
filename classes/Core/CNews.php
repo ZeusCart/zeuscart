@@ -98,10 +98,10 @@ class Core_CNews
 				 return Display_DNews::showNewsPage($obj->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
 			}	
 			else
-				return 'No Products Found!';
+				return 'No News Found!';
 		}
 		else
-			return 'No Products Found!';
+			return 'No News Found!';
 		
 	
 		

@@ -46,9 +46,6 @@ class Display_DNewsSettings
 	function showNews($arr,$flag,$paging,$prev,$next)
 	{    
 
-
-
-
 		$output = "";
 		
 		$output .= '
@@ -126,18 +123,33 @@ return $output;
 	 * @return string
 	 */
 	
-	function viewNews($arr)
+	function viewNews($arr,$Err)
 	{
 
+		if(!empty($Err->messages))
+		{
+			$arr=$Err->values;
+
+			$title=$Err->values['newstitle'];
+
+			$removal= array("rn");
+			$desc= str_replace($removal, "", trim($arr[0]['description']));
+			$desc=$Err->values['newsletter'];
+		}
+		else
+		{
+			$title=$arr[0]['news_title'];
+			$desc=$arr[0]['news_desc'];
+		}
 		$output = "";
 		$output.='<form name="viewnews" id="newsUpdateform" action="?do=news&action=edit&id='.$_GET['id'].'" method="post" >';
 		$output.='<div class="row-fluid">
 		<div class="span12">
-		<label>News Title :</label>  <input type="text" name="newstitle" id="newstitle" class="span8" value="'.$arr[0]['news_title'].'" /></div></div>';
+		<label>News Title <font color="red">*</font> </label>  <input type="text" name="newstitle" id="newstitle" class="span8" value="'.$title.'" /></div></div>';
 		$output.='<div class="row-fluid">
 		<div class="span12">
-		<label>News Content :</label>
-		<textarea name="newsletter" id="newsletter" class="ckeditor" cols="85" rows="20" >'.$arr[0]['news_desc'].'</textarea></div></div>';
+		<label>News Content <font color="red">*</font> </label>
+		<textarea name="newsletter" id="newsletter" class="ckeditor" cols="85" rows="20" >'.$desc.'</textarea></div></div>';
 		$output .= '</form>';
 
 		return $output;

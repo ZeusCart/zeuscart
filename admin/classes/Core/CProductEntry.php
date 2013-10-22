@@ -260,7 +260,6 @@
 							
 								new Lib_ThumbImage('thumb',$varstpath,$varthumbDir,THUMB_WIDTH,THUMB_HEIGHT);	
 					
-						
 								new Lib_ThumbImage('thumb',$varstpath,$varimageDir,IMAGE1_WIDTH,IMAGE1_HEIGHT);	
 								new Lib_ThumbImage('thumb',$varstpath,$varlargeDir,IMAGE2_WIDTH,IMAGE2_HEIGHT);			
 						}
@@ -1063,6 +1062,7 @@
 
 	function checkProductAlias()
 	{
+
 		//convert all special charactor into hyphens and lower case
 		$sluggable=$_GET['alias'];
 		
@@ -1079,9 +1079,33 @@
 		$obj=new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
-			return 'Product Alias already exists';
+			return '1';
 		}
+		else
+		{
+			return '0';
+		}
+	}
+	/**
+	 * Function is used to check the sku in database
+	 * 
+	 * 
+	 * @return string
+	 */	
 
+	function checkProductSku()
+	{
+	
+		$sql="SELECT * FROM products_table WHERE sku='".trim($_GET['sku'])."'";
+		$obj=new Bin_Query();
+		if($obj->executeQuery($sql))
+		{
+			return '1';
+		}
+		else
+		{
+			return '0';
+		}
 	}
 }
 ?>

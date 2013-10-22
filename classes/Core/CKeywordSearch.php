@@ -81,12 +81,12 @@
 			  if(((int)$catid)>0)
 			  {
 			   		 $qry="select a.*,sum(r.rating)/count(r.user_id) as
-					rating,count(r.user_id) as rcount from products_table a left join product_reviews_table r on a.product_id=r.product_id where  a.intro_date <= '".date('Y-m-d')."' and a.status=1 and ";
+					rating,count(r.user_id) as rcount from products_table a left join product_reviews_table r on a.product_id=r.product_id where  a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.product_status!='3' and ";
 			   }
 			   else
 			   {
 					$qry="select a.*,sum(r.rating)/count(r.user_id) as
-					rating,count(r.user_id) as rcount from products_table a  left join product_reviews_table r on a.product_id=r.product_id where a.intro_date <= '".date('Y-m-d')."' and a.status=1 and ";
+					rating,count(r.user_id) as rcount from products_table a  left join product_reviews_table r on a.product_id=r.product_id where a.intro_date <= '".date('Y-m-d')."' and a.status=1 and a.product_status!='3'and ";
 			   }
 			   
 			  	 if($sortby==0)

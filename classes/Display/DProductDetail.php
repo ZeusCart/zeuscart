@@ -173,7 +173,9 @@ class Display_DProductDetail
 				}
 
 		
-				$output.=''.$rating.'</li>
+				$output.=''.$rating.'</li>';
+					
+				$output.='<li>SKU : <span class="label">'.$arr[0]['sku'].'</span></li>
 				<li><table width="100%" border="0">
 				<tr>
 				<td align="left" valign="top">';
@@ -448,8 +450,8 @@ class Display_DProductDetail
 				</tr>
 				</thead>';
 	
-			if($recordsfeature[0]['sku']!='')
-				{$output.='<tr ><td  width="50%">SKU </td><td> '.$recordsfeature[0]['sku'].'</td></tr>';}
+// 			if($recordsfeature[0]['sku']!='')
+// 				{$output.='<tr ><td  width="50%">SKU </td><td> '.$recordsfeature[0]['sku'].'</td></tr>';}
 			if($recordsfeature[0]['brand']!='')
 				{$output.='<tr ><td  width="50%">Brand </td><td> '.$recordsfeature[0]['brand'].'</td></tr>';}
 			if($recordsfeature[0]['weight']!='')

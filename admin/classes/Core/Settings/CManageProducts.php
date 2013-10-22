@@ -116,7 +116,7 @@ class Core_Settings_CManageProducts
 		}
 		
 		$total = 0;
-		$sql = "SELECT 	* FROM products_table ";
+		$sql = "SELECT * FROM products_table  WHERE product_status!='3'"; 
 		
 		$query = new Bin_Query();
 		
@@ -130,7 +130,7 @@ class Core_Settings_CManageProducts
 			$this->data['prev'] =$tmp->prev;
 			$this->data['next'] = $tmp->next;	
 			
-			$sql = "SELECT 	* FROM products_table LIMIT $start,$end ";
+			$sql = "SELECT 	* FROM products_table WHERE product_status!='3' LIMIT $start,$end ";
 			
 			$query = new Bin_Query();
 			
@@ -423,15 +423,19 @@ class Core_Settings_CManageProducts
 	
 	function deleteProduct()
 	{
+
 		$id=(int)$_GET['prodid'];
 		
-		$sql='delete from products_table where product_id ='.$id;
-		
-		$obj=new Bin_Query();
-		
+		$date=date("Y-m-d H:i:s");
+		$sql='UPDATE products_table SET product_status="3" ,deleted_reason="Product has been deleted on '.$date.'" WHERE product_id ='.$id; 	
+		$obj=new Bin_Query();		
 		if($obj->updateQuery($sql))
 		{	
-			return '<div class="success_msgbox">Product Deleted Successfully</div>';	
+
+			$_SESSION['update_msg']='<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Product Deleted Successfully</div>';	
+
+			header('Location:?do=manageproducts');
 		}	
 	}
 	
@@ -1481,7 +1485,7 @@ class Core_Settings_CManageProducts
 					
 				}
 		
-				$output='	<div class="alert alert-success">
+				$output='<div class="alert alert-success">
 				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has been updated successfully</div>';
 
 		}
@@ -1736,6 +1740,59 @@ class Core_Settings_CManageProducts
 		}
 
 	}
+		/**
+	 * Function is used to check the alias in database
+	 * 
+	 * 
+	 * @return string
+	 */	
 
+	function checkProductAlias()
+	{
+
+		//convert all special charactor into hyphens and lower case
+		$sluggable=$_GET['alias'];
+		
+		$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $sluggable);
+		$sluggable = trim($sluggable, '-');
+		if( function_exists('mb_strtolower') ) { 
+			$sluggable = mb_strtolower( $sluggable );
+		} else { 
+			$sluggable = strtolower( $sluggable );
+		}
+		$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+		$sql="SELECT * FROM products_table WHERE alias='".$sluggable."' product_id!='".$_GET['prodid']."'";
+		$obj=new Bin_Query();
+		if($obj->executeQuery($sql))
+		{
+			return '1';
+		}
+		else
+		{
+			return '0';
+		}
+	}
+	/**
+	 * Function is used to check the sku in database
+	 * 
+	 * 
+	 * @return string
+	 */	
+
+	function checkProductSku()
+	{
+	
+		$sql="SELECT * FROM products_table WHERE sku='".trim($_GET['sku'])."' AND product_id!='".$_GET['prodid']."'";
+		$obj=new Bin_Query();
+		if($obj->executeQuery($sql))
+		{
+			return '1';
+		}
+		else
+		{
+			return '0';
+		}
+	}
 	
 }	

@@ -8,6 +8,7 @@ RewriteRule ^aboutus.html$ index.php?do=aboutus
 RewriteRule ^policy.html$ index.php?do=privacypolicy
 RewriteRule ^terms.html$ index.php?do=termsandcondition
 RewriteRule ^faq.html$ index.php?do=faq
+RewriteRule ^latestnews.html$ index.php?do=morenews
 RewriteRule ^login.html$ index.php?do=login
 RewriteRule ^logout.html$ index.php?do=logout
 

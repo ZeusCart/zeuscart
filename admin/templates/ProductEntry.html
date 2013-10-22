@@ -100,6 +100,21 @@ function checkInputs()
 		else
 		{
 
+			if(!$('#uniquesku').is(':empty'))
+			{
+				alert('Please enter the unique sku');
+				tabOpenvalidation('2');
+				return false;
+
+			}
+			alias=$('#checkalias').html();
+			if(!$('#checkalias').is(':empty'))
+			{
+				alert('Please enter the product alias');
+				tabOpenvalidation('2');
+				return false;
+
+			}
 			if(isNaN(document.productreg.txtweight.value))
 			{
 				alert('Invalid Inputs In Weight');
@@ -465,11 +480,51 @@ $(document).ready(function (){
 });
 function productalias(val)
 {
-
 	if(val!='')
 	{
-		var url='?do=productentry&action=productalias&alias='+ val;
-		ajax(url,'checkalias');	
+			$.ajax({
+			url:'?do=productentry&action=productalias',
+			data: 'alias='+val,
+			type: 'GET',
+			success: function (resp) {
+				if(resp ==1)
+				{
+					document.getElementById('checkalias').innerHTML="<code >Product alias already exists</code>";
+				}
+				else
+				{
+					document.getElementById('uniquesku').innerHTML="";
+				
+				}
+	
+			}
+		});
+		
+	}
+
+}
+function checksku(val)
+{
+	
+	if(val!='')
+	{
+		$.ajax({
+		url:'?do=productentry&action=productsku',
+		data: 'sku='+val,
+		type: 'GET',
+		success: function (resp) {
+
+				if(resp ==1)
+				{
+					document.getElementById('uniquesku').innerHTML="<code >Product sku already exists</code>";
+				}
+				else
+				{
+					document.getElementById('uniquesku').innerHTML="";
+				
+				}
+			}
+		});
 		
 	}
 
@@ -638,7 +693,7 @@ function removeVariation(rdiv)
 
 		<div class="row-fluid">
         		<div class="span12"><label>Product Alias </label>
-        			<input name="product_alias" id="product_alias" value="<AJDF:output>$val.product_alias</AJDF:output>"   type="text" size="50" onblur="productalias(this.value);"/>&nbsp;<div style="color:#FF0000" id="checkalias"></div>
+        			<input name="product_alias" id="product_alias" value="<AJDF:output>$val.product_alias</AJDF:output>"   type="text" size="50" onblur="productalias(this.value);" onkeyup="productalias(this.value);"/>&nbsp;<span id="checkalias"></span>
         		</div>
         	</div>
 
@@ -650,8 +705,9 @@ function removeVariation(rdiv)
         			</div>
         			<div class="row-fluid">
         				<div class="span12"><label>SKU <font color="#FF0000">*</font></label>
-        					<div id="sku"><input name="sku" id="sku" type="text" value="<AJDF:output>$val.sku</AJDF:output>"/>
-        						<div id="dsku" style="left: 50px; top: 50px;"></div>
+        					<div id="sku"><input name="sku" id="sku" type="text" value="<AJDF:output>$val.sku</AJDF:output>" onblur="checksku(this.value);" onkeyup="checksku(this.value);"/>&nbsp;<span id="uniquesku"></span>
+						
+        					<div id="dsku" style="left: 50px; top: 50px;"></div>
         					</div></div></div>
         					<div class="row-fluid">
         						<div class="span12"><label>Brand</label>

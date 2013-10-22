@@ -205,19 +205,11 @@ class Model_MManageProducts
 		include_once('classes/Core/Settings/CManageProducts.php');
 		include_once('classes/Display/DManageProducts.php');
 		
-		
 		$chkuser=Core_CRoleChecking::checkRoles();
 		if($chkuser)
 		{
-			$default = new Core_Settings_CManageProducts();
-		
-			$output['maincategory']=$default->displayCategory($id);
-			$output['subcat']=$default->displaySubCategory($subcatid);
-			$output['disptitle']=$default->dispProductTitle();
-			$output['deletemsg']=$default->deleteProduct();
-			$output['allproducts']=$default->showAllProducts();
-		
-			Bin_Template::createTemplate('manageproducts.html',$output);
+			$default = new Core_Settings_CManageProducts();		
+			$default->deleteProduct();
 		}
 		else
 		{
@@ -228,17 +220,13 @@ class Model_MManageProducts
 	
 	
 	}
-	
-	
-	
 	/**
 	 * Function displays a edit template for updating a product
 	 * 
 	 * 
 	 * @return array
 	 */
-	
-	
+
 	function editProduct()
 	{
 		include('classes/Core/CRoleChecking.php');
@@ -712,6 +700,30 @@ class Model_MManageProducts
 		$output['title']=$default->autoComplete();
 		//Bin_Template::createTemplate('autocomplete.html',$output);
 	}
-	
+	/**
+	 * Function is used to check the product alias  
+	 * 
+	 * 
+	 * @return array
+	 */	
+	 
+	function checkProductAlias()
+	{
+
+		include('classes/Core/Settings/CManageProducts.php');
+		echo Core_Settings_CManageProducts::checkProductAlias();
+	}
+	/**
+	 * Function is used to check the product sku  
+	 * 
+	 * 
+	 * @return array
+	 */	
+	function checkProductSku()
+	{
+
+		include('classes/Core/Settings/CManageProducts.php');
+		echo Core_Settings_CManageProducts::checkProductSku();
+	}
 }	
 ?>

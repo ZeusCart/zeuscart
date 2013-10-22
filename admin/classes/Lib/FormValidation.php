@@ -232,7 +232,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateAddNews()
 	{
 
-		
+	
 		$message = "Required Field Cannot be blank";
 		$this->Assign("newstitle",trim($_POST['newstitle']),"noempty","News Title- " .$message);
 

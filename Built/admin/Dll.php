@@ -1051,6 +1051,18 @@
     'function' => 'updateGiftProduct',
     'loadlib' => '1',
   ),
+  'manageproducts:productalias' => 
+  array (
+    'model' => 'MManageProducts',
+    'function' => 'checkProdcutAlias',
+    'loadlib' => '1',
+  ),
+  'manageproducts:productsku' => 
+  array (
+    'model' => 'MManageProducts',
+    'function' => 'checkProductSku',
+    'loadlib' => '1',
+  ),
   'selectfeatured' => 
   array (
     'model' => 'MSelectFeaturedItems',
@@ -1295,6 +1307,12 @@
   array (
     'model' => 'MProductEntry',
     'function' => 'checkProductAlias',
+    'loadlib' => '1',
+  ),
+  'productentry:productsku' => 
+  array (
+    'model' => 'MProductEntry',
+    'function' => 'checkProductSku',
     'loadlib' => '1',
   ),
   'productentry' => 

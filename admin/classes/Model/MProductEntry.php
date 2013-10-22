@@ -451,9 +451,19 @@ class Model_MProductEntry
 	function checkProductAlias()
 	{
 
-		include('classes/Core/Settings/CManageProducts.php');
+		include('classes/Core/CProductEntry.php');
 		echo Core_CProductEntry::checkProductAlias();
 	}
-	
+	/**
+	 * Function is used to check the product sku  
+	 * 
+	 * 
+	 * @return array
+	 */	
+	function checkProductSku()
+	{
+		include('classes/Core/CProductEntry.php');
+		echo Core_CProductEntry::checkProductSku();
+	}
 }
 ?>

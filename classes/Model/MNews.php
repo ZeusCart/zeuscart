@@ -63,7 +63,8 @@ class Model_MNews
 		include('classes/Display/DAddCart.php');
 		include('classes/Core/CUserRegistration.php');
 		include('classes/Display/DUserRegistration.php'); 
-		
+		include('classes/Core/CProductDetail.php');
+		include('classes/Display/DProductDetail.php');
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['timezone']=Core_CHome::setTimeZone();	
@@ -97,6 +98,7 @@ class Model_MNews
 		$output['headertext'] = Core_CUserRegistration::showHeaderText();
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
 		$output['categories'] = Display_DUserRegistration::showMainCat();
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
 	    	$output['newscontent']=Core_CNews::showNewsPage();
 		
        		 if($_SESSION['compareProductId']=='')

@@ -42,10 +42,10 @@ class Display_DNewsletterSettings
 	
 	function showNewsletter($arr)
 	{
-	
+
 		$output = "";
 		
-		$output .= '
+		$output .= '<div class="clsListing clearfix">
 
 		<table cellspacing="0" cellpadding="0" border="0"  class="table table-striped table-bordered  table-hover">
 
@@ -53,9 +53,9 @@ class Display_DNewsletterSettings
 		<tr>
 		<th  align="left"><input type="checkbox"  onclick="toggleChecked(this.checked)" name="newslettercheckall"></th>
 		<th  align="left">S.No</th>
-		<th align="left">NewsLetter Title</th>
+		<th align="left"  width="50%">NewsLetter Title</th>
 		<th align="left" >Created Date</th>
-		<th align="left" >Status</th>
+		<th align="left"  width="10%">Options</th>
 		</tr>
 		</thead>
 		<tbody>';
@@ -72,20 +72,23 @@ class Display_DNewsletterSettings
 			$status=$arr[$i]['newsletter_status'];
 			if($status==1)
 			{
-			$status='active_link'; //sent
+
+			$status='<span title="Enabled" class="badge badge-info">Active</span>'; //sent
 			}
 			else
 			{
-			$status='inactive_link'; //Not Sent
+			$status='<span title="Enabled" class="badge badge-important">In Active</span>'; //Not Sent
 			}
 			$output .= '<tr>
 			<td><input type="checkbox" name="newslettercheck[]" class="chkbox" value="'.$arr[$i]['newsletter_id'].'"></td><td align="center" >'.($i+1).'</td><td align="" ><a href="?do=newsletter&action=disp&id='.$arr[$i]['newsletter_id'].'" >'.$arr[$i]['newsletter_title'].' </a></td>';
 			$output .= '<td align="center" >'.$ndate.'</td>';
-			$output .= '<td align="center" ><span class='.$status.'>&nbsp;</span></td></tr>';
+			$output .= '<td align="center" ><a href="?do=newsletter&action=disp&id='.$arr[$i]['newsletter_id'].'"><i class="icon icon-edit"></i></a>
+			<a href="javascript:void(0);" onclick="deletenews('.$arr[$i]['newsletter_id'].')";><i class="icon icon-trash"></i></a>
+			<a href="?do=newsletter&action=send&newsid=1"><i class="icon icon-inbox"></i></a></td></tr>';
 			
 		}
 			
-		$output.='</tbody></table>';
+		$output.='</tbody></table></div>';
 		return $output;
 			
 	}
@@ -165,15 +168,15 @@ class Display_DNewsletterSettings
 			$status=$arr[$i]['newsletter_status'];
 			if($arr[$i]['status']==1)
 			{
-			$status='active_link';
+			$status='<span title="Enabled" class="badge badge-info">Active</span>';
 			}
 			else
 			{
-			$status='inactive_link';
+			$status='<span title="Enabled" class="badge badge-important">Suspend</span>';
 			}
 			$output .= '<tr><td align="center" >'.($i+1).'</td><td align="" >'.$arr[$i]['email'].' <br />
 			</td>';			
-			$output .= '<td align="center" ><span class="'.$status.'">&nbsp;</span></td>';
+			$output .= '<td align="center" >'.$status.'</td>';
 			}
 			
 		$output.='</tr>';

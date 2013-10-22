@@ -654,7 +654,14 @@ class Core_CQuery
 
 		$sql="Drop table if exists order_products_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE order_products_table(order_id  INT(25) NOT NULL,product_id  INT(25) NOT NULL,product_qty  INT(10) NOT NULL,product_unit_price  real NOT NULL,shipping_cost  real NOT NULL)";
+		$sql="CREATE TABLE IF NOT EXISTS `order_products_table` (
+			`order_id` int(25) NOT NULL,
+			`product_id` int(25) NOT NULL,
+			`variation_id` int(25) NOT NULL,
+			`product_qty` int(10) NOT NULL,
+			`product_unit_price` double NOT NULL,
+			`shipping_cost` double NOT NULL
+			) ";
 		$result=mysql_query($sql);
 		
 
@@ -822,7 +829,8 @@ class Core_CQuery
 		`gift` int(20) NOT NULL,
 		`digital_product_path` varchar(200) NOT NULL,
 		 `has_variation` tinyint(10) NOT NULL,	
-		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
+		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product,3=>deleted product ',
+ 		 `deleted_reason` varchar(240) NOT NULL,
 		PRIMARY KEY (`product_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);

@@ -36,8 +36,8 @@ $(document).ready(function (){
 
       <ul class="bttn_right">
         <li><a href="javascript:void(0);" class="update_icon"  id="editNewslettericon"></a></li>
-        <li><a href="javascript:void(0);" class="save_icon"  onclick="sendmail(<AJDF:output>$smarty.get.id</AJDF:output>)" id="sendNewslettericon"></a></li>
-        
+        <li><a href="javascript:void(0);"  onclick="sendmail(<AJDF:output>$smarty.get.id</AJDF:output>)" id="sendNewslettericon"><img src="assets/img/icons/publish.png"></a></li>
+           <li> <a class="back_icon1" href="javascript:history.go(-1)"></a></li>
       </ul>
 
     </div>
@@ -68,23 +68,18 @@ $(document).ready(function (){
 
 <script type="text/javascript" language="javascript">
 
+
 function sendmail(newsletterid)
 {
-
 	$('#myModal').modal('show');
-	
 
 }
 
 function success(newsletterid)
 {
-
 	document.viewnewsletter.method="post";
 	document.viewnewsletter.action="?do=newsletter&action=send&newsid="+newsletterid;
 	document.viewnewsletter.submit();
-
 }
-
-
 </script>	
 <AJDF:output>include file="footer.html"</AJDF:output>

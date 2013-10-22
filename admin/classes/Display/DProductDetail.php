@@ -127,7 +127,7 @@ class Display_DProductDetail
 		
 		<p class="formSep"><table width="100%" border="0">
 				<tbody><tr>
-				<td align="left" valign="top"><span>SKU : '.$arr[0]['sku'].'</span></td>
+				<td align="left" valign="top"><span class="label label-success">SKU : '.$arr[0]['sku'].'</span></td>
 				
 				</tr>
 				</tbody></table> </p>
@@ -181,10 +181,12 @@ class Display_DProductDetail
               <li class=""><a data-toggle="tab" href="#profile">Additional Information</a></li>
               
             </ul>';
-
+		
+		$removal= array("rn");
+		$desc= str_replace($removal, "", trim($arr[0]['description']));
             $output.='<div class="tab-content" id="myTabContent">
               <div id="home" class="tab-pane fade active in">
-                <p>'.$arr[0]['description'].'</p>
+                <p>'.$desc.'</p>
               </div>
               <div id="profile" class="tab-pane fade">
                 <p><tr>

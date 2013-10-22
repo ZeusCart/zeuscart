@@ -102,11 +102,8 @@ class Display_DNews
 	function showNewsPage($arr,$paging,$prev,$next,$val)
 	{
 		
-		 
-		$output ='
-		<div class="quickview_border" style="margin-top:2px;width:600px;" valign="top">
-		<div class="heading1" style="width:600px;" align="left" ><span class="headingTXT" style="width:600px;" >News</span></div>
-		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding-left:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;">';
+
+		$output ='<ul class="productlists">';
       
 	 	 $i=0;
 		
@@ -115,21 +112,17 @@ class Display_DNews
 			while($i<count($arr))
 			{
 			
-					$output.='<tr>';
-				
-				$style[0]='background:url(images/bg_line1.gif) repeat-y right';
-				$style[1]='';
-				$style[2]='background:url(images/bg_line1.gif) repeat-y right';
-								
-			    $output.='<td  style="'.$style[1].'"><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+					$output.='';
+												
+			    $output.='<li><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" ">
 				<tr>
-				  <td align="left"    class="serachresult"  >'.$arr[$i]['news_title'].'<br>
+				  <td align="left"   >	<h1>'.$arr[$i]['news_title'].'</h1>
 				 
 				<font color="orange" size="2.9"> <small>'.$arr[$i]['date'].'</font> </span></td>
-				 
+				 </tr>
 				 
 				 <tr> 
-				  <td align="left" class="categoriesList"   >'.$arr[$i]['news_desc'].'  </td>
+				  <td align="left" class="categoriesList"   >'.trim($arr[$i]['news_desc']).'  </td>
 				  </tr>
 				   </table></td>';
 		
@@ -145,7 +138,7 @@ class Display_DNews
 							for($i=1;$i<=count($paging);$i++)
 							 $pagingvalues .= $paging[$i]."  ";
 							 
-							 $output .= $pagingvalues.' '.$next.'</td></tr>';
+							 $output .= $pagingvalues.' '.$next.'</td></tr></li>';
 		
 		}
 		else
@@ -156,7 +149,7 @@ class Display_DNews
 		
 		
 		
-		$output.='</table></div>';
+		$output.='</ul>';
 		
 		return $output;
 	

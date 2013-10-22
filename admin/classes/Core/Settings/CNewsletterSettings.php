@@ -139,16 +139,30 @@ class Core_Settings_CNewsletterSettings
 	
 	function deleteNewsletter()
 	{
-		foreach ($_POST['newslettercheck'] as $key => $value) {
 
+		if(empty($_POST))
+		{
+			$sql = "DELETE FROM newsletter_table WHERE newsletter_id='".$_GET['id']."'";  	
+			$query = new Bin_Query();
+			
+			if($query->updateQuery($sql))
+				$result ='<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>  News Letter Deleted Successfully.</div>';
+
+		}
+		else
+		{	
+			foreach ($_POST['newslettercheck'] as $key => $value) {
+	
 			$sql = "DELETE FROM newsletter_table WHERE newsletter_id='".$value."'"; 
-
-		$query = new Bin_Query();
-		
-		if($query->updateQuery($sql))
-			$result ='<div class="alert alert-success">
-			<button data-dismiss="alert" class="close" type="button">×</button>  News Letter Deleted Successfully.</div>';
-		
+	
+			$query = new Bin_Query();
+			
+			if($query->updateQuery($sql))
+				$result ='<div class="alert alert-success">
+				<button data-dismiss="alert" class="close" type="button">×</button>  News Letter Deleted Successfully.</div>';
+			
+			}
 		}
 		
 		return $result;
@@ -164,43 +178,99 @@ class Core_Settings_CNewsletterSettings
 	
 	function getEmailIds()
 	{
-		
-		include('classes/Lib/Mail.php');
-		if($_POST != '')
+
+		$sqlNews="SELECT * FROM newsletter_table WHERE newsletter_status=1";
+		$objNews=new Bin_Query();
+		$objNews->executeQuery($sqlNews);
+		if(!$objNews->executeQuery($sqlNews))
 		{
-			$sql = "select email from newsletter_subscription_table where status=1";
-			
-			$obj = new Bin_Query();
-			
-			if($obj->executeQuery($sql))
+			include('classes/Lib/Mail.php');
+			if($_POST != '')
 			{
-				$cnt=count($obj->records);
-				for($i=0;$i<$cnt;$i++)
-				{
-					$email = $obj->records[0]['email'];
-					
-					$title = $_POST['newslettertitle'];
-					$mail_content = $_POST['newsletter'];
-					$this->sendingMail($email,$title,$mail_content);
-				}	
-				$sql="UPDATE newsletter_table SET newsletter_status=1 where newsletter_id=".(int)$_GET['newsid'];
-				$query = new Bin_Query();
 		
-				if($query->updateQuery($sql))
+				$sql = "select email from newsletter_subscription_table where status=1";
+				
+				$obj = new Bin_Query();
+				
+				if($obj->executeQuery($sql))
 				{
-					$result = '<div class="alert alert-success">
-			<button data-dismiss="alert" class="close" type="button">×</button> Newsletter has been sent successfully.</div>';
+					$cnt=count($obj->records);
+					for($i=0;$i<$cnt;$i++)
+					{
+				
+						$removal= array("rn");
+						$desc= str_replace($removal, "", trim($_POST['newsletter']));
+			
+						$email = $obj->records[0]['email'];
+						
+						$title = $_POST['newslettertitle'];
+						$mail_content = $desc;
+						$this->sendingMail($email,$title,$mail_content);
+					}	
+					$sql="UPDATE newsletter_table SET newsletter_status=1 where newsletter_id=".(int)$_GET['newsid'];
+					$query = new Bin_Query();
+			
+					if($query->updateQuery($sql))
+					{
+						$result = '<div class="alert alert-success">
+						<button data-dismiss="alert" class="close" type="button">×</button> Newsletter has been sent successfully.</div>';
+					}
+				}
+				else
+				{
+					$result = '	<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Invalid User.</div> ';
+					
 				}
 			}
 			else
 			{
-				$result = '<div class="exc_msgbox">Invalid User.</div>';
+				$sql = "select email from newsletter_subscription_table where status=1";
 				
-			}
+				$obj = new Bin_Query();
+				
+				if($obj->executeQuery($sql))
+				{
+					$cnt=count($obj->records);
+					for($i=0;$i<$cnt;$i++)
+					{
+				
+						$removal= array("rn");
+						$desc= str_replace($removal, "", trim($_POST['newsletter']));
+			
+						$email = $obj->records[0]['email'];
+						
+						$title = $_POST['newslettertitle'];
+						$mail_content = $desc;
+						$this->sendingMail($email,$title,$mail_content);
+					}	
+					$sql="UPDATE newsletter_table SET newsletter_status=1 where newsletter_id=".(int)$_GET['newsid'];
+					$query = new Bin_Query();
+			
+					if($query->updateQuery($sql))
+					{
+						$result = '<div class="alert alert-success">
+						<button data-dismiss="alert" class="close" type="button">×</button> Newsletter has been sent successfully.</div>';
+					}
+				}
+				else
+				{
+					$result = '	<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>Invalid User.</div> ';
+					
+				}
+			}	
+
+		}
+		else
+		{
+			$result = '<div class="alert alert-error">
+				<button data-dismiss="alert" class="close" type="button">×</button>This News letter has been sent to all users</div>';
+
 		}
 		return $result;
 	}
-	
+
 	
 	/**
 	 * Function sends the mail to all the ids in the $to_mail array using the Lib_Mail  
@@ -217,14 +287,14 @@ class Core_Settings_CNewsletterSettings
 	function sendingMail($to_mail,$title,$mail_content)
 	{
 		
-		$sql = "SELECT set_name,set_value FROM `admin_settings_table` where set_name='Admin Email'";
+		$sql = "SELECT admin_email,set_id FROM `admin_settings_table` where set_id ='1'";
 			$query = new Bin_Query();
 			if($query->executeQuery($sql))
-				$fromemail=$query->records[0]['set_value'];
+				$fromemail=$query->records[0]['admin_email']; 
 		
 		$mail = new Lib_Mail();
 		$mail->From($fromemail); 
-		$mail->ReplyTo('admin@zeuscart.com');
+		$mail->ReplyTo($fromemail);
 		$mail->To($to_mail); 
 		$mail->Subject($title);
 		$mail->Body($mail_content);
@@ -239,11 +309,11 @@ class Core_Settings_CNewsletterSettings
 	 */	 	
 	
 	function subscribedUsers()
-    {
-        include("classes/Display/DNewsletterSettings.php");
+    	{
+       		 include("classes/Display/DNewsletterSettings.php");
 		
 		$pagesize=10;
-	   if(isset($_GET['page']))
+	  	 if(isset($_GET['page']))
 		{
 		    
 			$start = trim($_GET['page']-1) *  $pagesize;

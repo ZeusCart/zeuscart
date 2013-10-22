@@ -264,7 +264,8 @@
 		<do name="manageproducts" model="MManageProducts" action="gifteditprod" function="editGiftProduct" />
 		
 		<do name="manageproducts" model="MManageProducts" action="updategiftprod" function="updateGiftProduct" />	
-		
+		<do name="manageproducts" model="MManageProducts" action="productalias" function="checkProdcutAlias" />
+		<do name="manageproducts" model="MManageProducts" action="productsku" function="checkProductSku" />
 		<do name="selectfeatured" model="MSelectFeaturedItems" function="showCategory"/>
 		<do name="selectfeatured" model="MSelectFeaturedItems" action="showsubcat" function="showSubCategory"/>
 		<do name="selectfeatured" model="MSelectFeaturedItems" action="showproducts" function="showProducts"/>    
@@ -321,6 +322,8 @@
 		
 		
 		<do name="productentry" model="MProductEntry" function="checkProductAlias" action="productalias"/>	
+		<do name="productentry" model="MProductEntry" function="checkProductSku" action="productsku"/>
+		
  	 	<do name="productentry" model="MProductEntry" function="displayEntry"/>
 		<do name="productentry" model="MProductEntry" function="displaySubCategory" action="displaySubCategory"/>
 		
