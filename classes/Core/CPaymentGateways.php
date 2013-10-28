@@ -132,7 +132,6 @@ class Core_CPaymentGateways
 		function success()
 		{
 
-
 			if($_GET['pay_type']=='1')
 				{
 					$order_total=$_POST['mc_gross'];
@@ -266,7 +265,6 @@ class Core_CPaymentGateways
 				$date_purchased=$trans_date;
 				$payment_method=$_GET['pay_type'];
 		     
-				
 			$customers_id=$_SESSION['user_id'];
 			$orderdetails=$_SESSION['orderdetails'];
 			
@@ -287,8 +285,9 @@ class Core_CPaymentGateways
 			$shipping_country  =$orderdetails['txtscountry'];
 			$billing_state =$orderdetails['txtsstate'];
 			$ip_address=$_SERVER['REMOTE_ADDR'];		
-			$shipment_id_selected=$_SESSION['shipment_id_selected'];
-
+			$shipment_id_selected=$orderdetails['shipment_id'];
+			$shipping_method=$orderdetails['shipdurid'];	
+			$shipping_cost=$orderdetails['shipping_cost'];
 
 			$billingaddress = $billing_name.', <br>'.$billing_street_address.', <br>'.$billing_city.', <br>'.$billing_suburb.', <br>'.$billing_country;
 			
@@ -296,15 +295,15 @@ class Core_CPaymentGateways
 
 			if((((int)$customers_id!=0) || ($customers_id!='')) && ($_SESSION['checkout_amount']!=''))
 			{
-					 $sql="insert into orders_table
+					$sql="insert into orders_table
 					( customers_id, shipping_name, shipping_company, shipping_street_address, 
 					shipping_suburb, shipping_city, shipping_postcode, shipping_state, shipping_country, 
 					billing_name, billing_company, billing_street_address, billing_suburb, 
 					billing_city, billing_postcode, billing_state, billing_country, payment_method, 
 					shipping_method, coupon_code,  date_purchased, orders_date_closed, orders_status, order_total, 
-					order_tax, ipn_id, ip_address,shipment_id_selected)
+					order_tax, ipn_id, ip_address,shipment_id_selected,order_ship)
 					values
-					('".$customers_id."','".$shipping_name."','".$shipping_company."','".$shipping_street_address."','".$shipping_suburb."','".$shipping_city."','".$shipping_postcode."','".$shipping_state."','".$shipping_country."','".$billing_name."','".$billing_company."','".$billing_street_address."','".$billing_suburb."','".$billing_city."','".$billing_postcode."','".$billing_state."','".$billing_country."','".$payment_method."','".$shipping_method."','".$coupon_code."','".$date_purchased."','".$orders_date_closed."','".$orders_status."','".$order_total."','".$order_tax."','".$ipn_id."','".$ip_address."','".$shipment_id_selected."')";
+					('".$customers_id."','".$shipping_name."','".$shipping_company."','".$shipping_street_address."','".$shipping_suburb."','".$shipping_city."','".$shipping_postcode."','".$shipping_state."','".$shipping_country."','".$billing_name."','".$billing_company."','".$billing_street_address."','".$billing_suburb."','".$billing_city."','".$billing_postcode."','".$billing_state."','".$billing_country."','".$payment_method."','".$shipping_method."','".$coupon_code."','".$date_purchased."','".$orders_date_closed."','".$orders_status."','".$order_total."','".$order_tax."','".$ipn_id."','".$ip_address."','".$shipment_id_selected."','".$shipping_cost."')";
 									
 					$obj=new Bin_Query();
 					if($obj->updateQuery($sql))
@@ -323,23 +322,34 @@ class Core_CPaymentGateways
 							$obj1->executeQuery($sql1);
 							$rec=$obj1->records;
 							$maxid=$rec[0]['maxid'];
+
+							if(isset($_SESSION['mycart']))
+							{
+
+								$cartid=$_SESSION['mycart'][0]['cartid'];
+// 								
+							}
+							else
+							{
+								$sql4="select distinct a.cart_id from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']; 
+								$obj4=new Bin_Query();
+								$obj4->executeQuery($sql4);
+								$res4=$obj4->records;
+								
+								$val=$res4[0]['cart_id']; 
+								$cartid=$val;
+							}
 							
-							$sql4="select distinct a.cart_id from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']; 
-							$obj4=new Bin_Query();
-							$obj4->executeQuery($sql4);
-							$res4=$obj4->records;
 							
-// 							 $val=$res4[0]['cart_id']; 
-// 								$cartid=$val;
 							
-						if(count($res4)>0)
+					/*	if(count($res4)>0)
 						{
 								
 								
 							for($c=0;$c<count($res4);$c++)
-							{	
-								$val=$res4[$c]['cart_id'];
-								$sql2="select * from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']." and a.cart_id='".$val."'" ;  
+							{*/	
+								
+								$sql2="select * from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']." and a.cart_id='".$cartid."'" ;  
 								$obj2=new Bin_Query();
 								$obj2->executeQuery($sql2);
 								$res=$obj2->records;
@@ -376,11 +386,19 @@ class Core_CPaymentGateways
 										$product_unit_price=$row['product_unit_price'];
 										$shipping_cost=$row['shipping_cost'];
 										
-										$sql="insert into order_products_table (order_id, product_id, product_qty, product_unit_price,shipping_cost) values  ('".$maxid."','".$product_id."','".$product_qty."','".$product_unit_price."','".$shipping_cost."')"."\n";
-										$obj=new Bin_Query();
-										$obj->updateQuery($sql);
-										
-										// update gift voucher 
+										if($row['variation_id']==0 || $row['variation_id']=='')
+										{
+											$sql="insert into order_products_table (order_id, product_id,product_qty, product_unit_price,shipping_cost) values  ('".$maxid."','".$product_id."','".$product_qty."','".$product_unit_price."','".$shipping_cost."')"."\n";
+											$obj=new Bin_Query();
+											$obj->updateQuery($sql);
+										}
+										else
+										{
+											$sql="insert into order_products_table (order_id, product_id,product_qty, product_unit_price,shipping_cost,variation_id) values  ('".$maxid."','".$product_id."','".$product_qty."','".$product_unit_price."','".$shipping_cost."','".$row['variation_id']."')"."\n";
+											$obj=new Bin_Query();
+											$obj->updateQuery($sql);
+										}
+																								// update gift voucher 
 										if($row['gift_product']==1)
 										{
 											$sql_gift="UPDATE gift_voucher_table SET  order_id='".$maxid."' WHERE  cart_id='".$row['cart_id']."'";
@@ -396,18 +414,18 @@ class Core_CPaymentGateways
 										
 									}
 	// 								
-									$sql2="delete from shopping_cart_products_table where cart_id = ".$val;
+									$sql2="delete from shopping_cart_products_table where cart_id = ".$cartid;
 									$objdel=new Bin_Query();		
 									$objdel->updateQuery($sql2);
 	
-									$sql3="delete from shopping_cart_table where cart_id = ".$val; 
+									$sql3="delete from shopping_cart_table where cart_id = ".$cartid; 
 									$objselshop=new Bin_Query();
 									$objselshop->updateQuery($sql3);	
 									
 	
 								}
-							}				
-						}
+// 							}				
+// 						}
 				
 				
 					// Send Mail to the User about the Order Placement

@@ -43,10 +43,6 @@ class Display_DAddCart
 	 */	
 	function showCart($arr,$result)
 	{
-/*
-echo "<pre>";
-print_r($arr);
-exit;*/
 
 		if(!(empty($arr)))
 		{
@@ -115,9 +111,8 @@ exit;*/
 						$img=explode('/',$temp);
 							
 	
-						
 						//select variation size
-						if($arr[$i]['variation_id']!='')
+						if($arr[$i]['variation_id']!='0' && $arr[$i]['variation_id']!='' )
 						{
 							$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$arr[$i]['variation_id']."' AND product_id='".$arr[$i]['product_id']."'";
 							$objSize=new Bin_Query();
@@ -143,8 +138,6 @@ exit;*/
 	
 						}
 					
-					
-					
 			
 				$_SESSION['prowishlist']=$proid;
 				$grandtotal=$total+$shipping;
@@ -152,17 +145,17 @@ exit;*/
 			
 			
 			$out.='<tr>
-				<td colspan="4" rowspan="3">&nbsp;</td>
+				<td colspan="4" rowspan="2">&nbsp;</td>
 			 	 <td><strong>Sub Total</strong></td>
 				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
-				</tr>
-				<tr>
-				<td><strong>Shipping Amount</strong></td>
-					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($shipping*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
-				</tr>
+				</tr>';
+// 				<tr>
+// 				<td><strong>Shipping Amount</strong></td>
+// 					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($shipping*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+// 				</tr>
 				
 				
-				<tr>
+				$out.='<tr>
 				<td><strong>Grand Total</strong></td>
 					<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grandtotal*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
 				</tr>
@@ -790,6 +783,7 @@ exit;*/
 	function showShippingDetails($records,$result,$Err,$shipping_address_id)
 	{
 
+
 		$obj=new Display_DAddCart();
 		$resship=$obj->loadCountryDropDown($result,'selshipcountry',$Err->values['selshipcountry']);
 
@@ -979,10 +973,20 @@ exit;*/
 	 * @param array $Err
 	 * @return string
 	 */
-	function showShippingMethod($records,$Err)
+	function showShippingMethod($records,$Err,$totalweight)
 	{
 
-		$output='<div class="row-fluid">
+
+		$output='';
+		//select ship details
+		$sql="SELECT * FROM addressbook_table WHERE id='".$_GET['ship_add_id']."'";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$recordsShip=$obj->records;	
+		$buyer_zipcode=$recordsShip[0]['zip'];
+	
+
+		$output.='<div class="row-fluid">
         	<ul class="steps">';
 			if($_SESSION['user_id']!='')
 			{	
@@ -1007,16 +1011,10 @@ exit;*/
 
                     <div id="myaccount_div">
              
-                    <p class="billing_title">Select Shipping Method</p>';
+                    <p class="billing_title">Select Shipping Method</p><font color="#FF0000">'.$Err->messages['shipment_id'].'</font>';
 
-		if($Err->messages['shipment_id']!='')
-		{
-				$output.='<div class="alert alert-error">
-			<button data-dismiss="alert" class="close" type="button">×</button>
-			'.$Err->messages['shipment_id'].'
-			</div>';
-		}
-                    	$output.='<form method="POST" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=validateshippingmethod" name="register_form" class="form-horizontal">
+		
+                    	$output.='<form method="POST" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=validateshippingmethod" name="register_form" class="form-horizontal" onsubmit="return checkInputs()">
                 <fieldset>
                   <div class="control-group">
                     <div class="controls">
@@ -1033,29 +1031,69 @@ exit;*/
 					<label class="control-label" for="input01">'.$records[$i]['shipment_name'].' </label>
 					<div class="controls">';
 
-					if($_SESSION['shipment_id_selected']==$records[$i]['shipment_id'])
+					if($_SESSION['orderdetails']['shipment_id']==$records[$i]['shipment_id'])
 					{
-					$output.='<input type="radio"  class="input-xlarge" name="shipment_id" id="shipment_id" value='.$records[$i]['shipment_id'].' checked="checked">';
+						$output.='<input type="radio"  class="input-xlarge" name="shipment_id" id="shipment_id" value='.$records[$i]['shipment_id'].'  checked="checked" onclick="selectShippingType('.$records[$i]['shipment_id'].')">';
+						$class="show";
 					}
 					else
 					{
-					$output.='<input type="radio"  class="input-xlarge" name="shipment_id" id="shipment_id" value='.$records[$i]['shipment_id'].' >	';
-
+						$output.='<input type="radio"  class="radioBtnClass" name="shipment_id" id="shipment_id" value='.$records[$i]['shipment_id'].'  onclick="selectShippingType('.$records[$i]['shipment_id'].')" >	';
+								$class="hide";
 					}
 
 					$output.='</div>
 					</div>';
 				}
 			}
-		
-                  $output.='<div class="form-actions">
-                    <button type="submit" class="btn btn-large btn-inverse" name="shipping_method">Submit</button>
+			
+
+			$shipdurationrecords=array("0"=>"Select","1D"=>"Next Day Air Early AM","1DA"=>"Next Day Ai","1DP"=>"Next Day Air Saver","2DM"=>"2nd Day Air AM","2DA"=>"2nd Day Air","3DS"=>"3 Day Select","GND"=>"Ground","STD"=>"Canada Standar","XPR"=>"Worldwide Express","XDM"=>"Worldwide Express Plus","XPD"=>"Worldwide Expedited","WXS"=>"Worldwide Save");
+			
+				
+			$output.='<div id="duration_ups" class='.$class.'><div class="control-group" >
+					<label class="control-label" for="input01">Reach The Destination</label>
+					<div class="controls">
+
+					<select name="shipdurid" id="shipdurid" onchange="shipDuration(this.value,'.$buyer_zipcode.','.$totalweight.');" >';
+					foreach($shipdurationrecords as $key=>$vale)
+					{
+							
+						if($_SESSION['orderdetails']['shipdurid']==$key)
+						{
+							$selected="selected='selected'";	
+						}
+						else
+						{
+							$selected="";
+						}
+						$output.='<option value='.$key.' '.$selected.'>'.$vale.'</option>';
+					}
+					$output.='</select>
+					</div>
+					</div></div>';
+
+				$output.='<div id="ship_cost" class='.$class.'><div class="control-group" >
+					<label class="control-label" for="input01">Total Weight</label>
+					<div class="controls">
+
+					'.$totalweight.' <code>(lbs)</code>
+					</div>
+					</div><div class="control-group" >
+					<label class="control-label" for="input01">Shipping Cost</label>
+					<div class="controls"><span class="red_fnt" >'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.'<span id="var_ship">'.$_SESSION['orderdetails']['shipping_cost'].'</span></span>
+
+					</div>
+					</div></div>';
+                  $output.='<div class="form-actions"><input type="hidden" name="shipping_cost" value="'.$costupsship['ship_cost'].'" id="shipping_cost"><input type="hidden" name="weight" value="'.$totalweight.'">
+                    <button type="submit" class="btn btn-large btn-inverse" name="shipping_submit">Submit</button>
                   </div>
                 </fieldset>
               </form>
 		</div>
                  </div>
           </div>';
+		
 
 		return $output;
 
@@ -1072,8 +1110,7 @@ exit;*/
 	 */	
 	function showOrderConfirmation($arr,$result,$taxarray,$message)
 	{
- 	
-	 $out='<div class="row-fluid">
+		 $out='<div class="row-fluid">
         	<ul class="steps">';
 			if($_SESSION['user_id']!='')
 			{	
@@ -1088,7 +1125,7 @@ exit;*/
 			{		
 			$out.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
 			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li><li class="act"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&ship_add_id='.$_SESSION['orderdetails']['shipping_address_id'].'"><span>4. Shipping Method</span></a></li><li class="act"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
 			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>';
 			}
 			else
@@ -1138,6 +1175,8 @@ exit;*/
 	
 			$shippingcost[]=$arr[$i]['shipingamount'];
 			$shipping=array_sum($shippingcost);
+			$shipping=$_SESSION['orderdetails']['shipping_cost'];
+
 			
 			/*-------------Tax Calculation-------------*/
 			
@@ -1158,7 +1197,7 @@ exit;*/
 			}
 
 			//select variation size
-			if($arr[$i]['variation_id']!='')
+			if($arr[$i]['variation_id']!='0' && $arr[$i]['variation_id']!='' )
 			{
 				$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$arr[$i]['variation_id']."' AND product_id='".$arr[$i]['product_id']."'";
 				$objSize=new Bin_Query();
@@ -1174,8 +1213,7 @@ exit;*/
 			$temp=$arr[$i]['thumb_image'];
 			$img=explode('/',$temp);
 
-		
-
+	
 			$out.='<tr>
 
 			<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="'.$_SESSION['base_url'].'/assets/img/close_button.gif" alt="close">	</a></td><td>';

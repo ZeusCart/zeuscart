@@ -49,10 +49,14 @@ class Model_MShippingTracker
 	{
 		include('classes/Core/CShippingTracker.php');
 		include('classes/Display/DShippingTracker.php');		
-		
+		include('classes/Core/CAdminHome.php');
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];
 		$output['shippingtrackersetting'] =   Core_CShippingTracker::displayShippingTrackerSetting();				
 
 		Bin_Template::createTemplate('shipmentstatus.html',$output);
+		UNSET($_SESSION['shipmentMsg']);
 	}	
 	
 	/**
@@ -66,10 +70,12 @@ class Model_MShippingTracker
 	{
 		include('classes/Core/CShippingTracker.php');
 		include('classes/Display/DShippingTracker.php');		
-		
+		include('classes/Core/CAdminHome.php');
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];
 		$output['updatedshippingtrackersetting'] =   Core_CShippingTracker::updateShippingTrackerSetting();				
 
-		header("Location:?do=showshipmenttracker&msg=Updated%20Sucessfully");
 	}	
 }
 ?>

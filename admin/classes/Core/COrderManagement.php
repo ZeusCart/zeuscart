@@ -287,7 +287,8 @@
 	function dispDetailOrders()
 	{
 		$id=$_GET['id'];
-		$sql='select a.*,b.user_display_name,d.gateway_name,c.orders_status_name from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status left join paymentgateways_table d on a.payment_method=d.gateway_id where a.orders_id='.$id;
+		$sql='select a.*,b.user_display_name,d.gateway_name,c.orders_status_name,s.shipment_name from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status left join paymentgateways_table d on a.payment_method=d.gateway_id 
+		left join shipments_master_table s on s.shipment_id=a.shipment_id_selected where a.orders_id='.$id;
 		$obj=new Bin_Query();
 		$obj->executeQuery($sql);
 		
@@ -461,11 +462,11 @@
 	
 	function displayProductsForOrder()
 	{
-		$sql="SELECT a.title,c.date_purchased,b.product_unit_price,b.variation_id,b.product_qty,a.product_id,b.shipping_cost,((b.product_qty*b.product_unit_price)+b.shipping_cost)as subtotal  from products_table a inner join order_products_table b on a.product_id=b.product_id inner join orders_table c on b.order_id=c.orders_id and b.order_id=".(int)$_GET['id']." order by c.date_purchased desc ";
+		$sql="SELECT a.title,c.date_purchased,b.product_unit_price,b.variation_id,b.product_qty,a.product_id,b.shipping_cost,((b.product_qty*b.product_unit_price)+b.shipping_cost)as subtotal,c.order_ship,c.order_total  from products_table a inner join order_products_table b on a.product_id=b.product_id inner join orders_table c on b.order_id=c.orders_id and b.order_id=".(int)$_GET['id']." order by c.date_purchased desc ";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sql))
 		{		
-			$sql1="select ((b.product_qty*b.product_unit_price)+b.shipping_cost)as subtotal,b.shipping_cost  from products_table a inner join order_products_table b on a.product_id=b.product_id inner join orders_table c   on b.order_id=c.orders_id and b.order_id=".(int)$_GET['id']." order by c.date_purchased desc";
+			$sql1="select ((b.product_qty*b.product_unit_price)+b.shipping_cost)as subtotal,c.order_ship,c.order_total from products_table a inner join order_products_table b on a.product_id=b.product_id inner join orders_table c   on b.order_id=c.orders_id and b.order_id=".(int)$_GET['id']." order by c.date_purchased desc";
            		 $obj1=new Bin_Query();
 			$obj1->executeQuery($sql1);
 			$arr=$obj1->records;

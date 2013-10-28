@@ -1341,7 +1341,92 @@ class Core_CAddCart
 	 */
 	function showShippingMethod($Err)
 	{
+
+		if(isset($_SESSION['mycart']))
+		{
+		
+			$sqlCheck="SELECT * FROM shopping_cart_table WHERE cart_id ='".$_SESSION['mycart'][0]['cartid']."'";
+			$objCheck=new Bin_Query();
+			if($objCheck->executeQuery($sqlCheck))	
+			{
+				$cartid=Core_CAddCart::getCartIdOfUser();	
+	
+				$sqlWeight="SELECT * FROM  shopping_cart_products_table WHERE cart_id='".$cartid."'";
+				$objWeight=new Bin_Query();
+				$objWeight->executeQuery($sqlWeight);
+				$recordsWeight=$objWeight->records;
+		
+				if(count($recordsWeight)>0)
+				{
+					$totalweight=0;
+					$productWeight='';
+					for($i=0;$i<count($recordsWeight);$i++)
+					{
+					
+						
+						$sqlProduct="SELECT product_id,weight FROM products_table WHERE product_id='".$recordsWeight[$i]['product_id']."'";
+						$objProduct=new Bin_Query();
+						$objProduct->executeQuery($sqlProduct);
+						$productWeight=$objProduct->records[0]['weight'];
+						
+						$weight=$productWeight*$recordsWeight[$i]['product_qty'];
+		
+						$totalweight=$totalweight+$weight;
+					}
+				}
+			}
+			else
+			{
 			
+				$cnt=count($_SESSION['mycart']);	
+				if($cnt>0)
+				{
+					$totalweight=0;
+					for($i=0;$i<$cnt;$i++)
+					{
+					
+						
+						$sqlProduct="SELECT product_id,weight FROM products_table WHERE product_id='".$_SESSION['mycart'][$i]['product_id']."'";
+						$objProduct=new Bin_Query();
+						$objProduct->executeQuery($sqlProduct);
+						$productWeight=$objProduct->records[0]['weight'];
+						
+						$weight=$objProduct->records[0]['weight']*$_SESSION['mycart'][$i]['qty'];
+		
+						$totalweight=$totalweight+$weight;
+					}
+				}
+			}
+		}
+		else
+		{
+			$cartid=Core_CAddCart::getCartIdOfUser();	
+	
+			$sqlWeight="SELECT * FROM  shopping_cart_products_table WHERE cart_id='".$cartid."'";
+			$objWeight=new Bin_Query();
+			$objWeight->executeQuery($sqlWeight);
+			$recordsWeight=$objWeight->records;
+	
+			if(count($recordsWeight)>0)
+			{
+				$totalweight=0;
+				$productWeight='';
+				for($i=0;$i<count($recordsWeight);$i++)
+				{
+				
+					
+					$sqlProduct="SELECT product_id,weight FROM products_table WHERE product_id='".$recordsWeight[$i]['product_id']."'";
+					$objProduct=new Bin_Query();
+					$objProduct->executeQuery($sqlProduct);
+					$productWeight=$objProduct->records[0]['weight'];
+					
+					$weight=$productWeight*$recordsWeight[$i]['product_qty'];
+	
+					$totalweight=$totalweight+$weight;
+				}
+			}
+		}
+
 		$sql="SELECT * FROM shipments_master_table WHERE status=1";		
 	 	$obj=new Bin_Query();
 		$obj->executeQuery($sql);
@@ -1355,7 +1440,10 @@ class Core_CAddCart
 
 		}
 
-		return Display_DAddCart::showShippingMethod($obj->records,$Err);
+
+		
+
+		return Display_DAddCart::showShippingMethod($obj->records,$Err,$totalweight);
 	
 
 	}
@@ -1733,7 +1821,10 @@ class Core_CAddCart
 		$obj_ship->executeQuery($sql_ship);		
 
 
-		$orderdetails=array();		
+		$orderdetails=array();	
+
+		$orderdetails['billing_address_id']=$billing_address_id;	
+		$orderdetails['shipping_address_id']=$shipping_address_id;	
 		$orderdetails['txtname']=$obj_bill->records[0]['contact_name'];
 		$orderdetails['txtcompany']=$obj_bill->records[0]['company'];
 		$orderdetails['txtstreet']=$obj_bill->records[0]['address'];
@@ -1751,7 +1842,10 @@ class Core_CAddCart
 		$orderdetails['txtszipcode']=$obj_ship->records[0]['zip'];
 		$orderdetails['txtscountry']=$obj_bill->records[0]['country'];
 		$orderdetails['txtsstate'] =$obj_ship->records[0]['state'];
-
+		$orderdetails['shipment_id'] =$_SESSION['orderdetails']['shipment_id'];
+		$orderdetails['shipdurid'] =$_SESSION['orderdetails']['shipdurid'];
+		$orderdetails['weight'] =$_SESSION['orderdetails']['weight'];
+		$orderdetails['shipping_cost'] =$_SESSION['orderdetails']['shipping_cost'];
 
 		$_SESSION['orderdetails']=$orderdetails;
 	
@@ -2258,41 +2352,81 @@ class Core_CAddCart
 	function countCart()
 	{
 
-
-		if(!isset($_SESSION['user_id']) || isset($_SESSION['mycart']))
+		if(isset($_SESSION['mycart']) )
 		{
-				$sum=0;
-				if(count($_SESSION['mycart'])>0)
+
+			$sqlCheck="SELECT * FROM shopping_cart_table WHERE cart_id ='".$_SESSION['mycart'][0]['cartid']."'";
+			$objCheck=new Bin_Query();
+			if($objCheck->executeQuery($sqlCheck))	
+			{
+				$sqlShop="SELECT a.*,b.* FROM shopping_cart_table AS a  JOIN shopping_cart_products_table AS b ON a.cart_id=b.cart_id WHERE a.user_id='". $_SESSION['user_id']."'"; 
+				$objShop=new Bin_Query();
+				$objShop->executeQuery($sqlShop);
+				$records=$objShop->records;
+				if(count($records)>0)
 				{
-					sort($_SESSION['mycart']);
-					for($i=0;$i<count($_SESSION['mycart']);$i++)
+					$cartId=$objShop->records[0]['cart_id'];	
+					$updateCart="UPDATE  shopping_cart_table SET cart_id ='".$cartId."'   WHERE user_id='". $_SESSION['user_id']."'";
+					$objCart=new Bin_Query($updateCart);
+					$objCart->updateQuery();
+					for($i=0;$i<count($records);$i++)
 					{
-						
-						 $sum=$sum+$_SESSION['mycart'][$i]['qty'];
+			
+						$sqlDel="DELETE FROM shopping_cart_table WHERE cart_id !='".$cartId."' AND user_id='". $_SESSION['user_id']."'";
+						$objDel=new Bin_Query();
+						$objDel->updateQuery($sqlDel);
+			
+
+						$shopProduct="UPDATE  shopping_cart_products_table  SET cart_id ='".$cartId."' WHERE id='".$objShop->records[$i]['id']."'"; 
+						$objProduct=new Bin_Query($updateCart);
+						$objProduct->updateQuery($shopProduct);
 					}
+					$carts=count($records); 
+					return $carts;
 				}
-				$carts=count($_SESSION['mycart']);
-				return $carts;
+
+			}
+			else
+			{
+					$sum=0;
+					if(count($_SESSION['mycart'])>0)
+					{
+						sort($_SESSION['mycart']);
+						for($i=0;$i<count($_SESSION['mycart']);$i++)
+						{
+							
+								$sum=$sum+$_SESSION['mycart'][$i]['qty'];
+						}
+					}
+					$carts=count($_SESSION['mycart']);
+					return $carts;
+			}
+			
 		}
 		
 		else if(isset($_SESSION['user_id']))
 		{
-			 $sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.msrp as msrp1,pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. * FROM (
+
+			$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.msrp as msrp1,pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. * FROM (
 			products_table pt INNER JOIN shopping_cart_products_table ON pt.product_id = shopping_cart_products_table.product_id) LEFT JOIN shopping_cart_table ON shopping_cart_products_table.cart_id = shopping_cart_table.cart_id INNER JOIN product_inventory_table AS pinv ON pinv.product_id = shopping_cart_products_table.product_id WHERE shopping_cart_table.user_id ='. $_SESSION['user_id']; 
-				 
-					$query = new Bin_Query();
-					$query->executeQuery($sql);
-					$sum=0;
-					if($query->totrows>0)
-					for($i=0;$i<$query->totrows;$i++)
-						$sum=$sum+$query->records[$i]['product_qty'];
-					$carts=count($query->records);
-					return $carts;
+
+			$query = new Bin_Query();
+			if($query->executeQuery($sql))
+			{
+				
+				$sum=0;
+				if($query->totrows>0)
+				for($i=0;$i<$query->totrows;$i++)
+					$sum=$sum+$query->records[$i]['product_qty'];
+				$carts=count($query->records);
+				return $carts;
+			}
+			else 
+			{
+				return '0';
+			}
 		}
-		else 
- 		{
-			return '0';
-		}
+		
 	
 	}
 	/**
@@ -2355,6 +2489,33 @@ class Core_CAddCart
 		else
 			return ;
 	
+	}
+
+	function calculateShipCost()
+	{
+
+
+		include_once('classes/Lib/UPS/UPSRate.php');
+
+
+		$sql="SELECT * FROM shipments_master_table WHERE shipment_id=3";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$records=$obj->records[0];
+
+		$shipment_accesskey=$records['shipment_accesskey'];
+		$shipment_user_id=$records['shipment_user_id'];
+		$shipment_password=$records['shipment_password'];		
+
+		$ship_duration=$_GET['ship_dur_id'];		
+	
+		$buyer_zipcode=$_GET['zip'];
+		$strServiceShortName=$_GET['ship_dur_id'];
+		$product_weight=$_GET['weight'];
+		$upsship = new UpsShippingQuote();
+		$costupsship['ship_cost'] = $upsship->GetShippingRate($strDestinationZip=$buyer_zipcode, $strServiceShortName=$strServiceShortName, $strPackageLength='0', $strPackageWidth='0', $strPackageHeight='0', $strPackageWeight=$product_weight, $boolReturnPriceOnly=true,$shipment_accesskey,$shipment_user_id,$shipment_password);
+		
+		return $costupsship['ship_cost']; 
 	}
 	
 }

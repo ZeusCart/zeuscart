@@ -81,6 +81,9 @@
 			<do name="showcart" model="MAddCart" action="doquickregistration" function="doQuickRegistration" />
 			
 			<do name="showcart" model="MAddCart" function="showRecipientDetails" action="recipientdetails"/>
+			
+			<do name="showcart" model="MAddCart" function="calculateShipCost" action="calculateshipcost"/>
+			
 			----------------new  billing and shipping address------------------------------
 			
 			

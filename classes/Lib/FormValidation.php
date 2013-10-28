@@ -107,8 +107,17 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */
 	function validateShippingMethod()
 	{
-		$message = "Required Field Cannot be blank";
-		$this->Assign("shipment_id",trim($_POST['shipment_id']),"noempty",$message);
+
+
+		$_SESSION['orderdetails']['shipment_id']='';
+		$_SESSION['orderdetails']['shipdurid']='';
+		$_SESSION['orderdetails']['weight']='';
+		$_SESSION['orderdetails']['shipping_cost']='';
+
+		$message = "Please select the shipping method";
+		$message1 = "Please select the shipping Duration";
+		$this->Assign("shipment_id",trim($_POST['shipment_id']),"noempty",$message);		
+		$this->Assign("shipdurid",trim($_POST['shipdurid']),"noempty",$message1);
 
 		$this->PerformValidation("".$_SESSION['base_url']."/index.php?do=showcart&action=getshippingmethod");
 	}
@@ -359,11 +368,15 @@ class Lib_FormValidation extends Lib_Validation_Handler
 					if(count($records)>0)
 					{
 						$cartId=$objShop->records[0]['cart_id'];	
-						 $updateCart="UPDATE  shopping_cart_table SET cart_id ='".$cartId."'      WHERE user_id='". $_SESSION['user_id']."'";
+						$updateCart="UPDATE  shopping_cart_table SET cart_id ='".$cartId."' WHERE user_id='". $_SESSION['user_id']."'";
 						$objCart=new Bin_Query($updateCart);
 						$objCart->updateQuery();
 						for($i=0;$i<count($records);$i++)
 						{
+
+							$sqlDel="DELETE FROM shopping_cart_table WHERE cart_id !='".$cartId."' AND user_id='".$_SESSION['user_id']."'";
+							$objDel=new Bin_Query();
+							$objDel->updateQuery($sqlDel);
 				
 							$shopProduct="UPDATE  shopping_cart_products_table  SET cart_id ='".$cartId."'WHERE id='".$objShop->records[$i]['id']."'";
 							$objProduct=new Bin_Query($updateCart);

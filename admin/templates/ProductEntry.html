@@ -91,7 +91,7 @@ function checkInputs()
 	}
 	else
 	{
-		if ((document.productreg.product_title.value=='') || (document.productreg.sku.value==''))
+		if ((document.productreg.product_title.value=='') || (document.productreg.sku.value=='') || (document.productreg.txtweight.value==''))
 		{
 			alert('Please enter the mandatory fields In General');
 			tabOpenvalidation('2');
@@ -107,7 +107,7 @@ function checkInputs()
 				return false;
 
 			}
-			alias=$('#checkalias').html();
+		
 			if(!$('#checkalias').is(':empty'))
 			{
 				alert('Please enter the product alias');
@@ -721,7 +721,7 @@ function removeVariation(rdiv)
         							</div>
 
         							<div class="row-fluid">
-        								<div class="span12"><label>Weight</label>
+        								<div class="span12"><label>Weight <font color="#FF0000">*</font></label>
         									<input name="txtweight" id="txtweight"  type="text" value="<AJDF:output>$val.txtweight</AJDF:output>" />&nbsp;<code>(lbs)</code> <div style="color:#FF0000">
         									<AJDF:output>$msg.txtweight</AJDF:output>
         								</div></div>

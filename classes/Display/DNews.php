@@ -133,12 +133,23 @@ class Display_DNews
 		     $i++;
 				
 			}
-		   $output.='<tr align="right"><td class="content_list_footer" >'.' '.$prev.' ';
-		                    
-							for($i=1;$i<=count($paging);$i++)
-							 $pagingvalues .= $paging[$i]."  ";
-							 
-							 $output .= $pagingvalues.' '.$next.'</td></tr></li>';
+		   $output.='</li><div class="pagination">
+			<ul>';
+			if($prev!='')
+			{
+				$output .='<li> '.$prev.' </li>';
+			}
+			for($i=1;$i<=count($paging);$i++)
+			{
+				$output .='<li>'.$paging[$i].'</li>';
+			}
+			if($next!='')
+			{
+				$output .='<li>'.$next.'</li>';
+			}
+				
+			$output .='</ul>
+			</div>';
 		
 		}
 		else

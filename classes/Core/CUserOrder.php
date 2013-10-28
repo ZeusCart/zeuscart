@@ -89,7 +89,7 @@ class Core_CUserOrder
 	{
 		include('classes/Display/DUserAccount.php');
 		$id=(int)$_GET['id'];
-		$sqlselect = "SELECT a.*,date_format(a.date_purchased,'%e/%c/%Y') as purDate,date_format(a.orders_date_closed,'%e/%c/%Y') as closeDate,b.orders_status_name,c.*,d.title,e.gateway_name,e.merchant_id,f.cou_name as shipcountry,g.cou_name as billcountry FROM `orders_table` a,orders_status_table b,order_products_table c,products_table d,paymentgateways_table e,country_table f,country_table g WHERE a.shipping_country=f.cou_code and a.billing_country=g.cou_code and a.payment_method=e.gateway_id and a.orders_status=b.orders_status_id and a.orders_id=c.order_id and c.product_id=d.product_id and a.orders_id=".$id; 	 	
+		$sqlselect = "SELECT a.*,date_format(a.date_purchased,'%e/%c/%Y') as purDate,date_format(a.orders_date_closed,'%e/%c/%Y') as closeDate,b.orders_status_name,c.*,d.title,e.gateway_name,e.merchant_id,f.cou_name as shipcountry,g.cou_name as billcountry ,s.shipment_name,s.shipment_id FROM `orders_table` a,orders_status_table b,order_products_table c,products_table d,paymentgateways_table e,country_table f,country_table g,shipments_master_table s  WHERE a.shipping_country=f.cou_code and a.billing_country=g.cou_code and a.payment_method=e.gateway_id and a.orders_status=b.orders_status_id and a.orders_id=c.order_id and c.product_id=d.product_id and s.shipment_id =a.shipment_id_selected and a.orders_id=".$id; 	 	
 		$obj = new Bin_Query();
 
 		$obj->executeQuery($sqlselect);

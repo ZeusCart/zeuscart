@@ -121,9 +121,32 @@ class Lib_CheckInputs
 			$this->validateEditMailMessage();
 		else if($module=='livechat')
 			$this->validateLiveChat();
+		else if($module=='productinventory')
+			$this->validateProductInventory();
+
 	}
 
 	
+	function validateProductInventory()
+	{
+
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['rol']!='' or $_POST['rol']=='' or $_POST['soh']!='' or $_POST['soh']=='') 
+			{
+
+				$obj = new Lib_FormValidation('productinventory');
+			}
+			else 
+			{
+				header("Location:?do=productinventory");
+				exit();
+			}
+		}
+
+	}
+
 	function validateLiveChat()
 	{
 		include('classes/Lib/FormValidation.php');

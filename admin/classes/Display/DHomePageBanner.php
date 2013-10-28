@@ -44,97 +44,25 @@ class Display_DHomePageBanner
  	function homePageBanner($arr,$Err)
  	{
 
- 		if(count($arr)==0)
- 		{
- 			$output .= '<div class="row-fluid" id="homepageBannerDiv1">
- 			<div class="span12">
- 			<h2 class="box_head green_bg">Slider1</h2>
- 			<div class="toggle_container">
- 			<div class="clsblock">
- 			<div class="clearfix">';	
 
- 			$output .= '
- 			<div class="row-fluid">
- 			<div class="span6">
- 			<label>Title:</label>
- 			<input  type="text" name="slide_title[]" id="slide_title1" value="'.$arr['slide_title'].'" style="width: 381px; "/></div></div>
- 			<div class="row-fluid">
- 			<div class="span6">
- 			<label>Content: </label>
- 			<input type="file" id="slide_content1" name="slide_content[]" /></div></div>
- 			<div class="row-fluid">
- 			<div class="span6">
- 			<label>Caption: </label>
- 			<textarea style="width: 381px; height: 94px;" name="slide_caption[]" id="slide_caption1">'.$arr['slide_caption'].'</textarea></div></div>
- 			<div class="row-fluid">
- 			<div class="span6">
- 			<label>Url:</label>
- 			<input type="text" id="slide_url1"  name="slide_url[]" value="'.$arr[$i]['slide_url'].'"/>
- 			<input type="hidden" name="theValue[]" id="theValue1" value="1"></div>
- 			</div></div>
- 			</div>
- 			</div>
- 			</div></div><br/>';
- 		}
- 		elseif(count($arr)>0)
+ 		if(count($arr)>0)
  		{
 
- 			$output .= '<div class="row-fluid" id="homepageBannerDiv1">';
+ 			$output .= '<div class="row-fluid"><div class="row-fluid" id="homepageBannerDiv1">
+ 				';
  			for($i=0;$i<count($arr);$i++)
  			{
  				$n=$i+1;
- 				if($arr[$i]['id']==1)
- 				{
 
- 					$output .= '<div class="span12">
- 					<h2 class="box_head green_bg"> Slider'.$n.'</h2>
- 					<div class="toggle_container">
- 					<div class="clsblock">
- 					<div class="clearfix">';
- 					$output .= '<div class="row-fluid">
- 					<div class="span6">
- 					<label>Title:</label>
- 					<input  type="text" name="slide_title[]" id="slide_title'.$n.'" value="'.$arr[$i]['slide_title'].'" style="width: 381px;"/></div></div><div class="row-fluid">
- 					<div class="span6">
- 					<label>Content:</label><div class="fileupload fileupload-new" data-provides="fileupload"><div style="float:right;" class="thumbnail"><img src=../'.$arr[$i]['slide_content_thumb'].'  height="200px"></div>
- 					<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
- 					<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
- 					<div>
- 					<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" id="slide_content'.$n.'" name="slide_content[]" /></span>
- 					<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
- 					</div>
 
- 					</div>
- 					<input type="hidden" name="slide_content_thumb[]" id="slide_content_thumb'.$n.'" value="'.$arr[$i]['slide_content_thumb'].'">
- 					<input type="hidden" name="slide_content_image[]" id="slide_content_image'.$n.'" value="'.$arr[$i]['slide_content'].'">
- 					</div></div><div class="row-fluid">
- 					<div class="span6">
- 					<label>
- 					Caption:</label>
- 					
- 					<textarea style="width: 381px; height: 94px;" name="slide_caption[]" id="slide_caption'.$n.'">'.$arr[$i]['slide_caption'].'</textarea></div></div><div class="row-fluid">
- 					<div class="span6">
- 					<label>
- 					Url:</label>
- 					';
- 					if($Err->messages['slide_url'.$n.'']!='')
- 					{
- 						$output.='<input type="text" id="slide_url'.$n.'" name="slide_url[]"  value='.$Err->values['slide_url'][$i].'><br/>
- 						<p class="red">'.$Err->messages['slide_url'.$n.''].'</p>';
+ 					$output.= '<div class="row-fluid" id="homepageBannerDiv'.$n.'"><div class="span12">
+ 					<h2 class="box_head green_bg"> Slider'.$n.'';
 
- 					}
- 					else
- 					{	
- 						$output.='<input type="text" id="slide_url'.$n.'" name="slide_url[]"  value="'.$arr[$i]['slide_url'].'" >
- 						';
- 					}
- 					$output.='<input type="hidden" name="slide_content[]" id="slide_content1" value="'.$arr[$i]['slide_content'].'"><input type="hidden" name="theValue[]" id="theValue1" value="'.$arr[$i]['id'].'"></div></div>';
- 				}
- 				else
- 				{
-
- 					$output .= '<div class="row-fluid" id="homepageBannerDiv'.$n.'"><div class="span12">
- 					<h2 class="box_head green_bg"> Slider'.$n.'<div style="float:right;"><a   href="javascript:void(0);" onclick="removeHomePageBannerInner(\'homepageBannerDiv'.$n.'\','.$arr[$i]['id'].');" class="clsBigBtn">Remove</a></div></h2>
+					if($n!='1')
+					{
+						$output.= '<div style="float:right;"><a   href="javascript:void(0);" onclick="removeHomePageBannerInner(\'homepageBannerDiv'.$n.'\','.$arr[$i]['id'].');" class="clsBigBtn">Remove</a></div>';
+					}
+					$output.= '</h2>
 
  					<div class="toggle_container">
  					<div class="clsblock">
@@ -146,17 +74,20 @@ class Display_DHomePageBanner
  					<label>
  					Title:</label>
  					
- 					<input  type="text" name="slide_title[]" id="slide_title'.$n.'" value="'.$arr[$i]['slide_title'].'" style="width: 381px;" /></div></div><div class="row-fluid">
+ 					<input  type="text" name="slide_title[]" id="slide_title'.$n.'" value="'.$arr[$i]['slide_title'].'" style="width: 381px;"  class="slidebanner"/></div></div>
+
+					<div class="row-fluid">
  					<div class="span6">
- 					<label>Content: </label><div class="fileupload fileupload-new" data-provides="fileupload"><div style="float:right;" class="thumbnail"><img src=../'.$arr[$i]['slide_content_thumb'].'  height="200px"></div>
- 					<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="assets/img/noimage.gif" /></div>
- 					<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+ 					<label>Content: </label><div class="fileupload fileupload-new" data-provides="fileupload">
+ 					<div class="fileupload-new thumbnail" style="width:381px; height: 100px;"><img src="../'.$arr[$i]['slide_content'].'" style="width:381px;"/></div>
+ 					<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 381px; max-height: 150px; line-height: 20px;"></div>
  					<div>
- 					<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" id="slide_content'.$n.'" name="slide_content[]" /></span>
+ 					<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" id="slide_content'.$n.'" name="slide_content[]" value='.$arr[$i]['slide_content'].' /></span>
  					<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
  					</div>
+					</div>
 
- 					</div>
+
  					<input type="hidden" name="slide_content_thumb[]" id="slide_content_thumb'.$n.'" value="'.$arr[$i]['slide_content_thumb'].'">
  					<input type="hidden" name="slide_content_image[]" id="slide_content_image'.$n.'" value="'.$arr[$i]['slide_content'].'">
  					</div></div><div class="row-fluid">
@@ -171,27 +102,25 @@ class Display_DHomePageBanner
 
  					if($Err->messages['slide_url'.$n.'']!='')
  					{
- 						$output.='<input type="text" id="slide_url'.$n.'" name="slide_url[]"  value='.$Err->values['slide_url'][$i].' >
+ 						$output.='<input type="text" id="slide_url'.$n.'" name="slide_url[]"  value='.$Err->values['slide_url'][$i].' style="width: 381px;" >
  						<br/><p class="red">'.$Err->messages['slide_url'.$n.''].'</p>';
 
  					}
  					else
  					{	
- 						$output.='<input type="text" id="slide_url'.$n.'" name="slide_url[]"  value="'.$arr[$i]['slide_url'].'" >
+ 						$output.='<input type="text" id="slide_url'.$n.'" name="slide_url[]"  value="'.$arr[$i]['slide_url'].'" style="width: 381px;" >
  						';
  					}
  					$output.='<input type="hidden" name="theValue[]" id="theValue'.$n.'" value="'.$arr[$i]['id'].'"></div></div>';
- 				}	
 
  				$output.='</div>
  				</div>
  				</div>
  				</div></div><br/>';
 
-
  			}
 
-
+			$output.='</div>';
  		}
 
 
@@ -314,16 +243,17 @@ Sliding Time(ms):</label>
 Sliding Effect Time:</label>
 <input type="text" name="slidingeffecttime" id="slidingeffecttime" style="width:80%" value="'.$parameter->slidingeffecttime.'"></div></div>
 
-		</div></div></div></div></div><br/>
+		</div></div></div></div></div><br/>';
 		
-<div class="row-fluid" id="navigation">
+
+$output.='<div class="row-fluid" id="navigation">
  			<div class="span12">
  			<h2 class="box_head green_bg">Navigation</h2>
- 			<div class="toggle_container navigationclass">
+ 			<div>
  			<div class="clsblock">
- 			<div class="clearfix">
+ 			<div class="clearfix">';
 
-		<div class=row-fluid><div class="span12"><label>
+		$output.='<div class=row-fluid><div class="span12"><label>
 Pagination:</label>
 		<select style="width:80%" name="pagination">';
 
@@ -475,7 +405,7 @@ Timer Bar Direction:</label>
 		<div class="row-fluid" id="thumb">
  			<div class="span12">
  			<h2 class="box_head green_bg">Thumbs</h2>
- 			<div class="toggle_container thumbtoggle">
+ 			<div >
  			<div class="clsblock">
  			<div class="clearfix">
 		';
@@ -487,6 +417,7 @@ Thumbnails:</label>
 		<select style="width:80%" name="thumbnails"><option value="true" '.$select_thumbnail_tr.'>Enable</option><option value="false" '.$select_thumbnail_false.'>Disable</option></select></div>
 		</div>
 </div></div></div></div></div>';
+
 
 		return $output;
 	}

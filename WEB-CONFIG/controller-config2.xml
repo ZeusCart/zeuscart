@@ -370,8 +370,7 @@
 	   <do name="productfeatures" model="MProductFeatures" function="deleteProductFeatures" action="delete"/>
 	   <do name="productfeatures" model="MProductFeatures" function="updateProductFeatures" action="update"/>
 	   
-	   <do name="showshipmenttracker" model="MShippingTracker" function="displayShippingTrackerSetting"/><!-- Modified -->
-	   <do name="showshipmenttracker" model="MShippingTracker" function="updateShippingTrackerSetting" action="update"/><!-- Modified -->
+	
 	   
 	    <do name="createpromotionalcodes" model="MPromotionalCodes" function="createPromotionalCodes"/><!-- Modified -->
 		<do name="createpromotionalcodes" model="MPromotionalCodes" function="insertPromotionalCodes" action="insert"/><!-- Modified -->
@@ -520,6 +519,11 @@
 		
 		<do name="livechat" model="MLiveChat" function="showLiveChat"/>
 		<do name="livechat" model="MLiveChat" function="updateLiveChat" action="update"/>
+		
+		-----------------------Shipping Methods---------------------------------------------------
+		
+		<do name="showshipmenttracker" model="MShippingTracker" function="displayShippingTrackerSetting"/>
+	 	 <do name="showshipmenttracker" model="MShippingTracker" function="updateShippingTrackerSetting" action="update"/><!-- Modified -->
 	</domapping>
 	
 </controller-config>

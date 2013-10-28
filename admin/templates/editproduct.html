@@ -297,7 +297,7 @@ function checkInputs()
 	}
 	else
 	{
-		if ((document.productupdate.product_title.value=='') || (document.productupdate.sku.value==''))
+		if ((document.productupdate.product_title.value=='') || (document.productupdate.sku.value=='') || (document.productupdate.txtweight.value==''))
 		{
 			alert('Please enter the mandatory fields In General');
 			tabOpenvalidation('2');
@@ -743,7 +743,7 @@ function removeVariation(rdiv)
                             </div>
                             
                                        <div class="row-fluid">
- 		<div class="span12"><label> Weight</label>
+ 		<div class="span12"><label> Weight <font color="#FF0000">*</font></label>
                                 <input name="txtweight" id="txtweight"  type="text" value="<AJDF:output>$txtweight</AJDF:output>" />(lbs) <div style="color:#FF0000">
                                         <AJDF:output>$msg.txtweight</AJDF:output>
                                     </div></div>

@@ -40,6 +40,7 @@
  	  function displayShippingTrackerSetting($arr)
 	  {
 
+/*
 			$output = '<form method="post" action="?do=showshipmenttracker&action=update">'.(isset($_GET['msg'])? '<table border="0" width="75%" align="center" ><tr><td colspan="2"><div class="success_msgbox"  width="100%" style="width:475px;" >'.$_GET['msg'].'</div>' : "" ).'</td></tr></table><br><table border="0" width="75%" align="center" class="content_list_bdr"><tr><td colspan="2"></td></tr><tr><td  class="content_list_head" width="60%">Shipment Name</td><td  class="content_list_head">Status</td></tr>';
 			
 			for($i=0;$i<count($arr);$i++)
@@ -50,7 +51,31 @@
 									<input type="hidden" name="shippingid[]" value="'.$arr[$i]['shipment_id'].'"/>'.$arr[$i]['shipment_name'].'</td><td style="padding-left:30px;"><input type="checkbox" name="shippingstatus[]" '.$tmpStr.' value="'.$arr[$i]['shipment_id'].'"/>	                                </td>
             				</tr>';		
 			}
-			$output .='<tr><td colspan="2" align="center" style="padding:9px;"><input name="button" type="submit" value="Update"  class="all_bttn"/></td></tr></table></form>';
+			$output .='<tr><td colspan="2" align="center" style="padding:9px;"><input name="button" type="submit" value="Update"  class="all_bttn"/></td></tr></table></form>';*/
+
+
+			for($i=0;$i<count($arr);$i++)
+			{
+
+				$tmpStr=($arr[$i]['status']==1 ? ' checked=checked ' : '' );
+
+				$output.='<div class="accordion-group">
+                                                <div class="accordion-heading">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion'.$i.'" href="#collapseTwo'.$i.'">
+                                                       '.$arr[$i]['shipment_name'].'
+                                                      </a>
+                                                </div>
+                                                <div id="collapseTwo'.$i.'" class="accordion-body collapse">
+                                                    <div class="accordion-inner"><div class="row-fluid">
+							<div class="span4"> Status </div> <div class="span8"><input type="checkbox" value='.$arr[$i]['ship_id'].'  name="shippingstatus[]" '.$tmpStr.'></div></div>
+							<div class="row-fluid">
+							<div class="span4">User ID</div><div class="span8"><input type="text" value="'.$arr[$i]['shipment_user_id'].'" name="shipment_user_id[]"  id='.$arr[$i]['shipment_user_id'].' /></div></div>
+							<div class="row-fluid">
+							<div class="span4"> Password</div><div class="span8"><input type="text" value="'.$arr[$i]['shipment_password'].'" name="shipment_password[]" /></div></div><div class="row-fluid">
+							<div class="span4">Access Key</div><div class="span8"><input type="text" value="'.$arr[$i]['shipment_accesskey'].'" name="shipment_accesskey[]" /><input type="hidden" name="ship_id[]" value="'.$arr[$i]['ship_id'].'"/></div></div></div>
+                                                </div>
+                                            </div>';
+			}
 			return $output;	
 		  }
 }

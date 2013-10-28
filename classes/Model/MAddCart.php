@@ -792,10 +792,7 @@ class Model_MAddCart
 	 */
 	function showShippingMethod()
 	{
-		include("classes/Lib/HandleErrors.php");
-		$output['val']=$Err->values;
-		$output['msg']=$Err->messages;
-	
+
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 			
@@ -815,7 +812,10 @@ class Model_MAddCart
 			include_once('classes/Display/DLastViewedProducts.php');
 			include('classes/Lib/TagClouds.php');
 			include('classes/Core/CTagClouds.php');
-			
+			include("classes/Lib/HandleErrors.php");
+			$output['val']=$Err->values;
+			$output['msg']=$Err->messages;
+
 			$output['sitelogo']=Core_CHome::getLogo();
 			$output['pagetitle']=Core_CHome::pageTitle();
 			$output['timezone']=Core_CHome::setTimeZone();	
@@ -925,7 +925,7 @@ class Model_MAddCart
 	
 	function displayPaymentGateways()
 	{
-	
+
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -1055,6 +1055,7 @@ class Model_MAddCart
 	 */
 	function showPaymentPageForAuthorizenet() 
 	{
+
 	
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
@@ -1513,26 +1514,34 @@ class Model_MAddCart
 	 */
 	function validateShippingMethod()
 	{	
-	
+
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
-		include_once('classes/Core/CAddCart.php');
-		include("classes/Lib/CheckInputs.php");
-		$obj = new Lib_CheckInputs('shippingmethod');
 		
+		include("classes/Lib/CheckInputs.php");
+		$obj = new Lib_CheckInputs('shippingmethod');		
 	
 		if(!isset($_SESSION['user_id']))
 		{	
 			header('Location:?do=index');
-		}
-		
+		}		
 		else
 		{
-			$_SESSION['shipment_id_selected']=$_POST['shipment_id']; 
+			$_SESSION['orderdetails']['shipment_id']=$_POST['shipment_id'];
+			$_SESSION['orderdetails']['shipdurid']=$_POST['shipdurid'];
+			$_SESSION['orderdetails']['weight']=$_POST['weight'];
+			$_SESSION['orderdetails']['shipping_cost']=$_POST['shipping_cost'];
+
 			header('Location:?do=showcart&action=showorderconfirmation');
 		}
 	
 
+	}
+
+	function calculateShipCost()
+	{
+		include_once('classes/Core/CAddCart.php');	
+		Core_CAddCart::calculateShipCost();	
 	}	
 }
 ?>

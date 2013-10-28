@@ -84,8 +84,8 @@ class Model_MHomePageBanner
 			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 			$output['banner'] = Core_Settings_CHomePageBanner::homePageBanner($Err);
 			$output['slide_parameter']=Core_Settings_CHomePageBanner::getSlideParameter();		
-		
-			$output['bannerurl'] = Core_Settings_CHomePageBanner::homePageBannerUrl();
+		/*
+			$output['bannerurl'] = Core_Settings_CHomePageBanner::homePageBannerUrl();*/
 			Bin_Template::createTemplate('homepagebanner.html',$output);
 			UNSET($_SESSION['bannermsg']);
 		}
@@ -105,6 +105,7 @@ class Model_MHomePageBanner
 		
 	function updateHomePageBanner()
 	{
+
 	
 		include("classes/Lib/CheckInputs.php");
 		include('classes/Core/CRoleChecking.php');
@@ -113,7 +114,7 @@ class Model_MHomePageBanner
 		{
 			include('classes/Core/Settings/CHomePageBanner.php');
 			include('classes/Display/DHomePageBanner.php');
-			$obj = new Lib_CheckInputs('updateslideshow');
+// 			$obj = new Lib_CheckInputs('updateslideshow');
 			$_SESSION['bannermsg'] = Core_Settings_CHomePageBanner::updateHomePageBanner();
 		
 			header('Location:?do=banner');	

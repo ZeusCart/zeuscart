@@ -195,16 +195,16 @@ class Display_DProductDetail
 				<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['msrp'].'</h1></td>
 				</tr>';
 
-				if($arr[0]['shipping_cost']!='0' && $arr[0]['digital']=='0' && $arr[0]['gift']=='0')
-				{
-				
-				$output.='<tr><td align="left" valign="top"><span>Shipping Cost : <span class="red_fnt"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].' '.$arr[0]['shipping_cost'].'</span></span></td></tr>';
-				}
-				elseif($arr[0]['shipping_cost']=='0' && $arr[0]['digital']=='0' && $arr[0]['gift']=='0')
-				{
-					$output.='<tr><td align="left" valign="top"><span>Shipping Cost : <span class="red_fnt"> Free</td></tr>';
-
-				}
+// 				if($arr[0]['shipping_cost']!='0' && $arr[0]['digital']=='0' && $arr[0]['gift']=='0')
+// 				{
+// 				
+// 				$output.='<tr><td align="left" valign="top"><span>Shipping Cost : <span class="red_fnt"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].' '.$arr[0]['shipping_cost'].'</span></span></td></tr>';
+// 				}
+// 				elseif($arr[0]['shipping_cost']=='0' && $arr[0]['digital']=='0' && $arr[0]['gift']=='0')
+// 				{
+// 					$output.='<tr><td align="left" valign="top"><span>Shipping Cost : <span class="red_fnt"> Free</td></tr>';
+// 
+// 				}
 
 				$output.='
 				</table></li>';

@@ -514,7 +514,7 @@ class Display_DUserAccount
 		if(count($arr>0))
 		{
 			//changepagesize
-			$showpages='<li><span class="label label-success">'.count($arr).' </span> item(s) </li> <li style="float:right">Show 
+			$showpages='<li><span class="label label-success">'.count($arr).' </span> &nbsp;item(s) </li> <li style="float:right">Show 
 			<select name="select2" style="width:50px;" onchange="changepagesize(\'order\',this.value);">';
 			$showpages.='<option ';
 			if(isset($_GET['totrec'])&&$_GET['totrec']==10)
@@ -613,6 +613,19 @@ class Display_DUserAccount
  	*/
 	function showOrderDetails($arr)
 	{
+		//shipcost
+		$order_ship=$arr[0]['order_ship'];
+		$shipping_method=trim($arr[0]['shipping_method']);	
+
+		
+		$shipdurationrecords=array("0"=>"Select","1D"=>"Next Day Air Early AM","1DA"=>"Next Day Ai","1DP"=>"Next Day Air Saver","2DM"=>"2nd Day Air AM","2DA"=>"2nd Day Air","3DS"=>"3 Day Select","GND"=>"Ground","STD"=>"Canada Standar","XPR"=>"Worldwide Express","XDM"=>"Worldwide Express Plus","XPD"=>"Worldwide Expedited","WXS"=>"Worldwide Save");
+		foreach($shipdurationrecords as $key=>$value)	
+		{
+			if($key==$shipping_method)
+			{		
+				$ship_duration=$value;
+			}
+		}
 		$output=' <div class="title_fnt">
 		<h1>Order Details</h1>
 		<span><a href="javascript:window.open (\'?do=orderdetail&action=print&id='.$arr[0]['orders_id'].'\',\'mywindow\',\'location=1,status=1,scrollbars=1,width=920,height=700\');void(0);"><button name="color" type="button" class="btn btn-danger" value="btn btn-danger">Print</button></a>
@@ -650,13 +663,24 @@ class Display_DUserAccount
 			</table>
 				
 			</div>
-				<div class="span6"><h4>Payment Details </h4>
-				<table class="table table-striped table-bordered">
+
+			<div class="span6">
+			<table class="table table-striped table-bordered"><h4>Payment Details </h4>
 			<tr>
 			<td>Paid Through</td>
 			<th>'.$arr[0]['gateway_name'].'</th>
 			</tr>
 			
+			</table>
+			<table class="table table-striped table-bordered"><h4>Shipping Details </h4>
+			<tr>
+			<td>Ship Through</td>
+			<th>'.$arr[0]['shipment_name'].'</th>
+			</tr>
+			<tr>
+			<td>Shipping Duration</td>
+			<th>'.$ship_duration.'</th>
+			</tr>
 			</table>
 			</div>
 			</div>
@@ -678,7 +702,7 @@ class Display_DUserAccount
 
                  	 </div>
                         <div class="span6"><h4>Shipping Address</h4>
-				<ul class="addresslist">
+			<ul class="addresslist">
 			<li><address>
 			<p>'.$arr[0]['shipping_name'].'</p>
 			
@@ -693,10 +717,12 @@ class Display_DUserAccount
 			<p>'.$arr[0]['shipping_state'].'</p>
 			
 			<p>'.$arr[0]['shipcountry'].'</p>
+			
 			</address></li></ul>
 				</div>
 			</div>
 				
+
 		
 			<h4>Item Details</h4>
 			
@@ -708,7 +734,6 @@ class Display_DUserAccount
 				<th>Item Details</th>
 				<th>Price</th>
 				<th>Quantity</th>
-				<th>Shipping Charge</th>
 				<th>Total</th>
 			</tr>
 			</thead>
@@ -717,29 +742,41 @@ class Display_DUserAccount
 			$ship_cost=0;
 			for($i=0;$i<count($arr);$i++)
 			{
+
+				$variation='';
+				//select variation size
+				if(trim($arr[$i]['variation_id'])!='0')
+				{
+					$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$arr[$i]['variation_id']."' AND product_id='".$arr[$i]['product_id']."'";
+					$objSize=new Bin_Query();
+					$objSize->executeQuery($sqlSize);
+					$size=$objSize->records[0]['variation_name'];
+					$variation='<span class="label">Size - '.''.$size.'</span>';
+				}
+
 				$total=$arr[$i]['product_unit_price']*$arr[$i]['product_qty'] ;
 				$output.='<tr>
-					<td>'.$arr[$i]['title'].'</td>
+					<td>'.$arr[$i]['title'].' <br/>'.$variation.'</td>
 					<td><span class="label label-info">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price'],2).'</span></td>
 					<td>'.$arr[$i]['product_qty'].'</td>
-					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['shipping_cost'],2).'</span></td>
+					
 					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
 				</tr>';
 				$grand+=$total;
 				$ship_cost+=$arr[$i]['shipping_cost'];
 			}
 				$output.='<tr>
-				<td colspan="3" rowspan="3">&nbsp;</td>
+				<td colspan="2" rowspan="3">&nbsp;</td>
 				<td>Sub Total</td>
 				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grand,2).'</span>	</td>
 			</tr>
 				<tr>
 				<td>Shipping Amount</td>
-				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($ship_cost,2).'</span></td>
+				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($order_ship,2).'</span></td>
 			</tr>
 				<tr>
 				<td>Grand Total</td>
-				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total']).'</span></td>
+				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total'],2).'</span></td>
 			</tr>
 			</tbody>
 		</table>

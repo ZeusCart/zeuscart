@@ -44,6 +44,75 @@
     </div>
   
     <!-- /container -->
+<script>
+function checkInputs()
+{
+	
+	if($("input[type='radio'].radioBtnClass").is(':checked')) {
+		var ship_type = $("input[type='radio'].radioBtnClass:checked").val();
+		if(ship_type=='3')
+		{
+
+			if(document.getElementById('shipdurid').value=='' || document.getElementById('shipdurid').value=='0')
+			{
+				alert('Please select the shipping duration');
+				return false;
+			}
+		
+		}
+		
+	}
+	else
+	{
+		
+		alert('Please select the shipping type');
+		
+		return false;
+	}
+
+	return true;
+}
+function selectShippingType(id)
+{
+
+	
+	$( "#duration_ups" ).hide();
+	$( "#ship_cost").hide();		
+	if(id=='3')
+	{
+		document.getElementById("shipdurid").value = "0";
+		$( "#duration_ups" ).show();	
+	}
+	
+		
+	
+}
+function shipDuration(ship_dur_id,zip,weight)
+{
+
+	if(ship_dur_id!='0')
+	{
+		$.ajax({
+		url:'<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart&action=calculateshipcost',
+		data: 'ship_dur_id='+ship_dur_id+'&zip='+zip+'&weight='+weight,
+		type: 'GET',
+		success: function (resp) {
+			document.getElementById('var_ship').innerHTML=resp;
+			document.getElementById('shipping_cost').value=resp;
+	
+				$( "#ship_cost").show();
+			}
+		});
+	}
+	else
+	{
+		$( "#ship_cost").hide();
+		alert('Please select the shipping duration');
+		
+	}	
+	
+}
+</script>
 
    <AJDF:output>include file="footer.html"</AJDF:output>
 

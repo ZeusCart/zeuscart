@@ -61,8 +61,8 @@ class Core_CNews
 	 */
 	function showNewsPage()
 	{
-		$pagesize=5;
-  	    if(isset($_GET['page']))
+		$pagesize=10;
+  	    	if(isset($_GET['page']))
 		{
 		    
 			$start = trim($_GET['page']-1) *  $pagesize;

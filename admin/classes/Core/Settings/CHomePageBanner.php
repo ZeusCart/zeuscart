@@ -83,6 +83,12 @@ class Core_Settings_CHomePageBanner
 	function updateHomePageBanner()
 	{
 
+// echo "<pre>";
+// print_r($_FILES);
+// 
+// echo "<pre>";
+// print_r($_POST);
+
 
 		include('classes/Lib/ThumbImage.php');
 		// slide show parameter updation
@@ -101,15 +107,17 @@ class Core_Settings_CHomePageBanner
 
 			for($i=0;$i<$totalcount;$i++)
 			{
-				
+				$image='';	
+				$thumb_image='';	
 				if($_POST['slide_content_image'][$i]!='' && $_FILES['slide_content']['name'][$i]=='')
 				{
 					$image=$_POST['slide_content_image'][$i];
 		
 					$thumb_image=$_POST['slide_content_thumb'][$i];
 				}
-				elseif($_FILES['slide_content']['name'][$i]!='' )
+				elseif($_FILES['slide_content']['name'][$i]!='')
 				{
+
 					$imgfilename= $_FILES['slide_content']['name'][$i];
 					$imagefilename = date("Y-m-d-His").$imgfilename ; // generate a new name
 							
@@ -147,7 +155,6 @@ class Core_Settings_CHomePageBanner
 
 				
 			}
-			
 
 
 			return '<div class="alert alert-success">

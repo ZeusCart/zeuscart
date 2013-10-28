@@ -45,7 +45,9 @@ class Core_CShippingTracker
 	
     function displayShippingTrackerSetting()
 	{
-		include_once("classes/Display/DShippingTracker.php");
+
+
+	include_once("classes/Display/DShippingTracker.php");
 		
 		if(count($Err->values)==0)
 		{	
@@ -71,33 +73,53 @@ class Core_CShippingTracker
 	 * @return string
 	 */
 	 
-    function updateShippingTrackerSetting()
+   	function updateShippingTrackerSetting()
 	{
-		include_once("classes/Display/DShippingTracker.php");
+	
+		$cnt=count($_POST['ship_id']);
+		for($i=0;$i<$cnt;$i++)
+		{
+	
+			$shippingid=$_POST['ship_id'][$i];			
+			$shipment_user_id =$_POST['shipment_user_id'][$i];
+			$shipment_password =$_POST['shipment_password'][$i];
+			$shipment_accesskey=$_POST['shipment_accesskey'][$i];
+			$sql = "UPDATE shipments_master_table SET status=0 where shipment_id=".$shippingid."";	
+			$obj1=new Bin_Query();
+			$obj1->updateQuery($sql);	
+			if($shippingid!='')
+			{
 		
-		$ship_idarr=$_POST['shippingid'];
-		$ship_valarr=$_POST['shippingstatus'];
-		
+				$sql = "UPDATE shipments_master_table  SET
+				shipment_user_id='".$shipment_user_id."',
+				shipment_password='".$shipment_password."',
+				shipment_accesskey ='".$shipment_accesskey."'
+				where shipment_id=".$shippingid."";
+				$obj1=new Bin_Query();
+				if($obj1->updateQuery($sql))
+				{
 			
-		$arrdiff=array_diff($ship_idarr,$ship_valarr);
-				
-		if($_POST['button']=='Update')
-	 	{
-			for($i=0;$i<count($ship_valarr);$i++)
-			{
-				$sql = "UPDATE shipments_master_table SET status=1 where shipment_id=".$ship_valarr[$i]."";		
-				
-				$obj1=new Bin_Query();
-				$obj1->updateQuery($sql);		
+					$_SESSION['shipmentMsg'] = '<div class="alert alert-success">
+					<button type="button" class="close" data-dismiss="alert">×</button> Shipment Settings settings has been updated successfully </div>';
+					
+					
+				}	
 			}
-			foreach($arrdiff as $arrdf)
-			{
-				$sql = "UPDATE shipments_master_table SET status=0 where shipment_id=".$arrdf."";		
-				
-				$obj1=new Bin_Query();
-				$obj1->updateQuery($sql);	
-			} 
+			
+
 		}
+	
+		$shpistat_cnt=count($_POST['shippingstatus']);
+		for($j=0;$j<$shpistat_cnt;$j++)
+		{
+			$shippingstatus=$_POST['shippingstatus'][$j];			
+			$sql = "UPDATE shipments_master_table SET status=1 where shipment_id=".$shippingstatus."";				
+			$obj1=new Bin_Query();
+			$obj1->updateQuery($sql);
+		}
+	
+	
+		header("Location:?do=showshipmenttracker");
 	}
  	
 

@@ -757,6 +757,12 @@
     'function' => 'showTest',
     'loadlib' => '1',
   ),
+ 'showcart:calculateshipcost' => 
+  array (
+    'model' => 'MAddCart',
+    'function' => 'calculateshipcost',
+    'loadlib' => '1',
+  ),
 );
  
 

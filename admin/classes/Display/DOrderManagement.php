@@ -314,7 +314,7 @@ class Display_DOrderManagement
 	function displayDetailOrders($result,$cmbStr,$recordsinv)
 	{
 
-
+		
 		if($_GET['action']=='viewdetail')
 		{
 			if((count($result))>0)
@@ -357,7 +357,16 @@ class Display_DOrderManagement
 					$ip_address =$row['ip_address'];
 					$shipment_id=$row['shipment_id_selected'];
 					$shipment_trackid=$row['shipment_track_id'];
-					
+					$shipment_name=$row['shipment_name'];
+
+					$shipdurationrecords=array("0"=>"Select","1D"=>"Next Day Air Early AM","1DA"=>"Next Day Ai","1DP"=>"Next Day Air Saver","2DM"=>"2nd Day Air AM","2DA"=>"2nd Day Air","3DS"=>"3 Day Select","GND"=>"Ground","STD"=>"Canada Standar","XPR"=>"Worldwide Express","XDM"=>"Worldwide Express Plus","XPD"=>"Worldwide Expedited","WXS"=>"Worldwide Save");
+					foreach($shipdurationrecords as $key=>$value)	
+					{
+						if($key==$shipping_method)
+						{		
+							$ship_duration=$value;
+						}
+					}
 					//$prcssarray=array("Pending","Processing","Delivered","AwaitingPayment","AwaitingFulfillment","AwaitingShipment","AwaitingPickup","Completed","Shipped","Cancelled");
 					$prcssarray=array("Pending","Processing","Delivered","AwaitingPayment","Cancel");
 					
@@ -384,9 +393,9 @@ class Display_DOrderManagement
 					$output='
 					<div class="menu_new clsBtm_20">
 					<div class="row-fluid">
-					<div class="span9"><h2>Order Detail </h2>
+					<div class="span7"><h2>Order Detail </h2>
 					</div>
-					<div class="span3" >
+					<div >
 
 					<ul class="bttn_right">
 					<li><a href="javascript:history.go(-1)" class="back_icon1"  ></a></li>
@@ -403,7 +412,7 @@ class Display_DOrderManagement
 					<h2 class="box_head green_bg">Order Detail : #'.$orders_id.'</h2>
 					<div class="toggle_container">
 					<div class="clsblock">
-					<div class="clearfix">
+					<div class="clearfix"><div class="span6">
 					<div class="row-fluid">
 					<div class="span3">
 					<label>Order ID</label></div>  <div class="span6">
@@ -438,7 +447,16 @@ class Display_DOrderManagement
 					<label>
 					Paid Through</label></div>  <div class="span6"> <span class="label">'.$row['gateway_name'].'</span></div></div>
 
-					</div></div></div></div></div><br/>';
+					</div><div class="span6">
+					<div class="row-fluid">
+					<div class="span3">
+					<label>
+					Ship Through</label></div>  <div class="span6"> <span class="label label-info">'.$shipment_name.'</span></div></div>
+					
+					<div class="row-fluid">
+					<div class="span3">
+					<label>
+					Shipping Duration</label></div>  <div class="span6">'.$ship_duration.'</div></div></div></div></div></div></div></div><br/>';
 
 				}
 				return $output;
@@ -881,6 +899,7 @@ class Display_DOrderManagement
 	function displayProductsForOrder($result,$grandtotal)
 	{
 
+
 		if(count($result)>0)
 		{
 			$output='  <div class="blocks" style="opacity: 1;">
@@ -932,12 +951,13 @@ class Display_DOrderManagement
 				</tr>';
 
 				$total+=$row['product_qty']*$row['product_unit_price'];
-				$shiptotal+=$shipcost;
+				$shiptotal+=$row['order_ship'];
 				
 			}
 			$grandtotal=$total+$shiptotal;
+		
 			$output.='<tr >
-
+			
 			<td colspan="4" style="text-align:right" ><strong>SUB TOTAL :</strong></td>
 			<td  align="center" style="padding-right:10px"><span class="label label-success"><strong>'.$_SESSION['currency']['currency_tocken'].number_format($total,2).'</strong></span></td>
 			</tr><tr >
