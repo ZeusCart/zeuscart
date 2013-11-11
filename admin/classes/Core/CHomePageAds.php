@@ -312,5 +312,68 @@ class Core_CHomePageAds
 		}
 
 	}
+	/**
+	 * Function is used to show home page about content 
+	 * @param array $Err
+	 * @return array
+	 */
+	function showHomePageContent($Err)
+	{
+
+		$sql="SELECT * FROM home_page_content_table";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$records=$obj->records[0];	
+
+		return Display_DHomePageAds::showHomePageContent($records,$Err);
+
+	}
+	/**
+	 * Function is used to update home page about content 
+	 * 
+	 * 
+	 * @return array
+	 */
+	function updateHomePageContent()
+	{
+
+
+		if(isset($_POST['status']))
+		{
+			$status=$_POST['status'];
+
+		}
+		else
+		{
+			$status=1;
+	
+		}
+		$remove =  array("\\n","\\r");
+		$home_page_content= str_replace($remove,"",$_POST['home_page_content']);
+	
+		
+		 $sql = "UPDATE home_page_content_table SET 
+			home_page_content ='".trim($home_page_content)."',
+			status='".$status."'
+			where id='1'";  
+			$query = new Bin_Query();
+			if($query->updateQuery($sql))
+			{		
+
+				$_SESSION['msgSitemoto'] = '<div class="alert alert-success">
+   				 <button type="button" class="close" data-dismiss="alert">×</button>Content  has been updated successfully </div>';
+		
+			}
+			else
+			{
+				$_SESSION['msgSitemoto'] = '<div class="alert alert-error">
+    				<button type="button" class="close" data-dismiss="alert">×</button>Content has not been updated successfully</div>';
+
+			}
+
+			header('Location:?do=homepage&action=content');
+			exit;
+
+	}
 }
 ?>

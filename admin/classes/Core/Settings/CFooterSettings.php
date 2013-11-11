@@ -58,7 +58,9 @@ class Core_Settings_CFooterSettings
 	function updateConnectWithUs()
 	{
 		$obj=new Bin_Query();
-		$sql="UPDATE  footer_settings_table SET callus='".$_POST['callus']."' ,email='".$_POST['email']."',fax='".$_POST['fax']."',location='".$_POST['location']."',footercontent='".$_POST['footercontent']."' WHERE id='1'";
+		$sql="UPDATE  footer_settings_table SET 
+		free_shipping_cost='".trim($_POST['free_shipping_cost'])."',
+		callus='".$_POST['callus']."' ,email='".$_POST['email']."',fax='".$_POST['fax']."',location='".$_POST['location']."',footercontent='".$_POST['footercontent']."' WHERE id='1'";
 		if($obj->updateQuery($sql))
 		return  '<div class="success_msgbox" style="width:650px;">Updated Successfully</div>';
 

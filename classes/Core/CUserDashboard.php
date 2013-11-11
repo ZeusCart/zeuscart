@@ -58,7 +58,7 @@ class Core_CUserDashboard
 		}
 		$total = 0;
 		
-		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total FROM `orders_table` a,orders_status_table b,users_table c,order_products_table d where a.orders_status=b.orders_status_id and a.customers_id=c.user_id and a.orders_id=d.order_id and a.customers_id=".$_SESSION['user_id']." group by a.orders_id order by a.date_purchased desc";
+		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total,a.currency_id FROM `orders_table` a,orders_status_table b,users_table c,order_products_table d where a.orders_status=b.orders_status_id and a.customers_id=c.user_id and a.orders_id=d.order_id and a.customers_id=".$_SESSION['user_id']." group by a.orders_id order by a.date_purchased desc";
 		
 		$query = new Bin_Query();
 		if($query->executeQuery($sqlselect))
@@ -71,7 +71,7 @@ class Core_CUserDashboard
 			$this->data['next'] = $tmp->next;	
 		}
 		
-		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total FROM `orders_table` a,orders_status_table b,users_table c,order_products_table d where a.orders_status=b.orders_status_id and a.customers_id=c.user_id and a.orders_id=d.order_id and a.customers_id=".$_SESSION['user_id']." group by a.orders_id order by a.date_purchased desc LIMIT $start,$end";		
+		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total,a.currency_id,e.id,e.currency_tocken  FROM `orders_table` a,orders_status_table b,users_table c,order_products_table d,currency_master_table e where a.orders_status=b.orders_status_id and a.customers_id=c.user_id and a.orders_id=d.order_id and a.customers_id=".$_SESSION['user_id']." and e.id=a.currency_id group by a.orders_id order by a.date_purchased desc LIMIT $start,$end";		
 		
 		$sqlUser='select user_id,concat(user_fname," ",user_lname) as name,user_email from users_table where user_id='.$_SESSION['user_id'];
 

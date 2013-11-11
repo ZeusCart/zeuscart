@@ -65,7 +65,7 @@ class Model_MWishList
 		include("classes/Lib/HandleErrors.php");
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CUserWishList.php');
 		
 		include_once('classes/Core/CCurrencySettings.php');
@@ -99,7 +99,7 @@ class Model_MWishList
 		$default = new Core_CWishList();
 		$output['message'] = $default->addtoWishList();			
 		$output['rows']=Core_CUserWishList::showWishList();
-
+		$output['cartcount']=Core_CAddCart::countCart();
 		
 		Bin_Template::createTemplate('userIndex.html',$output);
 	
@@ -134,7 +134,7 @@ class Model_MWishList
 		include("classes/Lib/HandleErrors.php");
 		include_once('classes/Core/CLastViewedProducts.php');
 		include_once('classes/Display/DLastViewedProducts.php');
-		
+		include_once('classes/Core/CAddCart.php');
 		include_once('classes/Core/CUserWishList.php');
 		
 		include_once('classes/Core/CCurrencySettings.php');
@@ -168,7 +168,7 @@ class Model_MWishList
 		$default = new Core_CWishList();
 		$output['message'] = $default->deletefromWishList();			
 		$output['rows']=Core_CUserWishList::showWishList();
-
+		$output['cartcount']=Core_CAddCart::countCart();
 		
 		Bin_Template::createTemplate('userIndex.html',$output);
 	
@@ -196,7 +196,7 @@ class Model_MWishList
 			include_once('classes/Display/DUserRegistration.php');
 			include_once('classes/Core/CNewProducts.php');
 			include_once('classes/Display/DNewProducts.php');
-		
+			include_once('classes/Core/CAddCart.php');	
 			include_once('classes/Core/CKeywordSearch.php');
   			include_once('classes/Display/DKeywordSearch.php');
 			include_once('classes/Core/CLastViewedProducts.php');
@@ -241,7 +241,8 @@ class Model_MWishList
 			$output['userLeftMenu'] = Display_DUserRegistration::showUserLeftMenu();			
 			$output['userRight'] = "userdashboard.html";					
 			$output['rows']=Core_CWishList::viewWishList();
-	
+			$output['cartcount']=Core_CAddCart::countCart();
+// 
 			Bin_Template::createTemplate('userIndex.html',$output);
 
 			

@@ -83,6 +83,7 @@ class Display_DUserAccount
  	*/
 	function showDashboard($arr,$arrUser,$status,$paging,$prev,$next,$val)
 	{
+
 		$newsStatus='You are currently not subscribed to newsletter.';
 		if($status[0]['status']==1)
 			$newsStatus='You are currently subscribed to newsletter.';
@@ -121,7 +122,7 @@ class Display_DUserAccount
 					<td>#'.$arr[$i]['orders_id'].'</td>
 					<td>'.$arr[$i]['pdate'].'</td>
 					<td>'.$arr[$i]['user_display_name'].'</td>
-					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['total']).'</span></td>
+					<td><span class="label label-inverse">'.$arr[$i]['currency_tocken'].number_format($arr[$i]['total']).'</span></td>
 					<td> <span class="label label-success">'.$arr[$i]['orders_status_name'].'</span></td>
 					<td><a href="'.$_SESSION['base_url'].'/index.php?do=orderdetail&id='.$arr[$i]['orders_id'].'" class="btn btn-mini">View Order</a></td>
 					</tr>';
@@ -561,7 +562,7 @@ class Display_DUserAccount
 					$output.='<tr>
 					<td><a href="?do=orderdetail&id='.$arr[$i]['orders_id'].'">#'.$arr[$i]['orders_id'].'</a></td>
 					<td>'.$arr[$i]['pdate'].'</td>
-					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['total'],2).'</span></td>
+					<td><span class="label label-inverse">'.$arr[$i]['currency_tocken'].number_format($arr[$i]['total'],2).'</span></td>
 					
 					<td>'.$arr[$i]['shipment_track_id'].'</td>
 					<td><span class="label label-important">'.$arr[$i]['orders_status_name'].'</span></td>
@@ -613,18 +614,25 @@ class Display_DUserAccount
  	*/
 	function showOrderDetails($arr)
 	{
+
 		//shipcost
 		$order_ship=$arr[0]['order_ship'];
 		$shipping_method=trim($arr[0]['shipping_method']);	
 
-		
-		$shipdurationrecords=array("0"=>"Select","1D"=>"Next Day Air Early AM","1DA"=>"Next Day Ai","1DP"=>"Next Day Air Saver","2DM"=>"2nd Day Air AM","2DA"=>"2nd Day Air","3DS"=>"3 Day Select","GND"=>"Ground","STD"=>"Canada Standar","XPR"=>"Worldwide Express","XDM"=>"Worldwide Express Plus","XPD"=>"Worldwide Expedited","WXS"=>"Worldwide Save");
-		foreach($shipdurationrecords as $key=>$value)	
-		{
-			if($key==$shipping_method)
-			{		
-				$ship_duration=$value;
+		if($arr[0]['shipment_id_selected']!='1')
+		{	
+			$shipdurationrecords=array("0"=>"Select","1D"=>"Next Day Air Early AM","1DA"=>"Next Day Ai","1DP"=>"Next Day Air Saver","2DM"=>"2nd Day Air AM","2DA"=>"2nd Day Air","3DS"=>"3 Day Select","GND"=>"Ground","STD"=>"Canada Standar","XPR"=>"Worldwide Express","XDM"=>"Worldwide Express Plus","XPD"=>"Worldwide Expedited","WXS"=>"Worldwide Save");
+			foreach($shipdurationrecords as $key=>$value)	
+			{
+				if($key==$shipping_method)
+				{		
+					$ship_duration=$value;
+				}
 			}
+			$ups_ship_method='<tr>
+			<td>Shipping Duration</td>
+			<th>'.$ship_duration.'</th>
+			</tr>';
 		}
 		$output=' <div class="title_fnt">
 		<h1>Order Details</h1>
@@ -650,7 +658,7 @@ class Display_DUserAccount
 			</tr>
 			<tr>
 			<td> Order Total</td>
-			<th>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['order_total'].'</th>
+			<th>'.$arr[0]['currency_tocken'].''.$arr[0]['order_total'].'</th>
 			</tr>
 			<tr>
 			<td>Order Date</td>
@@ -677,9 +685,10 @@ class Display_DUserAccount
 			<td>Ship Through</td>
 			<th>'.$arr[0]['shipment_name'].'</th>
 			</tr>
+			'.$ups_ship_method.'
 			<tr>
-			<td>Shipping Duration</td>
-			<th>'.$ship_duration.'</th>
+			<td>Ship Track ID</td>
+			<th>'.$arr[0]['shipment_track_id'].'</th>
 			</tr>
 			</table>
 			</div>
@@ -757,10 +766,10 @@ class Display_DUserAccount
 				$total=$arr[$i]['product_unit_price']*$arr[$i]['product_qty'] ;
 				$output.='<tr>
 					<td>'.$arr[$i]['title'].' <br/>'.$variation.'</td>
-					<td><span class="label label-info">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price'],2).'</span></td>
+					<td><span class="label label-info">'.$arr[$i]['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price'],2).'</span></td>
 					<td>'.$arr[$i]['product_qty'].'</td>
 					
-					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
+					<td><span class="label label-inverse">'.$arr[$i]['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
 				</tr>';
 				$grand+=$total;
 				$ship_cost+=$arr[$i]['shipping_cost'];
@@ -768,15 +777,15 @@ class Display_DUserAccount
 				$output.='<tr>
 				<td colspan="2" rowspan="3">&nbsp;</td>
 				<td>Sub Total</td>
-				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grand,2).'</span>	</td>
+				<td><span class="label label-success">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($grand,2).'</span>	</td>
 			</tr>
 				<tr>
 				<td>Shipping Amount</td>
-				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($order_ship,2).'</span></td>
+				<td><span class="label label-inverse">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($order_ship,2).'</span></td>
 			</tr>
 				<tr>
 				<td>Grand Total</td>
-				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total'],2).'</span></td>
+				<td><span class="label label-important">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total'],2).'</span></td>
 			</tr>
 			</tbody>
 		</table>
@@ -1521,6 +1530,26 @@ class Display_DUserAccount
 	function printOrderDetail($arr)
 	{
 
+
+		$order_ship=$arr[0]['order_ship'];
+		$shipping_method=trim($arr[0]['shipping_method']);	
+
+		if($arr[0]['shipment_id_selected']!='1')
+		{	
+			$shipdurationrecords=array("0"=>"Select","1D"=>"Next Day Air Early AM","1DA"=>"Next Day Ai","1DP"=>"Next Day Air Saver","2DM"=>"2nd Day Air AM","2DA"=>"2nd Day Air","3DS"=>"3 Day Select","GND"=>"Ground","STD"=>"Canada Standar","XPR"=>"Worldwide Express","XDM"=>"Worldwide Express Plus","XPD"=>"Worldwide Expedited","WXS"=>"Worldwide Save");
+			foreach($shipdurationrecords as $key=>$value)	
+			{
+				if($key==$shipping_method)
+				{		
+					$ship_duration=$value;
+				}
+			}
+			$ups_ship_method='<tr>
+			<td>Shipping Duration</td>
+			<th>'.$ship_duration.'</th>
+			</tr>';
+		}
+
 		$output='<link href="'.$_SESSION['base_url'].'/assets/css/style.css" rel="stylesheet"> <link href="'.$_SESSION['base_url'].'/assets/css/table.css" rel="stylesheet" type="text/css" />';
 		$output.=' <div class="title_fnt">
 		<h1>Order Details</h1>
@@ -1543,7 +1572,7 @@ class Display_DUserAccount
 			</tr>
 			<tr>
 			<td> Order Total</td>
-			<th>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['order_total'].'</th>
+			<th>'.$arr[0]['currency_tocken'].''.$arr[0]['order_total'].'</th>
 			</tr>
 			<tr>
 			<td>Order Date</td>
@@ -1556,13 +1585,25 @@ class Display_DUserAccount
 			</table>
 				
 			</div>
-				<div class="span6"><h4>Payment Details </h4>
-				<table class="table table-striped table-bordered">
+
+			<div class="span6">
+			<table class="table table-striped table-bordered"><h4>Payment Details </h4>
 			<tr>
 			<td>Paid Through</td>
 			<th>'.$arr[0]['gateway_name'].'</th>
 			</tr>
 			
+			</table>
+			<table class="table table-striped table-bordered"><h4>Shipping Details </h4>
+			<tr>
+			<td>Ship Through</td>
+			<th>'.$arr[0]['shipment_name'].'</th>
+			</tr>
+			'.$ups_ship_method.'
+			<tr>
+			<td>Ship Track ID</td>
+			<th>'.$arr[0]['shipment_track_id'].'</th>
+			</tr>
 			</table>
 			</div>
 			</div>
@@ -1614,44 +1655,43 @@ class Display_DUserAccount
 				<th>Item Details</th>
 				<th>Price</th>
 				<th>Quantity</th>
-				<th>Shipping Charge</th>
 				<th>Total</th>
 			</tr>
 			</thead>
 			<tbody>';
 			$grand=0;
-			$ship_cost=0;
+		
 			for($i=0;$i<count($arr);$i++)
 			{
 				$total=$arr[$i]['product_unit_price']*$arr[$i]['product_qty'] ;
 				$output.='<tr>
 					<td>'.$arr[$i]['title'].'</td>
-					<td><span class="label label-info">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price']).'</span></td>
+					<td><span class="label label-info">'.$arr[$i]['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price']).'</span></td>
 					<td>'.$arr[$i]['product_qty'].'</td>
-					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[$i]['shipping_cost']).'</span></td>
-					<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
+					
+					<td><span class="label label-inverse">'.$arr[$i]['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
 				</tr>';
 				$grand+=$total;
-				$ship_cost+=$arr[$i]['shipping_cost'];
+				
 			}
 				$output.='<tr>
-				<td colspan="3" rowspan="3">&nbsp;</td>
+				<td colspan="2" rowspan="3">&nbsp;</td>
 				<td>Sub Total</td>
-				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grand).'</span>	</td>
+				<td><span class="label label-success">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($grand,2).'</span>	</td>
 			</tr>
 				<tr>
 				<td>Shipping Amount</td>
-				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($ship_cost).'</span></td>
+				<td><span class="label label-inverse">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($order_ship,2).'</span></td>
 			</tr>
 				<tr>
 				<td>Grand Total</td>
-				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total']).'</span></td>
+				<td><span class="label label-important">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total'],2).'</span></td>
 			</tr>
 			</tbody>
 		</table>
-		</div>
+		</div>';
 
-		<p class="PageBreak">&nbsp;</p><script type="text/javascript">window.setTimeout("window.print();", 1000);</script></body></html>';
+		$output.='<p class="PageBreak">&nbsp;</p><script type="text/javascript">window.setTimeout("window.print();", 1000);</script></body></html>';
 
 	
 		echo  $output;	

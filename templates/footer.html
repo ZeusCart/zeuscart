@@ -23,7 +23,7 @@
     <div id="order_div">
     	<div class="container">
         	<div class="row-fluid">
-        	<div class="span7"><h3>Free Shipping on orders over <span>$99</span></h3></div>
+        	<div class="span7"><h3>Free Shipping on orders over <span><AJDF:output>$smarty.session.currencysetting.selected_currency_settings.currency_tocken</AJDF:output><AJDF:output>$footerconnect.free_shipping_cost</AJDF:output></span></h3></div>
 
             <div class="span5">      <AJDF:output>$newsletter</AJDF:output>
 <form name="newsletter" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=subnewsletter" method="post" class="form-inline" style="float:right">

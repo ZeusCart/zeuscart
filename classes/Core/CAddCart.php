@@ -1360,18 +1360,22 @@ class Core_CAddCart
 				{
 					$totalweight=0;
 					$productWeight='';
+					$shipping_cost='';
+					$totalshipcost=0;
 					for($i=0;$i<count($recordsWeight);$i++)
 					{
 					
 						
-						$sqlProduct="SELECT product_id,weight FROM products_table WHERE product_id='".$recordsWeight[$i]['product_id']."'";
+						$sqlProduct="SELECT product_id,weight,shipping_cost FROM products_table WHERE product_id='".$recordsWeight[$i]['product_id']."'";
 						$objProduct=new Bin_Query();
 						$objProduct->executeQuery($sqlProduct);
 						$productWeight=$objProduct->records[0]['weight'];
-						
+						$shipping_cost=$objProduct->records[0]['shipping_cost'];
+
 						$weight=$productWeight*$recordsWeight[$i]['product_qty'];
-		
+						$shipcost=$shipping_cost*$recordsWeight[$i]['product_qty'];
 						$totalweight=$totalweight+$weight;
+						$totalshipcost=$totalshipcost+$shipcost;
 					}
 				}
 			}
@@ -1382,18 +1386,23 @@ class Core_CAddCart
 				if($cnt>0)
 				{
 					$totalweight=0;
+					$totalshipcost=0;
+					$productWeight='';
+					$shipping_cost='';
 					for($i=0;$i<$cnt;$i++)
 					{
 					
 						
-						$sqlProduct="SELECT product_id,weight FROM products_table WHERE product_id='".$_SESSION['mycart'][$i]['product_id']."'";
+						$sqlProduct="SELECT product_id,weight,shipping_cost FROM products_table WHERE product_id='".$_SESSION['mycart'][$i]['product_id']."'";
 						$objProduct=new Bin_Query();
 						$objProduct->executeQuery($sqlProduct);
 						$productWeight=$objProduct->records[0]['weight'];
-						
-						$weight=$objProduct->records[0]['weight']*$_SESSION['mycart'][$i]['qty'];
-		
+						$shipping_cost=$objProduct->records[0]['shipping_cost'];
+	
+						$weight=$productWeight*$_SESSION['mycart'][$i]['qty'];
+						$shipcost=$shipping_cost*$_SESSION['mycart'][$i]['qty'];
 						$totalweight=$totalweight+$weight;
+						$totalshipcost=$totalshipcost+$shipcost;
 					}
 				}
 			}
@@ -1410,7 +1419,9 @@ class Core_CAddCart
 			if(count($recordsWeight)>0)
 			{
 				$totalweight=0;
+				$totalshipcost=0;
 				$productWeight='';
+				$shipping_cost='';
 				for($i=0;$i<count($recordsWeight);$i++)
 				{
 				
@@ -1419,10 +1430,10 @@ class Core_CAddCart
 					$objProduct=new Bin_Query();
 					$objProduct->executeQuery($sqlProduct);
 					$productWeight=$objProduct->records[0]['weight'];
-					
 					$weight=$productWeight*$recordsWeight[$i]['product_qty'];
-	
+					$shipcost=$shipping_cost*$recordsWeight[$i]['product_qty'];
 					$totalweight=$totalweight+$weight;
+					$totalshipcost=$totalshipcost+$shipcost;
 				}
 			}
 		}
@@ -1443,7 +1454,7 @@ class Core_CAddCart
 
 		
 
-		return Display_DAddCart::showShippingMethod($obj->records,$Err,$totalweight);
+		return Display_DAddCart::showShippingMethod($obj->records,$Err,$totalweight,$totalshipcost);
 	
 
 	}
@@ -2384,7 +2395,10 @@ class Core_CAddCart
 					$carts=count($records); 
 					return $carts;
 				}
-
+				else 
+				{
+					return '0';
+				}
 			}
 			else
 			{
@@ -2397,13 +2411,18 @@ class Core_CAddCart
 							
 								$sum=$sum+$_SESSION['mycart'][$i]['qty'];
 						}
+						$carts=count($_SESSION['mycart']);
+						return $carts;
 					}
-					$carts=count($_SESSION['mycart']);
-					return $carts;
+					else 
+					{
+						return '0';
+					}
+				
 			}
 			
-		}
-		
+			
+		}		
 		else if(isset($_SESSION['user_id']))
 		{
 
@@ -2424,9 +2443,13 @@ class Core_CAddCart
 			else 
 			{
 				return '0';
-			}
+			}	
+			
 		}
-		
+		else 
+		{
+			return '0';
+		}
 	
 	}
 	/**
@@ -2490,15 +2513,12 @@ class Core_CAddCart
 			return ;
 	
 	}
-
 	function calculateShipCost()
 	{
 
-
 		include_once('classes/Lib/UPS/UPSRate.php');
 
-
-		$sql="SELECT * FROM shipments_master_table WHERE shipment_id=3";
+		$sql="SELECT * FROM shipments_master_table WHERE shipment_id=2";
 		$obj=new Bin_Query();
 		$obj->executeQuery($sql);
 		$records=$obj->records[0];

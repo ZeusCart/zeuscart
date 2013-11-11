@@ -126,6 +126,45 @@ class Display_DHomePageAds
 
 	}
 	
+	/**
+	 * Function to show home page content. 
+	 * @param array $records
+	 * @param array $Err
+	 * @return string
+	 */
+	function showHomePageContent($records,$Err)
+	{
+
+		if(!empty($Err->messages))
+		{
+			$home_page_content=$Err->values['home_page_content'];
+
+		}
+		else
+		{
+			$home_page_content=$records['home_page_content'];
+		}
+
+		if($records['status']=='0')
+		{
+			$checked="checked=checked";
+		}
+		else
+		{
+			$checked='';
+		}
+		$output='<div class="row-fluid">
+   		 <div class="span6">
+	        <label>Home Page  Content <font color="red">*</font>  </label>
+		<textarea name="home_page_content" id="home_page_content" class="ckeditor"  style="width: 279px; height: 159px;">'.$home_page_content.'</textarea>
+		</div></div>
+		
+		<div class="row-fluid">
+ 		<div class="span12"><label>Status</label>
+          	 <input name="status" type="checkbox" id="status"  value="0" '.$checked.'/> 
+                <p style="margin-top:-20px;margin-left:90px;"> <code> (Enable if the content is displayed  in home page)</code></p></div></div>';
+		return $output;
+	}
 	
 
 }

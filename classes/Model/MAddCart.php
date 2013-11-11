@@ -1530,7 +1530,14 @@ class Model_MAddCart
 			$_SESSION['orderdetails']['shipment_id']=$_POST['shipment_id'];
 			$_SESSION['orderdetails']['shipdurid']=$_POST['shipdurid'];
 			$_SESSION['orderdetails']['weight']=$_POST['weight'];
-			$_SESSION['orderdetails']['shipping_cost']=$_POST['shipping_cost'];
+			if($_POST['shipment_id']=='1')
+			{
+				$_SESSION['orderdetails']['shipping_cost']=$_POST['default_shipping_cost'];
+			}
+			else
+			{
+				$_SESSION['orderdetails']['shipping_cost']=$_POST['shipping_cost'];
+			}
 
 			header('Location:?do=showcart&action=showorderconfirmation');
 		}

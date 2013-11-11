@@ -57,7 +57,7 @@ class Core_CUserOrder
 		$total = 0;
 		$id=$_SESSION['user_id'];
 				
-		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total,a.shipment_track_id,e.shipment_name FROM `orders_table` a inner join orders_status_table b on a.orders_status=b.orders_status_id inner join users_table c on a.customers_id=c.user_id inner join order_products_table d on a.orders_id=d.order_id left join shipments_master_table e on a.shipment_id_selected=e.shipment_id where a.customers_id=".$id." group by a.orders_id order by a.date_purchased desc";
+		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total,a.shipment_track_id,e.shipment_name,a.currency_id,f.id,f.currency_tocken FROM `orders_table` a inner join orders_status_table b on a.orders_status=b.orders_status_id inner join users_table c on a.customers_id=c.user_id inner join order_products_table d on a.orders_id=d.order_id left join shipments_master_table e on a.shipment_id_selected=e.shipment_id left join currency_master_table f on f.id=a.currency_id where a.customers_id=".$id." group by a.orders_id order by a.date_purchased desc";
 		
 		$query = new Bin_Query();
 		if($query->executeQuery($sqlselect))
@@ -70,7 +70,7 @@ class Core_CUserOrder
 			$this->data['next'] = $tmp->next;	
 		}
 		
-		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total,a.shipment_track_id,e.shipment_id,e.shipment_name FROM `orders_table` a inner join orders_status_table b on a.orders_status=b.orders_status_id inner join users_table c on a.customers_id=c.user_id inner join order_products_table d on a.orders_id=d.order_id left join shipments_master_table e on a.shipment_id_selected=e.shipment_id where a.customers_id=".$id." group by a.orders_id order by a.date_purchased desc LIMIT $start,$end";		
+		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total,a.currency_id,f.id,f.currency_tocken,a.shipment_track_id,e.shipment_id,e.shipment_name FROM `orders_table` a inner join orders_status_table b on a.orders_status=b.orders_status_id inner join users_table c on a.customers_id=c.user_id inner join order_products_table d on a.orders_id=d.order_id left join shipments_master_table e on a.shipment_id_selected=e.shipment_id left join currency_master_table f on f.id=a.currency_id where a.customers_id=".$id." group by a.orders_id order by a.date_purchased desc LIMIT $start,$end";		
 		$obj = new Bin_Query();
 
 		$obj->executeQuery($sqlselect);
@@ -89,7 +89,7 @@ class Core_CUserOrder
 	{
 		include('classes/Display/DUserAccount.php');
 		$id=(int)$_GET['id'];
-		$sqlselect = "SELECT a.*,date_format(a.date_purchased,'%e/%c/%Y') as purDate,date_format(a.orders_date_closed,'%e/%c/%Y') as closeDate,b.orders_status_name,c.*,d.title,e.gateway_name,e.merchant_id,f.cou_name as shipcountry,g.cou_name as billcountry ,s.shipment_name,s.shipment_id FROM `orders_table` a,orders_status_table b,order_products_table c,products_table d,paymentgateways_table e,country_table f,country_table g,shipments_master_table s  WHERE a.shipping_country=f.cou_code and a.billing_country=g.cou_code and a.payment_method=e.gateway_id and a.orders_status=b.orders_status_id and a.orders_id=c.order_id and c.product_id=d.product_id and s.shipment_id =a.shipment_id_selected and a.orders_id=".$id; 	 	
+		$sqlselect = "SELECT a.*,date_format(a.date_purchased,'%e/%c/%Y') as purDate,date_format(a.orders_date_closed,'%e/%c/%Y') as closeDate,b.orders_status_name,c.*,d.title,e.gateway_name,e.merchant_id, q.id,q.currency_tocken,f.cou_name as shipcountry,g.cou_name as billcountry ,s.shipment_name,s.shipment_id FROM `orders_table` a,orders_status_table b,order_products_table c,products_table d,paymentgateways_table e,country_table f,country_table g,shipments_master_table s,currency_master_table q  WHERE a.shipping_country=f.cou_code and a.billing_country=g.cou_code and a.payment_method=e.gateway_id and a.orders_status=b.orders_status_id and a.orders_id=c.order_id and c.product_id=d.product_id and s.shipment_id =a.shipment_id_selected and  q.id=a.currency_id and   a.orders_id=".$id; 	
 		$obj = new Bin_Query();
 
 		$obj->executeQuery($sqlselect);
@@ -107,7 +107,7 @@ class Core_CUserOrder
 	{
 		include('classes/Display/DUserAccount.php');
 		$id=(int)$_GET['id'];
-		$sqlselect = "SELECT a.*,date_format(a.date_purchased,'%e/%c/%Y') as purDate,date_format(a.orders_date_closed,'%e/%c/%Y') as closeDate,b.orders_status_name,c.*,d.title,e.gateway_name,e.merchant_id,f.cou_name as shipcountry,g.cou_name as billcountry FROM `orders_table` a,orders_status_table b,order_products_table c,products_table d,paymentgateways_table e,country_table f,country_table g WHERE a.shipping_country=f.cou_code and a.billing_country=g.cou_code and a.payment_method=e.gateway_id and a.orders_status=b.orders_status_id and a.orders_id=c.order_id and c.product_id=d.product_id and a.orders_id=".$id;
+		$sqlselect = "SELECT a.*,date_format(a.date_purchased,'%e/%c/%Y') as purDate,date_format(a.orders_date_closed,'%e/%c/%Y') as closeDate,b.orders_status_name,c.*,d.title,e.gateway_name,e.merchant_id, q.id,q.currency_tocken,f.cou_name as shipcountry,g.cou_name as billcountry ,s.shipment_name,s.shipment_id FROM `orders_table` a,orders_status_table b,order_products_table c,products_table d,paymentgateways_table e,country_table f,country_table g,shipments_master_table s,currency_master_table q  WHERE a.shipping_country=f.cou_code and a.billing_country=g.cou_code and a.payment_method=e.gateway_id and a.orders_status=b.orders_status_id and a.orders_id=c.order_id and c.product_id=d.product_id and s.shipment_id =a.shipment_id_selected and  q.id=a.currency_id and   a.orders_id=".$id;
 		$obj = new Bin_Query();
 
 		$obj->executeQuery($sqlselect);

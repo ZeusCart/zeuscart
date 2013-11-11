@@ -316,5 +316,86 @@ class Model_MHomePageAds
 		header('Location:?do=homepageads');
 
 	}
+
+	/**
+	 * Function is used to show home page about content 
+	 * 
+	 * 
+	 * @return array
+	 */
+	function showHomePageContent()
+	{
+		
+		include('classes/Core/CRoleChecking.php');
+		include('classes/Core/CAdminHome.php');
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+		$output['currency_type']=$_SESSION['currency']['currency_tocken'];			
+		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
+		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
+		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
+		$output['currentmonthuser']=(int)Core_CAdminHome::currentMonthUser();
+		$output['previousmonthuser']=(int)Core_CAdminHome::previousMonthUser();
+		$output['totalusers']=(int)Core_CAdminHome::totalUsers();
+		$output['currentmonthincome']=Core_CAdminHome::currentMonthIncome();
+		$output['previousmonthincome']=Core_CAdminHome::previoustMonthIncome();
+		$output['totalincome']=Core_CAdminHome::totalIncome();
+		$output['currentmonthproudctquantity']=(int)Core_CAdminHome::currentMonthProudctQuantity();
+		$output['previousmonthproudctquantity']=(int)Core_CAdminHome::previousMonthProudctQuantity();
+		$output['totalproudctquantity']=(int)Core_CAdminHome::totalProudctQuantity();
+		$output['lowstock']=Core_CAdminHome::lowStock();
+		$output['totalproducts']=Core_CAdminHome::totalProducts();		
+		$output['enabledproducts']=Core_CAdminHome::enabledProducts();
+		$output['disabledproducts']=Core_CAdminHome::disabledProducts();
+		$chkuser=Core_CRoleChecking::checkRoles();
+		if($chkuser)
+		{
+			include("classes/Lib/HandleErrors.php");			
+		
+			$output['msg']=$Err->messages;
+			$output['val']=$Err->values;
+
+			include("classes/Core/CHomePageAds.php");
+			include("classes/Display/DHomePageAds.php");
+			$output['homepagecontent'] = Core_CHomePageAds::showHomePageContent($Err);
+			$output['sitemotomsg'] =$_SESSION['msgSitemoto'];
+			Bin_Template::createTemplate('home_page_content.html',$output);	
+			unset($_SESSION['msgSitemoto']);
+		}
+		else
+		{
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+		}
+
+	}
+	/**
+	 * Function is used to update home page about content and shipping 
+	 * 
+	 * 
+	 * @return array
+	 */
+	function updateHomePageContent()
+	{
+
+			
+		include('classes/Core/CRoleChecking.php');
+		$chkuser=Core_CRoleChecking::checkRoles();
+		if($chkuser)
+		{
+			include('classes/Lib/CheckInputs.php');	
+			$obj = new Lib_CheckInputs('homepagecontent');
+			include("classes/Core/CHomePageAds.php");
+			include("classes/Display/DHomePageAds.php");
+			Core_CHomePageAds::updateHomePageContent();
+			header('Location:?do=homepage&action=content');
+		}
+		else
+		{
+			$output['usererr'] = 'You are Not having Privilege to view this page contact your Admin for detail';
+			Bin_Template::createTemplate('Errors.html',$output);
+		}
+	}	
+	
 }
 ?>

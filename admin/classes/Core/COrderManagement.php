@@ -69,7 +69,7 @@
 			$ordertotalto=$_POST['ordertotalto'];
 			$ordertotalfrom=$_POST['ordertotalfrom'];						
 			$orderstatus=$_POST['selorderstatus'];			
-			  $sql='select a.orders_id,a.customers_id,b.user_display_name as Name,a.date_purchased,a.billing_name,a.billing_company,a.billing_street_address,a.billing_suburb,a.billing_city,a.billing_postcode,a.billing_state,d.cou_name as billing_country,a.shipping_name,a.shipping_company,a.shipping_street_address,a.shipping_suburb,a.shipping_city,a.shipping_postcode,a.shipping_state,e.cou_name as shipping_country,c.orders_status_name,c.orders_status_id,a.order_total,f.gateway_name,g.shipment_name from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status inner join country_table d on d.cou_code=a.billing_country inner join country_table e on e.cou_code=a.shipping_country inner join 	paymentgateways_table f on f.gateway_id=a.payment_method left join shipments_master_table g on g.shipment_id=a.shipment_id_selected';
+			  $sql='select a.orders_id,a.customers_id,a.order_ship,a.currency_id,q.id,q.currency_tocken,b.user_display_name as Name,a.date_purchased,a.billing_name,a.billing_company,a.billing_street_address,a.billing_suburb,a.billing_city,a.billing_postcode,a.billing_state,d.cou_name as billing_country,a.shipping_name,a.shipping_company,a.shipping_street_address,a.shipping_suburb,a.shipping_city,a.shipping_postcode,a.shipping_state,e.cou_name as shipping_country,c.orders_status_name,c.orders_status_id,a.order_total,f.gateway_name,g.shipment_name from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status inner join country_table d on d.cou_code=a.billing_country inner join country_table e on e.cou_code=a.shipping_country inner join 	paymentgateways_table f on f.gateway_id=a.payment_method left join shipments_master_table g on g.shipment_id=a.shipment_id_selected left join currency_master_table q on q.id=a.currency_id';
 			  
 			if($name!='')
 			{
@@ -112,8 +112,7 @@
 			}
 	
 		
-		$sqlOrderProduct="select a.order_id,a.product_id,c.title,c.brand,a.product_qty,a.product_unit_price,
-		a.product_qty*a.product_unit_price as amt,a.shipping_cost from order_products_table a,orders_table b,products_table c where a.order_id=b.orders_id and a.product_id=c.product_id order by a.order_id";
+		$sqlOrderProduct="select a.order_id,a.product_id,a.currency_id,c.title,c.brand,a.product_qty,a.product_unit_price,f.id=a.currency_id,a.product_qty*a.product_unit_price as amt,a.shipping_cost from order_products_table a,orders_table b,products_table c,currency_master_table f where a.order_id=b.orders_id and f.id=a.currency_id and a.product_id=c.product_id order by a.order_id";
 		$objOrderProduct=new Bin_Query();
 		$objOrderProduct->executeQuery($sqlOrderProduct); 
 		
@@ -213,38 +212,68 @@
 	
 	function updateOrdersAndShipments()
 	{
-	    
-		 $status=$_POST['processCombo'];
-		 $shipmentSelected=$_POST['shipmentsCombo'];
-		 $shipmentTrackId=$_POST['shippmentId'];
-		 $shipmentTrackid=$_POST['shippmentId'];
-		 $order_id=$_POST['orderId'];
-		 
-		 $myobj=new Core_COrderManagement();
-		 	
+
+
+		 if($_POST['processCombo']!='')
+		 {	
+			$order_id=$_POST['orderId'];	
+			$status=$_POST['processCombo'];
+		 	$sql="update orders_table set orders_status = '".$status."' where  orders_id =".$order_id; 
+			$obj1=new Bin_Query();
+			if($obj1->updateQuery($sql))
+			{	
+				if($_POST['orderhistory']!='')
+				{
+					$objhis=new Bin_Query();
+					$sqlhis="INSERT INTO order_history_table(order_id,order_history, 	order_history_time)VALUES('".$order_id."','".$_POST['orderhistory']."','".date("Y-m-d H:i:s")."')"; $objhis->updateQuery($sqlhis);
+		
+				}	
+		
+				$_SESSION['errmsg']='<div class="alert alert-success">
+					<button data-dismiss="alert" class="close" type="button">×</button>
+					<strong>Well done!</strong> Updated Successfully</div>';
 			
-				
-		 if ($_POST['processCombo']!='2' && $_POST['processCombo']!='')
-		 	$sql='update orders_table set orders_status = '.$status.' where  orders_id ='. $order_id;
-		 elseif ($_POST['processCombo']=='2' && $_POST['processCombo']!='')
-		 	$sql="update orders_table set orders_status = '".$status."',shipment_id_selected=".$shipmentSelected.",shipment_track_id='".$shipmentTrackId."' where  orders_id =". $order_id;
-			
-		 $obj1=new Bin_Query();
-		 $obj1->updateQuery($sql);
-		 
-		if($_POST['orderhistory']!='')
+			}
+				header('Location:index.php?do=disporders');
+		 }
+		else
 		{
-			$objhis=new Bin_Query();
-			$sqlhis="INSERT INTO order_history_table(order_id,order_history, 	order_history_time)VALUES('".$order_id."','".$_POST['orderhistory']."','".date("Y-m-d H:i:s")."')"; $objhis->updateQuery($sqlhis);
 
-		}	
-
-		$_SESSION['errmsg']='<div class="alert alert-success">
-			<button data-dismiss="alert" class="close" type="button">×</button>
-			<strong>Well done!</strong> Updated Successfully</div>';
-
-		header('Location:index.php?do=disporders');
-		 
+			$order_id=$_GET['id'];	
+			$shipment_id=$_POST['shipment_id'];
+			$shipdurid=$_POST['shipdurid'];			
+			$shipment_track_id=$_POST['shipment_track_id'];
+			
+			if($shipment_id=='1')
+			{
+				$shipping_cost=$_POST['default_shipping_cost'];
+				$shipdurid='';
+			}
+			else
+			{
+				$shipping_cost=$_POST['shipping_cost'];
+			} 
+			$order_total=$_POST['order_total']+$shipping_cost;
+			$sql="update orders_table set 
+			shipment_id_selected=".$shipment_id.",
+			shipment_track_id='".$shipmentTrackId."',
+			shipping_method='".$shipdurid."',
+			order_ship ='".$shipping_cost."',
+			shipment_track_id='".$shipment_track_id."',
+			order_total='".$order_total."'
+			where  orders_id =".$order_id;
+			$obj1=new Bin_Query();
+			if($obj1->updateQuery($sql))
+			{
+				$_SESSION['errmsg']='<div class="alert alert-success">
+					<button data-dismiss="alert" class="close" type="button">×</button>
+					<strong>Well done!</strong> Updated Successfully</div>';
+	
+				echo "<script> top.location = top.location;</script>";
+				
+			}
+		}
+		
 	}
   	
 	
@@ -287,8 +316,9 @@
 	function dispDetailOrders()
 	{
 		$id=$_GET['id'];
-		$sql='select a.*,b.user_display_name,d.gateway_name,c.orders_status_name,s.shipment_name from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status left join paymentgateways_table d on a.payment_method=d.gateway_id 
-		left join shipments_master_table s on s.shipment_id=a.shipment_id_selected where a.orders_id='.$id;
+		$sql='select a.*,b.user_display_name,d.gateway_name,c.orders_status_name,s.shipment_name,f.id,f.currency_tocken from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status left join paymentgateways_table d on a.payment_method=d.gateway_id 
+		left join shipments_master_table s on s.shipment_id=a.shipment_id_selected 		
+		left join currency_master_table f on f.id=a.currency_id where a.orders_id='.$id;
 		$obj=new Bin_Query();
 		$obj->executeQuery($sql);
 		
@@ -462,7 +492,7 @@
 	
 	function displayProductsForOrder()
 	{
-		$sql="SELECT a.title,c.date_purchased,b.product_unit_price,b.variation_id,b.product_qty,a.product_id,b.shipping_cost,((b.product_qty*b.product_unit_price)+b.shipping_cost)as subtotal,c.order_ship,c.order_total  from products_table a inner join order_products_table b on a.product_id=b.product_id inner join orders_table c on b.order_id=c.orders_id and b.order_id=".(int)$_GET['id']." order by c.date_purchased desc ";
+		$sql="SELECT a.title,c.date_purchased,b.product_unit_price,b.variation_id,c.currency_id,f.id,f.currency_tocken,b.product_qty,a.product_id,b.shipping_cost,((b.product_qty*b.product_unit_price)+b.shipping_cost)as subtotal,c.order_ship,c.order_total  from products_table a inner join order_products_table b on a.product_id=b.product_id inner join orders_table c on b.order_id=c.orders_id inner join currency_master_table f on f.id=c.currency_id and b.order_id=".(int)$_GET['id']." order by c.date_purchased desc ";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sql))
 		{		
@@ -520,7 +550,7 @@
 		}
 			
 		$orderstatus = new Bin_Query();
-		$sqlorderstatus = "select * from orders_table where orders_id='".$id."'";
+		$sqlorderstatus = "select * from orders_table where orders_id='".$id."'"; 
 		$orderstatus->executeQuery($sqlorderstatus);	
 		$order= $orderstatus->records[0];
 		$customerid = $order['customers_id'];	
@@ -628,7 +658,8 @@
 		else
 		{
 
-			$output ="<div class='error_msgbox'>Please Select a Valid Order for Cancellation</div>";		
+			$output ="<div class='alert alert-error'>
+			<button data-dismiss='alert' class='close' type='button'>×</button>Please Select a Valid Order for Cancellation</div>";		
 		 	$_SESSION['errmsg']=$output;
 			header('Location:?do=disporders');
 			exit();
@@ -680,7 +711,7 @@
 			header('Location:?do=disporders');
 		}	
 			
-		$sql='select a.orders_id,b.user_display_name as Name,b.user_email,a.date_purchased,a.billing_name,a.billing_company,a.billing_street_address,a.billing_suburb,a.billing_city,a.billing_postcode,a.billing_state,d.cou_name as billing_country,a.shipping_name,a.shipping_company,a.shipping_street_address,a.shipping_suburb,a.shipping_city,a.shipping_postcode,a.shipping_state,e.cou_name as shipping_country,c.orders_status_name,c.orders_status_id,a.order_total,f.gateway_name,g.shipment_name,a.coupon_code,h.transaction_id from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status inner join country_table d on d.cou_code=a.billing_country inner join country_table e on e.cou_code=a.shipping_country inner join paymentgateways_table f on f.gateway_id=a.payment_method inner join payment_transactions_table h on h.order_id=a.orders_id left join shipments_master_table g on g.shipment_id=a.shipment_id_selected where  a.orders_id="'.$id.'" group by a.orders_id';
+		$sql='select a.orders_id,b.user_display_name as Name,b.user_email,a.date_purchased,a.order_ship,a.billing_name,a.billing_company,a.billing_street_address,a.billing_suburb,a.billing_city,a.billing_postcode,a.billing_state,d.cou_name as billing_country,a.shipping_name,a.shipping_company,a.shipping_street_address,a.shipping_suburb,a.shipping_city,a.shipping_postcode,a.shipping_state,e.cou_name as shipping_country,c.orders_status_name,c.orders_status_id,a.order_total,f.gateway_name,g.shipment_name,a.coupon_code,h.transaction_id,a.currency_id,q.id,q.currency_tocken from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status inner join country_table d on d.cou_code=a.billing_country inner join country_table e on e.cou_code=a.shipping_country inner join paymentgateways_table f on f.gateway_id=a.payment_method inner join payment_transactions_table h on h.order_id=a.orders_id left join shipments_master_table g on g.shipment_id=a.shipment_id_selected  left join currency_master_table q on q.id=a.currency_id where  a.orders_id="'.$id.'" group by a.orders_id';
 		$orderdetails=new Bin_Query();
 		$orderdetails->executeQuery($sql);					
 		
@@ -712,7 +743,7 @@
 		}	
 			
 			
-		$sql='select a.orders_id,b.user_display_name as Name,b.user_email,a.date_purchased,a.billing_name,a.billing_company,a.billing_street_address,a.billing_suburb,a.billing_city,a.billing_postcode,a.billing_state,d.cou_name as billing_country,a.shipping_name,a.shipping_company,a.shipping_street_address,a.shipping_suburb,a.shipping_city,a.shipping_postcode,a.shipping_state,e.cou_name as shipping_country,c.orders_status_name,c.orders_status_id,a.order_total,f.gateway_name,g.shipment_name,a.coupon_code,h.transaction_id from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status inner join country_table d on d.cou_code=a.billing_country inner join country_table e on e.cou_code=a.shipping_country inner join paymentgateways_table f on f.gateway_id=a.payment_method inner join payment_transactions_table h on h.order_id=a.orders_id left join shipments_master_table g on g.shipment_id=a.shipment_id_selected where  a.orders_id="'.$id.'" group by a.orders_id';
+		$sql='select a.orders_id,b.user_display_name as Name,b.user_email,a.date_purchased,a.order_ship,a.billing_name,a.billing_company,a.billing_street_address,a.billing_suburb,a.billing_city,a.billing_postcode,a.billing_state,d.cou_name as billing_country,a.shipping_name,a.shipping_company,a.shipping_street_address,a.shipping_suburb,a.shipping_city,a.shipping_postcode,a.shipping_state,e.cou_name as shipping_country,c.orders_status_name,c.orders_status_id,a.order_total,f.gateway_name,g.shipment_name,a.coupon_code,h.transaction_id,a.currency_id,q.id,q.currency_tocken from orders_table a inner join users_table b on a.customers_id=b.user_id inner join orders_status_table c on c.orders_status_id=a.orders_status inner join country_table d on d.cou_code=a.billing_country inner join country_table e on e.cou_code=a.shipping_country inner join paymentgateways_table f on f.gateway_id=a.payment_method inner join payment_transactions_table h on h.order_id=a.orders_id left join shipments_master_table g on g.shipment_id=a.shipment_id_selected  left join currency_master_table q on q.id=a.currency_id where  a.orders_id="'.$id.'" group by a.orders_id';
 		$orderdetails=new Bin_Query();
 		$orderdetails->executeQuery($sql);					
 		
@@ -722,11 +753,11 @@
 		$objOrderProduct=new Bin_Query();
 		$objOrderProduct->executeQuery($sqlOrderProduct); 
 			 
-			$mail_id_query="select * from admin_settings_table where  set_id='14'";	
+			$mail_id_query="select * from admin_settings_table where  set_id='1'";	
 			$getmailid = new Bin_Query();
 			$getmailid->executeQuery($mail_id_query);
-			$to_mail=$getmailid->records[0]['set_value'];			
-			$from =	$getmailid->records[0]['set_value'];
+			$to_mail=$getmailid->records[0]['admin_email'];			
+			$from =	$getmailid->records[0]['admin_email'];
 			$subject ='Order Details for the Order #'.$orderdetails->records[0]['orders_id'];
 			$mailcontent = Display_DOrderManagement::emailOrders($orderdetails->records,$objOrderProduct->records);
 			include('../classes/Lib/Mail.php');
@@ -738,7 +769,11 @@
 			$mail->Body(html_entity_decode(stripslashes($mailcontent)));
 			$mail->Send();	
 		
-			$output = "<div class='success_msgbox'>Order Details was mailed to your E-Mail address ('.$to_mail.'). The Mail will reach your inbox in a few minutes</div>	";		
+
+
+			$output = "<div class='alert alert-success'>
+			<button data-dismiss='alert' class='close' type='button'>×</button>
+			Order Details was mailed to your E-Mail address ('.$to_mail.'). The Mail will reach your inbox in a few minutes</div>";		
 		 	$_SESSION['errmsg']=$output;
 			header('Location:?do=disporders');
 	}		
@@ -787,6 +822,83 @@
 		}
 		
 
+	}
+	function calculateShipCost()
+	{
+		include_once('../classes/Lib/UPS/UPSRate.php');
+
+
+		$sql="SELECT * FROM shipments_master_table WHERE shipment_id=2";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$records=$obj->records[0];
+
+		$shipment_accesskey=$records['shipment_accesskey'];
+		$shipment_user_id=$records['shipment_user_id'];
+		$shipment_password=$records['shipment_password'];		
+
+		$ship_duration=$_GET['ship_dur_id'];		
+	
+		$buyer_zipcode=$_GET['zip'];
+		$strServiceShortName=$_GET['ship_dur_id'];
+		$product_weight=$_GET['weight'];
+		$upsship = new UpsShippingQuote();
+		$costupsship['ship_cost'] = $upsship->GetShippingRate($strDestinationZip=$buyer_zipcode, $strServiceShortName=$strServiceShortName, $strPackageLength='0', $strPackageWidth='0', $strPackageHeight='0', $strPackageWeight=$product_weight, $boolReturnPriceOnly=true,$shipment_accesskey,$shipment_user_id,$shipment_password);
+		
+		return $costupsship['ship_cost']; 
+
+
+	}
+
+	function showChangeShipping()
+	{
+
+
+		$sql="SELECT * FROM shipments_master_table WHERE  status='1'";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);
+		$records=$obj->records;
+
+		$sqlOrder="SELECT * FROM orders_table WHERE  orders_id='".$_GET['id']."' ";
+		$objOrder=new Bin_Query();
+		$objOrder->executeQuery($sqlOrder);
+		$shipping_method=$objOrder->records[0]['shipping_method'];
+		$shipment_id=$objOrder->records[0]['shipment_id_selected'];
+		$buyer_zipcode=$objOrder->records[0]['shipping_postcode'];
+		$shipment_track_id=$objOrder->records[0]['shipment_track_id'];
+		$order_ship=$objOrder->records[0]['order_ship'];
+		$order_total=$objOrder->records[0]['order_total']; 	 	
+
+		$sqlOrderPro="SELECT * FROM order_products_table WHERE order_id='".$_GET['id']."' ";
+		$objOrderPro=new Bin_Query();
+		$objOrderPro->executeQuery($sqlOrderPro);
+		$recordsOrderPro=$objOrderPro->records;
+		if(count($recordsOrderPro)>0)
+		{
+			$totalweight=0;
+			$productWeight='';
+			$shipping_cost='';
+			$totalshipcost=0;
+			for($i=0;$i<count($recordsOrderPro);$i++)
+			{
+			
+				
+				$sqlProduct="SELECT product_id,weight,shipping_cost FROM products_table WHERE product_id='".$recordsOrderPro[$i]['product_id']."'";
+				$objProduct=new Bin_Query();
+				$objProduct->executeQuery($sqlProduct);
+				$productWeight=$objProduct->records[0]['weight'];
+				$shipping_cost=$objProduct->records[0]['shipping_cost'];
+
+				$weight=$productWeight*$recordsOrderPro[$i]['product_qty'];
+				$shipcost=$shipping_cost*$recordsOrderPro[$i]['product_qty'];
+				$totalweight=$totalweight+$weight;
+				$totalshipcost=$totalshipcost+$shipcost;
+			}
+	
+		}
+
+
+		return Display_DOrderManagement::showChangeShipping($records,$shipment_id,$buyer_zipcode,$totalweight,$totalshipcost,$shipping_method,$shipment_track_id,$order_ship,$order_total);
 	}
 }
 ?>

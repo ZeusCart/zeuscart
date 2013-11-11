@@ -973,8 +973,9 @@ class Display_DAddCart
 	 * @param array $Err
 	 * @return string
 	 */
-	function showShippingMethod($records,$Err,$totalweight)
+	function showShippingMethod($records,$Err,$totalweight,$totalshipcost)
 	{
+
 
 
 		$output='';
@@ -985,7 +986,22 @@ class Display_DAddCart
 		$recordsShip=$obj->records;	
 		$buyer_zipcode=$recordsShip[0]['zip'];
 	
-
+		if($_SESSION['orderdetails']['shipment_id']=='1')
+		{
+			$default="class=show";
+		}
+		else
+		{
+			$default="class=hide";
+		}
+		if($_SESSION['orderdetails']['shipment_id']=='2')
+		{
+			$ups="class=show";
+		}
+		else
+		{
+			$ups="class=hide";
+		}
 		$output.='<div class="row-fluid">
         	<ul class="steps">';
 			if($_SESSION['user_id']!='')
@@ -1022,36 +1038,40 @@ class Display_DAddCart
                     </div>
                   </div>';
 
+				$output.='<div class="control-group">
+					<label class="control-label" for="input01">Shipping </label>
+					<div class="controls"> <select name="shipment_id" id="shipment_id" onchange="selectShippingType(this.value)"><option value="0">Select</option>';
+
 			if(count($records)>0)
 			{
 				for($i=0;$i<count($records);$i++)
 				{
 			
-					$output.='<div class="control-group">
-					<label class="control-label" for="input01">'.$records[$i]['shipment_name'].' </label>
-					<div class="controls">';
 
 					if($_SESSION['orderdetails']['shipment_id']==$records[$i]['shipment_id'])
 					{
-						$output.='<input type="radio"  class="input-xlarge" name="shipment_id" id="shipment_id" value='.$records[$i]['shipment_id'].'  checked="checked" onclick="selectShippingType('.$records[$i]['shipment_id'].')">';
-						$class="show";
+						
+						$selected="selected=selected";		
 					}
 					else
 					{
-						$output.='<input type="radio"  class="radioBtnClass" name="shipment_id" id="shipment_id" value='.$records[$i]['shipment_id'].'  onclick="selectShippingType('.$records[$i]['shipment_id'].')" >	';
-								$class="hide";
+						$selected="";
+							
 					}
-
-					$output.='</div>
-					</div>';
+					$output.='<option  value='.$records[$i]['shipment_id'].'  '.$selected.'>'.$records[$i]['shipment_name'].'</option>';
+					
 				}
 			}
 			
 
+		
+			$output.='</select></div>
+					</div>';
+
 			$shipdurationrecords=array("0"=>"Select","1D"=>"Next Day Air Early AM","1DA"=>"Next Day Ai","1DP"=>"Next Day Air Saver","2DM"=>"2nd Day Air AM","2DA"=>"2nd Day Air","3DS"=>"3 Day Select","GND"=>"Ground","STD"=>"Canada Standar","XPR"=>"Worldwide Express","XDM"=>"Worldwide Express Plus","XPD"=>"Worldwide Expedited","WXS"=>"Worldwide Save");
 			
 				
-			$output.='<div id="duration_ups" class='.$class.'><div class="control-group" >
+			$output.='<div id="duration_ups" '.$ups.'><div class="control-group" >
 					<label class="control-label" for="input01">Reach The Destination</label>
 					<div class="controls">
 
@@ -1061,11 +1081,12 @@ class Display_DAddCart
 							
 						if($_SESSION['orderdetails']['shipdurid']==$key)
 						{
-							$selected="selected='selected'";	
-						}
+							$selected="selected='selected'";
+						}	
 						else
 						{
 							$selected="";
+							
 						}
 						$output.='<option value='.$key.' '.$selected.'>'.$vale.'</option>';
 					}
@@ -1073,7 +1094,7 @@ class Display_DAddCart
 					</div>
 					</div></div>';
 
-				$output.='<div id="ship_cost" class='.$class.'><div class="control-group" >
+				$output.='<div id="ship_cost" '.$ups.'><div class="control-group" >
 					<label class="control-label" for="input01">Total Weight</label>
 					<div class="controls">
 
@@ -1082,10 +1103,16 @@ class Display_DAddCart
 					</div><div class="control-group" >
 					<label class="control-label" for="input01">Shipping Cost</label>
 					<div class="controls"><span class="red_fnt" >'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.'<span id="var_ship">'.$_SESSION['orderdetails']['shipping_cost'].'</span></span>
-
 					</div>
 					</div></div>';
-                  $output.='<div class="form-actions"><input type="hidden" name="shipping_cost" value="'.$costupsship['ship_cost'].'" id="shipping_cost"><input type="hidden" name="weight" value="'.$totalweight.'">
+
+				$output.='<div id="default_ship_cost" '.$default.'><div class="control-group" >
+					<label class="control-label" for="input01">Shipping Cost</label>
+					<div class="controls"><span class="red_fnt" >'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.''.$totalshipcost.'</span>
+					</div>
+					</div></div>';
+
+                  $output.='<div class="form-actions"><input type="hidden" name="default_shipping_cost" id="default_shipping_cost" value='.$totalshipcost.'><input type="hidden" name="shipping_cost" id="shipping_cost" value='.$_SESSION['orderdetails']['shipping_cost'].'><input type="hidden" name="weight" value="'.$totalweight.'">
                     <button type="submit" class="btn btn-large btn-inverse" name="shipping_submit">Submit</button>
                   </div>
                 </fieldset>

@@ -318,6 +318,11 @@
 		<do name="disporders" model="MOrderManagement" function="dispOrders" action="delete" />
 		<do name="disporders" model="MOrderManagement" action="autoc" function="autoComplete" />
 		<do name="disporders" model="MOrderManagement" function="viewOrderDetail" action="viewdetail" />
+		
+		
+		<do name="disporders" model="MOrderManagement" function="calculateShipCost" action="calculateshipcost" />
+		<do name="disporders" model="MOrderManagement" function="showChangeShipping" action="changeshipping" />
+		
 		<do name="displatestorders" model="MLatestOrders" function="dispLatestOrders" />
 		
 		
@@ -482,6 +487,10 @@
 		
 		<do name="homepageads" model="MHomePageAds" function="denyEditHomePageAds" action="deny" />
 		
+		
+		<do name="homepage" model="MHomePageAds" function="showHomePageContent"  action="content"/>
+		
+		<do name="homepage" model="MHomePageAds" function="updateHomePageContent"  action="update"/>
 		
 		---------------------Invoice--------------------
 		

@@ -56,7 +56,6 @@ class Core_CQuery
 		$result=mysql_query($sql);
 
 
-
 		$sql="DROP TABLE IF EXISTS `addressbook_table`";
 		$result=mysql_query($sql);
 
@@ -146,7 +145,8 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE category_attrib_table(category_attrib_id  INT(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,subcategory_id  INT(15) NOT NULL,attrib_id  INT(15) NOT NULL)";
 		$result=mysql_query($sql);
-		
+		$sql="INSERT INTO `category_attrib_table` ( `subcategory_id`, `attrib_id`) VALUES( 44, 0)";	
+		$result=mysql_query($sql);
 
 
 
@@ -581,15 +581,7 @@ class Core_CQuery
 
 		$sql="Drop table if exists footer_settings_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE IF NOT EXISTS `footer_settings_table` (
-		`id` int(10) NOT NULL AUTO_INCREMENT,
-		`callus` varchar(50) NOT NULL,
-		`email` varchar(255) NOT NULL,
-		`fax` varchar(50) NOT NULL,
-		`location` varchar(100) NOT NULL,
-		`footercontent` text NOT NULL,
-		PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+		$sql="CREATE TABLE footer_settings_table(id  INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,callus  INT(50) NOT NULL ,email VARCHAR(255) NOT NULL,fax INT(50) NOT NULL,location VARCHAR(100) NOT NULL,footercontent TEXT(65535) NOT NULL)";
 		$result=mysql_query($sql);
 		
 
@@ -625,8 +617,8 @@ class Core_CQuery
 		)";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `home_page_ads_table` (`home_page_ads_id`, `home_page_ads_title`, `home_page_ads_logo`, `home_page_ads_url`, `status`) VALUES
-		(1, 'polo', 'images/homepageads/2013-04-11-1442011.gif', 'http://www.google.com/', 1),
-		(2, 'polo', 'images/homepageads/2013-04-11-1442252.gif', 'http://www.google.com/', 1)";
+		(1, 'polo', 'images/homepageads/2013-04-11-1442011.gif', 'http://localhost/ajshop/zeuscart', 1),
+		(2, 'polo', 'images/homepageads/2013-04-11-1442252.gif', 'http://localhost/ajshop/zeuscart', 1)";
 		$result=mysql_query($sql);	
 
 
@@ -670,54 +662,27 @@ class Core_CQuery
 		PRIMARY KEY (`id`)
 		)";
 		$result=mysql_query($sql);
-	
+		$sql="INSERT INTO `invoice_table` (`id`, `order_id`, `invoice_name`, `invoice_path`, `invoice_upload_date`) VALUES
+		(1, 1, '', 'images/invoice/Brand-New-Debtor.pdf', '2013-04-16 18:09:43')";
+		$result=mysql_query($sql);
 
-		$sql="Drop table if exists live_chat_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE `zeuscart_master`.`live_chat_table` (
-		`id` INT( 10 ) NOT NULL AUTO_INCREMENT ,
-		`live_chat_script` TEXT NOT NULL ,
-		`live_chat_status` INT( 10 ) NOT NULL COMMENT '0=>on,1=>off',
-		PRIMARY KEY ( `id` )
-		) ENGINE = MYISAM ;";
-		$result=mysql_query($sql);
-		
-		$sql="INSERT INTO `live_chat_table` (`live_chat_script`, `live_chat_status`) VALUES
-		('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 0)";
-		$result=mysql_query($sql);
+
+
 		
 	
 
 		$sql="Drop table if exists mail_messages_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE IF NOT EXISTS `mail_messages_table` (
-		`mail_msg_id` int(20) NOT NULL AUTO_INCREMENT,
-		`mail_msg_title` varchar(240) NOT NULL,
-		`mail_msg_subject` varchar(300) NOT NULL,
-		`mail_msg` text,
-		`mail_short_code` text NOT NULL,
-		`mail_user` int(10) NOT NULL COMMENT '0=>user,1=>admin',
-		PRIMARY KEY (`mail_msg_id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		$sql="CREATE TABLE mail_messages_table(mail_msg_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,mail_msg_subject  VARCHAR(300) NOT NULL,mail_msg  TEXT(65535) )";
 		$result=mysql_query($sql);
 
 
-		$sql="INSERT INTO `mail_messages_table` (`mail_msg_id`, `mail_msg_title`, `mail_msg_subject`, `mail_msg`, `mail_short_code`, `mail_user`) VALUES
-(1, 'Registration', 'Registration Info', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n<title>:: [title]::</title>\r\n</head>\r\n\r\n<body>\r\n<table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding:10px; border: rgb(241, 250, 252) 1px solid;\">\r\n  <tr>\r\n    <td align=\"left\" valign=\"top\" style=\"background-color:#e0eee0; padding:10px 10px 20px 10px; border-bottom: rgb(153, 153, 153) 5px solid; \"><img src=\"[logo]\"  alt=\"[title]\" /></td>\r\n  </tr>\r\n  <tr valign=\"top\"><td align=\"left\" style=\"background-color: rgb(224, 224, 224); padding:20px;\"><h1 style=\"color: rgb(68, 68, 68); font-size:15px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; margin:0; padding:0; font-weight:normal;\">Welcomes [firstname] [lastname] ,</h1>\r\n  <p style=\"color: rgb(126, 149, 1); font-size:15px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; margin:0; padding:0; font-weight:bold;\">Your account  has been registered successfully ...</p>\r\n \r\n  </td></tr>\r\n  <tr><td align=\"left\" valign=\"top\" style=\"background-color: rgb(224, 224, 224); padding:5px 20px 15px 20px;\">\r\n  <table width=\"500\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color: rgb(255, 255, 255); margin:auto; border: rgb(214, 230, 234) 1px solid; padding:10px;\">\r\n \r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">User Name : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\">[user_name]</span></p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Password : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [password] </span></p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\">[confirm_link]</td>\r\n  </tr>\r\n</table>\r\n</td></tr>\r\n  \r\n<tr><td style=\"background-color: rgb(224, 224, 224); padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0; font-style:italic;\">Thanks & Regards,</p>\r\n<p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(49, 148, 204); font-size:12px; margin:5px 0 10px 0; padding:0; font-style:italic; font-weight:bold;\">[title] <span style=\"color: rgb(222, 72, 69);\">Team</span></p>\r\n</td></tr>\r\n<tr><td align=\"center\" valign=\"top\" style=\"background-color: #000; padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(224, 224, 224); font-size:11px; margin:5px 0; padding:0;\">If you have any queries, please feel free to contact us at [site_email] </p>\r\n\r\n\r\n</td></tr>\r\n\r\n</table>\r\n\r\n</body>\r\n</html>', 'Site Title : <code>[title]</code><br/>\r\nSite Logo : <code>[logo]</code><br/>\r\nUser Firstname     :  <code>[firstname] </code> <br/>\r\nUser Last          :  <code>[lastname]</code><br/>\r\nConfirmation Link  :  <code>[confirm_link]</code><br/>\r\nLogin User name    :  <code>[user_name]</code><br/>\r\nLogin Password     :  <code>[password]</code><br/>\r\n\r\nSite mail: <code>[site_email]</code><br>', 0),
-
-
-
-(2, 'Forgot Password', 'Forgot Password', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n<title>:: [title]::</title>\r\n</head>\r\n\r\n<body>\r\n<table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding:10px; border: rgb(241, 250, 252) 1px solid;\">\r\n  <tr>\r\n    <td align=\"left\" valign=\"top\" style=\"background-color:#e0eee0; padding:10px 10px 20px 10px; border-bottom: rgb(153, 153, 153) 5px solid; \"><img src=\"[logo]\"  alt=\"[title]\" /></td>\r\n  </tr>\r\n  <tr valign=\"top\"><td align=\"left\" style=\"background-color: rgb(224, 224, 224); padding:20px;\"><h1 style=\"color: rgb(68, 68, 68); font-size:15px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; margin:0; padding:0; font-weight:normal;\">Forgot password</h1>\r\n\r\n \r\n  </td></tr>\r\n  <tr><td align=\"left\" valign=\"top\" style=\"background-color: rgb(224, 224, 224); padding:5px 20px 15px 20px;\">\r\n  <table width=\"500\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color: rgb(255, 255, 255); margin:auto; border: rgb(214, 230, 234) 1px solid; padding:10px;\">\r\n \r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">User Name : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\">[user_name]</span></p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Your new password : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [password] </span></p></td>\r\n  </tr>\r\n\r\n</table>\r\n</td></tr>\r\n  \r\n<tr><td style=\"background-color: rgb(224, 224, 224); padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0; font-style:italic;\">Thanks & Regards,</p>\r\n<p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(49, 148, 204); font-size:12px; margin:5px 0 10px 0; padding:0; font-style:italic; font-weight:bold;\">Zeus Cart  <span style=\"color: rgb(222, 72, 69);\">Team</span></p>\r\n</td></tr>\r\n<tr><td align=\"center\" valign=\"top\" style=\"background-color: #000; padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(224, 224, 224); font-size:11px; margin:5px 0; padding:0;\">If you have any queries, please feel free to contact us at [site_email] </p>\r\n\r\n\r\n</td></tr>\r\n\r\n</table>\r\n\r\n</body>\r\n</html>', 'Site Title : <code>[title]</code><br/>\r\nSite Logo : <code>[logo]</code><br/>\r\nUser Firstname     :  <code>[firstname] </code> <br/>\r\nUser Last          :  <code>[lastname]</code><br/>\r\n\r\nLogin User name    :  <code>[user_name]</code><br/>\r\nLogin New Password     :  <code>[password]</code><br/>\r\n\r\nSite mail: <code>[site_email]</code><br>', 0),
-
-(3, 'Notification to Admin', 'User Registration Notification to Admin', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n<title>:: [title]::</title>\r\n</head>\r\n\r\n<body>\r\n<table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding:10px; border: rgb(241, 250, 252) 1px solid;\">\r\n  <tr>\r\n    <td align=\"left\" valign=\"top\" style=\"background-color:#e0eee0; padding:10px 10px 20px 10px; border-bottom: rgb(153, 153, 153) 5px solid; \"><img src=\"[logo]\"  alt=\"[title]\" /></td>\r\n  </tr>\r\n  <tr valign=\"top\"><td align=\"left\" style=\"background-color: rgb(224, 224, 224); padding:20px;\"><h1 style=\"color: rgb(68, 68, 68); font-size:15px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; margin:0; padding:0; font-weight:normal;\">New  User has been registered</h1>\r\n\r\n \r\n  </td></tr>\r\n  \r\n  \r\n<tr><td style=\"background-color: rgb(224, 224, 224); padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0; font-style:italic;\">Thanks & Regards,</p>\r\n<p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(49, 148, 204); font-size:12px; margin:5px 0 10px 0; padding:0; font-style:italic; font-weight:bold;\">Zeus Cart  <span style=\"color: rgb(222, 72, 69);\">Team</span></p>\r\n</td></tr>\r\n<tr><td align=\"center\" valign=\"top\" style=\"background-color: #000; padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(224, 224, 224); font-size:11px; margin:5px 0; padding:0;\">If you have any queries, please feel free to contact us at [site_email] </p>\r\n\r\n\r\n</td></tr>\r\n\r\n</table>\r\n\r\n</body>\r\n</html>', '', 1),
-
-(4, 'Order Placement', 'Your order has has been placed successfully', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n<title>:: [title]::</title>\r\n</head>\r\n\r\n<body>\r\n<table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding:10px; border: rgb(241, 250, 252) 1px solid;\">\r\n  <tr>\r\n    <td align=\"left\" valign=\"top\" style=\"background-color:#e0eee0; padding:10px 10px 20px 10px; border-bottom: rgb(153, 153, 153) 5px solid; \"><img src=\"[logo]\"  alt=\"[title]\" /></td>\r\n  </tr>\r\n  <tr valign=\"top\"><td align=\"left\" style=\"background-color: rgb(224, 224, 224); padding:20px;\"><h1 style=\"color: rgb(68, 68, 68); font-size:15px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; margin:0; padding:0; font-weight:normal;\">Order Placement</h1>\r\n\r\n \r\n  </td></tr>\r\n  <tr><td align=\"left\" valign=\"top\" style=\"background-color: rgb(224, 224, 224); padding:5px 20px 15px 20px;\">\r\n  <table width=\"500\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color: rgb(255, 255, 255); margin:auto; border: rgb(214, 230, 234) 1px solid; padding:10px;\">\r\n \r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">User Name : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\">[user_name]</span></p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Email : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [email] </span></p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Order ID : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [orderid] </span></p></td>\r\n  </tr>\r\n<tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Order Amount: <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [amount] </span></p></td>\r\n  </tr>	\r\n<tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Billing Address : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [billingaddress] </span></p></td>\r\n  </tr>\r\n<tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Shipping Address: <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [shippingaddress] </span></p></td>\r\n  </tr>	\r\n  \r\n</table>\r\n</td></tr>\r\n  \r\n<tr><td style=\"background-color: rgb(224, 224, 224); padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0; font-style:italic;\">Thanks & Regards,</p>\r\n<p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(49, 148, 204); font-size:12px; margin:5px 0 10px 0; padding:0; font-style:italic; font-weight:bold;\">Zeus Cart  <span style=\"color: rgb(222, 72, 69);\">Team</span></p>\r\n</td></tr>\r\n<tr><td align=\"center\" valign=\"top\" style=\"background-color: #000; padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(224, 224, 224); font-size:11px; margin:5px 0; padding:0;\">If you have any queries, please feel free to contact us at [site_email] </p>\r\n\r\n\r\n</td></tr>\r\n\r\n</table>\r\n\r\n</body>\r\n</html>', '              Site Title : <code>[title]</code><br/>\r\nSite Logo : <code>[logo]</code><br/>\r\nUser name   :  <code>[user_name] </code> <br/>\r\nEmail : <code>[email]</code></br>\r\nOrder ID: <code>[orderid]</code><br/> \r\nOrder Amount : <code>[amount]</code><br/>\r\nBilling Address : <code>[billingaddress]</code><br/>\r\nShipping Address : <code>[shippingaddress]</code><br/>\r\n\r\nSite mail: <code>[site_email]</code><br>', 0),
-
-(5, 'Order Placement', 'New Order Placed', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n<title>:: [title]::</title>\r\n</head>\r\n\r\n<body>\r\n<table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding:10px; border: rgb(241, 250, 252) 1px solid;\">\r\n  <tr>\r\n    <td align=\"left\" valign=\"top\" style=\"background-color:#e0eee0; padding:10px 10px 20px 10px; border-bottom: rgb(153, 153, 153) 5px solid; \"><img src=\"[logo]\"  alt=\"[title]\" /></td>\r\n  </tr>\r\n  <tr valign=\"top\"><td align=\"left\" style=\"background-color: rgb(224, 224, 224); padding:20px;\"><h1 style=\"color: rgb(68, 68, 68); font-size:15px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; margin:0; padding:0; font-weight:normal;\">Order Placement</h1>\r\n\r\n \r\n  </td></tr>\r\n  <tr><td align=\"left\" valign=\"top\" style=\"background-color: rgb(224, 224, 224); padding:5px 20px 15px 20px;\">\r\n  <table width=\"500\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color: rgb(255, 255, 255); margin:auto; border: rgb(214, 230, 234) 1px solid; padding:10px;\">\r\n <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Admin can receive the new order,the order detail is given below </p></td>\r\n  </tr>\r\n	\r\n   <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Order Details</p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">User Name : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\">[user_name]</span></p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Email : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [email] </span></p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Order ID : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [orderid] </span></p></td>\r\n  </tr>\r\n<tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Order Amount : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [amount] </span></p></td>\r\n  </tr>	\r\n<tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Billing Address : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [billingaddress] </span></p></td>\r\n  </tr>\r\n<tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Shipping Address : <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\"> [shippingaddress] </span></p></td>\r\n  </tr>	\r\n  \r\n</table>\r\n</td></tr>\r\n  \r\n<tr><td style=\"background-color: rgb(224, 224, 224); padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0; font-style:italic;\">Thanks & Regards,</p>\r\n<p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(49, 148, 204); font-size:12px; margin:5px 0 10px 0; padding:0; font-style:italic; font-weight:bold;\">Zeus Cart  <span style=\"color: rgb(222, 72, 69);\">Team</span></p>\r\n</td></tr>\r\n<tr><td align=\"center\" valign=\"top\" style=\"background-color: #000; padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(224, 224, 224); font-size:11px; margin:5px 0; padding:0;\">If you have any queries, please feel free to contact us at [site_email] </p>\r\n\r\n\r\n</td></tr>\r\n\r\n</table>\r\n\r\n</body>\r\n</html>', '       Site Title : <code>[title]</code><br/>\r\nSite Logo : <code>[logo]</code><br/>\r\nUser name   :  <code>[user_name] </code> <br/>\r\nEmail : <code>[email]</code></br>\r\nOrder ID: <code>[orderid]</code><br/> \r\nOrder Amount : <code>[amount]</code><br/>\r\nBilling Address : <code>[billingaddress]</code><br/>\r\nShipping Address : <code>[shippingaddress]</code><br/>\r\n\r\nSite mail: <code>[site_email]</code><br>', 1),
-
-
-(6, 'Gift voucher', 'GIft voucher ', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n<title>:: [title]::</title>\r\n</head>\r\n\r\n<body>\r\n<table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding:10px; border: rgb(241, 250, 252) 1px solid;\">\r\n  <tr>\r\n    <td align=\"left\" valign=\"top\" style=\"background-color:#e0eee0; padding:10px 10px 20px 10px; border-bottom: rgb(153, 153, 153) 5px solid; \"><img src=\"[logo]\"  alt=\"[title]\" /></td>\r\n  </tr>\r\n  <tr valign=\"top\"><td align=\"left\" style=\"background-color: rgb(224, 224, 224); padding:20px;\"><h1 style=\"color: rgb(68, 68, 68); font-size:15px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; margin:0; padding:0; font-weight:normal;\">Hi [reciuser] </h1>\r\n\r\n \r\n  </td></tr>\r\n  <tr><td align=\"left\" valign=\"top\" style=\"background-color: rgb(224, 224, 224); padding:5px 20px 15px 20px;\">\r\n  <table width=\"500\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color: rgb(255, 255, 255); margin:auto; border: rgb(214, 230, 234) 1px solid; padding:10px;\">\r\n <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">\r\nYou have been received the gift voucher from [senduser]  </p></td>\r\n  </tr>\r\n	\r\n   <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">[giftimage] </p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">Your Gift Voucher Code <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\">[giftcode]</span></p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">\r\nUsing this gift voucher  you can purchase the product worth of <span style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; font-weight:bold; color:rgb(11, 152, 198)\">[amount]   </span>from our online store</p></td>\r\n  </tr>\r\n\r\n  \r\n</table>\r\n</td></tr>\r\n  \r\n<tr><td style=\"background-color: rgb(224, 224, 224); padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0; font-style:italic;\">Thanks & Regards,</p>\r\n<p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(49, 148, 204); font-size:12px; margin:5px 0 10px 0; padding:0; font-style:italic; font-weight:bold;\">[title]  <span style=\"color: rgb(222, 72, 69);\">Team</span></p>\r\n</td></tr>\r\n<tr><td align=\"center\" valign=\"top\" style=\"background-color: #000; padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(224, 224, 224); font-size:11px; margin:5px 0; padding:0;\">If you have any queries, please feel free to contact us at [site_email] </p>\r\n\r\n\r\n</td></tr>\r\n\r\n</table>\r\n\r\n</body>\r\n</html>', '[title] : <code>Site Title</code><br/>\r\n\r\n[logo] : <code>Site Logo</code><br/>\r\n[reciuser]  : <code>Recipient''s Name</code><br/>\r\n[senduser] : <code>Sender Name</code><br/>\r\n[giftimage]  : <code>Gift Image</code></br>\r\n[giftcode]  : <code>Gift Coupon Code</code><br/>\r\n[amount]  : <code>Amount</code><br/>\r\n [site_email]  : <code>Admin Email</code>', 0),
-(7, 'Inventory', 'Admin upgrade the product inventory', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\r\n<title>:: [title]::</title>\r\n</head>\r\n\r\n<body>\r\n<table width=\"650\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding:10px; border: rgb(241, 250, 252) 1px solid;\">\r\n  <tr>\r\n    <td align=\"left\" valign=\"top\" style=\"background-color:#e0eee0; padding:10px 10px 20px 10px; border-bottom: rgb(153, 153, 153) 5px solid; \"><img src=\"[logo]\"  alt=\"[title]\" /></td>\r\n  </tr>\r\n  <tr valign=\"top\"><td align=\"left\" style=\"background-color: rgb(224, 224, 224); padding:20px;\"><h1 style=\"color: rgb(68, 68, 68); font-size:15px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; margin:0; padding:0; font-weight:normal;\">Hi Admin </h1>\r\n\r\n \r\n  </td></tr>\r\n  <tr><td align=\"left\" valign=\"top\" style=\"background-color: rgb(224, 224, 224); padding:5px 20px 15px 20px;\">\r\n  <table width=\"500\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"background-color: rgb(255, 255, 255); margin:auto; border: rgb(214, 230, 234) 1px solid; padding:10px;\">\r\n <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">\r\nThe stock of hands of the  product ID  [product_id] is reached the reorder level.So admin can reorder the product.\r\n\r\n </p></td>\r\n  </tr>\r\n	\r\n    <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">\r\nThe product current inventory details is given below :\r\nProduct ID : [product_id]\r\nrol         : [rol] \r\nsoh         : [soh]\r\n </p></td>\r\n  </tr>\r\n\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">\r\n\r\nProduct ID : [product_id]\r\n\r\n </p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">\r\n\r\nrol         : [rol] \r\n\r\n </p></td>\r\n  </tr>\r\n  <tr>\r\n    <td style=\"padding:10px; font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; font-size:12px; color: rgb(85, 85, 85);\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0;\">\r\n\r\nsoh         : [soh]\r\n </p></td>\r\n  </tr>\r\n</table>\r\n</td></tr>\r\n  \r\n<tr><td style=\"background-color: rgb(224, 224, 224); padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(85, 85, 85); font-size:12px; margin:0; padding:0; font-style:italic;\">Thanks & Regards,</p>\r\n<p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(49, 148, 204); font-size:12px; margin:5px 0 10px 0; padding:0; font-style:italic; font-weight:bold;\">[title]  <span style=\"color: rgb(222, 72, 69);\">Team</span></p>\r\n</td></tr>\r\n<tr><td align=\"center\" valign=\"top\" style=\"background-color: #000; padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myriad Pro'', Calibri; color: rgb(224, 224, 224); font-size:11px; margin:5px 0; padding:0;\">If you have any queries, please feel free to contact us at [site_email] </p>\r\n</td></tr>\r\n</table>\r\n</body>\r\n</html>', '[logo] : <code>Site Logo</code><br/>\r\n[product_id]  : <code>Product ID</code><br/>\r\n[rol] : <code>Reorder Level</code><br/>\r\n[soh]  : <code>Stock of Hands</code></br>\r\n\r\n [site_email]  : <code>Admin Email</code>', 0)";
+		$sql="INSERT INTO `mail_messages_table` ( `mail_msg_subject`, `mail_msg`) VALUES
+		('Registration Info', '<h2>Dear ==username==,<br /></h2>\r\n<p style=\"padding-left: 30px;\">You have successfully registered in to ==sitename==. Your user name is ==username== and password is ==password==.</p>\r\n<p style=\"padding-left: 30px;\">&nbsp;</p>'),
+		( 'Failure info', '<p>Dear Customer,</p>\r\n<hr />\r\n<h2>Dear customer,<br /> You have not been fully registered in to ==sitename==. click here==link== to complete the registration.<br /></h2>\r\n<p>&nbsp;</p>'),
+		('Request password confirmation', '<p>Dear ==username==,</p>\r\n<p>&nbsp;</p>\r\n<p class=\"MsoPlainText\">You have requested for the new password we send you a new login password for the ==sitename==.</p>\r\n<p class=\"MsoPlainText\">If someone else made this request, or if you have\r\nremembered your password and you no longer wish to change it, you may safely\r\nignore this message. Your old/existing password will continue to work despite\r\nthis new password being created for you.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">~==sitename==</p>\r\n<p>==siteurl==</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>'),
+		( 'New temporary password', '<p>Dear ==username==,</p>\r\n<p>&nbsp;</p>\r\n<p class=\"MsoPlainText\">You have requested for the new password we send you a new login password for the ==sitename==.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">The new password for the user account ==username== is ==newpassword==. You can now log in to ==sitename== using that password.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">If someone else made this request, or if you have\r\nremembered your password and you no longer wish to change it, you may safely\r\nignore this message. Your old/existing password will continue to work despite\r\nthis new password being created for you.</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>\r\n<p class=\"MsoPlainText\">~==sitename==</p>\r\n<p>==siteurl==</p>\r\n<p class=\"MsoPlainText\">&nbsp;</p>'),
+		('text_facebookregister', '<p><strong>Hi</strong> <strong>[firstname] [lastname],</strong></p><p><strong>Congratulations!</strong> Your Registration completed Successfully through Facebook Login in [domainname]</p><p>Your registration is activated successfully.</p><p>Thanks,</p><p>Zeuscart V4 Team.</p>')";
 		$result=mysql_query($sql);
 
 
@@ -754,16 +719,13 @@ class Core_CQuery
 
 		$sql="Drop table if exists order_products_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE IF NOT EXISTS `order_products_table` (
-			`order_id` int(25) NOT NULL,
-			`product_id` int(25) NOT NULL,
-			`variation_id` int(25) NOT NULL,
-			`product_qty` int(10) NOT NULL,
-			`product_unit_price` double NOT NULL,
-			`shipping_cost` double NOT NULL
-			)";
+		$sql="CREATE TABLE order_products_table(order_id  INT(25) NOT NULL,product_id  INT(25) NOT NULL,product_qty  INT(10) NOT NULL,product_unit_price  real NOT NULL,shipping_cost  real NOT NULL)";
 		$result=mysql_query($sql);
-
+// 		$sql="INSERT INTO `order_products_table` (`order_id`, `product_id`, `product_qty`, `product_unit_price`, `shipping_cost`) VALUES
+// 		(1, 4, 4, 600, 20),
+// 		(1, 14, 4, 300, 20),
+// 		(1, 17, 2, 300, 10)";
+// 		$result=mysql_query($sql);
 
 
 
@@ -775,17 +737,16 @@ class Core_CQuery
 		( 'Pending'),
 		('Processing'),
 		( 'Delivered'),
-		('AwaitingPayment')";
+		('AwaitingPayment'),
+		('Cancel')	";
 		$result=mysql_query($sql);
 
 
 
 		$sql="Drop table if exists orders_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE orders_table(orders_id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,customers_id  INT(11) NOT NULL,shipping_name  VARCHAR(64) NOT NULL,shipping_company  VARCHAR(32) ,shipping_street_address  VARCHAR(64) NOT NULL,shipping_suburb  VARCHAR(32) ,shipping_city  VARCHAR(32) NOT NULL,shipping_postcode  VARCHAR(10) NOT NULL,shipping_state  VARCHAR(32) ,shipping_country  VARCHAR(32) NOT NULL,billing_name  VARCHAR(64) NOT NULL,billing_company  VARCHAR(32) ,billing_street_address  VARCHAR(64) NOT NULL,billing_suburb  VARCHAR(32) ,billing_city  VARCHAR(32) NOT NULL,billing_postcode  VARCHAR(10) NOT NULL,billing_state  VARCHAR(32) ,billing_country  VARCHAR(32) NOT NULL,payment_method  VARCHAR(128) NOT NULL,shipping_method  VARCHAR(128) NOT NULL,coupon_code  VARCHAR(32) NOT NULL,date_purchased  datetime  ,orders_date_closed  datetime ,orders_status  INT(5) NOT NULL ,order_total  real ,order_tax  real ,ipn_id  INT(11) NOT NULL DEFAULT '0',ip_address  VARCHAR(96) NOT NULL,shipment_id_selected  INT(11) NOT NULL,shipment_track_id  VARCHAR(200) NOT NULL)";
+		$sql="CREATE TABLE orders_table(orders_id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,customers_id  INT(11) NOT NULL,shipping_name  VARCHAR(64) NOT NULL,shipping_company  VARCHAR(32) ,shipping_street_address  VARCHAR(64) NOT NULL,shipping_suburb  VARCHAR(32) ,shipping_city  VARCHAR(32) NOT NULL,shipping_postcode  VARCHAR(10) NOT NULL,shipping_state  VARCHAR(32) ,shipping_country  VARCHAR(32) NOT NULL,billing_name  VARCHAR(64) NOT NULL,billing_company  VARCHAR(32) ,billing_street_address  VARCHAR(64) NOT NULL,billing_suburb  VARCHAR(32) ,billing_city  VARCHAR(32) NOT NULL,billing_postcode  VARCHAR(10) NOT NULL,billing_state  VARCHAR(32) ,billing_country  VARCHAR(32) NOT NULL,payment_method  VARCHAR(128) NOT NULL,shipping_method  VARCHAR(128) NOT NULL,coupon_code  VARCHAR(32) NOT NULL,date_purchased  datetime  ,orders_date_closed  datetime ,orders_status  INT(5) NOT NULL ,order_total  real ,order_tax  real ,order_ship real,`currency_id` int(20) NOT NULL default '1',ipn_id  INT(11) NOT NULL DEFAULT '0',ip_address  VARCHAR(96) NOT NULL,shipment_id_selected  INT(11) NOT NULL,shipment_track_id  VARCHAR(200) NOT NULL)";
 		$result=mysql_query($sql);
-
-
 
 
 
@@ -1119,40 +1080,13 @@ class Core_CQuery
 		`digital` int(10) NOT NULL,
 		`gift` int(20) NOT NULL,
 		`digital_product_path` varchar(200) NOT NULL,
-		 `has_variation` tinyint(10) NOT NULL,
-		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product,3=>deleted product ',
- 		 `deleted_reason` varchar(240) NOT NULL,
+		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
 		PRIMARY KEY (`product_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `products_table` (`product_id`, `category_id`, `sku`, `title`, `alias`, `description`, `brand`, `model`, `msrp`, `price`, `cse_enabled`, `cse_key`, `weight`, `dimension`, `thumb_image`, `image`, `large_image_path`, `shipping_cost`, `status`, `tag`, `meta_desc`, `meta_keywords`, `intro_date`, `is_featured`, `digital`, `gift`, `digital_product_path`, `product_status`) VALUES
 		(1, '18', '10', 'shoes', 'shoes', '', '', '', 150, 100, 0, '', '', '', 'images/products/thumb/yonsht250wb.jpg', 'images/products/yonsht250wb.jpg', 'images/products/large_image/yonsht250wb.jpg', 0, 1, '', '', '', '0000-00-00', 1, 0, 0, '', 1),
 		(2, '11', '10', 'watches', 'watches', '', '', '', 800, 500, 0, '', '', '', 'images/products/thumb/2013-03-02-122103analog-watches03.jpg', 'images/products/2013-03-02-122103analog-watches03.jpg', 'images/products/large_image/2013-03-02-122103analog-watches03.jpg', 0, 1, '', '', '', '0000-00-00', 0, 0, 0, '', 0)";
-		$result=mysql_query($sql);
-
-
-		
-		$sql="Drop table if exists product_variation_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE IF NOT EXISTS `product_variation_table` (
-			`variation_id` bigint(12) NOT NULL AUTO_INCREMENT,
-			`product_id` bigint(12) NOT NULL,
-			`sku` varchar(100) NOT NULL,
-			`variation_name` varchar(250) NOT NULL,
-			`description` text NOT NULL,
-			`msrp` double NOT NULL,
-			`price` double NOT NULL,
-			`weight` varchar(25) NOT NULL,
-			`dimension` varchar(100) NOT NULL,
-			`thumb_image` varchar(150) NOT NULL,
-			`image` varchar(150) NOT NULL,
-			`large_image` varchar(240) NOT NULL,
-			`shipping_cost` double NOT NULL,
-			`soh` bigint(12) NOT NULL,
-			`rol` bigint(10) NOT NULL,
-			`status` tinyint(1) NOT NULL,
-			PRIMARY KEY (`variation_id`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
 		$result=mysql_query($sql);
 
 		$sql="Drop table if exists search_tags_table";
@@ -1164,34 +1098,36 @@ class Core_CQuery
 
 		$sql="Drop table if exists shipments_master_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE shipments_master_table(shipment_id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,shipment_name  VARCHAR(200) NOT NULL,status  INT(11) NOT NULL)";
+		$sql="CREATE TABLE IF NOT EXISTS `shipments_master_table` (
+		`shipment_id` int(11) NOT NULL AUTO_INCREMENT,
+		`shipment_name` varchar(200) NOT NULL,
+		`shipment_user_id` varchar(240) NOT NULL,
+		`shipment_password` varchar(240) NOT NULL,
+		`shipment_accesskey` varchar(240) NOT NULL,
+		`status` int(11) NOT NULL,
+		PRIMARY KEY (`shipment_id`)
+		) ";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `shipments_master_table` (`shipment_id`, `shipment_name`, `status`) VALUES
-		(1, 'DHL', 1),
-		(2, 'Fedex', 1),
-		(3, 'United Parcel Service', 1),
-		(4, 'US Postal Service', 1),
-		(5, 'Canada Post', 1),
-		(6, 'Australia Post ', 1),
-		(7, 'Intershipper', 1),
-		(8, 'City Link', 1)";
+		$sql="INSERT INTO `shipments_master_table` (`shipment_id`, `shipment_name`, `shipment_user_id`, `shipment_password`, `shipment_accesskey`, `status`) VALUES
+		(1, 'Arrange shipping by our company', '', '', '', 1),
+		(2, 'United Parcel Service', '', '', '', 1);";
 		$result=mysql_query($sql);
 
 		$sql="Drop table if exists shopping_cart_products_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE IF NOT EXISTS `shopping_cart_products_table` (
-			`id` int(20) NOT NULL AUTO_INCREMENT,
-			`cart_id` int(25) NOT NULL,
-			`product_id` varchar(100) NOT NULL,
-			`product_qty` int(10) NOT NULL,
-			`date_added` date NOT NULL,
-			`product_unit_price` double NOT NULL,
-			`shipping_cost` double NOT NULL,
-			`variation_id` int(20) NOT NULL,
-			`original_price` double NOT NULL,
-			`gift_product` int(11) NOT NULL,
-			PRIMARY KEY (`id`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+                        `id` int(20) NOT NULL AUTO_INCREMENT,
+                        `cart_id` int(25) NOT NULL,
+                        `product_id` varchar(100) NOT NULL,
+                        `product_qty` int(10) NOT NULL,
+                        `date_added` date NOT NULL,
+                        `product_unit_price` double NOT NULL,
+                        `shipping_cost` double NOT NULL,
+                        `variation_id` int(20) NOT NULL,
+                        `original_price` double NOT NULL,
+                        `gift_product` int(11) NOT NULL,
+                        PRIMARY KEY (`id`)
+                        )";
 		$result=mysql_query($sql);
 
 		$sql="DROP TABLE IF EXISTS `site_hit_counter_table`";
@@ -1214,7 +1150,8 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE skins_table(skin_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,skin_name  VARCHAR(50) NOT NULL,skin_status  INT(4) NOT NULL)";
 		$result=mysql_query($sql);
-		
+		$sql="INSERT INTO `skins_table` (`skin_id`, `skin_name`, `skin_status`) VALUES(1, 'default', 1),(2, 'blue', 0),(3, 'black', 0),(4, 'cyan', 0)";
+		$result=mysql_query($sql);
 
 
 		$sql="Drop table if exists social_links_table";
@@ -1321,11 +1258,10 @@ class Core_CQuery
 		`ipaddress` varchar(100) NOT NULL,
 		`social_link_id` varchar(100) NOT NULL,
 		`is_from_social_link` int(20) NOT NULL,
-		`confirmation_code` int(20) NOT NULL,
 		PRIMARY KEY (`user_id`)
 		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `users_table` (`user_id`, `user_display_name`, `user_fname`, `user_lname`, `user_email`, `user_pwd`, `user_group`, `user_country`, `user_status`, `user_doj`, `billing_address_id`, `shipping_address_id`, `ipaddress`, `social_link_id`, `is_from_social_link`) VALUES(1, 'demouser', 'demouser', 'demouser', 'demouser@ajsquare.net', 'e10adc3949ba59abbe56e057f20f883e', 1, 'IN', 1, '2013-09-12', 1, 1, '192.168.1.69', '',0)";
+		$sql="INSERT INTO `users_table` (`user_id`, `user_display_name`, `user_fname`, `user_lname`, `user_email`, `user_pwd`, `user_group`, `user_country`, `user_status`, `user_doj`, `billing_address_id`, `shipping_address_id`, `ipaddress`, `social_link_id`, `is_from_social_link`) VALUES(1, 'demouser', 'demouser', 'demouser', 'demouser@ajsquare.net', 'e10adc3949ba59abbe56e057f20f883e', 1, 'IN', 1, '2013-09-12', 1, 1, '192.168.1.69', '', 0)";
 		$result=mysql_query($sql);
 
 

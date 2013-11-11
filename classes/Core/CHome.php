@@ -46,6 +46,21 @@ class Core_CHome
 		$records=$obj->records;
 		return $records;
    	}
+	/**
+	 * This function is used to get  the home page content from  db
+	 * 
+	 * 
+	 * @return string
+	 */
+	function showHomePageContent()
+	{
+		$sqlselect = "SELECT * FROM home_page_content_table WHERE status ='0'";  
+		$obj = new Bin_Query();
+		if($obj->executeQuery($sqlselect))
+		$records=$obj->records[0]['home_page_content'];
+		return $records;
+
+	}
 
 	/**
 	 * This function is used to get  the site logo from  db

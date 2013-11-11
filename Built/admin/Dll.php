@@ -1297,6 +1297,18 @@
     'function' => 'viewOrderDetail',
     'loadlib' => '1',
   ),
+  'disporders:calculateshipcost' => 
+  array (
+    'model' => 'MOrderManagement',
+    'function' => 'calculateShipCost',
+    'loadlib' => '1',
+  ),
+  'disporders:changeshipping' => 
+  array (
+    'model' => 'MOrderManagement',
+    'function' => 'showChangeShipping',
+    'loadlib' => '1',
+  ),
   'displatestorders' => 
   array (
     'model' => 'MLatestOrders',
@@ -1505,18 +1517,6 @@
   array (
     'model' => 'MProductFeatures',
     'function' => 'updateProductFeatures',
-    'loadlib' => '1',
-  ),
-  'showshipmenttracker' => 
-  array (
-    'model' => 'MShippingTracker',
-    'function' => 'displayShippingTrackerSetting',
-    'loadlib' => '1',
-  ),
-  'showshipmenttracker:update' => 
-  array (
-    'model' => 'MShippingTracker',
-    'function' => 'updateShippingTrackerSetting',
     'loadlib' => '1',
   ),
   'createpromotionalcodes' => 
@@ -2011,6 +2011,18 @@
     'function' => 'denyEditHomePageAds',
     'loadlib' => '1',
   ),
+  'homepage:content' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'showHomePageContent',
+    'loadlib' => '1',
+  ),
+  'homepage:update' => 
+  array (
+    'model' => 'MHomePageAds',
+    'function' => 'updateHomePageContent',
+    'loadlib' => '1',
+  ),
   'userinvoice:show' => 
   array (
     'model' => 'MOrderManagement',
@@ -2123,6 +2135,18 @@
   array (
     'model' => 'MLiveChat',
     'function' => 'updateLiveChat',
+    'loadlib' => '1',
+  ),
+  'showshipmenttracker' => 
+  array (
+    'model' => 'MShippingTracker',
+    'function' => 'displayShippingTrackerSetting',
+    'loadlib' => '1',
+  ),
+  'showshipmenttracker:update' => 
+  array (
+    'model' => 'MShippingTracker',
+    'function' => 'updateShippingTrackerSetting',
     'loadlib' => '1',
   ),
 );

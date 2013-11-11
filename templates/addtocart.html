@@ -47,48 +47,53 @@
 <script>
 function checkInputs()
 {
-	
-	if($("input[type='radio'].radioBtnClass").is(':checked')) {
-		var ship_type = $("input[type='radio'].radioBtnClass:checked").val();
-		if(ship_type=='3')
-		{
-
-			if(document.getElementById('shipdurid').value=='' || document.getElementById('shipdurid').value=='0')
-			{
-				alert('Please select the shipping duration');
-				return false;
-			}
-		
-		}
-		
+	$( "#default_ship_cost" ).hide();
+	var ship_type=$('#shipment_id').val();
+	if(ship_type=='0')
+	{
+		alert('Please select the shipping method');
+		return false;
 	}
 	else
 	{
-		
-		alert('Please select the shipping type');
-		
-		return false;
-	}
 
+		if(ship_type=='2')
+		{
+			if(document.getElementById('shipdurid').value=='' || document.getElementById('shipdurid').value=='0')
+			{
+					
+				alert('Please select the shipping duration');
+				return false;
+			}
+		}
+					
+
+	}
 	return true;
+	
 }
 function selectShippingType(id)
 {
 
 	
 	$( "#duration_ups" ).hide();
-	$( "#ship_cost").hide();		
-	if(id=='3')
+	$( "#ship_cost").hide();	
+	$( "#default_ship_cost" ).hide();
+
+	if(id=='1')
+	{
+	    $( "#default_ship_cost" ).show();	
+	}			
+	if(id=='2')
 	{
 		document.getElementById("shipdurid").value = "0";
-		$( "#duration_ups" ).show();	
+		$( "#duration_ups" ).show();
 	}
-	
-		
 	
 }
 function shipDuration(ship_dur_id,zip,weight)
 {
+
 
 	if(ship_dur_id!='0')
 	{
@@ -99,8 +104,9 @@ function shipDuration(ship_dur_id,zip,weight)
 		success: function (resp) {
 			document.getElementById('var_ship').innerHTML=resp;
 			document.getElementById('shipping_cost').value=resp;
-	
+				  $( "#default_ship_cost" ).hide();	
 				$( "#ship_cost").show();
+				
 			}
 		});
 	}
@@ -114,6 +120,6 @@ function shipDuration(ship_dur_id,zip,weight)
 }
 </script>
 
-   <AJDF:output>include file="footer.html"</AJDF:output>
+<AJDF:output>include file="footer.html"</AJDF:output>
 
 

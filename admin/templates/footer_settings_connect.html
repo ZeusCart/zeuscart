@@ -67,7 +67,12 @@ $(document).ready(function (){
 
 <form name="frm" action="?do=updatefootersettings&action=connect" method="post"  id="updateFooter">
 
-
+<div class="row-fluid">
+              <div class="span6">
+                <label>
+  		Free Shipping Cost <font color="red">*</font></label>
+ 		 
+       		<input type="text" name="free_shipping_cost" cols="45" rows="4" class="span8" id="free_shipping_cost"  value="<AJDF:output>$footerconnect.free_shipping_cost</AJDF:output>" ></div></div>
 
 
  <div class="row-fluid">
@@ -84,7 +89,7 @@ $(document).ready(function (){
                
      	   	<input type="text" name="email" cols="45" rows="4" class="span8" id="email" value="<AJDF:output>$footerconnect.email</AJDF:output>" ></div></div> <div class="row-fluid">
               <div class="span6">
-                <label> Fax <font color="red">*</font> 
+                <label> Fax
   		 </label>
                 
         	<input type="text" name="fax" cols="45" rows="4" class="span8" id="fax"  value="<AJDF:output>$footerconnect.fax</AJDF:output>" ></div></div> <div class="row-fluid">

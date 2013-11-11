@@ -19,7 +19,6 @@
 *
 */
 
-
 /**
  * installation process the  related  class
  *
@@ -525,15 +524,7 @@ class Core_CQuery
 
 		$sql="Drop table if exists footer_settings_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE IF NOT EXISTS `footer_settings_table` (
-		`id` int(10) NOT NULL AUTO_INCREMENT,
-		`callus` varchar(50) NOT NULL,
-		`email` varchar(255) NOT NULL,
-		`fax` varchar(50) NOT NULL,
-		`location` varchar(100) NOT NULL,
-		`footercontent` text NOT NULL,
-		PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+		$sql="CREATE TABLE footer_settings_table(id  INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,callus  INT(50) NOT NULL ,email VARCHAR(255) NOT NULL,fax INT(50) NOT NULL,location VARCHAR(100) NOT NULL,footercontent TEXT(65535) NOT NULL)";
 		$result=mysql_query($sql);
 		
 
@@ -595,36 +586,12 @@ class Core_CQuery
 		)";
 		$result=mysql_query($sql);
 
-		$sql="Drop table if exists live_chat_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE `zeuscart_master`.`live_chat_table` (
-		`id` INT( 10 ) NOT NULL AUTO_INCREMENT ,
-		`live_chat_script` TEXT NOT NULL ,
-		`live_chat_status` INT( 10 ) NOT NULL COMMENT '0=>on,1=>off',
-		PRIMARY KEY ( `id` )
-		) ENGINE = MYISAM ;";
-		$result=mysql_query($sql);
 
-		$sql="INSERT INTO `live_chat_table` (`live_chat_script`, `live_chat_status`) VALUES
-		('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 0)";
-		$result=mysql_query($sql);
-	
 
 		$sql="Drop table if exists mail_messages_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE IF NOT EXISTS `mail_messages_table` (
-		`mail_msg_id` int(20) NOT NULL AUTO_INCREMENT,
-		`mail_msg_title` varchar(240) NOT NULL,
-		`mail_msg_subject` varchar(300) NOT NULL,
-		`mail_msg` text,
-		`mail_short_code` text NOT NULL,
-		`mail_user` int(10) NOT NULL COMMENT '0=>user,1=>admin',
-		PRIMARY KEY (`mail_msg_id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		$sql="CREATE TABLE mail_messages_table(mail_msg_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,mail_msg_subject  VARCHAR(300) NOT NULL,mail_msg  TEXT(65535) )";
 		$result=mysql_query($sql);
-
-
-		
 
 
 		$sql="Drop table if exists msrp_by_quantity_table";
@@ -654,14 +621,7 @@ class Core_CQuery
 
 		$sql="Drop table if exists order_products_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE IF NOT EXISTS `order_products_table` (
-			`order_id` int(25) NOT NULL,
-			`product_id` int(25) NOT NULL,
-			`variation_id` int(25) NOT NULL,
-			`product_qty` int(10) NOT NULL,
-			`product_unit_price` double NOT NULL,
-			`shipping_cost` double NOT NULL
-			) ";
+		$sql="CREATE TABLE order_products_table(order_id  INT(25) NOT NULL,product_id  INT(25) NOT NULL,product_qty  INT(10) NOT NULL,product_unit_price  real NOT NULL,shipping_cost  real NOT NULL)";
 		$result=mysql_query($sql);
 		
 
@@ -676,7 +636,7 @@ class Core_CQuery
 
 		$sql="Drop table if exists orders_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE orders_table(orders_id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,customers_id  INT(11) NOT NULL,shipping_name  VARCHAR(64) NOT NULL,shipping_company  VARCHAR(32) ,shipping_street_address  VARCHAR(64) NOT NULL,shipping_suburb  VARCHAR(32) ,shipping_city  VARCHAR(32) NOT NULL,shipping_postcode  VARCHAR(10) NOT NULL,shipping_state  VARCHAR(32) ,shipping_country  VARCHAR(32) NOT NULL,billing_name  VARCHAR(64) NOT NULL,billing_company  VARCHAR(32) ,billing_street_address  VARCHAR(64) NOT NULL,billing_suburb  VARCHAR(32) ,billing_city  VARCHAR(32) NOT NULL,billing_postcode  VARCHAR(10) NOT NULL,billing_state  VARCHAR(32) ,billing_country  VARCHAR(32) NOT NULL,payment_method  VARCHAR(128) NOT NULL,shipping_method  VARCHAR(128) NOT NULL,coupon_code  VARCHAR(32) NOT NULL,date_purchased  datetime  ,orders_date_closed  datetime ,orders_status  INT(5) NOT NULL ,order_total  real ,order_tax  real ,ipn_id  INT(11) NOT NULL DEFAULT '0',ip_address  VARCHAR(96) NOT NULL,shipment_id_selected  INT(11) NOT NULL,shipment_track_id  VARCHAR(200) NOT NULL)";
+		$sql="CREATE TABLE orders_table(orders_id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,customers_id  INT(11) NOT NULL,shipping_name  VARCHAR(64) NOT NULL,shipping_company  VARCHAR(32) ,shipping_street_address  VARCHAR(64) NOT NULL,shipping_suburb  VARCHAR(32) ,shipping_city  VARCHAR(32) NOT NULL,shipping_postcode  VARCHAR(10) NOT NULL,shipping_state  VARCHAR(32) ,shipping_country  VARCHAR(32) NOT NULL,billing_name  VARCHAR(64) NOT NULL,billing_company  VARCHAR(32) ,billing_street_address  VARCHAR(64) NOT NULL,billing_suburb  VARCHAR(32) ,billing_city  VARCHAR(32) NOT NULL,billing_postcode  VARCHAR(10) NOT NULL,billing_state  VARCHAR(32) ,billing_country  VARCHAR(32) NOT NULL,payment_method  VARCHAR(128) NOT NULL,shipping_method  VARCHAR(128) NOT NULL,coupon_code  VARCHAR(32) NOT NULL,date_purchased  datetime  ,orders_date_closed  datetime ,orders_status  INT(5) NOT NULL ,order_total  real ,order_tax  real ,order_ship real,`currency_id` int(20) NOT NULL default '1',ipn_id  INT(11) NOT NULL DEFAULT '0',ip_address  VARCHAR(96) NOT NULL,shipment_id_selected  INT(11) NOT NULL,shipment_track_id  VARCHAR(200) NOT NULL)";
 		$result=mysql_query($sql);
 		
 
@@ -828,40 +788,11 @@ class Core_CQuery
 		`digital` int(10) NOT NULL,
 		`gift` int(20) NOT NULL,
 		`digital_product_path` varchar(200) NOT NULL,
-		 `has_variation` tinyint(10) NOT NULL,	
-		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product,3=>deleted product ',
- 		 `deleted_reason` varchar(240) NOT NULL,
+		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
 		PRIMARY KEY (`product_id`)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 		
-
-
-
-		$sql="Drop table if exists product_variation_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE IF NOT EXISTS `product_variation_table` (
-			`variation_id` bigint(12) NOT NULL AUTO_INCREMENT,
-			`product_id` bigint(12) NOT NULL,
-			`sku` varchar(100) NOT NULL,
-			`variation_name` varchar(250) NOT NULL,
-			`description` text NOT NULL,
-			`msrp` double NOT NULL,
-			`price` double NOT NULL,
-			`weight` varchar(25) NOT NULL,
-			`dimension` varchar(100) NOT NULL,
-			`thumb_image` varchar(150) NOT NULL,
-			`image` varchar(150) NOT NULL,
-			`large_image` varchar(240) NOT NULL,
-			`shipping_cost` double NOT NULL,
-			`soh` bigint(12) NOT NULL,
-			`rol` bigint(10) NOT NULL,
-			`status` tinyint(1) NOT NULL,
-			PRIMARY KEY (`variation_id`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
-		$result=mysql_query($sql);
-
-
 		$sql="Drop table if exists search_tags_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE search_tags_table(id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,search_tag  VARCHAR(250) NOT NULL,search_count  INT(11) NOT NULL)";
@@ -871,25 +802,33 @@ class Core_CQuery
 
 		$sql="Drop table if exists shipments_master_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE shipments_master_table(shipment_id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,shipment_name  VARCHAR(200) NOT NULL,status  INT(11) NOT NULL)";
+		$sql="CREATE TABLE IF NOT EXISTS `shipments_master_table` (
+			`shipment_id` int(11) NOT NULL AUTO_INCREMENT,
+			`shipment_name` varchar(200) NOT NULL,
+			`shipment_user_id` varchar(240) NOT NULL,
+			`shipment_password` varchar(240) NOT NULL,
+			`shipment_accesskey` varchar(240) NOT NULL,
+			`status` int(11) NOT NULL,
+			PRIMARY KEY (`shipment_id`)
+			)";
 		$result=mysql_query($sql);
 		
 
 		$sql="Drop table if exists shopping_cart_products_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE IF NOT EXISTS `shopping_cart_products_table` (
-			`id` int(20) NOT NULL AUTO_INCREMENT,
-			`cart_id` int(25) NOT NULL,
-			`product_id` varchar(100) NOT NULL,
-			`product_qty` int(10) NOT NULL,
-			`date_added` date NOT NULL,
-			`product_unit_price` double NOT NULL,
-			`shipping_cost` double NOT NULL,
-			`variation_id` int(20) NOT NULL,
-			`original_price` double NOT NULL,
-			`gift_product` int(11) NOT NULL,
-			PRIMARY KEY (`id`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+                        `id` int(20) NOT NULL AUTO_INCREMENT,
+                        `cart_id` int(25) NOT NULL,
+                        `product_id` varchar(100) NOT NULL,
+                        `product_qty` int(10) NOT NULL,
+                        `date_added` date NOT NULL,
+                        `product_unit_price` double NOT NULL,
+                        `shipping_cost` double NOT NULL,
+                        `variation_id` int(20) NOT NULL,
+                        `original_price` double NOT NULL,
+                        `gift_product` int(11) NOT NULL,
+                        PRIMARY KEY (`id`)
+                        )";
 		$result=mysql_query($sql);
 
 		$sql="DROP TABLE IF EXISTS `site_hit_counter_table`";
@@ -1000,7 +939,6 @@ class Core_CQuery
 		`ipaddress` varchar(100) NOT NULL,
 		`social_link_id` varchar(100) NOT NULL,
 		`is_from_social_link` int(20) NOT NULL,
-		`confirmation_code` int(20) NOT NULL,
 		PRIMARY KEY (`user_id`)
 		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2";
 		$result=mysql_query($sql);

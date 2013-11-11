@@ -132,6 +132,7 @@ class Core_CPaymentGateways
 		function success()
 		{
 
+
 			if($_GET['pay_type']=='1')
 				{
 					$order_total=$_POST['mc_gross'];
@@ -288,6 +289,7 @@ class Core_CPaymentGateways
 			$shipment_id_selected=$orderdetails['shipment_id'];
 			$shipping_method=$orderdetails['shipdurid'];	
 			$shipping_cost=$orderdetails['shipping_cost'];
+			$currecncy_id=$_SESSION['currencysetting']['selected_currency_id'];
 
 			$billingaddress = $billing_name.', <br>'.$billing_street_address.', <br>'.$billing_city.', <br>'.$billing_suburb.', <br>'.$billing_country;
 			
@@ -301,18 +303,16 @@ class Core_CPaymentGateways
 					billing_name, billing_company, billing_street_address, billing_suburb, 
 					billing_city, billing_postcode, billing_state, billing_country, payment_method, 
 					shipping_method, coupon_code,  date_purchased, orders_date_closed, orders_status, order_total, 
-					order_tax, ipn_id, ip_address,shipment_id_selected,order_ship)
+					order_tax, ipn_id, ip_address,shipment_id_selected,order_ship,currency_id)
 					values
-					('".$customers_id."','".$shipping_name."','".$shipping_company."','".$shipping_street_address."','".$shipping_suburb."','".$shipping_city."','".$shipping_postcode."','".$shipping_state."','".$shipping_country."','".$billing_name."','".$billing_company."','".$billing_street_address."','".$billing_suburb."','".$billing_city."','".$billing_postcode."','".$billing_state."','".$billing_country."','".$payment_method."','".$shipping_method."','".$coupon_code."','".$date_purchased."','".$orders_date_closed."','".$orders_status."','".$order_total."','".$order_tax."','".$ipn_id."','".$ip_address."','".$shipment_id_selected."','".$shipping_cost."')";
+					('".$customers_id."','".$shipping_name."','".$shipping_company."','".$shipping_street_address."','".$shipping_suburb."','".$shipping_city."','".$shipping_postcode."','".$shipping_state."','".$shipping_country."','".$billing_name."','".$billing_company."','".$billing_street_address."','".$billing_suburb."','".$billing_city."','".$billing_postcode."','".$billing_state."','".$billing_country."','".$payment_method."','".$shipping_method."','".$coupon_code."','".$date_purchased."','".$orders_date_closed."','".$orders_status."','".$order_total."','".$order_tax."','".$ipn_id."','".$ip_address."','".$shipment_id_selected."','".$shipping_cost."','".$currecncy_id."')";
 									
 					$obj=new Bin_Query();
 					if($obj->updateQuery($sql))
 					{
 						
 							$orderid=$obj->insertid;
-							
-	
-
+		
 							$sql_insert_payment="INSERT INTO payment_transactions_table (payment_gateway_id ,paid_amount ,transaction_id ,transaction_date,order_id) VALUES (".$payment_method.",".$order_total.",'".$ipn_id."','".$trans_date."',".$orderid.")"; 
 							$obj_insert_payment=new Bin_Query();
 							$obj_insert_payment->updateQuery($sql_insert_payment);
