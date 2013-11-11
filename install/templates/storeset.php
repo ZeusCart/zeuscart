@@ -15,9 +15,9 @@
                                 <dd><?php echo $selcurrencycode; ?> <div class="clear"></div>
 				<span style="color:#FF0000"> <?php echo $Err->messages['currcode'] ?></span> </dd>
 				<div class="clear"></div>
-                            	<dt>Rate Against US Dollar</dt>
-                                <dd><input name="currval" type="text" class="installtext"  id="currval" value="1"/> 
-				<span style="color:#FF0000"> <?php echo $Err->messages['currval'] ?></span></dd>
+                            	<!--<dt>Rate Against US Dollar</dt>-->
+                              <!--  <dd><input name="currval" type="text" class="installtext"  id="currval" value="1"/> 
+				<span style="color:#FF0000"> <?php echo $Err->messages['currval'] ?></span></dd>-->
 				<div class="clear"></div>
 				<dt>Currency Country</dt>
                                 <dd><?php echo $selcountrycode; ?> <div class="clear"></div></dd>

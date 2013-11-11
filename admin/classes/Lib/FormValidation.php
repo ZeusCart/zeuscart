@@ -1891,24 +1891,13 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$this->Assign("currency_code",$_POST['currency_code'],"noempty",$message);
 		    $message = "Currency Token - Required Field Cannot be blank.";
 			$this->Assign("currency_tocken",$_POST['currency_tocken'],"noempty",$message);
-		   $message = "Conversion Rate- Required Field Cannot be blank.";
-			$this->Assign("conversion_rate",$_POST['conversion_rate'],"noempty",$message);
-			
+					
 
 
-		    $curr_rate=trim($_POST['conversion_rate']);
+	
 			$curr_code=trim($_POST['currency_code']);
 			$country_code=trim($_POST['taxratecountry']);
-			if( !is_numeric($curr_rate))
-			{
-				$message = "Conversion rate should be numeric";
-				$this->Assign("conversion_rate",'',"noempty",$message);
-			}
-			if($curr_rate<=0&&is_numeric($curr_rate))
-			{
-				$message = "Conversion rate should be greater than 0.";
-				$this->Assign("conversion_rate",'',"noempty",$message);
-			}
+		
 			$obj1 = new Bin_Query();
 			$sql="select count(*)as numcurrency from currency_master_table where currency_code='$curr_code' and country_code='$country_code'";
 			$obj1->executeQuery($sql);
@@ -1938,39 +1927,18 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	{
 			$curr_rate=trim($_POST['conversion_rate']);
 	 		$currid=trim($_POST['hidecurrencyid']);
-			if($currid==1||$currid=='1')
-			{
-				$message = "Required Field Cannot be blank.";
-				$this->Assign("conversion_rate",$_POST['conversion_rate'],"noempty",$message);	
-				if($curr_rate<=0&&is_numeric($curr_rate))
-				{
-					$message = "Conversion rate should be greater than 0.";
-					$this->Assign("conversion_rate",'',"noempty",$message);
-				}
-			}
-			else
-			{
+			
 				$message = "Currency Name - Required Field Cannot be blank.";
 				$this->Assign("currency_name",$_POST['currency_name'],"noempty",$message);
 				$message = "Currency Code - Required Field Cannot be blank.";
 				$this->Assign("currency_code",$_POST['currency_code'],"noempty",$message);
 				$message = "Currency Token - Required Field Cannot be blank.";
 				$this->Assign("currency_tocken",$_POST['currency_tocken'],"noempty",$message);
-				$message = "Conversion Rate - Required Field Cannot be blank";
-				$this->Assign("conversion_rate",$_POST['conversion_rate'],"noempty",$message);
+			
 				$curr_code=trim($_POST['currency_code']);
 				$country_code=trim($_POST['taxratecountry']);
 
-				if( !is_numeric($curr_rate))
-				{
-					$message = "Conversion rate should be numeric";
-					$this->Assign("conversion_rate",'',"noempty",$message);
-				}
-				if($curr_rate<=0&&is_numeric($curr_rate))
-				{
-					$message = "Conversion rate should be greater than 0.";
-					$this->Assign("conversion_rate",'',"noempty",$message);
-				}
+				
 				$obj1 = new Bin_Query();
 				$sql="select count(*)as numcurrency from currency_master_table where currency_code='$curr_code' and country_code='$country_code' and id<>$currid";
 				$obj1->executeQuery($sql);
@@ -1987,7 +1955,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 					$message = "Country code is already set.";
 					$this->Assign("taxratecountry",'',"noempty",$message);		
 				}*/
-			}
+		
 		$this->PerformValidation('?do=editcurrency&cid='.$_POST['hidecurrencyid']);
 	}
 

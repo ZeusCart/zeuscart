@@ -67,7 +67,7 @@ class Core_Settings_CCurrencySettings
 		}
 		$total = 0;
 
-		$sql='SELECT a.id,a.currency_name,a.currency_code,a.country_code,a.conversion_rate,a.currency_tocken,a.status,a.default_currency,b.cou_name FROM currency_master_table a LEFT JOIN country_table b ON a.country_code=b.cou_code ';
+		$sql='SELECT a.id,a.currency_name,a.currency_code,a.country_code,a.currency_tocken,a.status,a.default_currency,b.cou_name FROM currency_master_table a LEFT JOIN country_table b ON a.country_code=b.cou_code ';
 
 
 		$obj=new Bin_Query();
@@ -132,7 +132,7 @@ class Core_Settings_CCurrencySettings
 		$currname = trim($_POST['currency_name']);
 		$currcode = trim($_POST['currency_code']);
 		$currtoken = trim($_POST['currency_tocken']);
-		$convertrate = trim($_POST['conversion_rate']);
+		
 		$countrycode=$_POST['taxratecountry'];
 		$status=$_POST['taxratestatus'];
 		
@@ -153,7 +153,7 @@ class Core_Settings_CCurrencySettings
 			{
 				$status=0;	
 			}
-			$sql="INSERT INTO currency_master_table(currency_name,currency_code,country_code,conversion_rate,currency_tocken,status) VALUES('$currname','$currcode','$countrycode',$convertrate,'$currtoken',$status)"; 
+			$sql="INSERT INTO currency_master_table(currency_name,currency_code,country_code,currency_tocken,status) VALUES('$currname','$currcode','$countrycode','$currtoken',$status)"; 
 			$qry=new Bin_Query();
 			if($qry->updateQuery($sql))
 			{
@@ -190,7 +190,7 @@ class Core_Settings_CCurrencySettings
 		if(isset($_GET['cid']))
 		{
 			$currencyid=trim($_GET['cid']);
-			$sql="select id as hidecurrencyid,currency_name,currency_code,country_code,conversion_rate,currency_tocken,status from currency_master_table where id=$currencyid";
+			$sql="select id as hidecurrencyid,currency_name,currency_code,country_code,currency_tocken,status from currency_master_table where id=$currencyid";
 			$qry = new Bin_Query();
 			$qry->executeQuery($sql);
 			
@@ -215,30 +215,11 @@ class Core_Settings_CCurrencySettings
 		$currname = trim($_POST['currency_name']);
 		$currcode = trim($_POST['currency_code']);
 		$currtoken = trim($_POST['currency_tocken']);
-		$convertrate = trim($_POST['conversion_rate']);
+	
 		$countrycode=$_POST['taxratecountry'];
 		$status=$_POST['taxratestatus'];
 		
-		if($currid==1 || $currid=='1')
-		{
-			$sql="Update currency_master_table set conversion_rate=$convertrate where id=$currid";  	
-
-			$qry1=new Bin_Query();
-			if($qry1->updateQuery($sql))
-			{
-				$result = '<div class="alert alert-success">
-				<button type="button" class="close" data-dismiss="alert">×</button> Updated Successfully</div>';
-				return $result;		
-			}
-			else
-			{
-				$result = '<div class="alert alert-error">
-				<button type="button" class="close" data-dismiss="alert">×</button> Not Updated</div>';
-				return $result;
-			}	
-		}
-		else
-		{
+		
 			$obj1 = new Bin_Query();
 			$sql="select count(*)as numcurrency from currency_master_table where (currency_code='$currcode' and country_code='$countrycode') and id<>$currid";
 			//$sql="select count(*)as numcurrency from currency_master_table where (currency_code='$currcode' or country_code='$countrycode') and id<>$currid";
@@ -255,7 +236,7 @@ class Core_Settings_CCurrencySettings
 			{
 				$status=0;	
 			}
-			$sql="Update currency_master_table set currency_name='$currname',currency_code='$currcode',country_code='$countrycode',conversion_rate=$convertrate,currency_tocken='$currtoken',status=$status where id=$currid"; 
+			$sql="Update currency_master_table set currency_name='$currname',currency_code='$currcode',country_code='$countrycode',currency_tocken='$currtoken',status=$status where id=$currid"; 
 
 
 			$qry=new Bin_Query();
@@ -271,7 +252,7 @@ class Core_Settings_CCurrencySettings
 				<button type="button" class="close" data-dismiss="alert">×</button> Not Updated</div>';
 				return $result;
 			}	
-		}
+		
 	}
 	
 	

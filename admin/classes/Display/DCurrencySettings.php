@@ -59,7 +59,7 @@ class Display_DCurrencySettings
 		<th  align="left">S.No</th>
 		<th  align="left">Currency Name</th>
 		<th align="left">Currency Code</th>
-		<th align="left">Conversion Rate</th>
+	
 		<th align="left">Applied To</th>
 		<th align="left">Status</th>
 
@@ -99,7 +99,7 @@ class Display_DCurrencySettings
 
 			<td><a href="?do=editcurrency&cid='.$arr['id'].'">'.$arr['currency_name'].(($arr['default_currency']==1) ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>(Default)</b>' : '' ).'</a></td>
 			<td>'.$arr['currency_code'].'</td>
-			<td>'.$arr['currency_tocken'].' '. number_format($arr['conversion_rate'],2).'</td>
+			
 			<td>'.( ($arr['country_code']=='' || $arr['country_code']=='all') ?  'All Countries' : $arr['cou_name']).'</td>
 			<td>'.$acive.'</td></tr>';
 			$i++;
@@ -174,12 +174,7 @@ class Display_DCurrencySettings
 		<td  class="content_form"><input name="currency_tocken" id="currency_tocken"  value="'.$values['currency_tocken'].'" type="text" style="width:60px;">
 		<br>
 		<span style="color:#FF0000">'.$messages['currency_tocken'].'</span></td>
-		<td class="content_form">Conversion Rate *&nbsp;</td>
-		<td class="content_form">: </td>
-		<td class="content_form">
-		<input name="conversion_rate" id="conversion_rate"   value="'.$values['conversion_rate'].'" type="text" style="width:178px;">
-		<br>
-		'.$messages['conversion_rate'].' </td>
+		
 		</tr>
 
 
@@ -277,13 +272,7 @@ class Display_DCurrencySettings
 		<div class="row-fluid">
 		<div class="span12">
 		<label>Currency Tocken <font color="red">*</font></label> <input name="currency_tocken" id="currency_tocken"  value="'.$values['currency_tocken'].'" type="text" style="width:60px;"></div></div>
-			<div class="row-fluid">
-		<div class="span12">
-		<label>Conversion Rate <font color="red">*</font></label>
-
-		<input name="conversion_rate" id="conversion_rate"   value="'.$values['conversion_rate'].'" type="text" style="width:60px;">
-
-		</div></div>
+			
 
 		<div class="row-fluid">
 		<div class="span12">
@@ -350,14 +339,7 @@ class Display_DCurrencySettings
 				<div class="span12">
 				<label>Currency name <font color="red">*</font></label><b>'.$values['currency_name'].'</b><input type="hidden" name="currency_name" id="hidecurrencyid"   value="'.$values['currency_name'].'"/></div></div>
 
-				<div class="row-fluid">
-				<div class="span12">
-				<label>Conversion Rate <font color="red">*</font></label>
-
-				<input type="hidden" name="hidecurrencyid" id="hidecurrencyid"   value="'.$values['hidecurrencyid'].'"/>
-				<input name="conversion_rate" id="conversion_rate"   value="'.$values['conversion_rate'].'" type="text" style="width:178px;"></div></div>
-				</div>
-				</div>
+				
 				</div>
 
 				</div></div>
@@ -400,13 +382,7 @@ class Display_DCurrencySettings
 				<div class="span12">
 				<label>Currency Tocken <font color="red">*</font></label> <input name="currency_tocken" id="currency_tocken"  value="'.$values['currency_tocken'].'" type="text" style="width:60px;"></div></div>
 
-				<div class="row-fluid">
-				<div class="span12">
-				<label>Conversion Rate <font color="red">*</font></label>
-
-				<input name="conversion_rate" id="conversion_rate"   value="'.$values['conversion_rate'].'" type="text" style="width:178px;">
-
-				</div></div>	
+				
 				<div class="row-fluid">
 				<div class="span12">
 				<label>Country </label> '.$countrylist.'</div></div>

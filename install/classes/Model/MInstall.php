@@ -290,7 +290,7 @@ class Model_MInstall
 			mysql_select_db($db->config["DB"],$conn);
 			$sql="SELECT distinct currency_code FROM currency_codes_table ORDER BY currency_code";
 			$result=mysql_query($sql);
-			$selcurrencycode='<select name="currcode" id="currcode" style="width:80px;" >';
+			$selcurrencycode='<select name="currcode" id="currcode" style="width:80px;" class="installtext">';
 			while($arry=mysql_fetch_array($result))
 			{
 				$selcurrencycode.='<option value="'.$arry['currency_code'].'"  '.(($arry['currency_code']=='USD') ? ' selected ="selected" ' : '' ).'>'.$arry['currency_code'].'</option>';
@@ -299,7 +299,7 @@ class Model_MInstall
 			
 			$sql="SELECT cou_code,name FROM country_table ORDER BY name";
 			$result2=mysql_query($sql);
-			$selcountrycode='<select name="taxratecountry" id="taxratecountry" style="width:210px;" >';
+			$selcountrycode='<select name="taxratecountry" id="taxratecountry" style="width:210px;" class="installtext">';
 			while($arry=mysql_fetch_array($result2))
 			{
 				$selcountrycode.='<option value="'.$arry['cou_code'].'" '.(($arry['cou_code']=='US') ? ' selected ="selected" ' : '' ).' >'.$arry['name'].'</option>';
@@ -513,7 +513,7 @@ class Model_MInstall
 		$sql="DELETE FROM footer_settings_table";
 		$result=mysql_query($sql);			
 		$sql="INSERT INTO `footer_settings_table` (`email`,footercontent) VALUES
-		('".$adminemail."','Copyright Â© 2013. All rights reserved.' )"; 
+		('".$adminemail."','Copyright© 2013. All rights reserved.' )"; 
 		$result=mysql_query($sql);
 		
 		header("Location:?do=store");
@@ -539,7 +539,7 @@ class Model_MInstall
 			$val->Assign('currname',trim($_POST['currname']),'noempty','Required Field Cannot be left blank');
 			$val->Assign('currtoken',trim($_POST['currtoken']),'noempty','Required Field Cannot be left blank');
 			$val->Assign('currcode',trim($_POST['currcode']),'noempty','Required Field Cannot be left blank');
-			$val->Assign('currval',trim($_POST['currval']),'noempty','Required Field Cannot be left blank');
+// 			$val->Assign('currval',trim($_POST['currval']),'noempty','Required Field Cannot be left blank');
 			$currencyrate=trim($_POST['currval']);
 			/*if($currencyrate<=0)
 				$val->Assign('currval','','noempty',"Currency rate should be greater than 0.");		
@@ -560,7 +560,7 @@ class Model_MInstall
 			$sql="DELETE FROM currency_master_table";
 			$result=mysql_query($sql);
 			
-			$sql="INSERT INTO currency_master_table VALUES('1','$currname','$currcode','$countrycode',$currencyrate,'$currtoken',1,1)"; 
+			$sql="INSERT INTO currency_master_table VALUES('1','$currname','$currcode','$countrycode','$currtoken',1,1)"; 
 			$result=mysql_query($sql);
 			
 			
@@ -904,7 +904,6 @@ class Model_MInstall
 			$this->config['configok'] = 0;
 		}
 		
-		
 		$folders777=array(
 			'../images',
 			'../images/homepageads',
@@ -929,7 +928,7 @@ class Model_MInstall
 			'../includes',
 			'../includes/Charts',
 			'../timthumb',
-			'../timthumb/cache'); 	
+			'../timthumb/cache');
 		
 		$i=1;
 		foreach($folders777 as $folder)
@@ -947,7 +946,6 @@ class Model_MInstall
 		}
 		
 	}
-
 	/**
 	 * This function is used to show the capcha in installation process
 	 *

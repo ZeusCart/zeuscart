@@ -123,10 +123,31 @@ class Lib_CheckInputs
 			$this->validateLiveChat();
 		else if($module=='productinventory')
 			$this->validateProductInventory();
+		else if($module=='homepagecontent')
+			$this->validateHomePageContent();
+		
 
 	}
 
-	
+
+	function validateHomePageContent()
+	{
+		include('classes/Lib/FormValidation.php');
+		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
+		{
+			if($_POST['home_page_content']!='' or $_POST['home_page_content']=='') 
+			{
+
+				$obj = new Lib_FormValidation('homepagecontent');
+			}
+			else 
+			{
+				header("Location:?do=homepage&action=content");
+				exit();
+			}
+		}
+
+	}
 	function validateProductInventory()
 	{
 
@@ -251,7 +272,7 @@ class Lib_CheckInputs
 		include('classes/Lib/FormValidation.php');
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
-			if($_POST['callus']!='' or $_POST['callus']=='' or $_POST['email']!='' or $_POST['email']==''  or $_POST['fax']!='' or $_POST['fax']==''  or $_POST['location']!='' or $_POST['location']==''  or $_POST['footercontent']!='' or $_POST['footercontent']=='')
+			if($_POST['callus']!='' or $_POST['callus']=='' or $_POST['email']!='' or $_POST['email']==''  or $_POST['fax']!='' or $_POST['fax']==''  or $_POST['location']!='' or $_POST['location']==''  or $_POST['footercontent']!='' or $_POST['footercontent']=='' or $_POST['free_shipping_cost']!='' or $_POST['free_shipping_cost']=='')
 			{
 
 				$obj = new Lib_FormValidation('footercontent');
@@ -989,7 +1010,7 @@ class Lib_CheckInputs
 		
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
-			if(isset($_POST['currency_name'])&&isset($_POST['currency_tocken'])&&isset($_POST['conversion_rate'])&&isset($_POST['currency_code']))
+			if(isset($_POST['currency_name'])&&isset($_POST['currency_tocken'])&&isset($_POST['currency_code']))
 			{
 				$obj = new Lib_FormValidation('addnewcurrency');
 			}
@@ -1013,15 +1034,10 @@ class Lib_CheckInputs
 		
 		if(strtolower($_SERVER['REQUEST_METHOD'])=="post")
 		{
-			if(isset($_POST['conversion_rate']))
-			{
+			
 				$obj = new Lib_FormValidation('updatecurrency');
-			}
-			else 
-			{
-				header("Location:?do=editcurrency&cid=".$_POST['hidecurrencyid']);
-				exit();
-			}
+			
+			
 		}	
 	}
 	function validateCustomerGroup()

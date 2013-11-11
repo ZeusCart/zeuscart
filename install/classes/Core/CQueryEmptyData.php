@@ -501,7 +501,7 @@ class Core_CQuery
 
 		$sql="Drop table if exists currency_master_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE currency_master_table (id int(11) NOT NULL auto_increment,currency_name varchar(200) NOT NULL,currency_code varchar(50) NOT NULL,country_code varchar(25) NOT NULL,conversion_rate float NOT NULL,currency_tocken varchar(25) NOT NULL,status int(11) NOT NULL,
+		$sql="CREATE TABLE currency_master_table (id int(11) NOT NULL auto_increment,currency_name varchar(200) NOT NULL,currency_code varchar(50) NOT NULL,country_code varchar(25) NOT NULL,currency_tocken varchar(25) NOT NULL,status int(11) NOT NULL,
 		default_currency int(11) NOT NULL default '0',PRIMARY KEY  (`id`))";
 		$result=mysql_query($sql);
 
@@ -558,6 +558,20 @@ class Core_CQuery
 		)";
 		$result=mysql_query($sql);
 		
+	
+		$sql="Drop table if exists home_page_content_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `home_page_content_table` (
+		`id` int(11) NOT NULL,
+		`home_page_content` text NOT NULL,
+		`status` int(10) NOT NULL COMMENT '0=>active,1=>suspend'
+		)";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `home_page_content_table` (`id`, `home_page_content`, `status`) VALUES
+		(1, '<h2>About BEAUTY Shop</h2><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit...</p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit...</p>', 1);";
+		$result=mysql_query($sql);
+
+
 
 		$sql="Drop table if exists home_slide_parameter_table";
 		$result=mysql_query($sql);
@@ -586,8 +600,21 @@ class Core_CQuery
 		)";
 		$result=mysql_query($sql);
 
-
-
+			
+		$sql="Drop table if exists live_chat_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `live_chat_table` (
+		`id` int(10) NOT NULL AUTO_INCREMENT,
+		`live_chat_script` text NOT NULL,
+		`live_chat_status` int(10) NOT NULL COMMENT '0=>on,1=>off',
+		PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `live_chat_table` (`id`, `live_chat_script`, `live_chat_status`) VALUES
+		(1, '', 1)";
+		$result=mysql_query($sql);
+		
+		
 		$sql="Drop table if exists mail_messages_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE mail_messages_table(mail_msg_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,mail_msg_subject  VARCHAR(300) NOT NULL,mail_msg  TEXT(65535) )";
