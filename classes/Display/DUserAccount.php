@@ -440,7 +440,7 @@ class Display_DUserAccount
 					<td><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'"><img src="assets/img/bullet.gif" alt="remove" width="14" height="14" style="border:none"/></td>
 					<td><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">
 					<img src="'.$img.'" alt="" width="52" height="52" style="border:none" /></a></td><td><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br /><!--$-->
-						  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</a></td>
+						  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp'],2).'</a></td>
 					<td>'.$arr[$i]['adate'].'</td>
 					<td><a class="btn btn-mini" href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">View Product</a></td>
 					</tr>';
@@ -754,7 +754,7 @@ class Display_DUserAccount
 
 				$variation='';
 				//select variation size
-				if(trim($arr[$i]['variation_id'])!='0')
+				if(trim($arr[$i]['variation_id'])!='0' && $arr[$i]['variation_id']!='')
 				{
 					$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$arr[$i]['variation_id']."' AND product_id='".$arr[$i]['product_id']."'";
 					$objSize=new Bin_Query();
@@ -858,7 +858,7 @@ class Display_DUserAccount
 						$output.='background:url(images/bg_line1.gif) repeat-y right';
 					$output.='"><div class="featureITEM" style="display:'.$mode.'"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$k]['product_id'].'"><img src="'.$imgPath.'" alt="'.addslashes($arr[$k]['title']).'"  width="'.THUMB_WIDTH.'" border=0 /></a>
 							<div class="featureTXT"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$k]['product_id'].'">'.((strlen($arr[$k]['title'])>15) ? substr( $arr[$k]['title'],0,15).'...' : $arr[$k]['title']).'</a></div>
-					  <div class="featurePRICE"><!--Price :--> <!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$k]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'<br />
+					  <div class="featurePRICE"><!--Price :--> <!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$k]['msrp'],2).'<br />
 								'.$ratepath.'</div>
 					  <!--<div class="featureBUTTON">
 							  <table border="0" cellspacing="0" cellpadding="0">
@@ -976,7 +976,7 @@ class Display_DUserAccount
 						$output.='background:url(images/bg_line1.gif) repeat-y right';
 					$output.='"><div class="featureITEM" style="display:'.$mode.'"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$k]['product_id'].'"><img src="'.$imgPath.'" alt="'.addslashes($arr[$k]['title']).'" width="'.THUMB_WIDTH.'" border=0 /></a>
 							<div class="featureTXT"><a href="?do=prodetail&action=showprod&prodid='.$arr[$k]['product_id'].'">'.((strlen($arr[$k]['title'])>15) ? substr( $arr[$k]['title'],0,15).'...' : $arr[$k]['title']).'</a></div>
-					  <div class="featurePRICE"><!--Price :--> <!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$k]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'<br />
+					  <div class="featurePRICE"><!--Price :--> <!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$k]['msrp'],2).'<br />
 								'.$ratepath.'</div>
 					  <!--<div class="featureBUTTON">
 							  <table border="0" cellspacing="0" cellpadding="0">

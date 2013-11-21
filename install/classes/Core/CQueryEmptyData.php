@@ -524,7 +524,16 @@ class Core_CQuery
 
 		$sql="Drop table if exists footer_settings_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE footer_settings_table(id  INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,callus  INT(50) NOT NULL ,email VARCHAR(255) NOT NULL,fax INT(50) NOT NULL,location VARCHAR(100) NOT NULL,footercontent TEXT(65535) NOT NULL)";
+		$sql="CREATE TABLE IF NOT EXISTS `footer_settings_table` (
+		  `id` int(10) NOT NULL AUTO_INCREMENT,
+		  `callus` int(50) NOT NULL,
+		  `email` varchar(255) NOT NULL,
+		  `fax` int(50) NOT NULL,
+		  `location` varchar(100) NOT NULL,
+		  `footercontent` text NOT NULL,
+		  `free_shipping_cost` double NOT NULL,
+		  PRIMARY KEY (`id`)
+		)";		
 		$result=mysql_query($sql);
 		
 
@@ -966,6 +975,7 @@ class Core_CQuery
 		`ipaddress` varchar(100) NOT NULL,
 		`social_link_id` varchar(100) NOT NULL,
 		`is_from_social_link` int(20) NOT NULL,
+		`confirmation_code` int(20) NOT NULL,		
 		PRIMARY KEY (`user_id`)
 		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2";
 		$result=mysql_query($sql);

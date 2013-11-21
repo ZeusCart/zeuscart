@@ -132,8 +132,8 @@ class Display_DAddCart
 								$out.='</a></div></td>
 								<td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a><br/>'.$variation.'</td>
 								<td>'.$arr[$i]['product_qty'].'</td>
-								<td><span class="label label-important"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($msrp*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
-								<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format(($msrp*$arr[$i]['product_qty'])*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+								<td><span class="label label-important"> '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($msrp,2).'</span></td>
+								<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format(($msrp*$arr[$i]['product_qty']),2).'</span></td>
 								</tr>';
 	
 						}
@@ -147,7 +147,7 @@ class Display_DAddCart
 			$out.='<tr>
 				<td colspan="4" rowspan="2">&nbsp;</td>
 			 	 <td><strong>Sub Total</strong></td>
-				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
 				</tr>';
 // 				<tr>
 // 				<td><strong>Shipping Amount</strong></td>
@@ -157,7 +157,7 @@ class Display_DAddCart
 				
 				$out.='<tr>
 				<td><strong>Grand Total</strong></td>
-					<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grandtotal*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+					<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grandtotal,2).'</span></td>
 				</tr>
 				<tr>
 				<td colspan="2"><a href="javascript:void(0);" onclick="callHome();"><input type="submit" class="btn btn-danger" value="Continue Shopping" name="Submit" ></a></td>';
@@ -198,7 +198,7 @@ class Display_DAddCart
 	function cartSnapShot($grandtotal,$cnt)
 	{
 		$output='<div class="viewcartTXT"><span>'.$cnt.'</span> items in the Cart<br />
-		Sub Total : <span><!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></div>
+		Sub Total : <span><!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal,2).'</span></div>
 		
 		<div style="padding-top:7px;"> <a href="?do=showcart"><input type="submit" name="Submit52" value="View Cart" class="button5" style="float:left; clear:right " /></a><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><input type="submit" name="Submit5" value="Check Out" class="button6" style="float:left; clear:right" /></a></div>';
 			return $output;
@@ -1254,8 +1254,8 @@ class Display_DAddCart
 			 <td ><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" name="prodname">'.$arr[$i]['title'].'</a><br/>'.$variation.'</td>
 
 			<td>'.$arr[$i]['product_qty'].'</td>
-			<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($msrp*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
-			<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($subtotal[$i]*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+			<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($msrp,2).'</span></td>
+			<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($subtotal[$i],2).'</span></td>
 			<input type="hidden" name="cartid[]"  value="'.$arr[$i]['cart_id'].'" />
 			<input type="hidden" name="prodid[]" value='.$arr[$i]['product_id'].' />
 			</tr>';
@@ -1268,20 +1268,20 @@ class Display_DAddCart
 			$out.='<tr>
 				<td colspan="4" rowspan="4">&nbsp;</td>
 			  <td><strong>Sub Total</strong></td>
-				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($total*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($total,2).'</span></td>
 			</tr>
 			<tr>
 			  <td><strong>Shipping Amount</strong></td>
-				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($shipping*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($shipping,2).'</span></td>
 			</tr>
 			
 			<tr>
 			  <td><strong>'.$taxarray['tax_name'].' Tax Applied</strong></td>
-				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($tax*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($tax,2).'</span></td>
 			</tr>
 			<tr>
 			  <td><strong>Grand Total</strong></td>
-				<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
+				<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal,2).'</span></td>
 			</tr>
 
 			<tr>
@@ -1348,7 +1348,7 @@ class Display_DAddCart
                       <p class="billing_title">Choose your mode of payment</p>
                       
                       <div id="myaccount_div">
-                      <span class="label label-info">Your Checkout Amount is    '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.number_format($_SESSION['checkout_amount']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span>
+                      <span class="label label-info">Your Checkout Amount is    '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.number_format($_SESSION['checkout_amount'],2).'</span>
                       <div id="paymentid">
                       <h6>Online Payment Gateways</h6>
                        <ul class="payment_det">';
@@ -1425,7 +1425,7 @@ class Display_DAddCart
 		}				
 	
 		//$amount=$_SESSION['checkout_amount'];
-		$amount=$_SESSION['checkout_amount']*$_SESSION['currencysetting']['default_currency']['conversion_rate']; //to covert into equivalent dollar values
+		$amount=$_SESSION['checkout_amount']; //to covert into equivalent dollar values
 	
 		$payment_html['PayPal']='
 					<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">

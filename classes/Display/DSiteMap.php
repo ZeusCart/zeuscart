@@ -101,7 +101,7 @@ class Display_DSiteMap
 				<h3>  Customer Services</h3>
 			<ul class="sitemap">
 				<li><a href="'.$_SESSION['base_url'].'/index.php?do=contactus">Contact us</a></li>
-					<li><a href="'.$_SESSION['base_url'].'/index.php?do=faq">Fequently Asking Questions</a></li>	
+					<li><a href="'.$_SESSION['base_url'].'/index.php?do=faq">Frequently Asked Questions</a></li>	
 			</ul>
 			</div>
 		</div>
