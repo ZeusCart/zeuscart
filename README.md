@@ -48,6 +48,10 @@ Customization
 =============
 Are you looking for new features & improvements, please contact support@zeuscart.com
 
+Localization
+============
+Zeuscart now support English & Chinese 
+
 Templates
 ========
 We are working on to bring new templates. Check our template gallery
