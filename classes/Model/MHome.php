@@ -68,6 +68,10 @@ class Model_MHome
 	function showBrands()
 	{
 		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
+		
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
 		include('classes/Core/CUserRegistration.php');
@@ -113,6 +117,11 @@ class Model_MHome
 	*/
 	function viewBrandsList()
 	{
+		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
+
 		if($_GET['action']=='')
 		{
 			include('classes/Core/CKeywordSearch.php');
@@ -278,6 +287,7 @@ class Model_MHome
 		
 		Bin_Template::createTemplate('cms.html',$output);
 	}
+	
 	
 }
 ?>

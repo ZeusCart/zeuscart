@@ -21,16 +21,16 @@
   <!-- body start here-->
   	<div class="container">
     	<ul class="breadcrumb">
-              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index">Home</a> <span class="divider">/</span></li>
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a> <span class="divider">/</span></li>
             
-              <li class="active"> Search</li>
+              <li class="active"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH'); <AJDF:output>/php</AJDF:output></li>
             </ul>
             
         <div class="row-fluid">
 <span class="visible-desktop">
         	<div class="span9">
             <div class="title_fnt">
-    	<h1>Search Result : <AJDF:output>$countrecords</AJDF:output></h1><span class="pull-right"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&action=grid&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="grid_icn"></a> <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="listview_icn"></a></span>
+    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH_RESULT'); <AJDF:output>/php</AJDF:output> : <AJDF:output>$countrecords</AJDF:output></h1><span class="pull-right"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&action=grid&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="grid_icn"></a> <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="listview_icn"></a></span>
         </div>
             
             	<!--list view-->

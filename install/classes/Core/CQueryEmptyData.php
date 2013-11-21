@@ -48,7 +48,7 @@ class Core_CQuery
 		`id` int(15) NOT NULL AUTO_INCREMENT,
 		`content` text NOT NULL,
 		PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `aboutus_table` (`id`, `content`) VALUES
 		(1, '<p>aboutus content comes here</p>\r\n');";
@@ -102,8 +102,9 @@ class Core_CQuery
 		`admin_email` varchar(200) NOT NULL,
 		`meta_kerwords` text NOT NULL,
 		`meta_description` text NOT NULL,
+		`site_language` varchar(10) NOT NULL,	
 		PRIMARY KEY (`set_id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2";
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2";
 		$result=mysql_query($sql);
 		
 
@@ -154,7 +155,7 @@ class Core_CQuery
 			`category_content_id` int(15) NOT NULL,
 			`count` int(11) NOT NULL,
 			PRIMARY KEY (`category_id`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29";
+			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29";
 		$result=mysql_query($sql);
 		
 		$sql="Drop table if exists cms_table";
@@ -169,7 +170,7 @@ class Core_CQuery
 		`cms_page_status` int(20) NOT NULL,
 		`cms_create_date` datetime NOT NULL,
 		PRIMARY KEY (`cms_id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ";
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ";
 		$result=mysql_query($sql);
 		
 		$sql="Drop table if exists countrywisetax_settings_table";
@@ -218,9 +219,9 @@ class Core_CQuery
 		$sql="Drop table if exists currency_codes_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE `currency_codes_table` (
-		`currency_code` varchar(10) collate latin1_general_ci NOT NULL,
-		`country_name` varchar(200) collate latin1_general_ci NOT NULL,
-		`currency_name` varchar(200) collate latin1_general_ci NOT NULL,
+		`currency_code` varchar(10) collate utf8_general_ci NOT NULL,
+		`country_name` varchar(200) collate utf8_general_ci NOT NULL,
+		`currency_name` varchar(200) collate utf8_general_ci NOT NULL,
 		`numeric_code` int(11) NOT NULL
 		)";
 		$result=mysql_query($sql);
@@ -533,7 +534,7 @@ class Core_CQuery
 		  `footercontent` text NOT NULL,
 		  `free_shipping_cost` double NOT NULL,
 		  PRIMARY KEY (`id`)
-		)";		
+		)";	
 		$result=mysql_query($sql);
 		
 
@@ -593,7 +594,12 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE home_slide_show_table(id INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,slide_title VARCHAR(240) NOT NULL,slide_content TEXT(65535) NOT NULL ,slide_content_thumb VARCHAR(240) NOT NULL,slide_caption TEXT(65535) NOT NULL,slide_url VARCHAR(240) NOT NULL	)";
 		$result=mysql_query($sql);
-		
+		$sql="INSERT INTO `home_slide_show_table` (`id`, `slide_title`, `slide_content`, `slide_content_thumb`, `slide_caption`, `slide_url`) VALUES
+		(1, 'slide1', 'images/b3.jpg', 'images/b3_thumb.jpg', 'zeuscart1', 'http://www.google.co.in/'),
+		(2, 'slide2', 'images/b1.jpg', 'images/b3_thumb.jpg', 'zeuscart2', 'http://www.google.co.in/'),
+		(3, 'slide3', 'images/b2.jpg', 'images/b2_thumb.jpg', 'zeuscart3', 'http://www.google.co.in/')";
+		$result=mysql_query($sql);
+
 
 
 
@@ -609,6 +615,21 @@ class Core_CQuery
 		)";
 		$result=mysql_query($sql);
 
+		$sql="Drop table if exists language";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `language` (
+		  `lang_id` int(11) NOT NULL AUTO_INCREMENT,
+		  `lang_name` varchar(255) CHARACTER SET utf8 NOT NULL,
+		  `lang_code` varchar(10) CHARACTER SET utf8 NOT NULL,
+		  PRIMARY KEY (`lang_id`),
+		  KEY `lang_name` (`lang_name`,`lang_code`)
+		) ";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `language` (`lang_id`, `lang_name`, `lang_code`) VALUES
+		(1, 'English', 'en'),
+		(2, 'Chinese', 'cn')";
+		$result=mysql_query($sql);
+
 			
 		$sql="Drop table if exists live_chat_table";
 		$result=mysql_query($sql);
@@ -617,7 +638,7 @@ class Core_CQuery
 		`live_chat_script` text NOT NULL,
 		`live_chat_status` int(10) NOT NULL COMMENT '0=>on,1=>off',
 		PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `live_chat_table` (`id`, `live_chat_script`, `live_chat_status`) VALUES
 		(1, '', 1)";
@@ -826,7 +847,7 @@ class Core_CQuery
 		`digital_product_path` varchar(200) NOT NULL,
 		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
 		PRIMARY KEY (`product_id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 		
 		$sql="Drop table if exists search_tags_table";
@@ -954,7 +975,7 @@ class Core_CQuery
 		`group_name` varchar(60) DEFAULT NULL,
 		`group_discount` varchar(50) DEFAULT NULL,
 		PRIMARY KEY (`group_id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
 		$result=mysql_query($sql);
 
 		$sql="Drop table if exists users_table";
@@ -975,9 +996,9 @@ class Core_CQuery
 		`ipaddress` varchar(100) NOT NULL,
 		`social_link_id` varchar(100) NOT NULL,
 		`is_from_social_link` int(20) NOT NULL,
-		`confirmation_code` int(20) NOT NULL,		
+			`confirmation_code` int(20) NOT NULL,	
 		PRIMARY KEY (`user_id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2";
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2";
 		$result=mysql_query($sql);
 		
 		

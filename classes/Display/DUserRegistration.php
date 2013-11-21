@@ -52,6 +52,7 @@ class Display_DUserRegistration
  	*/
 	function showHeaderMenu($arr)
 	{
+
 // 		$cnt= count($arr);
 // 		if($cnt>0)
 // 		{
@@ -108,15 +109,9 @@ class Display_DUserRegistration
 		{
 			for($i=0;$i<$cnt;$i++)
 			{
-				$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $arr[$i]['category_name']);
-				$sluggable = trim($sluggable, '-');
-				if( function_exists('mb_strtolower') ) { 
-					$sluggable = mb_strtolower( $sluggable );
-				} else { 
-					$sluggable = strtolower( $sluggable );
-				}
+				
 
-				$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+				$sluggable = $arr[$i]['category_name'];
 
 				$output.='<li><a href="'.$_SESSION['base_url'].'/'.$sluggable.'.html" class="arrow">'.$arr[$i]['category_name'].'</a>
 				<div class="mega-menu full-width">';
@@ -148,7 +143,6 @@ class Display_DUserRegistration
 			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies )) {
 				$k=$k+10;
 				$categoryname=self::getSubFamiliesPath($rowSubFamilies['subcat_path']);
-
 				if($rowSubFamilies['category_id'])
 					
 					if($level=='1')
@@ -191,14 +185,8 @@ class Display_DUserRegistration
 			$sql = "SELECT * from category_table WHERE  category_id = ".$cat[$m].""; 
 			$obj=new Bin_Query();
 			$obj->executeQuery($sql);
-			$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $obj->records[0]['category_name']);
-			$sluggable = trim($sluggable, '-');
-			if( function_exists('mb_strtolower') ) { 
-				$sluggable = mb_strtolower( $sluggable );
-			} else { 
-				$sluggable = strtolower( $sluggable );
-			}
-			$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+			
+			$sluggable = trim($obj->records[0]['category_name']);
 		
 			if($m<(count($cat)-1))
 			{
@@ -416,90 +404,91 @@ class Display_DUserRegistration
  	*/
 	function showUserLeftMenu()
 	{
+
 		$output='<div class="span3">
         	<div id="block_div">
-            		<h2>My Account</h2>
+            		<h2>'.Core_CLanguage::_('MY_ACCOUNT').'</h2>
                    	 <ul class="accountlists">';
 			if($_GET['do']=='dashboard')
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard" class="select"><i class="icon-chevron-right"></i> Account Dashboard</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard" class="select"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('MY_ACCOUNT').'</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard" class="unselect"><i class="icon-chevron-right"></i> Account Dashboard</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard" class="unselect"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('MY_ACCOUNT').'</a></li>';
 			}	
 				
 			if($_GET['do']=='accountinfo')
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo" class="select"><i class="icon-chevron-right"></i> Account Information</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo" class="select"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('ACCOUNT_INFORMATION').'</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo" class="unselect"><i class="icon-chevron-right"></i> Account Information</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo" class="unselect"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('ACCOUNT_INFORMATION').'</a></li>';
 			}
 			if($_GET['do']=='changepassword')
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=changepassword" class="select"><i class="icon-chevron-right"></i> Change Password</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=changepassword" class="select"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('CHANGE_PASSWORD').'</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=changepassword" class="unselect"><i class="icon-chevron-right"></i>Change Password</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=changepassword" class="unselect"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('CHANGE_PASSWORD').'</a></li>';
 			}
 			
                     	if($_GET['do']=='addressbook' || $_GET['do']=='addaddress')
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=addressbook" class="select"><i class="icon-chevron-right"></i> Address Book</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=addressbook" class="select"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('ADDRESS_BOOK').'</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=addressbook" class="unselect"><i class="icon-chevron-right"></i> Address Book</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=addressbook" class="unselect"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('ADDRESS_BOOK').'</a></li>';
 			}
                     	if($_GET['do']=='myorder' || $_GET['do']=='orderdetail')
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder" class="select"><i class="icon-chevron-right"></i> My Orders</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder" class="select"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('MY_ORDER').'</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder" class="unselect"><i class="icon-chevron-right"></i> My Orders</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder" class="unselect"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('MY_ORDER').'</a></li>';
 			}
                     	if($_GET['do']=='orders')
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders" class="select"><i class="icon-chevron-right"></i> My Product Reviews</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders" class="select"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('MY_PRODUCT_REVIEWS').'</a></li>';
 
 			}	
 			else
 			{
-				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders" class="unselect"><i class="icon-chevron-right"></i> My Product Reviews</a></li>';
+				$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders" class="unselect"><i class="icon-chevron-right"></i> '.Core_CLanguage::_('MY_PRODUCT_REVIEWS').'</a></li>';
 			}
  
 			if($_GET['do']=='newsletter')
 			{
-			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter" class="select"><i class="icon-circle-arrow-right"></i>Newsletter Subscriptions</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter" class="select"><i class="icon-circle-arrow-right"></i> '.Core_CLanguage::_('NEWS_SUBCRIPTIONS').'</a></li>';
 			}
 			else
 			{	
-			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter" class="unselect"><i class="icon-circle-arrow-right"></i>Newsletter Subscriptions</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter" class="unselect"><i class="icon-circle-arrow-right"></i> '.Core_CLanguage::_('NEWS_SUBCRIPTIONS').'</a></li>';
 			}
 			if($_GET['do']=='wishlist')
 			{
-			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist" class="select"><i class="icon-circle-arrow-right"></i>My Wishlist</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist" class="select"><i class="icon-circle-arrow-right"></i> '.Core_CLanguage::_('MY_WISHLIST').'</a></li>';
 			}
 			else
 			{
-			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist" class="unselect"><i class="icon-circle-arrow-right"></i>My Wishlist</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist" class="unselect"><i class="icon-circle-arrow-right"></i> '.Core_CLanguage::_('MY_WISHLIST').'</a></li>';
 			}
 			if($_GET['do']=='digitdown')
 			{
-			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=digitdown" class="select"><i class="icon-circle-arrow-right"></i>My Downloads</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=digitdown" class="select"><i class="icon-circle-arrow-right"></i> '.Core_CLanguage::_('MY_DOWNLOADS').'</a></li>';
 			}
 			else
 			{
-			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=digitdown" class="unselect"><i class="icon-circle-arrow-right"></i>My Downloads</a></li>';
+			$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=digitdown" class="unselect"><i class="icon-circle-arrow-right"></i> '.Core_CLanguage::_('MY_DOWNLOADS').'</a></li>';
 			}
                    $output.=' </ul>
             </div>
@@ -617,12 +606,12 @@ class Display_DUserRegistration
 
 		if(count($recordSet)>0)
 		{
-			$output='<select class="select_dollar" onchange="selectCurrency(this.value)">';
+			$output='<select class="select_dollar" onChange="selectCurrency(this.value);">';
 			for($i=0;$i<count($recordSet);$i++)
 			{	
-				if($_SESSION['currencysetting']['selected_currency_id']['']==$recordSet[$i]['id'])
+				if($_SESSION['currencysetting']['selected_currency_id']==$recordSet[$i]['id'])
 				{
-					$selected='selected';
+					$selected='selected=selected';
 				}
 				else
 				{

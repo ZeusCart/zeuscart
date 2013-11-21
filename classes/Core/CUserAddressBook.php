@@ -233,6 +233,8 @@ class Core_CUserAddressBook
 	 */
 	function addAddress()
 	{
+
+
 		$userid=$_SESSION['user_id'];
 	
 		$sql="select * from addressbook_table where user_id=".$userid." and contact_name='".$_POST['txtGName']."'";
@@ -240,18 +242,21 @@ class Core_CUserAddressBook
 		$query->executeQuery($sql);
 		if(empty($query->records))
 		{
-			$sql="insert into addressbook_table values('".$userid."','".$_POST['txtGName']."','".$_POST['txtFName']."','".$_POST['txtLName']."','".$_POST['txtCompany']."','".$_POST['txtEMail']."','".$_POST['txtAddress']."','".$_POST['txtCity']."','".$_POST['txtSuburb']."','".$_POST['txtState']."','".$_POST['selCountry']."','".$_POST['txtZip']."','".$_POST['txtPhone']."','".$_POST['txtFax']."')";
+			$sql="insert into addressbook_table (`user_id`, `contact_name`, `first_name`, `last_name`, `company`, `email`, `address`, `city`, `suburb`, `state`, `country`, `zip`, `phone_no`, `fax`)values('".$userid."','".$_POST['txtGName']."','".$_POST['txtFName']."','".$_POST['txtLName']."','".$_POST['txtCompany']."','".$_POST['txtEMail']."','".$_POST['txtAddress']."','".$_POST['txtCity']."','".$_POST['txtSuburb']."','".$_POST['txtState']."','".$_POST['selCountry']."','".$_POST['txtZip']."','".$_POST['txtPhone']."','".$_POST['txtFax']."')";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
+
 			return '<div class="alert alert-success">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Contact Successfully  Created!
+			'.Core_CLanguage::_(YOUR_CONTACT_SUCCESSFULLY_CREATED).'
 			</div>';
 
 		}	
+
+
 		return '<div class="alert alert-error">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Contact Could not Created!
+			'.Core_CLanguage::_(YOUR_CONTACT_HAS_NOT_BEEN_CREATED).'
 			</div>';
 
 
@@ -275,9 +280,9 @@ class Core_CUserAddressBook
 			$sql="insert into addressbook_table values('".$userid."','".$_POST['txtname']."','".$_POST['txtname']."','','".$_POST['txtcompany']."','".$_POST['txtEMail']."','".$_POST['txtstreet']."','".$_POST['txtcity']."','".$_POST['txtsuburb']."','".$_POST['txtstate']."','".$_POST['selbillcountry']."','".$_POST['txtzipcode']."','','')";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
-			return "<div class='success_msgbox'>Created!</div></br>";
+			return "<div class='success_msgbox'>".Core_CLanguage::_(CREATED)."</div></br>";
 		}	
-		return "<div class='exc_msgbox'>Could not Created!</div></br>";
+		return "<div class='exc_msgbox'>".Core_CLanguage::_(NOT_CREATED)."</div></br>";
 	}
 	/**
 	 * This function is used to edit  the   address for user after login
@@ -316,7 +321,7 @@ class Core_CUserAddressBook
 
 			return '<div class="alert alert-success">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Contact Successfully  Updated!
+			'.Core_CLanguage::_(YOUR_CONTACT_SUCCESSFULLY_UPDATED).'
 			</div>';
 	}
 	/**
@@ -337,7 +342,7 @@ class Core_CUserAddressBook
 
 		return '<div class="alert alert-success">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Contact Successfully  Deleted!
+			'.Core_CLanguage::_(YOUR_CONTACT_SUCCESSFULLY_DELETED).'
 			</div>';
 	}
 

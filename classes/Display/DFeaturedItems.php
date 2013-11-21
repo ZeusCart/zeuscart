@@ -247,10 +247,10 @@ class Display_DFeaturedItems
         			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
 				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=500" alt="'.$arr[$i]['title'].'">
 				<div class="mask">
-				<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<h2>'.$arr[$i]['title'].'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
 				
-				$output.='<button class="info" type="submit" >Add to Cart</button>';
+				$output.='<button class="info" type="submit" >'.Core_CLanguage::_(ADD_TO_CART).'</button>';
 				
 				$output.='</div>
 				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
@@ -275,6 +275,7 @@ class Display_DFeaturedItems
  	*/
 	function newArrivalProducts($arr,$flag,$r)
 	{
+
 
 		$output='<div class="image_grid portfolio_4col">
 		<div id="new_product">';
@@ -333,7 +334,7 @@ class Display_DFeaturedItems
 				<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
 				
-				$output.='<button class="info" type="submit" >Add to Cart</button>';
+				$output.='<button class="info" type="submit" >'.Core_CLanguage::_(ADD_TO_CART).'</button>';
 				
 				$output.='</div>
 				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
@@ -653,7 +654,7 @@ class Display_DFeaturedItems
 		}
 		else
 		{
-			 $output='<tr><td><b>No Product found for this category</b></td></tr>';
+			 $output='<tr><td><b>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</b></td></tr>';
 		}
 		$output.=' </table></div>';
 		

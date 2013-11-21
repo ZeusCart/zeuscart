@@ -23,16 +23,16 @@
     <div id="order_div">
     	<div class="container">
         	<div class="row-fluid">
-        	<div class="span7"><h3>Free Shipping on orders over <span><AJDF:output>$smarty.session.currencysetting.selected_currency_settings.currency_tocken</AJDF:output><AJDF:output>$footerconnect.free_shipping_cost</AJDF:output></span></h3></div>
+        	<div class="span7"><h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FREE_SHIPPING_ON_ORDERS_OVER'); <AJDF:output>/php</AJDF:output> <span><AJDF:output>$smarty.session.currencysetting.selected_currency_settings.currency_tocken</AJDF:output><AJDF:output>$footerconnect.free_shipping_cost</AJDF:output></span></h3></div>
 
             <div class="span5">      <AJDF:output>$newsletter</AJDF:output>
 <form name="newsletter" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=subnewsletter" method="post" class="form-inline" style="float:right">
             <label class="checkbox">
-Sign up for our Newsletter 
+<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SIGN_UP_FOR_OUT_NEWSLETTER'); <AJDF:output>/php</AJDF:output>
 </label>
-<input name="email" class="input-small"  type="text"  maxlength="100" value="Your Email" onblur="if(this.value=='') this.value='Your Email'" onfocus="this.value=''" /> 
+<input name="email" class="input-small"  type="text"  maxlength="100" value="<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('YOUR_EMAIL'); <AJDF:output>/php</AJDF:output>" onblur="if(this.value=='') this.value='Your Email'" onfocus="this.value=''" /> 
 
-<button type="submit" class="btn btn-danger">Submit</button>
+<button type="submit" class="btn btn-danger"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SUBMIT'); <AJDF:output>/php</AJDF:output></button>
 </form></div>
         </div></div>
         
@@ -42,48 +42,48 @@ Sign up for our Newsletter
         	<div class="row-fluid">
 
 		<div class="span2">
-                	<h3>Information</h3>
+                	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('INFORMATION'); <AJDF:output>/php</AJDF:output></h3>
                    <ul class="ftrlist">
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/aboutus.html">About Us</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/policy.html">Privacy policy</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/terms.html">Terms & Conditions</a></li>
-			<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/faq.html">FAQ</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=morenews">Latest News</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/aboutus.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ABOUT_US'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/policy.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PRIVACY_POLICY'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/terms.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('TERMS_&_CONDITIONS'); <AJDF:output>/php</AJDF:output></a></li>
+			<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/faq.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FAQ'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=morenews"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('LATEST_NEWS'); <AJDF:output>/php</AJDF:output></a></li>
                     </ul>
                 </div>
 
 		<div class="span3">
-                	<h3>Customer Service</h3>
+                	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CUSTOMER_SERVICE'); <AJDF:output>/php</AJDF:output></h3>
                    <ul class="ftrlist">
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/contact.html">Contact us</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/site.html">Site Map</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/contact.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CONTACT_US'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/site.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SITE_MAP'); <AJDF:output>/php</AJDF:output></a></li>
                     	
                     </ul>
                 </div>
             	<div class="span2">
-                	<h3>My account</h3>
+                	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></h3>
                    <ul class="ftrlist">
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard">My account</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist">Wish List</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('WISH_LIST'); <AJDF:output>/php</AJDF:output></a></li>
                     </ul>
                 </div>
             	<div class="span2">
-                	<h3>Extras</h3>
+                	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('EXTRAS'); <AJDF:output>/php</AJDF:output></h3>
                    <ul class="ftrlist">
 			
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=brands&schltr=All">Brands</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/giftproducts.html">Gift Vouchers</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=brands&schltr=All"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('BRANDS'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/giftproducts.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('GIFT_VOUCHRES'); <AJDF:output>/php</AJDF:output></a></li>
                             	
                     </ul>
                 </div>
             	
            	  <div class="span3">
-               	<h3>Connect with us</h3>
+               	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CONNECT_WITH_US'); <AJDF:output>/php</AJDF:output></h3>
                  <ul class="cntwithus">
-               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/phone-icn.png" alt="phone"> Call Us : <AJDF:output>$footerconnect.callus</AJDF:output></li>
-               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/mail-icn.png" alt="phone">Email :<a href="mailto:<AJDF:output>$footerconnect.email</AJDF:output>" > <AJDF:output>$footerconnect.email</AJDF:output></a></li>
-               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/print-icn.png" alt="phone"> Fax :<AJDF:output>$footerconnect.fax</AJDF:output></li>
-               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/map-icn.png" alt="phone"> Location : <AJDF:output>$footerconnect.location</AJDF:output></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/phone-icn.png" alt="phone"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CALL_US'); <AJDF:output>/php</AJDF:output> : <AJDF:output>$footerconnect.callus</AJDF:output></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/mail-icn.png" alt="phone"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('EMAIL'); <AJDF:output>/php</AJDF:output> :<a href="mailto:<AJDF:output>$footerconnect.email</AJDF:output>" > <AJDF:output>$footerconnect.email</AJDF:output></a></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/print-icn.png" alt="phone"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FAX'); <AJDF:output>/php</AJDF:output> :<AJDF:output>$footerconnect.fax</AJDF:output></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/map-icn.png" alt="phone"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('LOCATION'); <AJDF:output>/php</AJDF:output> : <AJDF:output>$footerconnect.location</AJDF:output></li>
                  </ul>
                 </div>
             </div>
@@ -145,6 +145,7 @@ echo $fetch_icon['live_chat_script'];
 	});
 	</script>
 	<AJDF:output>/if</AJDF:output>
+
 </body>
 </html>
 

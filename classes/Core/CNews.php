@@ -49,7 +49,7 @@ class Core_CNews
 		}
 		else
 		{
-		 $output ='<div class="recent" align="center"><font size="2" color="orange"><b>No News Found</b></font></div>';   	
+		 $output ='<div class="recent" align="center"><font size="2" color="orange"><b>'.Core_CLanguage::_(NO_NEWS_FOUND).'</b></font></div>';   	
 		}		
 		return $output;
 	}
@@ -98,10 +98,10 @@ class Core_CNews
 				 return Display_DNews::showNewsPage($obj->records,$this->data['paging'],$this->data['prev'],$this->data['next'],$start);
 			}	
 			else
-				return 'No News Found!';
+				return Core_CLanguage::_(NO_NEWS_FOUND);
 		}
 		else
-			return 'No News Found!';
+			return Core_CLanguage::_(NO_NEWS_FOUND);
 		
 	
 		

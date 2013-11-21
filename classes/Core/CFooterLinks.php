@@ -97,15 +97,17 @@ class Core_CFooterLinks
 		$name=$_POST['txtname'];
 		$from_mail = $_POST['email'];
 		$mail_content = $_POST['comment'];
-		$sql = "SELECT set_value from admin_settings_table where set_id=14";
+		$sql = "SELECT * from admin_settings_table where set_id =1";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
-			$to_mail = $obj->records[0]['set_value'];
+			$to_mail = $obj->records[0]['admin_email'];
 			Core_CFooterLinks::sendingMail($from_mail,$to_mail,$mail_content);
 			$output = '<div class="alert alert-success">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Comments have  been submitted.
+			
+			'.Core_CLanguage::_(YOUR_COMMENTS_HAVE_BEEN_SUBMITTED).'
+
 			</div>';
 
 
@@ -115,7 +117,7 @@ class Core_CFooterLinks
 
 			$output = '<div class="alert alert-error">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Comments have  been  not submitted
+				'.Core_CLanguage::_(YOUR_COMMENTS_HAVE_NOT_BEEN_SUBMITTED).'
 			</div>';
 		return $output;
 	}

@@ -47,6 +47,10 @@ class Model_MFaq
 	*/
 	function showFaq()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
+
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
 		include('classes/Core/CUserRegistration.php');

@@ -48,6 +48,11 @@ class Model_MKeywordSearch
 	*/
 	function keywordsearch()
 	{
+		
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('COMMON');
 
 		include('classes/Core/CFeaturedItems.php');
 		include('classes/Core/CUserRegistration.php');

@@ -141,7 +141,7 @@ class Display_DHome
 				$output.='<div><table>
 				<div class="title_fnt">
 					<h1>'.$_GET['schltr'].'</h1>
-					</div><div>&nbsp;</div></table></div><div><table><h4>No Products Found </h3></table></div>';
+					</div><div>&nbsp;</div></table></div><div><table><h4>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</h3></table></div>';
 			}
 		}
 		elseif($_GET['schltr']=='All')
@@ -233,7 +233,7 @@ class Display_DHome
 			{
 			$output.='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			<strong>No Products Found</strong> 
+			<strong>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</strong> 
 			</div>';
 			}
 			
@@ -290,7 +290,7 @@ class Display_DHome
 			{
 			$output.='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			<strong>No Products Found</strong> 
+			<strong>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</strong> 
 			</div></div></div>';
 			}
 

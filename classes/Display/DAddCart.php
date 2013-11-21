@@ -44,6 +44,7 @@ class Display_DAddCart
 	function showCart($arr,$result)
 	{
 
+
 		if(!(empty($arr)))
 		{
 		
@@ -63,11 +64,11 @@ class Display_DAddCart
 			<thead class="cf">
 			<tr>
 			<th></th>
-			<th>Gallery View</th>
-			<th>Product Name</th>
-			<th>Qty</th>
-			<th>Unit Price 	</th>
-			<th>Sub Total</th>				
+			<th>'.Core_CLanguage::_('GALLERY_VIEW').'</th>
+			<th>'.Core_CLanguage::_('PRODUCT_NAME').'</th>
+			<th>'.Core_CLanguage::_('QUANTITY').'</th>
+			<th>'.Core_CLanguage::_('UNIT_PRICE').'</th>
+			<th>'.Core_CLanguage::_('SUB_TOTAL').'</th>				
 			</tr>
 			</thead>
 			<tbody>';
@@ -82,6 +83,7 @@ class Display_DAddCart
 				
 					for ($i=0;$i<$cnt;$i++)
 					{
+						$variation='';
 						$proid.=$arr[$i]['product_id'].',';
 						$prqty=$arr[$i]['product_qty'];
 						
@@ -110,7 +112,6 @@ class Display_DAddCart
 						$temp=$arr[$i]['thumb_image'];
 						$img=explode('/',$temp);
 							
-	
 						//select variation size
 						if($arr[$i]['variation_id']!='0' && $arr[$i]['variation_id']!='' )
 						{
@@ -118,7 +119,7 @@ class Display_DAddCart
 							$objSize=new Bin_Query();
 							$objSize->executeQuery($sqlSize);
 							$size=$objSize->records[0]['variation_name'];
-							$variation='Size - '.''.$size.'';
+							$variation=''.Core_CLanguage::_('SIZE').' - '.''.$size.'';
 						}	
 							$out.='<tr>
 								<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="'.$_SESSION['base_url'].'/assets/img/close_button.gif" alt="close">	</a>		  <div class="showcart_box"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></td><td>';
@@ -138,7 +139,6 @@ class Display_DAddCart
 	
 						}
 					
-			
 				$_SESSION['prowishlist']=$proid;
 				$grandtotal=$total+$shipping;
 				$_SESSION['grandtotal']=$grandtotal;
@@ -146,7 +146,7 @@ class Display_DAddCart
 			
 			$out.='<tr>
 				<td colspan="4" rowspan="2">&nbsp;</td>
-			 	 <td><strong>Sub Total</strong></td>
+			 	 <td><strong>'.Core_CLanguage::_('SUB_TOTAL').'</strong></td>
 				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
 				</tr>';
 // 				<tr>
@@ -156,18 +156,18 @@ class Display_DAddCart
 				
 				
 				$out.='<tr>
-				<td><strong>Grand Total</strong></td>
+				<td><strong>'.Core_CLanguage::_('GRAND_TOTAL').'</strong></td>
 					<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($grandtotal,2).'</span></td>
 				</tr>
 				<tr>
-				<td colspan="2"><a href="javascript:void(0);" onclick="callHome();"><input type="submit" class="btn btn-danger" value="Continue Shopping" name="Submit" ></a></td>';
+				<td colspan="2"><a href="javascript:void(0);" onclick="callHome();"><input type="submit" class="btn btn-danger" value="'.Core_CLanguage::_('CONTINUE_SHOPPING').'" name="Submit" ></a></td>';
 				if($_SESSION['user_id']=='')
 				{	
-				$out.='<td colspan="4" align="right"><a href="javascript:void(0);" onclick="callRegister();" ><input type="button" name="Submit22" value="Proceed To Checkout" class="btn btn-inverse" ></a></td>';
+				$out.='<td colspan="4" align="right"><a href="javascript:void(0);" onclick="callRegister();" ><input type="button" name="Submit22" value="'.Core_CLanguage::_('CONTINUE_SHOPPING').'" class="btn btn-inverse" ></a></td>';
 				}
 				elseif($_SESSION['user_id']!='')
 				{
-				$out.='<td colspan="4" align="right"><a href="javascript:void(0);" onclick="callContinue();" ><input type="button" name="Submit22" value="Proceed To Checkout" class="btn btn-inverse" ></a></td>';
+				$out.='<td colspan="4" align="right"><a href="javascript:void(0);" onclick="callContinue();" ><input type="button" name="Submit22" value="'.Core_CLanguage::_('PROCEED_TO_CHECKOUT').'" class="btn btn-inverse" ></a></td>';
 				}
 				$out.='</tr>
 				</tbody>
@@ -179,7 +179,7 @@ class Display_DAddCart
 		{
 			$out='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			No Products Available in Your Shopping Cart.
+			'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).'
 			</div>';
 		
 		}
@@ -217,7 +217,7 @@ class Display_DAddCart
 	{
 		if(count($result)>0)
 		{
-				$output='<select name="'.$name.'" style="width:280px;"><option value="">Select</option>';
+				$output='<select name="'.$name.'" style="width:280px;"><option value="">'.Core_CLanguage::_(SELECT).'</option>';
 				foreach($result as $row)
 				{			 
 				$cou_name=$row['cou_name'];
@@ -258,12 +258,12 @@ class Display_DAddCart
 	   	    $output='<div class="row-fluid">
         		<ul class="steps">';
 			
-			 	 $output.='<li class="act"><a href="#"><span>1. Email Login</span></a></li>'; /*if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
+			 	 $output.='<li class="act"><a href="#"><span>1. '.Core_CLanguage::_(EMAIL_LOGIN).'</span></a></li>'; /*if(count($_SESSION['mycart'])!=count($_SESSION['gift']) && isset($_SESSION['mycart']))
 				{*/	
-				$output.='<li class="inact"><a href="#"><span>2. Billing Address</span></a></li>
-				<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
-				<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li><li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
-				<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>';
+				$output.='<li class="inact"><a href="#"><span>2. '.Core_CLanguage::_(BILLING_ADDRESS).'</span></a></li>
+				<li class="inact"><a href="#"><span>3. '.Core_CLanguage::_(SHIPPING_ADDRESS).'</span></a></li>
+				<li class="inact"><a href="#"><span>4. '.Core_CLanguage::_(SHIPPING_METHOD).'</span></a></li><li class="inact"><a href="#"><span>5. '.Core_CLanguage::_(ORDER_CONFIRMATION).'</span></a></li>
+				<li class="inact"><a href="#"><span>6. '.Core_CLanguage::_(PAYMENT_DETAILS).'</span></a></li>';
 // 				}
 // 				else
 // 				{
@@ -277,15 +277,15 @@ class Display_DAddCart
 			<form name="f1" method="post" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=doquickregistration&gvid='.$_GET['gvid'].'">
                     	<div id="loginfrm">
                         		<ul class="loginfourm">
-                                	<li><b>E-mail Address</b></li>
+                                	<li><b>'.Core_CLanguage::_(E_MAIL_ADDRESS).'</b></li>
                                 	<li><input type="text" class="input-large" name="txtregemail" value='.$Err->values['txtregemail'].'><br />
 	 				 <font color="#FF0000"><AJDF:output>'.$Err->messages['txtregemail'].'</AJDF:output></font></li>
-                                    	<li><b>Password</b></li>
+                                    	<li><b>'.Core_CLanguage::_(PASSSWORD).'</b></li>
                                 	<li><input type="password" name="txtregpass" class="input-large"><br />
 	   				<font color="#FF0000"><AJDF:output>'.$Err->messages['txtregpass'].'</AJDF:output></font></li>
-                                	<li><input type="checkbox" name="remlogin" value="on" > Remember me?</li>
-                                	<li><input type="submit" value="Login" class="btn btn-danger"> </li>
-                                    <li><a href="'.$_SESSION['base_url'].'/index.php?do=forgetpwd"> Forgot password? </a> <span>OR</span> <a href="'.$_SESSION['base_url'].'/index.php?do=faq" target="_blank">Need help?</a> </li>
+                                	<li><input type="checkbox" name="remlogin" value="on" > '.Core_CLanguage::_(REMEMBER_ME).'?</li>
+                                	<li><input type="submit" value="'.Core_CLanguage::_(LOGIN).'" class="btn btn-danger"> </li>
+                                    <li><a href="'.$_SESSION['base_url'].'/index.php?do=forgetpwd"> '.Core_CLanguage::_(FORGOT_PASSWORD).' </a> <span>'.Core_CLanguage::_(ORR).'</span> <a href="'.$_SESSION['base_url'].'/index.php?do=faq" target="_blank">'.Core_CLanguage::_(NEED_HELP).'?</a> </li>
                                 </ul>
                         </div>
 			</form>	
@@ -297,18 +297,18 @@ class Display_DAddCart
                         <a href="#" id="opengp" class="google_btn"></a>
 
 			</div>
-                    <p class="userlogin_fnt"><span>or log in using your username and Password</span></p>
+                    <p class="userlogin_fnt"><span>'.Core_CLanguage::_(OR_LOG_IN_USING_YOUR_USERNAME_AND_PASSWORD).'</span></p>
                         	<div id="signin_acc">
                         	<ul class="signin-account">
-                            	<li> <h5>SIGN UP FOR AN ACCOUNT</h5></li>
-                                <li> <p>Registration is fast and FREE! </p></li>
-                                <li><a href="'.$_SESSION['base_url'].'/index.php?do=userregistration"> <input type="button" value="Register Here" class="btn btn-inverse"></a></li>
+                            	<li> <h5>'.Core_CLanguage::_(SIGN_UP_FOR_AN_ACCOUNT).'</h5></li>
+                                <li> <p>'.Core_CLanguage::_(REGISTRATION_IS_FAST_AND_FREE).'</p></li>
+                                <li><a href="'.$_SESSION['base_url'].'/index.php?do=userregistration"> <input type="button" value="'.Core_CLanguage::_(REGISTER_HERE).'" class="btn btn-inverse"></a></li>
                             </ul>
-                            <b>Account Protection Tips </b>
+                            <b>'.Core_CLanguage::_(ACCOUNT_PROTECTION_TIPS).'</b>
                             <ul class="acctips">
-                            	<li>Choose a strong password and change it often.</li>
-                                <li>Avoid using the same password for other accounts.</li>
-                                <li>Create a unique password by using a combination of letters and numbers that are not easily guessed.</li>
+                            	<li>'.Core_CLanguage::_(CHOSSE_A_STRONG_PASSWORD_AND_CHNAGE_IT_OFTEN).'</li>
+                                <li>'.Core_CLanguage::_(AVOID_USING_THE_SAME_PASSWORD_FOR_OTHER_ACCOUNTS).'</li>
+                                <li>'.Core_CLanguage::_(CREATE_A_UNIQUE_PASSWORD_BY_USING_A_COMBINATION_OF_LETTRES_AND_NUMBERS_THAT_ARE_NOT_EASILY_GUESSED).'</li>
                             </ul>
                             </div>
                     </div>
@@ -603,25 +603,25 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. My Account</span></a></li>';
+				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. '.Core_CLanguage::_(MY_ACCOUNT).'</span></a></li>';
 			}	
 			else
 			{
-				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+				$output.='<li class="inact"><a href="#"><span>1. '.Core_CLanguage::_(EMAIL_LOGIN).'</span></a></li>';
 			}
 					
-			$output.='<li class="act"><a href="#"><span>2. Billing Address</span></a></li>
-			<li class="inact"><a href="#"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>';
+			$output.='<li class="act"><a href="#"><span>2. '.Core_CLanguage::_(BILLING_ADDRESS).'</span></a></li>
+			<li class="inact"><a href="#"><span>3. '.Core_CLanguage::_(SHIPPING_ADDRESS).'</span></a></li>
+			<li class="inact"><a href="#"><span>4. '.Core_CLanguage::_(SHIPPING_METHOD).'</span></a></li>';
 			
-			$output.='<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
-			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
+			$output.='<li class="inact"><a href="#"><span>5. '.Core_CLanguage::_(ORDER_CONFIRMATION).'</span></a></li>
+			<li class="inact"><a href="#"><span>6. '.Core_CLanguage::_(PAYMENT_DETAILS).'</span></a></li>
 				        
 			</ul>
         		</div><div class="row-fluid">
                        <div class="span4">
                          
-                      <p class="billing_title">Select from previous address</p>
+                      <p class="billing_title">'.Core_CLanguage::_(SELECT_FROM_PERVIOUS_ADDRESS).'</p>
 
                       <ul class="addresslist">';
 
@@ -632,11 +632,11 @@ class Display_DAddCart
 				{
 					if($billing_addess_id==$records[$i]['id'])
 					{
-						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn-hov.gif';
+						$imageicon='click_btn_select';
 					}
 					else
 					{
-						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn.gif';
+						$imageicon='click_btn';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -646,7 +646,7 @@ class Display_DAddCart
 						<p>'.$records[$i]['city'].'</p>
 						<p>'.$records[$i]['state'].'</p>
 						<p>'.$records[$i]['zip'].'</p>	
-						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$i]['id'].'"><input type="button" name="wishlist" style="width:170px;height:50px;" class="'.$imageicon.'" value="'.Core_CLanguage::_('CLICK_TO_SELECT').'" title="'.Core_CLanguage::_('CLICK_TO_SELECT').'"></a>
 						</address></li>';
 					}
 					$i++;
@@ -657,11 +657,11 @@ class Display_DAddCart
 				{
 					if($billing_addess_id==$records[$i]['id'])
 					{
-						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn-hov.gif';
+						$imageicon='click_btn_select';
 					}
 					else
 					{
-						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn.gif';
+						$imageicon='click_btn';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -671,7 +671,7 @@ class Display_DAddCart
 						<p>'.$records[$j]['city'].'</p>
 						<p>'.$records[$j]['state'].'</p>
 						<p>'.$records[$j]['zip'].'</p>	
-						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&bill_add_id='.$records[$j]['id'].'"><input type="button" name="wishlist" style="width:170px;height:50px;" class="'.$imageicon.'" value="'.Core_CLanguage::_('CLICK_TO_SELECT').'" title="'.Core_CLanguage::_('CLICK_TO_SELECT').'"></a>
 						</address></li></div>';
 					}
 					$j++;
@@ -679,7 +679,7 @@ class Display_DAddCart
 				}
 				if(count($records)>4)
 				{
-					$output.='<div style="display:block;" style=""id="more_bill_addr_button"><a onclick="viewMoreBillAddress();" href="javascript:void(0);" >More addresses</a></div>';
+					$output.='<div style="display:block;" style=""id="more_bill_addr_button"><a onclick="viewMoreBillAddress();" href="javascript:void(0);" >'.Core_CLanguage::_(MORE_ADDRESSES).'</a></div>';
 
 				}
 			}
@@ -687,31 +687,31 @@ class Display_DAddCart
                       $output.='</ul></div>
 		 <div class="span8">
                     <div id="myaccount_div">
-                    <div class="or_ribbion"><img src="'.$_SESSION['base_url'].'/assets/img/or.png" width="38" height="300" alt="or"></div>
-                    <p class="billing_title">Enter a new billing address</p><div style="padding:0 50px">
+                    <div class="or_ribbion"><input type="button" name="OR" style="width:38px;height:300px;" class="check_out_or" value="'.Core_CLanguage::_('OR').'" title="'.Core_CLanguage::_('OR').'"></div>
+                    <p class="billing_title">'.Core_CLanguage::_(ENTER_A_NEW_BILLING_ADDRESS).' </p><div style="padding:0 50px">
                     	<form method="POST" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=validatebillingaddress" name="billingaddress" class="form-horizontal">
                 <fieldset>
                   <div class="control-group">
                     <div class="controls">
                       <p class="info_fnt">
-                         Fields marked with an <span class="red_fnt">*</span> are required 
+                        '.Core_CLanguage::_(FIELDS_MARKED_WITH_AN).'<span class="red_fnt">*</span> '.Core_CLanguage::_(ARE_REQUIRED).'
                       </p>
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="input01">Name <span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(NAME).' <span class="red_fnt">*</span></label>
                     <div class="controls"><input type="text"  class="input-xlarge" id="txtname" name="txtname" value="'.$Err->values['txtname'].'"><br /><font color="#FF0000">'.$Err->messages['txtname'].'</font>
 
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="input01">Company</label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(COMPANY).'</label>
                     <div class="controls">
                       <input type="text" class="input-xlarge"  name="txtcompany" id="txtcompany" value="'.$Err->values['txtcompany'].'">
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="input01">Address<span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(ADDRESS).'<span class="red_fnt">*</span></label>
                     <div class="controls">
                      <textarea rows="3" style="width: 273px; height: 75px;" name="txtstreet"  id="txtstreet">'.$Err->values['txtstreet'].'</textarea>
 		<br /> <font color="#FF0000">'.$Err->messages['txtstreet'].'</font>
@@ -719,14 +719,14 @@ class Display_DAddCart
                   </div>
 		
 		<div class="control-group">
-                    <label class="control-label" for="input01"> City <span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01"> '.Core_CLanguage::_(CITY).' <span class="red_fnt">*</span></label>
                     <div class="controls"><input type="text"  class="input-xlarge" id="txtcity" name="txtcity" value="'.$Err->values['txtcity'].'"><br />
                   <br /><font color="#FF0000">'.$Err->messages['txtcity'].'</font>
                     </div>
                   </div>
 
 	 	 <div class="control-group">
-                    <label class="control-label" for="input01">SubUrb
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(SUBURB).'
 			</label>
                     <div class="controls">
                       <input type="text" class="input-xlarge"  name="txtsuburb" id="txtsuburb" value="'.$Err->values['txtsuburb'].'">
@@ -734,27 +734,27 @@ class Display_DAddCart
                   </div>
 
   		<div class="control-group">
-                    <label class="control-label" for="input01">State/Province<span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(STATEPROVINCE).'<span class="red_fnt">*</span></label>
                     <div class="controls">
                       <input type="text" class="input-xlarge"  name="txtstate" id="txtstate" value="'.$Err->values['txtstate'].'"><br /><font color="#FF0000">'.$Err->messages['txtstate'].'</font>
                     </div>
                   </div>
   		<div class="control-group">
-                    <label class="control-label" for="input01">Country<span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(COUNTRY).'<span class="red_fnt">*</span></label>
                     <div class="controls">
                      '.$res.'<br /><font color="#FF0000">'.$Err->messages['selbillcountry'].'</font>
                     </div>
                   </div>
 
  		  <div class="control-group">
-                    <label class="control-label" for="input01">Zip/Postal Code <span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(ZIPPOSTAL_CODE).'<span class="red_fnt">*</span></label>
                     <div class="controls">
                      <div id="txtHint"><input type="text"  class="input-xlarge" id="txtzipcode" name="txtzipcode" value="'.$Err->values['txtzipcode'].'"><br /><font color="#FF0000">'.$Err->messages['txtzipcode'].'</font></div>
                     </div>
                   </div>
 
                   <div class="control-group">
-                    <label class="control-label" for="input01">Phone <span class="red_fnt">*</span> </label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(PHONE).'<span class="red_fnt">*</span> </label>
                     <div class="controls">
                       <input type="text"  class="input-xlarge" id="txtphone" name="txtphone" value="'.$Err->values['txtphone'].'"><br /><font color="#FF0000">'.$Err->messages['txtphone'].'</font>
                     </div>
@@ -762,7 +762,7 @@ class Display_DAddCart
    		
 		
                   <div class="form-actions">
-                    <button type="submit" class="btn btn-large btn-inverse">Submit</button>
+                    <button type="submit" class="btn btn-large btn-inverse">'.Core_CLanguage::_(SUBMIT).'</button>
                   </div>
                 </fieldset>
               </form></div>
@@ -792,25 +792,25 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. My Account</span></a></li>';
+				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. '.Core_CLanguage::_(MY_ACCOUNT).'</span></a></li>';
 			}	
 			else
 			{
-				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+				$output.='<li class="inact"><a href="#"><span>1. '.Core_CLanguage::_(EMAIL_LOGIN).'</span></a></li>';
 			}		
-			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-			<li class="act"><a href="#"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="#"><span>4. Shipping Method</span></a></li>';
+			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. '.Core_CLanguage::_(BILLING_ADDRESS).'</span></a></li>
+			<li class="act"><a href="#"><span>3. '.Core_CLanguage::_(SHIPPING_ADDRESS).'</span></a></li>
+			<li class="inact"><a href="#"><span>4. '.Core_CLanguage::_(SHIPPING_METHOD).'</span></a></li>';
 			
-			$output.='<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			$output.='<li class="inact"><a href="#"><span>5. '.Core_CLanguage::_(ORDER_CONFIRMATION).'</span></a></li>
 			
-			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
+			<li class="inact"><a href="#"><span>6. '.Core_CLanguage::_(PAYMENT_DETAILS).'</span></a></li>
 				        
 		</ul>
        		 </div><div class="row-fluid">
                     <div class="span4">
                          
-                      <p class="billing_title">Select from previous address</p>
+                      <p class="billing_title">'.Core_CLanguage::_(SELECT_FROM_PERVIOUS_ADDRESS).'</p>
                       
                       <ul class="addresslist">';
 
@@ -821,11 +821,11 @@ class Display_DAddCart
 				{
 					if($shipping_address_id==$records[$i]['id'])
 					{
-						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn-hov.gif';
+						$imageicon='click_btn_select';
 					}
 					else
 					{
-						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn.gif';
+						$imageicon='click_btn';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -835,7 +835,7 @@ class Display_DAddCart
 						<p>'.$records[$i]['city'].'</p>
 						<p>'.$records[$i]['state'].'</p>
 						<p>'.$records[$i]['zip'].'</p>	
-						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&ship_add_id='.$records[$i]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&ship_add_id='.$records[$i]['id'].'"><input type="button" name="wishlist" style="width:170px;height:50px;" class="'.$imageicon.'" value="'.Core_CLanguage::_('CLICK_TO_SELECT').'" title="'.Core_CLanguage::_('CLICK_TO_SELECT').'"></a>
 						</address></li>';
 					}
 
@@ -848,11 +848,11 @@ class Display_DAddCart
 
 					if($shipping_address_id==$records[$i]['id'])
 					{
-						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn-hov.gif';
+						$imageicon='click_btn_select';
 					}
 					else
 					{
-						$imageicon=''.$_SESSION['base_url'].'/assets/img/click-btn.gif';
+						$imageicon='click_btn';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -862,7 +862,7 @@ class Display_DAddCart
 						<p>'.$records[$j]['city'].'</p>
 						<p>'.$records[$j]['state'].'</p>
 						<p>'.$records[$j]['zip'].'</p>	
-						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&ship_add_id='.$records[$j]['id'].'"><img src="'.$imageicon.'" alt="click"></a>
+						<a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&ship_add_id='.$records[$j]['id'].'"><input type="button" name="wishlist" style="width:170px;height:50px;" class="'.$imageicon.'" value="'.Core_CLanguage::_('CLICK_TO_SELECT').'" title="'.Core_CLanguage::_('CLICK_TO_SELECT').'"></a>
 						</address></li></div>';
 					}
 					$j++;
@@ -870,7 +870,7 @@ class Display_DAddCart
 				}
 				if(count($records)>4)
 				{
-					$output.='<div style="display:block;" style=""id="more_ship_addr_button"><a onclick="viewMoreShipAddress();" href="javascript:void(0);" >More addresses</a></div>';
+					$output.='<div style="display:block;" style=""id="more_ship_addr_button"><a onclick="viewMoreShipAddress();" href="javascript:void(0);" >'.Core_CLanguage::_(MORE_ADDRESSES).'</a></div>';
 
 				}
 
@@ -881,32 +881,33 @@ class Display_DAddCart
                     <div class="span8">
 
                     <div id="myaccount_div">
-                    <div class="or_ribbion"><img src="'.$_SESSION['base_url'].'/assets/img/or.png" width="38" height="300" alt="or"></div>
-                    <p class="billing_title">Enter a new shipping address</p><div style="padding:0 50px">
+                    <div class="or_ribbion"><input type="button" name="OR" style="width:38px;height:300px;" class="check_out_or" value="'.Core_CLanguage::_('OR').'" title="'.Core_CLanguage::_('OR').'">
+</div>
+                    <p class="billing_title">'.Core_CLanguage::_(ENTER_A_NEW_SHIPPING_ADDRESS).'</p><div style="padding:0 50px">
                     	<form method="POST" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=validateshippingaddress" name="register_form" class="form-horizontal">
                 <fieldset>
                   <div class="control-group">
                     <div class="controls">
                       <p class="info_fnt">
-                         Fields marked with an <span class="red_fnt">*</span> are required 
+                        '.Core_CLanguage::_(FIELDS_MARKED_WITH_AN).'<span class="red_fnt">*</span> '.Core_CLanguage::_(ARE_REQUIRED).'
                       </p>
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="input01">Name <span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(NAME).' <span class="red_fnt">*</span></label>
                     <div class="controls">
                      <input type="text"  class="input-xlarge" id="txtname" name="txtname" value="'.$Err->values['txtname'].'"><br /><font color="#FF0000">'.$Err->messages['txtname'].'</font>
 
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="input01">Company</label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(COMPANY).'</label>
                     <div class="controls">
                       <input type="text" class="input-xlarge"  name="txtcompany" id="txtcompany" value="'.$Err->values['txtcompany'].'">
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="input01">Address<span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(ADDRESS).'<span class="red_fnt">*</span></label>
                     <div class="controls">
                      <textarea rows="3" style="width: 273px; height: 75px;"  name="txtstreet"  id="txtstreet">'.$Err->values['txtstreet'].'</textarea>
 		<br /> <font color="#FF0000">'.$Err->messages['txtstreet'].'</font>
@@ -914,14 +915,14 @@ class Display_DAddCart
                   </div>
 		
 		<div class="control-group">
-                    <label class="control-label" for="input01"> City <span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01"> '.Core_CLanguage::_(CITY).' <span class="red_fnt">*</span></label>
                     <div class="controls">
                      <input type="text"  class="input-xlarge" id="txtcity" name="txtcity" value="'.$Err->values['txtcity'].'"><br /><font color="#FF0000">'.$Err->messages['txtcity'].'</font>
                     </div>
                   </div>
 
 	  	<div class="control-group">
-                    <label class="control-label" for="input01">SubUrb
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(SUBURB).'
 			</label>
                     <div class="controls">
                       <input type="text" class="input-xlarge"  name="txtsuburb" id="txtsuburb" value="'.$Err->values['txtsuburb'].'">
@@ -929,27 +930,27 @@ class Display_DAddCart
                   </div>
 
   		<div class="control-group">
-                    <label class="control-label" for="input01">State/Province<span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(STATEPROVINCE).'<span class="red_fnt">*</span></label>
                     <div class="controls">
                       <input type="text" class="input-xlarge"  name="txtstate" id="txtstate" value="'.$Err->values['txtstate'].'"><br /><font color="#FF0000">'.$Err->messages['txtstate'].'</font>
                     </div>
                   </div>
   		<div class="control-group">
-                    <label class="control-label" for="input01">Country<span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(COUNTRY).'<span class="red_fnt">*</span></label>
                     <div class="controls">
                      '.$resship.'<br /><font color="#FF0000">'.$Err->messages['selshipcountry'].'</font>
                     </div>
                   </div>
 
  		  <div class="control-group">
-                    <label class="control-label" for="input01">Zip/Postal Code <span class="red_fnt">*</span></label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(ZIPPOSTAL_CODE).'<span class="red_fnt">*</span></label>
                     <div class="controls">
                      <div id="txtHint"><input type="text"  class="input-xlarge" id="txtzipcode" name="txtzipcode" value="'.$Err->values['txtzipcode'].'"><br /><font color="#FF0000">'.$Err->messages['txtzipcode'].'</font></div>
                     </div>
                   </div>
 
                   <div class="control-group">
-                    <label class="control-label" for="input01">Phone <span class="red_fnt">*</span> </label>
+                    <label class="control-label" for="input01">'.Core_CLanguage::_(PHONE).' <span class="red_fnt">*</span> </label>
                     <div class="controls">
                       <input type="text"  class="input-xlarge" id="txtphone" name="txtphone" value="'.$Err->values['txtphone'].'"><br /><font color="#FF0000">'.$Err->messages['txtphone'].'</font>
                     </div>
@@ -957,7 +958,7 @@ class Display_DAddCart
    		
 		
                   <div class="form-actions">
-                    <button type="submit" class="btn btn-large btn-inverse">Submit</button>
+                    <button type="submit" class="btn btn-large btn-inverse">'.Core_CLanguage::_(SUBMIT).'</button>
                   </div>
                 </fieldset>
               </form></div>
@@ -1007,19 +1008,19 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. My Account</span></a></li>';
+				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo"><span>1. '.Core_CLanguage::_(MY_ACCOUNT).'</span></a></li>';
 			}	
 			else
 			{
-				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+				$output.='<li class="inact"><a href="#"><span>1. '.Core_CLanguage::_(EMAIL_LOGIN).'</span></a></li>';
 			}		
-			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails"><span>3. Shipping Address</span></a></li>
-			<li class="act"><a href="#"><span>4. Shipping Method</span></a></li>';
+			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. '.Core_CLanguage::_(BILLING_ADDRESS).'</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails"><span>3. '.Core_CLanguage::_(SHIPPING_ADDRESS).'</span></a></li>
+			<li class="act"><a href="#"><span>4. '.Core_CLanguage::_(SHIPPING_METHOD).'</span></a></li>';
 			
-			$output.='<li class="inact"><a href="#"><span>5. Order Confirmation</span></a></li>
+			$output.='<li class="inact"><a href="#"><span>5. '.Core_CLanguage::_(ORDER_CONFIRMATION).'</span></a></li>
 			
-			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>
+			<li class="inact"><a href="#"><span>6. '.Core_CLanguage::_(PAYMENT_DETAILS).'</span></a></li>
 		</ul>
 		</div><div class="row-fluid">
                    
@@ -1027,7 +1028,7 @@ class Display_DAddCart
 
                     <div id="myaccount_div">
              
-                    <p class="billing_title">Select Shipping Method</p><font color="#FF0000">'.$Err->messages['shipment_id'].'</font>';
+                    <p class="billing_title">'.Core_CLanguage::_(SELECT_SHIPPING_METHOD).'</p><font color="#FF0000">'.$Err->messages['shipment_id'].'</font>';
 
 		
                     	$output.='<form method="POST" action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=validateshippingmethod" name="register_form" class="form-horizontal" onsubmit="return checkInputs()">
@@ -1039,7 +1040,7 @@ class Display_DAddCart
                   </div>';
 
 				$output.='<div class="control-group">
-					<label class="control-label" for="input01">Shipping </label>
+					<label class="control-label" for="input01">'.Core_CLanguage::_(SHIPPING).' </label>
 					<div class="controls"> <select name="shipment_id" id="shipment_id" onchange="selectShippingType(this.value)"><option value="0">Select</option>';
 
 			if(count($records)>0)
@@ -1072,7 +1073,7 @@ class Display_DAddCart
 			
 				
 			$output.='<div id="duration_ups" '.$ups.'><div class="control-group" >
-					<label class="control-label" for="input01">Reach The Destination</label>
+					<label class="control-label" for="input01">'.Core_CLanguage::_(REACH_THE_DESTINATION).'</label>
 					<div class="controls">
 
 					<select name="shipdurid" id="shipdurid" onchange="shipDuration(this.value,'.$buyer_zipcode.','.$totalweight.');" >';
@@ -1095,7 +1096,7 @@ class Display_DAddCart
 					</div></div>';
 
 				$output.='<div id="ship_cost" '.$ups.'><div class="control-group" >
-					<label class="control-label" for="input01">Total Weight</label>
+					<label class="control-label" for="input01">'.Core_CLanguage::_(TOTAL_WEIGHT).'</label>
 					<div class="controls">
 
 					'.$totalweight.' <code>(lbs)</code>
@@ -1107,13 +1108,13 @@ class Display_DAddCart
 					</div></div>';
 
 				$output.='<div id="default_ship_cost" '.$default.'><div class="control-group" >
-					<label class="control-label" for="input01">Shipping Cost</label>
+					<label class="control-label" for="input01">'.Core_CLanguage::_(SHIPPING_COST).'</label>
 					<div class="controls"><span class="red_fnt" >'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.''.$totalshipcost.'</span>
 					</div>
 					</div></div>';
 
                   $output.='<div class="form-actions"><input type="hidden" name="default_shipping_cost" id="default_shipping_cost" value='.$totalshipcost.'><input type="hidden" name="shipping_cost" id="shipping_cost" value='.$_SESSION['orderdetails']['shipping_cost'].'><input type="hidden" name="weight" value="'.$totalweight.'">
-                    <button type="submit" class="btn btn-large btn-inverse" name="shipping_submit">Submit</button>
+                    <button type="submit" class="btn btn-large btn-inverse" name="shipping_submit">'.Core_CLanguage::_(SUBMIT).'</button>
                   </div>
                 </fieldset>
               </form>
@@ -1142,23 +1143,23 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$out.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo&vid='.$_GET['vid'].'"><span>1. My Account</span></a></li>';
+				$out.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo&vid='.$_GET['vid'].'"><span>1. '.Core_CLanguage::_(MY_ACCOUNT).'</span></a></li>';
 			}	
 			else
 			{
-				$out.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+				$out.='<li class="inact"><a href="#"><span>1. '.Core_CLanguage::_(EMAIL_LOGIN).'</span></a></li>';
 			}
 			if($_GET['vid']=='') 
 			{		
-			$out.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&ship_add_id='.$_SESSION['orderdetails']['shipping_address_id'].'"><span>4. Shipping Method</span></a></li><li class="act"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
-			<li class="inact"><a href="#"><span>6. Payment Details</span></a></li>';
+			$out.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. '.Core_CLanguage::_(BILLING_ADDRESS).'</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. '.Core_CLanguage::_(SHIPPING_ADDRESS).'</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&ship_add_id='.$_SESSION['orderdetails']['shipping_address_id'].'"><span>4. '.Core_CLanguage::_(SHIPPING_METHOD).'</span></a></li><li class="act"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation"><span>5. '.Core_CLanguage::_(ORDER_CONFIRMATION).'</span></a></li>
+			<li class="inact"><a href="#"><span>6. '.Core_CLanguage::_(PAYMENT_DETAILS).'</span></a></li>';
 			}
 			else
 			{	
-			$out.='<li class="act"><a href="?do=showcart&action=showorderconfirmation&vid='.$_GET['vid'].'"><span>2. Order Confirmation</span></a></li>
-			<li class="inact"><a href="#"><span>3. Payment Details</span></a></li>';
+			$out.='<li class="act"><a href="?do=showcart&action=showorderconfirmation&vid='.$_GET['vid'].'"><span>2.'.Core_CLanguage::_(ORDER_CONFIRMATION).'</span></a></li>
+			<li class="inact"><a href="#"><span>3. '.Core_CLanguage::_(PAYMENT_DETAILS).'</span></a></li>';
 			}	        
 			$out.='</ul>
 		</div>'.$message.'<div id="myaccount_div"><form name="cart" action="?do=showcart&action=validatecoupon"  method="post">
@@ -1166,11 +1167,11 @@ class Display_DAddCart
 		<thead class="cf">
 			<tr>
 				<th></th>
-				<th>Gallery View</th>
-				<th>Product Name</th>
-				<th>Quantity</th>
-				<th>Unit Price</th>	
-				<th>Sub Total</th>
+				<th>'.Core_CLanguage::_(GALLERY_VIEW).'</th>
+				<th>'.Core_CLanguage::_(PRODUCT_NAME).'</th>
+				<th>'.Core_CLanguage::_(QUANTITY).'</th>
+				<th>'.Core_CLanguage::_(UNIT_PRICE).'</th>	
+				<th>'.Core_CLanguage::_(SUB_TOTAL).'</th>
 				
 			</tr>
 		</thead>
@@ -1267,30 +1268,30 @@ class Display_DAddCart
 		 $voucherid=$_GET['vid'];
 			$out.='<tr>
 				<td colspan="4" rowspan="4">&nbsp;</td>
-			  <td><strong>Sub Total</strong></td>
+			  <td><strong>'.Core_CLanguage::_(SUB_TOTAL).'</strong></td>
 				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($total,2).'</span></td>
 			</tr>
 			<tr>
-			  <td><strong>Shipping Amount</strong></td>
+			  <td><strong>'.Core_CLanguage::_(SHIPPING_AMOUNT).'</strong></td>
 				<td><span class="label label-inverse">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($shipping,2).'</span></td>
 			</tr>
 			
 			<tr>
-			  <td><strong>'.$taxarray['tax_name'].' Tax Applied</strong></td>
+			  <td><strong>'.$taxarray['tax_name'].' '.Core_CLanguage::_(TAX_APPLIED).'</strong></td>
 				<td><span class="label label-important">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($tax,2).'</span></td>
 			</tr>
 			<tr>
-			  <td><strong>Grand Total</strong></td>
+			  <td><strong'.Core_CLanguage::_(GRAND_TOTAL).'</strong></td>
 				<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($grandtotal,2).'</span></td>
 			</tr>
 
 			<tr>
 			  <td colspan="4">
-              <h4>Coupon Code</h4>
-              <p>If you have a coupon code enter it in the box below and click \'Go\'.</p>
+              <h4>'.Core_CLanguage::_(COUPON_CODE).'</h4>
+              <p>'.Core_CLanguage::_(ENTER_COUPON).'\''.Core_CLanguage::_(GO).'\'.</p>
              <p> <input type="text" name="coupon_code"></p>
-            <input type="submit" name="Submit3" value="Go"  class="btn btn-danger" ></td>
-	<td colspan="3" align="center" valign="middle"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=displaypaymentgateways&vid='.$voucherid.'" class="btn btn-inverse" >Proceed Checkout</a></td>
+            <input type="submit" name="Submit3" value="'.Core_CLanguage::_(GO).'"  class="btn btn-danger" ></td>
+	<td colspan="3" align="center" valign="middle"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=displaypaymentgateways&vid='.$voucherid.'" class="btn btn-inverse" >'.Core_CLanguage::_(PROCEED_TO_CHECKOUT).'</a></td>
 		  </tr>
 
 
@@ -1322,35 +1323,35 @@ class Display_DAddCart
 			if($_SESSION['user_id']!='')
 			{	
 	
-				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo&vid='.$_GET['vid'].'"><span>1. My Account</span></a></li>';
+				$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo&vid='.$_GET['vid'].'"><span>1. '.Core_CLanguage::_(MY_ACCOUNT).'</span></a></li>';
 			}	
 			else
 			{
-				$output.='<li class="inact"><a href="#"><span>1. Email Login</span></a></li>';
+				$output.='<li class="inact"><a href="#"><span>1. '.Core_CLanguage::_(EMAIL_LOGIN).'</span></a></li>';
 			}
 			if($_GET['vid']=='')
 			{		
-			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. Billing Address</span></a></li>
-			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. Shipping Address</span></a></li>
-			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&chk=0"><span>4. Shipping Method</span></a></li><li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation"><span>5. Order Confirmation</span></a></li>
-			<li class="act"><a href="#"><span>6. Payment Details</span></a></li>';
+			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getaddressdetails"><span>2. '.Core_CLanguage::_(SHIPPING_ADDRESS).'</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingaddressdetails&chk=0"><span>3. '.Core_CLanguage::_(SHIPPING_ADDRESS).'</span></a></li>
+			<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=getshippingmethod&chk=0"><span>4. '.Core_CLanguage::_(SHIPPING_METHOD).'</span></a></li><li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation"><span>5. '.Core_CLanguage::_(ORDER_CONFIRMATION).'</span></a></li>
+			<li class="act"><a href="#"><span>6. '.Core_CLanguage::_(PAYMENT_DETAILS).'</span></a></li>';
 			}
 			else
 			{
-			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation&vid='.$_GET['vid'].'"><span>2. Order Confirmation</span></a></li>
-			<li class="act"><a href="#"><span>3. Payment Details</span></a></li>';
+			$output.='<li class="inact"><a href="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showorderconfirmation&vid='.$_GET['vid'].'"><span>2. '.Core_CLanguage::_(ORDER_CONFIRMATION).'</span></a></li>
+			<li class="act"><a href="#"><span>3. '.Core_CLanguage::_(PAYMENT_DETAILS).'</span></a></li>';
 			}
 				        
 		$output.='</ul>
 		</div><div class="row-fluid">
                     <div class="span12">
                          
-                      <p class="billing_title">Choose your mode of payment</p>
+                      <p class="billing_title">'.Core_CLanguage::_(CHOOSE_YOUR_MODE_OF_PAYMENT).'</p>
                       
                       <div id="myaccount_div">
-                      <span class="label label-info">Your Checkout Amount is    '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.number_format($_SESSION['checkout_amount'],2).'</span>
+                      <span class="label label-info">'.Core_CLanguage::_(YOUR_CHECK_OUT_AMOUNT_IS).'   '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.number_format($_SESSION['checkout_amount'],2).'</span>
                       <div id="paymentid">
-                      <h6>Online Payment Gateways</h6>
+                      <h6>'.Core_CLanguage::_(ONLINE_PAYMENT_GATEWAYS).'</h6>
                        <ul class="payment_det">';
 			if(count($onlinearr)>0)
 			{
@@ -1370,7 +1371,7 @@ class Display_DAddCart
 			{		
 
                    		$output.='<div id="paymentid">
-				<h6>Offline Payment Gateways</h6>
+				<h6>'.Core_CLanguage::_(OFFLINE_PAYMENT_GATEWAYS).'</h6>
 				<ul class="payment_det">';
 				if(count($offlinearr)>0)
 				{
@@ -1425,7 +1426,7 @@ class Display_DAddCart
 		}				
 	
 		//$amount=$_SESSION['checkout_amount'];
-		$amount=$_SESSION['checkout_amount']; //to covert into equivalent dollar values
+		$amount=$_SESSION['checkout_amount']*$_SESSION['currencysetting']['default_currency']['conversion_rate']; //to covert into equivalent dollar values
 	
 		$payment_html['PayPal']='
 					<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">

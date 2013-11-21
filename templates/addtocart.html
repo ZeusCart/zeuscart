@@ -23,8 +23,8 @@
   <!-- body start here-->
   	<div class="container">
     	<ul class="breadcrumb">
-              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index">Home</a> <span class="divider">/</span></li>
-              <li class="active"> Show Cart </li>
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a> <span class="divider">/</span></li>
+              <li class="active"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOW_CART'); <AJDF:output>/php</AJDF:output></li>
             </ul>
             <AJDF:output>$smarty.session.update_msg</AJDF:output>
    
@@ -33,9 +33,9 @@
 
             <div class="title_fnt">
 	<AJDF:output>if $smarty.get.action eq '' ||   $smarty.get.action eq 'add'</AJDF:output>
-    	<h1>Show Cart </h1>
+    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOW_CART'); <AJDF:output>/php</AJDF:output> </h1>
 	<AJDF:output>else</AJDF:output>
-	 	<h1>Check out</h1>
+	 	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECK_OUT'); <AJDF:output>/php</AJDF:output></h1>
 	<AJDF:output>/if</AJDF:output>
         </div>
       <AJDF:output>$showcart</AJDF:output></div>
@@ -47,11 +47,14 @@
 <script>
 function checkInputs()
 {
+
 	$( "#default_ship_cost" ).hide();
 	var ship_type=$('#shipment_id').val();
 	if(ship_type=='0')
 	{
-		alert('Please select the shipping method');
+
+		selectshipping='<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PLEASE_SELECT_THE_SHIPPING_METHOD'); <AJDF:output>/php</AJDF:output>';
+		alert(selectshipping);
 		return false;
 	}
 	else
@@ -61,8 +64,8 @@ function checkInputs()
 		{
 			if(document.getElementById('shipdurid').value=='' || document.getElementById('shipdurid').value=='0')
 			{
-					
-				alert('Please select the shipping duration');
+				selectshippingduration='<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PLEASE_SELECT_THE_SHIPPING_DURATION'); <AJDF:output>/php</AJDF:output>';	
+				alert(selectshippingduration);
 				return false;
 			}
 		}
@@ -113,7 +116,9 @@ function shipDuration(ship_dur_id,zip,weight)
 	else
 	{
 		$( "#ship_cost").hide();
-		alert('Please select the shipping duration');
+		
+		selectshippingduration='<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PLEASE_SELECT_THE_SHIPPING_DURATION'); <AJDF:output>/php</AJDF:output>';	
+		alert(selectshippingduration);
 		
 	}	
 	

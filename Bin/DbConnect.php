@@ -44,6 +44,7 @@ class Bin_DbConnect extends Bin_SetConfiguration
 		if(!$this->connstatus)
 		{
 			$conn = mysql_connect($dbhost,$dbuser,$dbpass) ;
+			mysql_set_charset('utf8',$conn);
 			mysql_select_db($dbname,$conn);
 			$this->connstatus=1;
 		}

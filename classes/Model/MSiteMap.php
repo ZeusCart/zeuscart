@@ -45,6 +45,11 @@ class Model_MSiteMap
 	*/
 	function showMap()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('SITE_MAP');
+
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
 		include('classes/Core/CUserRegistration.php');

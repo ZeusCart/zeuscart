@@ -94,6 +94,10 @@ class Model_MProductDetail
 	function productDetail()
 	{
 
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('PRODUCT_DETAILS');
+
 		$_SESSION['url']=$_GET['do'];
 		
 		include('classes/Core/CHome.php');
@@ -190,6 +194,10 @@ class Model_MProductDetail
 	*/		
 	function showPopupProducts()
 	{
+			//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('PRODUCT_DETAILS');
+		
 		include_once('classes/Core/CProductDetail.php');
 		include_once('classes/Display/DProductDetail.php');
 		echo  $output['popproduct']= Core_CProductDetail::showPopupProducts();

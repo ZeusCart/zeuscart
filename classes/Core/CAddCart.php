@@ -292,14 +292,14 @@ class Core_CAddCart
 			{
 			$_SESSION['quantitymsg']="<div class='alert alert-error'>
 			<button data-dismiss='alert' class='close' type='button'>×</button>
-			Please enter the valid quantity is less than ".$product_quantity."
+			".Core_CLanguage::_(PLEASE_ENTER_THE_VALID_QUANTITY)." ".$product_quantity."
 			</div>";
 			}
 			elseif($product_quantity=='0')
 			{
 			$_SESSION['quantitymsg']="<div class='alert alert-error'>
 			<button data-dismiss='alert' class='close' type='button'>×</button>
-			The product is out of stock
+			".Core_CLanguage::_(THE_PRODUCT_IS_OUT_OF_STOCK)."
 			</div>";
 
 			}
@@ -573,7 +573,7 @@ class Core_CAddCart
 						{
 							return '<div class="alert alert-info">
 							<button data-dismiss="alert" class="close" type="button">×</button>
-							No Prodcuts Available in Your Shopping Cart.
+								'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).'
 							</div>';
 						}
 						else
@@ -610,7 +610,7 @@ class Core_CAddCart
 						{
 							return '<div class="alert alert-info">
 							<button data-dismiss="alert" class="close" type="button">×</button>
-							No Prodcuts Available in Your Shopping Cart.
+							'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).'
 							</div>' ;
 						}
 						else
@@ -627,7 +627,7 @@ class Core_CAddCart
 			{
 				return '<div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				No Prodcuts Available in Your Shopping Cart.
+				'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).'
 				</div>';
 			}
 		}
@@ -680,7 +680,7 @@ class Core_CAddCart
 						{
 							return '<div class="alert alert-info">
 							<button data-dismiss="alert" class="close" type="button">×</button>
-							Out of stock.
+							'.Core_CLanguage::_(OUT_OF_STOCK).'
 							</div>';
 						
 						}
@@ -700,7 +700,7 @@ class Core_CAddCart
 			{
 				return '<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			No Prodcuts Available .
+			'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).'
 			</div>';
 			}
 			
@@ -878,7 +878,7 @@ class Core_CAddCart
 		}
 	
 			$output='<div class="alert alert-info">
-			<button type="button" class="close" data-dismiss="alert">×</button>Products Deleted Successfully From Your Cart!</div>';
+			<button type="button" class="close" data-dismiss="alert">×</button>'.Core_CLanguage::_(PRODUCTS_DELETED_SUCCESSFULLY_FROM_YOUR_CART).'</div>';
 
 		return $output;
 	}
@@ -1223,10 +1223,10 @@ class Core_CAddCart
 				
 						}
 						else
-							$result = "<div class='exc_msgbox'>Account Not Created</div></br>";
+							$result = "<div class='exc_msgbox'>".Core_CLanguage::_(ACCOUNT_NOT_CREATED)."/div></br>";
 					}
 					else
-						$result = "<div class='exc_msgbox'>Email Id Already Exists</div></br>";
+						$result = "<div class='exc_msgbox'>".Core_CLanguage::_(EMAIL_TRY)                        ."</div></br>";
 				}
 			}
 	
@@ -1557,7 +1557,7 @@ class Core_CAddCart
 						if($flag==0)
 							return '<div class="alert alert-info">
 							<button type="button" class="close" data-dismiss="alert">×</button>
-							No Products Available in Your Shopping Cart 
+							'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).' 
 							</div>';
 						else
 				        	return Display_DAddCart::showOrderConfirmation($query->records,$obj3->records,$taxarray,$message);
@@ -1622,7 +1622,7 @@ class Core_CAddCart
 						{
 							return '<div class="alert alert-info">
 							<button type="button" class="close" data-dismiss="alert">×</button>
-							No Products Available in Your Shopping Cart 
+							'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).'
 							</div>' ;
 						}
 						else
@@ -1639,7 +1639,7 @@ class Core_CAddCart
 			{
 				return '<div class="alert alert-info">
 				<button type="button" class="close" data-dismiss="alert">×</button>
-				No Products Available in Your Shopping Cart 
+				'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).' 
 				</div>';
 			}
 		}
@@ -1749,7 +1749,7 @@ class Core_CAddCart
 						{
 							return '<div class="alert alert-info">
 							<button data-dismiss="alert" class="close" type="button">×</button>
-							No Prodcuts Available in Your Shopping Cart.
+							'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).'
 							</div>';
 
 						}
@@ -1794,7 +1794,7 @@ class Core_CAddCart
 			{
 				return '<div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				No Prodcuts Available in Your Shopping Cart.
+				'.Core_CLanguage::_(NO_PRODUCTS_AVAILABLE_IN_YOUR_CART).'
 				</div>';
 			}
 		
@@ -1945,40 +1945,42 @@ class Core_CAddCart
 								else
 									return $output= '<div class="alert alert-info">
 									<button data-dismiss="alert" class="close" type="button">×</button>
-									Sorry. You Have Exceeded Your Coupon Using Limit.
+									'.Core_CLanguage::_(SORRY_YOU_HAVE_EXCEEDED_YOUR_COUPON_USING_LIMIT).'
 									</div>';			
 							}
 							else
 								return $output= '<div class="alert alert-info">
 								<button data-dismiss="alert" class="close" type="button">×</button>
-								Sorry. Purchase Amount Is Too Low To Use Your Coupon.
+								'.Core_CLanguage::_(SORRY_PURCHASE_AMOUNT_IS_TOO_LOW_TO_USE_YOUR_COUPON)
+
+.'
 								</div>';
 						}
 						else
 							return $output= '<div class="alert alert-info">
 							<button data-dismiss="alert" class="close" type="button">×</button>
-							Coupon Not Eligible For You.
+							'.Core_CLanguage::_(COUPON_NOT_ELIGBLE_FOR_YOU).'
 							</div>';
 
 					}
 					else
 						return $output= '<div class="alert alert-info">
 						<button data-dismiss="alert" class="close" type="button">×</button>
-						Coupon Code Expired.
+						'.Core_CLanguage::_(COUPON_CODE_EXPIRED).'
 						</div>';
 
 				}
 				else
 					return $output= '<div class="alert alert-info">
 					<button data-dismiss="alert" class="close" type="button">×</button>
-					Coupon Code Is Not Active.
+					'.Core_CLanguage::_(COUPON_CODE_IS_NOT_ACTIVE).'
 					</div>';
 
 			}
 			else
 		   		return $output= '<div class="alert alert-error">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Invalid Coupon Code.
+				'.Core_CLanguage::_(INVALID_COUPON_CODE).'
 				</div>';
 
 
@@ -1987,7 +1989,7 @@ class Core_CAddCart
 		{
 			return $output='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Please Login To Use Your Coupon.
+			'.Core_CLanguage::_(PLEASE_LOGIN_TO_USE_YOUR_COUPON).'
 			</div>';
 		}
 
@@ -2049,7 +2051,7 @@ class Core_CAddCart
 									if ($update_coupon_query->updateQuery($update_coupon_sql))
 										$output='<div class="alert alert-success">
 										<button data-dismiss="alert" class="close" type="button">×</button>
-										Coupon Redeemed Successfully.
+										'.Core_CLanguage::_(COUPON_REDEEMED_SUCCESSFULLY).'
 										</div>';
 								
 								}
@@ -2063,7 +2065,7 @@ class Core_CAddCart
 					if ($cartflag==0)
 						return $output='<div class="alert alert-info">
 						<button data-dismiss="alert" class="close" type="button">×</button>
-						No Categories In Your Shopping Cart Matches With The Coupon Categories.
+						'.Core_CLanguage::_(NO_CATEGORIES_IN_YOUR_CART_MATCHES_WITH_THE_COUPON_CATEGORIES).'
 						</div>';
 
 								
@@ -2076,7 +2078,7 @@ class Core_CAddCart
 			{
 				return $output='<div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				No Categories Are Applicable For The Coupon.
+				'.Core_CLanguage::_(NO_CATEGORIES_ARE_APPLICABLE_FOR_THE_COUPON).'
 				</div>';
 
 

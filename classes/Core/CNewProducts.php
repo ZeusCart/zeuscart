@@ -270,5 +270,36 @@ class Core_CNewProducts
 
 	}
 
+	/**
+	 * This function is used to get the title 
+	 * 
+	 * @return HTML data
+	 */
+	function getTitle()
+	{
+
+		$output['totcategory']=explode('/',$_GET['cat']);
+
+		$parentcat=$output['totcategory'][0];
+		$parentcat=str_replace('-',' ',$parentcat);
+		$sqlParent="SELECT * FROM category_table WHERE category_name='".$parentcat."'";	
+		$objParent=new Bin_Query();
+		$objParent->executeQuery($sqlParent);	
+		$parent_id=$objParent->records[0]['category_id']; 
+
+
+		$category=end($output['totcategory']);
+		$category=str_replace('-',' ',$category);
+	 	$sql="SELECT * FROM  category_table  WHERE category_name='".$category."' AND FIND_IN_SET($parent_id,subcat_path)";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);	
+		$category_id=$obj->records[0]['category_id'];
+
+		$output=$obj->records[0]['category_name'];
+
+		return $output;
+	}
+		
+
 }
 ?>

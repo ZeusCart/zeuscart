@@ -46,16 +46,19 @@ class Core_CCurrencySettings
 	 */
 	function getDefaultCurrency()
 	{
-		$sql="SELECT currency_name,currency_code,country_code,conversion_rate,currency_tocken FROM currency_master_table WHERE id=1 AND default_currency=1"; 
+		$sql="SELECT currency_name,currency_code,country_code,currency_tocken FROM currency_master_table WHERE id=1 AND default_currency=1"; 
 		$qry=new Bin_Query();
 		$qry->executeQuery($sql);
 		if($_SESSION['currencysetting']['selected_currency_id']=='')
 		{
+
 			$_SESSION['currencysetting']['default_currency']=$qry->records[0];
 			$_SESSION['currencysetting']['selected_currency_id']=1;
 			$_SESSION['currencysetting']['selected_currency_settings']=$qry->records[0]; 
-		}
 			
+
+		}
+		
 		
 	}
 	/**
@@ -67,16 +70,14 @@ class Core_CCurrencySettings
 	function changeCurrency()
 	{
 		UNSET($_SESSION['currencysetting']);
-		 $selcurrsql="SELECT currency_name,currency_code,country_code,conversion_rate,currency_tocken FROM currency_master_table WHERE id=".(int)$_GET['id']; 
+		 $selcurrsql="SELECT currency_name,currency_code,country_code,currency_tocken FROM currency_master_table WHERE id=".(int)$_GET['id']; 
 		$selcurrqry=new Bin_Query();
 		if ($selcurrqry->executeQuery($selcurrsql))
 		{
 			$_SESSION['currencysetting']['selected_currency_id']=$_GET['id'];
 			$_SESSION['currencysetting']['selected_currency_settings']=$selcurrqry->records[0];
 		}
-		
-		header('Location:'.$_SERVER['HTTP_REFERER']);
-		
+				
 	}
 	/**
 	 * This function is used to show the currency
@@ -86,7 +87,7 @@ class Core_CCurrencySettings
 	 */
 	function displayEnabledCurrencies()
 	{
-		$sql="SELECT a.id,a.currency_name,a.currency_code,a.country_code,a.conversion_rate,a.currency_tocken,a.default_currency,b.cou_name as country_name FROM currency_master_table a, country_table b WHERE a.status=1 AND a.country_code=b.cou_code";
+		$sql="SELECT a.id,a.currency_name,a.currency_code,a.country_code,a.currency_tocken,a.default_currency,b.cou_name as country_name FROM currency_master_table a, country_table b WHERE a.status=1 AND a.country_code=b.cou_code";
 		$obj=new Bin_Query();
 		$obj->executeQuery($sql);
 		return Display_DCurrencySettings::displayEnabledCurrencies($obj->records);

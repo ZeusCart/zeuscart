@@ -45,6 +45,10 @@ class Model_MNewProducts
 	*/
 	function newProducts()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('COMMON');
+
 		include_once('classes/Core/CNewProducts.php');
 		include_once('classes/Display/DNewProducts.php');
 		include('classes/Core/CKeywordSearch.php');
@@ -85,6 +89,10 @@ class Model_MNewProducts
 	*/
 	function viewProducts()
 	{
+		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('COMMON');
 
 		include_once('classes/Core/CNewProducts.php');
 		include_once('classes/Display/DNewProducts.php');
@@ -101,8 +109,6 @@ class Model_MNewProducts
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
-		$output['totcategory']=explode('/',$_GET['cat']);
-		$output['title']=end($output['totcategory']);
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
@@ -122,6 +128,9 @@ class Model_MNewProducts
 		$output['viewproducts']=$default->viewProducts();
 		$output['cartcount']=Core_CAddCart::countCart();
 		$output['categorybreadcrumb']=$default->categoryBreadCrumb();
+		$output['title']=$default->getTitle();
+
+
 		Bin_Template::createTemplate('listtheproduct.html',$output);
 	}
 	/**
@@ -131,7 +140,10 @@ class Model_MNewProducts
 	*/
 	function girdViewProducts()
 	{
-
+		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('COMMON');
 
 		include_once('classes/Core/CNewProducts.php');
 		include_once('classes/Display/DNewProducts.php');
@@ -148,7 +160,7 @@ class Model_MNewProducts
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
-		$output['title']=end(explode('/',$_GET['cat']));
+	
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
@@ -167,6 +179,7 @@ class Model_MNewProducts
 		$default=new Core_CNewProducts();
 		$output['gridviewproducts']=$default->viewProducts();
 		$output['categorybreadcrumb']=$default->categoryBreadCrumb();
+		$output['title']=$default->getTitle();
 		$output['cartcount']=Core_CAddCart::countCart();
 		Bin_Template::createTemplate('grid_list_product.html',$output);
 	
@@ -175,6 +188,11 @@ class Model_MNewProducts
 
 	function giftProducts()
 	{
+
+		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('COMMON');
 
 		include_once('classes/Core/CNewProducts.php');
 		include_once('classes/Display/DNewProducts.php');
@@ -191,8 +209,7 @@ class Model_MNewProducts
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
-		$output['totcategory']=explode('/',$_GET['cat']);
-		$output['title']=end($output['totcategory']);
+		
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
@@ -213,6 +230,7 @@ class Model_MNewProducts
 
 		$output['cartcount']=Core_CAddCart::countCart();
 		$output['categorybreadcrumb']=$default->categoryBreadCrumb();
+		$output['title']=$default->getTitle();
 		Bin_Template::createTemplate('gift_list_products.html',$output);
 	
 	}
@@ -220,6 +238,11 @@ class Model_MNewProducts
 
 	function gridGiftProducts()
 	{
+
+			
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('COMMON');
 
 		include_once('classes/Core/CNewProducts.php');
 		include_once('classes/Display/DNewProducts.php');
@@ -236,7 +259,7 @@ class Model_MNewProducts
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
-		$output['title']=end(explode('/',$_GET['cat']));
+	
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
@@ -256,6 +279,7 @@ class Model_MNewProducts
 		$output['gridviewproducts']=$default->viewGiftProducts();
 
 		$output['categorybreadcrumb']=$default->categoryBreadCrumb();
+		$output['title']=$default->getTitle();
 		$output['cartcount']=Core_CAddCart::countCart();
 		Bin_Template::createTemplate('gift_grid_products.html',$output);
 

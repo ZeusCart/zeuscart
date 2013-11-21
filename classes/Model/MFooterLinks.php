@@ -45,6 +45,10 @@ class Model_MFooterLinks
 	*/
 	function termsCondition()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
+
 		include('classes/Core/CFooterLinks.php');
 		include('classes/Display/DFooterLinks.php');
 		include('classes/Core/CHome.php');
@@ -94,6 +98,10 @@ class Model_MFooterLinks
 	*/
 	function privacyPolicy()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
+
 		include('classes/Core/CFooterLinks.php');
 		include('classes/Display/DFooterLinks.php');
 		include('classes/Core/CHome.php');
@@ -143,6 +151,12 @@ class Model_MFooterLinks
 	*/
 	function showContactUs()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
+	
+
 		include("classes/Lib/HandleErrors.php");
 		
 		$output['val']=$Err->values;
@@ -197,9 +211,13 @@ class Model_MFooterLinks
 	*/
 	function showValidateContactUs()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
+	
+
 		include('classes/Lib/CheckInputs.php');
 		$obj = new Lib_CheckInputs('contactus');
-		
 		
 		include('classes/Core/CFooterLinks.php');
 		include('classes/Display/DFooterLinks.php');
@@ -236,7 +254,8 @@ class Model_MFooterLinks
 		$output['contactus'] = Display_DFooterLinks::showContactUs('');
 		$output['newstitle'] = Core_CNews::showNewsMenu();
 		$output['cartcount']=Core_CAddCart::countCart();
-
+		$output['categorytree'] = Core_CProductDetail::showCategoryTree();
+		
 		Bin_Template::createTemplate('contactus.html',$output);
 	}
 	
@@ -247,6 +266,11 @@ class Model_MFooterLinks
 	*/
 	function aboutUs()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
+
+
 		include('classes/Core/CFooterLinks.php');
 		include('classes/Display/DFooterLinks.php');
 		include('classes/Core/CHome.php');

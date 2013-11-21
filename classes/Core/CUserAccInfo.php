@@ -115,14 +115,14 @@ class Core_CUserAccInfo
 
 				return '<div class="alert alert-success">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Your Account Successfully Updated!
+				'.Core_CLanguage::_(YOUR_ACCOUNT_SUCCESSFULLY_UPDATED).'
 				</div>';
 				else
 
 
 				return '<div class="alert alert-error">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Your Account Could not Updated!!
+				'.Core_CLanguage::_(YOUR_ACCOUNT_NOT_UPDATED).'
 				</div>';
 		}
 	}
@@ -148,7 +148,7 @@ class Core_CUserAccInfo
 
 			return '<div class="alert alert-success">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Password Successfully Updated!
+			'.Core_CLanguage::_(YOUR_PASSWORD_SUCCESSFULLY_UPDATED).'
 			</div>';
 		}
 		else
@@ -156,7 +156,7 @@ class Core_CUserAccInfo
 
 			return '<div class="alert alert-error">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Your Password Could not Updated!!
+			'.Core_CLanguage::_(YOUR_PASSWORD_HAS_NOT_BEEN_UPDATED).'
 			</div>';
 
 		}

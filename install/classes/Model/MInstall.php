@@ -306,6 +306,14 @@ class Model_MInstall
 			}
 			$selcountrycode.='</select>';
 
+			$sqlLang="SELECT * FROM language";
+			$result3=mysql_query($sqlLang);
+			$selectlanguage='<select name="site_language" id="site_language" style="width:210px;" class="installtext">';
+			while($arry=mysql_fetch_array($result3))
+			{
+				$selectlanguage.='<option value="'.$arry['lang_code'].'" '.(($arry['lang_code']=='en') ? ' selected ="selected" ' : '' ).' >'.$arry['lang_name'].'</option>';
+			}
+			$selectlanguage.='</select>';
 			$template = 'storeset.php';
 		include('templates/home.php');		
 	}
@@ -475,7 +483,6 @@ class Model_MInstall
 	public function finish()
 	{
 
-
 		if(!isset($_POST['email']) || !isset($_POST['uname']) || !isset($_POST['pass']) || !isset($_POST['cpass'])|| !isset($_POST['domain']))
 			header('Location:?do=admdts');
 		$val = new Lib_Validation_Handler();
@@ -507,13 +514,13 @@ class Model_MInstall
 		$sql="DELETE FROM admin_settings_table";
 		$result=mysql_query($sql);			
 		$sql="INSERT INTO `admin_settings_table` (`set_id`, `customer_header`, `site_logo`, `google_analytics`, `time_zone`, `site_moto`, `site_skin`, `admin_email`, `meta_kerwords`, `meta_description`) VALUES
-		(1, 'Exciting offers for this month !!!!&nbsp;', 'images/logo.gif', '', '', '".$domainname."', 'default', '".$adminemail."', '', '')"; 
+		(1, 'Exciting offers for this month !!!&nbsp;', 'images/logo.gif', '', '', '".$domainname."', 'default', '".$adminemail."', '', '')"; 
 		$result=mysql_query($sql);
 
 		$sql="DELETE FROM footer_settings_table";
 		$result=mysql_query($sql);			
-		$sql="INSERT INTO `footer_settings_table` (`email`,footercontent) VALUES
-		('".$adminemail."','Copyright© 2013. All rights reserved.' )"; 
+		$sql="INSERT INTO `footer_settings_table` (`email`,footercontent,free_shipping_cost) VALUES
+		('".$adminemail."','Copyright© 2013. All rights reserved.','500' )"; 
 		$result=mysql_query($sql);
 		
 		header("Location:?do=store");
@@ -563,7 +570,110 @@ class Model_MInstall
 			$sql="INSERT INTO currency_master_table VALUES('1','$currname','$currcode','$countrycode','$currtoken',1,1)"; 
 			$result=mysql_query($sql);
 			
-			
+			$sql="UPDATE admin_settings_table SET site_language='".trim($_POST['site_language'])."'";
+			$result=mysql_query($sql);
+
+			if(trim($_POST['site_language'])=='cn')
+			{
+
+				//category
+				$sql="Drop table if exists category_table";
+				$result=mysql_query($sql);
+				$sql="CREATE TABLE IF NOT EXISTS `category_table` (
+				`category_id` int(15) NOT NULL AUTO_INCREMENT,
+				`category_name` varchar(200) NOT NULL,
+				`category_parent_id` int(15) NOT NULL,
+				`subcat_path` varchar(50) NOT NULL,
+				`category_image` varchar(255) NOT NULL,
+				`category_desc` varchar(500) NOT NULL,
+				`category_status` int(1) NOT NULL,
+				`category_content_id` int(15) NOT NULL,
+				`count` int(11) NOT NULL,
+				PRIMARY KEY (`category_id`)
+				) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ";
+				$result=mysql_query($sql);
+				$sql="INSERT INTO `category_table` (`category_id`, `category_name`, `category_parent_id`, `subcat_path`, `category_image`, `category_desc`, `category_status`, `category_content_id`, `count`) VALUES
+				(1, '女性', 0, '1', 'uploadedimages/caticons/2013-09-10-170711laptop-bags05.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 0),
+				(2, '鞋', 1, '1,2', 'uploadedimages/caticons/2013-09-10-171134formal-shoes03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
+				(3, '服裝', 1, '1,3', 'uploadedimages/caticons/2013-09-10-171416shirt13.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
+				(4, '服裝', 1, '1,4', 'uploadedimages/caticons/2013-09-10-171824digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
+				(5, '袋', 1, '1,5', 'uploadedimages/caticons/2013-09-10-172159wallets03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
+				(6, '靴子', 2, '1,2,6', 'uploadedimages/caticons/2013-09-10-172243sports-shoes07.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(7, ' 正式', 2, '1,2,7', 'uploadedimages/caticons/2013-09-10-172328formals06.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(8, ' 運動鞋', 2, '1,2,8', 'uploadedimages/caticons/2013-09-10-172414Crafted-Long-Sleeved-Shirt.jpg', 'SneakersSneakersSneakersSneakers', 1, 0, 2),
+				(9, '運動鞋', 2, '1,2,9', 'uploadedimages/caticons/2013-09-10-172458formals06.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(10, 'T卹', 3, '1,3,10', 'uploadedimages/caticons/2013-09-10-172543Crafted-Long-Sleeved-Shirt.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(11, '模擬手錶', 4, '1,4,11', 'uploadedimages/caticons/2013-09-10-172631digital-watches06.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(12, '數字手錶', 4, '1,4,12', 'uploadedimages/caticons/2013-09-10-172714digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(13, '計時grahs的', 4, '1,4,13', 'uploadedimages/caticons/2013-09-10-172822chronograhs06.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(14, '筆記本電腦包', 5, '1,5,14', 'uploadedimages/caticons/2013-09-10-172917laptop-bags06.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(15, ' 背上書包', 14, '1,5,14,15', 'uploadedimages/caticons/2013-09-10-172958backpacks03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 3),
+				(16, '錢包', 5, '1,5,16', 'uploadedimages/caticons/2013-09-10-173040Avalanche-Handbag.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(17, '男性', 0, '17', 'uploadedimages/caticons/2013-09-10-173109shirts07.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 0),
+				(18, '鞋', 17, '17,18', 'uploadedimages/caticons/2013-09-10-173157sports-shoes07.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
+				(19, '袋', 17, '17,19', 'uploadedimages/caticons/2013-09-10-173249backpacks03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
+				(20, '服裝', 17, '17,20', 'uploadedimages/caticons/2013-09-10-173328Crafted-Long-Sleeved-Shirt.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
+				(21, '手錶', 17, '17,21', 'uploadedimages/caticons/2013-09-10-173352digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
+				(22, '靴子', 18, '17,18,22', 'uploadedimages/caticons/2013-09-10-173432digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(23, 'T卹', 20, '17,20,23', 'uploadedimages/caticons/2013-09-10-173704Crafted-Long-Sleeved-Shirt.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(24, '數字手錶', 21, '17,21,24', 'uploadedimages/caticons/2013-09-10-173738digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
+				(25, '飾品', 0, '25', 'uploadedimages/caticons/2013-09-10-1738292.jpg', 'AccessoriesAccessories', 1, 0, 0),
+				(26, '移動', 25, '25,26', 'uploadedimages/caticons/2013-09-10-1739106.jpg', 'MobileMobileMobile', 1, 0, 1),
+				(27, '滑蓋手機', 26, '25,26,27', 'uploadedimages/caticons/2013-09-10-1740456.jpg', 'Slider mobileSlider mobileSlider mobile', 1, 0, 2),
+				(28, '計算', 25, '25,28', 'uploadedimages/caticons/2013-09-10-1741422.jpg', 'ComputesComputesComputes', 1, 0, 1);";
+				$result=mysql_query($sql);
+
+				//products
+				$sql="Drop table if exists products_table";
+				$result=mysql_query($sql);
+				$sql="CREATE TABLE IF NOT EXISTS `products_table` (
+				`product_id` int(25) NOT NULL AUTO_INCREMENT,
+				`category_id` varchar(100) NOT NULL,
+				`sku` varchar(100) NOT NULL,
+				`title` varchar(250) NOT NULL,
+				`alias` varchar(100) NOT NULL,
+				`description` text NOT NULL,
+				`brand` varchar(100) NOT NULL,
+				`model` varchar(50) NOT NULL,
+				`msrp` double NOT NULL,
+				`price` double NOT NULL,
+				`cse_enabled` int(1) NOT NULL,
+				`cse_key` varchar(100) DEFAULT NULL,
+				`weight` varchar(25) NOT NULL,
+				`dimension` varchar(100) NOT NULL,
+				`thumb_image` varchar(150) NOT NULL,
+				`image` varchar(150) NOT NULL,
+				`large_image_path` varchar(150) NOT NULL,
+				`shipping_cost` double NOT NULL,
+				`status` int(1) NOT NULL,
+				`tag` varchar(200) NOT NULL,
+				`meta_desc` varchar(255) NOT NULL,
+				`meta_keywords` text NOT NULL,
+				`intro_date` date NOT NULL,
+				`is_featured` int(1) NOT NULL,
+				`digital` int(10) NOT NULL,
+				`gift` int(20) NOT NULL,
+				`digital_product_path` varchar(200) NOT NULL,
+				`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
+				PRIMARY KEY (`product_id`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+				$result=mysql_query($sql);
+				$sql="INSERT INTO `products_table` (`product_id`, `category_id`, `sku`, `title`, `alias`, `description`, `brand`, `model`, `msrp`, `price`, `cse_enabled`, `cse_key`, `weight`, `dimension`, `thumb_image`, `image`, `large_image_path`, `shipping_cost`, `status`, `tag`, `meta_desc`, `meta_keywords`, `intro_date`, `is_featured`, `digital`, `gift`, `digital_product_path`, `product_status`) VALUES
+				(1, '18', '10', '鞋', '鞋', '', '', '', 150, 100, 0, '', '', '', 'images/products/thumb/yonsht250wb.jpg', 'images/products/yonsht250wb.jpg', 'images/products/large_image/yonsht250wb.jpg', 0, 1, '', '', '', '0000-00-00', 1, 0, 0, '', 1),
+				(2, '11', '10', '手錶', '手錶', '', '', '', 800, 500, 0, '', '', '', 'images/products/thumb/2013-03-02-122103analog-watches03.jpg', 'images/products/2013-03-02-122103analog-watches03.jpg', 'images/products/large_image/2013-03-02-122103analog-watches03.jpg', 0, 1, '', '', '', '0000-00-00', 0, 0, 0, '', 0)";
+				$result=mysql_query($sql); 
+
+
+				$sql="UPDATE admin_settings_table SET customer_header='這一個月的令人興奮的優惠！ ！ ！' WHERE set_id	='1'";	
+				$result=mysql_query($sql); 
+
+
+
+				$sql="UPDATE footer_settings_table SET footercontent='版權所有©2013。保留所有權利' WHERE id	='1'";	
+				$result=mysql_query($sql); 	
+
+			}	
+
 			$folders777=array(
 			'../images',
 			'../images/homepageads',

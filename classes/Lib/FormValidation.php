@@ -84,7 +84,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateGiftVoucher()
 	{
 
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("rname",trim($_POST['rname']),"noempty",$message);
 		$this->Assign("name",trim($_POST['name']),"noempty",$message);
 		
@@ -92,7 +92,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		$this->Assign("chkterms",trim($_POST['chkterms']),"noempty",$message);	
 
-		$message = "Required Field Cannot be blank/Invalid Email";		
+		$message = Core_CLanguage::_('REQUIRED')."/".Core_CLanguage::_('INVALID_EMAIL')."";		
 		$this->Assign("email",trim($_POST['email']),"noempty/emailcheck",$message);
 		$this->Assign("remail",trim($_POST['remail']),"noempty/emailcheck",$message);
 
@@ -114,8 +114,8 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		$_SESSION['orderdetails']['weight']='';
 		$_SESSION['orderdetails']['shipping_cost']='';
 
-		$message = "Please select the shipping method";
-		$message1 = "Please select the shipping Duration";
+		$message =Core_CLanguage::_('PLEASE_SELECT_THE_SHIPPING_METHOD');
+		$message1 = Core_CLanguage::_('PLEASE_SELECT_THE_SHIPPING_DURATION');
 		$this->Assign("shipment_id",trim($_POST['shipment_id']),"noempty",$message);		
 		$this->Assign("shipdurid",trim($_POST['shipdurid']),"noempty",$message1);
 
@@ -129,7 +129,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	
 	function validateShippingAddress()
 	{
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtname",trim($_POST['txtname']),"noempty",$message);
 		$this->Assign("txtstreet",trim($_POST['txtstreet']),"noempty",$message);
 		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty",$message);
@@ -140,7 +140,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		{
 			if(!is_numeric($_POST['txtzipcode'])) 
 
-				$this->Assign("txtzipcode","","noempty","ZIP code must be a digit number");
+				$this->Assign("txtzipcode","","noempty",Core_CLanguage::_('INVALID_ZIP_CODE'));
 
 			
 		}
@@ -150,7 +150,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		{
 			if(!preg_match('/^\(?[0-9]{3}\)?|[0-9]{3}[-. ]? [0-9]{3}[-. ]?[0-9]{4}$/', $_POST['txtphone'])) 
 			{
-				$this->Assign("txtphone","","noempty","Please enter a valid phone number");
+				$this->Assign("txtphone","","noempty",Core_CLanguage::_('INVALID_PHONE_NUMBER'));
 			}
 		}
 
@@ -167,7 +167,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	
 	function validateBillingAddress()
 	{
-		$message = "Required Field Cannot be blank";
+		$message =Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtname",trim($_POST['txtname']),"noempty",$message);
 		$this->Assign("txtstreet",trim($_POST['txtstreet']),"noempty",$message);
 		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty",$message);
@@ -178,7 +178,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		{
 			if(!is_numeric($_POST['txtzipcode'])) 
 
-				$this->Assign("txtzipcode","","noempty","ZIP code must be a digit number");
+				$this->Assign("txtzipcode","","noempty",Core_CLanguage::_('INVALID_ZIP_CODE'));
 
 			
 		}
@@ -188,7 +188,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		{
 			if(!preg_match('/^\(?[0-9]{3}\)?|[0-9]{3}[-. ]? [0-9]{3}[-. ]?[0-9]{4}$/', $_POST['txtphone'])) 
 			{
-				$this->Assign("txtphone","","noempty","Please enter a valid phone number");
+				$this->Assign("txtphone","","noempty",Core_CLanguage::_('INVALID_PHONE_NUMBER'));
 			}
 		}
 		$this->PerformValidation("".$_SESSION['base_url']."/index.php?do=showcart&action=getaddressdetails");
@@ -202,10 +202,10 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	
 	function validateproductReview()
 	{
-		$message = "Please select one of each of the ratings above";
+		$message = Core_CLanguage::_('PLEASE_SELECT_ONE_OF_EACH_OF_THE_RATING_ABOVE');
 		$this->Assign("ratings",trim($_POST['ratings']),"noempty",$message);
 		
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("detail",trim($_POST['detail']),"noempty",$message);
 		$this->Assign("reviewtxt",trim($_POST['reviewtxt']),"noempty",$message);
 		
@@ -234,10 +234,10 @@ class Lib_FormValidation extends Lib_Validation_Handler
  			$this->Assign("email",'',"noempty",$message);
 		}
 		*/
-		$message = "Required Field Cannot be blank/Invalid Email";
+		$message =  Core_CLanguage::_('REQUIRED')."/".Core_CLanguage::_('INVALID_EMAIL')."";
 		$this->Assign("email",trim($_POST['email']),"noempty/emailcheck",$message);
 		
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtname",trim($_POST['txtname']),"noempty",$message);
 		
 		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=contactus');
@@ -252,10 +252,10 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	{
 
 
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("firstname",trim($_POST['firstname']),"noempty/nonumber/nospecial''",$message);
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("lastname",trim($_POST['lastname']),"noempty/nonumber/nospecial''",$message);
+		$message =Core_CLanguage::_('REQUIRED');
+		$this->Assign("firstname",trim($_POST['firstname']),"noempty",$message);
+		$message = Core_CLanguage::_('REQUIRED');
+		$this->Assign("lastname",trim($_POST['lastname']),"noempty",$message);
 		/*if(empty($_POST['email']))
 		{
 		    $message = "Required Field Cannot be blank";
@@ -270,9 +270,9 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$message = "Invalid Emails";
  			$this->Assign("email",'',"noempty",$message);
 		}*/
-		$message = "Required Field Cannot be blank/Invalid Email";		
+		$message =  Core_CLanguage::_('REQUIRED')."/".Core_CLanguage::_('INVALID_EMAIL')."";;		
 		$this->Assign("email",trim($_POST['email']),"noempty/emailcheck",$message);
-		$message = "Required Field Cannot be blank";
+		$message =  Core_CLanguage::_('REQUIRED');
 		$this->Assign("passwd",trim($_POST['passwd']),"noempty",$message);
 		$this->Assign("cpasswd",trim($_POST['cpasswd']),"noempty",$message);
 		if(trim($_POST['passwd']) != '' and trim($_POST['cpasswd']) != '')
@@ -318,10 +318,17 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		}*/
 		
 		unset($_SESSION['mycart']);
-		$message = "Required Field Cannot be blank/Invalid Email";
-		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck",$message);
-		$message = "Required Field Cannot be blank";
+
+
+		$message =  Core_CLanguage::_('REQUIRED');
+		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty",$message);
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtpass",trim($_POST['txtpass']),"noempty",$message);
+
+		$message =  Core_CLanguage::_('INVALID_EMAIL');
+		$this->Assign("txtemail",trim($_POST['txtemail']),"emailcheck",$message);
+	
+
 		//$this->Assign("txtcaptcha",trim($_POST['txtcaptcha']),"noempty",$message);
 		//if(!empty($_POST['txtcaptcha']) && !(strtolower(trim($_POST['txtcaptcha']))==strtolower($code)))
 			//$this->Assign("txtcaptcha","","noempty",$message);	
@@ -351,7 +358,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 				if($obj2->records[0]['temp']==0)
 				{
 					
-					$message = "Invalid Username or Password";
+					$message = Core_CLanguage::_('INVALID_USERNAME_OR_PASSWORD');
 					$this->Assign("txtpass",'',"noempty",$message);
 					
 				}
@@ -395,7 +402,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			else
 			{
 				unset($_COOKIE['usremail']);
-				$message = "Invalid User Email";
+				$message =  Core_CLanguage::_('INVALID_USER_EMAIL');
 		    		$this->Assign("txtemail",'',"noempty",$message);
 				
 			}
@@ -412,12 +419,13 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateRegister()
 	{
 		
-		$message = "Required Field Cannot be blank/Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty/nonumber/nospecial''",$message);
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty/nonumber/nospecial''",$message);
-		$message = "Required Field Cannot be blank/No special characters allowed";
-		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty/nospecial''",$message);
+		
+		$message = Core_CLanguage::_('REQUIRED');
+		$this->Assign("txtfname",trim($_POST['txtfname']),"noempty'",$message);
+		$message =  Core_CLanguage::_('REQUIRED');
+		$this->Assign("txtlname",trim($_POST['txtlname']),"noempty",$message);
+		$message = Core_CLanguage::_('REQUIRED');
+		$this->Assign("txtdisname",trim($_POST['txtdisname']),"noempty",$message);
 		/*if(empty($_POST['txtemail']))
 		{
 		    $message = "Required Field Cannot be blank";
@@ -434,20 +442,20 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$message = "Invalid Emails";
  			$this->Assign("txtemail",'',"noempty",$message);
 		}*/
-		$message = "Required Field Cannot be blank/Invalid Email";		
+		$message = Core_CLanguage::_('REQUIRED')."/".Core_CLanguage::_('INVALID_EMAIL')."";		
 		$this->Assign("txtemail",trim($_POST['txtemail']),"noempty/emailcheck",$message);
 		
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtaddr",trim($_POST['txtaddr']),"noempty",$message);
 		
-		$message = "Required Field Cannot be blank/ Alphanumeric not allowed/No special characters allowed";
-		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty/nonumber/nospecial''",$message);
-		$this->Assign("txtState",trim($_POST['txtState']),"noempty/nonumber/nospecial''",$message);
+		$message = Core_CLanguage::_('REQUIRED');
+		$this->Assign("txtcity",trim($_POST['txtcity']),"noempty",$message);
+		$this->Assign("txtState",trim($_POST['txtState']),"noempty",$message);
 		
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtzipcode",trim($_POST['txtzipcode']),"noempty",$message);
 
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtpwd",trim($_POST['txtpwd']),"noempty",$message);
 		$this->Assign("txtrepwd",trim($_POST['txtrepwd']),"noempty",$message);
 		if(trim($_POST['txtpwd']) != '' and trim($_POST['txtrepwd']) != '')
@@ -455,12 +463,12 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$pwdlength =strlen($_POST['txtpwd']);
 			if($pwdlength<6 or $pwdlength>20)
 			{
-				$message = "Password minimum length is 6 & maximum length is 20";
+				$message =Core_CLanguage::_('PASSWORD_MINIMUM');
 				$this->Assign("txtpwd","","noempty",$message);
 			}
 			elseif(trim($_POST['txtpwd']) != trim($_POST['txtrepwd']))
 			{
-				$message = "Enter the Confirm Password correctly";
+				$message = Core_CLanguage::_('ENTER_CORRECT_PASSWORD');
 				$this->Assign("txtrepwd","","noempty",$message);
 				
 			}
@@ -473,17 +481,17 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$dislength =strlen($_POST['txtdisname']);
 			if($fnamelength<3 or $fnamelength>20)
 			{
-				$message = "Minimum length is 3";
+				$message = Core_CLanguage::_('MINIMUM_LENGTH');;
 				$this->Assign("txtfname","","noempty",$message);
 			}
 			if($lnamelength<3 or $lnamelength>20)
 			{
-				$message = "Minimum length is 3";
+				$message = Core_CLanguage::_('MINIMUM_LENGTH');;
 				$this->Assign("txtfname","","noempty",$message);
 			}
 			if($dislength<3 or $dislength>20)
 			{
-				$message = "Minimum length is 3";
+				$message = Core_CLanguage::_('MINIMUM_LENGTH');;
 				$this->Assign("txtdisname","","noempty",$message);
 			}
 		}
@@ -506,7 +514,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			}
 		}*/
 		
-		$message = "Please select terms";
+		$message = Core_CLanguage::_('PLEASE_SELECT_TERMS');
 		$this->Assign("chkterms",trim($_POST['chkterms']),"noempty",$message);
 		
 		if(trim($_POST['txtemail']) != '')
@@ -518,7 +526,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			{
 				if($obj->totrows>0)
 				{
-					$message = "Email already Exist!.Try again.";		
+					$message = Core_CLanguage::_('EMAIL_TRY');		
 					$this->Assign("txtemail",'',"noempty",$message);
 				}
 			}
@@ -532,7 +540,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			{
 				if($obj->totrows>0)
 				{
-					$message = "Username already Exist!.Try again.";		
+					$message = Core_CLanguage::_('USER_TRY');		
 					$this->Assign("txtdisname",'',"noempty",$message);
 				}
 			}
@@ -550,8 +558,8 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		
 		if($_POST['email']!='' and $_POST['email']=='')
 		{
-		    $message = "Required Field Cannot be blank/Invalid Email";
-			$this->Assign("email",'',"noempty/emailcheck",$message);echo'l';exit;
+		    $message = Core_CLanguage::_('REQUIRED')."/".Core_CLanguage::_('INVALID_EMAIL')."";
+			$this->Assign("email",'',"noempty/emailcheck",$message);
 		}
 		
 		/*else
@@ -641,7 +649,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	function validateCheckout()
 	{
 
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtname",trim($_POST['txtname']),"noempty",$message);
 		//	$this->Assign("txtcompany",trim($_POST['txtcompany']),"noempty",$message);		
 		$this->Assign("txtstreet",trim($_POST['txtstreet']),"noempty",$message);
@@ -667,7 +675,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */	
 	function validateWishlist()
 	{
-		$message = "Required Field Cannot be blank/Invalid Email Id";
+		$message = Core_CLanguage::_('REQUIRED')."/".Core_CLanguage::_('INVALID_EMAIL')."";
 		$this->Assign("txtEmail",trim($_POST['txtEmail']),"noempty/emailcheck",$message);
 
 		$this->PerformValidation(''.$_SESSION['base_url'].'/index.php?do=wishlist');
@@ -680,13 +688,13 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */
 	function validateUserAccount()
 	{
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');;
 		$this->Assign("txtFName",trim($_POST['txtFName']),"noempty",$message);
 
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');;
 		$this->Assign("txtLName",trim($_POST['txtLName']),"noempty",$message);
 
-		$message = "Required Field Cannot be blank/Invalid Email";
+		$message = Core_CLanguage::_('REQUIRED')."/".Core_CLanguage::_('INVALID_EMAIL')."";
 		$this->Assign("txtEmail",trim($_POST['txtEmail']),"noempty/emailcheck",$message);
 
 		
@@ -701,7 +709,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */
 	function validateChangePassword()
 	{
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtCPwd",trim($_POST['txtCPwd']),"noempty",$message);
 		$this->Assign("txtNPwd",trim($_POST['txtNPwd']),"noempty",$message);
 		$this->Assign("txtCNPwd",trim($_POST['txtCNPwd']),"noempty",$message);
@@ -740,7 +748,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$pwdlength =strlen($_POST['txtCNPwd']);
 			if($pwdlength<6)
 			{
-				$message = "Password minimum length is 6";
+				$message = Core_CLanguage::_('PASSWORD_MINIMUM');
 				$this->Assign("txtCNPwd","","noempty",$message);
 			}					
 		}
@@ -750,7 +758,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 		{
 			if(trim($_POST['txtNPwd'])!=trim($_POST['txtCNPwd']))	
 			{
-				$message = "Password mismatch";
+				$message = Core_CLanguage::_('PASSWORD_MISMATCH');
 				$this->Assign("txtCNPwd","","noempty",$message);
 			}			
 		}
@@ -765,7 +773,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	 */
 	function validateAddress()
 	{
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtGName",trim($_POST['txtGName']),"noempty",$message);
 		
 		if(trim($_POST['txtGName'])!='' && $_POST['Submit2']=='Create')		
@@ -776,25 +784,25 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			{
 				if($obj->totrows>0)
 				{
-					$message = "Name already Exist in datatbase";		
+					$message = Core_CLanguage::_('NAME_EXISTS');		
 					$this->Assign("txtGName",'',"noempty",$message);
 				}
 			}
 		}
 	
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtFName",trim($_POST['txtFName']),"noempty",$message);
 
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtLName",trim($_POST['txtLName']),"noempty",$message);
 
 		if(trim($_POST['txtEMail'])!='')
 		{
-			$message = "Invalid Email";
+			$message =Core_CLanguage::_('INVALID_EMAIL');
 			$this->Assign("txtEMail",trim($_POST['txtEMail']),"emailcheck",$message);
 		}
 		
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtAddress",trim($_POST['txtAddress']),"noempty",$message);
 		$this->Assign("txtCity",trim($_POST['txtCity']),"noempty",$message);
 		$this->Assign("txtState",trim($_POST['txtState']),"noempty",$message);
@@ -813,7 +821,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 	{
 	
 
-		$message = "Required Field Cannot be blank";
+		$message = Core_CLanguage::_('REQUIRED');
 		$this->Assign("txtregemail",trim($_POST['txtregemail']),"noempty",$message);
 		$this->Assign("txtregpass",trim($_POST['txtregpass']),"noempty",$message);
 		//$this->Assign("txtcaptcha",trim($_POST['txtcaptcha']),"noempty",$message);
@@ -823,14 +831,14 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			$pwdlength =strlen($_POST['txtregpass']);
 			if($pwdlength<6)
 			{
-				$message = "Password minimum length is 6";
+				$message = Core_CLanguage::_('PASSWORD_MINIMUM');
 				$this->Assign("txtregpass","","noempty",$message);
 			}			
 		}	
 		
 		if(trim($_POST['txtregemail'])!='')
 		{
-			$message = "Invalid Email";
+			$message = Core_CLanguage::_('INVALID_EMAIL');
 			$this->Assign("txtregemail",trim($_POST['txtregemail']),"emailcheck",$message);
 		}
 		
@@ -856,7 +864,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 				if($obj2->records[0]['temp']==0)
 				{
 					
-					$message = "Invalid  Password";
+					$message = Core_CLanguage::_('INVALID_PASWORD');
 					$this->Assign("txtregpass",'',"noempty",$message);
 					
 				}
@@ -876,7 +884,7 @@ class Lib_FormValidation extends Lib_Validation_Handler
 			else
 			{
 				unset($_COOKIE['usremail']);
-				$message = "Invalid User Email";
+				$message = Core_CLanguage::_('INVALID_EMAIL');
 		    		$this->Assign("txtregemail",'',"noempty",$message);
 				
 			}

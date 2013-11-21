@@ -46,6 +46,7 @@ class Display_DNewProducts
  	*/
 	function newProducts($arr,$r)
 	{
+
 		if(count($arr)>0)
 		{
 			$output=' <div class="row-fluid">';
@@ -93,11 +94,11 @@ class Display_DNewProducts
 				<div class="mask"><span class="visible-phone">
 					<h2><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				</span><span class="hidden-phone">
-					<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+					<h2>'.$arr[$i]['title'].'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 					
 					<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
 				
-				$output.='<button class="info" type="submit" >Add to Cart</button>';
+				$output.='<button class="info" type="submit" >'.Core_CLanguage::_(ADD_TO_CART).'</button>';
 			
 				$output.='</div>
 				</div><input type="hidden" name="addtocart"></form></div>';
@@ -111,7 +112,7 @@ class Display_DNewProducts
 		{
 			$output.='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			<strong>No Products Found</strong> 
+			<strong>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</strong> 
 			</div>';
 		}
 		
@@ -174,7 +175,7 @@ class Display_DNewProducts
 					
 					<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
 			
-				$output.='<button class="info" type="submit" >Add to Cart</button>';
+				$output.='<button class="info" type="submit" >'.Core_CLanguage::_(ADD_TO_CART).'</button>';
 				
 				$output.='</div>
 				</div><input type="hidden" name="addtocart"></form></div>';
@@ -188,7 +189,7 @@ class Display_DNewProducts
 		{
 			$output.='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			<strong>No Products Found</strong> 
+			<strong>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</strong> 
 			</div>';
 		}
 		
@@ -203,7 +204,7 @@ class Display_DNewProducts
 	function newProductsElse()
 	{
 		$output = '<div class="recent"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-			<tr><td width="36%" align="center"><font color="orange"><b>Products not yet viewed</b></font></td></tr></table></div>';
+			<tr><td width="36%" align="center"><font color="orange"><b>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</b></font></td></tr></table></div>';
 		return $output;
 	}
 	/**
@@ -283,7 +284,7 @@ class Display_DNewProducts
 			{
 			$output.='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			<strong>No Products Found</strong> 
+			<strong>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</strong> 
 			</div>';
 			}
 		
@@ -326,9 +327,9 @@ class Display_DNewProducts
 					$output.='<div class="galleryImage"><a href="'.$_SESSION['base_url'].'/'.$records[$i]['alias'].'.html"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$records[$i]['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'"></a>
 
 					<div class="info">  
-					<h2>'.$records[$i]['title'].'</h2>
+					<h2>'.substr(trim($records[$i]['title']),'0','15').'</h2>
 					
-					'.substr(trim($records[$i]['description']),'0','20').'
+				
 					
 					<h4>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$records[$i]['msrp'].'</h4>
 					<input type="hidden" name="addtocart">';
@@ -380,7 +381,7 @@ class Display_DNewProducts
 			{
 			$output.='<div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			<strong>No Products Found</strong> 
+			<strong>'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</strong> 
 			</div></div></div>';
 			}
 
@@ -404,7 +405,9 @@ class Display_DNewProducts
 			</div>';	
 
 
-		return $output;
+		return $output;	
+
+
 
 
 	}
@@ -421,12 +424,28 @@ class Display_DNewProducts
 		$categorycount=count($category);
 	
 		
+
+
 		if($categorycount>0)
 		{
 
 			for($i=0;$i<$categorycount;$i++)
 			{
-				
+				$parentcat=$category[0];
+				$parentcat=str_replace('-',' ',$parentcat);
+				$sqlParent="SELECT * FROM category_table WHERE category_name='".$parentcat."'";	
+				$objParent=new Bin_Query();
+				$objParent->executeQuery($sqlParent);	
+				$parent_id=$objParent->records[0]['category_id']; 
+
+				$categoryname=$category[$i];
+				$categoryname=str_replace('-',' ',$categoryname);		
+			 	$sql="SELECT * FROM  category_table  WHERE category_name='".$categoryname."' AND FIND_IN_SET($parent_id,subcat_path)";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);	
+				$records=$obj->records[0];
+
+
 				$url=array_slice($category, 0, $i+1);
 				$comma_separated = implode("/", $url);
 				$pos=strpos($_SERVER['REQUEST_URI'],'grid');
@@ -443,12 +462,12 @@ class Display_DNewProducts
 		
 				if(($categorycount-1)==($i))
 				{
-					$linkcontent=$category[$i];
+					$linkcontent=$records['category_name'];
 				}
 				else
 				{
 					
-					$linkcontent='<a href='.$_SESSION['base_url'].'/'.$comma_separated.'>'.$category[$i].'</a><span class="divider">/</span>';
+					$linkcontent='<a href='.$_SESSION['base_url'].'/'.$comma_separated.'>'.$records['category_name'].'</a><span class="divider">/</span>';
 				}
 
 				$output.='<li>'.$linkcontent.'</li>';	
@@ -456,7 +475,7 @@ class Display_DNewProducts
 
 			
 		}
-		
+
 		return $output;
 	}
 
@@ -465,5 +484,4 @@ class Display_DNewProducts
 }
 
 
-	
 ?>

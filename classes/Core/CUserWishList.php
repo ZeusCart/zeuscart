@@ -144,7 +144,7 @@ class Core_CUserWishList
 
 		return '<div class="alert alert-success">
 		<button data-dismiss="alert" class="close" type="button">×</button>
-		Mail has been send!
+		'.Core_CLanguage::_(MAIL_HAS_BEEN_SENT).'
 		</div>';
 	}
 	/**

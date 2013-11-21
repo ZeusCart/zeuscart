@@ -121,6 +121,7 @@ class Display_DFooterLinks
  	*/
 	function showContactUs($Err)
 	{
+
 		if($Err->messages>0)
 		{
 			$output['val']=$Err->values;
@@ -130,21 +131,21 @@ class Display_DFooterLinks
 		<form class="form-horizontal"  name="contactus" action="'.$_SESSION['base_url'].'/index.php?do=contactus&action=validatecontactus" method="post">
 
             <div class="control-group">
-              <label for="inputEmail" class="control-label">Name  <i class="red_fnt">*</i></label>
+              <label for="inputEmail" class="control-label">'.Core_CLanguage::_('NAME').'<i class="red_fnt">*</i></label>
               <div class="controls">
 		<input type="text" name="txtname" maxlength="40"  value="'.$output['val']['txtname'].'"/>
 		<font color="red">'.$output['msg']['txtname'].'</font>
               </div>
             </div>
             <div class="control-group">
-              <label for="inputPassword" class="control-label">Email Address <i class="red_fnt">*</i></label>
+              <label for="inputPassword" class="control-label">'.Core_CLanguage::_('EMAIL_ADDRESS').'<i class="red_fnt">*</i></label>
               <div class="controls">
                 <input type="text" name="email" maxlength="40"  value="'.$output['val']['email'].'"/>
 		  <font color="red">'.$output['msg']['email'].'</font>
               </div>
             </div>
             <div class="control-group">
-              <label for="inputPassword" class="control-label">Enquiry</label>
+              <label for="inputPassword" class="control-label">'.Core_CLanguage::_('ENQUIRY').'</label>
               <div class="controls">
                <textarea rows="10" cols="35" name="comment" style="width: 211px; height: 93px;"></textarea>
               </div>
@@ -154,7 +155,7 @@ class Display_DFooterLinks
           
             <div class="control-group">
               <div class="controls">
-                <button class="btn btn-danger" type="submit">Submit</button>
+                <button class="btn btn-danger" type="submit">'.Core_CLanguage::_('SUBMIT').'</button>
               </div>
             </div>
           </form>           </div>';

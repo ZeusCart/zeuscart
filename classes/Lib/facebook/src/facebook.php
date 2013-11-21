@@ -16,11 +16,11 @@
  */
 
 require_once "base_facebook.php";
-
 /**
  * Extends the BaseFacebook class with the intent of using
  * PHP sessions to store user ids and access tokens.
  */
+
 class Facebook extends BaseFacebook
 {
   const FBSS_COOKIE_NAME = 'fbss';
@@ -92,7 +92,6 @@ class Facebook extends BaseFacebook
       // @codeCoverageIgnoreEnd
     }
   }
-
   /**
    * Provides the implementations of the inherited abstract
    * methods.  The implementation uses PHP sessions to maintain

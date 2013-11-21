@@ -1,6 +1,13 @@
       <h1>Store Setting</h1>
 <div class="body_cnt" id="container">
            		 <div class="scroll-pane">
+  <h2>Language Settings</h2>
+                      <dl class="setting">
+                              <dt>Select Language</dt>
+                                <dd><?php echo $selectlanguage; ?>
+        <span style="color:#FF0000"> <?php echo $Err->messages['currname'] ?></span></dd>
+ 
+                    <div class="clear"></div>
                   	<h2>Currency Settings</h2>
            		   			<dl class="setting">
                             	<dt>Currency Name</dt>
@@ -24,5 +31,7 @@
 				<div class="clear"></div>
                             </dl>
                             <div class="clear"></div>
+
+                         
 </div>
            		</div>

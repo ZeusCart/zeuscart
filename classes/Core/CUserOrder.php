@@ -70,7 +70,7 @@ class Core_CUserOrder
 			$this->data['next'] = $tmp->next;	
 		}
 		
-		$sqlselect = "SELECT a.customers_id,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total,a.currency_id,f.id,f.currency_tocken,a.shipment_track_id,e.shipment_id,e.shipment_name FROM `orders_table` a inner join orders_status_table b on a.orders_status=b.orders_status_id inner join users_table c on a.customers_id=c.user_id inner join order_products_table d on a.orders_id=d.order_id left join shipments_master_table e on a.shipment_id_selected=e.shipment_id left join currency_master_table f on f.id=a.currency_id where a.customers_id=".$id." group by a.orders_id order by a.date_purchased desc LIMIT $start,$end";		
+		$sqlselect = "SELECT a.customers_id,a.orders_status,a.orders_id,date_format(a.date_purchased,'%e/%c/%Y') as pdate,b.orders_status_name,c.user_display_name,a.order_total as total,a.currency_id,f.id,f.currency_tocken,a.shipment_track_id,e.shipment_id,e.shipment_name FROM `orders_table` a inner join orders_status_table b on a.orders_status=b.orders_status_id inner join users_table c on a.customers_id=c.user_id inner join order_products_table d on a.orders_id=d.order_id left join shipments_master_table e on a.shipment_id_selected=e.shipment_id left join currency_master_table f on f.id=a.currency_id where a.customers_id=".$id." group by a.orders_id order by a.date_purchased desc LIMIT $start,$end";		
 		$obj = new Bin_Query();
 
 		$obj->executeQuery($sqlselect);
@@ -202,7 +202,7 @@ class Core_CUserOrder
 
 				$_SESSION['errmsg']='<div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				<strong>You Can not download this product</strong> 
+				<strong>'.Core_CLanguage::_(YOU_CANNOT_DOWNLOAD_THIS_PRODUCT).'</strong> 
 				</div>';
 				header('Location:?do=digitdown');
 				exit();
@@ -212,7 +212,7 @@ class Core_CUserOrder
 		{
 			$_SESSION['errmsg']='<div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				<strong>You Can not download this product</strong> 
+				<strong>'.Core_CLanguage::_(YOU_CANNOT_DOWNLOAD_THIS_PRODUCT).'</strong> 
 				</div>';
 			header('Location:?do=digitdown');
 			exit();

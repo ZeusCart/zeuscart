@@ -49,7 +49,7 @@ class Display_DUserAccount
 			$status='checked=checked';
 			
 		$output='<div class="title_fnt">
-		<h1>Newsletter Subscriptions </h1>
+		<h1>'.Core_CLanguage::_('NEWS_SUBCRIPTIONS').'</h1>
 		</div>
 	
 		<div id="myaccount_div">
@@ -57,12 +57,12 @@ class Display_DUserAccount
 		<div class="control-group">
 		<label for="inputPassword" class="control-label"></label>
 		<div class="controls">
-		<input type="checkbox" name="chkNewsSub" '.$status.' /> <input type="hidden" name="subId" value="'.$value.'" />&nbsp;<strong>General Subscription</strong>
+		<input type="checkbox" name="chkNewsSub" '.$status.' /> <input type="hidden" name="subId" value="'.$value.'" />&nbsp;<strong>'.Core_CLanguage::_('GENERAL_SUBSCRIPTION').'</strong>
 		</div>
 		</div>
 		<div class="control-group">
 		<div class="controls">
-			<button class="btn btn-danger" type="submit">Submit</button>
+			<button class="btn btn-danger" type="submit">'.Core_CLanguage::_('SUBMIT').'</button>
 		</div>
 		</div>
 		</form>
@@ -84,32 +84,32 @@ class Display_DUserAccount
 	function showDashboard($arr,$arrUser,$status,$paging,$prev,$next,$val)
 	{
 
-		$newsStatus='You are currently not subscribed to newsletter.';
+		$newsStatus=Core_CLanguage::_('YOU_ARE_CURRENTLY_NOT_SUBSCRIBED_TO_NEWSLETTER');
 		if($status[0]['status']==1)
-			$newsStatus='You are currently subscribed to newsletter.';
+			$newsStatus=Core_CLanguage::_('YOU_ARE_CURRENTLY_SUBSCRIBED_TO_NEWSLETTER');
 		
 		$output='
             	<div class="title_fnt">
-    		<h1>My Account</h1>
+    		<h1>'.Core_CLanguage::_('MY_ACCOUNT').'</h1>
         	</div>
 
 		<div id="myaccount_div">
 		<div class="myacc_detail">
-			<h4>Hello,'.$_SESSION['user_name'].'</h4>
-		<p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</p>
-			<p class="pull-right"><a href="'.$_SESSION['base_url'].'/index.php?do=myorder" class="btn btn-inverse">View All</a></p>
+		<h4>'.Core_CLanguage::_('HELLO').','.$_SESSION['user_name'].'</h4>
+		<p>'.Core_CLanguage::_('DASHBOARD_DESCRIPTION').'</p>
+			<p class="pull-right"><a href="'.$_SESSION['base_url'].'/index.php?do=myorder" class="btn btn-inverse">'.Core_CLanguage::_('VIEW_ALL').'</a></p>
 		<div class="clear"></div>
-		<h4>Recent Order</h4>
+		<h4>'.Core_CLanguage::_('RECENT_ORDER').'</h4>
 		</div>
 		<table class="rt cf" id="rt1">
 			<thead class="cf">
 				<tr>
-					<th>Order</th>
-					<th>Date</th>
-					<th>Ship to</th>
-					<th>Order Total</th>
-					<th>Status</th>
-					<th>Detail</th>
+					<th>'.Core_CLanguage::_('ORDER').'</th>
+					<th>'.Core_CLanguage::_('DATE').'</th>
+					<th>'.Core_CLanguage::_('SHIP_TO').'</th>
+					<th>'.Core_CLanguage::_('ORDER_TOTAL').'</th>
+					<th>'.Core_CLanguage::_('STATUS').'</th>
+					<th>'.Core_CLanguage::_('DETAIL').'</th>
 				</tr>
 			</thead>
 			<tbody>';
@@ -124,7 +124,7 @@ class Display_DUserAccount
 					<td>'.$arr[$i]['user_display_name'].'</td>
 					<td><span class="label label-inverse">'.$arr[$i]['currency_tocken'].number_format($arr[$i]['total']).'</span></td>
 					<td> <span class="label label-success">'.$arr[$i]['orders_status_name'].'</span></td>
-					<td><a href="'.$_SESSION['base_url'].'/index.php?do=orderdetail&id='.$arr[$i]['orders_id'].'" class="btn btn-mini">View Order</a></td>
+					<td><a href="'.$_SESSION['base_url'].'/index.php?do=orderdetail&id='.$arr[$i]['orders_id'].'" class="btn btn-mini">'.Core_CLanguage::_('VIEW_ORDER').'</a></td>
 					</tr>';
 				}
 
@@ -134,7 +134,7 @@ class Display_DUserAccount
 			{
 				$output.='<tr><td colspan="6"><div class="alert alert-info">
 					<button data-dismiss="alert" class="close" type="button">×</button>
-					<strong>No Products Found</strong> 
+					<strong>'.Core_CLanguage::_('NO_PRODUCT_FOUND').'</strong> 
 					</div></td></tr>';
 	
 			}
@@ -188,29 +188,29 @@ class Display_DUserAccount
 			$hidsubid=$output['val']['hidsubid'];;
 		}
 		$out=' <div class="title_fnt">
-		<h1>Edit Account Information</h1>
+		<h1>'.Core_CLanguage::_('EDIT_ACCOUNT_INFORMATION').'</h1>
 		</div>
 		
 			
 		<div id="myaccount_div">
 		<form class="form-horizontal" name="frmAcc" method="post" action="'.$_SESSION['base_url'].'/index.php?do=accountinfo&action=add">
 		
-		<h3 class="accinfo_fnt">Account Information</h3>
+		<h3 class="accinfo_fnt">'.Core_CLanguage::_('ACCOUNT_INFORMATION').'</h3>
 		'.$output['result'].'
 		<div class="control-group">
-		<label for="inputEmail" class="control-label">First Name   <i class="red_fnt">*</i></label>
+		<label for="inputEmail" class="control-label">'.Core_CLanguage::_('FIRST_NAME').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtFName" type="text"  id="txtFName" value="'.$fname.'" /><br/><span style="color:#ff0000">'.$output['msg']['txtFName'].'</span>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Last Name <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('LAST_NAME').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtLName" type="text"  id="txtLName" value="'.$lname.'" /><br/><span style="color:#ff0000">'.$output['msg']['txtLName'].'</span>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Email Address  <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('EMAIL_ADDRESS').'  <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtEmail" type="text"  id="txtEmail" value="'.$email.'" /><br/><span style="color:#ff0000">'.$output['msg']['txtEmail'].'</span><input type="hidden" name="hidsubid" value="'.$hidsubid.'"/>	
 		</div>
@@ -219,7 +219,7 @@ class Display_DUserAccount
 		
 		<div class="control-group">
 		<div class="controls">
-		<button class="btn btn-danger" type="submit">Submit</button>&nbsp;<a href="javascript:void(0);" onclick="history.go(-1);"><button class="btn" type="button">Cancel</button></a>
+		<button class="btn btn-danger" type="submit">'.Core_CLanguage::_('SUBMIT').'</button>&nbsp;<a href="javascript:void(0);" onclick="history.go(-1);"><button class="btn" type="button">'.Core_CLanguage::_('CANCEL').'</button></a>
 		</div>
 		</div>
 		</form>           </div>';
@@ -267,7 +267,7 @@ class Display_DUserAccount
 			$hidsubid=$output['val']['hidsubid'];;
 		}	
 		$output='<div class="title_fnt">
-		<h1>Change Password</h1>
+		<h1>'.Core_CLanguage::_('CHANGE_PASSWORD').'</h1>
 		</div>
 		
 			
@@ -275,26 +275,26 @@ class Display_DUserAccount
 		<form class="form-horizontal" name="frmAcc" method="post" action="'.$_SESSION['base_url'].'/index.php?do=changepassword&action=update">
 		
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Current Password  <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('CURRENT_PASSWORD').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 			<input name="txtCPwd" type="password"  id="txtCPwd"  value="'.$cpwd.'"/><br/><span style="color:#ff0000">'.$output['msg']['txtCPwd'].'</span>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">New Password <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('NEW_PASSWORD').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtNPwd" type="password"  id="txtNPwd"  value="'.$npwd.'"/><br/><span style="color:#ff0000">'.$output['msg']['txtNPwd'].'</span>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Confirm New Password  <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('CONFIRMA_NEW_PASSWORD').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtCNPwd" type="password"  id="txtCNPwd"  value="'.$cnpwd.'"/>&nbsp;<br/><span style="color:#ff0000">'.$output['msg']['txtCNPwd'].'</span>
 		</div>
 		</div>
 		<div class="control-group">
 		<div class="controls">
-		<button class="btn btn-danger" type="submit">Submit</button>&nbsp;<a href="javascript:void(0);" onclick="history.go(-1);"><button class="btn" type="button">Cancel</button></a>
+		<button class="btn btn-danger" type="submit">'.Core_CLanguage::_('SUBMIT').'</button>&nbsp;<a href="javascript:void(0);" onclick="history.go(-1);"><button class="btn" type="button">'.Core_CLanguage::_('CANCEL').'</button></a>
 		</div>
 		</div>
 		</form>           </div>';
@@ -318,7 +318,7 @@ class Display_DUserAccount
 		if(count($arr>0))
 		{
 		//changepagesize
-			$showpages='<li><span class="label label-success">'.count($arr).' </span> item(s) </li> <li style="float:right">Show 
+			$showpages='<li><span class="label label-success">'.count($arr).' </span> &nbsp;'.Core_CLanguage::_('ITEMS').' </li> <li style="float:right">'.Core_CLanguage::_('SHOW').'
 					<select name="select2" style="width:50px;" onchange="changepagesize(\'review\',this.value);">';
 					$showpages.='<option ';
 						if(isset($_GET['totrec'])&&$_GET['totrec']==10)
@@ -333,12 +333,12 @@ class Display_DUserAccount
 						$showpages.='selected';
 						$showpages.=' value="30" >30</option>';
 					$showpages.='</select>
-					per page</li>';	
+					'.Core_CLanguage::_('PER_PAGE').'</li>';	
 		}
 
 
 		$output='<div class="title_fnt">
-		<h1>My Product Reviews</h1>
+		<h1>'.Core_CLanguage::_('MY_PRODUCT_REVIEWS').'</h1>
 		</div>
 		<div id="myaccount_div">
 		<ul class="listviews">
@@ -351,12 +351,12 @@ class Display_DUserAccount
 		<table class="rt cf" id="rt1">
 			<thead class="cf">
 				<tr>
-					<th>Date</th>
-					<th>Product</th>
-					<th>Reviews</th>
-					<th>Rating</th>
-					<th>Status </th>
-					<th>Details</th>	
+					<th> '.Core_CLanguage::_('PRODUCT').'</th>
+					<th>'.Core_CLanguage::_('DATE').'</th>
+					<th>'.Core_CLanguage::_('REVIEWS').'</th>
+					<th>'.Core_CLanguage::_('RATING').'</th>
+					<th>'.Core_CLanguage::_('STATUS').' </th>
+					<th>'.Core_CLanguage::_('ACTION').'</th>	
 				</tr>
 			</thead>
 			<tbody>';			
@@ -368,7 +368,7 @@ class Display_DUserAccount
 					if($arr[$i]['rating']>0)
 							$rating='<img src="'.$_SESSION['base_url'].'/assets/img/star'.$arr[$i]['rating'].'.jpg"/>';
 						else
-							$rating='No Rating';
+							$rating=Core_CLanguage::_('NO_RATING');
 
 				        $output.='<tr>
 					<td>'.$arr[$i]['rdate'].'</td>
@@ -377,7 +377,7 @@ class Display_DUserAccount
 					<td>'.$rating.'</td>
 					<td>'.$arr[$i]['rstatus'].'</td>
 					 <td>
-					<a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="btn btn-mini" >View Details </a>';
+					<a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="btn btn-mini" >'.Core_CLanguage::_('VIEW_DETAILS').'</a>';
               
 					$output.='</td>
 					</tr>
@@ -388,7 +388,7 @@ class Display_DUserAccount
 			{
 				$output.='<tr><td colspan="6"><div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				<strong>No Products Found</strong> 
+				<strong>'.Core_CLanguage::_('NO_PRODUCT_FOUND').'</strong> 
 				</div></td></tr>';
 
 			}	
@@ -412,7 +412,7 @@ class Display_DUserAccount
 	function showWishList($arr,$paging,$prev,$next,$val,$result)
 	{
 		$output.=$result.'<div class="title_fnt">
-		<h1>My Wishlist </h1>
+		<h1>'.Core_CLanguage::_('MY_WISHLIST').'</h1>
 		</div>
 		<div id="myaccount_div">
 		
@@ -420,10 +420,10 @@ class Display_DUserAccount
 			<thead class="cf">
 				<tr>
 					<th></th>
-					<th>Product Image</th>
-					<th>Product </th>
-					<th>Added On </th>
-					<th>Action</th>
+					<th>'.Core_CLanguage::_('PRODUCT_IMAGE').'</th>
+					<th>'.Core_CLanguage::_('PRODUCT').'</th>
+					<th>'.Core_CLanguage::_('ADDED_ON').'</th>
+					<th>'.Core_CLanguage::_('ACTION').'</th>
 				</tr>
 			</thead>
 			<tbody>';
@@ -442,7 +442,7 @@ class Display_DUserAccount
 					<img src="'.$img.'" alt="" width="52" height="52" style="border:none" /></a></td><td><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br /><!--$-->
 						  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp'],2).'</a></td>
 					<td>'.$arr[$i]['adate'].'</td>
-					<td><a class="btn btn-mini" href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">View Product</a></td>
+					<td><a class="btn btn-mini" href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.Core_CLanguage::_('VIEW_PRODUCT').'</a></td>
 					</tr>';
 				}
 				
@@ -451,7 +451,7 @@ class Display_DUserAccount
 			{
 				$output.='<tr><td colspan="6"><div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				<strong>No Products Wishlist Found</strong> 
+				<strong>'.Core_CLanguage::_('NO_PRODUCTS_WISHLIST_FOUND').'</strong> 
 				</div></td></tr>';
 
 			}	
@@ -515,7 +515,7 @@ class Display_DUserAccount
 		if(count($arr>0))
 		{
 			//changepagesize
-			$showpages='<li><span class="label label-success">'.count($arr).' </span> &nbsp;item(s) </li> <li style="float:right">Show 
+			$showpages='<li><span class="label label-success">'.count($arr).' </span> &nbsp;'.Core_CLanguage::_(ITEMS).' </li> <li style="float:right">'.Core_CLanguage::_(SHOW).'
 			<select name="select2" style="width:50px;" onchange="changepagesize(\'order\',this.value);">';
 			$showpages.='<option ';
 			if(isset($_GET['totrec'])&&$_GET['totrec']==10)
@@ -530,13 +530,13 @@ class Display_DUserAccount
 			$showpages.='selected';
 			$showpages.=' value="30" >30</option>';
 			$showpages.='</select>
-			per page</li>';	
+			'.Core_CLanguage::_(PER_PAGE).'</li>';	
 		}
 
 
 		$output='
            	 <div class="title_fnt">
-    		<h1>My Orders</h1>
+    		<h1>'.Core_CLanguage::_(MY_ORDERS).'</h1>
         	</div><div id="myaccount_div">
                <ul class="listviews">
                 	'.$showpages.'
@@ -545,12 +545,12 @@ class Display_DUserAccount
              <table class="rt cf" id="rt1">
 		<thead class="cf">
 			<tr>
-				<th>Order</th>
-				<th>Date</th>
-				<th>Order Total</th>
-               			<th>Track Id</th>
-				<th>Status</th>
-				<th>Action</th>
+				<th>'.Core_CLanguage::_(ORDER).'</th>
+				<th>'.Core_CLanguage::_(DATE).'</th>
+				<th>'.Core_CLanguage::_(ORDER_TOTAL).'</th>
+               	<th>'.Core_CLanguage::_(TRACK_ID).'</th>
+				<th>'.Core_CLanguage::_(STATUS).'</th>
+				<th>'.Core_CLanguage::_(ACTION).'</th>
 				
 			</tr>
 			</thead>
@@ -565,8 +565,8 @@ class Display_DUserAccount
 					<td><span class="label label-inverse">'.$arr[$i]['currency_tocken'].number_format($arr[$i]['total'],2).'</span></td>
 					
 					<td>'.$arr[$i]['shipment_track_id'].'</td>
-					<td><span class="label label-important">'.$arr[$i]['orders_status_name'].'</span></td>
-					<td><a href="?do=orderdetail&id='.$arr[$i]['orders_id'].'" class="btn btn-mini">View Order</a></td>
+					<td><span class="label label-important">'.Core_CLanguage::_(ORDER_STATUS_NAME.$arr[$i]['orders_status']).'</span></td>
+					<td><a href="?do=orderdetail&id='.$arr[$i]['orders_id'].'" class="btn btn-mini">'.Core_CLanguage::_(VIEW_ORDER).'</a></td>
 					</tr>';
 				}
 			}
@@ -575,7 +575,7 @@ class Display_DUserAccount
 
 			$output.='<tr><td colspan="6"><div class="alert alert-info">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			<strong>No orders Found</strong>
+			<strong>'.Core_CLanguage::_(NO_ORDERS_FOUND).'</strong>
 			</div></td></tr>';
 
 			}
@@ -614,7 +614,7 @@ class Display_DUserAccount
  	*/
 	function showOrderDetails($arr)
 	{
-
+	
 		//shipcost
 		$order_ship=$arr[0]['order_ship'];
 		$shipping_method=trim($arr[0]['shipping_method']);	
@@ -630,12 +630,12 @@ class Display_DUserAccount
 				}
 			}
 			$ups_ship_method='<tr>
-			<td>Shipping Duration</td>
+			<td>'.Core_CLanguage::_(SHIP_DURATION).'</td>
 			<th>'.$ship_duration.'</th>
 			</tr>';
 		}
 		$output=' <div class="title_fnt">
-		<h1>Order Details</h1>
+		<h1>'.Core_CLanguage::_(ORDER_DETAILS).'</h1>
 		<span><a href="javascript:window.open (\'?do=orderdetail&action=print&id='.$arr[0]['orders_id'].'\',\'mywindow\',\'location=1,status=1,scrollbars=1,width=920,height=700\');void(0);"><button name="color" type="button" class="btn btn-danger" value="btn btn-danger">Print</button></a>
 		</span>
 
@@ -646,26 +646,26 @@ class Display_DUserAccount
 		<div class="myacc_detail">
 				<div class="clear"></div>
 				<div class="row-fluid">
-				<div class="span6"><h4>Order Information</h4>
+				<div class="span6"><h4>'.Core_CLanguage::_(ORDER_INFORMATION).'</h4>
 			<table class="table table-striped table-bordered">
 			<tr>
-			<td>Order Id</td>
+			<td>'.Core_CLanguage::_(ORDER_ID).'</td>
 			<th>#'.$arr[0]['orders_id'].'</th>
 			</tr>
 			<tr>
-			<td>Order Status </td>
-			<th><span class="label label-success">'.$arr[0]['orders_status_name'].'</span></th>
+			<td>'.Core_CLanguage::_(ORDER_STATUS).' </td>
+			<th><span class="label label-success">'.Core_CLanguage::_(ORDER_STATUS_NAME.$arr[0]['orders_status']).'</span></th>
 			</tr>
 			<tr>
-			<td> Order Total</td>
+			<td>'.Core_CLanguage::_(ORDER_TOTAL).'</td>
 			<th>'.$arr[0]['currency_tocken'].''.$arr[0]['order_total'].'</th>
 			</tr>
 			<tr>
-			<td>Order Date</td>
+			<td>'.Core_CLanguage::_(ORDER_DATE).'</td>
 			<th>'.$arr[0]['purDate'].'</th>
 			</tr>
 			<tr>
-			<td>Close Date</td>
+			<td>'.Core_CLanguage::_(CLOSE_DATE).'</td>
 			<th>'.$arr[0]['closeDate'].'</th>
 			</tr>
 			</table>
@@ -673,28 +673,28 @@ class Display_DUserAccount
 			</div>
 
 			<div class="span6">
-			<table class="table table-striped table-bordered"><h4>Payment Details </h4>
+			<table class="table table-striped table-bordered"><h4>'.Core_CLanguage::_(PAYMENT_DETAILS).' </h4>
 			<tr>
-			<td>Paid Through</td>
+			<td>'.Core_CLanguage::_(PAID_THROUGH).'</td>
 			<th>'.$arr[0]['gateway_name'].'</th>
 			</tr>
 			
 			</table>
-			<table class="table table-striped table-bordered"><h4>Shipping Details </h4>
+			<table class="table table-striped table-bordered"><h4>'.Core_CLanguage::_(SHIPPING_DETAILS).'</h4>
 			<tr>
-			<td>Ship Through</td>
+			<td>'.Core_CLanguage::_(SHIP_THROUGH).'</td>
 			<th>'.$arr[0]['shipment_name'].'</th>
 			</tr>
 			'.$ups_ship_method.'
 			<tr>
-			<td>Ship Track ID</td>
+			<td>'.Core_CLanguage::_(SHIP_TRACK_ID).'</td>
 			<th>'.$arr[0]['shipment_track_id'].'</th>
 			</tr>
 			</table>
 			</div>
 			</div>
            		<div class="row-fluid">
-           		  <div class="span6"><h4>Billing Address</h4><ul class="addresslist">
+           		  <div class="span6"><h4>'.Core_CLanguage::_(BILLING_ADDRESS).'</h4><ul class="addresslist">
 			<li><address>
 			
 			<p>'.$arr[0]['billing_name'].'</p>
@@ -710,7 +710,7 @@ class Display_DUserAccount
 			</address></li></ul>
 
                  	 </div>
-                        <div class="span6"><h4>Shipping Address</h4>
+                        <div class="span6"><h4>'.Core_CLanguage::_(SHIPPING_ADDRESS).'</h4>
 			<ul class="addresslist">
 			<li><address>
 			<p>'.$arr[0]['shipping_name'].'</p>
@@ -733,17 +733,17 @@ class Display_DUserAccount
 				
 
 		
-			<h4>Item Details</h4>
+			<h4>'.Core_CLanguage::_(ITEM_DETAILS).'</h4>
 			
 			<div class="clear"></div>
 			</div>
 			<table class="rt cf" id="rt1">
 			<thead class="cf">
 			<tr>
-				<th>Item Details</th>
-				<th>Price</th>
-				<th>Quantity</th>
-				<th>Total</th>
+				<th>'.Core_CLanguage::_(ITEM_DETAILS).'</th>
+				<th>'.Core_CLanguage::_(PRICE).'</th>
+				<th>'.Core_CLanguage::_(QUANTITY).'</th>
+				<th>'.Core_CLanguage::_(TOTAL).'</th>
 			</tr>
 			</thead>
 			<tbody>';
@@ -760,12 +760,12 @@ class Display_DUserAccount
 					$objSize=new Bin_Query();
 					$objSize->executeQuery($sqlSize);
 					$size=$objSize->records[0]['variation_name'];
-					$variation='<span class="label">Size - '.''.$size.'</span>';
+					$variation='<span class="label">'.Core_CLanguage::_(SIZE).' - '.''.$size.'</span>';
 				}
 
 				$total=$arr[$i]['product_unit_price']*$arr[$i]['product_qty'] ;
 				$output.='<tr>
-					<td>'.$arr[$i]['title'].' <br/>'.$variation.'</td>
+					<td>'.Core_CLanguage::_(SHIPPING_AMOUNT.$arr[$i]['product_id']).' <br/>'.$variation.'</td>
 					<td><span class="label label-info">'.$arr[$i]['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price'],2).'</span></td>
 					<td>'.$arr[$i]['product_qty'].'</td>
 					
@@ -776,15 +776,15 @@ class Display_DUserAccount
 			}
 				$output.='<tr>
 				<td colspan="2" rowspan="3">&nbsp;</td>
-				<td>Sub Total</td>
+				<td>'.Core_CLanguage::_(SUB_TOTAL).'</td>
 				<td><span class="label label-success">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($grand,2).'</span>	</td>
 			</tr>
 				<tr>
-				<td>Shipping Amount</td>
+				<td>'.Core_CLanguage::_(SHIPPING_AMOUNT).'</td>
 				<td><span class="label label-inverse">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($order_ship,2).'</span></td>
 			</tr>
 				<tr>
-				<td>Grand Total</td>
+				<td>'.Core_CLanguage::_(GRAND_TOTAL).'</td>
 				<td><span class="label label-important">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total'],2).'</span></td>
 			</tr>
 			</tbody>
@@ -858,7 +858,7 @@ class Display_DUserAccount
 						$output.='background:url(images/bg_line1.gif) repeat-y right';
 					$output.='"><div class="featureITEM" style="display:'.$mode.'"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$k]['product_id'].'"><img src="'.$imgPath.'" alt="'.addslashes($arr[$k]['title']).'"  width="'.THUMB_WIDTH.'" border=0 /></a>
 							<div class="featureTXT"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$k]['product_id'].'">'.((strlen($arr[$k]['title'])>15) ? substr( $arr[$k]['title'],0,15).'...' : $arr[$k]['title']).'</a></div>
-					  <div class="featurePRICE"><!--Price :--> <!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$k]['msrp'],2).'<br />
+					  <div class="featurePRICE"><!--Price :--> <!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$k]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'<br />
 								'.$ratepath.'</div>
 					  <!--<div class="featureBUTTON">
 							  <table border="0" cellspacing="0" cellpadding="0">
@@ -976,7 +976,7 @@ class Display_DUserAccount
 						$output.='background:url(images/bg_line1.gif) repeat-y right';
 					$output.='"><div class="featureITEM" style="display:'.$mode.'"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$k]['product_id'].'"><img src="'.$imgPath.'" alt="'.addslashes($arr[$k]['title']).'" width="'.THUMB_WIDTH.'" border=0 /></a>
 							<div class="featureTXT"><a href="?do=prodetail&action=showprod&prodid='.$arr[$k]['product_id'].'">'.((strlen($arr[$k]['title'])>15) ? substr( $arr[$k]['title'],0,15).'...' : $arr[$k]['title']).'</a></div>
-					  <div class="featurePRICE"><!--Price :--> <!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$k]['msrp'],2).'<br />
+					  <div class="featurePRICE"><!--Price :--> <!--$-->'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$k]['msrp']*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'<br />
 								'.$ratepath.'</div>
 					  <!--<div class="featureBUTTON">
 							  <table border="0" cellspacing="0" cellpadding="0">
@@ -1088,7 +1088,7 @@ class Display_DUserAccount
 	{
 	
 		$output='<div class="title_fnt">
-		<h1>Address Book </h1>
+		<h1>'.Core_CLanguage::_('ADDRESS_BOOK').'</h1>
 		</div>';
 
 		$srhlist='';
@@ -1099,7 +1099,7 @@ class Display_DUserAccount
 		$output.='<div class="span11">
 			'.$errnsg.'
 		<div>
-		<a href="'.$_SESSION['base_url'].'/index.php?do=addaddress" class="btn">Add New Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<a href="'.$_SESSION['base_url'].'/index.php?do=addaddress" class="btn">'.Core_CLanguage::_('ADD_NEW_CONTACT').'</a>&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		<div>&nbsp;</div>';
 			if(!isset($_GET['gname']))
 			$output.='<div style="margin: 0;" class="btn-toolbar">
@@ -1117,7 +1117,7 @@ class Display_DUserAccount
                                         <p><a href="mailto:'.$arr[$k]['email'].'">&nbsp;'.$arr[$k]['email'].'</a></p>
 					<p>'.$arr[$k]['city'].', '.$arr[$k]['state'].'</p>
 					<p>'.$arr[$k]['zip'].'</p>	
-					<p><a class="btn btn-success " href="'.$_SESSION['base_url'].'/index.php?do=addaddress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">Edit</a><a class="btn btn-danger " onclick="return confirm(\'Are you Sure to delete?\');" href="'.$_SESSION['base_url'].'/index.php?do=deladdress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">Delete</a>';
+					<p><a class="btn btn-success " href="'.$_SESSION['base_url'].'/index.php?do=addaddress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">'.Core_CLanguage::_('EDIT').'</a><a class="btn btn-danger " onclick="return confirm(\'Are you Sure to delete?\');" href="'.$_SESSION['base_url'].'/index.php?do=deladdress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">'.Core_CLanguage::_('DEL').'</a>';
 // 					if($recordsadd['billing_address_id']==$arr[$k]['id'])
 // 					{
 // 
@@ -1208,7 +1208,7 @@ class Display_DUserAccount
 
 
 		$output1.='<div class="title_fnt">
-		<h1>Address Book</h1>
+		<h1>'.Core_CLanguage::_('ADDRESS_BOOK').'</h1>
 		</div>
 	
 		<div id="myaccount_div">
@@ -1217,63 +1217,63 @@ class Display_DUserAccount
 		<input type="hidden" name="hidGroup" value="'.$group.'">
 		
 		<div class="control-group">
-		<label for="inputEmail" class="control-label">Group Name <i class="red_fnt">*</i></label>
+		<label for="inputEmail" class="control-label">'.Core_CLanguage::_('GROUP_NAME').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input type="text" name="txtGName" id="txtGName" value="'.$gName.'"><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtGName'].'</AJDF:output></font>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">First Name <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('FIRST_NAME').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 			<input name="txtFName" type="text"  id="txtFName" value="'.$fName.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtFName'].'</AJDF:output></font>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Last Name <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('LAST_NAME').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtLName" type="text"  id="txtLName" value="'.$lName.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtLName'].'</AJDF:output></font>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Company </label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('COMPANY').' </label>
 		<div class="controls">
 		<input name="txtCompany" type="text"  id="txtCompany" value="'.$company.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtCompany'].'</AJDF:output></font>
 		</div>
 		</div>
 		
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Email Address</label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('EMAIL_ADDRESS').'</label>
 		<div class="controls">
 		<input name="txtEMail" type="text"  id="txtEMail" value="'.$eMail.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtEMail'].'</AJDF:output></font>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Address <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('ADDRESS').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtAddress" type="text"  id="txtAddress" value="'.$address.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtAddress'].'</AJDF:output></font>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">City <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('CITY').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 			<input name="txtCity" type="text"  id="txtCity" value="'.$city.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtCity'].'</AJDF:output></font>
 		</div>
 		</div>
 
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Sub Urb  </label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('SUB_URB').' </label>
 		<div class="controls">
 		<input name="txtSuburb" type="text"  id="txtSuburb" value="'.$suburb.'"/>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">State/Province <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('STATEPROVINCE').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtState" type="text" " id="txtState" value="'.$state.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtState'].'</AJDF:output></font>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Country <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('COUNTRY').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 			<select name="selCountry" id="select3" >';
 				 for($i=0;$i<count($arrCountry);$i++)
@@ -1289,56 +1289,27 @@ class Display_DUserAccount
 		</div>
 
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Zip/Postal Code  <i class="red_fnt">*</i></label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('ZIPPOSTAL_CODE').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input name="txtZip" type="text"  id="txtZip" value="'.$zip.'"/><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtZip'].'</AJDF:output></font>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Telephone  </label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('TELEPHONE').'  </label>
 		<div class="controls">
 		<input name="txtPhone" type="text"  id="txtPhone" value="'.$telephone.'"/>
 		</div>
 		</div>
 		<div class="control-group">
-		<label for="inputPassword" class="control-label">Fax  </label>
+		<label for="inputPassword" class="control-label">'.Core_CLanguage::_('FAX').'  </label>
 		<div class="controls">
 		<input name="txtFax" type="text"  id="txtFax" value="'.$fax.'"/>
 		</div>
 		</div>
+		
 		<div class="control-group">
 		<div class="controls">
-		<label class="checkbox inline">';
-		if($recordsadd['billing_address_id']==$arrAdd[0]['id'])
-		{	
-			$output1.=' <input type="checkbox" checked="checked" name="billing_address" id="'.$arrAdd[0]['id'].'" value="'.$arrAdd[0]['id'].'">';
-		}
-		else
-		{
-			$output1.=' <input type="checkbox"  name="billing_address" id="'.$arrAdd[0]['id'].'" value="'.$arrAdd[0]['id'].'">';
-		}
-
-		$output1.='Billing Address
-		</label>
-		<label class="checkbox inline">';
-
-		if($recordsadd['shipping_address_id']==$arrAdd[0]['id'])
-		{	
-			$output1.=' <input type="checkbox" checked="checked" name="shipping_address" id="'.$arrAdd[0]['id'].'" value="'.$arrAdd[0]['id'].'">';
-		}
-		else
-		{
-			$output1.=' <input type="checkbox"  name="shipping_address" id="'.$arrAdd[0]['id'].'" value="'.$arrAdd[0]['id'].'">';
-		}
-
-		$output1.='Shipping Address
-		</label>
-			
-		</div>
-		</div>
-		<div class="control-group">
-		<div class="controls">
-		<button class="btn btn-danger" type="submit">Submit</button>&nbsp;<a  href="?do=addressbook"><button type="button" class="btn">Cancel</button></a>
+		<button class="btn btn-danger" type="submit">'.Core_CLanguage::_('SUBMIT').'</button>&nbsp;<a  href="?do=addressbook"><button type="button" class="btn">'.Core_CLanguage::_('CANCEL').'</button></a>
 		</div>
 		</div>
 		</form>
@@ -1545,14 +1516,14 @@ class Display_DUserAccount
 				}
 			}
 			$ups_ship_method='<tr>
-			<td>Shipping Duration</td>
+			<td>'.Core_CLanguage::_(SHIP_DURATION).'</td>
 			<th>'.$ship_duration.'</th>
 			</tr>';
 		}
 
 		$output='<link href="'.$_SESSION['base_url'].'/assets/css/style.css" rel="stylesheet"> <link href="'.$_SESSION['base_url'].'/assets/css/table.css" rel="stylesheet" type="text/css" />';
 		$output.=' <div class="title_fnt">
-		<h1>Order Details</h1>
+		<h1>'.Core_CLanguage::_(ORDER_DETAILS).'</h1>
 		
 		</div>
 		
@@ -1560,26 +1531,26 @@ class Display_DUserAccount
 		<div class="myacc_detail">
 				<div class="clear"></div>
 				<div class="row-fluid">
-				<div class="span6"><h4>Order Information</h4>
+				<div class="span6"><h4>'.Core_CLanguage::_(ORDER_INFORMATION).'</h4>
 			<table class="table table-striped table-bordered">
 			<tr>
-			<td>Order Id</td>
+			<td>'.Core_CLanguage::_(ORDER_ID).'</td>
 			<th>#'.$arr[0]['orders_id'].'</th>
 			</tr>
 			<tr>
-			<td>Order Status </td>
+			<td>'.Core_CLanguage::_(ORDER_STATUS).' </td>
 			<th><span class="label label-success">'.$arr[0]['orders_status_name'].'</span></th>
 			</tr>
 			<tr>
-			<td> Order Total</td>
+			<td>'.Core_CLanguage::_(ORDER_TOTAL).'</td>
 			<th>'.$arr[0]['currency_tocken'].''.$arr[0]['order_total'].'</th>
 			</tr>
 			<tr>
-			<td>Order Date</td>
+			<td>'.Core_CLanguage::_(ORDER_DATE).'</td>
 			<th>'.$arr[0]['purDate'].'</th>
 			</tr>
 			<tr>
-			<td>Close Date</td>
+			<td>'.Core_CLanguage::_(CLOSE_DATE).'</td>
 			<th>'.$arr[0]['closeDate'].'</th>
 			</tr>
 			</table>
@@ -1589,26 +1560,26 @@ class Display_DUserAccount
 			<div class="span6">
 			<table class="table table-striped table-bordered"><h4>Payment Details </h4>
 			<tr>
-			<td>Paid Through</td>
+			<td>'.Core_CLanguage::_(PAID_THROUGH).'</td>
 			<th>'.$arr[0]['gateway_name'].'</th>
 			</tr>
 			
 			</table>
 			<table class="table table-striped table-bordered"><h4>Shipping Details </h4>
 			<tr>
-			<td>Ship Through</td>
+			<td>'.Core_CLanguage::_(SHIP_THROUGH).'</td>
 			<th>'.$arr[0]['shipment_name'].'</th>
 			</tr>
 			'.$ups_ship_method.'
 			<tr>
-			<td>Ship Track ID</td>
+			<td>'.Core_CLanguage::_(SHIP_TRACK_ID).'</td>
 			<th>'.$arr[0]['shipment_track_id'].'</th>
 			</tr>
 			</table>
 			</div>
 			</div>
            		<div class="row-fluid">
-           		  <div class="span6"><h4>Billing Address</h4><ul class="addresslist">
+           		  <div class="span6"><h4>'.Core_CLanguage::_(BILLING_ADDRESS).'</h4><ul class="addresslist">
 			<li><address>
 			
 			<p>'.$arr[0]['billing_name'].'</p>
@@ -1624,7 +1595,7 @@ class Display_DUserAccount
 			</address></li></ul>
 
                  	 </div>
-                        <div class="span6"><h4>Shipping Address</h4>
+                        <div class="span6"><h4>'.Core_CLanguage::_(SHIPPING_ADDRESS).'</h4>
 				<ul class="addresslist">
 			<li><address>
 			<p>'.$arr[0]['shipping_name'].'</p>
@@ -1645,17 +1616,17 @@ class Display_DUserAccount
 			</div>
 				
 		
-			<h4>Item Details</h4>
+			<h4>'.Core_CLanguage::_(ITEM_DETAILSITEM_DETAILS).'</h4>
 			
 			<div class="clear"></div>
 			</div>
 			<table class="rt cf" id="rt1">
 			<thead class="cf">
 			<tr>
-				<th>Item Details</th>
-				<th>Price</th>
-				<th>Quantity</th>
-				<th>Total</th>
+				<th>'.Core_CLanguage::_(ITEM_DETAILS).'</th>
+				<th>'.Core_CLanguage::_(PRICE).'</th>
+				<th>'.Core_CLanguage::_(QUANTITY).'</th>
+				<th>'.Core_CLanguage::_(TOTAL).'</th>
 			</tr>
 			</thead>
 			<tbody>';
@@ -1676,15 +1647,15 @@ class Display_DUserAccount
 			}
 				$output.='<tr>
 				<td colspan="2" rowspan="3">&nbsp;</td>
-				<td>Sub Total</td>
+				<td>'.Core_CLanguage::_(SUB_TOTAL).'</td>
 				<td><span class="label label-success">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($grand,2).'</span>	</td>
 			</tr>
 				<tr>
-				<td>Shipping Amount</td>
+				<td>'.Core_CLanguage::_(SHIPPING_AMOUNT).'</td>
 				<td><span class="label label-inverse">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($order_ship,2).'</span></td>
 			</tr>
 				<tr>
-				<td>Grand Total</td>
+				<td>'.Core_CLanguage::_(GRAND_TOTAL).'</td>
 				<td><span class="label label-important">'.$arr[0]['currency_tocken'].'&nbsp;'.number_format($arr[0]['order_total'],2).'</span></td>
 			</tr>
 			</tbody>
@@ -1727,7 +1698,7 @@ class Display_DUserAccount
 	function showDigitalProduct($arr,$paging,$prev,$next,$val,$result)
 	{
 		$output.=$result.'<div class="title_fnt">
-		<h1>My Downloads</h1>
+		<h1>'.Core_CLanguage::_('MY_DOWNLOADS').'</h1>
 		</div>
 		<div id="myaccount_div">
 		
@@ -1735,11 +1706,11 @@ class Display_DUserAccount
 			<thead class="cf">
 				<tr>
 					
-					<th>Order</th>
-					<th>Product </th>
-					<th>Order Date</th>
-					<th>Expire Date</th>
-					<th>Download</th>	
+					<th>'.Core_CLanguage::_('ORDER').'</th>
+					<th>'.Core_CLanguage::_('PRODUCT').' </th>
+					<th>'.Core_CLanguage::_('ORDER_DATE').'</th>
+					<th>'.Core_CLanguage::_('EXPIRE_DATE').'</th>
+					<th>'.Core_CLanguage::_('DOWNLOAD').'</th>	
 				</tr>
 			</thead>
 			<tbody>';
@@ -1772,7 +1743,7 @@ class Display_DUserAccount
 			{
 				$output.='<tr><td colspan="6"><div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				<strong>No Products  Found</strong> 
+				<strong>'.Core_CLanguage::_('NO_PRODUCT_FOUND').'</strong> 
 				</div></td></tr>';
 
 			}	

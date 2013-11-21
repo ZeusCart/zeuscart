@@ -41,7 +41,6 @@
 	 */
 	function searchKeyWord($search,$sort,$mode)
 	{
-	  
 
 		$pagesize=9;
 		

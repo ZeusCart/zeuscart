@@ -39,6 +39,11 @@ class Model_MUserRegistration
 	 * @var array 
 	 */	
 	var $output = array();
+
+
+
+	
+
 	/**
 	* This function is used to registeration  page
  	*
@@ -46,6 +51,11 @@ class Model_MUserRegistration
 	*/
 	function displayRegPage()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('REGISTER');
+
 		include('classes/Core/CUserRegistration.php');
 		include("classes/Lib/HandleErrors.php");	
 
@@ -97,6 +107,10 @@ class Model_MUserRegistration
 	*/
 	function showValidateRegPage()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('REGISTER');
 		
 		include('classes/Lib/CheckInputs.php');
 		$obj = new Lib_CheckInputs('register');
@@ -150,142 +164,7 @@ class Model_MUserRegistration
 		Core_CUserRegistration::registerConfirm();	
 
 	}
-	/**
-	* This function is used to show my profile  page
- 	*
- 	* @return string
-	*/
-	function showMyProfile()
-	{
-		$_SESSION['url']=$_GET['do'];
-		if($_SESSION['user_id']=='')
-		{
-			$_SESSION['RequestUrl'] = '?do=myprofile';
-			header("Location:?do=login");
-		}
-		else
-		{
-			include('classes/Core/CUserRegistration.php');
-			include('classes/Display/DUserRegistration.php');
-			include_once('classes/Core/CNewProducts.php');
-			include_once('classes/Display/DNewProducts.php');
-			include('classes/Core/CWishList.php');
-			include('classes/Display/DWishList.php');
-			include('classes/Core/CKeywordSearch.php');
-  			include('classes/Display/DKeywordSearch.php');
-			include('classes/Core/CHome.php');
-			include("classes/Lib/HandleErrors.php");
-			include('classes/Core/CAddCart.php');
-			include('classes/Display/DAddCart.php');
-			include_once('classes/Core/CLastViewedProducts.php');
-			include_once('classes/Display/DLastViewedProducts.php');
-			include('classes/Core/CNews.php');
-			include('classes/Display/DNews.php');
-			
-			include_once('classes/Core/CCurrencySettings.php');
-			Core_CCurrencySettings::getDefaultCurrency();
-			
-			$output['signup']=Display_DUserRegistration::signUp();
-			$default=new Core_CLastViewedProducts();
-			$output['lastviewedproducts']=$default->lastViewedProducts();
-			if(count($Err->messages) > 0)
-			{
-				$output['val'] = $Err->values;
-				$output['msg'] = $Err->messages;
-			}
-			else
-			{
-
-				$profile = Core_CUserRegistration::showMyProfile();
-				$output['val'] = $profile;
-			}
-			$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
-			$output['sitelogo']=Core_CHome::getLogo();
-			$output['pagetitle']=Core_CHome::pageTitle();
-			$output['skinname']=Core_CHome::skinName();
-			$output['googlead']=Core_CHome::getGoogleAd();
-			$output['footer']=Core_CHome::footer();
-			$output['footerconnect']=Core_CHome::getfooterconnect();
-			$output['sociallink']=Core_CHome::showSocialLinks();
-			$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-			$default=new Core_CNewProducts();
-			$output['newproducts']=$default->newProducts();
-			$output['wishlistsnapshot'] = Core_CWishList::wishlistSnapshot();
-			$output['loginStatus']= Core_CUserRegistration::loginStatus();
-			$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
-			$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
-			$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
-			$output['headertext'] = Core_CUserRegistration::showHeaderText();
-			$output['newstitle'] = Core_CNews::showNewsMenu();
-			
-			if($_SESSION['compareProductId']=='')
-				$output['viewProducts']['viewProducts'] = Display_DWishList::viewProductElse();
-			else
-				$output['viewProducts']=Core_CWishList::addtoCompareProduct();
-			$output['cartcount']=Core_CAddCart::countCart();
-			Bin_Template::createTemplate('myprofile.html',$output);
-		}
-	}
-	/**
-	* This function is used to update my profile  page
- 	*
- 	* @return string
-	*/
-	function updateMyProfile()
-	{
-		include('classes/Lib/CheckInputs.php');
-		$obj = new Lib_CheckInputs('validatemyprofile');
-		
-		include('classes/Core/CUserRegistration.php');
-		include('classes/Display/DUserRegistration.php');
-		include_once('classes/Core/CNewProducts.php');
-		include_once('classes/Display/DNewProducts.php');
-		include('classes/Core/CWishList.php');
-		include('classes/Display/DWishList.php');
-		include('classes/Core/CKeywordSearch.php');
-  		include('classes/Display/DKeywordSearch.php');
-		include('classes/Core/CHome.php');
-		include('classes/Core/CAddCart.php');
-		include('classes/Display/DAddCart.php');
-		include('classes/Core/CNews.php');
-		include('classes/Display/DNews.php');
-		
-		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
-		$output['sitelogo']=Core_CHome::getLogo();
-		$output['pagetitle']=Core_CHome::pageTitle();
-		$output['skinname']=Core_CHome::skinName();
-		$output['googlead']=Core_CHome::getGoogleAd();
-		$output['footerconnect']=Core_CHome::getfooterconnect();
-		$output['dropdowncat']=Core_CKeywordSearch::categoryDropDown();
-		$default=new Core_CNewProducts();
-		$output['newproducts']=$default->newProducts();
-		$output['wishlistsnapshot'] = Core_CWishList::wishlistSnapshot();
-		include_once('classes/Core/CLastViewedProducts.php');
-		include_once('classes/Display/DLastViewedProducts.php');
 	
-		
-		include_once('classes/Core/CCurrencySettings.php');
-		Core_CCurrencySettings::getDefaultCurrency();
-		
-		$output['signup']=Display_DUserRegistration::signUp();
-		$default=new Core_CLastViewedProducts();
-		$output['lastviewedproducts']=$default->lastViewedProducts();
-		$output['loginStatus']= Core_CUserRegistration::loginStatus();
-		$output['headermenu'] = Core_CUserRegistration::showHeaderMenu();
-		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
-		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
-		$output['headertext'] = Core_CUserRegistration::showHeaderText();
-		$output['newstitle'] = Core_CNews::showNewsMenu();
-		if($_SESSION['compareProductId']=='')
-			$output['viewProducts']['viewProducts'] = Display_DWishList::viewProductElse();
-		else
-			$output['viewProducts']=Core_CWishList::addtoCompareProduct();
-		$output['message'] = Core_CUserRegistration::updateMyProfile();
-		$output['val'] = Core_CUserRegistration::showMyProfile();
-		$output['cartcount']=Core_CAddCart::countCart();
-
-		Bin_Template::createTemplate('myprofile.html',$output);
-	}
 	/**
 	* This function is used to show index  page
  	*
@@ -293,7 +172,12 @@ class Model_MUserRegistration
 	*/
 	function showIndexPage()
 	{
-	
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('HOME');
+
+
 		include_once('classes/Core/CFeaturedItems.php');
 		include_once('classes/Display/DFeaturedItems.php');
 		include('classes/Core/CUserRegistration.php');
@@ -315,6 +199,7 @@ class Model_MUserRegistration
 		include('classes/Core/CProductDetail.php');
 		include('classes/Display/DProductDetail.php');
 		include_once('classes/Core/CCurrencySettings.php');
+
 		Core_CCurrencySettings::getDefaultCurrency();
 
 		global $install_error;
@@ -391,6 +276,11 @@ class Model_MUserRegistration
 	*/
 	function logoutStatus()
 	{
+
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('HOME');
 		unset($_SESSION['user_id']);
 		unset($_SESSION['user_name']);	
 		unset($_SESSION['user_email']);	
@@ -468,6 +358,12 @@ class Model_MUserRegistration
 	*/
 	function showLoginPage()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('LOGIN');
+
+
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -513,6 +409,10 @@ class Model_MUserRegistration
 	*/
 	function showValidateLoginPage()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('DASHBOARD');
 
 		include('classes/Lib/CheckInputs.php');
 		$obj = new Lib_CheckInputs('validatelogin');
@@ -594,6 +494,12 @@ class Model_MUserRegistration
 	*/
 	function displayForgetpwdPage()
 	{
+
+		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('FORGOT_PASSWORD');
+
 		include("classes/Lib/HandleErrors.php");
 		
 		$output['val']=$Err->values;
@@ -644,6 +550,11 @@ class Model_MUserRegistration
 	*/
 	function retrivePwdPage()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('FORGOT_PASSWORD');
+
 		include('classes/Lib/CheckInputs.php');
 		$obj = new Lib_CheckInputs('validatemail');
 		
@@ -694,6 +605,11 @@ class Model_MUserRegistration
 	*/
 	function addNewsletterSubscription()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('HOME');
+
 		include_once('classes/Core/CFeaturedItems.php');
 		include_once('classes/Display/DFeaturedItems.php');
 		include('classes/Core/CUserRegistration.php');
@@ -731,6 +647,9 @@ class Model_MUserRegistration
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
 		$output['timezone']=Core_CHome::setTimeZone();	
+		$output['homepageads']= Core_CHome::showHomePageAds();
+		$output['homepagecontent']= Core_CHome::showHomePageContent();
+		
 		$output['currentDate']=date('D,M d,Y - h:i A');
 		$output['banner']=Core_CHome::getBanner();
 		$output['categories'] = Display_DUserRegistration::showMainCat();		
@@ -743,7 +662,7 @@ class Model_MUserRegistration
 		$output['cartcount']=Core_CAddCart::countCart();
 		$default=new Core_CFeaturedItems();
 		$output['maincatimage']=$default->showMainCategory();
-		
+		$output['newarrivalproducts']=$default->newArrivalProducts();
 		if($_SESSION['compareProductId']=='')
 		{
 			

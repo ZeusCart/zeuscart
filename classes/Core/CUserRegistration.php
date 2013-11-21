@@ -102,7 +102,7 @@ class Core_CUserRegistration
 	
 						$result = '<div class="alert alert-success">
 						<button data-dismiss="alert" class="close" type="button">×</button>
-						Account has been created successfully.And the confirmation link send to your email address.
+						'.Core_CLanguage::_(REGISTER_SUCCESS).'
 						</div>';
 
 						//admin details
@@ -138,14 +138,14 @@ class Core_CUserRegistration
 						$message = str_replace("[confirm_link]",$confirm_link,$message);
 					
 						$message = str_replace("[user_name]",$email,$message);		$message = str_replace("[password]",$_POST['txtpwd'],$message);	$message = str_replace("[site_email]",$admin_email,$message);	
-					
+				
 			
 						Core_CUserRegistration::sendingMail($email,$title,$message);
 					}
 					else
 						$result ='<div class="alert alert-error">
 							<button data-dismiss="alert" class="close" type="button">×</button>
-							Account Not Created
+							'.Core_CLanguage::_(ACCOUNT_NOT_CREATED).'
 							</div>';
 
 
@@ -154,13 +154,13 @@ class Core_CUserRegistration
 				}else
 					$result = '<div class="alert alert-error">
 							<button data-dismiss="alert" class="close" type="button">×</button>
-							Account Not Created
+							'.Core_CLanguage::_(ACCOUNT_NOT_CREATED).'
 							</div>';
 			}
 			else
 				$result = '<div class="alert alert-error">
 							<button data-dismiss="alert" class="close" type="button">×</button>
-							Account Not Created
+							'.Core_CLanguage::_(ACCOUNT_NOT_CREATED).'
 							</div>';
 			}
 		}
@@ -175,7 +175,7 @@ class Core_CUserRegistration
 	*/
 	function registerConfirm()
 	{
-		 $sql="SELECT * FROM users_table WHERE confirmation_code='".$_GET['confirm_code']."' ";
+		$sql="SELECT * FROM users_table WHERE confirmation_code='".$_GET['confirm_code']."' ";
 		$obj=new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
@@ -317,7 +317,8 @@ class Core_CUserRegistration
 		{
 			$result = '<div class="alert alert-error">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Please enter email address
+				
+				'.Core_CLanguage::_(PLEASE_ENTER_EMAIL_ADDRESS).'
 				</div>';
 		}
 		$email =$_POST['email'];
@@ -388,7 +389,9 @@ class Core_CUserRegistration
 				Core_CUserRegistration::sendingMail($email,$title,$message);
 				$result = '<div class="alert alert-success">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Password has been sent to your mail successfully
+					
+				'.Core_CLanguage::_(PASSWORD_HAS_BEEN_SENT_TO_YOUR_MAIL_SUCCESSFULLY).'
+
 				</div>';
 				
 			}
@@ -396,7 +399,8 @@ class Core_CUserRegistration
 			{
 				$result = '<div class="alert alert-error">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Invalid User
+				'.Core_CLanguage::_(INVALID_USER).'
+
 				</div>';
 				
 			}
@@ -420,7 +424,6 @@ class Core_CUserRegistration
 		{
 			
 			$from =$obj->records[0]['admin_email']; 
-		
 			include('classes/Lib/Mail.php');
 			$mail = new Lib_Mail();
 			$mail->From($from); 
@@ -432,7 +435,7 @@ class Core_CUserRegistration
 			$mail->Send();
 		}
 		else
-			return 'No mail id provided';
+			return 	Core_CLanguage::_(NO_MAIL_ID_PROVIDED);
 	}
 	/**
 	 * This function is used to get  the  user login status
@@ -443,24 +446,25 @@ class Core_CUserRegistration
 	 */
 	function loginStatus()
 	{
-
-
+			//language	
+		include_once('classes/Core/CLanguage.php');
+		
 		include_once('classes/Core/CHitCounter.php');
 					
 		$str='';  $salute='';
 		if($_SESSION['user_id']!='')
 		{
 		
-			$str='Logout';
+			$str=Core_CLanguage::_('LOGOUT');
 			$output['logout']='<a href="'.$_SESSION['base_url'].'/logout.html">'.$str.'</a>';
-			$output['username']='Welcome '.$_SESSION['user_name'];
+			$output['username']=Core_CLanguage::_('WELCOME').$_SESSION['user_name'];
 			$output['user']=$_SESSION['user_name'];			
 		}
 		else
 		{
-			$str='Login';
+			$str=Core_CLanguage::_('LOGIN');
 			$output['logout']='<a href="'.$_SESSION['base_url'].'/login.html">'.$str.'</a>';
-			$output['username']='Welcome Guest';
+			$output['username']=Core_CLanguage::_('WELCOME').Core_CLanguage::_('GUEST');
 			$output['user']='Guest';						
 		}
 		$output['headerMainMenu'] = Core_CUserRegistration::showHeaderMainMenu();
@@ -499,7 +503,7 @@ class Core_CUserRegistration
 	function showHeaderMenu()
 	{
 	
-	    	$query = new Bin_Query(); 
+	    $query = new Bin_Query(); 
 		
 		$sql = "SELECT * FROM `category_table` WHERE category_parent_id =0 AND category_status =1 AND category_name!='Gift Voucher' ";
 		if($query->executeQuery($sql))
@@ -566,7 +570,7 @@ class Core_CUserRegistration
 		{
 			$output='<div class="alert alert-error">
 			<button data-dismiss="alert" class="close" type="button">×</button>
-			Required Field Cannot Be Blank
+			'.Core_CLanguage::_(REQUIRED).'
 			</div>';
 			return $output;
 		
@@ -581,7 +585,7 @@ class Core_CUserRegistration
 			{
 				$output='<div class="alert alert-info">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Subscribed the News Letter already for this Mail ID.Please enter another mail id.
+				'.Core_CLanguage::_(SCBSCRIBE_NEWS_LETTER_ALREADY_EMAIL_EXISTS).'
 				</div>';
 	
 				return $output;
@@ -597,7 +601,7 @@ class Core_CUserRegistration
 				{
 					$output='<div class="alert alert-success">
 					<button data-dismiss="alert" class="close" type="button">×</button>
-					Your Request for Newsletter Subscription was added Successfully.
+					'.Core_CLanguage::_(YOUR_REQUEST_FOR_NEWLETTER_ADDED).'
 					</div>';
 					return $output;
 	
@@ -606,7 +610,7 @@ class Core_CUserRegistration
 				{
 					$output='<div class="alert alert-error">
 					<button data-dismiss="alert" class="close" type="button">×</button>
-					Invalid email id for News Letter Subscription
+					'.Core_CLanguage::_(INVALID_EMAIL_FOR_NEWSLETTER).'
 					</div>';
 					return $output;
 	
@@ -617,7 +621,7 @@ class Core_CUserRegistration
 			{
 					$output='<div class="alert alert-error">
 					<button data-dismiss="alert" class="close" type="button">×</button>
-					Invalid email id for News Letter Subscription
+					'.Core_CLanguage::_(INVALID_EMAIL_FOR_NEWSLETTER).'
 					</div>'; 
 					return $output;
 			}

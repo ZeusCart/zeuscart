@@ -112,7 +112,7 @@ class Display_DProductDetail
 		
 
 		$output.='<div class="title_fnt">
-		<h1>'.$arr[0]['title'].'</h1>
+		<h1>'.$arr[0]['product_name'].'</h1>
 		</div>
 		<div id="gallery_div">
 		<div class="row-fluid">';
@@ -175,18 +175,18 @@ class Display_DProductDetail
 		
 				$output.=''.$rating.'</li>';
 					
-				$output.='<li>SKU : <span class="label">'.$arr[0]['sku'].'</span></li>
+				$output.='<li>'.Core_CLanguage::_('SKU').' : <span class="label">'.$arr[0]['sku'].'</span></li>
 				<li><table width="100%" border="0">
 				<tr>
 				<td align="left" valign="top">';
 		
 				if($arr[0]['soh']>0)
 				{
-					$output.='<span>Availability : In Stock</span>';
+					$output.='<span>'.Core_CLanguage::_('AVALABILITY').' : '.Core_CLanguage::_('IN_STOCK').'</span>';
 				}
 				else
 				{
-					$output.='<span>Availability :  Out Of Stock </span>';
+					$output.='<span>'.Core_CLanguage::_('AVALABILITY').' :  '.Core_CLanguage::_('OUT_OF_STOCK').'</span>';
 				}
 		
 				
@@ -235,7 +235,7 @@ class Display_DProductDetail
 				$output.='<li>
 				<tr>				
 
-				<td align="left" valign="top"><span>Tags : ';
+				<td align="left" valign="top"><span>'.Core_CLanguage::_('TAGS').' : ';
 					$tags=explode(',',$arr[0]['tag']);
 				foreach( $tags as $tag)
 				$tagLinks[]='<a href="?do=search&search='.$tag.'">'.$tag.'</a>';
@@ -246,7 +246,7 @@ class Display_DProductDetail
 				$output.='</tr>
 				
 				</li>
-						<li><h2>Quick Overview:</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci
+						<li><h2>'.Core_CLanguage::_('QUICK_OVERVIEW').':</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci
 
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.</p></li>
 				<li>
@@ -255,13 +255,13 @@ class Display_DProductDetail
 		if($arr[0]['gift']=='0' && $arr[0]['digital']=='0' )
 		{
 
-		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="'.$_SESSION['error_quantity'].'"></td>';
+		$output.='<td>'.Core_CLanguage::_('QUANTITY').' <input type="text" name="qty[]" style="width:60px;" value="'.$_SESSION['error_quantity'].'"></td>';
 			
 		}
 		if($_GET['varid']!='')
 		{
 
-		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="'.$_SESSION['error_quantity'].'"></td>';
+		$output.='<td>'.Core_CLanguage::_('QUANTITY').' <input type="text" name="qty[]" style="width:60px;" value="'.$_SESSION['error_quantity'].'"></td>';
 		
 			
 		}
@@ -270,14 +270,14 @@ class Display_DProductDetail
 
 		if($arr[0]['digital']=='1')
 		{
-		$output.='<td>Quantity <input type="text" name="qty[]" style="width:60px;" value="1" readonly="true"></td>';
+		$output.='<td>'.Core_CLanguage::_('QUANTITY').' <input type="text" name="qty[]" style="width:60px;" value="1" readonly="true"></td>';
 
 		}
 	
 		
-		$output.='<td align="left" valign="top"> <input type="submit" title="Add to Cart" value="" class="addtocart_button1" style="width:150px;height:50px" name="addtocart"/>&nbsp;&nbsp;
+		$output.='<td align="left" valign="top"> <input type="submit" title="Add to Cart" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.Core_CLanguage::_('ADD_TO_CART').'" class="addtocart_button1" style="width:150px;height:50px" name="'.Core_CLanguage::_('ADD_TO_CART').'" />&nbsp;&nbsp;
 
-		<a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$arr[0]['product_id'].'"><input type="button" name="wishlist" style="width:150px;height:50px" class="wishlist_button" value="" title="Add to Wislist"></a>
+		<a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$arr[0]['product_id'].'"><input type="button" name="wishlist" style="width:150px;height:50px;" class="wishlist_button" value="'.Core_CLanguage::_('ADD_TO_WISHLIST').'" title="'.Core_CLanguage::_('ADD_TO_WISHLIST').'"></a>
 		 </td>';
 		
 		 $mode='none';
@@ -299,9 +299,9 @@ class Display_DProductDetail
 		<div id="giftvoucher"></div>
             	<div class="clear"></div><div class="buyauc_div" style="display:block;">
             	 <ul class="view_div">
-                        <li ><a href="javascript:showAccnt(\'account_id\'); void(0)" class="acc_select" id="account_id1">Product Description</a></li>
-                        <li ><a href="javascript:showAccnt(\'details_id\'); void(0)" class="acc_unselect" id="details_id1">Reviews</a></li>
-                        <li style="display:'.$mode.'"><a href="javascript:showAccnt(\'divTier\'); void(0)" class="acc_unselect" id="divTier1">Tier Price</a></li>
+                        <li ><a href="javascript:showAccnt(\'account_id\'); void(0)" class="acc_select" id="account_id1">'.Core_CLanguage::_('PRODUCT_DESCRIPTION').'</a></li>
+                        <li ><a href="javascript:showAccnt(\'details_id\'); void(0)" class="acc_unselect" id="details_id1">'.Core_CLanguage::_('REVIEWS').'</a></li>
+                        <li style="display:'.$mode.'"><a href="javascript:showAccnt(\'divTier\'); void(0)" class="acc_unselect" id="divTier1">'.Core_CLanguage::_('TIER_PRICE').'</a></li>
                 </ul>
 
        
@@ -340,19 +340,19 @@ class Display_DProductDetail
 		}
                  $output.='<form class="form-horizontal" name="frm" method=post action="">
 		<div class="control-group" >
-		<label class="control-label" for="inputEmail">Caption <i class="red_fnt">*</i></label>
+		<label class="control-label" for="inputEmail">'.Core_CLanguage::_('CAPTION').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input type="text" id="caption"  name="caption" value="'.$postvalues['caption'].'">
 		</div>
 		</div>
 		<div class="control-group">
-		<label class="control-label" for="inputPassword">Review <i class="red_fnt">*</i></label>
+		<label class="control-label" for="inputPassword">'.Core_CLanguage::_('REVIEW').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<textarea rows="" cols="" name="review">'.$postvalues['review'].'</textarea>
 		</div>
 		</div>
 		<div class="control-group">
-		<label class="control-label" for="inputPassword">Rate this Product</label>
+		<label class="control-label" for="inputPassword">'.Core_CLanguage::_('RATE_THIS_PRODUCT').'</label>
 		<div class="controls">
 		<img name="img1" src="'.$_SESSION['base_url'].'/assets/img/star-gray.png" title="1 star out of 5" onmouseover="fun(1)" onmouseout="fun1(1)" onclick=fun2(1)>
 		<img name="img2" src="'.$_SESSION['base_url'].'/assets/img/star-gray.png" title="2 stars out of 5" onmouseover="fun(2)" onmouseout="fun1(2)" onclick=fun2(2)>
@@ -363,7 +363,7 @@ class Display_DProductDetail
 		</div>
 		</div>
 		<div class="control-group">
-		<label class="control-label" for="inputEmail">Enter the code in the box below</label>
+		<label class="control-label" for="inputEmail">'.Core_CLanguage::_('ENTER_THE_CODE_IN_THE_BOX_BELOW').'</label>
 		<div class="controls">
 		<input type="text" id="txtcaptcha" name="txtcaptcha" >
 		</div>
@@ -372,11 +372,11 @@ class Display_DProductDetail
 		&nbsp;
 		<div class="controls">
 		
-		<img src="?do=captcha"  id="captcha" name="captcha" width="90" height="45"/><span class="featureTXT" style="padding:0px;font-size:11px"> <a href="#reg" onclick="javascript:shuffle();" >Try another one</a></span></div>
+		<img src="?do=captcha"  id="captcha" name="captcha" width="90" height="45"/><span class="featureTXT" style="padding:0px;font-size:11px"> <a href="#reg" onclick="javascript:shuffle();" >'.Core_CLanguage::_('TRY_ANOTHER_ONE').'</a></span></div>
 		</div>
 		<div class="control-group">
 		<div class="controls">
-			<button type="submit" class="btn btn-danger" name="reviewbutton" id="reviewbutton" >Submit Review</button>
+			<button type="submit" class="btn btn-danger" name="reviewbutton" id="reviewbutton" >'.Core_CLanguage::_('SUBMIT_REVIEW').'</button>
 		</div>
 		</div>
 		</form>
@@ -445,7 +445,7 @@ class Display_DProductDetail
 			$output='<table id="rt1" class="rt cf">
 				<thead class="cf">
 				<tr>
-				<th colspan="2">Additional Information</th>
+				<th colspan="2">'.Core_CLanguage::_('ADDITIONAL_INFORMATION').'</th>
 					
 				</tr>
 				</thead>';
@@ -453,11 +453,11 @@ class Display_DProductDetail
 // 			if($recordsfeature[0]['sku']!='')
 // 				{$output.='<tr ><td  width="50%">SKU </td><td> '.$recordsfeature[0]['sku'].'</td></tr>';}
 			if($recordsfeature[0]['brand']!='')
-				{$output.='<tr ><td  width="50%">Brand </td><td> '.$recordsfeature[0]['brand'].'</td></tr>';}
+				{$output.='<tr ><td  width="50%">'.Core_CLanguage::_('BRAND').' </td><td> '.$recordsfeature[0]['brand'].'</td></tr>';}
 			if($recordsfeature[0]['weight']!='')
-				{$output.='<tr ><td  width="50%">Weight </td><td> '.$recordsfeature[0]['weight'].' (lbs)</td></tr>';}
+				{$output.='<tr ><td  width="50%">'.Core_CLanguage::_('WEIGHT').' </td><td> '.$recordsfeature[0]['weight'].' (lbs)</td></tr>';}
 			if($recordsfeature[0]['dimension']!='')
-				{$output.='<tr ><td  width="50%">Dimension </td><td> '.$recordsfeature[0]['dimension'].' (inches)</td></tr>';}
+				{$output.='<tr ><td  width="50%">'.Core_CLanguage::_('DIMENSION').' </td><td> '.$recordsfeature[0]['dimension'].' (inches)</td></tr>';}
 
 			if($arr!='')
 			{
@@ -721,7 +721,17 @@ class Display_DProductDetail
 			} else { 
 				$sluggable = strtolower( $sluggable );
 			}
-			$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+			if(trim($_SESSION['site_language'])=='en')
+			{
+
+				 $sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+			}
+			else
+			{
+				 $sluggable = trim($arr[$i]['category_name']);	
+			}	
+			
 
 			$output.=' <li><a href="'.$_SESSION['base_url'].'/'.$sluggable.'.html">'.$arr[$i]['category_name'].'</a>';
 			$output.=self::getSubFamilies(0,$arr[$i]['category_id'],0);
@@ -759,7 +769,17 @@ class Display_DProductDetail
 				} else { 
 					$sluggable = strtolower( $sluggable );
 				}
-				$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+				if(trim($_SESSION['site_language'])=='en')
+				{
+					 $sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+				}
+				else
+				{
+					 $sluggable = trim($rowSubFamilies['category_name']);	
+				}	
+
+				
 
 				if($rowSubFamilies['category_id'])
 				$output.='<ul class="innermenu">
@@ -797,7 +817,17 @@ class Display_DProductDetail
 			} else { 
 				$sluggable = strtolower( $sluggable );
 			}
-			$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+				if(trim($_SESSION['site_language'])=='en')
+				{
+					 $sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+				}
+				else
+				{
+					$sluggable = trim($obj->records[0]['category_name']);	
+				}	
+
+		
 			
 
 			if($m<(count($cat)-1))
@@ -880,25 +910,25 @@ class Display_DProductDetail
 
 		
 		<tr>
-		<td align="left" valign="top"><h4>Product code: 1</h4>';
+		<td align="left" valign="top">';
 		if($arr[0]['soh']>0)
 		{
-			$output.='<span>Availability: In Stock</span>';
+			$output.='<span>'.Core_CLanguage::_(AVALABILITY).': '.Core_CLanguage::_(IN_STOCK).'</span>';
 		}
 		else
 		{
-			$output.='<span>Availability :  Out Of Stock </span>';
+			$output.='<span>'.Core_CLanguage::_(AVALABILITY).' :  '.Core_CLanguage::_(OUT_OF_STOCK).'</span>';
 		}
 
 		$output.='</td>
 		<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['msrp'].'</h1></td>
 		</tr>
 		</table></li>
-		<li><h2>Quick Overview:</h2><p>This midi dress has been made from stretch jersey. The details include: a scoop neckline and sleeveless styling with an open back and latticed deatiling. The dress has been cut with a bodycon fit.</p></li>
+		<li><h2>'.Core_CLanguage::_(QUICK_OVERVIEW).'</h2><p>This midi dress has been made from stretch jersey. The details include: a scoop neckline and sleeveless styling with an open back and latticed deatiling. The dress has been cut with a bodycon fit.</p></li>
 		<li><form method="post"	action="'.$_SESSION['base_url'].'/index.php?do=addtocartfromproductdetail&prodid='.$arr[0]['product_id'].'" name="frmcart" target="_parent">
 		<table width="100%" border="0">
 		<tr>
-		<td align="left" valign="top"> Quantity ';
+		<td align="left" valign="top"> '.Core_CLanguage::_(QUANTITY).' ';
 		$output.='<select name="qty[]" style="width:60px;">';
 		if($arr[0]['soh']==0)
 			$output.='<option value="0">0</option>';

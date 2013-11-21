@@ -46,6 +46,11 @@ class Model_MUserAccount
 	*/
 	function showNewsLetter($result='')
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('NEWS_LETTER');
+
 		$this->checkLogin();
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -92,6 +97,11 @@ class Model_MUserAccount
 	*/
 	function showDashBoard()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('DASHBOARD');
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -136,6 +146,11 @@ class Model_MUserAccount
 	*/
 	function showAccountInfo($result='')
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ACCOUNT_INFO');
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -184,6 +199,10 @@ class Model_MUserAccount
 	*/
 	function showChangePassword($result='')
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHANGE_PASSWORD');
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -232,6 +251,10 @@ class Model_MUserAccount
 	*/
 	function editAccountInfo()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ACCOUNT_INFO');
+
 		include('classes/Lib/CheckInputs.php');
 		include('classes/Core/CUserAccInfo.php');
 		
@@ -252,6 +275,11 @@ class Model_MUserAccount
 	*/
 	function editChangePassword()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHANGE_PASSWORD');
+
 		include('classes/Lib/CheckInputs.php');
 		include('classes/Core/CUserAccInfo.php');
 		
@@ -272,6 +300,11 @@ class Model_MUserAccount
 	*/
 	function showProductReview()
 	{
+		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('MY_PRODUCT_REVIEWS');
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -318,6 +351,10 @@ class Model_MUserAccount
 	*/
 	function showWishList($result='')
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('MY_WISHLIST');
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -370,6 +407,11 @@ class Model_MUserAccount
 	*/
 	function sendWishlist()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('MY_WISHLIST');
+
 		include('classes/Lib/CheckInputs.php');
 		include('classes/Core/CUserWishList.php');
 		
@@ -403,6 +445,12 @@ class Model_MUserAccount
 	*/
 	function showMyOrder()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('MY_ORDER');
+
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -449,6 +497,10 @@ class Model_MUserAccount
 	*/
 	function showOrderDetails()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ORDER_DETAILS');
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -494,6 +546,10 @@ class Model_MUserAccount
 	*/
 	function showAllNew()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('COMMON');
+
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
 		include('classes/Core/CUserRegistration.php');
@@ -538,6 +594,10 @@ class Model_MUserAccount
 	*/
 	function showAllFeatured()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('COMMON');
+
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
 		include('classes/Core/CUserRegistration.php');
@@ -583,6 +643,10 @@ class Model_MUserAccount
 	*/
 	function showMyAddressBook($result='')
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ADDRESS_BOOK');
+
 		$this->checkLogin();
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -629,6 +693,10 @@ class Model_MUserAccount
 	*/
 	function showAddAddress($result='')
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ADDRESS_BOOK');
+
 		$this->checkLogin();
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -677,6 +745,11 @@ class Model_MUserAccount
 	*/
 	function showAddress()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ADDRESS_BOOK');
+
 		$this->checkLogin();
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -723,6 +796,10 @@ class Model_MUserAccount
 	*/
 	function addAddress()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ADDRESS_BOOK');
+
 		include('classes/Lib/CheckInputs.php');
 		include('classes/Core/CUserAddressBook.php');
 		
@@ -743,6 +820,10 @@ class Model_MUserAccount
 	*/
 	function editAddress()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ADDRESS_BOOK');
+		
 		include('classes/Lib/CheckInputs.php');
 		include('classes/Core/CUserAddressBook.php');
 		
@@ -753,7 +834,7 @@ class Model_MUserAccount
 
 		$result=Core_CUserAddressBook::editAddress();	
 
-		$this->showAddAddress($result);
+		$this->showMyAddressBook($result);
 	}
 	/**
 	* This function is used to delete  address 
@@ -762,6 +843,10 @@ class Model_MUserAccount
 	*/
 	function delAddress()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ADDRESS_BOOK');
+		
 		include('classes/Core/CUserAddressBook.php');
 		
 		include_once('classes/Core/CCurrencySettings.php');
@@ -792,6 +877,10 @@ class Model_MUserAccount
 	function printOrderDetails()
 	{
 
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('ORDER_DETAILS');
+
 		include('classes/Core/CUserOrder.php');
 		
 		include_once('classes/Core/CCurrencySettings.php');
@@ -807,6 +896,10 @@ class Model_MUserAccount
 	*/
 	function showDigitalProduct()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('MY_DOWNLOADS');
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');
@@ -859,6 +952,10 @@ class Model_MUserAccount
 	*/
 	function CheckDigitalProduct()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('MY_DOWNLOADS');
+
 		$this->checkLogin();	
 		include('classes/Core/CKeywordSearch.php');
 		include('classes/Display/DKeywordSearch.php');

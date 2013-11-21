@@ -21,11 +21,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-   <!-- <title>::  <AJDF:output>$pagetitle</AJDF:output>::</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">-->
-<AJDF:output>$pagetitle</AJDF:output>
+  <AJDF:output>$pagetitle</AJDF:output>
     <!-- Le styles -->
     <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/style.css" rel="stylesheet">
     <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/responsive.css" rel="stylesheet">
@@ -93,18 +89,19 @@ $(function() {
   <body>
   <header>
 
-  <div id="header">
+  <div id="header"><!--<div align="center" style="background-color:#c9c282; border:1px solid #c9c282; color:#ffffff"> 	
+Dear colleague this is demo site.so any order placed here is not pertinent.</div>-->
   <div id="top_menu">
   		<div class="container">
         	<div class="row-fluid">
 		 <span class="visible-desktop">
             	<div class="span6">
                 	<ul class="topmenu">
-                    	<li style="padding-left:0;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard">My Account</a></li>
+                    	<li style="padding-left:0;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
                     	
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist">My Wishlist</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart">My Cart</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart">Checkout</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_WISHLIST'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_CART'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECKOUT'); <AJDF:output>/php</AJDF:output></a></li>
                     	<li><AJDF:output>$loginStatus.logout</AJDF:output></li>
 		
                     </ul>
@@ -125,11 +122,11 @@ $(function() {
 			<div class="row-fluid">
             	<div class="span12">
                 	<ul class="tabletmenu">
-                    	<li style="padding-left:10;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard">My Account</a></li>
+                    	<li style="padding-left:10;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
                     	
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist">My Wishlist</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart">My Cart</a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart">Checkout</a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_WISHLIST'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_CART'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECKOUT'); <AJDF:output>/php</AJDF:output></a></li>
                     	<li><AJDF:output>$loginStatus.logout</AJDF:output></li>
 		
                 
@@ -155,13 +152,16 @@ $(function() {
          <div class="span4">
 
 	<div class="input-append"  style=" margin-top: 30px;">
-        <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output>Search enter item name here ... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> Search</button>
+        <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH_ENTER_ITEM_NAME_HERE'); <AJDF:output>/php</AJDF:output>... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH'); <AJDF:output>/php</AJDF:output></button>
         </div></div>
            
-            <div class="span3" style=" margin-top: 30px;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i>Shopping Cart - <AJDF:output>$cartcount </AJDF:output> &nbsp;Items</i></div></a>
+            <div class="span3" style=" margin-top: 30px;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOPPING_CART'); <AJDF:output>/php</AJDF:output> - <AJDF:output>$cartcount </AJDF:output> &nbsp;<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ITEMS'); <AJDF:output>/php</AJDF:output></i></div></a>
             
             </div>
-</span>
+
+	 
+		
+	</span>
 <span class="visible-tablet">
 			<div class="row-fluid">
         	<div class="span4"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
@@ -173,10 +173,10 @@ $(function() {
          <div class="span6">
 
 	<div class="input-append">
-        <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output>Search enter item name here ... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> Search</button>
+        <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH_ENTER_ITEM_NAME_HERE'); <AJDF:output>/php</AJDF:output>... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH'); <AJDF:output>/php</AJDF:output></button>
         </div></div>
            
-            <div class="span6"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i>Shopping Cart - <AJDF:output>$cartcount </AJDF:output> &nbsp;Items</i></div></a>
+            <div class="span6"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOPPING_CART'); <AJDF:output>/php</AJDF:output> - <AJDF:output>$cartcount </AJDF:output> &nbsp;<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ITEMS'); <AJDF:output>/php</AJDF:output></i></div></a>
             
             </div>
 	</div>
@@ -211,7 +211,7 @@ $(function() {
 <div class="menu style-1">
 	<ul class="menu">
 
-		<li class="select"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index">Home</a></li>	
+		<li class="select"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a></li>	
 		<AJDF:output>$headermenu</AJDF:output>
 	</ul>
 </div>

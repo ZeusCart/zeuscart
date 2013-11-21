@@ -57,7 +57,7 @@ class Core_CAllNew
 		$total = 0;
 		
 		$sql= " SELECT a.product_id, a.title, a.thumb_image, a.msrp, a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as
-			rating FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and product_status!='3' group by a.product_id";
+			rating FROM products_table a INNER JOIN	product_inventory_table b ON a.product_id=b.product_id left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 group by a.product_id";
 		$query = new Bin_Query();
 		if($query->executeQuery($sql))
 		{	
@@ -70,7 +70,7 @@ class Core_CAllNew
 	
 			
 			$sql= " SELECT a.product_id, a.title, a.thumb_image, a.msrp, a.intro_date,b.soh,sum(c.rating)/count(c.user_id) as
-			rating 	FROM products_table a INNER JOIN product_inventory_table b ON a.product_id=b.product_id left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 and product_status!='3' group by a.product_id order by a.intro_date desc limit $start,$end";
+			rating 	FROM products_table a INNER JOIN product_inventory_table b ON a.product_id=b.product_id left join product_reviews_table c on a.product_id=c.product_id WHERE a.intro_date <= '".date('Y-m-d')."' and a.status=1 group by a.product_id order by a.intro_date desc limit $start,$end";
 			$obj = new Bin_Query();
 	
 			if($obj->executeQuery($sql))

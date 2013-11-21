@@ -41,14 +41,14 @@ class Display_DSiteMap
 	{
 		$output.='<div class="row-fluid">
 		<div class="title_fnt">
-			<h1>Site Map</h1>
+			<h1>'.Core_CLanguage::_('SITE_MAP').'</h1>
 			</div>
 		<div class="span12">
 			<div class="container">
         	<div class="row-fluid">
 
 		<div class="span3">
-                	<h3>Categories</h3>
+                	<h3>'.Core_CLanguage::_('CATEGORIES').'</h3>
                    <ul class="sitemap">';
                     	for($i=0;$i<count($arr);$i++)
 				{
@@ -58,30 +58,30 @@ class Display_DSiteMap
                 </div>
 		
 		<div class="span3">
-                	<h3>Search</h3>
+                	<h3>'.Core_CLanguage::_('SEARCH').'</h3>
                    <ul class="sitemap">
-                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=search&search=">List All Product </a></li>
+                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=search&search=">'.Core_CLanguage::_('LIST_ALL_PRODUCT').'</a></li>
 			
                     </ul>
                 </div>
             	<div class="span3">
-                	<h3>My account</h3>
+                	<h3>'.Core_CLanguage::_('LIST_ALL_PRODUCT').'</h3>
                    <ul class="sitemap">
-                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=login">Login</a></li>
-			<li><a href="'.$_SESSION['base_url'].'/index.php?do=forgetpwd">Forgot Password</a></li>								
-			<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard">Account Dashboard</a></li>
-			<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo">Account Information</a></li>
-			<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder">My Orders</a></li>
-			<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders">My Product Reviews</a></li>
-			<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter">News Letter Subscription</a></li>
-			<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist">My Wishlist</a></li>
+                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=login">'.Core_CLanguage::_('LOGIN').'</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=forgetpwd">'.Core_CLanguage::_('FORGOT_PASSWORD').'</a></li>								
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=dashboard">'.Core_CLanguage::_('ACCOUNT_DASHBOARD').'</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=accountinfo">'.Core_CLanguage::_('ACCOUNT_INFORMATION').'</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=myorder">'.Core_CLanguage::_('MY_ORDERS').'</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=orders">'.Core_CLanguage::_('MY_PRODUCT_REVIEWS').'</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=newsletter">'.Core_CLanguage::_('NEWS_LETTER_SUBSCRIPTION').'</a></li>
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist">'.Core_CLanguage::_('MY_WISHLIST').'</a></li>
                     </ul>
                 </div>
 
 		<div class="span3">
-                	<h3>Registration</h3>
+                	<h3>'.Core_CLanguage::_('REGISTRATION').'</h3>
                    <ul class="sitemap">
-                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=userregistration">User Registration</a></li>
+                    	<li><a href="'.$_SESSION['base_url'].'/index.php?do=userregistration">'.Core_CLanguage::_('USER_REGISTRATION').'</a></li>
 	
                     </ul>
                 </div>
@@ -91,17 +91,17 @@ class Display_DSiteMap
 			<div class="row-fluid">
 
 		<div class="span3">
-                	<h3> Connect</h3>
+                	<h3> '.Core_CLanguage::_('CONNECT').'</h3>
                    <ul class="sitemap">
-			<li><a href="'.$_SESSION['base_url'].'/index.php?do=aboutus">About Us</a></li>
-				<li><a href="http://www.zeuscart.com">About Zeuscart</a></li>		
+			<li><a href="'.$_SESSION['base_url'].'/index.php?do=aboutus">'.Core_CLanguage::_('ABOUT_US').'</a></li>
+				<li><a href="http://www.zeuscart.com">'.Core_CLanguage::_('ABOUT_ZEUSCART').'</a></li>		
                     </ul>
                 </div>
 			<div class="span3">
-				<h3>  Customer Services</h3>
+				<h3> '.Core_CLanguage::_('CUSTOMER_SERVICES').'</h3>
 			<ul class="sitemap">
-				<li><a href="'.$_SESSION['base_url'].'/index.php?do=contactus">Contact us</a></li>
-					<li><a href="'.$_SESSION['base_url'].'/index.php?do=faq">Frequently Asked Questions</a></li>	
+				<li><a href="'.$_SESSION['base_url'].'/index.php?do=contactus">'.Core_CLanguage::_('CONTACT_US').'</a></li>
+					<li><a href="'.$_SESSION['base_url'].'/index.php?do=faq">'.Core_CLanguage::_('FREQUENTLY_ASKING_QUESTIONS').'</a></li>	
 			</ul>
 			</div>
 		</div>

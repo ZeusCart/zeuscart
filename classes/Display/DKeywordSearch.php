@@ -45,6 +45,8 @@ class Display_DKeywordSearch
 	function displaySearch($result,$mode,$paging,$prev,$next)
 	{
 
+
+
 		if($_GET['action']=='')	
 		{
 
@@ -275,7 +277,7 @@ class Display_DKeywordSearch
  	*/
 	function displayCountSearch($result)
 	{
-		    $output=$result.' Item(s) Found';
+		    $output=$result.' '. Core_CLanguage::_('ITEMS_FOUND');
 			return $output;
 	}
 
@@ -707,7 +709,7 @@ class Display_DKeywordSearch
 			}
 			else
 			{
-				 $output='<div class="exe_msgbox">No Records Found</div>';
+				 $output='<div class="exe_msgbox">'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</div>';
 			}
 			return $output;
 		}
@@ -757,7 +759,7 @@ class Display_DKeywordSearch
 			}
 			else
 			{
-				 $output='<div class="exc_msgbox">No Product Found</div>';
+				 $output='<div class="exc_msgbox">'.Core_CLanguage::_(NO_PRODUCT_FOUND).'</div>';
 			}
 			return $output;    
 		}

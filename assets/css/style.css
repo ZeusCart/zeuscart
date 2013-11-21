@@ -4577,3 +4577,42 @@ ul.de_div li{}
 .wishlist_button:hover {
 	background:url(../img/add-wishlist-hov.jpg) no-repeat;
 }
+
+
+
+.click_btn {
+	background:url("../img/click-btn.gif") no-repeat;
+	
+	color:#FFFFFF;
+	font-size:11px;
+	border:none;
+	text-align:center;
+	display:block;
+	text-decoration:none;
+	display:block;cursor:pointer;border:0;outline:none;	
+
+}
+
+.click_btn_select {
+	background:url("../img/click-btn-hov.gif") no-repeat;
+	
+	font-size:11px;
+	border:none;
+	text-align:center;
+	display:block;
+	text-decoration:none;
+	display:block;cursor:pointer;border:0;outline:none;	
+
+}
+
+.check_out_or {
+	background:url("../img/or.png") no-repeat;
+	color:#FFFFFF;
+	font-size:11px;
+	border:none;
+	text-align:center;
+	display:block;
+	text-decoration:none;
+	display:block;cursor:pointer;border:0;outline:none;	
+
+}

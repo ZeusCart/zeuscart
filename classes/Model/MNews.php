@@ -47,6 +47,9 @@ class Model_MNews
 	*/
 	function showNewsPage()
 	{
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CMS');
 
 		include_once('classes/Core/CFeaturedItems.php');
 		include_once('classes/Display/DFeaturedItems.php');

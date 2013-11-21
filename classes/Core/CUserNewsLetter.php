@@ -78,13 +78,13 @@ class Core_CUserNewsLetter
 
 				return '<div class="alert alert-success">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Your Request for News Letter Subscription was updated successfully. 
+				'.Core_CLanguage::_(REQUEST_NEWS_UPDATED).'
 				</div>';
 			else
 	
 				return '<div class="alert alert-error">
 				<button data-dismiss="alert" class="close" type="button">×</button>
-				Your Request for News Letter Subscription was not updated 
+				'.Core_CLanguage::_(REQUEST_NEWS_NOT_UPDATED).'
 				</div>';
 		}
 	}	

@@ -51,6 +51,11 @@ class Model_MAddCart
 	function addCart()
 	{
 
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+
+
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -159,6 +164,10 @@ class Model_MAddCart
 	 */
 	function addCartFromProductDetail()
 	{
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
 
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
@@ -280,6 +289,10 @@ class Model_MAddCart
 	 */
 	function showCart() 
 	{
+	
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
 
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
@@ -442,6 +455,12 @@ class Model_MAddCart
 	 */
 	function updateCart()
 	{
+		
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+
 		include_once('classes/Core/CAddCart.php');
 		$default=new Core_CAddCart();
 		include_once('classes/Core/CAddCart.php');
@@ -497,6 +516,11 @@ class Model_MAddCart
 	 */
 	function showQuickRegistration() 
 	{
+		
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
 
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
@@ -574,8 +598,12 @@ class Model_MAddCart
 	 */
 	function doQuickRegistration() 
 	{
+		
 
-
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+		
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 			
@@ -654,6 +682,10 @@ class Model_MAddCart
 	 */
 	function showBillingDetails()
 	{
+		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
 
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
@@ -724,6 +756,12 @@ class Model_MAddCart
 	 */
 	function showShippingDetails()
 	{
+		
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -793,6 +831,10 @@ class Model_MAddCart
 	function showShippingMethod()
 	{
 
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 			
@@ -860,7 +902,11 @@ class Model_MAddCart
 	 */	
 	function showOrderConfirmation() 
 	{
+		
 
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
 			
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
@@ -926,6 +972,10 @@ class Model_MAddCart
 	function displayPaymentGateways()
 	{
 
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
@@ -990,6 +1040,11 @@ class Model_MAddCart
 	 */
 	function validateCoupon()
 	{
+		
+
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
 
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
@@ -1055,7 +1110,11 @@ class Model_MAddCart
 	 */
 	function showPaymentPageForAuthorizenet() 
 	{
+		
 
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
 	
 		include("classes/Lib/HandleErrors.php");
 		$output['val']=$Err->values;
@@ -1385,6 +1444,10 @@ class Model_MAddCart
 	function validateBillingAddress()
 	{
 
+			//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -1449,6 +1512,11 @@ class Model_MAddCart
 	 */
 	function validateShippingAddress()
 	{
+
+	
+			//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
 
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
@@ -1515,6 +1583,11 @@ class Model_MAddCart
 	function validateShippingMethod()
 	{	
 
+	
+			//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+		
 		include_once('classes/Core/CCurrencySettings.php');
 		Core_CCurrencySettings::getDefaultCurrency();
 		
