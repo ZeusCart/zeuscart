@@ -632,11 +632,11 @@ class Display_DAddCart
 				{
 					if($billing_addess_id==$records[$i]['id'])
 					{
-						$imageicon='click_btn_select';
+						$imageicon='btn btn-inverse';
 					}
 					else
 					{
-						$imageicon='click_btn';
+						$imageicon='btn';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -657,11 +657,11 @@ class Display_DAddCart
 				{
 					if($billing_addess_id==$records[$i]['id'])
 					{
-						$imageicon='click_btn_select';
+						$imageicon='btn btn-inverse';
 					}
 					else
 					{
-						$imageicon='click_btn';
+						$imageicon='btn';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -821,11 +821,11 @@ class Display_DAddCart
 				{
 					if($shipping_address_id==$records[$i]['id'])
 					{
-						$imageicon='click_btn_select';
+						$imageicon='btn btn-inverse';
 					}
 					else
 					{
-						$imageicon='click_btn';
+						$imageicon='btn';
 					}
 					if($records[$i]['contact_name']!='')
 					{
@@ -848,11 +848,11 @@ class Display_DAddCart
 
 					if($shipping_address_id==$records[$i]['id'])
 					{
-						$imageicon='click_btn_select';
+						$imageicon='btn btn-inverse';
 					}
 					else
 					{
-						$imageicon='click_btn';
+						$imageicon='btn';
 					}
 					if($records[$i]['contact_name']!='')
 					{

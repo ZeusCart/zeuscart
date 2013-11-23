@@ -207,8 +207,20 @@ class Core_Category_CShowMainCategory
 				$status=$_POST['status'];
 	
 			}
-			
-			$sql= "UPDATE category_table SET category_name = '".$_POST['categoryname']."', category_desc ='".$_POST['categorydesc']. "', category_status='".$_POST['status']."',category_parent_id='".$categoryparent."',subcat_path='".$subcategorypath."',count='".$count."' WHERE category_id =".(int)$_GET['id'];  
+					
+			//convert all special charactor into hyphens and lower case
+
+			$sluggable=$_POST['category_alias'];	
+			$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $sluggable);
+			$sluggable = trim($sluggable, '-');
+			if( function_exists('mb_strtolower') ) { 
+				$sluggable = mb_strtolower( $sluggable );
+			} else { 
+				$sluggable = strtolower( $sluggable );
+			}
+			$category_alias = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+			$sql= "UPDATE category_table SET category_name = '".$_POST['categoryname']."',category_alias='".$category_alias."', category_desc ='".$_POST['categorydesc']. "', category_status='".$_POST['status']."',category_parent_id='".$categoryparent."',subcat_path='".$subcategorypath."',count='".$count."' WHERE category_id =".(int)$_GET['id'];  
 			
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))

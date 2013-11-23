@@ -419,34 +419,35 @@ class Display_DNewProducts
 	 */
 	function categoryBreadCrumb()
 	{
-		
-		$category=explode('/',$_GET['cat']);
-		$categorycount=count($category);
+
+
+		$categoryalias=explode('/',$_GET['cat']);
+		$categorycount=count($categoryalias);
 	
 		
-
-
 		if($categorycount>0)
 		{
 
 			for($i=0;$i<$categorycount;$i++)
 			{
-				$parentcat=$category[0];
-				$parentcat=str_replace('-',' ',$parentcat);
-				$sqlParent="SELECT * FROM category_table WHERE category_name='".$parentcat."'";	
+				$parentcatalias=$categoryalias[0];
+				$parentcat=str_replace('-',' ',$parentcatalias);
+				$sqlParent="SELECT * FROM category_table WHERE category_alias='".$parentcatalias."'";	
 				$objParent=new Bin_Query();
 				$objParent->executeQuery($sqlParent);	
 				$parent_id=$objParent->records[0]['category_id']; 
+				$parent_category=$objParent->records[0]['category_name']; 	
 
-				$categoryname=$category[$i];
-				$categoryname=str_replace('-',' ',$categoryname);		
-			 	$sql="SELECT * FROM  category_table  WHERE category_name='".$categoryname."' AND FIND_IN_SET($parent_id,subcat_path)";
+				$category_alias=$categoryalias[$i];
+				$categoryname=str_replace('-',' ',$category_alias);		
+			 	$sql="SELECT * FROM  category_table  WHERE category_alias='".$categoryname."' AND FIND_IN_SET($parent_id,subcat_path)";
 				$obj=new Bin_Query();
 				$obj->executeQuery($sql);	
 				$records=$obj->records[0];
+				$subcategory=trim($obj->records[0]['category_name']);
 
-
-				$url=array_slice($category, 0, $i+1);
+		
+				$url=array_slice($subcategory, 0, $i+1);
 				$comma_separated = implode("/", $url);
 				$pos=strpos($_SERVER['REQUEST_URI'],'grid');
 
@@ -462,12 +463,12 @@ class Display_DNewProducts
 		
 				if(($categorycount-1)==($i))
 				{
-					$linkcontent=$records['category_name'];
+					$linkcontent=trim($records['category_name']);
 				}
 				else
 				{
 					
-					$linkcontent='<a href='.$_SESSION['base_url'].'/'.$comma_separated.'>'.$records['category_name'].'</a><span class="divider">/</span>';
+					$linkcontent='<a href='.$_SESSION['base_url'].'/'.$comma_separated.'>'.trim($records['category_name']).'</a><span class="divider">/</span>';
 				}
 
 				$output.='<li>'.$linkcontent.'</li>';	

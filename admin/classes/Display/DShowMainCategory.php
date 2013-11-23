@@ -211,16 +211,23 @@ class Display_DShowMainCategory
 		{
 			$catid=$Err->values['catid'];
 			$categoryname=$Err->values['category'];
+			$category_alias=$Err->values['category_alias'];
+
 			$visibilitystattus=$Err->values['category_status'];
 			$catdesc=$Err->values['categorydesc'];
+
+
 		}
 		else
 		{
 			$catid=$arr[0]['category_parent_id'];
 			$categoryname=$arr[0]['category_name'];
+			$category_alias=$arr[0]['category_alias'];
 			$visibilitystattus=$arr[0]['category_status'];
 			$catdesc=$arr[0]['category_desc'];
 		}
+
+	
 
 		$output ="";
 		$maincat='<select name="category" class="span4"><option value="0">No parent</option>';
@@ -275,7 +282,18 @@ class Display_DShowMainCategory
 		$output .= '<div class="row-fluid">
 		<div class="span12"><label>Category Name <font color="#FF0000">*</font></label>
 		<input type="text" name="categoryname" class="span4" id="cat" value="'.$arr[0]['category_name'].'" />
-		</div></div>';
+		</div></div>
+
+
+			<div class="row-fluid">
+			<div class="span4"><label>Category Alias <font color="#FF0000">
+					*
+				</font></label>
+				<input type="text" name="category_alias" id="category_alias" value="'.$category_alias.'" class="span12" /></div><div class="span4"><font color="#FF0000"> (The category alias wil be used in SEF url. Use lower case letter and hyphens .No spaces and underscore are not allowed)</font>
+				
+				</div>
+			</div>';
+
 
 		
 		$output .= '<div class="row-fluid">

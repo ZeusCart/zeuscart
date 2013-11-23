@@ -102,7 +102,7 @@ class Display_DUserRegistration
 // 			}
 // 	
 // 		}
-		
+	
 
 		$cnt= count($arr);
 		if($cnt>0)
@@ -111,7 +111,7 @@ class Display_DUserRegistration
 			{
 				
 
-				$sluggable = $arr[$i]['category_name'];
+				$sluggable = $arr[$i]['category_alias'];
 
 				$output.='<li><a href="'.$_SESSION['base_url'].'/'.$sluggable.'.html" class="arrow">'.$arr[$i]['category_name'].'</a>
 				<div class="mega-menu full-width">';
@@ -186,7 +186,7 @@ class Display_DUserRegistration
 			$obj=new Bin_Query();
 			$obj->executeQuery($sql);
 			
-			$sluggable = trim($obj->records[0]['category_name']);
+			$sluggable = trim($obj->records[0]['category_alias']);
 		
 			if($m<(count($cat)-1))
 			{

@@ -263,7 +263,6 @@ class Core_Settings_CCategoryManagement
 	function addCategory()
 	{
 
-
 		$imagetypes=array ('image/jpeg' ,'image/pjpeg' , 'image/bmp' , 'image/gif' , 'image/png','image/x-png');
 		$query = new Bin_Query();
 		
@@ -323,7 +322,26 @@ class Core_Settings_CCategoryManagement
 
 					}	
 
-						 $sql = "INSERT INTO category_table (category_name,category_parent_id,category_image,category_desc,category_status,category_content_id,count) VALUES ('".trim($_POST['categoryname'])."','".$categoryparent."','".$caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."','".$count."')";  
+					//convert all special charactor into hyphens and lower case
+					if($_POST['category_alias']!='')
+					{
+						
+						$sluggable=$_POST['category_alias'];			
+						
+					}
+				
+					//convert all special charactor into hyphens and lower case
+					$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $sluggable);
+					$sluggable = trim($sluggable, '-');
+					if( function_exists('mb_strtolower') ) { 
+						$sluggable = mb_strtolower( $sluggable );
+					} else { 
+						$sluggable = strtolower( $sluggable );
+					}
+					$category_alias = preg_replace("/[\/_|+ -]+/", '-', $sluggable);	
+
+
+						 $sql = "INSERT INTO category_table (category_name,category_alias,category_parent_id,category_image,category_desc,category_status,category_content_id,count) VALUES ('".trim($_POST['categoryname'])."','".$category_alias."','".$categoryparent."','".$caticonpath."','".trim($_POST['categorydesc'])."','".$_POST['status']."','".$_POST['contentid']."','".$count."')";  
 						$query->updateQuery($sql);
 						
 						$catinsertid=mysql_insert_id();

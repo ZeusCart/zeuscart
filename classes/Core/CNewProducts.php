@@ -160,7 +160,7 @@ class Core_CNewProducts
 				
 			 if(count($results) > 1){
 				
-				$sqlBase='SELECT * from category_table WHERE  category_name="'.$results[0].'"';
+				$sqlBase='SELECT * from category_table WHERE  category_alias="'.trim($results[0]).'"';
 				$objBase=new Bin_Query();
 				$objBase->executeQuery($sqlBase);
 				$basecatid=$objBase->records[0]['category_id'];	
@@ -169,7 +169,7 @@ class Core_CNewProducts
 			  }
 
 	  		$last=end($results);
-			$sql="SELECT * from category_table WHERE category_name='".$last."' ".$sql.""; 
+			$sql="SELECT * from category_table WHERE category_alias='".trim($last)."' ".$sql.""; 
 			$obj=new Bin_Query();
 			$obj->executeQuery($sql);
 			$catid=$obj->records[0]['category_id'];
@@ -282,7 +282,7 @@ class Core_CNewProducts
 
 		$parentcat=$output['totcategory'][0];
 		$parentcat=str_replace('-',' ',$parentcat);
-		$sqlParent="SELECT * FROM category_table WHERE category_name='".$parentcat."'";	
+		$sqlParent="SELECT * FROM category_table WHERE category_alias='".$parentcat."'";	
 		$objParent=new Bin_Query();
 		$objParent->executeQuery($sqlParent);	
 		$parent_id=$objParent->records[0]['category_id']; 
@@ -290,7 +290,7 @@ class Core_CNewProducts
 
 		$category=end($output['totcategory']);
 		$category=str_replace('-',' ',$category);
-	 	$sql="SELECT * FROM  category_table  WHERE category_name='".$category."' AND FIND_IN_SET($parent_id,subcat_path)";
+	 	$sql="SELECT * FROM  category_table  WHERE category_alias='".$category."' AND FIND_IN_SET($parent_id,subcat_path)";
 		$obj=new Bin_Query();
 		$obj->executeQuery($sql);	
 		$category_id=$obj->records[0]['category_id'];

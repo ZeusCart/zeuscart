@@ -296,9 +296,35 @@ class Lib_FormValidation extends Lib_Validation_Handler
 
 	function validateEditCategory()
 	{
-
+		
 		$message = "Required Field Cannot be blank/No Special Characters Allowed";
 		$this->Assign("categoryname",trim($_POST['categoryname']),"noempty/nospecial' _'",$message);		
+		
+		$message = "Required Field Cannot be blank";
+		$this->Assign("category_alias",trim($_POST['category_alias']),"noempty",'Category Alias - '.$message);
+
+
+		if(trim($_POST['category_alias'])!='')
+		{	
+				//convert all special charactor into hyphens and lower case
+				$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', trim($_POST['category_alias']));
+				$sluggable = trim($sluggable, '-');
+				if( function_exists('mb_strtolower') ) { 
+					$sluggable = mb_strtolower( $sluggable );
+				} else { 
+					$sluggable = strtolower( $sluggable );
+				}
+				$category_alias = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
+
+				$sql="SELECT * FROM category_table WHERE category_alias='".$category_alias."' AND  category_id!=".$_GET['id'];
+				$obj=new Bin_Query();
+				if($obj->executeQuery($sql))
+				{
+					$this->Assign("caticon","","noempty","Category Alias - already exists");
+
+		    	}	
+    	}
+
 		if($_POST['category']=='all')	
 		{	
 			$message="Required Field Cannot be blank";
@@ -1292,8 +1318,29 @@ class Lib_FormValidation extends Lib_Validation_Handler
 
 		$message = "Required Field Cannot be blank";
 		$this->Assign("categoryname",trim($_POST['categoryname']),"noempty",'Category Name - '.$message);
+		$this->Assign("category_alias",trim($_POST['category_alias']),"noempty",'Category Alias - '.$message);
 
+		if(trim($_POST['category_alias'])!='')
+		{	
+			//convert all special charactor into hyphens and lower case
+			$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', trim($_POST['category_alias']));
+			$sluggable = trim($sluggable, '-');
+			if( function_exists('mb_strtolower') ) { 
+				$sluggable = mb_strtolower( $sluggable );
+			} else { 
+				$sluggable = strtolower( $sluggable );
+			}
+			$category_alias = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
 
+			$sql="SELECT * FROM category_table WHERE category_alias='".$category_alias."'";
+			$obj=new Bin_Query();
+			if($obj->executeQuery($sql))
+			{
+				$this->Assign("caticon","","noempty","Category Alias - already exists");
+
+	    	}	
+
+    	}
 		if($_FILES['caticon']['name'] != '')
 		{
 		

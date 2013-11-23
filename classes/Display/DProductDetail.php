@@ -714,25 +714,9 @@ class Display_DProductDetail
 
 		for($i=0;$i<count($arr);$i++)
 		{
-			$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $arr[$i]['category_name']);
-			$sluggable = trim($sluggable, '-');
-			if( function_exists('mb_strtolower') ) { 
-				$sluggable = mb_strtolower( $sluggable );
-			} else { 
-				$sluggable = strtolower( $sluggable );
-			}
-
-			if(trim($_SESSION['site_language'])=='en')
-			{
-
-				 $sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
-			}
-			else
-			{
-				 $sluggable = trim($arr[$i]['category_name']);	
-			}	
 			
-
+			 $sluggable = trim($arr[$i]['category_alias']);	
+			
 			$output.=' <li><a href="'.$_SESSION['base_url'].'/'.$sluggable.'.html">'.$arr[$i]['category_name'].'</a>';
 			$output.=self::getSubFamilies(0,$arr[$i]['category_id'],0);
 
@@ -762,31 +746,15 @@ class Display_DProductDetail
 			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies )) {
 				$k=$k+10;
 				$categoryname=self::getSubFamiliesPath($rowSubFamilies['subcat_path']);
-				$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $rowSubFamilies['category_name']);
-				$sluggable = trim($sluggable, '-');
-				if( function_exists('mb_strtolower') ) { 
-					$sluggable = mb_strtolower( $sluggable );
-				} else { 
-					$sluggable = strtolower( $sluggable );
-				}
-
-				if(trim($_SESSION['site_language'])=='en')
-				{
-					 $sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
-				}
-				else
-				{
-					 $sluggable = trim($rowSubFamilies['category_name']);	
-				}	
-
 				
-
+				 $sluggable = trim($rowSubFamilies['category_alias']);	
+			
 				if($rowSubFamilies['category_id'])
 				$output.='<ul class="innermenu">
 				<li ><a href="'.$_SESSION['base_url'].'/'.$categoryname.'.html"> '.$rowSubFamilies['category_name'].'</a>';
 				
 				$output.=self::getSubFamilies($level, $rowSubFamilies['category_id'],$k);
-// 				$cattreeid=$rowSubFamilies['category_id']
+
 				$output.='</li></ul>';
 				}
 		
@@ -810,26 +778,9 @@ class Display_DProductDetail
 			$sql = "SELECT * from category_table WHERE  category_id = ".$cat[$m].""; 
 			$obj=new Bin_Query();
 			$obj->executeQuery($sql);
-			$sluggable = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $obj->records[0]['category_name']);
-			$sluggable = trim($sluggable, '-');
-			if( function_exists('mb_strtolower') ) { 
-				$sluggable = mb_strtolower( $sluggable );
-			} else { 
-				$sluggable = strtolower( $sluggable );
-			}
-
-				if(trim($_SESSION['site_language'])=='en')
-				{
-					 $sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
-				}
-				else
-				{
-					$sluggable = trim($obj->records[0]['category_name']);	
-				}	
-
-		
 			
-
+			$sluggable = trim($obj->records[0]['category_alias']);	
+				
 			if($m<(count($cat)-1))
 			{
 				$catname.=$sluggable. '/';
