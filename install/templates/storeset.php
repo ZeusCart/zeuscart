@@ -26,11 +26,11 @@
                               <!--  <dd><input name="currval" type="text" class="installtext"  id="currval" value="1"/> 
 				<span style="color:#FF0000"> <?php echo $Err->messages['currval'] ?></span></dd>-->
 				<div class="clear"></div>
-				<dt>Currency Country</dt>
+			   <!--	<dt>Currency Country</dt>
                                 <dd><?php echo $selcountrycode; ?> <div class="clear"></div></dd>
 				<div class="clear"></div>
                             </dl>
-                            <div class="clear"></div>
+                            <div class="clear"></div>  -->
 
                          
 </div>

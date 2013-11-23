@@ -562,12 +562,11 @@ class Model_MInstall
 			$currname = trim($_POST['currname']);
 			$currtoken = trim($_POST['currtoken']);
 			$currcode = trim($_POST['currcode']);
-			$countrycode=$_POST['taxratecountry'];
 			
 			$sql="DELETE FROM currency_master_table";
 			$result=mysql_query($sql);
 			
-			$sql="INSERT INTO currency_master_table VALUES('1','$currname','$currcode','$countrycode','$currtoken',1,1)"; 
+			$sql="INSERT INTO currency_master_table VALUES('1','$currname','$currcode','$currtoken',1,1)"; 
 			$result=mysql_query($sql);
 			
 			$sql="UPDATE admin_settings_table SET site_language='".trim($_POST['site_language'])."'";
@@ -618,50 +617,83 @@ class Model_MInstall
 				(23, 'T卹', 20, '17,20,23', 'uploadedimages/caticons/2013-09-10-173704Crafted-Long-Sleeved-Shirt.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
 				(24, '數字手錶', 21, '17,21,24', 'uploadedimages/caticons/2013-09-10-173738digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
 				(25, '飾品', 0, '25', 'uploadedimages/caticons/2013-09-10-1738292.jpg', 'AccessoriesAccessories', 1, 0, 0),
-				(26, '移動', 25, '25,26', 'uploadedimages/caticons/2013-09-10-1739106.jpg', 'MobileMobileMobile', 1, 0, 1),
-				(27, '滑蓋手機', 26, '25,26,27', 'uploadedimages/caticons/2013-09-10-1740456.jpg', 'Slider mobileSlider mobileSlider mobile', 1, 0, 2),
-				(28, '計算', 25, '25,28', 'uploadedimages/caticons/2013-09-10-1741422.jpg', 'ComputesComputesComputes', 1, 0, 1);";
+				(26, '手袋', 25, '25,26', 'uploadedimages/caticons/2013-09-10-1739106.jpg', '', 1, 0, 1),
+				(27, '女士手包', 26, '25,26,27', 'uploadedimages/caticons/2013-09-10-1740456.jpg', 'Slider mobileSlider mobileSlider mobile', 1, 0, 2),
+				(28, '計算', 25, '25,28', 'uploadedimages/caticons/2013-09-10-1741422.jpg', 'ComputesComputesComputes', 1, 0, 1),
+				(29, '正式', 18, '17,18,29', 'uploadedimages/caticons/2013-10-17-10474803.jpg', '', 1, 0, 2),
+				(30, '運動鞋', 18, '17,18,30', '', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', 1, 0, 2),
+				(31, '運動鞋', 18, '17,18,31', '', '', 1, 0, 2),
+				(32, '筆記本電腦包', 19, '17,19,32', '', '', 1, 0, 2),
+				(33, '背上書包', 19, '17,19,33', '', '', 1, 0, 2),
+				(34, '錢包', 19, '17,19,34', '', '', 1, 0, 2),
+				(35, '襯衫', 20, '17,20,35', '', '', 1, 0, 2),
+				(36, '模擬手錶', 21, '17,21,36', '', '', 1, 0, 2),
+				(37, '芯片', 28, '25,28,37', '', '', 1, 0, 2))";
 				$result=mysql_query($sql);
 
 				//products
 				$sql="Drop table if exists products_table";
 				$result=mysql_query($sql);
 				$sql="CREATE TABLE IF NOT EXISTS `products_table` (
-				`product_id` int(25) NOT NULL AUTO_INCREMENT,
-				`category_id` varchar(100) NOT NULL,
-				`sku` varchar(100) NOT NULL,
-				`title` varchar(250) NOT NULL,
-				`alias` varchar(100) NOT NULL,
-				`description` text NOT NULL,
-				`brand` varchar(100) NOT NULL,
-				`model` varchar(50) NOT NULL,
-				`msrp` double NOT NULL,
-				`price` double NOT NULL,
-				`cse_enabled` int(1) NOT NULL,
-				`cse_key` varchar(100) DEFAULT NULL,
-				`weight` varchar(25) NOT NULL,
-				`dimension` varchar(100) NOT NULL,
-				`thumb_image` varchar(150) NOT NULL,
-				`image` varchar(150) NOT NULL,
-				`large_image_path` varchar(150) NOT NULL,
-				`shipping_cost` double NOT NULL,
-				`status` int(1) NOT NULL,
-				`tag` varchar(200) NOT NULL,
-				`meta_desc` varchar(255) NOT NULL,
-				`meta_keywords` text NOT NULL,
-				`intro_date` date NOT NULL,
-				`is_featured` int(1) NOT NULL,
-				`digital` int(10) NOT NULL,
-				`gift` int(20) NOT NULL,
-				`digital_product_path` varchar(200) NOT NULL,
-				`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
-				PRIMARY KEY (`product_id`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+			`product_id` int(25) NOT NULL AUTO_INCREMENT,
+			`category_id` varchar(100) NOT NULL,
+			`sku` varchar(100) NOT NULL,
+			`title` varchar(250) NOT NULL,
+			`alias` varchar(100) NOT NULL,
+			`description` text NOT NULL,
+			`brand` varchar(100) NOT NULL,
+			`model` varchar(50) NOT NULL,
+			`msrp` double NOT NULL,
+			`price` double NOT NULL,
+			`cse_enabled` int(1) NOT NULL,
+			`cse_key` varchar(100) DEFAULT NULL,
+			`weight` varchar(25) NOT NULL,
+			`dimension` varchar(100) NOT NULL,
+			`thumb_image` varchar(150) NOT NULL,
+			`image` varchar(150) NOT NULL,
+			`large_image_path` varchar(150) NOT NULL,
+			`shipping_cost` double NOT NULL,
+			`status` int(1) NOT NULL,
+			`tag` varchar(200) NOT NULL,
+			`meta_desc` varchar(255) NOT NULL,
+			`meta_keywords` text NOT NULL,
+			`intro_date` date NOT NULL,
+			`is_featured` int(1) NOT NULL,
+			`digital` int(10) NOT NULL,
+			`gift` int(20) NOT NULL,
+			`digital_product_path` varchar(200) NOT NULL,
+			`has_variation` tinyint(11) NOT NULL,
+			`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product,3=>deleted products',
+			`deleted_reason` varchar(240) NOT NULL,
+			PRIMARY KEY (`product_id`)) ";
+
 				$result=mysql_query($sql);
-				$sql="INSERT INTO `products_table` (`product_id`, `category_id`, `sku`, `title`, `alias`, `description`, `brand`, `model`, `msrp`, `price`, `cse_enabled`, `cse_key`, `weight`, `dimension`, `thumb_image`, `image`, `large_image_path`, `shipping_cost`, `status`, `tag`, `meta_desc`, `meta_keywords`, `intro_date`, `is_featured`, `digital`, `gift`, `digital_product_path`, `product_status`) VALUES
-				(1, '18', '10', '鞋', '鞋', '', '', '', 150, 100, 0, '', '', '', 'images/products/thumb/yonsht250wb.jpg', 'images/products/yonsht250wb.jpg', 'images/products/large_image/yonsht250wb.jpg', 0, 1, '', '', '', '0000-00-00', 1, 0, 0, '', 1),
-				(2, '11', '10', '手錶', '手錶', '', '', '', 800, 500, 0, '', '', '', 'images/products/thumb/2013-03-02-122103analog-watches03.jpg', 'images/products/2013-03-02-122103analog-watches03.jpg', 'images/products/large_image/2013-03-02-122103analog-watches03.jpg', 0, 1, '', '', '', '0000-00-00', 0, 0, 0, '', 0)";
-				$result=mysql_query($sql); 
+				$sql="INSERT INTO `products_table` (`product_id`, `category_id`, `sku`, `title`, `alias`, `description`, `brand`, `model`, `msrp`, `price`, `cse_enabled`, `cse_key`, `weight`, `dimension`, `thumb_image`, `image`, `large_image_path`, `shipping_cost`, `status`, `tag`, `meta_desc`, `meta_keywords`, `intro_date`, `is_featured`, `digital`, `gift`, `digital_product_path`, `has_variation`, `product_status`, `deleted_reason`) VALUES
+			(1, '22', '15asAS', '靴子', '靴子', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.</p>', '', '', 200, 150, 0, '', '1', '', 'images/products/thumb/boot06.jpg', 'images/products/boot06.jpg', 'images/products/large_image/boot06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+			(2, '29', '15kj', '正式的皮鞋', '正式的皮鞋', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '外套', '', 700, 500, 0, '', '1', '', 'images/products/thumb/formals06.jpg', 'images/products/formals06.jpg', 'images/products/large_image/formals06.jpg', 10, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+			(3, '30', 'as15', '運動鞋', '運動鞋', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 500, 150, 0, '', '1', '', 'images/products/thumb/sneakers05.jpg', 'images/products/sneakers05.jpg', 'images/products/large_image/sneakers05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+			(4, '31', '15', '運動鞋', '運動鞋', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 100, 50, 0, '', '1', '', 'images/products/thumb/Puma-KURIS-Men-Black.jpg', 'images/products/Puma-KURIS-Men-Black.jpg', 'images/products/large_image/Puma-KURIS-Men-Black.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+			(5, '32', '15', '筆記本電腦包', '筆記本電腦包', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 150, 100, 0, '', '1', '', 'images/products/thumb/laptop-bags06.jpg', 'images/products/laptop-bags06.jpg', 'images/products/large_image/laptop-bags06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+			(6, '33', '5a', '背上書包', '背上書包', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 200, 150, 0, '', '1', '', 'images/products/thumb/backpacks06.jpg', 'images/products/backpacks06.jpg', 'images/products/large_image/backpacks06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+			(7, '34', '10a', '錢包', '錢包', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/wallets06.jpg', 'images/products/wallets06.jpg', 'images/products/large_image/wallets06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+			(8, '23', '15', 'T卹', 'T卹', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/t-shirts06.jpg', 'images/products/t-shirts06.jpg', 'images/products/large_image/t-shirts06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+			(9, '35', '152', '襯衫', '襯衫', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 100, 50, 0, '', '1', '', 'images/products/thumb/shirts07.jpg', 'images/products/shirts07.jpg', 'images/products/large_image/shirts07.jpg', 0, 1, '', '', '', '2013-10-17', 0, 0, 0, '', 1, 1, ''),
+			(10, '24', '15a', '數字手錶', '數字手錶', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/digital-watches03.jpg', 'images/products/digital-watches03.jpg', 'images/products/large_image/digital-watches03.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+			(11, '36', '15s', '模擬手錶', '模擬手錶', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '塔塔', '', 150, 100, 0, '', '1', '', 'images/products/thumb/analog-watches05.jpg', 'images/products/analog-watches05.jpg', 'images/products/large_image/analog-watches05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+			(12, '6', '15', '靴子', '靴子', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '外套', '', 200, 150, 0, '', '1', '', 'images/products/thumb/boots02.jpg', 'images/products/boots02.jpg', 'images/products/large_image/boots02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+			(13, '7', '65', '正式的皮鞋', '正式的皮鞋', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/formal-shoes06.jpg', 'images/products/formal-shoes06.jpg', 'images/products/large_image/formal-shoes06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+			(14, '8', '15', '運動鞋', '運動鞋', '', '', '', 20, 15, 0, '', '', '', 'images/products/thumb/sneakers05.jpg', 'images/products/sneakers05.jpg', 'images/products/large_image/sneakers05.jpg', 0, 1, '運動鞋', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+			(15, '9', '15q', '運動鞋', '運動鞋', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/sports-shoes06.jpg', 'images/products/sports-shoes06.jpg', 'images/products/large_image/sports-shoes06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+			(16, '10', '15', 'T卹', 'T卹', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/t-shirts02.jpg', 'images/products/t-shirts02.jpg', 'images/products/large_image/t-shirts02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+			(17, '11', '15a', ' 模擬手錶', ' 模擬手錶', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/analog-watches06.jpg', 'images/products/analog-watches06.jpg', 'images/products/large_image/analog-watches06.jpg', 0, 1, '手錶', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+			(18, '12', '15', '數字手錶', '數字手錶', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/digital-watches02.jpg', 'images/products/digital-watches02.jpg', 'images/products/large_image/digital-watches02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+			(19, '13', '15s', '計時grahs的', '計時grahs的', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/chronograhs05.jpg', 'images/products/chronograhs05.jpg', 'images/products/large_image/chronograhs05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+			(20, '14', '15', '筆記本電腦包', '筆記本電腦包', '<p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.', '', '', 200, 10, 0, '', '1', '', 'images/products/thumb/laptop-bags04.jpg', 'images/products/laptop-bags04.jpg', 'images/products/large_image/laptop-bags04.jpg', 0, 1, 'bags', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+			(21, '15', '15', '背上書包', '背袋', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/backpacks03.jpg', 'images/products/backpacks03.jpg', 'images/products/large_image/backpacks03.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+			(22, '16', '15asd', '錢包', '錢包', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/wallets01.jpg', 'images/products/wallets01.jpg', 'images/products/large_image/wallets01.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+			(23, '27', '15', '手包', '手包', '<p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra</p>', '', '', 600, 500, 0, '', '1', '', 'images/products/thumb/2013-10-18-064649hand2.jpg', 'images/products/2013-10-18-064649hand2.jpg', 'images/products/large_image/2013-10-18-064649hand2.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+			(24, '37', '15a', '芯片', '芯片', '', '', '', 1500, 1000, 0, '', '1', '', 'images/products/thumb/chip.jpg', 'images/products/chip.jpg', 'images/products/large_image/chip.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, '')";
+			$result=mysql_query($sql); 
 
 
 				$sql="UPDATE admin_settings_table SET customer_header='這一個月的令人興奮的優惠！ ！ ！' WHERE set_id	='1'";	

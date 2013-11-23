@@ -126,7 +126,12 @@ class Core_CQuery
 		$sql="CREATE TABLE attribute_table(attrib_id  INT(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,attrib_name  VARCHAR(200) NOT NULL)";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `attribute_table` (`attrib_id`, `attrib_name`) VALUES
-		(1, 'Size')";
+		(1, 'Design'),
+		(2, 'Stitching'),
+		(3, 'Dress Code'),
+		(4, 'Stamping'),
+		(5, 'Clockspeed '),
+		(6, 'Size');";
 		$result=mysql_query($sql);
 
 
@@ -135,8 +140,13 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE attribute_value_table(attrib_value_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,attrib_id  INT(20) NOT NULL,attrib_value  VARCHAR(100) NOT NULL)";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `attribute_value_table` ( `attrib_id`, `attrib_value`) VALUES
-		(1, '22')";
+		$sql="INSERT INTO `attribute_value_table` (`attrib_value_id`, `attrib_id`, `attrib_value`) VALUES
+		(1, 1, 'Excellent designing'),
+		(2, 2, 'Fine stitching'),
+		(3, 3, 'Smart'),
+		(4, 4, 'Metal'),
+		(5, 5, '5.5 GHz'),
+		(6, 6, '10cm')";
 		$result=mysql_query($sql);
 		
 		
@@ -146,7 +156,22 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE category_attrib_table(category_attrib_id  INT(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,subcategory_id  INT(15) NOT NULL,attrib_id  INT(15) NOT NULL)";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `category_attrib_table` ( `subcategory_id`, `attrib_id`) VALUES( 44, 0)";	
+		$sql="INSERT INTO `category_attrib_table` (`category_attrib_id`, `subcategory_id`, `attrib_id`) VALUES(1, 29, 1),
+		(2, 29, 2),
+		(3, 30, 1),
+		(4, 31, 2),
+		(5, 32, 0),
+		(6, 33, 2),
+		(7, 34, 1),
+		(8, 35, 3),
+		(9, 36, 4),
+		(10, 37, 5),
+		(12, 39, 6),
+		(13, 6, 6),
+		(14, 40, 0),
+		(15, 41, 0),
+		(16, 42, 0),
+		(18, 44, 0);";	
 		$result=mysql_query($sql);
 
 
@@ -166,8 +191,7 @@ class Core_CQuery
 			PRIMARY KEY (`category_id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `category_table` (`category_id`, `category_name`, `category_parent_id`, `subcat_path`, `category_image`, `category_desc`, `category_status`, `category_content_id`, `count`) VALUES
-		(1, 'Women', 0, '1', 'uploadedimages/caticons/2013-09-10-170711laptop-bags05.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 0),
+		$sql="INSERT INTO `category_table` (`category_id`, `category_name`, `category_parent_id`, `subcat_path`, `category_image`, `category_desc`, `category_status`, `category_content_id`, `count`) VALUES(1, 'Women', 0, '1', 'uploadedimages/caticons/2013-09-10-170711laptop-bags05.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 0),
 		(2, 'Shoes', 1, '1,2', 'uploadedimages/caticons/2013-09-10-171134formal-shoes03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
 		(3, 'Clothing', 1, '1,3', 'uploadedimages/caticons/2013-09-10-171416shirt13.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
 		(4, 'Watches', 1, '1,4', 'uploadedimages/caticons/2013-09-10-171824digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
@@ -192,10 +216,18 @@ class Core_CQuery
 		(23, 'T-shirts', 20, '17,20,23', 'uploadedimages/caticons/2013-09-10-173704Crafted-Long-Sleeved-Shirt.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
 		(24, 'Digital watches', 21, '17,21,24', 'uploadedimages/caticons/2013-09-10-173738digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 2),
 		(25, 'Accessories', 0, '25', 'uploadedimages/caticons/2013-09-10-1738292.jpg', 'AccessoriesAccessories', 1, 0, 0),
-		(26, 'Mobile', 25, '25,26', 'uploadedimages/caticons/2013-09-10-1739106.jpg', 'MobileMobileMobile', 1, 0, 1),
-		(27, 'Slider mobile', 26, '25,26,27', 'uploadedimages/caticons/2013-09-10-1740456.jpg', 'Slider mobileSlider mobileSlider mobile', 1, 0, 2),
-		(28, 'Computes', 25, '25,28', 'uploadedimages/caticons/2013-09-10-1741422.jpg', 'ComputesComputesComputes', 1, 0, 1);
-		";
+		(26, 'Hand Bags ', 25, '25,26', 'uploadedimages/caticons/2013-09-10-1739106.jpg', '', 1, 0, 1),
+		(27, 'Ladies hand bags', 26, '25,26,27', 'uploadedimages/caticons/2013-09-10-1740456.jpg', 'Slider mobileSlider mobileSlider mobile', 1, 0, 2),
+		(28, 'Computes', 25, '25,28', 'uploadedimages/caticons/2013-09-10-1741422.jpg', 'ComputesComputesComputes', 1, 0, 1),
+		(29, 'Formal', 18, '17,18,29', 'uploadedimages/caticons/2013-10-17-10474803.jpg', '', 1, 0, 2),
+		(30, 'Sneakers', 18, '17,18,30', '', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', 1, 0, 2),
+		(31, 'Sports shoes', 18, '17,18,31', '', '', 1, 0, 2),
+		(32, 'Laptop bags', 19, '17,19,32', '', '', 1, 0, 2),
+		(33, 'Back bags', 19, '17,19,33', '', '', 1, 0, 2),
+		(34, 'Wallets', 19, '17,19,34', '', '', 1, 0, 2),
+		(35, 'Shirts', 20, '17,20,35', '', '', 1, 0, 2),
+		(36, 'Analog watch', 21, '17,21,36', '', '', 1, 0, 2),
+		(37, 'chip', 28, '25,28,37', '', '', 1, 0, 2);";
 		$result=mysql_query($sql);
 
 
@@ -553,8 +585,15 @@ class Core_CQuery
 
 		$sql="Drop table if exists currency_master_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE currency_master_table (id int(11) NOT NULL auto_increment,currency_name varchar(200) NOT NULL,currency_code varchar(50) NOT NULL,country_code varchar(25) NOT NULL,currency_tocken varchar(25) NOT NULL,status int(11) NOT NULL,
-		default_currency int(11) NOT NULL default '0',PRIMARY KEY  (`id`))";
+		$sql="CREATE TABLE IF NOT EXISTS `currency_master_table` (
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`currency_name` varchar(200) NOT NULL,
+		`currency_code` varchar(50) NOT NULL,
+		`currency_tocken` varchar(25) NOT NULL,
+		`status` int(11) NOT NULL,
+		`default_currency` int(11) NOT NULL DEFAULT '0',
+		PRIMARY KEY (`id`)
+		)";
 		$result=mysql_query($sql);
 
 
@@ -1077,15 +1116,172 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE product_attrib_values_table(product_attrib_value_id  INT(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,product_id  INT(15) NOT NULL,attrib_value_id  INT(15) NOT NULL)";
 		$result=mysql_query($sql);
-
+		$sql="INSERT INTO `category_attrib_table` (`category_attrib_id`, `subcategory_id`, `attrib_id`) VALUES(1, 29, 1),
+		(2, 29, 2),
+		(3, 30, 1),
+		(4, 31, 2),
+		(5, 32, 0),
+		(6, 33, 2),
+		(7, 34, 1),
+		(8, 35, 3),
+		(9, 36, 4),
+		(10, 37, 5),
+		(12, 39, 6),
+		(13, 6, 6),
+		(14, 40, 0),
+		(15, 41, 0),
+		(16, 42, 0),
+		(18, 44, 0);";
+		$result=mysql_query($sql);
 
 		$sql="Drop table if exists product_images_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE product_images_table(product_images_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,product_id  INT(20) NOT NULL,image_path  VARCHAR(200) NOT NULL,large_image_path VARCHAR(200) NOT NULL,thumb_image_path  VARCHAR(200) NOT NULL,type  VARCHAR(40) NOT NULL)";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `product_images_table` (`product_images_id`, `product_id`, `image_path`, `large_image_path`, `thumb_image_path`, `type`) VALUES
-		(1, 1, 'images/products/shoes_is93535.jpg', 'images/products/large_image/shoes_is93535.jpg', 'images/products/thumb/shoes_is93535.jpg', 'main'),
-		(2, 2, 'images/products/2013-03-02-122103analog-watches03.jpg', 'images/products/large_image/2013-03-02-122103analog-watches03.jpg', 'images/products/thumb/2013-03-02-122103analog-watches03.jpg', 'main');
+(1, 1, 'images/products/boot06.jpg', 'images/products/large_image/boot06.jpg', 'images/products/thumb/boot06.jpg', 'main'),
+(2, 2, 'images/products/formals06.jpg', 'images/products/large_image/formals06.jpg', 'images/products/thumb/formals06.jpg', 'main'),
+(80, 2, 'images/products/formals04.jpg', 'images/products/large_image/formals04.jpg', 'images/products/thumb/formals04.jpg', 'sub'),
+(3, 3, 'images/products/sneakers05.jpg', 'images/products/large_image/sneakers05.jpg', 'images/products/thumb/sneakers05.jpg', 'main'),
+(4, 3, 'images/products/sneakers04.jpg', 'images/products/large_image/sneakers04.jpg', 'images/products/thumb/sneakers04.jpg', 'sub'),
+(5, 4, 'images/products/Puma-KURIS-Men-Black.jpg', 'images/products/large_image/Puma-KURIS-Men-Black.jpg', 'images/products/thumb/Puma-KURIS-Men-Black.jpg', 'main'),
+(6, 4, 'images/products/puma.jpg', 'images/products/large_image/puma.jpg', 'images/products/thumb/puma.jpg', 'sub'),
+(7, 5, 'images/products/laptop-bags06.jpg', 'images/products/large_image/laptop-bags06.jpg', 'images/products/thumb/laptop-bags06.jpg', 'main'),
+(8, 5, 'images/products/laptop-bags05.jpg', 'images/products/large_image/laptop-bags05.jpg', 'images/products/thumb/laptop-bags05.jpg', 'sub'),
+(9, 6, 'images/products/backpacks06.jpg', 'images/products/large_image/backpacks06.jpg', 'images/products/thumb/backpacks06.jpg', 'main'),
+(10, 6, 'images/products/backpacks03.jpg', 'images/products/large_image/backpacks03.jpg', 'images/products/thumb/backpacks03.jpg', 'sub'),
+(11, 6, 'images/products/backpacks02.jpg', 'images/products/large_image/backpacks02.jpg', 'images/products/thumb/backpacks02.jpg', 'sub'),
+(12, 7, 'images/products/wallets06.jpg', 'images/products/large_image/wallets06.jpg', 'images/products/thumb/wallets06.jpg', 'main'),
+(13, 8, 'images/products/t-shirts06.jpg', 'images/products/large_image/t-shirts06.jpg', 'images/products/thumb/t-shirts06.jpg', 'main'),
+(14, 9, 'images/products/shirts07.jpg', 'images/products/large_image/shirts07.jpg', 'images/products/thumb/shirts07.jpg', 'main'),
+(15, 10, 'images/products/digital-watches03.jpg', 'images/products/large_image/digital-watches03.jpg', 'images/products/thumb/digital-watches03.jpg', 'main'),
+(16, 10, 'images/products/digital-watches02.jpg', 'images/products/large_image/digital-watches02.jpg', 'images/products/thumb/digital-watches02.jpg', 'sub'),
+(17, 11, 'images/products/analog-watches05.jpg', 'images/products/large_image/analog-watches05.jpg', 'images/products/thumb/analog-watches05.jpg', 'main'),
+(18, 11, 'images/products/analog-watches07.jpg', 'images/products/large_image/analog-watches07.jpg', 'images/products/thumb/analog-watches07.jpg', 'sub'),
+(19, 12, 'images/products/boots02.jpg', 'images/products/large_image/boots02.jpg', 'images/products/thumb/boots02.jpg', 'main'),
+(109, 12, 'images/products/boots01.jpg', 'images/products/large_image/boots01.jpg', 'images/products/thumb/boots01.jpg', 'sub'),
+(20, 12, 'images/products/boots08.jpg', 'images/products/large_image/boots08.jpg', 'images/products/thumb/boots08.jpg', 'sub'),
+(21, 13, 'images/products/formal-shoes06.jpg', 'images/products/large_image/formal-shoes06.jpg', 'images/products/thumb/formal-shoes06.jpg', 'main'),
+(112, 13, 'images/products/formal-shoes04.jpg', 'images/products/large_image/formal-shoes04.jpg', 'images/products/thumb/formal-shoes04.jpg', 'sub'),
+(22, 14, 'images/products/sneakers05.jpg', 'images/products/large_image/sneakers05.jpg', 'images/products/thumb/sneakers05.jpg', 'main'),
+(116, 14, 'images/products/sneakers04.jpg', 'images/products/large_image/sneakers04.jpg', 'images/products/thumb/sneakers04.jpg', 'sub'),
+(23, 14, 'images/products/sneakers02.jpg', 'images/products/large_image/sneakers02.jpg', 'images/products/thumb/sneakers02.jpg', 'sub'),
+(24, 15, 'images/products/sports-shoes06.jpg', 'images/products/large_image/sports-shoes06.jpg', 'images/products/thumb/sports-shoes06.jpg', 'main'),
+(69, 15, 'images/products/sports-shoes04.jpg', 'images/products/large_image/sports-shoes04.jpg', 'images/products/thumb/sports-shoes04.jpg', 'sub'),
+(25, 16, 'images/products/t-shirts02.jpg', 'images/products/large_image/t-shirts02.jpg', 'images/products/thumb/t-shirts02.jpg', 'main'),
+(119, 16, 'images/products/t-shirts07.jpg', 'images/products/large_image/t-shirts07.jpg', 'images/products/thumb/t-shirts07.jpg', 'sub'),
+(26, 17, 'images/products/analog-watches06.jpg', 'images/products/large_image/analog-watches06.jpg', 'images/products/thumb/analog-watches06.jpg', 'main'),
+(27, 18, 'images/products/digital-watches02.jpg', 'images/products/large_image/digital-watches02.jpg', 'images/products/thumb/digital-watches02.jpg', 'main'),
+(28, 19, 'images/products/chronograhs05.jpg', 'images/products/large_image/chronograhs05.jpg', 'images/products/thumb/chronograhs05.jpg', 'main'),
+(29, 20, 'images/products/laptop-bags04.jpg', 'images/products/large_image/laptop-bags04.jpg', 'images/products/thumb/laptop-bags04.jpg', 'main'),
+(30, 19, 'images/products/chronograhs01.jpg', 'images/products/large_image/chronograhs01.jpg', 'images/products/thumb/chronograhs01.jpg', 'sub'),
+(31, 1, 'images/products/boot02.jpg', 'images/products/large_image/boot02.jpg', 'images/products/thumb/boot02.jpg', 'sub'),
+(32, 1, 'images/products/boot01.jpg', 'images/products/large_image/boot01.jpg', 'images/products/thumb/boot01.jpg', 'sub'),
+(33, 21, 'images/products/backpacks03.jpg', 'images/products/large_image/backpacks03.jpg', 'images/products/thumb/backpacks03.jpg', 'main'),
+(34, 21, 'images/products/backpacks01.jpg', 'images/products/large_image/backpacks01.jpg', 'images/products/thumb/backpacks01.jpg', 'sub'),
+(35, 21, 'images/products/backpacks02.jpg', 'images/products/large_image/backpacks02.jpg', 'images/products/thumb/backpacks02.jpg', 'sub'),
+(36, 21, 'images/products/backpacks05.jpg', 'images/products/large_image/backpacks05.jpg', 'images/products/thumb/backpacks05.jpg', 'sub'),
+(37, 21, 'images/products/backpacks06.jpg', 'images/products/large_image/backpacks06.jpg', 'images/products/thumb/backpacks06.jpg', 'sub'),
+(38, 22, 'images/products/wallets01.jpg', 'images/products/large_image/wallets01.jpg', 'images/products/thumb/wallets01.jpg', 'main'),
+(39, 22, 'images/products/wallets02.jpg', 'images/products/large_image/wallets02.jpg', 'images/products/thumb/wallets02.jpg', 'sub'),
+(40, 22, 'images/products/wallets03.jpg', 'images/products/large_image/wallets03.jpg', 'images/products/thumb/wallets03.jpg', 'sub'),
+(41, 22, 'images/products/wallets04.jpg', 'images/products/large_image/wallets04.jpg', 'images/products/thumb/wallets04.jpg', 'sub'),
+(42, 22, 'images/products/wallets05.jpg', 'images/products/large_image/wallets05.jpg', 'images/products/thumb/wallets05.jpg', 'sub'),
+(43, 4, 'images/products/fila-sports-shoes.jpg', 'images/products/large_image/fila-sports-shoes.jpg', 'images/products/thumb/fila-sports-shoes.jpg', 'sub'),
+(44, 4, 'images/products/adidas.jpg', 'images/products/large_image/adidas.jpg', 'images/products/thumb/adidas.jpg', 'sub'),
+(45, 4, 'images/products/Adidas-AGORA-LEA-Men-Black.jpg', 'images/products/large_image/Adidas-AGORA-LEA-Men-Black.jpg', 'images/products/thumb/Adidas-AGORA-LEA-Men-Black.jpg', 'sub'),
+(78, 1, 'images/products/boot05.jpg', 'images/products/large_image/boot05.jpg', 'images/products/thumb/boot05.jpg', 'sub'),
+(46, 23, 'images/products/2013-10-18-064649hand2.jpg', 'images/products/large_image/2013-10-18-064649hand2.jpg', 'images/products/thumb/2013-10-18-064649hand2.jpg', 'main'),
+(47, 24, 'images/products/chip.jpg', 'images/products/large_image/chip.jpg', 'images/products/thumb/chip.jpg', 'main'),
+(48, 7, 'images/products/wallets05.jpg', 'images/products/large_image/wallets05.jpg', 'images/products/thumb/wallets05.jpg', 'sub'),
+(92, 7, 'images/products/wallets04.jpg', 'images/products/large_image/wallets04.jpg', 'images/products/thumb/wallets04.jpg', 'sub'),
+(49, 25, 'images/products/gift.jpg', 'images/products/large_image/gift.jpg', 'images/products/thumb/gift.jpg', 'main'),
+(50, 25, 'images/products/gift2.jpg', 'images/products/large_image/gift2.jpg', 'images/products/thumb/gift2.jpg', 'sub'),
+(51, 25, 'images/products/gift3.jpg', 'images/products/large_image/gift3.jpg', 'images/products/thumb/gift3.jpg', 'sub'),
+(52, 25, 'images/products/gift5.jpg', 'images/products/large_image/gift5.jpg', 'images/products/thumb/gift5.jpg', 'sub'),
+(53, 26, 'images/products/2013-10-18-072603(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'images/products/large_image/2013-10-18-072603(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'images/products/thumb/2013-10-18-072603(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'main'),
+(54, 26, 'images/products/5.jpg', 'images/products/large_image/5.jpg', 'images/products/thumb/5.jpg', 'sub'),
+(55, 26, 'images/products/3.jpg', 'images/products/large_image/3.jpg', 'images/products/thumb/3.jpg', 'sub'),
+(56, 26, 'images/products/2.jpg', 'images/products/large_image/2.jpg', 'images/products/thumb/2.jpg', 'sub'),
+(57, 26, 'images/products/4.jpg', 'images/products/large_image/4.jpg', 'images/products/thumb/4.jpg', 'sub'),
+(58, 27, 'images/products/Dave Scarf.jpg', 'images/products/large_image/Dave Scarf.jpg', 'images/products/thumb/Dave Scarf.jpg', 'main'),
+(59, 28, 'images/products/BMW Motorsport Webbing Belt.jpg', 'images/products/large_image/BMW Motorsport Webbing Belt.jpg', 'images/products/thumb/BMW Motorsport Webbing Belt.jpg', 'main'),
+(60, 28, 'images/products/', 'images/products/large_image/', 'images/products/thumb/', 'sub'),
+(61, 29, 'images/products/2.jpg', 'images/products/large_image/2.jpg', 'images/products/thumb/2.jpg', 'main'),
+(62, 30, 'images/products/2012-11-23 11.41.50.jpg', 'images/products/large_image/2012-11-23 11.41.50.jpg', 'images/products/thumb/2012-11-23 11.41.50.jpg', 'main'),
+(63, 30, 'images/products/2012-11-23 11.41.53.jpg', 'images/products/large_image/2012-11-23 11.41.53.jpg', 'images/products/thumb/2012-11-23 11.41.53.jpg', 'sub'),
+(64, 31, 'images/products/2012-11-23 11.41.50.jpg', 'images/products/large_image/2012-11-23 11.41.50.jpg', 'images/products/thumb/2012-11-23 11.41.50.jpg', 'main'),
+(65, 32, 'images/products/2012-11-23 11.41.50.jpg', 'images/products/large_image/2012-11-23 11.41.50.jpg', 'images/products/thumb/2012-11-23 11.41.50.jpg', 'main'),
+(66, 32, 'images/products/2012-11-23 11.41.53.jpg', 'images/products/large_image/2012-11-23 11.41.53.jpg', 'images/products/thumb/2012-11-23 11.41.53.jpg', 'sub'),
+(67, 33, 'images/products/gift.jpg', 'images/products/large_image/gift.jpg', 'images/products/thumb/gift.jpg', 'main'),
+(68, 34, 'images/products/brownies.gif', 'images/products/large_image/brownies.gif', 'images/products/thumb/brownies.gif', 'main'),
+(70, 15, 'images/products/sports-shoes01.jpg', 'images/products/large_image/sports-shoes01.jpg', 'images/products/thumb/sports-shoes01.jpg', 'sub'),
+(71, 15, 'images/products/sports-shoes03.jpg', 'images/products/large_image/sports-shoes03.jpg', 'images/products/thumb/sports-shoes03.jpg', 'sub'),
+(72, 15, 'images/products/sports-shoes02.jpg', 'images/products/large_image/sports-shoes02.jpg', 'images/products/thumb/sports-shoes02.jpg', 'sub'),
+(73, 20, 'images/products/laptop-bags06.jpg', 'images/products/large_image/laptop-bags06.jpg', 'images/products/thumb/laptop-bags06.jpg', 'sub'),
+(74, 23, 'images/products/2013-10-18-064650hand3.jpg', 'images/products/large_image/2013-10-18-064650hand3.jpg', 'images/products/thumb/2013-10-18-064650hand3.jpg', 'sub'),
+(75, 23, 'images/products/2013-10-18-064650hand5.jpg', 'images/products/large_image/2013-10-18-064650hand5.jpg', 'images/products/thumb/2013-10-18-064650hand5.jpg', 'sub'),
+(76, 23, 'images/products/2013-10-18-064650hand6.jpg', 'images/products/large_image/2013-10-18-064650hand6.jpg', 'images/products/thumb/2013-10-18-064650hand6.jpg', 'sub'),
+(77, 23, 'images/products/2013-10-18-064650hand10.jpg', 'images/products/large_image/2013-10-18-064650hand10.jpg', 'images/products/thumb/2013-10-18-064650hand10.jpg', 'sub'),
+(79, 1, 'images/products/boot03.jpg', 'images/products/large_image/boot03.jpg', 'images/products/thumb/boot03.jpg', 'sub'),
+(81, 2, 'images/products/formals02.jpg', 'images/products/large_image/formals02.jpg', 'images/products/thumb/formals02.jpg', 'sub'),
+(82, 2, 'images/products/formals01.jpg', 'images/products/large_image/formals01.jpg', 'images/products/thumb/formals01.jpg', 'sub'),
+(83, 2, 'images/products/formals05.jpg', 'images/products/large_image/formals05.jpg', 'images/products/thumb/formals05.jpg', 'sub'),
+(84, 3, 'images/products/sneakers03.jpg', 'images/products/large_image/sneakers03.jpg', 'images/products/thumb/sneakers03.jpg', 'sub'),
+(85, 3, 'images/products/sneakers02.jpg', 'images/products/large_image/sneakers02.jpg', 'images/products/thumb/sneakers02.jpg', 'sub'),
+(86, 3, 'images/products/sneakers01.jpg', 'images/products/large_image/sneakers01.jpg', 'images/products/thumb/sneakers01.jpg', 'sub'),
+(87, 5, 'images/products/laptop-bags03.jpg', 'images/products/large_image/laptop-bags03.jpg', 'images/products/thumb/laptop-bags03.jpg', 'sub'),
+(88, 5, 'images/products/laptop-bags01.jpg', 'images/products/large_image/laptop-bags01.jpg', 'images/products/thumb/laptop-bags01.jpg', 'sub'),
+(89, 5, 'images/products/laptop-bags02.jpg', 'images/products/large_image/laptop-bags02.jpg', 'images/products/thumb/laptop-bags02.jpg', 'sub'),
+(90, 6, 'images/products/backpacks01.jpg', 'images/products/large_image/backpacks01.jpg', 'images/products/thumb/backpacks01.jpg', 'sub'),
+(91, 6, 'images/products/backpacks01.jpg', 'images/products/large_image/backpacks01.jpg', 'images/products/thumb/backpacks01.jpg', 'sub'),
+(93, 7, 'images/products/wallets02.jpg', 'images/products/large_image/wallets02.jpg', 'images/products/thumb/wallets02.jpg', 'sub'),
+(94, 7, 'images/products/wallets01.jpg', 'images/products/large_image/wallets01.jpg', 'images/products/thumb/wallets01.jpg', 'sub'),
+(95, 8, 'images/products/t-shirts05.jpg', 'images/products/large_image/t-shirts05.jpg', 'images/products/thumb/t-shirts05.jpg', 'sub'),
+(96, 8, 'images/products/t-shirts04.jpg', 'images/products/large_image/t-shirts04.jpg', 'images/products/thumb/t-shirts04.jpg', 'sub'),
+(97, 8, 'images/products/t-shirts02.jpg', 'images/products/large_image/t-shirts02.jpg', 'images/products/thumb/t-shirts02.jpg', 'sub'),
+(98, 8, 'images/products/t-shirts01.jpg', 'images/products/large_image/t-shirts01.jpg', 'images/products/thumb/t-shirts01.jpg', 'sub'),
+(99, 9, 'images/products/shirts06.jpg', 'images/products/large_image/shirts06.jpg', 'images/products/thumb/shirts06.jpg', 'sub'),
+(100, 9, 'images/products/shirts05.jpg', 'images/products/large_image/shirts05.jpg', 'images/products/thumb/shirts05.jpg', 'sub'),
+(101, 9, 'images/products/shirts03.jpg', 'images/products/large_image/shirts03.jpg', 'images/products/thumb/shirts03.jpg', 'sub'),
+(102, 9, 'images/products/shirts01.jpg', 'images/products/large_image/shirts01.jpg', 'images/products/thumb/shirts01.jpg', 'sub'),
+(103, 10, 'images/products/digital-watches04.jpg', 'images/products/large_image/digital-watches04.jpg', 'images/products/thumb/digital-watches04.jpg', 'sub'),
+(104, 10, 'images/products/digital-watches05.jpg', 'images/products/large_image/digital-watches05.jpg', 'images/products/thumb/digital-watches05.jpg', 'sub'),
+(105, 10, 'images/products/digital-watches07.jpg', 'images/products/large_image/digital-watches07.jpg', 'images/products/thumb/digital-watches07.jpg', 'sub'),
+(106, 11, 'images/products/analog-watches04.jpg', 'images/products/large_image/analog-watches04.jpg', 'images/products/thumb/analog-watches04.jpg', 'sub'),
+(107, 11, 'images/products/analog-watches02.jpg', 'images/products/large_image/analog-watches02.jpg', 'images/products/thumb/analog-watches02.jpg', 'sub'),
+(108, 11, 'images/products/analog-watches01.jpg', 'images/products/large_image/analog-watches01.jpg', 'images/products/thumb/analog-watches01.jpg', 'sub'),
+(110, 12, 'images/products/boots05.jpg', 'images/products/large_image/boots05.jpg', 'images/products/thumb/boots05.jpg', 'sub'),
+(111, 12, 'images/products/boots08.jpg', 'images/products/large_image/boots08.jpg', 'images/products/thumb/boots08.jpg', 'sub'),
+(113, 13, 'images/products/formal-shoes02.jpg', 'images/products/large_image/formal-shoes02.jpg', 'images/products/thumb/formal-shoes02.jpg', 'sub'),
+(114, 13, 'images/products/formal-shoes01.jpg', 'images/products/large_image/formal-shoes01.jpg', 'images/products/thumb/formal-shoes01.jpg', 'sub'),
+(115, 13, 'images/products/formal-shoes05.jpg', 'images/products/large_image/formal-shoes05.jpg', 'images/products/thumb/formal-shoes05.jpg', 'sub'),
+(117, 14, 'images/products/sneakers01.jpg', 'images/products/large_image/sneakers01.jpg', 'images/products/thumb/sneakers01.jpg', 'sub'),
+(118, 14, 'images/products/sneakers03.jpg', 'images/products/large_image/sneakers03.jpg', 'images/products/thumb/sneakers03.jpg', 'sub'),
+(120, 16, 'images/products/t-shirts01.jpg', 'images/products/large_image/t-shirts01.jpg', 'images/products/thumb/t-shirts01.jpg', 'sub'),
+(121, 16, 'images/products/t-shirts04.jpg', 'images/products/large_image/t-shirts04.jpg', 'images/products/thumb/t-shirts04.jpg', 'sub'),
+(122, 16, 'images/products/t-shirts11.jpg', 'images/products/large_image/t-shirts11.jpg', 'images/products/thumb/t-shirts11.jpg', 'sub'),
+(123, 17, 'images/products/analog-watches05.jpg', 'images/products/large_image/analog-watches05.jpg', 'images/products/thumb/analog-watches05.jpg', 'sub'),
+(124, 17, 'images/products/analog-watches03.jpg', 'images/products/large_image/analog-watches03.jpg', 'images/products/thumb/analog-watches03.jpg', 'sub'),
+(125, 17, 'images/products/analog-watches01.jpg', 'images/products/large_image/analog-watches01.jpg', 'images/products/thumb/analog-watches01.jpg', 'sub'),
+(126, 17, 'images/products/analog-watches04.jpg', 'images/products/large_image/analog-watches04.jpg', 'images/products/thumb/analog-watches04.jpg', 'sub'),
+(127, 18, 'images/products/digital-watches03.jpg', 'images/products/large_image/digital-watches03.jpg', 'images/products/thumb/digital-watches03.jpg', 'sub'),
+(128, 18, 'images/products/digital-watches04.jpg', 'images/products/large_image/digital-watches04.jpg', 'images/products/thumb/digital-watches04.jpg', 'sub'),
+(129, 18, 'images/products/digital-watches01.jpg', 'images/products/large_image/digital-watches01.jpg', 'images/products/thumb/digital-watches01.jpg', 'sub'),
+(130, 18, 'images/products/digital-watches05.jpg', 'images/products/large_image/digital-watches05.jpg', 'images/products/thumb/digital-watches05.jpg', 'sub'),
+(131, 19, 'images/products/chronograhs03.jpg', 'images/products/large_image/chronograhs03.jpg', 'images/products/thumb/chronograhs03.jpg', 'sub'),
+(132, 19, 'images/products/chronograhs06.jpg', 'images/products/large_image/chronograhs06.jpg', 'images/products/thumb/chronograhs06.jpg', 'sub'),
+(133, 19, 'images/products/chronograhs04.jpg', 'images/products/large_image/chronograhs04.jpg', 'images/products/thumb/chronograhs04.jpg', 'sub'),
+(134, 20, 'images/products/laptop-bags02.jpg', 'images/products/large_image/laptop-bags02.jpg', 'images/products/thumb/laptop-bags02.jpg', 'sub'),
+(135, 20, 'images/products/laptop-bags03.jpg', 'images/products/large_image/laptop-bags03.jpg', 'images/products/thumb/laptop-bags03.jpg', 'sub'),
+(136, 20, 'images/products/laptop-bags05.jpg', 'images/products/large_image/laptop-bags05.jpg', 'images/products/thumb/laptop-bags05.jpg', 'sub'),
+(137, 24, 'images/products/chip2.jpg', 'images/products/large_image/chip2.jpg', 'images/products/thumb/chip2.jpg', 'sub'),
+(138, 24, 'images/products/chip5.jpg', 'images/products/large_image/chip5.jpg', 'images/products/thumb/chip5.jpg', 'sub'),
+(139, 24, 'images/products/chip6.jpg', 'images/products/large_image/chip6.jpg', 'images/products/thumb/chip6.jpg', 'sub'),
+(140, 24, 'images/products/chip3.jpg', 'images/products/large_image/chip3.jpg', 'images/products/thumb/chip3.jpg', 'sub'),
+(141, 25, 'images/products/599987_10152250766770487_1897850228_n.jpg', 'images/products/large_image/599987_10152250766770487_1897850228_n.jpg', 'images/products/thumb/599987_10152250766770487_1897850228_n.jpg', 'main'),
+(142, 26, 'images/products/(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'images/products/large_image/(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'images/products/thumb/(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'main');
+;
 		";
 		$result=mysql_query($sql);
 
@@ -1096,8 +1292,32 @@ class Core_CQuery
 		$sql="CREATE TABLE product_inventory_table(inventory_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,product_id  INT(20) NOT NULL,rol  INT(15) NOT NULL,soh  INT(20) NOT NULL)";
 		$result=mysql_query($sql);
 		$sql="INSERT INTO `product_inventory_table` (`inventory_id`, `product_id`, `rol`, `soh`) VALUES
-		(1, 1, 10, 150),
-		(2, 2, 10, 20);";
+		(1, 1, 10, 6),
+		(2, 2, 10, 99),
+		(3, 3, 0, 148),
+		(4, 4, 10, 98),
+		(5, 5, 10, 147),
+		(6, 6, 10, 99),
+		(7, 7, 0, 96),
+		(8, 8, 0, 100),
+		(9, 9, 0, 100),
+		(10, 10, 0, 100),
+		(11, 11, 0, 98),
+		(12, 12, 10, 97),
+		(13, 13, 10, 96),
+		(14, 14, 0, 146),
+		(15, 15, 10, 98),
+		(16, 16, 0, 96),
+		(17, 17, 0, 99),
+		(18, 18, 0, 91),
+		(19, 19, 0, 99),
+		(20, 20, 0, 95),
+		(21, 21, 0, 99),
+		(22, 22, 0, 99),
+		(23, 23, 0, 90),
+		(24, 24, 0, 99),
+		(25, 25, 222, 22),
+		(26, 26, 0, 10);";
 		$result=mysql_query($sql);
 
 
@@ -1116,7 +1336,7 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE IF NOT EXISTS `products_table` (
 		`product_id` int(25) NOT NULL AUTO_INCREMENT,
-		`category_id` varchar(100) NOT NULL,
+		`category_id` varchar(100) CHARACTER SET utf8 NOT NULL,
 		`sku` varchar(100) NOT NULL,
 		`title` varchar(250) NOT NULL,
 		`alias` varchar(100) NOT NULL,
@@ -1142,19 +1362,130 @@ class Core_CQuery
 		`digital` int(10) NOT NULL,
 		`gift` int(20) NOT NULL,
 		`digital_product_path` varchar(200) NOT NULL,
-		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
+		`has_variation` tinyint(11) NOT NULL,
+		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product,3=>deleted products',
+		`deleted_reason` varchar(240) NOT NULL,
 		PRIMARY KEY (`product_id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `products_table` (`product_id`, `category_id`, `sku`, `title`, `alias`, `description`, `brand`, `model`, `msrp`, `price`, `cse_enabled`, `cse_key`, `weight`, `dimension`, `thumb_image`, `image`, `large_image_path`, `shipping_cost`, `status`, `tag`, `meta_desc`, `meta_keywords`, `intro_date`, `is_featured`, `digital`, `gift`, `digital_product_path`, `product_status`) VALUES
-		(1, '18', '10', 'shoes', 'shoes', '', '', '', 150, 100, 0, '', '', '', 'images/products/thumb/yonsht250wb.jpg', 'images/products/yonsht250wb.jpg', 'images/products/large_image/yonsht250wb.jpg', 0, 1, '', '', '', '0000-00-00', 1, 0, 0, '', 1),
-		(2, '11', '10', 'watches', 'watches', '', '', '', 800, 500, 0, '', '', '', 'images/products/thumb/2013-03-02-122103analog-watches03.jpg', 'images/products/2013-03-02-122103analog-watches03.jpg', 'images/products/large_image/2013-03-02-122103analog-watches03.jpg', 0, 1, '', '', '', '0000-00-00', 0, 0, 0, '', 0)";
+		$sql="INSERT INTO `products_table` (`product_id`, `category_id`, `sku`, `title`, `alias`, `description`, `brand`, `model`, `msrp`, `price`, `cse_enabled`, `cse_key`, `weight`, `dimension`, `thumb_image`, `image`, `large_image_path`, `shipping_cost`, `status`, `tag`, `meta_desc`, `meta_keywords`, `intro_date`, `is_featured`, `digital`, `gift`, `digital_product_path`, `has_variation`, `product_status`, `deleted_reason`) VALUES
+		(1, '22', '15asAS', 'Boots', 'boots', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.</p>', '', '', 200, 150, 0, '', '1', '', 'images/products/thumb/boot06.jpg', 'images/products/boot06.jpg', 'images/products/large_image/boot06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(2, '29', '15kj', 'Formal Shoes ', 'formal-shoes', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', 'Bata', '', 700, 500, 0, '', '1', '', 'images/products/thumb/formals06.jpg', 'images/products/formals06.jpg', 'images/products/large_image/formals06.jpg', 10, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(3, '30', 'as15', 'Sneakers', 'sneakers', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 500, 150, 0, '', '1', '', 'images/products/thumb/sneakers05.jpg', 'images/products/sneakers05.jpg', 'images/products/large_image/sneakers05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(4, '31', '15', 'Sports shoes', 'sports-shoes', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 100, 50, 0, '', '1', '', 'images/products/thumb/Puma-KURIS-Men-Black.jpg', 'images/products/Puma-KURIS-Men-Black.jpg', 'images/products/large_image/Puma-KURIS-Men-Black.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(5, '32', '15', 'Laptop bags', 'laptop-bags', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 150, 100, 0, '', '1', '', 'images/products/thumb/laptop-bags06.jpg', 'images/products/laptop-bags06.jpg', 'images/products/large_image/laptop-bags06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(6, '33', '5a', 'Back bags', 'back-bags', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 200, 150, 0, '', '1', '', 'images/products/thumb/backpacks06.jpg', 'images/products/backpacks06.jpg', 'images/products/large_image/backpacks06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(7, '34', '10a', 'Wallets', 'wallets', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/wallets06.jpg', 'images/products/wallets06.jpg', 'images/products/large_image/wallets06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(8, '23', '15', 'T-shirts', 't-shirts', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/t-shirts06.jpg', 'images/products/t-shirts06.jpg', 'images/products/large_image/t-shirts06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(9, '35', '152', 'Shirts', 'shirts', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 100, 50, 0, '', '1', '', 'images/products/thumb/shirts07.jpg', 'images/products/shirts07.jpg', 'images/products/large_image/shirts07.jpg', 0, 1, '', '', '', '2013-10-17', 0, 0, 0, '', 1, 1, ''),
+		(10, '24', '15a', 'DIgital watch', 'digital-watch', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/digital-watches03.jpg', 'images/products/digital-watches03.jpg', 'images/products/large_image/digital-watches03.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+		(11, '36', '15s', 'Analog watch', 'analog-watch', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', 'tata', '', 150, 100, 0, '', '1', '', 'images/products/thumb/analog-watches05.jpg', 'images/products/analog-watches05.jpg', 'images/products/large_image/analog-watches05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(12, '6', '15', 'Boots', 'boots', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', 'Bata', '', 200, 150, 0, '', '1', '', 'images/products/thumb/boots02.jpg', 'images/products/boots02.jpg', 'images/products/large_image/boots02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(13, '7', '65', 'Formal Shoes', 'formal-shoes', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/formal-shoes06.jpg', 'images/products/formal-shoes06.jpg', 'images/products/large_image/formal-shoes06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+		(14, '8', '15', 'Sneakers', 'sneakers', '', '', '', 20, 15, 0, '', '', '', 'images/products/thumb/sneakers05.jpg', 'images/products/sneakers05.jpg', 'images/products/large_image/sneakers05.jpg', 0, 1, 'sneakers', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+		(15, '9', '15q', 'Sports shoes', 'sports-shoes', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/sports-shoes06.jpg', 'images/products/sports-shoes06.jpg', 'images/products/large_image/sports-shoes06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+		(16, '10', '15', 'T-shirts', 't-shirts', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/t-shirts02.jpg', 'images/products/t-shirts02.jpg', 'images/products/large_image/t-shirts02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(17, '11', '15a', 'Analog watch', 'analog-watch', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/analog-watches06.jpg', 'images/products/analog-watches06.jpg', 'images/products/large_image/analog-watches06.jpg', 0, 1, 'watches', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+		(18, '12', '15', 'DIgital watch', 'digital-watch', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/digital-watches02.jpg', 'images/products/digital-watches02.jpg', 'images/products/large_image/digital-watches02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+		(19, '13', '15s', 'Chronograhs', 'chronograhs', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/chronograhs05.jpg', 'images/products/chronograhs05.jpg', 'images/products/large_image/chronograhs05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+		(20, '14', '15', 'Laptop bags', 'laptop-bags', '<p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.', '', '', 200, 10, 0, '', '1', '', 'images/products/thumb/laptop-bags04.jpg', 'images/products/laptop-bags04.jpg', 'images/products/large_image/laptop-bags04.jpg', 0, 1, 'bags', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(21, '15', '15', 'Back bags', 'back-bags', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/backpacks03.jpg', 'images/products/backpacks03.jpg', 'images/products/large_image/backpacks03.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(22, '16', '15asd', 'Wallets', 'wallets', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/wallets01.jpg', 'images/products/wallets01.jpg', 'images/products/large_image/wallets01.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(23, '27', '15', 'Hand bag', 'mobile', '<p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra</p>', '', '', 600, 500, 0, '', '1', '', 'images/products/thumb/2013-10-18-064649hand2.jpg', 'images/products/2013-10-18-064649hand2.jpg', 'images/products/large_image/2013-10-18-064649hand2.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(24, '37', '15a', 'Chip', 'chip', '', '', '', 1500, 1000, 0, '', '1', '', 'images/products/thumb/chip.jpg', 'images/products/chip.jpg', 'images/products/large_image/chip.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, '');";
 		$result=mysql_query($sql);
+
+		
+		
+		$sql="Drop table if exists product_variation_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `product_variation_table` (
+			`variation_id` bigint(12) NOT NULL AUTO_INCREMENT,
+			`product_id` bigint(12) NOT NULL,
+			`sku` varchar(100) NOT NULL,
+			`variation_name` varchar(250) NOT NULL,
+			`description` text NOT NULL,
+			`msrp` double NOT NULL,
+			`price` double NOT NULL,
+			`weight` varchar(25) NOT NULL,
+			`dimension` varchar(100) NOT NULL,
+			`thumb_image` varchar(150) NOT NULL,
+			`image` varchar(150) NOT NULL,
+			`large_image` varchar(240) NOT NULL,
+			`shipping_cost` double NOT NULL,
+			`soh` bigint(12) NOT NULL,
+			`rol` bigint(10) NOT NULL,
+			`status` tinyint(1) NOT NULL,
+			PRIMARY KEY (`variation_id`)
+			)";
+		$result=mysql_query($sql);
+		
+		$sql="INSERT INTO `product_variation_table` (`variation_id`, `product_id`, `sku`, `variation_name`, `description`, `msrp`, `price`, `weight`, `dimension`, `thumb_image`, `image`, `large_image`, `shipping_cost`, `soh`, `rol`, `status`) VALUES
+		(1, 33, '15asd', 'nokia', '', 160, 150, '15', '15 x 15 x 17', 'images/products/thumb/2013-10-16-0407491.jpg', 'images/products/2013-10-16-0407491.jpg', 'images/products/large_image/2013-10-16-0407491.jpg', 100, 15, 15, 1),
+		(2, 1, '15asd', '6', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-035309boot06.jpg', 'images/products/2013-10-18-035309boot06.jpg', 'images/products/large_image/2013-10-18-035309boot06.jpg', 2, 15, 15, 1),
+		(3, 33, '152as', 'nokia2', '', 160, 152, '15', '15 x 16 x 17', 'images/products/thumb/2013-10-16-0407493.jpg', 'images/products/2013-10-16-0407493.jpg', 'images/products/large_image/2013-10-16-0407493.jpg', 100, 15, 15, 1),
+		(4, 1, '15', '7', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-035309boot06.jpg', 'images/products/2013-10-18-035309boot06.jpg', 'images/products/large_image/2013-10-18-035309boot06.jpg', 2, 15, 15, 1),
+		(5, 1, '15', '8', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054703boot06.jpg', 'images/products/2013-10-18-054703boot06.jpg', 'images/products/large_image/2013-10-18-054703boot06.jpg', 2, 15, 15, 1),
+		(6, 1, '15', '8.8', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054703boot06.jpg', 'images/products/2013-10-18-054703boot06.jpg', 'images/products/large_image/2013-10-18-054703boot06.jpg', 2, 15, 15, 1),
+		(7, 1, '15', '9', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054704boot06.jpg', 'images/products/2013-10-18-054704boot06.jpg', 'images/products/large_image/2013-10-18-054704boot06.jpg', 2, 15, 15, 1),
+		(8, 2, '15asd', '6', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054923formals06.jpg', 'images/products/2013-10-18-054923formals06.jpg', 'images/products/large_image/2013-10-18-054923formals06.jpg', 2, 15, 15, 1),
+		(9, 2, '15asd', '7', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054923formals06.jpg', 'images/products/2013-10-18-054923formals06.jpg', 'images/products/large_image/2013-10-18-054923formals06.jpg', 2, 15, 15, 1),
+		(10, 2, '15asd', '8', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054923formals06.jpg', 'images/products/2013-10-18-054923formals06.jpg', 'images/products/large_image/2013-10-18-054923formals06.jpg', 2, 15, 15, 1),
+		(11, 2, '15asd', '9', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054923formals06.jpg', 'images/products/2013-10-18-054923formals06.jpg', 'images/products/large_image/2013-10-18-054923formals06.jpg', 2, 15, 15, 1),
+		(12, 2, '15asd', '10', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054924formals06.jpg', 'images/products/2013-10-18-054924formals06.jpg', 'images/products/large_image/2013-10-18-054924formals06.jpg', 2, 15, 15, 1),
+		(13, 3, '15asd', '5', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055313sneakers05.jpg', 'images/products/2013-10-18-055313sneakers05.jpg', 'images/products/large_image/2013-10-18-055313sneakers05.jpg', 2, 15, 15, 1),
+		(14, 3, '15asd', '6', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055314sneakers05.jpg', 'images/products/2013-10-18-055314sneakers05.jpg', 'images/products/large_image/2013-10-18-055314sneakers05.jpg', 2, 15, 15, 1),
+		(15, 3, '15asd', '7', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055314sneakers05.jpg', 'images/products/2013-10-18-055314sneakers05.jpg', 'images/products/large_image/2013-10-18-055314sneakers05.jpg', 2, 15, 15, 1),
+		(16, 3, '15asd', '8', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055314sneakers05.jpg', 'images/products/2013-10-18-055314sneakers05.jpg', 'images/products/large_image/2013-10-18-055314sneakers05.jpg', 2, 15, 15, 1),
+		(17, 3, '15asd', '9', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055314sneakers05.jpg', 'images/products/2013-10-18-055314sneakers05.jpg', 'images/products/large_image/2013-10-18-055314sneakers05.jpg', 2, 15, 15, 1),
+		(18, 4, '15asd', '5', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(19, 4, '15asd', '6', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(20, 4, '15asd', '7', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(21, 4, '15asd', '8', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(22, 4, '15asd', '9', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(23, 23, '15', '80', '', 600, 500, '15', '15 x 16 x 15', 'images/products/thumb/2013-10-18-064905hand2.jpg', 'images/products/2013-10-18-064905hand2.jpg', 'images/products/large_image/2013-10-18-064905hand2.jpg', 0, 16, 19, 1),
+		(24, 23, '15', '85', '', 600, 500, '15', '15 x 16 x 15', 'images/products/thumb/2013-10-18-064905hand2.jpg', 'images/products/2013-10-18-064905hand2.jpg', 'images/products/large_image/2013-10-18-064905hand2.jpg', 0, 16, 19, 1),
+		(25, 23, '15', '90', '', 600, 500, '15', '15 x 16 x 0', 'images/products/thumb/2013-10-18-064906hand2.jpg', 'images/products/2013-10-18-064906hand2.jpg', 'images/products/large_image/2013-10-18-064906hand2.jpg', 10, 16, 19, 1),
+		(26, 8, '15', 'Small', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-065557t-shirts06.jpg', 'images/products/2013-10-18-065557t-shirts06.jpg', 'images/products/large_image/2013-10-18-065557t-shirts06.jpg', 2, 15, 15, 1),
+		(27, 8, '15asd', 'Medium', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-065558t-shirts06.jpg', 'images/products/2013-10-18-065558t-shirts06.jpg', 'images/products/large_image/2013-10-18-065558t-shirts06.jpg', 2, 15, 15, 1),
+		(28, 8, '15asd', 'Large', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-065558t-shirts06.jpg', 'images/products/2013-10-18-065558t-shirts06.jpg', 'images/products/large_image/2013-10-18-065558t-shirts06.jpg', 2, 15, 15, 1),
+		(29, 8, '15', 'XL', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-065558t-shirts06.jpg', 'images/products/2013-10-18-065558t-shirts06.jpg', 'images/products/large_image/2013-10-18-065558t-shirts06.jpg', 2, 15, 15, 1),
+		(30, 9, '15', 'Small', '', 100, 50, '15', '', 'images/products/thumb/2013-10-18-065834shirts07.jpg', 'images/products/2013-10-18-065834shirts07.jpg', 'images/products/large_image/2013-10-18-065834shirts07.jpg', 0, 15, 15, 1),
+		(31, 9, '15', 'Medium', '', 100, 50, '', '', 'images/products/thumb/2013-10-18-065834shirts07.jpg', 'images/products/2013-10-18-065834shirts07.jpg', 'images/products/large_image/2013-10-18-065834shirts07.jpg', 0, 15, 15, 1),
+		(32, 9, '15', 'Large', '', 100, 50, '15', '', 'images/products/thumb/2013-10-18-065835shirts07.jpg', 'images/products/2013-10-18-065835shirts07.jpg', 'images/products/large_image/2013-10-18-065835shirts07.jpg', 0, 15, 15, 1),
+		(33, 9, '15', 'XL', '', 100, 50, '15', '', 'images/products/thumb/2013-10-18-065835shirts07.jpg', 'images/products/2013-10-18-065835shirts07.jpg', 'images/products/large_image/2013-10-18-065835shirts07.jpg', 0, 15, 15, 1),
+		(34, 12, '15asd', '6', '', 200, 150, '', '', 'images/products/thumb/2013-10-18-070323boots02.jpg', 'images/products/2013-10-18-070323boots02.jpg', 'images/products/large_image/2013-10-18-070323boots02.jpg', 0, 15, 15, 1),
+		(35, 12, '1545asd', '7', '', 200, 150, '', '', 'images/products/thumb/2013-10-18-070324boots02.jpg', 'images/products/2013-10-18-070324boots02.jpg', 'images/products/large_image/2013-10-18-070324boots02.jpg', 0, 15, 15, 1),
+		(36, 12, '1545', '8', '', 200, 150, '', '', 'images/products/thumb/2013-10-18-070324boots02.jpg', 'images/products/2013-10-18-070324boots02.jpg', 'images/products/large_image/2013-10-18-070324boots02.jpg', 0, 15, 15, 1),
+		(37, 12, '2564', '9', '', 200, 150, '', '', 'images/products/thumb/2013-10-18-070324boots02.jpg', 'images/products/2013-10-18-070324boots02.jpg', 'images/products/large_image/2013-10-18-070324boots02.jpg', 0, 15, 15, 1),
+		(38, 13, 'sd54', '5', '', 15, 10, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-070828formal-shoes06.jpg', 'images/products/2013-10-18-070828formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070828formal-shoes06.jpg', 0, 15, 16, 1),
+		(39, 13, 'asd', '6', '', 15, 10, '', '15 x 15 x 15', 'images/products/thumb/2013-10-18-070828formal-shoes06.jpg', 'images/products/2013-10-18-070828formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070828formal-shoes06.jpg', 0, 15, 15, 1),
+		(40, 13, 'qwe', '7', '', 15, 10, '', '15 x 15 x 15', 'images/products/thumb/2013-10-18-070828formal-shoes06.jpg', 'images/products/2013-10-18-070828formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070828formal-shoes06.jpg', 0, 16, 15, 1),
+		(41, 13, 'qwe', '8', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-070829formal-shoes06.jpg', 'images/products/2013-10-18-070829formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070829formal-shoes06.jpg', 0, 15, 15, 1),
+		(42, 13, 'qw15', '9', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-070829formal-shoes06.jpg', 'images/products/2013-10-18-070829formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070829formal-shoes06.jpg', 0, 15, 15, 1),
+		(43, 14, 'as', '4', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071028sneakers05.jpg', 'images/products/2013-10-18-071028sneakers05.jpg', 'images/products/large_image/2013-10-18-071028sneakers05.jpg', 0, 15, 16, 1),
+		(44, 14, 'aw', '5', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071029sneakers05.jpg', 'images/products/2013-10-18-071029sneakers05.jpg', 'images/products/large_image/2013-10-18-071029sneakers05.jpg', 0, 15, 16, 1),
+		(45, 14, 'wer', '6', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071029sneakers05.jpg', 'images/products/2013-10-18-071029sneakers05.jpg', 'images/products/large_image/2013-10-18-071029sneakers05.jpg', 0, 15, 16, 1),
+		(46, 14, ' wer', '7', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071030sneakers05.jpg', 'images/products/2013-10-18-071030sneakers05.jpg', 'images/products/large_image/2013-10-18-071030sneakers05.jpg', 0, 15, 16, 1),
+		(47, 14, 'we', '8', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071030sneakers05.jpg', 'images/products/2013-10-18-071030sneakers05.jpg', 'images/products/large_image/2013-10-18-071030sneakers05.jpg', 0, 15, 16, 1),
+		(48, 15, '15asdsd', '6', '', 15, 10, '15', '2 x 2 x 1', 'images/products/thumb/2013-10-18-074409sports-shoes07.jpg', 'images/products/2013-10-18-074409sports-shoes07.jpg', 'images/products/large_image/2013-10-18-074409sports-shoes07.jpg', 2, 15, 15, 1),
+		(49, 15, '15f', '7', '', 15, 10, '15', '2 x 2 x 1', 'images/products/thumb/2013-10-18-074409sports-shoes07.jpg', 'images/products/2013-10-18-074409sports-shoes07.jpg', 'images/products/large_image/2013-10-18-074409sports-shoes07.jpg', 2, 15, 15, 1),
+		(50, 15, '15s', '8', '', 15, 10, '15', '2 x 2 x 1', 'images/products/thumb/2013-10-18-074409sports-shoes07.jpg', 'images/products/2013-10-18-074409sports-shoes07.jpg', 'images/products/large_image/2013-10-18-074409sports-shoes07.jpg', 2, 15, 15, 1),
+		(51, 15, '15df', '9', '', 15, 10, '15', '2 x 2 x 1', 'images/products/thumb/2013-10-18-074410sports-shoes07.jpg', 'images/products/2013-10-18-074410sports-shoes07.jpg', 'images/products/large_image/2013-10-18-074410sports-shoes07.jpg', 2, 15, 15, 1),
+		(52, 16, '15asd', 'Small', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-074629t-shirts02.jpg', 'images/products/2013-10-18-074629t-shirts02.jpg', 'images/products/large_image/2013-10-18-074629t-shirts02.jpg', 0, 15, 15, 1),
+		(53, 16, '15as', 'Medium', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-074630t-shirts02.jpg', 'images/products/2013-10-18-074630t-shirts02.jpg', 'images/products/large_image/2013-10-18-074630t-shirts02.jpg', 0, 15, 16, 1),
+		(54, 16, '15w', 'Large', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-074630t-shirts02.jpg', 'images/products/2013-10-18-074630t-shirts02.jpg', 'images/products/large_image/2013-10-18-074630t-shirts02.jpg', 0, 15, 16, 1),
+		(55, 16, '15gdf', 'XL', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-074631t-shirts02.jpg', 'images/products/2013-10-18-074631t-shirts02.jpg', 'images/products/large_image/2013-10-18-074631t-shirts02.jpg', 0, 15, 16, 1);";
+		$result=mysql_query($sql);		
+
+	
 
 		$sql="Drop table if exists search_tags_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE search_tags_table(id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,search_tag  VARCHAR(250) NOT NULL,search_count  INT(11) NOT NULL)";
 		$result=mysql_query($sql);
+
+
 		
 
 

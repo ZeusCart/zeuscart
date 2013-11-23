@@ -502,8 +502,15 @@ class Core_CQuery
 
 		$sql="Drop table if exists currency_master_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE currency_master_table (id int(11) NOT NULL auto_increment,currency_name varchar(200) NOT NULL,currency_code varchar(50) NOT NULL,country_code varchar(25) NOT NULL,currency_tocken varchar(25) NOT NULL,status int(11) NOT NULL,
-		default_currency int(11) NOT NULL default '0',PRIMARY KEY  (`id`))";
+		$sql="CREATE TABLE IF NOT EXISTS `currency_master_table` (
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`currency_name` varchar(200) NOT NULL,
+		`currency_code` varchar(50) NOT NULL,
+		`currency_tocken` varchar(25) NOT NULL,
+		`status` int(11) NOT NULL,
+		`default_currency` int(11) NOT NULL DEFAULT '0',
+		PRIMARY KEY (`id`)
+		)";
 		$result=mysql_query($sql);
 
 		$sql="Drop table if exists custompage_table";
@@ -819,7 +826,7 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE IF NOT EXISTS `products_table` (
 		`product_id` int(25) NOT NULL AUTO_INCREMENT,
-		`category_id` varchar(100) NOT NULL,
+		`category_id` varchar(100) CHARACTER SET utf8 NOT NULL,
 		`sku` varchar(100) NOT NULL,
 		`title` varchar(250) NOT NULL,
 		`alias` varchar(100) NOT NULL,
@@ -845,11 +852,38 @@ class Core_CQuery
 		`digital` int(10) NOT NULL,
 		`gift` int(20) NOT NULL,
 		`digital_product_path` varchar(200) NOT NULL,
-		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product',
+		`has_variation` tinyint(11) NOT NULL,
+		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product,3=>deleted products',
+		`deleted_reason` varchar(240) NOT NULL,
 		PRIMARY KEY (`product_id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 		$result=mysql_query($sql);
+	
+
 		
+		$sql="Drop table if exists product_variation_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `product_variation_table` (
+			`variation_id` bigint(12) NOT NULL AUTO_INCREMENT,
+			`product_id` bigint(12) NOT NULL,
+			`sku` varchar(100) NOT NULL,
+			`variation_name` varchar(250) NOT NULL,
+			`description` text NOT NULL,
+			`msrp` double NOT NULL,
+			`price` double NOT NULL,
+			`weight` varchar(25) NOT NULL,
+			`dimension` varchar(100) NOT NULL,
+			`thumb_image` varchar(150) NOT NULL,
+			`image` varchar(150) NOT NULL,
+			`large_image` varchar(240) NOT NULL,
+			`shipping_cost` double NOT NULL,
+			`soh` bigint(12) NOT NULL,
+			`rol` bigint(10) NOT NULL,
+			`status` tinyint(1) NOT NULL,
+			PRIMARY KEY (`variation_id`)
+			)";
+		$result=mysql_query($sql);
+
 		$sql="Drop table if exists search_tags_table";
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE search_tags_table(id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,search_tag  VARCHAR(250) NOT NULL,search_count  INT(11) NOT NULL)";
