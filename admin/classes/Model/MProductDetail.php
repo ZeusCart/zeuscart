@@ -97,6 +97,8 @@ class Model_MProductDetail
 		include_once('classes/Display/DProductDetail.php');
 		include('classes/Core/CAdminHome.php');
 		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');
+		$output['username']=Core_CAdminHome::userName();
 		$default=new Core_CProductDetail();
 		$output['product']=$default->productDetail();
 		$output['attributes']=$default->attributeList();

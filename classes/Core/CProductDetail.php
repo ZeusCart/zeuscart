@@ -358,7 +358,7 @@ class Core_CProductDetail
 				FROM product_attrib_values_table
 				WHERE product_id =".(int)$_GET['prodid'].')';		
 				$query = new Bin_Query();
-					
+				$query->executeQuery($sql);	
 				
 				return  Display_DProductDetail::attributeList($query->records,$recordsfeature);
 				
@@ -378,14 +378,14 @@ class Core_CProductDetail
 				FROM product_attrib_values_table
 				WHERE product_id =".(int)$_GET['prodid'].')';	
 				$query = new Bin_Query();
-				
+				$query->executeQuery($sql);
 				
 				return  Display_DProductDetail::attributeList($query->records,$recordsfeature);
 		
 		}
 		else
 		{
-		    return  Display_DProductDetail::attributeList($flag=0,$recordsfeature);	//return "Not fggfg Found";
+		    return  Display_DProductDetail::attributeList($flag=0,$recordsfeature);	
 		}
 	}
 	/**
