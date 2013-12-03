@@ -492,7 +492,7 @@
 	
 	function displayProductsForOrder()
 	{
-		$sql="SELECT a.title,c.date_purchased,b.product_unit_price,b.variation_id,c.currency_id,f.id,f.currency_tocken,b.product_qty,a.product_id,b.shipping_cost,((b.product_qty*b.product_unit_price)+b.shipping_cost)as subtotal,c.order_ship,c.order_total  from products_table a inner join order_products_table b on a.product_id=b.product_id inner join orders_table c on b.order_id=c.orders_id inner join currency_master_table f on f.id=c.currency_id and b.order_id=".(int)$_GET['id']." order by c.date_purchased desc ";
+		$sql="SELECT a.title,c.date_purchased,b.product_unit_price,a.has_variation,c.currency_id,f.id,f.currency_tocken,b.product_qty,a.product_id,b.shipping_cost,((b.product_qty*b.product_unit_price)+b.shipping_cost)as subtotal,c.order_ship,c.order_total  from products_table a inner join order_products_table b on a.product_id=b.product_id inner join orders_table c on b.order_id=c.orders_id inner join currency_master_table f on f.id=c.currency_id and b.order_id=".(int)$_GET['id']." order by c.date_purchased desc ";
 		$obj = new Bin_Query();
 		if($obj->executeQuery($sql))
 		{		

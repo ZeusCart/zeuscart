@@ -193,7 +193,7 @@
 		
 		$imgfile= $_FILES['ufile']['name'][0];
 		$description=addslashes(stripslashes(trim($description)));		
-		
+		$description=str_replace(array("\r","\n",'\r','\n'),'', $description);	
 	
 		$sql="insert into products_table(category_id, sku, title, description, brand, model, msrp,price,cse_enabled,cse_key, weight, dimension, thumb_image, image, shipping_cost, status, tag, meta_desc, meta_keywords, intro_date, is_featured,product_status,alias)values('".$category_id."','".$sku."','".$title."','".$description."','".$brand."','".$model."','".$msrp_org."','".$price."','".$cse_enabled."','".$csekeyid."','".$weight."','".$dimension."','".$thumb_image."','".$image."','".$shipping_cost."','".$status."','".$tag."','".$meta_desc."','".$meta_keywords."','".$intro_date."','".$is_feautured."','".$product_status."','".$sluggable."')";	
 				

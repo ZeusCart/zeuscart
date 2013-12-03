@@ -122,7 +122,7 @@ class Display_DAddCart
 							$variation=''.Core_CLanguage::_('SIZE').' - '.''.$size.'';
 						}	
 							$out.='<tr>
-								<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="'.$_SESSION['base_url'].'/assets/img/close_button.gif" alt="close">	</a>		  <div class="showcart_box"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></td><td>';
+								<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><i class="icon-remove" title="'.Core_CLanguage::_('DEL').'"></i> 	</a>		  <div class="showcart_box"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"></td><td>';
 								if(file_exists($thumbimage))
 		
 								$out.='<img src="'.$_SESSION['base_url'].'/'.$thumbimage.'" alt='.$arr[$i]['title'].'  />';
@@ -145,14 +145,14 @@ class Display_DAddCart
 			
 			
 			$out.='<tr>
-				<td colspan="4" rowspan="2">&nbsp;</td>
+				<td colspan="4" rowspan="3">&nbsp;</td>
 			 	 <td><strong>'.Core_CLanguage::_('SUB_TOTAL').'</strong></td>
 				<td><span class="label label-success">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($total,2).'</span></td>
-				</tr>';
-// 				<tr>
-// 				<td><strong>Shipping Amount</strong></td>
-// 					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($shipping*$_SESSION['currencysetting']['selected_currency_settings']['conversion_rate'],2).'</span></td>
-// 				</tr>
+				</tr>
+ 				<tr>
+			<td><strong>'.Core_CLanguage::_('SHIPPING_AMOUNT').'</strong></td>
+					<td><span class="label label-warning">'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'&nbsp;'.number_format($shipping,2).'</span></td>
+			</tr>';
 				
 				
 				$out.='<tr>
@@ -1244,7 +1244,7 @@ class Display_DAddCart
 	
 			$out.='<tr>
 
-			<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><img src="'.$_SESSION['base_url'].'/assets/img/close_button.gif" alt="close">	</a></td><td>';
+			<td><a href="'.$_SESSION['base_url'].'/index.php?do=addtocart&action=delete&prodid='.$arr[$i]['product_id'].'&id='.$arr[$i]['id'].'"><i class="icon-remove" title="'.Core_CLanguage::_('DEL').'"></i> </a></td><td>';
 
 			if(file_exists($thumbimage))
 			  $out.='<img src="'.$_SESSION['base_url'].'/'.$thumbimage.'" alt="'.$arr[$i]['title'].'" />';
@@ -1528,7 +1528,7 @@ class Display_DAddCart
 					<input type="hidden" name="fixed" value="Y" /><input type="hidden" name="return_url" value="'.$sucess_url.'" 
 					/>
 					<input type="hidden" name="lang" value="en" />
-					<input type="hidden" name="card_holder_name" value="" /><input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/2checkout.gif" 
+					<input type="hidden" name="card_holder_name" value="" /><input type="image" src="'.$_SESSION['base_url'].'/images/payment/payment/2checkout.gif" 
 					name="submit" alt="2checkout" style="height:30;width:100px;"/>
 					</form>';
 
@@ -1561,7 +1561,7 @@ class Display_DAddCart
 					$payment_html['Authorize.net']=' <form id="form2co" name="form2co" method="post" 		
 					action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showauthorizenet">
 					<INPUT TYPE="HIDDEN" NAME="x_test_request" VALUE="TRUE">
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/authorize.gif" 
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/authorize.gif" 
 					name="submit" alt="Authorize.net" style="height:30;width:100px;" />
 					</form>';
 					
@@ -1575,7 +1575,7 @@ class Display_DAddCart
 					<!--<input type=hidden name="testMode" value="100"> -->
 					<input type="hidden" name="MC_callback" value="'.$sucess_url.'" />
 					
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/worldpay.gif" name="submit" alt="WorldPay" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/worldpay.gif" name="submit" alt="WorldPay" style="height:30;width:100px;">
 					</form>';
 					
 					/*$payment_html['worldpay']=' <form action="https://select.worldpay.com/wcc/purchase" method=POST>
@@ -1597,7 +1597,7 @@ class Display_DAddCart
 					<input type=hidden name="amount" value="'.$amount.'">
 					<input type=hidden name="currency" value="USD">
 					<input type=hidden name="desc" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'">
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/payinstore.gif" name="submit" alt="Pay in Store" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/payinstore.gif" name="submit" alt="Pay in Store" style="height:30;width:100px;">
 					</form>
 					';
 					}
@@ -1608,7 +1608,7 @@ class Display_DAddCart
 					<input type=hidden name="amount" value="'.$amount.'">
 					<input type=hidden name="currency" value="USD">
 					<input type=hidden name="desc" value="Payment For Shopping In '.$_SERVER['SERVER_NAME'].'">
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/cashondelivery.gif" name="submit" alt="Cash On Delivery" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/cashondelivery.gif" name="submit" alt="Cash On Delivery" style="height:30;width:100px;">
 					</form>
 					';
 					}
@@ -1621,7 +1621,7 @@ class Display_DAddCart
 					<input type="hidden"  name="ref" value="'.$_SERVER['SERVER_NAME'].' Check out">			
 					<input type="hidden"  name="return" value="'.$sucess_url.'&pay_type=10">
 					<input type="hidden"  name="popup" value="'.$cancel_url.'">
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/paymate.gif" name="submit" alt="Pay with Paymate Express" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/paymate.gif" name="submit" alt="Pay with Paymate Express" style="height:30;width:100px;">
 					</form>';
 					
 					
@@ -1645,7 +1645,7 @@ class Display_DAddCart
 					<!--<INPUT TYPE=hidden NAME="TestResult" VALUE="1">-->					
 					<INPUT TYPE=hidden NAME="OrderID" VALUE="">
 					<INPUT TYPE=hidden NAME="SubTotal" VALUE="'.$amount.'">
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/psigate.gif" name="submit" alt="PSI Gate" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/psigate.gif" name="submit" alt="PSI Gate" style="height:30;width:100px;">
 					</FORM>';	
 					
 					$payment_html['Strompay']='<form method="post" action="https://www.stormpay.com/stormpay/handle_gen.php">
@@ -1660,7 +1660,7 @@ class Display_DAddCart
 					<input type="hidden" name="return_URL" value="'.$sucess_url.'&pay_type=13">
 					<input type="hidden" name="cancel_URL" value="'.$cancel_url.'">
 					<input type="hidden" name="subject_matter" value="Cart Payment">
-					<input type=image src="'.$_SESSION['base_url'].'/assets/img/payment/strompay.jpg"  alt="Strompay" style="height:30;width:100px;">
+					<input type=image src="'.$_SESSION['base_url'].'/images/payment/strompay.jpg"  alt="Strompay" style="height:30;width:100px;">
 					</form>';
 					
 					/*$payment_html['Alertpay']='<form action="https://www.alertpay.com/PayProcess.aspx" method="post">
@@ -1708,7 +1708,7 @@ class Display_DAddCart
 					<input type="hidden" name="storename" value="'.$merchantid.'">
 					<input type="hidden" name="txntype" value="sale">
 					<input type="hidden" name="comments" value="'.$domain.'-Buy cart">
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/yourpay.jpeg" alt="Yourpay" style="height:30;width:100px;">
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/yourpay.jpeg" alt="Yourpay" style="height:30;width:100px;">
 					<!--<input type="submit" name="btnup" value="Yourpay">-->
 					</form>';
 					
@@ -1731,14 +1731,14 @@ class Display_DAddCart
 					<input type="hidden" name="phone" value="34343434"/>
 					<input type="hidden" name="country" value="USA"/>
 					<input type="hidden" name="email" value="'.$merchantid.'"/>
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/itransact.gif" alt="submit securely"  style="height:30;width:100px;"/>
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/itransact.gif" alt="submit securely"  style="height:30;width:100px;"/>
 					</form>';							
 					
 					
 					
 					$payment_html['Bluepay']=' <form id="formbluepay" name="formbluepay" method="post" 		
 					action="'.$_SESSION['base_url'].'/index.php?do=showcart&action=showbluepay">					
-					<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/bluepay.jpeg" name="submit" alt="BluePay" style="height:30;width:100px;"/>
+					<input type="image" src="'.$_SESSION['base_url'].'/images/payment/bluepay.jpeg" name="submit" alt="BluePay" style="height:30;width:100px;"/>
 					</form>';			
 					if($arr['gateway_id'] == '17')
 					$_SESSION['bluepaydetails'] = $merchantid.'|'.$sucess_url.'|'.$cancel_url;	
@@ -1761,7 +1761,7 @@ class Display_DAddCart
               		<input type="hidden" name="iquantity" value="">
              		<input type="hidden" name="imultiplyPurchase" value="y">
               		<input type="hidden" name="colortheme" value="LightBlueYellow">
-              		<input type="image" src="'.$_SESSION['base_url'].'/assets/img/payment/safepay.gif" alt="Pay through SafePay Solutions" style="height:30;width:100px;">
+              		<input type="image" src="'.$_SESSION['base_url'].'/images/payment/safepay.gif" alt="Pay through SafePay Solutions" style="height:30;width:100px;">
 		            </form>';							
 					
 					

@@ -51,6 +51,9 @@ class Model_MOrderManagement
 	
 	function dispOrders()
 	{
+
+
+
 		include('classes/Core/COrderManagement.php');
 		include('classes/Display/DOrderManagement.php');	
 		include('classes/Core/CAdminHome.php');
@@ -78,7 +81,7 @@ class Model_MOrderManagement
 			$output['processingorders']=(int)Core_CAdminHome::processingOrders();
 			$output['deliveredorders']=(int)Core_CAdminHome::deliveredOrders();
 			$output['orderlist'] =   Core_COrderManagement::dispOrders();	
-                        //			$output['updatedroporderstatus'] =   Core_COrderManagement::updateDropDownOrderStatus();
+             //	$output['updatedroporderstatus'] =   Core_COrderManagement::updateDropDownOrderStatus();
 			$output['errmsg'] = $_SESSION['errmsg'];	
 			
 		}
@@ -104,10 +107,16 @@ class Model_MOrderManagement
 	
 	function editOrders()
 	{
+
 	
 		include('classes/Core/COrderManagement.php');
 		include('classes/Display/DOrderManagement.php');		
 		include('classes/Core/CRoleChecking.php');
+
+
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+
 		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
 		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
 		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
@@ -250,12 +259,17 @@ class Model_MOrderManagement
 	function viewOrderDetail()
 	{
 
+
 		include('classes/Core/CAdminHome.php');
 		include('classes/Display/DAdminHome.php');
 	   	 include('classes/Core/COrderManagement.php');
 		include('classes/Display/DOrderManagement.php');		
 		include('classes/Core/CRoleChecking.php');
 		
+
+		$output['username']=Core_CAdminHome::userName();
+		$output['currentDate']=date('l, M d, Y H:i:s');	
+
 		$output['monthlyorders']= (int)Core_CAdminHome::monthlyOrders();
 		$output['previousmonthorders']=(int)Core_CAdminHome::previousMonthOrders();
 		$output['totalorders']=(int)Core_CAdminHome::totalOrders();
@@ -282,7 +296,7 @@ class Model_MOrderManagement
 			$output['detailorder'] = Core_COrderManagement::dispDetailOrders();	
 			$output['transdetails'] = Core_COrderManagement::dispTransactionDetails();	
 			$output['productorders'] = Core_COrderManagement::displayProductsForOrder();
-			$output['orderhistory'] = Core_COrderManagement::displayOrderHistory();		
+			$output['orderhistory'] = Core_COrderManagement::displayOrderHistory();	
 			Bin_Template::createTemplate('vieworderdetail.html',$output);
 		}
 		else

@@ -615,6 +615,7 @@ class Display_DUserAccount
 	function showOrderDetails($arr)
 	{
 	
+
 		//shipcost
 		$order_ship=$arr[0]['order_ship'];
 		$shipping_method=trim($arr[0]['shipping_method']);	
@@ -765,7 +766,7 @@ class Display_DUserAccount
 
 				$total=$arr[$i]['product_unit_price']*$arr[$i]['product_qty'] ;
 				$output.='<tr>
-					<td>'.Core_CLanguage::_(SHIPPING_AMOUNT.$arr[$i]['product_id']).' <br/>'.$variation.'</td>
+					<td>'.$arr[$i]['title'].' <br/>'.$variation.'</td>
 					<td><span class="label label-info">'.$arr[$i]['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price'],2).'</span></td>
 					<td>'.$arr[$i]['product_qty'].'</td>
 					

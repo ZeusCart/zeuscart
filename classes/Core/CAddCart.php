@@ -55,8 +55,7 @@ class Core_CAddCart
 	 */	
 	function addCart()
 	{
-
-
+		
 		if(isset($_POST['addtocart']))
 		{
 			if($_GET['prodid']!='')
@@ -524,13 +523,13 @@ class Core_CAddCart
 	function showCart()
 	{
 	
-		include_once('classes/Display/DAddCart.php');
+	
 		if($_SESSION['user_id']!='' ) 
 		{	
 			$cartid=Core_CAddCart::getCartIdOfUser();	
 			
-// 			Core_CAddCart::mergeSessionWithCartDatabase();
-// 			
+			//Core_CAddCart::mergeSessionWithCartDatabase();
+ 			
 			if($cartid !='')
 			{
 				$sql3="select cou_code,cou_name from country_table";
@@ -720,6 +719,8 @@ class Core_CAddCart
 	
 	function updateCart()
 	{
+
+
 		if($_SESSION['user_id']!='') 
 		{	
 		
@@ -855,17 +856,19 @@ class Core_CAddCart
 	 */	
 	function deleteCart()
 	{
+		
 
-		if($_SESSION['user_id']!='' && $_SESSION['mycart']=='') 
+		if($_SESSION['user_id']!='' && (count($_SESSION['mycart']))=='0') 
 		{ 
 		
-			$sql = "DELETE FROM shopping_cart_products_table where product_id=".(int)$_GET['prodid']." AND id =".(int)$_GET['id'];
+			 $sql = "DELETE FROM shopping_cart_products_table where product_id=".(int)$_GET['prodid']." AND id =".(int)$_GET['id'];
 		
 			$query = new Bin_Query();
 			$query->updateQuery($sql);
 		}
-		elseif($_SESSION['user_id']!='' || $_SESSION['mycart']!='' )
+		elseif($_SESSION['user_id']!='' || (count($_SESSION['mycart']))>'0')
 		{
+
 
 			for($i=0;$i<count($_SESSION['mycart']);$i++)
 			{
@@ -919,6 +922,7 @@ class Core_CAddCart
 	
 	function cartSnapShot()
 	{
+		
 		if($_SESSION['user_id']!='')
 		{
 			
@@ -1039,6 +1043,7 @@ class Core_CAddCart
 	 */	
 	function showQuickRegistration($Err)
 	{
+		
 		if($_SESSION['user_id']=='') 
 		{						
 			return Display_DAddCart::showQuickRegistration('',$Err);
@@ -1053,6 +1058,7 @@ class Core_CAddCart
 	 */		
 	function showPaymentPageForAuthorizenet()
 	{
+		
 		if($_SESSION['user_id']!='') 
 		{
 			return Display_DAddCart::showPaymentPageForAuthorizenet();
@@ -1082,6 +1088,7 @@ class Core_CAddCart
 	 */	
 	function showPaymentPageFor2Checkout()
 	{
+		
 		if($_SESSION['user_id']!='')
 		{
 			Core_CPaymentGateways::manualSuccess(6);
@@ -1152,6 +1159,7 @@ class Core_CAddCart
 	 */		
 	function showPaymentPageForBluepay()
 	{
+
 		if($_SESSION['user_id']!='') 
 		{
 			return Display_DAddCart::showPaymentPageForBluepay($_POST);
@@ -1168,6 +1176,7 @@ class Core_CAddCart
 	 */
 	function doQuickRegistration()
 	{
+		
 		if($_SESSION['user_id']=='') 
 		{
 			
@@ -1248,7 +1257,6 @@ class Core_CAddCart
 	function showBillingDetails($Err)
 	{
 
-
 		if(!isset($_SESSION['mycart']))
 		{
 
@@ -1306,7 +1314,7 @@ class Core_CAddCart
 	 */	
 	function showShippingDetails($Err)
 	{
-		include_once('classes/Display/DAddCart.php');
+
 		$sql3="select cou_code,cou_name from country_table"; 
 		$obj3=new Bin_Query();
 		$obj3->executeQuery($sql3);
@@ -1342,8 +1350,11 @@ class Core_CAddCart
 	function showShippingMethod($Err)
 	{
 
-		if(isset($_SESSION['mycart']))
+
+
+		if(count($_SESSION['mycart'])>0)
 		{
+			
 		
 			$sqlCheck="SELECT * FROM shopping_cart_table WHERE cart_id ='".$_SESSION['mycart'][0]['cartid']."'";
 			$objCheck=new Bin_Query();
@@ -1381,6 +1392,7 @@ class Core_CAddCart
 			}
 			else
 			{
+				
 			
 				$cnt=count($_SESSION['mycart']);	
 				if($cnt>0)
@@ -1415,7 +1427,7 @@ class Core_CAddCart
 			$objWeight=new Bin_Query();
 			$objWeight->executeQuery($sqlWeight);
 			$recordsWeight=$objWeight->records;
-	
+
 			if(count($recordsWeight)>0)
 			{
 				$totalweight=0;
@@ -1424,13 +1436,14 @@ class Core_CAddCart
 				$shipping_cost='';
 				for($i=0;$i<count($recordsWeight);$i++)
 				{
-				
+			
 					
-					$sqlProduct="SELECT product_id,weight FROM products_table WHERE product_id='".$recordsWeight[$i]['product_id']."'";
+					$sqlProduct="SELECT product_id,weight,shipping_cost FROM products_table WHERE product_id='".$recordsWeight[$i]['product_id']."'";
 					$objProduct=new Bin_Query();
 					$objProduct->executeQuery($sqlProduct);
 					$productWeight=$objProduct->records[0]['weight'];
 					$weight=$productWeight*$recordsWeight[$i]['product_qty'];
+					$shipping_cost=$objProduct->records[0]['shipping_cost'];
 					$shipcost=$shipping_cost*$recordsWeight[$i]['product_qty'];
 					$totalweight=$totalweight+$weight;
 					$totalshipcost=$totalshipcost+$shipcost;
@@ -1468,8 +1481,7 @@ class Core_CAddCart
 	function showOrderConfirmation($message='')
 	{
 
-
-
+	
 		if($_SESSION['user_id']!='' && $_SESSION['mycart']=='') 
 		{	
 
@@ -1870,6 +1882,7 @@ class Core_CAddCart
 	 */
 	function displayPaymentGateways()
 	{
+				
 		if($_SESSION['user_id']!='') 
 		{	
 			$sqlonline="SELECT gateway_id,gateway_name,merchant_id FROM paymentgateways_table WHERE gateway_status=1 and gateway_id!=8 and gateway_id!=9  ";
@@ -2364,7 +2377,7 @@ class Core_CAddCart
 	 */
 	function countCart()
 	{
-
+		
 		if(isset($_SESSION['mycart']) )
 		{
 
@@ -2378,22 +2391,7 @@ class Core_CAddCart
 				$records=$objShop->records;
 				if(count($records)>0)
 				{
-					$cartId=$objShop->records[0]['cart_id'];	
-					$updateCart="UPDATE  shopping_cart_table SET cart_id ='".$cartId."'   WHERE user_id='". $_SESSION['user_id']."'";
-					$objCart=new Bin_Query($updateCart);
-					$objCart->updateQuery();
-					for($i=0;$i<count($records);$i++)
-					{
-			
-						$sqlDel="DELETE FROM shopping_cart_table WHERE cart_id !='".$cartId."' AND user_id='". $_SESSION['user_id']."'";
-						$objDel=new Bin_Query();
-						$objDel->updateQuery($sqlDel);
-			
-
-						$shopProduct="UPDATE  shopping_cart_products_table  SET cart_id ='".$cartId."' WHERE id='".$objShop->records[$i]['id']."'"; 
-						$objProduct=new Bin_Query($updateCart);
-						$objProduct->updateQuery($shopProduct);
-					}
+					
 					$carts=count($records); 
 					return $carts;
 				}

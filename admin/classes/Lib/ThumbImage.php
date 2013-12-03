@@ -108,12 +108,13 @@ class Lib_ThumbImage
 	 * @return string
 	 */
 	 
-	public function Lib_ThumbImage($type,$srcPath,$destPath,$width)
+	public function Lib_ThumbImage($type,$srcPath,$destPath,$width,$height)
 	{
 		$this->type = $type;
 		$this->srcPath = $srcPath;
 		$this->destPath = $destPath;
 		$this->width = $width;
+		$this->height = $height;
 		
 		if($this->isValidCall())
 			$this->makeThumb();	
@@ -175,6 +176,8 @@ class Lib_ThumbImage
 	{
 		$source_image=$this->srcPath;
 		$thumb_width=$this->width;
+		$thumb_height = $this->height;
+	
 		$supported_types = array(1, 2, 3, 7);
 		list($width_orig, $height_orig, $image_type) = getimagesize($source_image);
 		if(!in_array($image_type, $supported_types))
@@ -187,12 +190,14 @@ class Lib_ThumbImage
 		{
 		$path_parts = pathinfo($source_image);
 		$filename = $this->prefix.$path_parts['filename'];
-				$dirname = $path_parts['dirname'];
+		$dirname = $path_parts['dirname'];
 				
-		$aspect_ratio = (float) $height_orig/$width_orig;			
+	 	$aspect_ratio = (float) $thumb_width /$thumb_height;
+
+		
 		//$thumb_width = round($thumb_height * $aspect_ratio);				
 					
-		$thumb_height = round($thumb_width*$aspect_ratio);
+		//$thumb_height = round($thumb_width*$aspect_ratio);
 				
 		$source = imagecreatefromstring(file_get_contents($source_image));
 		$thumb = imagecreatetruecolor($thumb_width,$thumb_height);

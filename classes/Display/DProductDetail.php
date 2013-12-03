@@ -112,7 +112,7 @@ class Display_DProductDetail
 		
 
 		$output.='<div class="title_fnt">
-		<h1>'.$arr[0]['product_name'].'</h1>
+		<h1>'.$arr[0]['title'].'</h1>
 		</div>
 		<div id="gallery_div">
 		<div class="row-fluid">';
@@ -165,11 +165,11 @@ class Display_DProductDetail
 				<li>';
 				if($arr[0]['product_status']==1)
 				{
-				$output.='<div class="ribbion_div1"><img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new1.png" alt="New"></div>';
+				$output.='<div class="productimg"><div class="ribbion_newtag_div"></div></div>';
 				}
 				elseif($arr[0]['product_status']==2)
 				{
-				$output.='<div class="ribbion_div1"><img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale-ribbion.png" alt="Sale"></div>';
+				$output.='<div class="ribbion_saletag_div"></div>';
 				}
 
 		
@@ -273,11 +273,11 @@ class Display_DProductDetail
 		$output.='<td>'.Core_CLanguage::_('QUANTITY').' <input type="text" name="qty[]" style="width:60px;" value="1" readonly="true"></td>';
 
 		}
-	
 		
-		$output.='<td align="left" valign="top"> <input type="submit" title="Add to Cart" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.Core_CLanguage::_('ADD_TO_CART').'" class="addtocart_button1" style="width:150px;height:50px" name="'.Core_CLanguage::_('ADD_TO_CART').'" />&nbsp;&nbsp;
+		$output.='<td align="left" valign="top"><button type="submit" class="add_btn" title="'.Core_CLanguage::_('ADD_TO_CART').'"><p style="margin-left:38px;top:5px">'.Core_CLanguage::_('ADD_TO_CART').'</p></button>&nbsp;&nbsp;
 
-		<a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$arr[0]['product_id'].'"><input type="button" name="wishlist" style="width:150px;height:50px;" class="wishlist_button" value="'.Core_CLanguage::_('ADD_TO_WISHLIST').'" title="'.Core_CLanguage::_('ADD_TO_WISHLIST').'"></a>
+
+		<a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=viewwishlist&prodid='.$arr[0]['product_id'].'"><button type="button" class="wishlist_button" title="'.Core_CLanguage::_('ADD_TO_WISHLIST').'">'.Core_CLanguage::_('ADD_TO_WISHLIST').'</button></a>
 		 </td>';
 		
 		 $mode='none';
@@ -318,9 +318,9 @@ class Display_DProductDetail
 			$img='';
 			for($j=0;$j<5;$j++)
 			if($j<round($reviewArr[$i]['rating']))
-				$img.='<img src="assets/img/star.png" alt="star" />';
+				$img.='<img src="assets/'.$_SESSION['template'].'/img/star.png" alt="star" />';
 			else
-				$img.='<img src="assets/img/star-gray.png"  alt="star" />';
+				$img.='<img src="assets/'.$_SESSION['template'].'/img/star-gray.png"  alt="star" />';
                 	$output.='<li><i class="icon-user"></i> Reviewed by :  '.$reviewArr[$i]['user_display_name'].'<span class="pull-right">'.$_SESSION['base_url'].'/'.$img.'</span>
                     <p>'.$reviewArr[$i]['review_caption'].'</p>
                     </li>';
@@ -354,11 +354,11 @@ class Display_DProductDetail
 		<div class="control-group">
 		<label class="control-label" for="inputPassword">'.Core_CLanguage::_('RATE_THIS_PRODUCT').'</label>
 		<div class="controls">
-		<img name="img1" src="'.$_SESSION['base_url'].'/assets/img/star-gray.png" title="1 star out of 5" onmouseover="fun(1)" onmouseout="fun1(1)" onclick=fun2(1)>
-		<img name="img2" src="'.$_SESSION['base_url'].'/assets/img/star-gray.png" title="2 stars out of 5" onmouseover="fun(2)" onmouseout="fun1(2)" onclick=fun2(2)>
-		<img name="img3" src="'.$_SESSION['base_url'].'/assets/img/star-gray.png" title="3 stars out of 5" onmouseover="fun(3)" onmouseout="fun1(3)" onclick=fun2(3)>
-		<img name="img4" src="'.$_SESSION['base_url'].'/assets/img/star-gray.png" title="4 stars out of 5" onmouseover="fun(4)" onmouseout="fun1(4)" onclick=fun2(4)>
-		<img name="img5" src="'.$_SESSION['base_url'].'/assets/img/star-gray.png" title="5 stars out of 5" onmouseover="fun(5)" onmouseout="fun1(5)" onclick=fun2(5)>
+		<img name="img1" src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png" title="1 star out of 5" onmouseover="fun(1)" onmouseout="fun1(1)" onclick=fun2(1)>
+		<img name="img2" src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png" title="2 stars out of 5" onmouseover="fun(2)" onmouseout="fun1(2)" onclick=fun2(2)>
+		<img name="img3" src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png" title="3 stars out of 5" onmouseover="fun(3)" onmouseout="fun1(3)" onclick=fun2(3)>
+		<img name="img4" src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png" title="4 stars out of 5" onmouseover="fun(4)" onmouseout="fun1(4)" onclick=fun2(4)>
+		<img name="img5" src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png" title="5 stars out of 5" onmouseover="fun(5)" onmouseout="fun1(5)" onclick=fun2(5)>
 		<input type=hidden name=hidRate>
 		</div>
 		</div>
@@ -410,9 +410,9 @@ class Display_DProductDetail
 		for($r1=0;$r1<5;$r1++)
 		{
 			if($r1<$rating)
-				$ratepath.='<img src="'.$_SESSION['base_url'].'/assets/img/star.png">&nbsp;';
+				$ratepath.='<img src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star.png">&nbsp;';
 			else
-				$ratepath.='<img src="'.$_SESSION['base_url'].'/assets/img/star-gray.png">&nbsp;';							
+				$ratepath.='<img src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png">&nbsp;';							
 		}	
 		return $ratepath;
 	}
@@ -439,7 +439,7 @@ class Display_DProductDetail
  	*/
 	function attributeList($arr,$recordsfeature)
 	{
-
+	
 		if($arr!='' || $recordsfeature!='')
 		{
 			$output='<table id="rt1" class="rt cf">
@@ -850,11 +850,11 @@ class Display_DProductDetail
 				<ul class="detaillist">';
 				if($arr[0]['product_status']==1)
 				{
-				$output.='<div class="ribbion_div1"><img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new1.png" alt="New"></div>';
+				$output.='<div class="ribbion_newtag_div"></div>';
 				}
 				elseif($arr[0]['product_status']==2)
 				{
-				$output.='<div class="ribbion_div1"><img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale-ribbion.png" alt="Sale"></div>';
+				$output.='<div class="ribbion_saletag_div"></div>';
 				}
 				$output.='<li>'.$rating.'</li>
 				<li><table width="100%" border="0">
@@ -887,10 +887,9 @@ class Display_DProductDetail
 		for($s=1;$s<=$arr[0]['soh'];$s++)
 			$output.='<option value="'.$s.'">'.$s.'</option>';
 		$output.='</select></td>';
-		if($arr[0]['soh']>0)
-		{
-		$output.='<td align="left" valign="top"><input type="image" name="Submit2" src="'.$_SESSION['base_url'].'/assets/img/add-to-cart-btn.png"  style="width:150px;height:40px;	display:block;cursor:pointer;border:0;outline:none;"></td>';
-		}
+		
+		$output.='<td align="left" valign="top"><button type="submit" class="add_btn" title="'.Core_CLanguage::_('ADD_TO_CART').'"><p style="margin-left:38px;top:5px">'.Core_CLanguage::_('ADD_TO_CART').'</p></button></td>';
+		
 		$output.='</tr>
 		</table>
 		</form>

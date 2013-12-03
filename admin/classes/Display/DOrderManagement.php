@@ -950,7 +950,7 @@ class Display_DOrderManagement
 
 				$variation='';
 				//select variation size
-				if(trim($row['variation_id'])!='0')
+				if(trim($row['has_variation'])!='0')
 				{
 					$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$row['variation_id']."' AND product_id='".$row['product_id']."'";
 					$objSize=new Bin_Query();
