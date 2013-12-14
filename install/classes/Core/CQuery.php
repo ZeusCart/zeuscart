@@ -804,9 +804,7 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE newsletter_table(newsletter_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,newsletter_title  TEXT(65535) NOT NULL ,newsletter_content  TEXT(65535) NOT NULL ,newsletter_date_added  datetime NOT NULL ,newsletter_date_sent  datetime NOT NULL ,newsletter_status  INT(4) NOT NULL)";
 		$result=mysql_query($sql);
-// 		$sql="INSERT INTO `newsletter_table` (`newsletter_id`, `newsletter_title`, `newsletter_content`, `newsletter_date_added`, `newsletter_date_sent`, `newsletter_status`) VALUES
-// 		(1, 'new', '<p>new</p>\r\n<!--?phpif(get_magic_quotes_gpc()) echo stripslashes($_POST[''newslettercontent'']); else echo $_POST[''newslettercontent''];?-->', '2013-03-20 00:00:00', '0000-00-00 00:00:00', 0)";
-// 		$result=mysql_query($sql);
+
 
 		$sql="Drop table if exists news_table";
 		$result=mysql_query($sql);
@@ -818,13 +816,9 @@ class Core_CQuery
 
 		$sql="Drop table if exists order_products_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE order_products_table(order_id  INT(25) NOT NULL,product_id  INT(25) NOT NULL,product_qty  INT(10) NOT NULL,product_unit_price  real NOT NULL,shipping_cost  real NOT NULL)";
+		$sql="CREATE TABLE order_products_table(order_id  INT(25) NOT NULL,product_id  INT(25) NOT NULL,variation_id INT(25) NOT NULL,product_qty  INT(10) NOT NULL,product_unit_price  real NOT NULL,shipping_cost  real NOT NULL)";
 		$result=mysql_query($sql);
-// 		$sql="INSERT INTO `order_products_table` (`order_id`, `product_id`, `product_qty`, `product_unit_price`, `shipping_cost`) VALUES
-// 		(1, 4, 4, 600, 20),
-// 		(1, 14, 4, 300, 20),
-// 		(1, 17, 2, 300, 10)";
-// 		$result=mysql_query($sql);
+
 
 
 

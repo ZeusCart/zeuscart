@@ -192,4 +192,16 @@ $("select").chosen({allow_single_deselect:true});
     </table>
   </div>
 <div id="backgroundPopup"></div>
+
+<div id="myModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Changing Shipping</h3>
+</div>
+<div class="modal-body">
+<iframe name="create_customer" id="create_customer" src="index.php?do=disporders&action=changeshipping&id=<AJDF:output>$smarty.get.id</AJDF:output>" scrolling="auto" style="width:500px; height:380px;" frameborder="0" ></iframe>
+</div>
+
+</div>
+
 <AJDF:output>include file="footer.html"</AJDF:output>

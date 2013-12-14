@@ -450,9 +450,9 @@ class Core_CUserOrder
 				billing_name, billing_company, billing_street_address, billing_suburb, 
 				billing_city, billing_postcode, billing_state, billing_country, payment_method, 
 				shipping_method, coupon_code,  date_purchased, orders_date_closed, orders_status, order_total, 
-				order_tax, ipn_id, ip_address)
+				order_tax, ipn_id, ip_address,shipment_id_selected)
 				values
-				('".$customers_id."','".$shipping_name."','".$shipping_company."','".$shipping_street_address."','".$shipping_suburb."','".$shipping_city."','".$shipping_postcode."','".$shipping_state."','".$shipping_country."','".$billing_name."','".$billing_company."','".$billing_street_address."','".$billing_suburb."','".$billing_city."','".$billing_postcode."','".$billing_state."','".$billing_country."','".$payment_method."','".$shipping_method."','".$coupon_code."','".$date_purchased."','".$orders_date_closed."','".$orders_status."','".$order_total."','".$order_tax."','".$paypal_ipn_id."','".$ip_address."')";
+				('".$customers_id."','".$shipping_name."','".$shipping_company."','".$shipping_street_address."','".$shipping_suburb."','".$shipping_city."','".$shipping_postcode."','".$shipping_state."','".$shipping_country."','".$billing_name."','".$billing_company."','".$billing_street_address."','".$billing_suburb."','".$billing_city."','".$billing_postcode."','".$billing_state."','".$billing_country."','".$payment_method."','".$shipping_method."','".$coupon_code."','".$date_purchased."','".$orders_date_closed."','".$orders_status."','".$order_total."','".$order_tax."','".$paypal_ipn_id."','".$ip_address."','1')";
 				$obj=new Bin_Query();
 				if($obj->updateQuery($sql))
 				{
