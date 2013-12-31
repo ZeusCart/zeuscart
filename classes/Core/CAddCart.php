@@ -216,7 +216,7 @@ class Core_CAddCart
 	 */	
 	function addCartFromProductDetail()
 	{
-
+		
 		$defaultobject=new Core_CAddCart();
 		if ($defaultobject->isDigitalProduct((int)$_GET['prodid']))
 		{
@@ -523,7 +523,7 @@ class Core_CAddCart
 	function showCart()
 	{
 	
-	
+		include_once('classes/Display/DAddCart.php');
 		if($_SESSION['user_id']!='' ) 
 		{	
 			$cartid=Core_CAddCart::getCartIdOfUser();	
