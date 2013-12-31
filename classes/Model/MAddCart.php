@@ -197,7 +197,7 @@ class Model_MAddCart
 			include_once('classes/Display/DLastViewedProducts.php');
 			include('classes/Lib/TagClouds.php');
 			include('classes/Core/CTagClouds.php');
-			
+			include('classes/Display/DAddCart.php');
 			include_once('classes/Core/CCurrencySettings.php');
 			Core_CCurrencySettings::getDefaultCurrency();
 			
@@ -245,7 +245,7 @@ class Model_MAddCart
 			include_once('classes/Display/DLastViewedProducts.php');
 			include('classes/Lib/TagClouds.php');
 			include('classes/Core/CTagClouds.php');
-			
+			include('classes/Display/DAddCart.php');
 			include_once('classes/Core/CCurrencySettings.php');
 			Core_CCurrencySettings::getDefaultCurrency();
 			
@@ -404,6 +404,11 @@ class Model_MAddCart
 	
 	function deleteCart()
 	{
+		
+		//language	
+		include_once('classes/Core/CLanguage.php');
+		Core_CLanguage::setLanguage('CHECK_OUT');
+		
 		include_once('classes/Core/CAddCart.php');
 		include('classes/Core/CUserRegistration.php');
 		include('classes/Display/DUserRegistration.php');

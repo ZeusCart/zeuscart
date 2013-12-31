@@ -34,16 +34,21 @@ height:280px;
 #gallery_image{background:#000; margin:0 12px 5px 0; width:31%; float:left; }
 .info{padding:10px; width:100%; overflow:hidden;}
 .add_btn {
-    background: url("../img/add-to-cart-btn1.jpg") no-repeat scroll 0 0 transparent;
-    border: 0 none;
-    cursor: pointer;
-    display: block;
-    height: 40px;
-    outline: medium none;
-    width: 104px;
+    background:url(../img/add-to-cart-btn.png) ;
+      background-position:  0px 0px;
+    background-repeat: no-repeat;
+    width:150px;
+    height:40px;
+    display:block;
+    cursor:pointer;
+    border:0;
+    outline:none;
+    color: #FFFFFF;
+    font-weight: bold;
 }
+
 .add_btn:hover {
-    background: url("../img/add-to-cart-btn1-hov.jpg") no-repeat scroll 0 0 transparent;
+    background:url(../img/add-to-cart-btn-hov.png) no-repeat;
 }
 }
 
@@ -53,16 +58,21 @@ height:280px;
 .info{padding:10px; width:100%; overflow:hidden;}
 
 .add_btn {
-    background: url("../img/add-to-cart-btn1.jpg") no-repeat scroll 0 0 transparent;
-    border: 0 none;
-    cursor: pointer;
-    display: block;
-    height: 40px;
-    outline: medium none;
-    width: 104px;
+    background:url(../img/add-to-cart-btn.png) ;
+      background-position:  0px 0px;
+    background-repeat: no-repeat;
+    width:150px;
+    height:40px;
+    display:block;
+    cursor:pointer;
+    border:0;
+    outline:none;
+    color: #FFFFFF;
+    font-weight: bold;
 }
+
 .add_btn:hover {
-    background: url("../img/add-to-cart-btn1-hov.jpg") no-repeat scroll 0 0 transparent;
+    background:url(../img/add-to-cart-btn-hov.png) no-repeat;
 }
 }
 
