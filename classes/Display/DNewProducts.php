@@ -324,7 +324,7 @@ class Display_DNewProducts
 					{
 						$output.='<div class="ribbion_div"> <img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale"/></div>';
 					}
-					$output.='<div class="galleryImage"><a href="'.$_SESSION['base_url'].'/'.$records[$i]['alias'].'.html"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$records[$i]['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'"></a>
+					$output.='<div class="galleryImage"><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$records[$i]['product_id'].'"><img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$records[$i]['image'].'&a=r&h=280&amp;w=235&zc=0&s=1&f=4,11&q=100&ct=1&a=tl" alt="'.$row['title'].'"></a>
 
 					<div class="info">  
 					<h2>'.substr(trim($records[$i]['title']),'0','15').'</h2>
