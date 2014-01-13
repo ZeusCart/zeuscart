@@ -480,6 +480,7 @@ $(document).ready(function (){
 });
 function productalias(val)
 {
+	document.getElementById('checkalias').innerHTML="";
 	if(val!='')
 	{
 			$.ajax({
@@ -487,13 +488,15 @@ function productalias(val)
 			data: 'alias='+val,
 			type: 'GET',
 			success: function (resp) {
+
+				
 				if(resp ==1)
 				{
 					document.getElementById('checkalias').innerHTML="<code >Product alias already exists</code>";
 				}
 				else
 				{
-					document.getElementById('uniquesku').innerHTML="";
+					document.getElementById('checkalias').innerHTML="";
 				
 				}
 	

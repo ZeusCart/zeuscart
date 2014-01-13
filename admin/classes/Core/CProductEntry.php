@@ -245,8 +245,8 @@
 					{
 						$varimgfilename= $_FILES['prvarimage']['name'][$ii];
 						
-						$varimage="images/products/". date("Y-m-d-His").$varimgfilename; //inserted into db
-						$varthumb_image="images/products/thumb/". date("Y-m-d-His").$varimgfilename; //inserted into db
+						$varimage="images/products/".date("Y-m-d-His").$varimgfilename; //inserted into db
+						$varthumb_image="images/products/thumb/".date("Y-m-d-His").$varimgfilename; //inserted into db
 						$varlarge_image="images/products/large_image/".date("Y-m-d-His").$varimgfilename; 
 				
 						$varimageDir=ROOT_FOLDER."images/products"; // to upload the file
@@ -314,11 +314,11 @@
 					
 		
 
-					$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+					$imagefilename = date("Y-m-d-His").$imgfilename ; // generate a new name
 					
-					$image="images/products/". $imgfilename; // updated into DB
-					$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
-					$large_image="images/products/large_image/".$imgfilename; 
+					$image="images/products/". $imagefilename; // updated into DB
+					$thumb_image="images/products/thumb/".$imagefilename; // updated into DB
+					$large_image="images/products/large_image/".$imagefilename; 
 
 					$stpath=ROOT_FOLDER.$image;
 					$imageDir=ROOT_FOLDER."images/products"; // to upload the file
@@ -344,11 +344,19 @@
 					}
 					else
 						$imgType='sub';
-				
-					$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','$imgType','$large_image')";
-					$obj->updateQuery($spl);
+						if($_FILES['ufile']['name'][$i]!='')
+						{
+						$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','$imgType','$large_image')";
+						
+
+						$obj->updateQuery($spl);
+						}
+
+
 				}
 			}
+
+
 				
 			$_SESSION['update_msg']='<div class="alert alert-success">
 				<button data-dismiss="alert" class="close" type="button">×</button>Product <b>'.$title.'</b> has been inserted successfully</div>';
@@ -832,11 +840,11 @@
 						
 			
 	
-						$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+						$imagefilename = date("Y-m-d-His").$imgfilename ; // generate a new name
 						
-						$image="images/products/". $imgfilename; // updated into DB
-						$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
-						$large_image="images/products/large_image/".$imgfilename; 
+						$image="images/products/". $imagefilename; // updated into DB
+						$thumb_image="images/products/thumb/".$imagefilename; // updated into DB
+						$large_image="images/products/large_image/".$imagefilename; 
 	
 						$stpath=ROOT_FOLDER.$image;
 						$imageDir=ROOT_FOLDER."images/products"; // to upload the file
@@ -863,9 +871,11 @@
 						}
 						else
 							$imgType='sub';
-					
+						if($_FILES['ufile']['name'][$i]!='')
+						{
 						$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','$imgType','$large_image')";
 						$obj->updateQuery($spl);
+						}	
 					}
 				}
 			
@@ -999,11 +1009,11 @@
 						
 			
 	
-						$imagefilename = date("Y-m-d-His").$imagefilename ; // generate a new name
+						$imagefilename = date("Y-m-d-His").$imgfilename ; // generate a new name
 						
-						$image="images/products/". $imgfilename; // updated into DB
-						$thumb_image="images/products/thumb/".$imgfilename; // updated into DB
-						$large_image="images/products/large_image/".$imgfilename; 
+						$image="images/products/". $imagefilename; // updated into DB
+						$thumb_image="images/products/thumb/".$imagefilename; // updated into DB
+						$large_image="images/products/large_image/".$imagefilename; 
 	
 						$stpath=ROOT_FOLDER.$image;
 						$imageDir=ROOT_FOLDER."images/products"; // to upload the file
@@ -1029,9 +1039,11 @@
 						}
 						else
 							$imgType='sub';
-					
+						if($_FILES['ufile']['name'][$i]!='')
+						{
 						$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','$imgType','$large_image')";
 						$obj->updateQuery($spl);
+						}
 					}
 				}
 			

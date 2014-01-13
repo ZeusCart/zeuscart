@@ -114,8 +114,19 @@ class Core_Settings_CHomePageBanner
 					$image=$_POST['slide_content_image'][$i];
 		
 					$thumb_image=$_POST['slide_content_thumb'][$i];
+
+					$sqlcheck="SELECT * FROM  home_slide_show_table WHERE id='".$_POST['theValue'][$i]."'"; 
+					$objcheck=new Bin_Query();
+					if($objcheck->executeQuery($sqlcheck))
+					{
+						$sqlupdate="UPDATE  home_slide_show_table SET slide_title='".$_POST['slide_title'][$i]."' ,slide_content='".$image."',slide_content_thumb='".$thumb_image."',slide_caption='".trim($_POST['slide_caption'][$i])."',slide_url='".$_POST['slide_url'][$i]."' WHERE id='".$_POST['theValue'][$i]."'";  
+						$objupdate=new Bin_Query();
+						$objupdate->updateQuery($sqlupdate);
+						
+						
+					}
 				}
-				elseif($_FILES['slide_content']['name'][$i]!='')
+				elseif($_FILES['slide_content']['name'][$i]!=''  && $_POST['slide_content_image'][$i]=='')
 				{
 
 					$imgfilename= $_FILES['slide_content']['name'][$i];
@@ -133,24 +144,17 @@ class Core_Settings_CHomePageBanner
 						new Lib_ThumbImage('thumb',$stpath,$thumbDir,THUMB_WIDTH);
 						
 					}
-				}
-				$sqlcheck="SELECT * FROM  home_slide_show_table WHERE id='".$_POST['theValue'][$i]."'"; 
-				$objcheck=new Bin_Query();
-				if($objcheck->executeQuery($sqlcheck))
-				{
-					$sqlupdate="UPDATE  home_slide_show_table SET slide_title='".$_POST['slide_title'][$i]."' ,slide_content='".$image."',slide_content_thumb='".$thumb_image."',slide_caption='".trim($_POST['slide_caption'][$i])."',slide_url='".$_POST['slide_url'][$i]."' WHERE id='".$_POST['theValue'][$i]."'";  
-					$objupdate=new Bin_Query();
-					$objupdate->updateQuery($sqlupdate);
-					
-					
-				}
-				else
-				{
-					 $sql="INSERT INTO home_slide_show_table(slide_title,slide_content,slide_caption,slide_content_thumb,slide_url)VALUES('".$_POST['slide_title'][$i]."','".$image."','".trim($_POST['slide_caption'][$i])."','".$thumb_image."','".$_POST['slide_url'][$i]."')"; 
+
+
+					$sql="INSERT INTO home_slide_show_table(slide_title,slide_content,slide_caption,slide_content_thumb,slide_url)VALUES('".$_POST['slide_title'][$i]."','".$image."','".trim($_POST['slide_caption'][$i])."','".$thumb_image."','".$_POST['slide_url'][$i]."')"; 
 					$query = new Bin_Query();
 					$query->updateQuery($sql);
 							
+				
 				}
+
+				
+			
 
 
 				

@@ -60,7 +60,7 @@ class Display_DCurrencySettings
 		<th  align="left">Currency Name</th>
 		<th align="left">Currency Code</th>
 	
-		<th align="left">Applied To</th>
+		<th align="left">Currency Token</th>
 		<th align="left">Status</th>
 
 		</tr></thead>		<tbody>';
@@ -100,7 +100,7 @@ class Display_DCurrencySettings
 			<td><a href="?do=editcurrency&cid='.$arr['id'].'">'.$arr['currency_name'].(($arr['default_currency']==1) ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>(Default)</b>' : '' ).'</a></td>
 			<td>'.$arr['currency_code'].'</td>
 			
-			<td>'.( ($arr['country_code']=='' || $arr['country_code']=='all') ?  'All Countries' : $arr['cou_name']).'</td>
+			<td>'.$arr['currency_tocken'].'</td>
 			<td>'.$acive.'</td></tr>';
 			$i++;
 		}

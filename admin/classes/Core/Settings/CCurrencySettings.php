@@ -67,7 +67,7 @@ class Core_Settings_CCurrencySettings
 		}
 		$total = 0;
 
-		$sql='SELECT a.id,a.currency_name,a.currency_code,a.country_code,a.currency_tocken,a.status,a.default_currency,b.cou_name FROM currency_master_table a LEFT JOIN country_table b ON a.country_code=b.cou_code ';
+		$sql='SELECT a.id,a.currency_name,a.currency_code,a.currency_tocken,a.status,a.default_currency FROM currency_master_table a  ';
 
 
 		$obj=new Bin_Query();
@@ -138,7 +138,7 @@ class Core_Settings_CCurrencySettings
 		
 		$obj1 = new Bin_Query();
 			//$sql="select count(*)as numcurrency from currency_master_table where currency_code='$currcode' or country_code='$countrycode'";
-		$sql="select count(*)as numcurrency from currency_master_table where currency_code='$currcode' and country_code='$countrycode'";
+		$sql="select count(*)as numcurrency from currency_master_table where currency_code='$currcode' ";
 		$obj1->executeQuery($sql);
 
 		if($obj1->records[0]['numcurrency']>0)
@@ -153,7 +153,7 @@ class Core_Settings_CCurrencySettings
 			{
 				$status=0;	
 			}
-			$sql="INSERT INTO currency_master_table(currency_name,currency_code,country_code,currency_tocken,status) VALUES('$currname','$currcode','$countrycode','$currtoken',$status)"; 
+			$sql="INSERT INTO currency_master_table(currency_name,currency_code,currency_tocken,status) VALUES('$currname','$currcode','$currtoken',$status)"; 
 			$qry=new Bin_Query();
 			if($qry->updateQuery($sql))
 			{
@@ -190,7 +190,7 @@ class Core_Settings_CCurrencySettings
 		if(isset($_GET['cid']))
 		{
 			$currencyid=trim($_GET['cid']);
-			$sql="select id as hidecurrencyid,currency_name,currency_code,country_code,currency_tocken,status from currency_master_table where id=$currencyid";
+			$sql="select id as hidecurrencyid,currency_name,currency_code,currency_tocken,status from currency_master_table where id=$currencyid";
 			$qry = new Bin_Query();
 			$qry->executeQuery($sql);
 			
@@ -221,7 +221,7 @@ class Core_Settings_CCurrencySettings
 		
 		
 			$obj1 = new Bin_Query();
-			$sql="select count(*)as numcurrency from currency_master_table where (currency_code='$currcode' and country_code='$countrycode') and id<>$currid";
+			$sql="select count(*)as numcurrency from currency_master_table where (currency_code='$currcode' ) and id<>$currid";
 			//$sql="select count(*)as numcurrency from currency_master_table where (currency_code='$currcode' or country_code='$countrycode') and id<>$currid";
 			$obj1->executeQuery($sql);
 			
@@ -236,7 +236,7 @@ class Core_Settings_CCurrencySettings
 			{
 				$status=0;	
 			}
-			$sql="Update currency_master_table set currency_name='$currname',currency_code='$currcode',country_code='$countrycode',currency_tocken='$currtoken',status=$status where id=$currid"; 
+			$sql="Update currency_master_table set currency_name='$currname',currency_code='$currcode',currency_tocken='$currtoken',status=$status where id=$currid"; 
 
 
 			$qry=new Bin_Query();
