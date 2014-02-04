@@ -98,7 +98,7 @@ class Core_CNewProducts
 	 */
 	function showAllNewProducts()
 	{
-		$sql="SELECT * FROM products_table WHERE  product_status='1' and product_status!='3' ";
+		$sql="SELECT * FROM products_table WHERE  status='1' and product_status!='3' ";
 		$obj=new Bin_Query();
 		$obj->executeQuery($sql);
 		$records=$obj->records;

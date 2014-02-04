@@ -1535,7 +1535,14 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE skins_table(skin_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,skin_name  VARCHAR(50) NOT NULL,skin_status  INT(4) NOT NULL)";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `skins_table` (`skin_id`, `skin_name`, `skin_status`) VALUES(1, 'default', 1),(2, 'blue', 0),(3, 'black', 0),(4, 'cyan', 0)";
+		$sql="INSERT INTO `skins_table` (`skin_id`, `skin_name`, `skin_status`) VALUES
+		(1, 'default', 0),
+		(2, 'black', 0),
+		(3, 'blue', 0),
+		(4, 'brown', 0),
+		(5, 'green', 0),
+		(6, 'orange', 0),
+		(7, 'pink', 0)";
 		$result=mysql_query($sql);
 
 

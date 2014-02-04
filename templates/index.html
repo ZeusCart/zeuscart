@@ -307,8 +307,12 @@ $.ajax({
                 </div>
             </div> 
             <div class="row-fluid" id="ad_banner">
+              <AJDF:output>if $homepageads[0].home_page_ads_logo ne ''</AJDF:output>
     	<div class="span6"><a target="_blank" href="<AJDF:output>$homepageads[0].home_page_ads_url</AJDF:output>"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$homepageads[0].home_page_ads_logo</AJDF:output>" alt="<AJDF:output>$homepageads[0].home_page_ads_title</AJDF:output>"></a></div>
+      <AJDF:output>/if</AJDF:output>
+      <AJDF:output>if $homepageads[1].home_page_ads_logo ne ''</AJDF:output>
     	<div class="span6"><a target="_blank" href="<AJDF:output>$homepageads[1].home_page_ads_url</AJDF:output>"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$homepageads[1].home_page_ads_logo</AJDF:output>"  alt="<AJDF:output>$homepageads[1].home_page_ads_title</AJDF:output>"></a></div>
+      <AJDF:output>/if</AJDF:output>
     </div>	
         </div>	
 

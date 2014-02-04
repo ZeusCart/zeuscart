@@ -67,7 +67,7 @@ class Display_DHomePageAds
 		<th align="left">S.No</th>
 		<th align="left">Title</th>
 		<th class="content_list_head">Logo</th>
-		<th class="content_list_head">Url</th>
+		<th class="content_list_head" style="width:40%">Url</th>
 		<th class="content_list_head">Status</th>
 		</tr>
 		</thead>
@@ -89,7 +89,7 @@ class Display_DHomePageAds
 				else
 					$classtd='class="content_list_txt2"';
 				$output.='';
-				$output .= '<tr><td><input type="checkbox" name="homePageadcheck[]" class="chkbox" value="'.$arr[$i]['home_page_ads_id'].'"></td><td '.$classtd.' >'.($i+1).'</td><td '.$classtd.'><a href="?do=homepageads&action=edit&id='.$arr[$i]['home_page_ads_id'].'">'.$arr[$i]['home_page_ads_title'].'</a></td><td '.$classtd.'><img src=../'.stripslashes($arr[$i]['home_page_ads_logo']).'></td>
+				$output .= '<tr><td><input type="checkbox" name="homePageadcheck[]" class="chkbox" value="'.$arr[$i]['home_page_ads_id'].'"></td><td '.$classtd.' >'.($i+1).'</td><td '.$classtd.'><a href="?do=homepageads&action=edit&id='.$arr[$i]['home_page_ads_id'].'">'.$arr[$i]['home_page_ads_title'].'</a></td><td '.$classtd.'><img src=../'.stripslashes($arr[$i]['home_page_ads_logo']).'  style="width:50%" alt='.$arr[$i]['home_page_ads_title'].'></td>
 				<td '.$classtd.'>'.$arr[$i]['home_page_ads_url'].'</td>';				
 				
 				if($arr[$i]['status']==0)
