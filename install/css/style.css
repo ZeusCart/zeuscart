@@ -1,0 +1,143 @@
+* {
+	margin:0;
+	padding:0;
+	font-family:Arial, Helvetica, sans-serif, "Myriad Pro", Calibri;
+	font-size:12px;
+}
+a, img {
+	border:0;
+	outline:none;
+}
+ul, li {
+	list-style:none;
+}
+.clear {
+	clear:both;
+	height:0;
+	width:0;
+	overflow:hidden;
+}
+body {
+	background:#fff;
+}
+h1 {
+	color:#aaa;
+	font-size:20px;
+	padding:15px 0;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif
+}
+#main {
+	width:960px;
+	margin:100px auto auto auto;
+}
+.header_div {
+	width:829px;
+	height:108px;
+}
+.body_div {
+	background:url(../images/black-bg.jpg) repeat-y;
+	padding:25px 50px 10px 50px;
+}
+.body_div .body_cnt {
+	width:825px;
+	margin:auto;
+	background:#fff;
+	color:#555;
+	padding:15px;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-o-border-radius:10px;
+	line-height:20px;
+	height:200px;
+}
+.body_div .botton_div {
+	background:url(../images/line-bg.jpg) left bottom repeat-x;
+	padding:0 15px 15px 15px;
+	margin:25px 0 15px 0;
+}
+.body_div h6 {
+	text-align:center;
+}
+.body_div h5 {
+	text-align:center;
+	color:#aaa;
+	font-weight:normal;
+	font-size:11px;
+}
+.back_btn {
+	background:url(../images/back-btn.png) no-repeat;
+	width:76px;
+	height:32px;
+	display:block;
+	cursor:pointer;
+	border:0;
+	outline:none;
+}
+.back_btn:hover {
+	background:url(../images/back-btn-hov.png) no-repeat;
+}
+.bottom_div {
+	background:url(../images/bottom-bg.jpg) no-repeat;
+	width:960px;
+	height:25px;
+	overflow:hidden;
+}
+ul.install {
+}
+ul.install li {
+	float:left;
+	margin-right:1px;
+	line-height:26px;
+}
+ul.install li.active {
+	background:url(../images/green.png) left top no-repeat;
+	color:#fff;
+}
+ul.install li.inactive {
+	background:url(../images/purple.png) left top no-repeat;
+	color:#848484;
+}
+ul.install li b {
+	padding:0 9px;
+	color:#fff;
+}
+p{padding-bottom:10px;}
+h2{padding-bottom:10px; color:#ff0000; text-transform:uppercase; font-size:14px;}
+h4{text-align:center; margin-top:25px}
+
+dl.setting{}
+dl.setting span{/*color:#ff0000;*/}
+dl.setting dt{width:350px; float:left; margin-right:10px;  margin-bottom:10px;}
+dl.setting dd{width:250px; float:left; margin-right:10px; color:#06F; margin-bottom:10px;}
+
+.installtext{width:200px; border:#ccc 1px solid; padding:5px;}
+
+
+.finish {
+    color: #1C8C1A;
+    font-size: 30px;
+    padding: 5px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.featureTXT {
+	padding-top:5px;
+	height:40px;
+	text-align:center;
+}
+.featureTXT a:link, .featureTXT a:visited {
+	padding-top:5px;
+	height:40px;
+	text-align:center;
+	text-decoration:none;
+	color:#716f6f;
+}
+.featureTXT a:hover {
+	padding-top:5px;
+	height:40px;
+	text-align:center;
+	text-decoration:underline;
+	color:#30a7c7;
+}
