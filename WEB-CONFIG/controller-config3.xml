@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controller-config>
+
+	<globalmapping>
+	
+		<do name="invalidrequest" model="MInstall" function="indexPage" />       
+		     
+	</globalmapping>
+	
+	<domapping>	
+		
+		<do name="installterms" model="MInstall" function="termsPage"/> 
+        <do name="chkconfig" model="MInstall" function="showConfig"/>       
+        <do name="db" model="MInstall" function="showDbConfig"/>               
+        <do name="dbadd" model="MInstall" function="insertDatabase"/>
+        <do name="admdts" model="MInstall" function="showAdmin"/>
+        <do name="store" model="MInstall" function="showStore"/>
+        <do name="curset" model="MInstall" function="currencySet"/>
+        <do name="finish" model="MInstall" function="finish"/>
+	<do name="livechat" model="MInstall" function="showLiveChat"/>
+	
+	<do name="validatelivechat" model="MInstall" function="validateLiveChat"/>
+	<do name="finishlivechat" model="MInstall" function="finishLiveChat"/>
+        <do name="complete" model="MInstall" function="complete"/>
+	<do name="captcha" model="MInstall" function="showCaptcha" />  	  			
+	</domapping>
+
+</controller-config>

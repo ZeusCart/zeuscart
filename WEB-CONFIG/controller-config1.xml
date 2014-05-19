@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>  
+	<controller-config>
+	
+		<globalmapping>
+		<do name="invalidrequest" model="MUserRegistration" function="showIndexPage" />
+		</globalmapping>
+		
+		<domapping>	
+			<do name="indexpage" model="MUserRegistration" function="showIndexPage" />
+			<do name="login" model="MUserRegistration" function="showLoginPage"/>
+			<do name="login" model="MUserRegistration" function="showValidateLoginPage" action="validatelogin"/>
+			<do name="captcha" model="MCaptcha" function="showCaptcha" loadlib="0"/>  	       
+			<do name="logout" model="MUserRegistration" function="logoutStatus"/>
+			
+			------------------brands-----------------------
+			<do name="brands" model="MHome" function="showBrands"/>
+			
+			<do name="voucher" model="MHome" function="showVoucher"/>	
+			<do name="viewbrands" model="MHome" function="viewBrandsList" />
+			<do name="viewbrands" model="MHome" function="viewBrandsList" action="grid"/>
+			<do name="voucher" model="MHome" function="showAddVoucher" action="add"/>
+			
+			<do name="voucher" model="MHome" function="showCart" action="showcart"/>
+			<do name="pricecompare" model="MPriceCompare" function="showPriceComparePage" action="compareproductprice"/>
+			
+			<do name="userregistration" model="MUserRegistration" function="displayRegPage"/>
+			<do name="userregistration" model="MUserRegistration" function="showValidateRegPage" action="addreg"/>
+			
+			<do name="registerconfirm" model="MUserRegistration" function="registerConfirm" />
+			
+			<do name="myprofile" model="MUserRegistration" function="showMyProfile"/>
+			<do name="myprofile" model="MUserRegistration" function="updateMyProfile" action="updatemyprofile"/>
+			
+			<do name="forgetpwd" model="MUserRegistration" function="displayForgetpwdPage"/>
+			<do name="forgetpwd" model="MUserRegistration" function="retrivePwdPage" action="retrivepwd"/>
+			
+			<do name="twitterreg" controller="MUserRegistration" function="twitterRegister" loadlib="L_ALL" loadsys="S_ALL" />
+		
+			<!--<do name="wishlist" model="MWishList" function="showProductPage"/>-->
+			<do name="wishlist" model="MWishList" function="viewWishList" action="showwishlist"/>
+			<do name="wishlist" model="MWishList" function="addtoWishList" action="viewwishlist"/>
+			<do name="wishlist" model="MWishList" function="deletefromWishList" action="deletewishlist"/>
+			<do name="wishlist" model="MWishList" function="clearWishList" action="clearwishlist"/>
+			<do name="wishlist" model="MWishList" function="wishlistSnapshot" action="wishlistsnapshot"/>
+			
+			
+			<do name="compareproduct" model="MWishList" function="addtoCompareProduct" action="addtocompareproduct"/>
+			<do name="compareproduct" model="MWishList" function="viewCompareProduct" action="viewcompareproduct"/>
+			<do name="compareproduct" model="MWishList" function="deleteCompareProduct" action="deletecompareproduct"/>
+			
+			<do name="compareproduct" model="MWishList" function="deleteCompareProductFromHome" action="deletecompareproductfromhome"/>
+			
+			<do name="compareproduct" model="MWishList" function="deleteProduct" action="deleteproduct"/>
+			<do name="compareproduct" model="MWishList" function="deleteAllItem" action="deleteallitem"/>
+			
+			<do name="productreview" model="MProductReview" function="showProductReview" action="showproductreview"/>
+			<do name="productreview" model="MProductReview" function="addProductReview" action="addproductreview"/>
+			
+			
+				
+			<do name="productreg" model="MUserRegistration" function="showLoginPage"/>
+			
+			<do name="headermenu" model="MUserRegistration" function="showHeaderMenu"/>
+			
+			<do name="subnewsletter" model="MUserRegistration" function="addNewsletterSubscription"/>
+			  
+			<do name="termsandcondition" model="MFooterLinks" function="termsCondition"/>
+			<do name="privacypolicy" model="MFooterLinks" function="privacyPolicy"/>
+			
+			<do name="aboutus" model="MFooterLinks" function="aboutUs"/>
+			
+			<do name="contactus" model="MFooterLinks" function="showContactUs"/>
+			<do name="contactus" model="MFooterLinks" function="showValidateContactUs" action="validatecontactus"/>
+			  
+			<do name="rssfeed" model="MRssFeed" function="showRssFeed" action="newproduct"/>
+			<do name="rssfeed" model="MRssFeed" function="showCategoryRssFeed" action="categoryproduct"/>
+			<do name="rssfeed" model="MRssFeed" function="showSearchQueryRssFeed" action="searchqueryproduct"/>
+			 
+			<do name="showcart" model="MAddCart" function="showCart" />	
+			<do name="showcart" model="MAddCart" action="showquickregistration" function="showQuickRegistration" />	
+			<do name="showcart" model="MAddCart" action="doquickregistration" function="doQuickRegistration" />
+			
+			<do name="showcart" model="MAddCart" function="showRecipientDetails" action="recipientdetails"/>
+			
+			<do name="showcart" model="MAddCart" function="calculateShipCost" action="calculateshipcost"/>
+			
+			----------------new  billing and shipping address------------------------------
+			
+			
+			<do name="showcart" model="MAddCart" action="getaddressdetails" function="showBillingDetails" />
+			<do name="showcart" model="MAddCart" action="validatebillingaddress" function="validateBillingAddress" />
+			<do name="showcart" model="MAddCart" action="getshippingaddressdetails" function="showShippingDetails" />
+			
+			<do name="showcart" model="MAddCart" action="validateshippingaddress" function="validateShippingAddress" />
+			
+			<do name="showcart" model="MAddCart" action="getshippingmethod" function="showShippingMethod" />
+			<do name="showcart" model="MAddCart" action="validateshippingmethod" function="validateShippingMethod" />
+			
+			<do name="showcart" model="MAddCart" action="addnewaddressfromshipping" function="showAddNewAddressFromShipping" />
+			<do name="showcart" model="MAddCart" action="showorderconfirmation" function="showOrderConfirmation" />	
+			<do name="showcart" model="MAddCart" action="displaypaymentgateways" function="displayPaymentGateways" />
+			<do name="showcart" model="MAddCart" action="validatecoupon" function="validateCoupon" />	
+			<do name="addtocart" model="MAddCart" function="addCart" />	
+			<do name="addtocartfromproductdetail" model="MAddCart" function="addCartFromProductDetail" />	
+			<do name="addtocart" model="MAddCart" action="delete" function="deleteCart" />	
+			<do name="addtocart" model="MAddCart" action="update" function="updateCart" />	
+			<do name="showcart" model="MAddCart" action="showauthorizenet" function="showPaymentPageForAuthorizenet" />	<!--new-->
+			<do name="showcart" model="MAddCart" action="doauthorizenetpayment" function="doPaymentForAuthorizenet" />	<!--new-->
+			<do name="showcart" model="MAddCart" action="showworldpay" function="showPaymentPageForWorldPay" />	<!--new-->
+			<do name="showcart" model="MAddCart" action="show2checkout" function="showPaymentPageFor2Checkout" />	<!--new-->
+			<do name="showcart" model="MAddCart" action="showbluepay" function="showPaymentPageForBluepay" />	<!--new-->
+			
+			<do name="featured" model="MFeaturedItems" function="showFeaturedItems" />
+			<do name="featured" model="MFeaturedItems" function="showFeaturedProduct" action="showfeaturedproduct" />
+			<do name="featured" model="MFeaturedItems" function="showMaincatFeaturedProduct" action="showmaincatfeaturedproduct" />
+			<do name="featured" model="MFeaturedItems" function="showMainCatLanding" action="showmaincatlanding" />
+		
+			
+			<do name="last" model="MLastViewedProducts" function="lastViewedProducts" />	
+			
+			<do name="newproduct" model="MNewProducts" function="newProducts" />	
+			
+			<do name="viewproducts" model="MNewProducts" function="viewProducts" />	
+			
+			<do name="girdviewproducts" model="MNewProducts" function="girdViewProducts"  />
+			
+			<do name="giftproducts" model="MNewProducts" function="giftProducts"  />	
+			<do name="girdgiftproducts" model="MNewProducts" function="gridGiftProducts"  />			
+			<do name="prodetail" model="MProductDetail" function="showProducts"	/>
+			<do name="prodetail" model="MProductDetail" action="showprod" function="productDetail"	/>
+			<do name="prodetail" model="MProductDetail" action="sendproduct" function="sendProduct"	/>
+			<do name="prodetail" model="MProductDetail" action="largeview" function="showLargeview"	/>
+			 
+			<do name="prodetail" model="MProductDetail" function="showPopupProducts" action="showpopupprod"/>
+			
+			<do name="search" model="MKeywordSearch" function="keywordsearch" /> 
+			<do name="search" model="MKeywordSearch" function="keywordsearch" action="grid"/> 	
+			<do name="search" model="MKeywordSearch" function="narrowSearch" action="narrowsearch"/> 
+			<do name="search" model="MKeywordSearch" function="priceRangeSearch" action="pricerange"/> 
+			<do name="search" model="MKeywordSearch" function="extendedSearch" action="extendedsearch"/> 
+			<do name="narrowsearch" model="MNarrowSearch" function="narrowSearch"/>
+		   
+			<do name="categorylist" model="MCategoryList" function="catagoryList" />		
+			<do name="paymentgateway" model="MPaymentGateways" function="optPaymentMode" />
+			<do name="paymentgateway" model="MPaymentGateways" function="success" action="success"/>
+			<do name="paymentgateway" model="MPaymentGateways" function="failure" action="failure"/>
+
+			<do name="newsletter" model="MUserAccount" function="showNewsLetter"/>
+ 			<do name="newsletter" model="MUserAccount" action="add" function="addNewsLetter"/>
+ 			<do name="dashboard" model="MUserAccount" function="showDashBoard"/>			
+ 			<do name="accountinfo" model="MUserAccount" function="showAccountInfo"/>						
+ 			<do name="accountinfo" model="MUserAccount" action="add" function="editAccountInfo"/>	
+			
+			<do name="changepassword" model="MUserAccount" function="showChangePassword"/>
+			<do name="changepassword" model="MUserAccount" action="update" function="editChangePassword"/>
+ 			<do name="orders" model="MUserAccount" function="showProductReview"/>									
+ 			<do name="wishlist" model="MUserAccount" function="showWishList"/>															
+ 			<do name="wishlist" action="send" model="MUserAccount" function="sendWishList"/>																		
+ 			<do name="myorder" model="MUserAccount" function="showMyOrder"/>												
+			<do name="addressbook" model="MUserAccount" function="showMyAddressBook"/>															
+			<do name="addressbook" action="view" model="MUserAccount" function="showAddress"/>																		
+			<do name="addaddress" model="MUserAccount" function="showAddAddress"/>															
+			<do name="addaddress" action="add" model="MUserAccount" function="addAddress"/>	
+			<do name="addaddress" action="edit" model="MUserAccount" function="editAddress"/>																		
+			<do name="deladdress" model="MUserAccount" function="delAddress"/>														
+			<do name="digitdown" model="MUserAccount" function="showDigitalProduct"/>							
+			<do name="prodown" model="MUserAccount" function="CheckDigitalProduct"/>
+			<do name="quickinfo" model="MQuickInfo" function="showQuickInfo"/>
+			<do name="allNew" model="MUserAccount"  function="showAllNew" />
+			<do name="orderdetail" model="MUserAccount" function="showOrderDetails"/>
+			<do name="orderdetail" model="MUserAccount" function="printOrderDetails" action="print"/>
+			<do name="faq" model="MFaq" function="showFaq"/>
+			<do name="allFeatured" model="MUserAccount"  function="showAllFeatured" />
+			<do name="sitemap" model="MSiteMap"  function="showMap" />
+			<do name="rss" model="MRss"  function="showRss" />		
+			
+			<do name="getdefaultcurrency" model="MCurrencySettings"  function="getDefaultCurrency" />								 
+			<do name="changecurrency" model="MCurrencySettings"  function="changeCurrency" />	
+			
+			<do name="morenews" model="MNews" function="showNewsPage"/>	
+			
+			
+			------------------social link ------------------------------------
+			<do name="productreg" model="MUserRegistration" function="showLoginPage"/>
+			
+		   <do name="viewdynamiccms" model="MUserRegistration" function="viewDynamicCms"/>
+
+			
+			----------------------------cms----------------------------------------------
+			<do name="test" model="MHome" function="showTest"/>
+			
+		</domapping>
+	
+	</controller-config>
