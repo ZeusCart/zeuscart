@@ -1,0 +1,138 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+  
+        
+  <!-- body start here-->
+ 
+   
+        <div class="row-fluid">
+<div class="title_fnt">
+    	<h1>Purchase a Gift Certificate</h1>
+        </div>
+        <form class="form-horizontal" name="register_form" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=addtocartfromproductdetail&prodid=<AJDF:output>$smarty.get.prodid</AJDF:output>&vid=1" method="POST">
+                <fieldset>
+                  <div class="control-group">
+                    <div class="controls">
+                      <p class="info_fnt">
+                         Fields marked with an <span class="red_fnt">*</span> are required 
+                      </p>
+                    </div>
+                  </div><h5>This gift certificate will be emailed to the recipient after your order has been paid for.</h5>
+			<div>&nbsp;</div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Recipient's Name <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="rname" name="rname" class="input-xlarge" value="<AJDF:output> $val.rname </AJDF:output>"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.rname </AJDF:output>
+                      </font>
+
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Recipient's Email <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="remail" name="remail" value="<AJDF:output> $val.remail </AJDF:output>" class="input-xlarge"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.remail </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Your Name <span class="red_fnt">*</span></label>
+                    <div class="controls">
+
+		<AJDF:output>if $smarty.session.user_id ne ''</AJDF:output>
+                      <input type="text" id="name" name="name" value="<AJDF:output>$smarty.session.user_name  </AJDF:output>" class="input-xlarge" readonly="true">
+		<AJDF:output>else</AJDF:output>
+			<input type="text" id="name" name="name" value="<AJDF:output> $val.name </AJDF:output>" class="input-xlarge">
+		<AJDF:output>/if</AJDF:output>
+			<br /><font color="#FF0000">
+                      <AJDF:output> $msg.name </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+		
+		<div class="control-group">
+                    <label for="input01" class="control-label">Your Email <span class="red_fnt">*</span></label>
+                    <div class="controls">
+		<AJDF:output>if $smarty.session.user_id ne ''</AJDF:output>
+  		 <input type="text" id="email" name="email" value="<AJDF:output>$smarty.session.user_email </AJDF:output>" class="input-xlarge" readonly="true">
+	<AJDF:output>else</AJDF:output>
+			    <input type="text" id="email" name="email" value="<AJDF:output> $val.email </AJDF:output>" class="input-xlarge">
+		<AJDF:output>/if</AJDF:output>
+                  <br /><font color="#FF0000">
+                      <AJDF:output> $msg.email </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+		<div class="control-group">
+		
+		<label class="control-label" for="input01"> Gift Certificate Theme <span class="red_fnt">*</span></label>
+		<div class="controls">
+		<label class="radio">
+		<input type="radio"  value="brithday" id="gctheme" name="gctheme" <AJDF:output>if $val.gctheme eq 'brithday' </AJDF:output> checked<AJDF:output>/if</AJDF:output> >
+		Birthday
+		</label>
+		<label class="radio">
+		<input type="radio" value="chrismas" id="gctheme" name="gctheme" <AJDF:output>if $val.gctheme eq 'chrismas' </AJDF:output> checked<AJDF:output>/if</AJDF:output>>
+		Christmas
+		</label>
+		<label class="radio">
+		<input type="radio" value="general" id="gctheme" name="gctheme" <AJDF:output>if $val.gctheme eq 'General' </AJDF:output> checked<AJDF:output>/if</AJDF:output>>
+		General
+		</label>
+		  <br /><font color="#FF0000">
+                      <AJDF:output> $msg.gctheme </AJDF:output>
+                      </font>
+		</div>
+		</div>
+	
+                <div class="control-group">
+                    <label for="input01" class="control-label">Message </label>
+                    <div class="controls">
+			    <textarea name="message" style="width: 274px; height: 65px;">   <AJDF:output> $val.message </AJDF:output></textarea>
+                  <br /><font color="#FF0000">
+                  
+                      </font>
+                    </div>
+                  </div>
+		
+
+		<div class="control-group">
+ 
+                    <div class="controls">
+		<label class="checkbox inline">
+                    <input type="checkbox" align="absmiddle" name="chkterms" id="checkbox" value="1"> 
+		I understand that gift certificates are non-refundable<br/><font color="#FF0000">
+                            <AJDF:output> $msg.chkterms </AJDF:output>
+                            </font></label>
+                    </div>
+                  </div>
+                 <div class="form-actions">
+		<input type="hidden" name="giftqty" value="1">
+		<input type="hidden" name="proid" value='<AJDF:output>$smarty.get.prodid</AJDF:output>'>
+                    <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                  </div>
+                </fieldset>
+              </form>
+                </div>
+    </div>
+  
+    <!-- /container -->
+

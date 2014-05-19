@@ -1,0 +1,56 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output> 
+
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a> <span class="divider">/</span></li>
+              <li><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PRODUCT_DETAIL'); <AJDF:output>/php</AJDF:output></li>
+
+            </ul>
+            
+        <div class="row-fluid">
+        	<div class="span9">
+        <AJDF:output> $smarty.session.reviewResultSuccess</AJDF:output>
+         <AJDF:output> $smarty.session.quantitymsg</AJDF:output>
+                    <AJDF:output>$product</AJDF:output>
+
+		  <AJDF:output>$attributes</AJDF:output>
+
+  
+            </div>
+        </div>
+ <AJDF:output>include file="right.html"</AJDF:output>
+   
+        </div>
+    </div>
+  
+    <!-- /container -->
+  <AJDF:output>include file="footer.html"</AJDF:output>
+
+
+
+<AJDF:output>if $smarty.session.reviewResult ne '' </AJDF:output>
+<script>
+
+document.getElementById('details_id').style.display='block';
+</script>
+<AJDF:output>/if</AJDF:output>

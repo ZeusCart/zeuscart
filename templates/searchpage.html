@@ -1,0 +1,74 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output> 
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a> <span class="divider">/</span></li>
+            
+              <li class="active"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH'); <AJDF:output>/php</AJDF:output></li>
+            </ul>
+            
+        <div class="row-fluid">
+<span class="visible-desktop">
+        	<div class="span9">
+            <div class="title_fnt">
+    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH_RESULT'); <AJDF:output>/php</AJDF:output> : <AJDF:output>$countrecords</AJDF:output></h1><span class="pull-right"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&action=grid&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="grid_icn"></a> <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="listview_icn"></a></span>
+        </div>
+            
+            	<!--list view-->
+                <!--<ul class="listviews">
+                	<li>Sort By <select style="width:100px;"><option>Price</option><option>Name</option></select></li>
+                    <li>Show <select style="width:50px;"><option>10</option></select></li>
+                    <li></li>
+                </ul>-->
+
+                <div class="clear"></div>
+
+               <AJDF:output>$keywordsearch</AJDF:output>
+
+        </div>
+                  <AJDF:output>include file="right.html"</AJDF:output>     
+</span> 
+<span class="hidden-desktop">
+        	<div class="span12">
+            <div class="title_fnt">
+    	<h1>Search Result : <AJDF:output>$countrecords</AJDF:output></h1><span class="pull-right"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&action=grid&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="grid_icn"></a> <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&search=<AJDF:output>$smarty.get.search</AJDF:output>" class="listview_icn"></a></span>
+        </div>
+            
+            	<!--list view-->
+                <!--<ul class="listviews">
+                	<li>Sort By <select style="width:100px;"><option>Price</option><option>Name</option></select></li>
+                    <li>Show <select style="width:50px;"><option>10</option></select></li>
+                    <li></li>
+                </ul>-->
+
+                <div class="clear"></div>
+
+               <AJDF:output>$keywordsearch</AJDF:output>
+
+        </div>
+                 
+</span>   	
+        </div>
+    </div>
+  
+    <!-- /container -->
+   <AJDF:output>include file="footer.html"</AJDF:output>

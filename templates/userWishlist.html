@@ -1,0 +1,54 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<script language="javascript">
+function showDiv()
+{
+	var obj=document.getElementById('divWishSend');
+	if(obj.style.display=='none')
+	{
+		obj.style.display='block';
+		document.getElementById('hidWishStat').value=1;
+	}	
+	else
+	{
+		obj.style.display='none';		
+		document.getElementById('hidWishStat').value=0;		
+	}	
+}
+</script>
+<AJDF:output>$rows</AJDF:output>
+
+<div class="span8">
+
+<form name="frmWishSend" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist&action=send" method="post" class="form-inline">
+<a onclick="showDiv()" href="#"><span class="label label-success"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEND_TO_FRIEND'); <AJDF:output>/php</AJDF:output></span></a>
+                <div id="divWishSend" style="display:block;" >
+<input type="hidden" name="hidWishStat" id="hidWishStat" value="">
+<label class="checkbox">
+<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ENTER_EMAIL_ID'); <AJDF:output>/php</AJDF:output>
+</label>
+<input type="text" name="txtEmail" class="input-large" value="<AJDF:output>$val.txtEmail</AJDF:output>" />
+
+<button class="btn btn-danger" type="submit"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SUBMIT'); <AJDF:output>/php</AJDF:output></button><br/><font color="#FF0000"><AJDF:output>$msg.txtEmail</AJDF:output></font>
+</div>
+</form></div>
+
+
+

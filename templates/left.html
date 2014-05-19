@@ -1,0 +1,90 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<div id="left">
+
+	<div class="leftmenu">
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><AJDF:output>$categories</AJDF:output></td>
+      </tr>
+      <tr>
+        <td class="border1">
+	 <AJDF:output>$headermenu</AJDF:output>
+	</td>
+      </tr>
+      <tr>
+        <td valign="top" class="roundbox1_bottom" > <!--<img src="css/default/images/bot.gif" alt="" width="189" height="4" />--> &nbsp;</td>
+      </tr>
+    </table>
+	</div>
+
+	<div class="leftmenu">
+     	<form name="newsletter" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=subnewsletter" method="post">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><div class="heading"><span class="headingTXT">NewsLetter</span></div></td>
+        </tr>
+        <tr>
+          <td class="border1" style="padding:10px 7px">
+		  <div><input name="email" type="text" class="txtbox1 w3" maxlength="100" value="Your Email" onblur="if(this.value=='') this.value='Your Email'" onfocus="this.value=''" /> 
+		  <!--<input type="image" src="images/go_1.jpg" alt="find" name="Image28" width="30" height="20" border="0" onclick="document.frmSearch.submit();"  style="vertical-align:bottom;"/>--><input type="submit" value="Go" class="gobutton">
+		    <!--<a href="#"><img src="images/go1.gif" alt="go" width="34" height="23" border="0" style="vertical-align:bottom;" /></a>--></div>
+			<div class="newsletterTXT">Subscribe for our exclusive offers and more!</div>
+		  </td>
+        </tr>
+        <tr>
+          <td valign="top" class="roundbox1_bottom" ><!--<img src="css/<AJDF:output>$skinname</AJDF:output>/images/bot.gif" alt="" width="189" height="4" />-->&nbsp;</td>
+        </tr>
+      </table>
+      </form>
+	</div>
+
+	<div class="leftmenu">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td><div class="heading"><span class="headingTXT">Recently Viewed</span></div></td>
+                </tr>
+                <tr>
+                    <td valign="top" class="border1" style="padding:7px">
+		    <AJDF:output>$lastviewedproducts</AJDF:output>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="roundbox1_bottom" ><!--<img src="images/bot.gif" alt="" width="189" height="4" />--> &nbsp;</td>
+                </tr>
+            </table>
+	</div>
+    <div class="leftmenu">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td><div class="heading"><span class="headingTXT">Latest News </span></div></td>
+                </tr>
+                <tr>
+                    <td valign="top" class="border1" style="padding:7px">
+		             <AJDF:output>$newstitle</AJDF:output>  
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" class="roundbox1_bottom" ><!--<img src="images/bot.gif" alt="" width="189" height="4" />--> &nbsp;</td>
+                </tr>
+            </table>
+	</div>
+
+</div>

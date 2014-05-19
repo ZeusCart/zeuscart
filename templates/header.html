@@ -1,0 +1,228 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+  <AJDF:output>$pagetitle</AJDF:output>
+    <!-- Le styles -->
+    <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/style.css" rel="stylesheet">
+    <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/responsive.css" rel="stylesheet">
+    <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/docs.css" rel="stylesheet">
+    <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+   <AJDF:output>if $skinname eq 'default'</AJDF:output>
+<link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/menu.css" rel="stylesheet" type="text/css" />
+<AJDF:output>else</AJDF:output>
+<link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/<AJDF:output>$skinname</AJDF:output>/<AJDF:output>$skinname</AJDF:output>/css/menu.css" rel="stylesheet" type="text/css" />
+<AJDF:output>/if</AJDF:output>
+   <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/table.css" rel="stylesheet" type="text/css" />
+    <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery.min.js"></script>
+
+
+   <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/listview.css" rel="stylesheet" type="text/css" >
+      <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery.js"></script>
+   <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/mobilyselect.js" type="text/javascript"></script>
+	
+<script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/init.js" type="text/javascript"></script>
+
+
+   <!-- gallery-->
+ <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/grid.css" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/zoominfo.js"></script>
+
+  <script src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/js/jquery-tree.js" ></script>
+      
+       <link rel="stylesheet" type="text/css" href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/css/tree.css" >
+	<script type="text/javascript">
+	        $(document).ready(function() {
+
+		        $("#tree").niceTree();
+				
+	        });
+	    </script>
+<link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/dropmenu/css/down-menu.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript" src="<AJDF:output>$smarty.session.base_url</AJDF:output>/dropmenu/js/nestaccording.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+$("html").addClass("js");
+$(function() {
+  $("#side").accordion({
+    event: "hover", 
+    interval: 400,
+    initShow : "#current"
+  });
+  $("#main").accordion({
+      obj: "div", 
+      wrapper: "div", 
+      el: ".h", 
+      head: "h4", 
+      next: "div", 
+      initShow : "div.outer:first",
+      event : "hover",
+      collapsible : false
+    });
+  $("html").removeClass("js");
+});
+//--><!]]>
+</script>
+<AJDF:output>include file="includes.html"</AJDF:output>
+  </head>
+
+  <body>
+  <header>
+
+  <div id="header"><!--<div align="center" style="background-color:#c9c282; border:1px solid #c9c282; color:#ffffff"> 	
+Dear colleague this is demo site.so any order placed here is not pertinent.</div>-->
+  <div id="top_menu">
+  		<div class="container">
+        	<div class="row-fluid">
+		 <span class="visible-desktop">
+            	<div class="span6">
+                	<ul class="topmenu">
+                    	<li style="padding-left:0;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
+                    	
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_WISHLIST'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_CART'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECKOUT'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><AJDF:output>$loginStatus.logout</AJDF:output></li>
+		
+                    </ul>
+                </div>
+		
+		
+		<div class="span5">
+                	<ul class="topmenu">
+                    	
+			<li><a ><AJDF:output>$currentDate</AJDF:output></a></li>
+			<li><a ><AJDF:output>$loginStatus.username</AJDF:output></a></li>
+                    </ul>
+                </div>
+                <div class="span1"><AJDF:output>$currencysettings</AJDF:output></div>
+
+</span>
+<span class="hidden-desktop">
+			<div class="row-fluid">
+            	<div class="span12">
+                	<ul class="tabletmenu">
+                    	<li style="padding-left:10;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
+                    	
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_WISHLIST'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_CART'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECKOUT'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><AJDF:output>$loginStatus.logout</AJDF:output></li>
+		
+                
+                    	
+			<li><a ><AJDF:output>$currentDate</AJDF:output></a></li>
+			<li><a ><AJDF:output>$loginStatus.username</AJDF:output></a></li>
+               <li></li><AJDF:output>$currencysettings</AJDF:output></li></ul></div></div>
+
+</span>
+            </div>
+
+
+
+        </div>
+  </div>
+  <div class="container">
+  	<!--logo-->
+    <div id="logo_div">
+    	<div class="row-fluid">
+		 <span class="hidden-tablet">
+        	<div class="span5"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
+	
+         <div class="span4">
+
+	<div class="input-append"  style=" margin-top: 30px;">
+        <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH_ENTER_ITEM_NAME_HERE'); <AJDF:output>/php</AJDF:output>... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH'); <AJDF:output>/php</AJDF:output></button>
+        </div></div>
+           
+            <div class="span3" style=" margin-top: 30px;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOPPING_CART'); <AJDF:output>/php</AJDF:output> - <AJDF:output>$cartcount </AJDF:output> &nbsp;<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ITEMS'); <AJDF:output>/php</AJDF:output></i></div></a>
+            
+            </div>
+
+	 
+		
+	</span>
+<span class="visible-tablet">
+			<div class="row-fluid">
+        	<div class="span4"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
+	<div class="span8">
+            	
+            </div>
+	</div>
+		<div class="row-fluid">
+         <div class="span6">
+
+	<div class="input-append">
+        <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH_ENTER_ITEM_NAME_HERE'); <AJDF:output>/php</AJDF:output>... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH'); <AJDF:output>/php</AJDF:output></button>
+        </div></div>
+           
+            <div class="span6"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOPPING_CART'); <AJDF:output>/php</AJDF:output> - <AJDF:output>$cartcount </AJDF:output> &nbsp;<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ITEMS'); <AJDF:output>/php</AJDF:output></i></div></a>
+            
+            </div>
+	</div>
+</span>
+        </div>
+
+        </div>
+    <!--menu-->
+    <div class="row-fluid">
+    <span class="hidden-desktop">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php" class="brand">SHOP</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+                <AJDF:output>$headermenuhidden</AJDF:output>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+	</span>
+    <span class="visible-desktop">
+    <!-- Mega Menu / Start
+================================================== -->
+<div class="menu style-1">
+	<ul class="menu">
+
+		<li class="select"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a></li>	
+		<AJDF:output>$headermenu</AJDF:output>
+	</ul>
+</div>
+
+<!-- Mega Menu / End
+================================================== -->
+</span>
+</div>
+        </div>
+  
+  </div> 
+
+
+    </header>
