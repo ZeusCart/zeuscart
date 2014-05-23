@@ -1,0 +1,50 @@
+
+#side a:hover, #side a:active, #side a:focus {background-color:#666; color:#fff; font-weight:normal; text-decoration:none;}
+#side{border:#ccc 1px solid;}
+/* --- Accordion --- */
+.js #main .accordion {visibility:hidden}
+
+.js #side .accordion {display:none}
+
+.accordion {margin:0; padding:0;}
+
+.accordion li {   background-color: #efefef;
+    background-image: -moz-linear-gradient(center top , #f9f9f9, #efefef);
+    border-color: #959BA2;
+    color: #333333;
+    display: block;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF; 
+	line-height:38px;
+	border-bottom:#ccc 1px solid;
+	font-size:11px;
+position:relative;
+	}
+.accordion li a{color:#333;}
+.accordion li.last-child {margin-left:0px; list-style-type:disc; border:0}
+
+#side ul.accordion ul {margin:0; /*padding:0 0 0 8px;*/}
+
+.accordion .outer {border:1px solid #dadada; border-width:0 1px 1px; background: #fff}
+
+.accordion .inner {margin-bottom:0; padding:.5em 20px 0; overflow:hidden}
+
+.accordion .inner .inner {padding-bottom:0}
+
+a.trigger {display:block; padding-left:20px;/* background-image: url(../images/plus.gif); */background-repeat: no-repeat;/* background-position: 1px 50%;*/ border:0}
+
+a.trigger.open {/*background-image: url(../images/minus.gif)*/}
+
+.last-child a.trigger{/*padding-left:1px;*/ background-image:none; font-weight:normal}
+
+#main a.trigger {background-color:#f0f0f0}
+
+#main a.trigger.open {border-color:#dadada; background-color:#e7e7e7}
+
+#main a:hover.trigger.open, #main a:focus.trigger.open, #main a:active.trigger.open {border-color:#bcd; cursor:default; text-decoration:none; }
+
+#side a.active{font-weight:700; color:#FF772; text-decoration:none}
+
+
+ul.innermenu{ background: #f7f8f9;}
+ul.innermenu li{ background: #f7f8f9; border:0}

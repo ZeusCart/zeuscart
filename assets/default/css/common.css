@@ -1,0 +1,149 @@
+.scroller_div{width:1000px; height:240px;}
+* + html .scroller_div{width:1000px; height:230px; overflow:hidden;}
+
+.view {
+   width: 100%;
+   height: 100%;
+   float: left;
+   overflow: hidden;
+   position: relative;
+   text-align: center;
+     cursor: default;
+	 margin-bottom:15px;
+}
+.view .mask,.view .content {
+   width:100%;
+   height: 100%;
+   position: absolute;
+   overflow: hidden;
+   top: 0;
+   left: 0;
+}
+.view img {
+   display: block;
+   position: relative;
+}
+.view h2 {
+   text-transform: uppercase;
+   color: #fff;
+   text-align: center;
+   position: relative;
+   font-size: 17px;
+   padding: 10px;
+   margin: 20px 0 0 0;
+
+}
+.view p {
+   font-size: 12px;
+   position: relative;
+   color: #fff;
+   padding: 10px;
+   text-align: center;
+}
+.view .info {
+   display: inline-block;
+   text-decoration: none;
+   padding: 7px 14px;
+   background: #ff6600;
+   color: #fff;
+   text-transform: uppercase;
+   -webkit-box-shadow: 0 0 1px #000;
+   -moz-box-shadow: 0 0 1px #000;
+   box-shadow: 0 0 1px #000;
+	border:none;
+}
+.view .info:hover {
+   -webkit-box-shadow: 0 0 5px #000;
+   -moz-box-shadow: 0 0 5px #000;
+   box-shadow: 0 0 5px #000;
+   background:#da4a03;
+border:none;
+}
+
+
+@media (min-width: 500px) and (max-width: 767px)  {
+ .view {
+   width: 48%;
+   height: 100%;
+   float: left;
+   overflow: hidden;
+   position: relative;
+   text-align: center;
+   cursor: default;
+   	 margin-bottom:10px;
+   	 margin-right:0;
+   	 margin-left:8px;
+
+}
+.view .mask,.view .content {
+   width:100%;
+   height: 100%;
+   position: absolute;
+   overflow: hidden;
+   top: 0;
+   left: 0;
+}
+
+.view h2 {
+   text-transform: uppercase;
+   color: #fff;
+   text-align: center;
+   position: relative;
+   font-size: 14px;
+   padding: 5px;
+   margin:0;
+
+}
+.view p {
+   position: relative;
+   color: #fff;
+   padding: 5px;
+   text-align: center;
+}
+
+
+}
+
+
+@media (min-width:768px) and (max-width:979px)  {
+ .view {
+   width: 100%;
+   height: 170px;
+   float: left;
+   overflow: hidden;
+   position: relative;
+   text-align: center;
+   cursor: default;
+   	 margin-bottom:10px;
+
+}
+.view .mask,.view .content {
+   width:100%;
+   height: 170px;
+   position: absolute;
+   overflow: hidden;
+   top: 0;
+   left: 0;
+}
+
+.view h2 {
+   text-transform: uppercase;
+   color: #fff;
+   text-align: center;
+   position: relative;
+   font-size: 10px;
+   padding: 5px;
+   margin:0;
+   font-size:15px; 
+   line-height:20px;
+
+}
+.view p {
+   position: relative;
+   color: #fff;
+   padding: 5px;
+   text-align: center;
+}
+
+}
+
