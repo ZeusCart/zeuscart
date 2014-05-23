@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library-config>
+	
+    <libraryroot name="Lib">
+       	<library name="Validation/ErrorHandler" />
+    	<library name="Validation/Methods" />
+         <library name="Validation/Handler" />                        
+        <library name="Components" />               
+	</libraryroot>  
+    
+</library-config>
+

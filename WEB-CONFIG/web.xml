@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app id="ZeusCart">
+	<appconfig>		        
+        <libraryroot>classes</libraryroot>
+        <libraryconfig>library-config</libraryconfig>
+        
+        <systemroot>Bin</systemroot>
+        <systemconfig>system-config</systemconfig>
+		
+		<configs for="main">
+			<paramvalue>controller-config1</paramvalue> 
+		</configs>
+		
+		<configs for="admin">
+			<paramvalue>controller-config2</paramvalue> 
+		</configs>	
+		<configs for="install">
+			<paramvalue>controller-config3</paramvalue> 
+		</configs>	
+		
+	</appconfig>    
+</web-app>

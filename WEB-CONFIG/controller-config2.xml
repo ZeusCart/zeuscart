@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controller-config>
+
+	<globalmapping>
+	
+		<do name="invalidrequest" model="MAdminLogin" function="showIndexPage" />
+		     
+	</globalmapping>
+	
+	<domapping>	
+	
+		<do name="" model="MAdminLogin" function="showIndexPage"/>
+		
+		<do name="adword" model="MAdWord" function="showAdword"/>
+		<do name="adword" model="MAdWord" action="export" function="exportTSV"/>		
+		
+		<do name="adminlogin" model="MAdminLogin" function="showIndexPage"/>
+		
+		
+		<do name="adminlogin" model="MAdminLogin" action="showpage" function="forgetPasswordPage"/>
+		<do name="adminlogin" model="MAdminLogin" action="sendmail" function="forgetPassword"/>
+		
+		<do name="adminlogin" model="MAdminLogin" function="showValidateLoginPage" action="validatelogin"/>
+		<do name="adminlogout" model="MAdminLogin" function="logoutStatus"/>
+		
+		<do name="adminproductreview" model="MAdminProductReview" function="showReviewPage"/> 
+		<do name="adminproductreview" model="MAdminProductReview" function="searchReviewDetails" action="search"/> 
+		<do name="adminproductreview" model="MAdminProductReview" function="reviewAcceptStatus" action="accept"/>
+		<do name="adminproductreview" model="MAdminProductReview" function="reviewDenyStatus" action="deny"/>
+			
+		<do name="adminproductreview" model="MAdminProductReview" function="deleteReview" action="delete"/>	
+			
+		<do name="adminproductreview" model="MAdminProductReview" action="autoc" function="autoComplete" />
+		
+		<do name="adminadduser" model="MAdminAddUsrRegistration" function="showValidateRegPage" action="addreg"/>
+		<do name="adminadduser" model="MAdminAddUsrRegistration" function="displayRegPage"/>
+		
+		 <do name="adminreg" model="MAdminUserRegistration" function="showRegistrationPage"/> 
+		 
+		 <do name="deletereg" model="MAdminUserRegistration" function="deleteRegistration" action="delete"/> 
+		 <do name="editreg" model="MAdminUserRegistration" function="editRegistration" action="edit"/> 
+		 <do name="updatereg" model="MAdminUserRegistration" function="updateRegistration" action="update"/>
+		 <do name="adminreg" model="MAdminUserRegistration" action="autoc" function="autoComplete" />
+		 
+		 <do name="custreport" model="MAdminUserRegistration" function="customerExportReport" />
+		 
+		 <do name="userdetail" model="MAdminUserRegistration" function="searchUserDetails" action="search"/>
+		 
+		 
+		 <do name="regstatus" model="MAdminUserRegistration" function="registrationAcceptStatus" action="accept"/>
+		 <do name="regstatus" model="MAdminUserRegistration" function="registrationDenyStatus" action="deny"/>
+		 
+		 <do name="excelreport" model="MAdminUserRegistration" function="userReport"/>
+		 
+		 <do name="showcse" model="MAdminAddUsrRegistration" function="showCse"/>
+		 <do name="savecse" model="MAdminAddUsrRegistration" function="saveCse"/>
+		 
+		 <do name="addUserAccountLight" model="MAdminUserRegistration" function="displayRegPageLight" />
+		 
+		 
+		 <do name="addUserAccountLight" model="MAdminUserRegistration" function="showValidateRegPageLight"  action="addreg"/>	
+				
+		<do name="homepage" model="MHome" function="homePage" />
+		
+		<do name="home" model="MAdminHome" function="homePage" />
+		<!--<do name="home" model="MAdminHome" function="getLatestCustomers" />-->
+		
+		<do name="site" model="MSiteSettings" function="siteSettings" />
+		<do name="site" model="MSiteSettings" action="update" function="updatesiteSettings" />
+		
+		<do name="domainname" model="MDomainName" function="domainName" />
+		<do name="domainname" model="MDomainName" action="update" function="updateDomainName" />
+		
+		
+		<do name="sitemail" model="MAdminEmailSettings" function="siteEmail" />
+		<do name="sitemail" model="MAdminEmailSettings" action="update" function="updateSiteEmail" />
+		
+		<do name="sitelogo" model="MSiteLogo" function="siteLogo" />
+		<do name="sitelogo" model="MSiteLogo" action="update" function="updateSiteLogo" />
+		
+		<do name="banner" model="MHomePageBanner" function="homePageBanner" />
+		<do name="banner" model="MHomePageBanner" action="update" function="updateHomePageBanner" />
+		
+		<do name="banner" model="MHomePageBanner" action="delete" function="deleteHomePageBanner" />
+		
+		<do name="timezone" model="MTimeZone" function="timeZone" />
+		<do name="timezone" model="MTimeZone"  action="update" function="updateTimeZone" />
+		
+		<do name="ganalytics" model="MGoogleAnalytics" function="googleAnalytics" />
+		<do name="ganalytics" model="MGoogleAnalytics" action="update" function="updateGoogleAnalytics" />
+		
+		<do name="gadsense" model="MGoogleAdSense" function="googleAdSenseCode" />
+		<do name="gadsense" model="MGoogleAdSense" action="update" function="updateGoogleAdSenseCode" />
+			
+       		 <do name="createpage" model="MCreatePage" function="displayCreatePageSettings" />  
+		<do name="createpage" model="MCreatePage" action="createnewpage" function="createNewPage" />  
+		<do name="createpage" model="MCreatePage" action="deletepage" function="deleteCustomPage" />  
+		<do name="createpage" model="MCreatePage" action="add" function="addPageSettings" />  
+		<do name="createpage" model="MCreatePage" action="update" function="updateStatus" /> 
+		
+		-------------Dynamiccms----------------------------------
+		<do name="dynamiccms" model="MDynamicCms"  function="createDymnaicPage"  /> 
+		<do name="dynamiccms" model="MDynamicCms" action="add" function="addDynamicPageSettings" /> 
+		<do name="dynamiccms" model="MDynamicCms"  function="showDynamicCmsList" action="show"/> 
+			
+		<do name="dynamiccms" model="MDynamicCms"  function="showEditDynamicCms" action="edit"/>
+		<do name="dynamiccms" model="MDynamicCms"  function="updateEditDynamicCms" action="update"/>
+		<do name="dynamiccms" model="MDynamicCms"  function="deleteDynamicCms" action="delete"/>
+		---------------------------Social Link ----------------------------------------------
+		
+		<do name="sociallink" model="MSocialLinks" function="displaySocialLinks" />  
+		<do name="sociallink" model="MSocialLinks" action="create" function="createNewSocialLink" />  
+		<do name="sociallink" model="MSocialLinks" action="delete" function="deleteSocialLink" />  
+		<do name="sociallink" model="MSocialLinks" action="add" function="addSocialLink" /> 
+		<do name="sociallink" model="MSocialLinks" action="edit" function="showEditSocialLink" /> 
+		<do name="sociallink" model="MSocialLinks" action="update" function="updateSocialLink" /> 	
+		
+		
+		<do name="terms" model="MTermsCondition" function="selectTerms" /> 
+		<do name="terms" model="MTermsCondition" action="updateterms" function="updateTerms" /> 
+		
+		
+		
+		<do name="adminprivacypolicy" model="MPrivacyPolicy" function="selectPrivacyPolicy" /> 
+		<do name="adminprivacypolicy" model="MPrivacyPolicy" action="updateprivacy" function="updatePrivacyPolicy" /> 
+		
+		<do name="copyrights" model="MCopyrights" function="displayCopyrights" /> 
+		<do name="copyrights" model="MCopyrights" action="updatecopyrights" function="updateCopyrights" />
+		
+		<do name="showcat" model="MCategory" function="showCat" />
+		
+      	<do name="addcrossproduct" model="MAddCrossProducts" function="showCategory"/>
+        <do name="addcrossproduct" model="MAddCrossProducts" action="showsubcat" function="showSubCategory"/>
+        <do name="addcrossproduct" model="MAddCrossProducts" action="showproducts" function="showProducts"/>    
+        <do name="addcrossproduct" model="MAddCrossProducts" action="updateProducts" function="updateProducts"/>
+		
+	<do name="selectcategory" model="MCategorySelection" function="showCategory"/>
+        <do name="selectcategory" model="MCategorySelection" action="showsubcat" function="showSubCategory"/>
+        <do name="selectcategory" model="MCategorySelection" action="showproducts" function="showProducts"/>    
+        <do name="selectcategory" model="MCategorySelection" action="updateProducts" function="updateProducts"/>   
+        		
+        <do name="addmaincategory" model="MAddMainCategory" function="showMainCategory"/> 
+        <do name="addmaincategory" model="MAddMainCategory"  function="addMainCategory"/>
+        <do name="addmaincategory" model="MAddMainCategory" action="disp" function="displayMainCategory"/>
+        <do name="addmaincategory" model="MAddMainCategory" action="edit" function="editMainCategory"/>
+        <do name="addmaincategory" model="MAddMainCategory" action="delete" function="deleteMainCategory"/>
+        
+        <do name="addsubcategory" model="MAddSubCategory" function="showCat"/> 
+        <do name="addsubcategory" model="MAddSubCategory" action="add" function="addSubCategory"/>
+        <do name="addsubcategory" model="MAddSubCategory" action="disp" function="displaySubCategory"/>
+        <do name="addsubcategory" model="MAddSubCategory" action="edit" function="editSubCategory"/>
+        <do name="addsubcategory" model="MAddSubCategory" action="delete" function="deleteSubCategory"/>
+         
+	
+	-----------------------------Attributes------------------------------------
+	
+	<do name="attributes" model="MAddAttributes" function="showAttributes"/> 
+	<do name="attributes" model="MAddAttributes" action="add" function="showAddAttributes"/> 
+	<do name="attributes" model="MAddAttributes" action="insert" function="insertAttributes"/> 
+	<do name="attributes" model="MAddAttributes" action="edit" function="showEditAttributes"/> 
+	<do name="attributes" model="MAddAttributes" action="update" function="updateAttributes"/>
+	<do name="attributes" model="MAddAttributes" action="delete" function="deleteAttributes"/>
+		
+	<do name="attributevalues" model="MAddAttributeValues" function="showAttributeValues"/> 
+	
+	<do name="attributevalues" model="MAddAttributeValues" action="add" function="showAddAttributeValues"/>	
+	<do name="attributevalues" model="MAddAttributeValues" action="insert" function="insertAttributeValues"/>	
+	<do name="attributevalues" model="MAddAttributeValues" action="edit" function="showEditAttributeValues"/>	
+	<do name="attributevalues" model="MAddAttributeValues" action="update" function="updateAttributeValues"/>	
+	<do name="attributevalues" model="MAddAttributeValues" action="delete" function="deleteAttributeValues"/>	
+	
+	
+        
+		<do name="skin" model="MSkin" function="showSkin" />
+ 		<do name="skin" model="MSkin" action="add" function="addSkin"/>
+        	<do name="skin" model="MSkin" action="update" function="updateSkin"/>
+		
+		<do name="selectskin" model="MSelectSkin" function="showSkin" />
+		<do name="selectskin" model="MSelectSkin" action="update" function="updateSkin" />
+		
+		<do name="footersettings" model="MFooterSettings" function="viewFooterLinks" />
+		<do name="footersettings" model="MFooterSettings" action="createfooter" function="showTemplate" />
+
+		<do name="footersettings" model="MFooterSettings" action="add" function="addLinkSettings" />
+		<do name="footersettings" model="MFooterSettings" action="edit" function="editFooterLinks" />
+		<do name="footersettings" model="MFooterSettings" action="update" function="updateFooterLinks" />
+		<do name="footersettings" model="MFooterSettings" action="delete" function="deleteFooterLinks" />
+		-----------------------------------------------new----------------------------------------
+		<do name="updatefootersettings" model="MFooterSettings" function="updateConnectWithUs" action="connect"  />
+		
+		<do name="footersettings" model="MFooterSettings" function="viewConnectWithUs" action="connect"  />
+		<do name="headersettings" model="MHeaderSettings" function="showHeaderLink" /> 
+		<do name="contents" model="MContentManagement" action="add" function="addContent" />
+		<do name="contents" model="MContentManagement" function="showContent" />
+		
+		<do name="customheader" model="MCustomHeader" function="showCustomHeader" />
+		<do name="customheader" model="MCustomHeader" action="update" function="updateCustomHeader" />
+		
+		<do name="aboutus" model="MAboutUs" function="showAboutUs" />
+		<do name="aboutus" model="MAboutUs" action="update" function="updateAboutUs" />
+		
+		<do name="showcontents" model="MShowContents"  function="showContents" />
+		<do name="showcontents" model="MShowContents" action="disp" function="displayContents" />
+		<do name="showcontents" model="MShowContents" action="show" function="showContentsDetail" /><!-- Modified -->
+		<do name="showcontents" model="MShowContents" action="edit" function="editContents" />
+		<do name="showcontents" model="MShowContents" action="delete" function="deleteContents" />
+		
+		<do name="mailmessages" model="MMailMessageSettings"  function="showMailMessages" />
+		<do name="mailmessages" model="MMailMessageSettings" action="disp"  function="displayMessage" />
+		<do name="mailmessages" model="MMailMessageSettings" action="edit"  function="editMessage" />
+		
+		<do name="newsletter" model="MNewsletterSettings" function="newNewsletter" />
+		<do name="newsletter" model="MNewsletterSettings" action="show"  function="showNewsletter" />
+		<do name="newsletter" model="MNewsletterSettings" action="add"  function="addNewsletter" />
+		<do name="newsletter" model="MNewsletterSettings" action="disp"  function="viewNewsletter" />
+		<do name="newsletter" model="MNewsletterSettings" action="edit" function="editNewsletter" />
+		<do name="newsletter" model="MNewsletterSettings" action="delete" function="deleteNewsletter" />
+		<do name="newsletter" model="MNewsletterSettings" action="send" function="getEmailIds" />
+		<do name="newsletter" model="MNewsletterSettings" action="subscrib" function="subscribedUsers" />
+		
+		<do name="managecategory" model="MCategoryManagement" function="showTemplate" />
+		<do name="managecategory" model="MCategoryManagement" action="add" function="addMainCategory" />
+		<do name="managecategory" model="MCategoryManagement" action="preview" function="showPreview" />
+		
+		<do name="managecategory" model="MCategoryManagement" action="selectsubchild" function="selectSubChild" />
+		
+		<do name="showmain" model="MShowMainCategory" function="showMainCategory" />
+		<do name="showmain" model="MShowMainCategory" action="disp" function="displayMainCategory" />
+		<do name="showmain" model="MShowMainCategory" action="edit" function="editMainCategory" />	
+		<do name="showmain" model="MShowMainCategory" action="delete" function="deleteMainCategory" />	
+		<do name="showmain" model="MShowMainCategory" action="search" function="searchMainCategory" />	
+		<do name="showmain" model="MShowMainCategory" action="autoc" function="autoComplete" />
+		
+		<do name="showsub" model="MShowSubCategory" function="showMainCategory" />
+		<do name="showsub" model="MShowSubCategory" action="show" function="showSubCategory" />
+		<do name="showsub" model="MShowSubCategory" action="disp" function="displaySubCategory" />
+		<do name="showsub" model="MShowSubCategory" action="edit" function="editSubCategory" />	
+		<do name="showsub" model="MShowSubCategory" action="delete" function="deleteSubCategory" />
+		<do name="showsub" model="MShowSubCategory" action="search" function="searchSubCategory" />	
+		<do name="showsub" model="MShowSubCategory" action="search" function="searchSubCategory" />
+		
+		-------------------sub under sub category-------------------------------------
+		<do name="showsubundercat" model="MShowSubCategory" action="show" function="showSubUnderSubCategory" />	
+		<do name="showsubundercat" model="MShowSubCategory" action="edit" function="editSubUnderSubCategory" />
+		<do name="showsubundercat" model="MShowSubCategory" action="disp" function="displaySubUnderSubCategory" />	
+		<do name="showsubundercat" model="MShowSubCategory" action="delete" function="deleteSubUnderSubCategory" />
+		-------------------------------------------------------------------------------
+		<do name="manageproducts" model="MManageProducts" function="showCategory" />
+		<do name="manageproducts" model="MManageProducts" action="showsubcat" function="showSubCategory" />
+		<do name="manageproducts" model="MManageProducts" action="showproducts" function="showProducts" />
+		<do name="manageproducts" model="MManageProducts" action="updateProducts" function="updateProducts" />
+		<do name="manageproducts" model="MManageProducts" action="delete" function="deleteProduct" />
+		<do name="manageproducts" model="MManageProducts" action="editprod" function="editProduct" />
+		<do name="manageproducts" model="MManageProducts" action="updateprod" function="updateProduct" />
+		<do name="manageproducts" model="MManageProducts" action="search" function="searchProductDetails" />
+		<do name="manageproducts" model="MManageProducts" action="gettitle" function="getTitle" />
+		<do name="manageproducts" model="MManageProducts" action="autoc" function="autoComplete" />
+		
+		<do name="manageproducts" model="MManageProducts" action="digiteditprod" function="editDigitalProduct" />
+		
+		<do name="manageproducts" model="MManageProducts" action="updatedigitprod" function="updateDigitalProduct" />	
+		
+			
+		<do name="manageproducts" model="MManageProducts" action="gifteditprod" function="editGiftProduct" />
+		
+		<do name="manageproducts" model="MManageProducts" action="updategiftprod" function="updateGiftProduct" />	
+		<do name="manageproducts" model="MManageProducts" action="productalias" function="checkProdcutAlias" />
+		<do name="manageproducts" model="MManageProducts" action="productsku" function="checkProductSku" />
+		<do name="selectfeatured" model="MSelectFeaturedItems" function="showCategory"/>
+		<do name="selectfeatured" model="MSelectFeaturedItems" action="showsubcat" function="showSubCategory"/>
+		<do name="selectfeatured" model="MSelectFeaturedItems" action="showproducts" function="showProducts"/>    
+		<do name="selectfeatured" model="MSelectFeaturedItems" action="updateProducts" function="updateProducts"/>
+			
+		<do name="aprodetail" model="MProductDetail" function="showProducts" />
+		<do name="aprodetail" model="MProductDetail" action="showprod" function="productDetail"	/>
+		
+		<do name="googleproduct" model="MGoogleBase" function="showTemplate"/>
+		<do name="googleproduct" model="MGoogleBase" action="export" function="googleProduct"/>
+		
+		<do name="cse" model="MCse" function="showCse" />
+		<do name="cse" model="MCse" action="savecse" function="saveCse" />
+		
+		
+		 <do name="adminpayment" model="MAdminPaymentGateway" function="paymentSelection"/>
+	   <do name="adminpayment" model="MAdminPaymentGateway" function="editSelection" action="edit" />
+	   <do name="adminpayment" model="MAdminPaymentGateway" function="updateSelection" action="update" />
+   	   <do name="adminpayment" model="MAdminPaymentGateway" function="insertPayment" action="insert" />
+   	   <do name="adminpayment" model="MAdminPaymentGateway" function="deletePayment" action="delete" />
+	  
+	  
+		
+	   	<do name="subadminmgt" model="MSubAdminManagement" function="dispSubAdmin"/>
+	   	<do name="subadminmgt" model="MSubAdminManagement" function="editSubAdmin" action="edit"/>
+	    <do name="subadminmgt" model="MSubAdminManagement" function="updateSubAdmin" action="update"/>
+	    <do name="subadminmgt" model="MSubAdminManagement" function="deleteSubAdmin" action="delete"/>
+		<do name="subadminmgt" model="MSubAdminManagement" function="insertSubAdmin" action="insert"/>
+		
+	   	<do name="subadminrole" model="MAdminRoleManagement" function="displayAdminRole"/>
+	   	<do name="subadminrole" model="MAdminRoleManagement" function="editSubAdminRole" action="edit"/>
+	    <do name="subadminrole" model="MAdminRoleManagement" function="updateSubAdminRole" action="update"/>
+	    <do name="subadminrole" model="MAdminRoleManagement" function="insertSubAdminRole" action="insert"/>
+	    <do name="subadminrole" model="MAdminRoleManagement" function="deleteSubAdminRole" action="delete"/>
+		
+		<do name="dispcategory" model="MDisplayCategoryList" function="dispCategory" />
+		
+		<do name="orderstatus" model="MOrderStatusManagement" function="displayOrderStatus" />
+		<do name="orderstatus" model="MOrderStatusManagement" function="editOrderStatus" action="edit" />
+		<do name="orderstatus" model="MOrderStatusManagement" function="updateOrderStatus" action="update" />
+		
+		<do name="disporders" model="MOrderManagement" function="dispOrders" />
+		<do name="disporders" model="MOrderManagement" function="dispOrders" action="insert" />
+		<do name="disporders" model="MOrderManagement" function="dispDetailOrders" action="detail" />
+		<do name="disporders" model="MOrderManagement" function="updateOrders" action="update" /><!-- Modified -->
+		<do name="disporders" model="MOrderManagement" function="cancelOrders" action="cancel" />
+		<do name="disporders" model="MOrderManagement" function="printOrders" action="print" />
+		<do name="disporders" model="MOrderManagement" function="emailOrders" action="mail" />
+		
+		<do name="disporders" model="MOrderManagement" function="dispOrders" action="delete" />
+		<do name="disporders" model="MOrderManagement" action="autoc" function="autoComplete" />
+		<do name="disporders" model="MOrderManagement" function="viewOrderDetail" action="viewdetail" />
+		
+		
+		<do name="disporders" model="MOrderManagement" function="calculateShipCost" action="calculateshipcost" />
+		<do name="disporders" model="MOrderManagement" function="showChangeShipping" action="changeshipping" />
+		
+		<do name="displatestorders" model="MLatestOrders" function="dispLatestOrders" />
+		
+		
+		<do name="productentry" model="MProductEntry" function="checkProductAlias" action="productalias"/>	
+		<do name="productentry" model="MProductEntry" function="checkProductSku" action="productsku"/>
+		
+ 	 	<do name="productentry" model="MProductEntry" function="displayEntry"/>
+		<do name="productentry" model="MProductEntry" function="displaySubCategory" action="displaySubCategory"/>
+		
+		
+		<do name="productentry" model="MProductEntry" function="displaySubUnderCategory" action="displaySubUnderCategory"/>
+		
+		
+		<do name="productentry" model="MProductEntry" function="displayAttributes" action="displayAttributes"/>
+		<do name="productentry" model="MProductEntry" function="insertProduct" action="insert"/>
+		<do name="productentry" model="MProductEntry" function="editProductEntry" action="edit"/>
+		<do name="productentry" model="MProductEntry" function="searchProducts" action="search"/>
+		
+		<do name="digitproductentry" model="MProductEntry" function="displayForDigitalEntry"/>
+		<do name="digitproductentry" model="MProductEntry" function="insertDigitalProduct" action="insert"/>
+		
+		
+		<do name="giftproductentry" model="MProductEntry" function="displayForGiftEntry"/>
+		<do name="giftproductentry" model="MProductEntry" function="insertGiftProduct" action="insert"/>
+		
+		<do name="msrpmgt" model="MProductMsrpManagement" function="displayMsrpByQuantity"/>
+		<do name="msrpmgt" model="MProductMsrpManagement" function="insertMsrpByQuantity" action="insert"/>
+		<do name="msrpmgt" model="MProductMsrpManagement" function="editMsrpByQuantity" action="edit"/>
+		<do name="msrpmgt" model="MProductMsrpManagement" function="updateMsrpByQuantity" action="update"/>
+		<do name="msrpmgt" model="MProductMsrpManagement" function="deleteMsrpByQuantity" action="delete"/>
+		
+		<do name="pagemgt" model="MPageManagement" function="dispPages"/>
+		<do name="pagemgt" model="MPageManagement" function="deletePages" action="delete"/>
+		<do name="pagemgt" model="MPageManagement" function="editPages" action="edit"/>
+		<do name="pagemgt" model="MPageManagement" function="updatePages" action="update"/>
+		<do name="pagemgt" model="MPageManagement" function="insertPages" action="insert"/>
+		
+		<do name="productinventory" model="MProductInventoryManagement" function="dispInventory"/>
+    	<do name="productinventory" model="MProductInventoryManagement" function="insertInventory" action="insert"/>
+    	<do name="productinventory" model="MProductInventoryManagement" function="updateInventory" action="update"/>
+    	<do name="productinventory" model="MProductInventoryManagement" function="deleteInventory" action="delete"/>
+    	<do name="productinventory" model="MProductInventoryManagement" function="editInventory" action="edit"/>
+		
+		
+    	<do name="hsbcpayment" model="MHsbcPayment" function="dispGetDetails" />
+
+       <do name="productfeatures" model="MProductFeatures" function="dispProductFeatures"/>
+	   <do name="productfeatures" model="MProductFeatures" function="insertProductFeatures" action="insert"/>
+	   <do name="productfeatures" model="MProductFeatures" function="editProductFeatures" action="edit"/>
+	   <do name="productfeatures" model="MProductFeatures" function="deleteProductFeatures" action="delete"/>
+	   <do name="productfeatures" model="MProductFeatures" function="updateProductFeatures" action="update"/>
+	   
+	
+	   
+	    <do name="createpromotionalcodes" model="MPromotionalCodes" function="createPromotionalCodes"/><!-- Modified -->
+		<do name="createpromotionalcodes" model="MPromotionalCodes" function="insertPromotionalCodes" action="insert"/><!-- Modified -->
+	   <do name="createpromotionalcodes" model="MPromotionalCodes" function="displayUsersForPromotionalCode" action="usersforcoupon"/><!-- Modified -->
+	   <do name="createpromotionalcodes" model="MPromotionalCodes" function="selectMethodToSendPromotionalCode" action="selectmethod"/><!-- Modified -->
+	    <do name="createpromotionalcodes" model="MPromotionalCodes" function="sendCouponToSelectedUsers" action="sendcoupon"/><!-- Modified -->
+		<do name="createpromotionalcodes" model="MPromotionalCodes" function="displayPromotionalCodes" action="listcoupons"/><!-- Modified -->
+	   <do name="createpromotionalcodes" model="MPromotionalCodes" function="changeStatusForPromotionalCodes" action="changestatus"/><!-- Modified -->
+	   
+	   <do name="mostsearchedkeywords" model="MMostSearchedKeywords" function="showMostSearchedKeywords"/><!-- Modified -->
+	   
+	  	<do name="bulkupload" model="MProductBulkUpload" function="displayBulkUploader"/><!-- Modified -->
+		<do name="bulkupload" model="MProductBulkUpload" function="uploadTsvFile" action="upload"/><!-- Modified -->
+		<do name="bulkupload" model="MProductBulkUpload" function="downloadTSVSample" action="download"/><!-- Modified -->
+		<do name="bulkupload" model="MProductBulkUpload" function="productImagesBulkUpload" action="imagesbulkupload"/><!-- Modified -->
+		<do name="bulkupload" model="MProductBulkUpload" function="displayImageBulkUploader" action="displayimagesbulkupload"/><!-- Modified -->
+		<do name="bulkupload" model="MProductBulkUpload" function="downloadProductImageTSVSample" action="downloadimagessample"/><!-- Modified -->
+		
+		<do name="catbulkupload" model="MCategoryBulkUpload" function="displayCatBulkUploader"/>
+		<do name="catbulkupload" model="MCategoryBulkUpload" function="uploadTsvFile" action="upload"/>
+		<do name="catbulkupload" model="MCategoryBulkUpload" function="downloadTSVSample" action="download"/>
+		
+		<do name="faq" model="MFaq" function="showFaq"/>
+		<do name="faq" model="MFaq" action="add" function="addFaq"/>
+		<do name="faq" model="MFaq" action="insert" function="add"/>		
+		<do name="faq" model="MFaq" action="edit" function="edit"/>
+		<do name="faq" model="MFaq" action="delete" function="delete"/>						
+		<do name="activity" model="MAdminActivity" function="showReport"/>
+		<do name="deleteActivity" model="MAdminActivity" function="deleteActivity"/>
+		<do name="addUserAccount" model="MAdminUserRegistration" function="displayRegPage"/>
+		<do name="addUserAccount" model="MAdminUserRegistration" action="addreg" function="showValidateRegPage"/>
+		<do name="customerdetail" model="MAdminUserRegistration" function="customerDetail" action="detail"/>	
+		<do name="userorder" model="MUserOrder" function="showOrder"/>
+		<do name="loadSubcat" model="MUserOrder" function="showSubcat"/>
+		<do name="loadSubUnder" model="MUserOrder" function="showSubUnderCat"/>	
+		<do name="loadProduct" model="MUserOrder" function="showProduct"/>		
+		<do name="loadQty" model="MUserOrder" function="showQty"/>					
+		<do name="loadusermultibilladdress" model="MUserOrder" function="showUserMultiBillAddress"/>
+		
+		<do name="loadusermultishipaddress" model="MUserOrder" function="showUserMultiShipAddress"/>
+		
+		<do name="loaduseraddressdetails" model="MUserOrder" function="showUserAddressDetails" /> 	
+		<do name="addUserProduct" model="MUserOrder" function="addProduct"/>						
+		<do name="addUserProduct" action="delete" model="MUserOrder" function="delProduct"/>								
+		<do name="addUserOrder" action="create" model="MUserOrder" function="createOrder"/>								
+				
+		<do name="auto" model="MAutoComplete" function="showComplete" />
+		<do name="autoc" model="MAutoComplete" function="autoComplete" />	
+		
+		<do name="orexp" model="MOrderDataExport" function="showTemplate" />		
+		<do name="orexp" model="MOrderDataExport" function="orderDataExport" action="export" />	
+		
+		<do name="prodexp" model="MProductDataExport" function="showTemplate" />		
+		<do name="prodexp" model="MProductDataExport" function="productDataExport" action="export" />	
+		
+		<do name="catexp" model="MCategoryDataExport" function="showTemplate" />		
+		<do name="catexp" model="MCategoryDataExport" function="categoryDataExport" action="export" />
+		
+		<do name="admactexp" model="MAdminActivityDataExport" function="showTemplate" />		
+		<do name="admactexp" model="MAdminActivityDataExport" function="adminActivityDataExport" action="export" />
+		
+		<do name="taxsettings" model="MTaxSettings" function="showTaxSettings" />	
+		<do name="taxsettings" model="MTaxSettings" function="updateTaxSettings" action="updatetaxsettings"/>
+		<do name="taxsettings" model="MTaxSettings" function="showCountrywiseTaxList" action="showregionwisetaxlist"/>
+		<do name="taxsettings" model="MTaxSettings" function="addCountrywiseTax" action="addregionwisetax"/>
+		<do name="taxsettings" model="MTaxSettings" function="insertCountrywiseTax" action="insertregionwisetax"/>
+		<do name="taxsettings" model="MTaxSettings" function="editCountrywiseTax" action="editregionwisetax"/>
+		<do name="taxsettings" model="MTaxSettings" function="updateCountrywiseTax" action="updateregionwisetax"/>
+		<do name="taxsettings" model="MTaxSettings" function="deleteCountrywiseTax" action="deleteregionwisetax"/>
+		<!--Best Selling Products-->
+		<do name="bestsellingproducts" model="MBestSellingProducts" function="showBestSellingProducts" />
+		<!--Business Intelligence Module-->
+		<do name="showchart" model="MChart" function="showChart" />		
+		
+		<do name="showcurrencylist" model="MCurrencySettings" function="showCurrencyList"/>		
+		<!--<do name="showaddcurrency" model="MCurrencySettings" function="addCurrency"/>-->
+		<do name="showaddcurrency" model="MCurrencySettings" function="showAddCurrency"/>
+		<do name="addcurrency" model="MCurrencySettings" function="addCurrency"/>
+		<do name="editcurrency" model="MCurrencySettings" function="showEditCurrency"/>
+		<do name="editcurrency" model="MCurrencySettings" function="updateCurrency" action="update"/>
+		<do name="delcurrency" model="MCurrencySettings" function="deleteCurrency"/>
+		<do name="sitemap" model="MAdminmap" function="dispAdminmap" />
+		<do name="getphpinfo" model="MAdminmap" function="getPHPInfo" />
+		<do name="siteinfo" model="MAdminmap" function="displayPHPInfo" />
+		
+		<do name="news" model="MNewsManagement" function="newNews" />
+		<do name="news" model="MNewsManagement" action="show"  function="showNewsPage" />
+		<do name="news" model="MNewsManagement" action="add"  function="addNews" />
+		<do name="news" model="MNewsManagement" action="disp"  function="viewNews" />
+		<do name="news" model="MNewsManagement" action="edit" function="editNews" />
+		<do name="news" model="MNewsManagement" action="delete" function="deleteNews" />
+		<do name="news" model="MNewsManagement" action="status" function="statusNews" />		
+		
+		----------------Home page Ads----------------------------------------	
+		
+		<do name="homepageads" model="MHomePageAds" function="showHomePageAdsList" />
+		
+		<do name="homepageads" model="MHomePageAds" function="showAddHomePageAds" action="show" />
+		
+		<do name="homepageads" model="MHomePageAds" function="insertHomePageAds" action="add" />
+		
+		<do name="homepageads" model="MHomePageAds" function="deleteHomePageAds" action="delete" />
+		
+		<do name="homepageads" model="MHomePageAds" function="showEditHomePageAds" action="edit"/>
+		
+		<do name="homepageads" model="MHomePageAds" function="updateEditHomePageAds" action="update" />
+		
+		<do name="homepageads" model="MHomePageAds" function="acceptHomePageAds" action="accept"/>
+		
+		<do name="homepageads" model="MHomePageAds" function="denyEditHomePageAds" action="deny" />
+		
+		
+		<do name="homepage" model="MHomePageAds" function="showHomePageContent"  action="content"/>
+		
+		<do name="homepage" model="MHomePageAds" function="updateHomePageContent"  action="update"/>
+		
+		---------------------Invoice--------------------
+		
+		<do name="userinvoice" model="MOrderManagement" function="showAddnvoice"  action="show" />
+		
+		<do name="userinvoice" model="MOrderManagement" function="insertInvoice"  action="add" />
+		
+		
+		------------------------Menus----------------------------------------
+		
+		<do name="menus" model="MMenuManagement" function="showMenuManagament"   />
+		
+		<do name="menus" model="MMenuManagement" function="insertMenus"   action="add"/>
+		<do name="menus" model="MMenuManagement" function="deleteMenus"   action="delete"/>
+		<do name="menus" model="MMenuManagement" function="selectedMenuTypeList"   action="type"/>
+	
+		<do name="menus" model="MMenuManagement" function="insertNavigation"   action="navigation"/>
+		
+		<do name="menus" model="MMenuManagement" function="addCategory"   action="addcategory"/>
+		-------------Customer Group Management-----------------------------------
+		<do name="custgroup" model="MCustomerGroup" function="showCustomerGroup"/>
+		<do name="custgroup" model="MCustomerGroup" function="ajaxCustomerGroup" action="search" />		
+		<do name="custgroup" model="MCustomerGroup" function="displayCustGrpRegPage" action="add"/>
+		<do name="custgroup" model="MCustomerGroup" function="insertCustomerGroup" action="insert"/>		
+		<do name="custgroup" model="MCustomerGroup" function="editCustomerGroup" action="edit"/>
+		<do name="custgroup" model="MCustomerGroup" function="updateCustomerGroup" action="update"/>
+		<do name="custgroup" model="MCustomerGroup" function="deleteCustomerGroup" action="delete"/>
+		
+		------------------------------admin profile-------------------------------
+		
+		<do name="adminprofile" model="MAdminProfile" function="showAdminProfile"/>
+		<do name="adminprofile" model="MAdminProfile" function="updateAdminProfile" action="update"/>
+		
+		--------------Live chat--------------------------------------
+		
+		<do name="livechat" model="MLiveChat" function="showLiveChat"/>
+		<do name="livechat" model="MLiveChat" function="updateLiveChat" action="update"/>
+		
+		-----------------------Shipping Methods---------------------------------------------------
+		
+		<do name="showshipmenttracker" model="MShippingTracker" function="displayShippingTrackerSetting"/>
+	 	 <do name="showshipmenttracker" model="MShippingTracker" function="updateShippingTrackerSetting" action="update"/><!-- Modified -->
+	</domapping>
+	
+</controller-config>
