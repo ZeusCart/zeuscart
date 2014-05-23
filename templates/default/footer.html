@@ -1,0 +1,154 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<!--Footer-->
+  <footer>
+ 
+    <div id="order_div">
+    	<div class="container">
+        	<div class="row-fluid">
+        	<div class="span7"><h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FREE_SHIPPING_ON_ORDERS_OVER'); <AJDF:output>/php</AJDF:output> <span><AJDF:output>$smarty.session.currencysetting.selected_currency_settings.currency_tocken</AJDF:output><AJDF:output>$footerconnect.free_shipping_cost</AJDF:output></span></h3></div>
+
+            <div class="span5">      <AJDF:output>$newsletter</AJDF:output>
+<form name="newsletter" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=subnewsletter" method="post" class="form-inline" style="float:right">
+            <label class="checkbox">
+<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SIGN_UP_FOR_OUT_NEWSLETTER'); <AJDF:output>/php</AJDF:output>
+</label>
+<input name="email" class="input-small"  type="text"  maxlength="100" value="<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('YOUR_EMAIL'); <AJDF:output>/php</AJDF:output>" onblur="if(this.value=='') this.value='Your Email'" onfocus="this.value=''" /> 
+
+<button type="submit" class="btn btn-danger"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SUBMIT'); <AJDF:output>/php</AJDF:output></button>
+</form></div>
+        </div></div>
+        
+    </div>  
+	<div class="ftr_cnt_area">
+    	<div class="container">
+        	<div class="row-fluid">
+
+		<div class="span2">
+                	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('INFORMATION'); <AJDF:output>/php</AJDF:output></h3>
+                   <ul class="ftrlist">
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php/aboutus.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ABOUT_US'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php/policy.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PRIVACY_POLICY'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php/terms.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('TERMS_&_CONDITIONS'); <AJDF:output>/php</AJDF:output></a></li>
+			<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php/faq.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FAQ'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=morenews"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('LATEST_NEWS'); <AJDF:output>/php</AJDF:output></a></li>
+                    </ul>
+                </div>
+
+		<div class="span3">
+                	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CUSTOMER_SERVICE'); <AJDF:output>/php</AJDF:output></h3>
+                   <ul class="ftrlist">
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php/contact.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CONTACT_US'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php/site.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SITE_MAP'); <AJDF:output>/php</AJDF:output></a></li>
+                    	
+                    </ul>
+                </div>
+            	<div class="span2">
+                	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></h3>
+                   <ul class="ftrlist">
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('WISH_LIST'); <AJDF:output>/php</AJDF:output></a></li>
+                    </ul>
+                </div>
+            	<div class="span2">
+                	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('EXTRAS'); <AJDF:output>/php</AJDF:output></h3>
+                   <ul class="ftrlist">
+			
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=brands&schltr=All"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('BRANDS'); <AJDF:output>/php</AJDF:output></a></li>
+                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php/giftproducts.html"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('GIFT_VOUCHRES'); <AJDF:output>/php</AJDF:output></a></li>
+                            	
+                    </ul>
+                </div>
+            	
+           	  <div class="span3">
+               	<h3><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CONNECT_WITH_US'); <AJDF:output>/php</AJDF:output></h3>
+                 <ul class="cntwithus">
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/phone-icn.png" alt="phone"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CALL_US'); <AJDF:output>/php</AJDF:output> : <AJDF:output>$footerconnect.callus</AJDF:output></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/mail-icn.png" alt="phone"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('EMAIL'); <AJDF:output>/php</AJDF:output> :<a href="mailto:<AJDF:output>$footerconnect.email</AJDF:output>" > <AJDF:output>$footerconnect.email</AJDF:output></a></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/print-icn.png" alt="phone"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FAX'); <AJDF:output>/php</AJDF:output> :<AJDF:output>$footerconnect.fax</AJDF:output></li>
+               		  <li><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/img/map-icn.png" alt="phone"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('LOCATION'); <AJDF:output>/php</AJDF:output> : <AJDF:output>$footerconnect.location</AJDF:output></li>
+                 </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<AJDF:output>php</AJDF:output>
+$sql="SELECT * FROM live_chat_table   WHERE id='1' AND live_chat_status='0' ";
+$obj=mysql_query($sql);
+$fetch_icon=mysql_fetch_array($obj);
+echo $fetch_icon['live_chat_script'];
+<AJDF:output>/php</AJDF:output>
+
+    <div class="footer_inbx1" id="cpy_div">
+            <div class="container">
+                <div class="row-fluid">
+                	<div class="span6"><p><AJDF:output>$footerconnect.footercontent </AJDF:output> </p></div>
+                    <div class="span1"><!--<img src="assets/img/payment.png" alt="payment">--></div>
+                  <div class="span5">
+                <AJDF:output>$sociallink</AJDF:output>
+                    </div>
+                </div>
+            </div></br>
+ <AJDF:output>$headerMainMenu</AJDF:output>
+        </div>
+  </footer>                               
+
+        <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('prettify.js');<AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('transition.js');<AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('alert.js');<AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('modal.js'); <AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('dropdown.js');<AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('scrollspy.js'); <AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('tab.js');<AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('tooltip.js');<AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('popover.js'); <AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('button.js'); <AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('collapse.js'); <AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('carousel.js'); <AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('typeahead.js'); <AJDF:output>/php</AJDF:output> 
+    <AJDF:output>php</AJDF:output>echo  Core_CLanguage::setScript('application.js');<AJDF:output>/php</AJDF:output> 
+    
+    <AJDF:output>if $smarty.get.do eq '' || $smarty.get.do eq 'index' || $smarty.get.do eq 'logout' </AJDF:output>
+	<script type="text/javascript">
+	$('.search_icn').on("click",function () {	
+	var productId = $(this).data('id');
+	$.ajax({
+	url:'<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=prodetail&action=showpopupprod',
+	data: 'prodid='+productId,
+	type: 'GET',
+	success: function (resp) {
+	document.getElementById('popupproductdetails').innerHTML=resp;
+	}
+	});
+	});
+	</script>
+	<AJDF:output>/if</AJDF:output>
+
+</body>
+</html>
+
+
+

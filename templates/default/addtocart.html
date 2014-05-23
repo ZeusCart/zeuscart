@@ -1,0 +1,130 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+
+
+<AJDF:output>include file="header.html"</AJDF:output> 
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a> <span class="divider">/</span></li>
+              <li class="active"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOW_CART'); <AJDF:output>/php</AJDF:output></li>
+            </ul>
+            <AJDF:output>$smarty.session.update_msg</AJDF:output>
+   
+        <div class="row-fluid">
+        	<div class="span12">
+
+            <div class="title_fnt">
+	<AJDF:output>if $smarty.get.action eq '' ||   $smarty.get.action eq 'add'</AJDF:output>
+    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOW_CART'); <AJDF:output>/php</AJDF:output> </h1>
+	<AJDF:output>else</AJDF:output>
+	 	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECK_OUT'); <AJDF:output>/php</AJDF:output></h1>
+	<AJDF:output>/if</AJDF:output>
+        </div>
+      <AJDF:output>$showcart</AJDF:output></div>
+                               	
+        </div>
+    </div>
+  
+    <!-- /container -->
+<script>
+function checkInputs()
+{
+
+	$( "#default_ship_cost" ).hide();
+	var ship_type=$('#shipment_id').val();
+	if(ship_type=='0')
+	{
+
+		selectshipping='<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PLEASE_SELECT_THE_SHIPPING_METHOD'); <AJDF:output>/php</AJDF:output>';
+		alert(selectshipping);
+		return false;
+	}
+	else
+	{
+
+		if(ship_type=='2')
+		{
+			if(document.getElementById('shipdurid').value=='' || document.getElementById('shipdurid').value=='0')
+			{
+				selectshippingduration='<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PLEASE_SELECT_THE_SHIPPING_DURATION'); <AJDF:output>/php</AJDF:output>';	
+				alert(selectshippingduration);
+				return false;
+			}
+		}
+					
+
+	}
+	return true;
+	
+}
+function selectShippingType(id)
+{
+
+	
+	$( "#duration_ups" ).hide();
+	$( "#ship_cost").hide();	
+	$( "#default_ship_cost" ).hide();
+
+	if(id=='1')
+	{
+	    $( "#default_ship_cost" ).show();	
+	}			
+	if(id=='2')
+	{
+		document.getElementById("shipdurid").value = "0";
+		$( "#duration_ups" ).show();
+	}
+	
+}
+function shipDuration(ship_dur_id,zip,weight)
+{
+
+
+	if(ship_dur_id!='0')
+	{
+		$.ajax({
+		url:'<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart&action=calculateshipcost',
+		data: 'ship_dur_id='+ship_dur_id+'&zip='+zip+'&weight='+weight,
+		type: 'GET',
+		success: function (resp) {
+			document.getElementById('var_ship').innerHTML=resp;
+			document.getElementById('shipping_cost').value=resp;
+				  $( "#default_ship_cost" ).hide();	
+				$( "#ship_cost").show();
+				
+			}
+		});
+	}
+	else
+	{
+		$( "#ship_cost").hide();
+		
+		selectshippingduration='<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PLEASE_SELECT_THE_SHIPPING_DURATION'); <AJDF:output>/php</AJDF:output>';	
+		alert(selectshippingduration);
+		
+	}	
+	
+}
+</script>
+
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+

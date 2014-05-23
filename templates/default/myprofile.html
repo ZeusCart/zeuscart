@@ -1,0 +1,109 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+     <!-- <div id="left_details"> </div>--><AJDF:output>include file="left.html"</AJDF:output>
+     
+
+     <div id="middle">
+       <!-- <div id="middle_details"> <div id="product_tbbg_details">-->
+        <div id="product_tbbg">
+        <AJDF:output>$viewProducts.success</AJDF:output> 
+          <AJDF:output>$message</AJDF:output>
+        <form id="form1" name="form1" method="post" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=myprofile&action=updatemyprofile">
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="table">
+            <tr>
+              <td class="product_header">My Profile</td>
+            </tr>
+            <tr>
+              <td><input type="hidden" name="newslettersubid" value="<AJDF:output>$val.newslettersubid</AJDF:output>" /></td>
+            </tr>
+            <tr>
+              <td ><table width="87%" border="0" align="center" cellpadding="2" cellspacing="2" class="cart_info">
+                  <tr>
+                    <td>Display Name </td>
+                    <td><AJDF:output>$val.displayname</AJDF:output></td>
+                  </tr>
+                  <tr>
+                    <td width="39%">First Name </td>
+                    <td width="40%">
+                        <input type="text" name="firstname" value="<AJDF:output>$val.firstname</AJDF:output>" /><br />
+						<font color="red"><AJDF:output>$msg.firstname</AJDF:output></font></td>
+						
+                  </tr>
+                  <tr>
+                    <td>Last Name </td>
+                    <td><input type="text" name="lastname" value="<AJDF:output>$val.lastname</AJDF:output>" /><br />
+                    <font color="red"><AJDF:output>$msg.lastname</AJDF:output></font></td>
+					
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td><input type="text" name="email" value="<AJDF:output>$val.email</AJDF:output>"  /><br />
+                    <font color="red"><AJDF:output>$msg.email</AJDF:output></font></td>
+					
+                  </tr>
+                  <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="passwd" value="<AJDF:output>$val.passwd</AJDF:output>"/><br />
+                    <font color="red"><AJDF:output>$msg.passwd</AJDF:output></font></td>
+					
+                  </tr>
+                  <tr>
+                    <td>Confirm Password </td>
+                    <td><input type="password" name="cpasswd" value="<AJDF:output>$val.cpasswd</AJDF:output>"/><br />
+                    <font color="red"><AJDF:output>$msg.cpasswd</AJDF:output></font></td>
+					
+                  </tr>
+                </table></td>
+            </tr>
+            <tr>
+              <td >&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="product_header" >Newsletter Subscription <a href="#" class="btm_text_links" ></a></td>
+            </tr>
+            <tr>
+              <td >&nbsp;</td>
+            </tr>
+            <tr>
+              <td ><table width="87%" border="0" align="center" cellpadding="2" cellspacing="2" class="cart_info">
+                  <tr>
+                    <td colspan="2">Would you like to Subscribe to site newsletters ? </td>
+                  </tr>
+                  <tr>
+                    <td align="right"><input name="newsletterSubscribeY" id="newsletterSubscribeY" type="radio" value="1" checked />
+                      <label for="newsletterSubscribeY"> Yes</label>
+                      <input name="newsletterSubscribeY" type="radio" value="0" id="newsletterSubscribeY" />
+                      <label for="newsletterSubscribeY">No Thanks </label></td>
+                    <td width="25%">&nbsp;</td>
+                  </tr>
+				  <tr><td colspan="2" align="right"><input name="btnSave" type="submit" class="form-button" value="Save" /></td>
+				  </tr>
+                </table></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+          </table></form>
+        </div><br/> </div>
+       <!-- <br /> -->
+    
+     <AJDF:output>include file="right.html"</AJDF:output>
+     <AJDF:output>include file="footer.html"</AJDF:output>

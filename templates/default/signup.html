@@ -1,0 +1,173 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+  <AJDF:output>include file="header.html"</AJDF:output>
+        
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a> <span class="divider">/</span></li>
+              <li class="active"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('REGISTER'); <AJDF:output>/php</AJDF:output> </li>
+            </ul>
+           <AJDF:output> $account </AJDF:output>
+   
+        <div class="row-fluid">
+<div class="title_fnt">
+    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('REGISTER'); <AJDF:output>/php</AJDF:output> </h1>
+        </div>
+        <form class="form-horizontal" name="register_form" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=userregistration&action=addreg" method="POST">
+                <fieldset>
+                  <div class="control-group">
+                    <div class="controls">
+                      <p class="info_fnt">
+                        <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FIELDS_MARKED_WITH_AN'); <AJDF:output>/php</AJDF:output> <span class="red_fnt">*</span> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ARE_REQUIRED'); <AJDF:output>/php</AJDF:output>
+                      </p>
+                    </div>
+                  </div><h4><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('YOUR_PERSONAL_DETAILS'); <AJDF:output>/php</AJDF:output> </h4>
+			<div>&nbsp;</div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('DISPLAY_NAME'); <AJDF:output>/php</AJDF:output>  <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="txtdisname" name="txtdisname" class="input-xlarge" value="<AJDF:output> $val.txtdisname </AJDF:output>"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtdisname </AJDF:output>
+                      </font>
+
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FIRST_NAME'); <AJDF:output>/php</AJDF:output> <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="txtfname" name="txtfname" value="<AJDF:output> $val.txtfname </AJDF:output>" class="input-xlarge"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtfname </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('LAST_NAME'); <AJDF:output>/php</AJDF:output> <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="text" id="txtlname" name="txtlname" value="<AJDF:output> $val.txtlname </AJDF:output>" class="input-xlarge"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtlname </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+		
+		<div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('EMAIL_ADDRESS'); <AJDF:output>/php</AJDF:output> <span class="red_fnt">*</span></label>
+                    <div class="controls">
+			    <input type="text" id="txtemail" name="txtemail" value="<AJDF:output> $val.txtemail </AJDF:output>" class="input-xlarge">
+                  <br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtemail </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+
+		<h4><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('YOUR_PASSWORD'); <AJDF:output>/php</AJDF:output> </h4>
+		<div>&nbsp;</div>
+  		<div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PASSSWORD'); <AJDF:output>/php</AJDF:output>  <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="password" id="txtpwd" name="txtpwd" value="<AJDF:output> $val.txtpwd </AJDF:output>" class="input-xlarge"> <br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtpwd </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+  		<div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CONFIRM_PASSWORD'); <AJDF:output>/php</AJDF:output> <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <input type="password" id="txtrepwd" name="txtrepwd" value="<AJDF:output> $val.txtrepwd </AJDF:output>" class="input-xlarge"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtrepwd </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+	
+		<h4><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('YOUR_ADDRESS'); <AJDF:output>/php</AJDF:output></h4>
+		<div>&nbsp;</div>
+ 		  <div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ADDRESS'); <AJDF:output>/php</AJDF:output>  <span class="red_fnt">*</span> </label>
+                    <div class="controls">
+                     <div id="txtHint"><input type="text" name="txtaddr" id="txtaddr" class="input-xlarge" value="<AJDF:output> $val.txtaddr </AJDF:output>"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtaddr </AJDF:output>
+                      </font></div>
+                    </div>
+                  </div>
+
+                  <div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CITY'); <AJDF:output>/php</AJDF:output>  <span class="red_fnt">*</span> </label>
+                    <div class="controls">
+                      <input type="text" name="txtcity" id="txtcity" class="input-xlarge" value="<AJDF:output> $val.txtcity </AJDF:output>"><br /><font color="#FF0000">
+                      <AJDF:output> $msg.txtcity </AJDF:output>
+                      </font>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label for="textarea" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('STATE/PROVINCE'); <AJDF:output>/php</AJDF:output>  <span class="red_fnt">*</span></label>
+                    <div class="controls">
+ 			<input type="text" name="txtState" id="txtState" value="<AJDF:output> $val.txtState </AJDF:output>" class="input-xlarge"><br><font color="#FF0000"><AJDF:output>$msg.txtState</AJDF:output></font>
+                    </div>
+                  </div>
+
+		<div class="control-group">
+                    <label for="textarea" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ZIP/POSTAL_CODE'); <AJDF:output>/php</AJDF:output> <span class="red_fnt">*</span> </label>
+                    <div class="controls">
+			<input type="text" name="txtzipcode" id="txtzipcode" value="<AJDF:output> $val.txtzipcode </AJDF:output>" class="input-xlarge"><br><font color="#FF0000"><AJDF:output>$msg.txtzipcode</AJDF:output></font>
+                      </div>
+                  </div>
+
+    		<div class="control-group">
+                    <label for="input01" class="control-label"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('COUNTRY'); <AJDF:output>/php</AJDF:output>   <span class="red_fnt">*</span></label>
+                    <div class="controls">
+                      <AJDF:output>$val.selCountry </AJDF:output>
+                    </div>
+                  </div>
+    		
+		<h4><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('NEWSLETTER'); <AJDF:output>/php</AJDF:output> </h4>
+		<div>&nbsp;</div>
+		<div class="control-group">
+                    <label for="input01" class="control-label"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SUBCRIBE'); <AJDF:output>/php</AJDF:output> </label>
+                    <div class="controls">
+
+		<label class="radio inline">
+		<input type="radio" id="chknewsletter" value="1" name="chknewsletter"  <AJDF:output>if $val.chknewsletter eq 1</AJDF:output> checked<AJDF:output>/if</AJDF:output> > <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('YES'); <AJDF:output>/php</AJDF:output> 
+		</label>
+		<label class="radio inline">
+		<input type="radio" id="chknewsletter" value="0" name="chknewsletter"  <AJDF:output>if $val.chknewsletter eq 0</AJDF:output> checked<AJDF:output>/if</AJDF:output>> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('NO'); <AJDF:output>/php</AJDF:output> 
+		</label>
+                    </div>
+                  </div>
+   		
+		<div class="control-group">
+ 
+                    <div class="controls">
+		<label class="checkbox inline">
+                    <input type="checkbox" align="absmiddle" name="chkterms" id="checkbox" value="1"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('I_ACCEPT_THE'); <AJDF:output>/php</AJDF:output>  <a href="?do=termsandcondition" target="_blank"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('USER_AGREEMENT'); <AJDF:output>/php</AJDF:output>  </a><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('AND'); <AJDF:output>/php</AJDF:output>  <a href="?do=privacypolicy" target="_blank"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PRIVACY_POLICY'); <AJDF:output>/php</AJDF:output> </a><font color="#FF0000">
+                            <AJDF:output> $msg.chkterms </AJDF:output>
+                            </font></label>
+                    </div>
+                  </div>
+
+                 <div class="form-actions">
+                    <button class="btn btn-large btn-primary" type="submit"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SUBMIT'); <AJDF:output>/php</AJDF:output> </button>
+                  </div>
+                </fieldset>
+              </form>
+                </div>
+    </div>
+  
+    <!-- /container -->
+  <AJDF:output>include file="footer.html"</AJDF:output>

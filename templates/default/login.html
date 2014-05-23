@@ -1,0 +1,81 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output> 
+
+  <!-- body start here-->
+  	<div class="container">
+    	<ul class="breadcrumb">
+              <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index">Home</a> <span class="divider">/</span></li>
+              <li class="active"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MEMBER_LOGIN'); <AJDF:output>/php</AJDF:output></li>
+            </ul>
+
+        <div class="row-fluid">
+<div class="title_fnt">
+    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MEMBER_LOGIN'); <AJDF:output>/php</AJDF:output></h1>
+        </div>
+        <div class="row-fluid">
+                    <div class="span6">
+		<form name="loginfrm" method="post" action="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=login&action=validatelogin" >
+                    	<div id="loginfrm">
+                        		<ul class="loginfourm">
+                                	<li><b><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('E-MAIL_ADDRESS'); <AJDF:output>/php</AJDF:output></b></li>
+                                	<li><input type="text" name="txtemail" class="input-large" value="<AJDF:output>$val.txtemail</AJDF:output>"><br /><font color="#FF0000">
+					<AJDF:output>$msg.txtemail</AJDF:output>
+					</font></li>
+                                  	  <li><b><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PASSSWORD'); <AJDF:output>/php</AJDF:output></b></li>
+                                	<li><input type="password" name="txtpass" class="input-large"><br /><font color="#FF0000">
+					<AJDF:output>$msg.txtpass</AJDF:output>                          
+					</font></li>
+                                	<li><input type="checkbox" name="remlogin" value="on" > <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('REMEMBER_ME?'); <AJDF:output>/php</AJDF:output></li>
+                                	<li><input type="submit" value="<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('LOGIN'); <AJDF:output>/php</AJDF:output>" class="btn btn-danger"> </li>
+                                    <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/forgotpassword.html"> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FORGOT_PASSWORD'); <AJDF:output>/php</AJDF:output></a> <span><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('OR'); <AJDF:output>/php</AJDF:output></span> <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/faq.html" target="_blank"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('NEED_HELP?'); <AJDF:output>/php</AJDF:output></a> </li>
+                                </ul>
+                        </div>
+			</form>
+                        </div>
+                    	<div class="span6">
+                         <div class="followus_div">
+			<a href="#" id="openfb" class="facebook_btn"></a>
+                        <a href="#" id="opentw" class="twitter_btn"></a>
+                        <a href="#" id="opengp" class="google_btn"></a></div>
+                   	 <p class="userlogin_fnt"><span><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('OR_LOG_IN_USING_YOUR_USERNAME_AND_PASSWORD'); <AJDF:output>/php</AJDF:output></span></p>
+                        	<div id="signin_acc">
+                        	<ul class="signin-account">
+                            	<li> <h5><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SIGN_UP_FOR_AN_ACCOUNT'); <AJDF:output>/php</AJDF:output></h5></li>
+                                <li> <p><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('REGISTRATION_IS_FAST_AND_FREE'); <AJDF:output>/php</AJDF:output></p></li>
+                                <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/register.html"><input type="button" value="<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('REGISTER_HERE'); <AJDF:output>/php</AJDF:output>" class="btn btn-inverse"></a></li>
+                            </ul>
+                            <b><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ACCOUNT_PROTECTION_TIPS'); <AJDF:output>/php</AJDF:output></b>
+                            <ul class="acctips">
+                            	<li><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHOSSE_A_STRONG_PASSWORD_AND_CHNAGE_IT_OFTEN.'); <AJDF:output>/php</AJDF:output></li>
+                                <li><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('AVOID_USING_THE_SAME_PASSWORD_FOR_OTHER_ACCOUNTS'); <AJDF:output>/php</AJDF:output></li>
+                                <li><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CREATE_A_UNIQUE_PASSWORD_BY_USING_A_COMBINATION_OF_LETTRES_AND_NUMBERS_THAT_ARE_NOT_EASILY_GUESSED'); <AJDF:output>/php</AJDF:output></li>
+                            </ul>
+                            </div>
+                    </div>
+
+                    </div>
+                </div>
+    </div>
+  
+    <!-- /container -->
+    
+  <AJDF:output>include file="footer.html"</AJDF:output>
+
