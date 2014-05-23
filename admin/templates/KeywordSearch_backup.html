@@ -1,0 +1,206 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>:::Search Page:::</title>
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/anylinkvertical.css">
+<script type="text/javascript" src="css/anylinkvertical.js">
+</script>
+<style type="text/css">
+ul.makeMenu, ul.makeMenu ul {
+  width: 140px;                 
+  border: 1px solid #000;      
+  background-color: #8aa;      
+  padding-left: 0px;           
+  cursor: default;             
+  margin-left: 0px;            
+}
+ul.makeMenu li {
+  list-style-type: none;       
+  margin: 0px;                 
+  position: relative;          
+  color: #fff;                 
+}
+ul.makeMenu li > ul {          
+  display: none;               
+  position: absolute;          
+  top: 2px;   
+  padding-left:5px;            
+  left: 140px;                 
+}
+ul.makeMenu li:hover, ul.makeMenu li.CSStoHighlight {
+  background-color: #ffa;      
+  color: #000;                 
+}
+ul.makeMenu ul.CSStoShow {     
+  display: block;              
+}
+ul.makeMenu li:hover > ul {    
+                               
+  display: block;              
+}
+
+ul.makeMenu li a { color: #fff; display: block; width: 100%; text-decoration: underline; }
+ul.makeMenu li a:hover, ul.makeMenu li a.CSStoHighLink { color: #000; }
+ul.makeMenu li:hover > a { color: #000; } 
+</style>
+<!--[if gt IE 5.0]><![if lt IE 7]>
+<style type="text/css">
+/* that IE 5+ conditional comment makes this only visible in IE 5+ */
+ul.makeMenu li {  /* the behaviour to mimic the li:hover rules in IE 5+ */
+  behavior: url( IEmen.htc );
+}
+ul.makeMenu ul {  /* copy of above declaration without the > selector, except left position is wrong */
+  display: none; position: absolute; top: 2px; left: 78px;
+}
+</style>
+<![endif]><![endif]-->
+<style type="text/css">
+
+
+ul.makeMenu, ul.makeMenu ul {
+  width: 140px;                 
+  border: 1px solid #000;      
+  background-color: #DAF5FE;      
+  padding-left: 0px;           
+  cursor: default;             
+  margin-left: 0px;   
+  color:#000000;
+  
+           
+}
+ul.makeMenu li {
+  list-style-type: none;       
+  margin: 0px;                 
+  position: relative;          
+  color: #000000;                 
+}
+ul.makeMenu li > ul {          
+  display: none;               
+  position: absolute;          
+  top: 2px; 
+  padding-left:5px;            
+  left: 140px;                 
+}
+ul.makeMenu li:hover, ul.makeMenu li.CSStoHighlight {
+  background-color: #00000;      
+  color: #000000;                 
+}
+ul.makeMenu ul.CSStoShow {     
+  display: block;              
+}
+ul.makeMenu li:hover > ul {    
+                               
+  display: block;              
+}
+
+ul.makeMenu li a { color: #000000; display: block; width: 100%; text-decoration: underline; }
+ul.makeMenu li a:hover, ul.makeMenu li a.CSStoHighLink { color: #000; }
+ul.makeMenu li:hover > a { color: #000; }
+</style>
+<!--[if gt IE 5.0]><![if lt IE 7]>
+<style type="text/css">
+/* that IE 5+ conditional comment makes this only visible in IE 5+ */
+ul.makeMenu li {  /* the behaviour to mimic the li:hover rules in IE 5+ */
+  behavior: url( IEmen.htc );
+}
+ul.makeMenu ul {  /* copy of above declaration without the > selector, except left position is wrong */
+  display: none; position: absolute; top: 2px; left: 78px;
+}
+</style>
+<![endif]><![endif]-->
+<attach event="onmouseover" handler="rollOver" />
+<attach event="onmouseout" handler="rollOff" />
+<script type="text/javascript">
+ 
+function rollOver() {
+  //change the colour
+  element.className += (element.className?' ':'') + 'CSStoHighlight';
+  //change display of child
+  for( var x = 0; element.childNodes[x]; x++ ){
+    if( element.childNodes[x].tagName == 'UL' ) { element.childNodes[x].className += (element.childNodes[x].className?' ':'') + 'CSStoShow'; }
+    if( element.childNodes[x].tagName == 'A' ) { element.childNodes[x].className += (element.childNodes[x].className?' ':'') + 'CSStoHighLink'; }
+  }
+}
+
+function rollOff() {
+  //change the colour
+  element.className = element.className.replace(/ ?CSStoHighlight$/,'');
+  //change display of child
+  for( var x = 0; element.childNodes[x]; x++ ){
+    if( element.childNodes[x].tagName == 'UL' ) { element.childNodes[x].className = element.childNodes[x].className.replace(/ ?CSStoShow$/,''); }
+    if( element.childNodes[x].tagName == 'A' ) { element.childNodes[x].className = element.childNodes[x].className.replace(/ ?CSStoHighLink$/,''); }
+  }
+}
+</script>
+</head>
+<body>
+<form name="frmSearch" method="post">
+  <table width="100%" border="0">
+  <tr>
+    <td width="100" rowspan="2" align="left" valign="top"><AJDF:output> $categorylist </AJDF:output></td>
+    <td align="center" valign="top"><table width="100%" border="0">
+	
+        <tr>
+          <td width="100%" align="center" valign="top">Enter Keyword to Search
+            <input type="text" name="search" value="<AJDF:output>$searchsession</AJDF:output>"/>
+            <input type="submit" name="find" value="Search" />
+			<input type="hidden" name="searchtxt" value="<AJDF:output>$searchsession</AJDF:output>" />
+			</td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#CFFEFE"><AJDF:output>$searchresultfor</AJDF:output></td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" align="center" cellpadding="2" cellspacing="0">
+            <tr>
+              <td width="25%"><span>
+                <AJDF:output>$countrecords</AJDF:output>
+              </span></td>
+              <td width="25%">&nbsp;</td>
+              <td width="50%" align="right">Show
+                <AJDF:output>$disppagesize</AJDF:output></td>
+            </tr>
+            <tr bgcolor="#EFEFEF">
+              <td bgcolor="#EFEFEF"><strong>View as:</strong>  <AJDF:output>$mylink</AJDF:output> </td>
+              <td width="25%" bgcolor="#EFEFEF">&nbsp;</td>
+              <td width="50%" align="right" bgcolor="#EFEFEF">Sort by
+                <AJDF:output>$sortby</AJDF:output></td>
+            </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td align="center"><AJDF:output>$keywordsearch</AJDF:output> </td>
+        </tr>
+        <tr>
+          <td align="center" valign="middle" bgcolor="#CFFEFE"><AJDF:output>$pagination</AJDF:output></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+</tr>
+
+</table></form>
+</body>
+</html>

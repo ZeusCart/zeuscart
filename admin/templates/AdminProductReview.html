@@ -1,0 +1,132 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript">
+$(function(){
+$("select").chosen({allow_single_deselect:true});
+  
+});
+</script>
+<!--<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
+<script type="text/javascript" src="js/calendar/calendar-en.js"></script>
+<script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
+<link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+<link href="css/calendar_styles.css" rel="stylesheet" type="text/css" />
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+
+		  <tr>
+            <td colspan="3" align="left" >
+           </td>
+            
+          </tr>
+<tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left" class="content_title">Product Review Details</td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+           <tr>
+            <td colspan="3" align="left">
+          <AJDF:output> $statusmsg </AJDF:output>
+          </td>
+          </tr>
+           <tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+          
+          <tr>
+            <td colspan="3" align="left">
+<AJDF:output> $adminreview </AJDF:output>
+</td>
+          </tr>
+            </table>
+         <AJDF:output>include file="footer.html"</AJDF:output>-->
+       <div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Product Review Details</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <!-- <li><a href="javascript:void(0);" class="export_icon"  id="adminactivity"></a></li> -->
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+    <AJDF:output> $statusmsg </AJDF:output>
+<AJDF:output> $adminreview </AJDF:output>
+<AJDF:output>include file="footer.html"</AJDF:output>
+         <script type="text/javascript">
+	var options = {
+		script:"?do=adminproductreview&action=autoc&ids=1&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('username', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=adminproductreview&action=autoc&ids=1&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('username_xml', options_xml);
+</script>
+
+<script type="text/javascript">
+	var options = {
+		script:"?do=adminproductreview&action=autoc&ids=2&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('title', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=adminproductreview&action=autoc&ids=2&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('title_xml', options_xml);
+
+
+</script>
+<script>
+
+  $(function () {
+$('#fromdate').datepicker();
+
+});
+
+
+</script>
+          
+          

@@ -1,0 +1,126 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script language='javascript' src='../js/FusionCharts.js'></script>
+<tr>  
+  <td width="75%" align="center" valign="top">
+<table width="95%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+            <td align="left"><AJDF:output>$createpagemsg</AJDF:output>
+            <AJDF:output>$deletepage</AJDF:output></td>
+          </tr>
+          <tr>
+            <td align="left" class="content_title"><AJDF:output>$showchart.header</AJDF:output></td>
+          </tr>
+		  <tr>
+            <td align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left"><AJDF:output>$messages</AJDF:output>&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left">&nbsp;</td>
+          </tr>          
+		   <tr>
+           <td>  
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">
+      <AJDF:output>if $showchart.id eq "8" or $showchart.id eq "12" </AJDF:output>       
+            
+      <AJDF:output>else</AJDF:output>                 
+      <tr>
+        <td  align="left" class="content_list_head" valign="top"><AJDF:output>$showchart.header</AJDF:output></td>
+	  </tr>
+      <form name="chart" action="?do=showchart&id=<AJDF:output>$showchart.id</AJDF:output>" method="post">
+          <tr>
+            <td align="left">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">		                          
+              <tr>                 
+                 <td>&nbsp;</td>                 
+                <td width="10%" align="right" class="content_form">Date Range :</td>
+                <td width="10%" align="center" class="content_form">
+               <AJDF:output>$showchart.type</AJDF:output>
+                </td>                 
+                <td width="70%" class="content_list_txt1" align="left" >                                          
+                 <table width="48%" border="0" cellpadding="0" cellspacing="0">
+                 <tr>
+                 <td id="customDate" style="display:none" align="left">
+				<AJDF:output>$showchart.frommnth</AJDF:output>&nbsp;
+   				<AJDF:output>$showchart.fromyr</AJDF:output>&nbsp;					
+				<span class="content_form">to</span>&nbsp;
+				<AJDF:output>$showchart.tomnth</AJDF:output>&nbsp;
+   				<AJDF:output>$showchart.toyr</AJDF:output>&nbsp;
+               </td>
+               <td align="left">
+               <input type="submit" name="submit" class="all_bttn" value="Go"/>
+               </td> 
+                 
+               </tr>
+               </table>
+                </td>
+                </tr>	  
+			  </table>             
+              </td></tr>                            
+               </form>
+               </table>
+			   <tr>
+            <td align="left">&nbsp;</td>
+          </tr>
+           <AJDF:output>/if</AJDF:output>         			 
+             <tr>
+             <td>  
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">     
+			   <tr>
+                <td align="center" class="content_form" colspan="2">
+				<!--<input type='button' class="all_bttn" value='Column' onClick="javaScript:updateChart('../includes/Charts/FCF_Column3D.swf');" name='btnColumn' />
+  <input type='button' class="all_bttn" value='Line' onClick="javaScript:updateChart('../includes/Charts/FCF_Line.swf');" name='btnLine' />
+  <input type='button' class="all_bttn" value='Pie' onClick="javaScript:updateChart('../includes/Charts/FCF_Pie3D.swf');" name='btnPie' />    
+   <input type='button' class="all_bttn" value='Bar' onClick="javaScript:updateChart('../includes/Charts/FCF_Bar2D.swf');" name='btnBar' />     
+    <input type='button' class="all_bttn" value='Doughnut' onClick="javaScript:updateChart('../includes/Charts/FCF_Doughnut2D.swf');" name='Doughnut' />   -->
+                <div id="chart1div">FusionCharts</div>                
+				</td>
+              </tr>
+			  </table></td></tr>
+      
+      </td>
+      </tr>
+      </table>    
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+<script language="JavaScript">		
+	
+	function doCustomDate(id)
+	{	
+	if(id=='5')
+	document.getElementById('customDate').style.display = "block";
+	else
+	document.getElementById('customDate').style.display = "none";
+	}
+	  
+	  function updateChart(chartSWF){
+            //Create another instance of the chart.			           
+		    var chart1 = new FusionCharts(chartSWF, "chart1Id", "900", "600", "0", "0");
+            chart1.setDataXML("<AJDF:output>$showchart.xml</AJDF:output>");
+            chart1.render("chart1div");
+         }
+		 window.onload=updateChart("../includes/Charts/FCF_Column3D.swf");
+</script>
+   
+
+

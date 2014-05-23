@@ -1,0 +1,48 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<FORM NAME="frmcat" ACTION="?do=viewfeatured&action=updateProducts" METHOD="post">
+  <TABLE WIDTH="97%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+    <TR>
+      <TD COLSPAN="3" ALIGN="left" CLASS="content_title">VIEW FEATURED PRODUCTS</TD>
+    </TR>
+     <tr>
+            <td colspan="7" align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4" align="left"><AJDF:output>$msg</AJDF:output></td>
+          </tr>
+          <tr>
+            <td height="41" colspan="4" align="right"><a href="?do=selectfeatured" class="add_link" >Add Featured Product</a></td>
+          </tr>
+    
+    <TR>
+      <TD COLSPAN="3" ALIGN="left">&nbsp;</TD>
+    </TR>
+    
+    <TR>
+      <TD COLSPAN="2" ALIGN="center" id=productlist><AJDF:output>$product</AJDF:output>
+      </TD>
+    </TR>
+   
+  </TABLE>
+</FORM>
+<AJDF:output>include file="footer.html"</AJDF:output>

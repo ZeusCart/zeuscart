@@ -1,0 +1,108 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<form name="fm" method="post" action="?do=createpage&action=add" enctype="multipart/form-data">
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+            <td align="left"><AJDF:output>$createpagemsg</AJDF:output>
+            <AJDF:output>$deletepage</AJDF:output></td>
+          </tr>
+          <tr>
+            <td align="left" class="content_title">Create Page</td>
+          </tr>
+          <tr>
+            <td align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left" class="content_form_bdr">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">
+      <tr>
+        <td  align="left" class="content_list_head" valign="top">Create Page</td>
+	  </tr>
+	  <tr><td style="padding-left:10px;">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="14%" align="left" class="content_form">Page Name</td>
+                <td width="66%" class="content_form"><input type="text" class="txt_box250" name="page_name" id="page_name" value="" /> (Example: Sample.html (or) .php)
+            <span class="errmsg"><strong></strong></span></td>
+              </tr>
+              <tr>
+                <td align="left" class="content_form">Page Title</td>
+                <td class="content_form"><input type="text" name="page_title" class="txt_box250" id="site_title" value="" />
+            <br />
+           <span class="errmsg"><strong></strong></span></td>
+          
+              </tr>
+              <tr>
+                <td valign="top" align="left" class="content_form">Meta Content</td>
+          <td class="content_form"><textarea name="meta_content" cols="45" rows="4" class="txt_area350" id="meta_content" ></textarea>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dmdesc', 'Meta Content', 'Enter the description or content for webpage to be added.')" onmouseout="HideHelp('dmdesc');" style="vertical-align:top">
+			<div id="dmdesc" style=" position:fixed"></div></td>
+         
+        </tr>
+        
+        <tr>
+          <td valign="top" align="left" class="content_form">Meta Keyword</td>
+          <td class="content_form"><textarea name="meta_key" cols="45" rows="4" class="txt_area350 " id="meta_key" ></textarea>&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dmkey', 'Meta Keyword', 'Enter the related keyword to be used while searching for web page related to your web page.')" onmouseout="HideHelp('dmkey');" style="vertical-align:top">
+			<div id="dmkey" style=" position:fixed"></div></td>
+          
+        </tr>
+               
+         <tr>
+        
+          <td align="left" class="content_form">Css Files</td>
+          <td class="content_form"><input type="file" name="css_file" id="css_file" value=""/>
+           &nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dcss', 'Upload CSS', 'If you want to upload any Cascading Style Sheet(CSS), click here')" onmouseout="HideHelp('dcss');">
+			<div id="dcss" style=" position:fixed"></div> <br />
+            <span class="errmsg"><strong></strong></span></td>
+          <td>&nbsp;</td>
+        </tr>
+               
+         <td align="left" class="content_form">If any Js Files</td>
+          <td class="content_form" valign="top"><input type="file" name="js_file" id="js_file" value=""/>
+          &nbsp;<img src="images/help.gif" onmouseover="ShowHelp('djs', 'Upload JS', 'If you want to upload any Java Script file, click here')" onmouseout="HideHelp('djs');">
+			<div id="djs" style=" position:fixed"></div>  <br />
+            <span class="errmsg"><strong></strong></span></td>
+          <td>&nbsp;</td>
+        </tr>
+       <tr>
+       <td valign="top" align="left" class="content_form">Body Content</td>
+          <td valign="top" class="content_form"><textarea name="bodycontent" id="body" cols="45" rows="4" class="txt_area350 "></textarea>
+           &nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dbcn', 'Body Content', 'Place your body content heer.')" onmouseout="HideHelp('dbcn');" style="vertical-align:top">
+			<div id="dbcn" style=" position:fixed"></div>  <br />
+            <span class="errmsg"><strong></strong></span></td>
+         </tr>
+        
+        <tr>
+          <td colspan="5"><?php echo $msg ; ?></td>
+        </tr>
+               
+         <tr>
+            <td class="content_form">&nbsp;</td>
+            <td class="content_form"><input type="submit" name="button" id="button" value="Create" class="all_bttn"  /></td>         
+        </tr>
+      </table>
+	  </td>
+      </tr></table>
+      </td>
+      </tr>
+      </table>
+    </form>
+<AJDF:output>include file="footer.html"</AJDF:output>

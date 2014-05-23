@@ -1,0 +1,109 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
+<link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript">
+$(function () {
+$("select").chosen({allow_single_deselect:true});
+});
+
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Main Category List</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+	 
+        <li><a href="?do=managecategory" class="add_icon1"  ></a></li>
+	 <li><a href="javascript:submitform()" onclick="return confirm(\'Are you sure you want to delete this customer?\');"  class="delete_icon1" ></a></li>
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<AJDF:output>$updatemiancatmsg</AJDF:output>
+      <AJDF:output>$deletemsg</AJDF:output>
+        <div class="blocks" style="opacity: 1;">
+<div class="clsListing clearfix">
+  <AJDF:output>$showmaincat</AJDF:output>
+   <AJDF:output>$search</AJDF:output>
+</div></div>
+ 
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+<script type="text/javascript">
+	var options = {
+		script:"?do=showmain&action=autoc&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('catname', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=showmain&action=autoc&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('catname_xml', options_xml);
+
+
+function checkall()
+{
+
+	$( ".catagorydel" ).each(function() {
+
+		if(!$('.select_rows').attr('checked'))
+		{
+		
+			$('.catagorydel').attr('checked',false);
+		}
+		else
+		{
+			$('.select_rows').attr('checked',true)
+			$('.catagorydel').attr('checked',true);
+		}
+		
+	});
+	
+	
+}
+function submitform()
+{
+
+	if($("input:checked").length== 0)
+	{
+		alert('Please select atleast one checkbox');
+	}
+	else
+	{
+	document.arfrm.action="?do=showmain&action=delete";
+	document.arfrm.submit();
+	}	
+}
+</script>

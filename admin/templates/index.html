@@ -1,0 +1,431 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V2.3.
+
+* ZeusCart V2.3 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V2.3 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script src="assets/js/jquery.flot.js"></script>
+<script src="assets/js/jquery.flot.resize.js"></script>
+<script src="assets/js/jquery.flot.pie.js"></script>
+<script src="assets/js/jquery.flot.orderBars.js"></script>
+<script src="assets/js/jquery.flot.tooltip.js"></script>
+<script src="assets/js/jquery.flot.time.js"></script>
+<style>
+.demo-placeholder {
+    font-size: 14px;
+    height: 200px;
+    line-height: 14px;
+
+    width: 98% !important;
+	overflow:hidden;
+}
+#tooltip{
+	background:#333 !important;
+	color:#FFF !important;
+	font-size:11px !important;
+}
+.demo-container{
+	padding:10px 0 15px 15px;
+}
+#flot-tooltip {
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    position: absolute;
+    display: none;
+    border: 2px solid;
+    padding: 2px;
+    background-color: #FFF;
+    opacity: 0.8;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+#placeholder1 .legend table{
+  	right: 16px;
+    top: 26px;
+	background:#FFF;
+}
+
+</style>
+
+    
+     
+    
+     
+
+    	
+<div class="row-fluid show-grid clsBtm_20">
+    <div class="span8">
+        <h2 class="box_head gray_bg">Analytics</span></h2>
+        <div class="block" style="opacity: 1;">
+        <!--<ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#users">Users</a></li>
+             <li><a href="#sales">Sales</a></li> 
+        </ul>-->
+        <div class="tab-content">
+            <div class="tab-pane active" id="users">
+            	<div class="toggle_container">
+                    <div class="" style="opacity: 1;">
+                        <div class="clearfix">
+                            <div class="demo-container">
+                                <div id="placeholder" class="demo-placeholder"></div>
+                            </div>
+                
+                        </div>
+                    </div>
+            	</div>
+        	</div>
+            <div class="tab-pane" id="sales">
+            	<div class="toggle_container">
+                    <div class="" style="opacity: 1;">
+                        <div class="clearfix">
+                            <div class="demo-container">
+                                <div id="placeholder1" class="demo-placeholder"> </div>
+                            </div>
+                        </div>
+                    </div>
+            	</div>
+        	</div>
+        </div>
+         </div>
+    </div>
+    <div class="span4">
+        <h2 class="box_head green_bg">Latest Users</span></h2>
+        <div class="toggle_container">
+            <div class="block" style="opacity: 1;">
+                <div class="clearfix">
+                  <!-- <ul class="stats">
+                    <li class="odd last"><span><AJDF:output>$lowstock</AJDF:output> </span>No of Product in Low Stock</li>
+                  </ul> -->
+
+                  <AJDF:output>$latestcustomers</AJDF:output>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+
+<script type="text/javascript">
+
+	$(function() {
+
+		var data = [  
+        {  
+            label: "Users", 
+			color:"#208BBD",
+            data: [<AJDF:output>$users_chart</AJDF:output>]  
+        },  
+        ];
+		
+		
+
+		var plot = $.plot("#placeholder", data, {
+			series: {
+				lines: {
+					show: true
+				},
+				points: {
+					show: true
+				}
+			},
+			grid: {
+				hoverable: true,
+				clickable: true
+			}
+		});
+		
+		
+		function showTooltip(x, y, contents) {
+			$("<div id='tooltip'>" + contents + "</div>").css({
+				position: "absolute",
+				display: "none",
+				top: y + 5,
+				left: x + 5,
+				border: "1px solid #fdd",
+				padding: "2px",
+				"background-color": "#fee",
+				opacity: 0.80
+			}).appendTo("body").fadeIn(200);
+		}
+
+		var previousPoint = null;
+		$("#placeholder").bind("plothover", function (event, pos, item) {
+
+			if ($("#enablePosition:checked").length > 0) {
+				var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
+				$("#hoverdata").text(str);
+			}
+
+			//if ($("#enableTooltip:checked").length > 0) {
+				if (item) {
+					if (previousPoint != item.dataIndex) {
+
+						previousPoint = item.dataIndex;
+
+						$("#tooltip").remove();
+						var x = item.datapoint[0].toFixed(2),
+						y = item.datapoint[1].toFixed(2);
+
+						showTooltip(item.pageX, item.pageY,
+						    item.series.label + " of " + x + " = " + y);
+					}
+				} else {
+					$("#tooltip").remove();
+					previousPoint = null;            
+				}
+			//}
+		});
+		
+		
+
+		$('#myTab a').click(function (e) {
+			e.preventDefault();
+			$(this).tab('show');
+		})
+
+
+	});
+
+	</script>
+    <script>
+	$(function() {
+	var d1_1 = [
+        [1325376000000, 120],
+        [1328054400000, 70],
+        [1330560000000, 100],
+        [1333238400000, 60],
+        [1335830400000, 35],
+        [1335830400000, 50],
+        [1335830400000, 35],
+        [1335830400000, 50]
+
+    ];
+ 
+    
+    var data1 = [
+        {
+            label: "Product 1",
+            data: d1_1,
+            bars: {
+                show: true,
+                barWidth: 12*24*60*60*300,
+                fill: true,
+                lineWidth: 1,
+                order: 1,
+                fillColor:  "#208BBD"
+            },
+            color: "#208BBD"
+        }
+    ];
+	
+	
+ 
+    $.plot($("#placeholder1"), data1, {
+        xaxis: {
+            min: (new Date(2011, 11, 15)).getTime(),
+            max: (new Date(2012, 04, 18)).getTime(),
+            mode: "time",
+            timeformat: "%b",
+            tickSize: [1, "month"],
+            monthNames: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+            tickLength: 0, // hide gridlines
+            axisLabel: 'Month',
+            axisLabelUseCanvas: true,
+            axisLabelFontSizePixels: 12,
+            axisLabelFontFamily: 'Arial, Helvetica, Tahoma, sans-serif',
+            axisLabelPadding: 5
+        },
+        yaxis: {
+            axisLabel: 'Value',
+            axisLabelUseCanvas: true,
+            axisLabelFontSizePixels: 12,
+            axisLabelFontFamily: 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+            axisLabelPadding:5
+        },
+        grid: {
+            hoverable: true,
+            clickable: false,
+            borderWidth: 1
+        },
+        legend: {
+            labelBoxBorderColor: "none",
+            position: "right"
+        },
+        series: {
+            shadowSize: 1
+        }
+    });
+ 
+    function showTooltip(x, y, contents, z) {
+        $('<div id="flot-tooltip">' + contents + '</div>').css({
+            top: y + 5,
+            left: x + 5,
+            'border-color': z,
+        }).appendTo("body").show();
+    }
+ 
+    function getMonthName(newTimestamp) {
+        var d = new Date(newTimestamp);
+ 
+        var numericMonth = d.getMonth();
+        var monthArray = ["1", "2", "3", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+ 
+        var alphaMonth = monthArray[numericMonth];
+ 
+        return alphaMonth;
+    }
+	$("#placeholder1").bind("plothover", function (event, pos, item) {
+        if (item) {
+            if (previousPoint != item.datapoint) {
+                previousPoint = item.datapoint;
+                $("#flot-tooltip").remove();
+ 
+                var originalPoint;
+ 
+                if (item.datapoint[0] == item.series.data[0][3]) {
+                    originalPoint = item.series.data[0][0];
+                } else if (item.datapoint[0] == item.series.data[1][3]){
+                    originalPoint = item.series.data[1][0];
+                } else if (item.datapoint[0] == item.series.data[2][3]){
+                    originalPoint = item.series.data[2][0];
+                } else if (item.datapoint[0] == item.series.data[3][3]){
+                    originalPoint = item.series.data[3][0];
+                } else if (item.datapoint[0] == item.series.data[4][3]){
+                    originalPoint = item.series.data[4][0];
+                }
+ 
+                var x = getMonthName(originalPoint);
+                y = item.datapoint[1];
+                z = item.series.color;
+ 
+                showTooltip(item.pageX, item.pageY,
+                    "<b>" + item.series.label + "</b><br /> " + x + " = " + y + "",
+                    z);
+            }
+        } else {
+            $("#flot-tooltip").remove();
+            previousPoint = null;
+        }
+    });
+ 
+   
+	});
+	</script>
+
+   
+<!--
+<div class="row-fluid show-grid clsBtm_20">
+    <div class="span4">
+        <h2 class="box_head blue_bg">CUSTOMERS</span></h2>
+        <div class="toggle_container">
+            <div class="block" style="opacity: 1;">
+                <div class="clearfix">
+                  <ul class="stats">
+                    <li class="odd"><span><AJDF:output>$currentmonthuser</AJDF:output> </span>Current Month</li>
+                    <li class="even"><span><AJDF:output>$previousmonthuser</AJDF:output> </span>Previous Month</li>
+                    <li class="odd last"><span><AJDF:output>$totalusers</AJDF:output> </span>Total Customers</li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="span4">
+        <h2 class="box_head green_bg">SALES</span></h2>
+        <div class="toggle_container">
+            <div class="block" style="opacity: 1;">
+                <div class="clearfix">
+                  <ul class="stats">
+                    <li class="odd"><span><AJDF:output>$currency_type</AJDF:output>&nbsp;<AJDF:output>$currentmonthincome</AJDF:output></span>
+                    	Current Month</li>
+                    <li class="even"><span><AJDF:output>$currency_type</AJDF:output>&nbsp;<AJDF:output>$previousmonthincome</AJDF:output></span>
+                    	Previous Month</li>
+                    <li class="odd last"><span><AJDF:output>$currency_type</AJDF:output>&nbsp;<AJDF:output>$totalincome</AJDF:output></span>
+                    	Total Sales</li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="span4">
+        <h2 class="box_head orange_bg">PRODUCTS</span></h2>
+        <div class="toggle_container">
+            <div class="block" style="opacity: 1;">
+                <div class="clearfix">
+                  <ul class="stats">
+                    <li class="odd"><span><AJDF:output>$enabledproducts</AJDF:output> </span>Enabled</li>
+                    <li class="even"><span><AJDF:output>$disabledproducts</AJDF:output> </span>Disabled</li>
+                    <li class="odd last"><span><AJDF:output>$totalproducts</AJDF:output> </span>Total Products</li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+<div class="row-fluid show-grid clsBtm_20">
+    <div class="span4">
+        <h2 class="box_head blue_bg">Site Statistics</span></h2>
+        <div class="toggle_container">
+            <div class="block" style="opacity: 1;">
+                <div class="clearfix">
+                  <ul class="stats">
+                    <li class="odd"><span><AJDF:output>$monthlyorders</AJDF:output> </span>Current Month</li>
+                    <li class="even"><span><AJDF:output>$previousmonthorders</AJDF:output> </span>Previous Month</li>
+                    <li class="odd"><span><AJDF:output>$pendingorders</AJDF:output> </span>Pending Orders</li>
+                    <li class="even"><span><AJDF:output>$processingorders</AJDF:output> </span>Processing Orders</li>
+                    <li class="odd"><span><AJDF:output>$deliveredorders</AJDF:output> </span>Delivered Orders</li>
+                    <li class="even last"><span><AJDF:output>$totalorders</AJDF:output> </span>Total Orders</li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="span8">
+        <h2 class="box_head gray_bg">Latest Orders</span></h2>
+        <div class="toggle_container">
+            <div class="block" style="opacity: 1;">
+                <div class="clearfix">
+
+
+                       <AJDF:output>$latestorders</AJDF:output>
+                    <!-- <li class="odd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
+                    <li class="even">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc </li>
+                    <li class="odd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
+                    <li class="even">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
+                    <li class="odd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci</li>
+                    <li class="even last">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc </li> -->
+  
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+<!-- <div class="row-fluid show-grid clsBtm_20">
+    <AJDF:output>$latestorders</AJDF:output>
+    <AJDF:output>$latestcustomers</AJDF:output>
+</div> -->
+<AJDF:output>include file="footer.html"</AJDF:output>

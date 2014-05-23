@@ -1,0 +1,104 @@
+<AJDF:output>include file="header.html"</AJDF:output>
+    <tr>
+      <td valign="top" align="center" class="content_part"><table width="96%" cellspacing="0" cellpadding="0" border="0">
+          <tbody>
+            <tr>
+              <td align="right" class="chg_width" colspan="2"><a href="#menu" onmouseout="MM_swapImgRestore(); window.status = ''; return true" onmouseover="MM_swapImage('Image5','','images/ch_width_bttn_hov.gif',1); window.status = 'Click to expand/collapse'; return true" onclick="return toggle ('left_collap12_open', 'left_collap12_Hidden')" title="Click to expand/collapse" id="left_collap12_ctl">
+                <!--<img src="images/ch_width_bttn.gif" name="Image5" width="107" height="20" border="0" id="Image5" />-->
+                </a>
+                <input type="hidden" value="False" id="left_collap12_Hidden" name="left_collap12_Hidden"></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+            <!--  <tr>
+<td width="25%" align="left" valign="top" class="content_right_bdr" id="left_collap12_open">-->
+            <tr>
+              <td width="25%" valign="top" align="left" id="left_collap12_open" class="content_right_bdr"><table width="215" cellspacing="0" cellpadding="0" border="0">
+                  <tbody>
+                    <tr>
+                      <td width="215" align="left" class="content_title">Menu Type </td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td><table width="215" cellspacing="0" cellpadding="0" border="0">
+                          <tbody>
+                            <tr>
+                              <td colspan="2" align="left" valign="top" class="pages_bg">Category </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" align="left" valign="top" class="pages_bg_under"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td align="left" valign="top"><div id="body_right">
+                                        
+                                        <div style="display:block;" id="name_id">
+                                          <div class="tab_bg" style="padding:0;">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                              <tr>
+                                                <td align="left" valign="top"><AJDF:output>$category</AJDF:output></td>
+                                              </tr>
+                                            </table>
+                                          </div>
+                                        </div>
+
+                                      </div></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="left" valign="top" style="padding:10px 0;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                          <td align="left" valign="top" class="select_all"><a href="#">Select All</a></td>
+                                          <td align="right" valign="top" class="add_to_menu"><a href="#">Add to Menu</a></td>
+                                        </tr>
+                                      </table></td>
+                                  </tr>
+                                </table></td>
+                            </tr>
+                          </tbody>
+                        </table></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table></td>
+              <td width="75%" valign="top" align="left"><AJDF:output>$menutitlelist</AJDF:output>
+                <div class="main_menu_bg">
+<AJDF:output>$insmsg</AJDF:output>
+<form name="menus"   method="post" action="?do=menus&action=add&id=<AJDF:output>$smarty.get.id</AJDF:output>" >
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr class="row_01">
+                      <td align="left" valign="middle" width="14%">Menu Name</td>
+                      <td align="left" valign="middle" width="40%">
+                        <input type="text" name="menu_title" class="txt_box250" id="menu_title" value="<AJDF:output>$menuname</AJDF:output>" />
+                       </td>
+                      
+                    </tr>
+                    <tr class="row_01">
+                      <td align="left" valign="middle" class="delete_mnu"><a href="?do=menus&action=delete&id=<AJDF:output>$smarty.get.id</AJDF:output>">Delete Menu</a></td>
+                      <td align="left" valign="middle"></td>
+                      <td align="right" valign="middle" ><button class="save_menu" type="submit" >Save Menu</button></td>
+                    </tr>
+                  </table></form>
+                </div>
+                <div class="main_menu_bot"> Content will comes here </div></td>
+            </tr>
+          </tbody>
+        </table></td>
+    </tr>
+   <AJDF:output>include file="footer.html"</AJDF:output>
+<script>
+function selectMenuTypeList(id)
+{
+var url= "?do=menus&action=type&id="+id;
+ajax(url,'menutypelist');
+}
+function selectCategory(val)
+{
+alert(val);
+}
+</script>

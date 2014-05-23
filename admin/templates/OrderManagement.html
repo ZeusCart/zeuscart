@@ -1,0 +1,184 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript" src="js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
+<link rel="stylesheet" href="css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+<style>
+.rowhide{
+	display: none;
+}
+</style>
+
+<script type="text/javascript">
+<!--
+function selDeSel(a){
+//var mark = a == 'sel' ? 'checked' : '';
+ var inputs = document.getElementsByName('chkorder[]');
+        var checkboxes = [];		
+        for (var i = 0; i < inputs.length; i++) 
+		{
+              if (inputs[i].type == 'checkbox') 
+			  {
+				inputs[i].checked =true;
+			  }
+		}
+
+}
+
+function selUnDeSel(a){
+//var mark = a == 'sel' ? 'checked' : '';
+ var inputs = document.getElementsByName('chkorder[]');
+        var checkboxes = [];		
+        for (var i = 0; i < inputs.length; i++) 
+		{
+              if (inputs[i].type == 'checkbox') 
+			  {
+				inputs[i].checked =false;
+			  }
+		}
+
+}
+
+function showOrderDetail(id)
+{
+	
+	if(document.getElementById('orderDetail'+id).style.display=='none')
+	{
+		
+		$('.clshiderow'+id).removeClass('rowhide');
+		document.getElementById('order'+id).style.backgroundColor='#DBF3FF';
+		document.getElementById('quick'+id).src="images/minus.gif";
+		document.getElementById('orderDetail'+id).style.display='block';
+	}	
+	else
+	{
+		$('.clshiderow'+id).addClass('rowhide');
+		document.getElementById('order'+id).style.backgroundColor='';
+		document.getElementById('quick'+id).src="images/plus.gif";
+		document.getElementById('orderDetail'+id).style.display='none';	
+	}	
+}
+
+$(function () {
+
+$('.dlsrow').addClass('rowhide');
+
+$('#txtfromdate').datepicker();
+
+$('#txttodate').datepicker();
+
+});
+
+-->
+</script>
+<script type="text/javascript">
+$(function(){
+$("select").chosen({allow_single_deselect:true});
+	
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Order Management</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <!-- <li><a href="javascript:void(0);" class="export_icon"  id="adminactivity"></a></li> -->
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+<AJDF:output> $errmsg </AJDF:output>
+<AJDF:output>$orderlist</AJDF:output>
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+<script type="text/javascript">
+	var options = {
+		script:"?do=disporders&action=autoc&ids=1&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('orderid', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=disporders&action=autoc&ids=1&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('orderid_xml', options_xml);
+ 
+	var options = {
+		script:"?do=disporders&action=autoc&ids=2&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('dispname', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=disporders&action=autoc&ids=2&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('dispname_xml', options_xml);
+ 
+	var options = {
+		script:"?do=disporders&action=autoc&ids=3&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('billname', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=disporders&action=autoc&ids=3&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('billname_xml', options_xml);
+ 
+	var options = {
+		script:"?do=disporders&action=autoc&ids=4&json=true&limit=6&",
+		varname:"input",
+		json:true,
+		shownoresults:false,
+		maxresults:6,
+		callback: function (obj) { document.getElementById('testid').value = obj.id; }
+	};
+	var as_json = new bsn.AutoSuggest('shipname', options);
+	
+	
+	var options_xml = {
+		script: function (input) { return "?do=disporders&action=autoc&ids=4&input="+input+"&testid="+document.getElementById('testid').value; },
+		varname:"input"
+	};
+	var as_xml = new bsn.AutoSuggest('shipname_xml', options_xml);
+</script>

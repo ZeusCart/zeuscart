@@ -1,0 +1,111 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#updateFootericon').click(function(){
+    $("#updateFooter").submit();
+
+  });
+  
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Footer Management</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a href="javascript:void(0);" class="update_icon"  id="updateFootericon"></a></li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+<AJDF:output>if $smarty.session.successmsg neq ''</AJDF:output>
+<div class="alert alert-success">
+      <button data-dismiss="alert" class="close" type="button">×</button> 
+<AJDF:output>$smarty.session.successmsg</AJDF:output>
+</div>
+<AJDF:output>/if</AJDF:output>
+ <AJDF:output>if count($msg) gt 0</AJDF:output>
+       <div class="alert alert-error">
+             			 <button type="button" class="close" data-dismiss="alert">×</button> 
+                <AJDF:output>foreach name=err item=err from=$msg</AJDF:output>
+                <AJDF:output>$err</AJDF:output>
+                <br>
+                <AJDF:output>/foreach</AJDF:output>
+              </div>
+            <AJDF:output>/if</AJDF:output>
+<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Update Footer Management</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+
+<form name="frm" action="?do=updatefootersettings&action=connect" method="post"  id="updateFooter">
+
+<div class="row-fluid">
+              <div class="span6">
+                <label>
+  		Free Shipping Cost <font color="red">*</font></label>
+ 		 
+       		<input type="text" name="free_shipping_cost" cols="45" rows="4" class="span8" id="free_shipping_cost"  value="<AJDF:output>$footerconnect.free_shipping_cost</AJDF:output>" ></div></div>
+
+
+ <div class="row-fluid">
+              <div class="span6">
+                <label>
+  		  Call Us <font color="red">*</font></label>
+ 		 
+       		<input type="text" name="callus" cols="45" rows="4" class="span8" id="callus"  value="<AJDF:output>$footerconnect.callus</AJDF:output>" ></div></div> <div class="row-fluid">
+              <div class="span6">
+                <label>
+                
+   		 Email <font color="red">*</font>
+  		 </label>
+               
+     	   	<input type="text" name="email" cols="45" rows="4" class="span8" id="email" value="<AJDF:output>$footerconnect.email</AJDF:output>" ></div></div> <div class="row-fluid">
+              <div class="span6">
+                <label> Fax
+  		 </label>
+                
+        	<input type="text" name="fax" cols="45" rows="4" class="span8" id="fax"  value="<AJDF:output>$footerconnect.fax</AJDF:output>" ></div></div> <div class="row-fluid">
+              <div class="span6">
+                <label>Location <font color="red">*</font> </label>
+      
+        	<input type="text" name="location" cols="45" rows="4" class="span8" id="location"  value="<AJDF:output>$footerconnect.location</AJDF:output>"></div></div> <div class="row-fluid">
+              <div class="span6">
+                <label>Footer Content  <font color="red">*</font> </label>
+           
+        	<input type="text" name="footercontent" cols="45" rows="4" class="span8" id="footercontent"  value="<AJDF:output>$footerconnect.footercontent</AJDF:output>"></div></div>
+</form>
+   </div>
+                      </div>
+                    </div>
+                  </div></div>
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+

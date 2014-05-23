@@ -1,0 +1,98 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		// General options
+		mode : "textareas",
+		theme : "advanced",
+		plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+		// Theme options
+		//theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect",
+		//theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		theme_advanced_buttons2 : "search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		//theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+		theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,advhr,|,print,|,ltr,rtl,|",
+		//theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+		theme_advanced_buttons4 : "pagebreak",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resizing : true,
+
+		// Example content CSS (should be your site CSS)
+		content_css : "css/content.css",
+
+		// Drop lists for link/image/media/template dialogs
+		template_external_list_url : "lists/template_list.js",
+		external_link_list_url : "lists/link_list.js",
+		external_image_list_url : "lists/image_list.js",
+		media_external_list_url : "lists/media_list.js"
+
+	});
+</script>
+
+<form name="formcontents" action="?do=contents&action=add"  method="post" enctype="multipart/form-data">
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+		
+          <tr>
+            <td colspan="3" align="left" class="content_title">Content Management</td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+          <!--<tr>
+            <td colspan="3" align="right"><a href="?do=showcontents" class="tier_price" >View Content</a> </td>
+          </tr>-->
+		  <tr><td>
+		  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">
+      <tr>
+        <td  align="left" class="content_list_head" valign="top">Content Management</td>
+	  </tr>
+          <tr>
+        <td align="center">
+        <AJDF:output>$addcontent</AJDF:output>
+        </td>
+        </tr>
+        <!--<tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>-->
+          <tr style="padding-top:5px;">
+            <td width="" align="left" class="content_form">HTML Content Name:&nbsp;&nbsp;&nbsp;<input type="text" class="txt_box200" name="contentname" id="cat"  />
+</td></tr>
+<tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left"  class="content_form">HTML Content: 
+  <textarea name="htmlcontent" id="htmlcontent" cols="80" rows="20"><AJDF:output>$htmlcontent</AJDF:output></textarea>
+</td></tr>
+<tr>
+               
+                <td class="" colspan="2" align="center" style="padding:10px;"><input type="submit" name="submit" id="sub" value="Add Content" class="all_bttn"  /></td>
+              </tr>
+ </table></td></tr></table>
+</form>
+
+<AJDF:output>include file="footer.html"</AJDF:output>

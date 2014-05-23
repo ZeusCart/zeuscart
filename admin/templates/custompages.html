@@ -1,0 +1,55 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+
+<AJDF:output>include file="left.html"</AJDF:output>
+
+<form name="frm" action="?do=createpage&action=update" method="post" >
+<table width="97%" border="0" cellspacing="0" cellpadding="0"><tr>
+<td class="content_title" align="left">
+Custom Pages<!--&nbsp;<img src="images/help.gif" onmouseover="ShowHelp('dchead', 'Custom Pages', 'Add here')" onmouseout="HideHelp('dchead');">
+			<div id="dchead" style="left: 50px; top: 50px;"></div>-->
+</td>
+</tr>
+ 
+<tr >
+      <td align="left" style="padding-top:10px; padding-bottom:10px;"><AJDF:output>$createpagemsg</AJDF:output>
+      <AJDF:output>$deletepage</AJDF:output></td> 
+</tr>
+ <tr ><td colspan="2"  align="right" class="" style="padding-top:10px; padding-bottom:10px;"> <a href="?do=createpage&action=createnewpage" name="create page" class="add_link"> Create Page</a> </td></tr>
+    <tr><td>
+   
+    </td></tr>
+   
+<tr><td>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="">
+ 
+<tr><td class="label_name" colspan="2">
+ 
+	</td></tr><tr><td> <AJDF:output> $showpage </AJDF:output> 
+    </td></tr>
+   
+</table>
+</td>
+</tr>
+</table>
+</form>
+<AJDF:output>include file="footer.html"</AJDF:output>

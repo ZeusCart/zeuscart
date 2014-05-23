@@ -1,0 +1,66 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#saveNewslettericon').click(function(){
+    $("#saveNewsletter").submit();
+  });
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>NEWSLETTER</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a href="javascript:void(0);" class="save_icon"  id="saveNewslettericon"></a></li>
+       <li> <a class="back_icon1" href="javascript:history.go(-1)"></a></li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<form name="formcontents" action="?do=newsletter&action=add" id="saveNewsletter" method="post" enctype="multipart/form-data">
+
+<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Add Newsletter</h2>
+    <div class="toggle_container">
+      <div class="clsblock"> <div class="clearfix">
+				<div class="row-fluid">
+  <div class="span6"><label>  Newsletter Name</label>
+		  <input type="text" name="newslettertitle" id="newslettertitle" class="span8"  />
+		</div></div>		<div class="row-fluid">
+  <div class="span12"><label> Newsletter Content</label><textarea name="newslettercontent" id="newsletter" class="ckeditor" cols="70" rows="20"><?php if(get_magic_quotes_gpc())
+							echo stripslashes($_POST['newslettercontent']);
+							else
+							echo $_POST['newslettercontent'];?></textarea>
+	</div></div>	
+ </div>
+</div>
+</div>
+</div></div>
+</form>
+<AJDF:output>include file="footer.html"</AJDF:output>

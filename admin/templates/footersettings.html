@@ -1,0 +1,84 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+
+<AJDF:output>include file="left.html"</AJDF:output>
+
+<form name="frm" action="?do=footersettings&action=add" method="post" >
+<table width="97%" border="0" cellspacing="0" cellpadding="0"><tr>
+<td class="content_title">
+Footer Management
+</td>
+</tr>
+<tr>
+<td colspan="3" align="left">&nbsp;</td>
+</tr>
+<tr><td colspan="2" class="" align="right"><a href="?do=createpage" name="create page" class="add_link">Create Page</a> </td></tr>  
+<tr>
+<td colspan="3" align="left"><AJDF:output> $deletefooter </AJDF:output></td>
+</tr>
+
+    <tr><td>
+ <!--   <?php print_r($output['showfooter']) ?>
+   Preview: <AJDF:output> $showfooter </AJDF:output> -->
+    </td></tr>
+
+ &nbsp;<tr><td>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_form_bdr">
+ <tr>
+                <td width="34%" align="left" colspan="2" class="content_form_line">
+    Create New Link in Footer
+   </td>
+   </tr>
+              <tr>
+                <td width="34%" align="right" class="content_form_line">
+    Link Text:
+   </td>
+                <td width="66%"  class="content_form_line">
+        <input type="text" name="linkname" cols="45" rows="4" class="txt_box250" id="linkname" ><?php if(get_magic_quotes_gpc())
+					 stripslashes($_POST['linkname']);
+					else
+					 $_POST['linkname'];?></input></td>
+                    
+		</td>
+	</tr>
+    <tr>
+    <td width="34%" align="right" class="content_form_line">
+    Page Url:
+    </td>
+		<td width="66%" class="content_form_line">
+        <input type="text" name="linkurl" id="link" class="txt_box250" />
+        </td>
+    </tr>   
+    
+    <tr>
+    <td class="content_form_line">&nbsp;</td>
+    <td class="content_form_line">
+    <input type="submit" name="submit" class="all_bttn"  value="Add"/>
+    </td>
+</tr>
+<tr><td class="label_name" >
+   List of Created Pages: </td></tr><tr><td><AJDF:output> $showpage </AJDF:output>
+    </td></tr>
+</table></td></tr></table>
+</form>
+<AJDF:output>include file="footer.html"</AJDF:output>
+
+

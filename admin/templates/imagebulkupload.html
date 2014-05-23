@@ -1,0 +1,132 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+
+<script type="text/javascript" src="assets/js/bootstrap-fileupload.min.js"></script>
+<link rel="stylesheet" href="assets/css/bootstrap-fileupload.min.css">
+
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#updateImageBulkId').click(function(){
+    $("#updateImageBulk").submit();
+  });
+});
+</script>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Images Bulk Upload</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li>
+          <a href="javascript:void(0);" class="update_icon"  id="updateImageBulkId" ></a> </li>
+
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+
+<AJDF:output>$createpagemsg</AJDF:output>
+<AJDF:output>$deletepage</AJDF:output>
+<AJDF:output>$messages</AJDF:output>
+
+
+ <div class="row-fluid">
+  <div class="span12">
+    <h2 class="box_head green_bg">Images Bulk Upload</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+  <form name="fm" method="post" action="?do=bulkupload&action=imagesbulkupload" id="updateImageBulk" enctype="multipart/form-data">
+
+
+       <div class="row-fluid">
+        <div class="span12">
+          <label>
+          Images TSV File</label>
+
+          <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="fileupload-new thumbnail" style="width: 300px; height: 30px;"></div>
+            <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 300px; max-height: 30px; line-height: 20px;"></div>
+            <div>
+              <span class="btn btn-file"><span class="fileupload-new">Select</span><span class="fileupload-exists">Change</span>   <input type="file" name="image_file" id="image_file" value=""/></span>
+              <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+            </div>
+          </div>
+                 
+			<div id="dbulkup1" style=" position:fixed"></div></div></div>
+           
+               <div class="row-fluid">
+        <div class="span12">
+          <label> Sample Images TSV File</div>
+               <a href="?do=bulkupload&action=downloadimagessample"><img src="images/ico_bulk_doc.png" name="getdoc" id="getdoc" alt="Click Here" border="0"/></a>
+			<div id="dbulkup2" style="left: 50px; top: 50px;"></div></div></div>
+
+
+    </form>
+          </div>
+        </div>
+      </div>
+    <br/>
+
+
+      <div class="row-fluid">
+      <div class="span12">
+
+        <h2 class="box_head green_bg"> Note : To Upload The Images TSV File</h2>
+        <div class="toggle_container">
+          <div class="clsblock">
+            <div class="clearfix">
+
+
+  <ol> 
+          <li>1. 1. Click on the Sample images TSV file to download the zip</li>
+          <li>2. Extract the zip file.</li>
+          <li>3. There are two tsv files in the zip archive.</li>
+          <li>4. Open the productid.tsv in a spreadsheet application (Ex: Excel) to get the product reference. ie to which product I need to upload the images.</li>
+          <li>5. Open the images.tsv in a spreadsheet application </li>
+          <li>6. Don't Modify Or Delete The First Line Of Images TSV File</li>
+          <li>7. Delete the Dummy Image Details From The Second Line Of Images TSV File</li>
+          <li>8. Now copy all of your images into single folder.</li>
+          <li>9. Put a Unique name for the folder.</li>
+          <li>10. Then upload the folder to your online http://www.yourdomainname.com/images/,  through any one of the FTP application.</li>
+          <li>11. Then fill up the images.tsv file as follows</li>
+          <li>12. Enter the <b>Product Ids In the First Column</b> . Refer the  Product Id TSV File</li>
+                    <li>13. Enter the <b>Image Url Inside
+                      <!--uploadedbulkimages Folder-->
+                      In the Second Column</b> Correctly (images/UploadedImageFolderName/imagefilename)</li>
+                    <li>14. Enter the <b>Image Type Flag In the Third Column <font color="#000066">( main For Main Image in the detail page &amp; sub ForSub Images in the more images link)</font></b> Correctly </li>
+                    <li>15. Finally upload the images.tsv file with data. This will merge the products and images. Remember that mentioning thd product id in the images.tsv file is vital.</li>
+                  </ol>
+
+            </div>
+          </div>
+        </div>
+      </div></div>
+
+
+
+<AJDF:output>include file="footer.html"</AJDF:output>

@@ -1,0 +1,84 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript">
+ $(document).ready(function (){
+$('#cseactivity').click(function(){
+$("#cseFormid").submit();
+});
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Comparison Shopping Engine</h2>
+    </div>
+     <div class="span3" >
+
+      <ul class="bttn_right">
+            <li><a href="javascript:void(0);" class="save_icon"  id="cseactivity"></a></li>
+          </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<form name="cse" method="post"  id="cseFormid" action="?do=cse&action=savecse">
+  
+  <div class="row-fluid">
+  <div class="span12">
+    <h2 class="box_head green_bg">Comparison Shopping Engine</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+  <AJDF:output>$savecse</AJDF:output>
+   <AJDF:output>if count($msg) gt 0</AJDF:output>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button> 
+        <AJDF:output>$msg.regid</AJDF:output>
+</div>
+<AJDF:output>/if</AJDF:output>
+
+  <AJDF:output>$cse</AJDF:output>
+<div class="row-fluid">
+    <div class="span12">
+      <p><img src="images/prlogo-us.gif" alt="price runner" /></p><br/>
+     <p> From PriceRunner.com </p>
+        <b>What is PriceRunner? </b><p style="text-indent : 30px;">
+        PriceRunner has been a productive sales generation partner for thousands of partners since 1999 to become one of the leading shopping comparison sites worldwide. The success we bring our long-standing partners comes from a combination of superb user experience and solid sales results. </p> 
+
+<p><b>If you don't have pricerunner.com affiliate ID please <a href="http://www.pricerunner.com/" target="_blank" style="color:#0033FF">click here</a>. </b></p>
+        </div></div>
+<div class="row-fluid">
+    <div class="span6">
+    <label>Pricerunner Affiliate ID</label>
+        
+         <input name="regid" id="regid" type="text" size="29"  maxlength="10" value="<AJDF:output> $val.regid </AJDF:output>"/>
+       </div></div>
+       
+	  
+        </div>
+</div>
+</div>
+
+</div></div>
+     </form>
+<AJDF:output>include file="footer.html"</AJDF:output>

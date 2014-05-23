@@ -1,0 +1,46 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+
+<table cellpadding="0" cellspacing="0" border="0"><tr>
+<td bordercolor="#FF0000"><AJDF:output>$updatefooter</AJDF:output> </td></tr></table>
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="3" align="left" class="content_title">Footer Management</td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+<tr><td colspan="2" class="" align="right"><a href="?do=footersettings&action=createfooter" class="add_link" >Create Footer </a> </td></tr>  
+    <tr><td class="">
+ <!--   <?php print_r($output['showfooter']) ?>-->
+   <!--Preview: <AJDF:output>$showfooter</AJDF:output> -->
+   
+    </td></tr><tr><td>
+ 
+<AJDF:output> $editfooter </AJDF:output>
+</td></tr>
+<tr><td class="label_name" colspan="2">
+List of Created Pages:</td></tr><tr><td> <AJDF:output>$showpage</AJDF:output> 
+</td></tr>
+</table>
+ </form>
+ <AJDF:output>include file="footer.html"</AJDF:output>

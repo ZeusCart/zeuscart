@@ -1,0 +1,54 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript" src="js/calendar/calendar.js"></script>
+<script type="text/javascript" src="js/calendar/calendar-setup.js"></script>
+<script type="text/javascript" src="js/calendar/calendar-en.js"></script>
+
+<script type="text/javascript">
+$(function () {
+$("select").chosen({allow_single_deselect:true});
+
+});
+</script>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Coupon Codes Management</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a class="add_icon1" href="?do=createpromotionalcodes"><!-- Create Coupon --> </a></li>
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<AJDF:output>$insertmsg</AJDF:output>
+      <AJDF:output>$display</AJDF:output>
+      <AJDF:output>$displaysearch</AJDF:output>
+  
+      <AJDF:output>$displayusers</AJDF:output>
+    
+<AJDF:output>include file="footer.html"</AJDF:output>

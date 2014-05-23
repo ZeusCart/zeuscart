@@ -1,0 +1,75 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<link rel="stylesheet" href="assets/css/jquery.ibutton.min.css" />
+<script src="assets/js/jquery.ibutton.min.js"></script>
+<script src="assets/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript">
+$(document).ready(function (){
+  $('#updateIcon').click(function(){
+    $("#updateSubadmin").submit();
+  });
+});
+</script>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>EDIT SUB ADMIN MANAGEMENT</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a href="javascript:void(0);" class="update_icon"  id="updateIcon"></a></li>
+        
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+
+  <form method='post' id="updateSubadmin" action='?do=subadminmgt&action=update' >
+  	<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Sub Admin Details</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+
+<AJDF:output>$editsubadmin</AJDF:output>
+</div>
+</div>
+</div>
+</div></div>
+
+<script type="text/javascript">
+										$(document).ready(function (){
+											$(":checkbox").iButton();
+										})
+  // trigger the change event (to update the text)
+  
+  </script>
+</form>
+ 
+<AJDF:output>include file="footer.html"</AJDF:output>
+

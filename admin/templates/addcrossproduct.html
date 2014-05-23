@@ -1,0 +1,86 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+
+<script type="text/javascript">
+var xmlHttp;
+function LoadSubcategory(id,divid)
+{
+	if(id!='')
+	{		
+		url = "?do=addcrossproduct&action=showsubcat&id="+id;		
+		ajax(url,divid);
+	}
+ 
+}
+
+function showProducts(subcatid)
+{
+	url ="?do=addcrossproduct&action=showproducts&id=" + subcatid;
+	ajax(url, 'productlist');
+}
+
+</script>
+
+
+<form name="frmcat" action="?do=addcrossproduct&action=updateProducts" method="post">
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td colspan="3" align="left" class="content_title">Add Cross Products </td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left">&nbsp;</td>
+          </tr>
+		  <tr><td>  
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="content_list_bdr">
+      <tr>
+        <td  align="left" class="content_list_head" valign="top">Add Cross Products</td>
+	  </tr><tr><td><table>
+          <tr>
+            <td colspan="3" align="left" class="content_form">Adding Cross products for <span class="">      <AJDF:output>$disptitle</AJDF:output></span></td>
+          </tr>
+           <tr>
+          <td><table><tr>
+            <td class="content_form" align="left">Main Category</td>
+            <td class="content_form" align="left">
+<select name="cbocat" id="cbocat" class="" >
+<option value="">Select </option>
+<AJDF:output>$maincategory</AJDF:output></select></td>&nbsp;<td align="left"  class="content_form"><span id='subCategory' class="" ><AJDF:output>$subcategory</AJDF:output></span>
+<input type="hidden" name="catext" /><input type="hidden" name="rid" /><input type="hidden" name="idselected"></td>
+</tr>
+</table></td></tr>
+</table>
+<tr>
+      <td colspan="3" align="left">&nbsp;</td>
+</tr>
+<tr>
+<td class="msg" colspan="2"><AJDF:output>$msg</AJDF:output></td>
+</tr>
+<tr>
+
+<td colspan="4" align="left" id=productlist>
+
+<AJDF:output>$product</AJDF:output>
+
+</td>
+</tr>
+</table>
+</form>

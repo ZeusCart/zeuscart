@@ -1,0 +1,146 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript">
+$(document).ready(function (){
+
+
+  $('#paymentSave').click(function(){
+    $("#paymentId").submit();
+  });
+
+  
+   
+$('.accordion').each(function() {
+                    $(this).find('.accordion-group').each(function(){
+                        $(this).find('.accordion-toggle').prepend('<i class="icon-chevron-left"/>')
+                        $(this).find('.accordion-body').filter('.in').prev('.accordion-heading').find('.accordion-toggle').addClass('acc-in').children('i').toggleClass('icon-chevron-left icon-chevron-down');
+                        
+                        $(this).find('.accordion-body').on('show', function(option) {
+                            $(this).find('.accordion-toggle').removeClass('acc-in');
+                            $(option.target).prev('.accordion-heading').find('.accordion-toggle').addClass('acc-in').children('i').removeClass('icon-chevron-left').addClass('icon-chevron-down');
+                        });
+                        $(this).find('.accordion-body').on('hide', function(option) {
+                            $(option.target).prev('.accordion-heading').find('.accordion-toggle').removeClass('acc-in').children('i').addClass('icon-chevron-left').removeClass('icon-chevron-down');
+                        });
+                        
+                    });
+                })
+
+});
+</script>
+
+
+
+<style>
+   
+/* accordion  */
+    .accordion { border-bottom: 1px solid #e9e9e9 }
+    .accordion .accordion-group { margin: 0; border: none; border-radius: 0; }
+    .accordion .accordion-inner { border: none }
+    .accordion .accordion-heading a { background: #f7f7f7; color: #333; border-width: 1px 0 0; border-style: solid; border-color: #e9e9e9; overflow: hidden; }
+    .accordion .accordion-heading a:hover { text-decoration: none }
+    .accordion .accordion-heading a i { float: right; margin-top: 3px; margin-left: 10px; opacity: .3; }
+    .accordion .accordion-heading .label { vertical-align: 1px }
+    .accordion a.acc-in { background: none; border-top: 3px solid #368CA9; font-weight: 700; }
+    .accordion a.acc-in i { margin-top: 2px }
+</style>
+
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Payment Gateways Management</h2>
+    </div>
+    <div class="span3" >
+
+      <ul class="bttn_right">
+        <li><a href="javascript:void(0);" class="save_icon"  id="paymentSave"></a></li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
+
+<AJDF:output> $updatepaymentmessage </AJDF:output>
+
+<div class="row-fluid">
+  <div class="span12">
+
+    <h2 class="box_head green_bg">Update Payment Settings</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+
+<AJDF:output> $adminpaymentgateways </AJDF:output>
+
+</div>
+</div>
+</div>
+</div></div>
+
+<!-- <div class="w-box-content cnt_a">
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="accordion" id="accordion1">
+                                            <div class="accordion-group">
+                                                <div class="accordion-heading">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">
+                                                        Collapsible Group Item #1
+                                                    
+
+                                                    </a>
+                                                </div>
+                                                <div id="collapseOne1" class="accordion-body collapse">
+                                                    <div class="accordion-inner">
+                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-group">
+                                                <div class="accordion-heading">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo1">
+                                                        Collapsible Group Item #2
+                                                    
+
+                                                    </a>
+                                                </div>
+                                                <div id="collapseTwo1" class="accordion-body collapse">
+                                                    <div class="accordion-inner">
+                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="accordion-group">
+                                                <div class="accordion-heading">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseThree1">
+                                                        Collapsible Group Item #3
+                                                    
+
+                                                    </a>
+                                                </div>
+                                                <div id="collapseThree1" class="accordion-body collapse">
+                                                    <div class="accordion-inner">
+                                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+<AJDF:output>include file="footer.html"</AJDF:output>

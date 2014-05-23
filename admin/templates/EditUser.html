@@ -1,0 +1,147 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript">
+ $(document).ready(function (){
+$('#userupdate').click(function(){
+$("#edituser").submit();
+});
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>EDIT USER </h2>
+    </div>
+     <div class="span3" >
+
+      <ul class="bttn_right">
+	
+            <li><a href="javascript:void(0);" class="update_icon"  id="userupdate"></a></li>
+			<li><a class="back_icon1" href="javascript:history.back()"></a></li>
+          </ul>
+
+    </div>
+
+  </div>
+</div>
+
+
+<AJDF:output>$sitemotomsg</AJDF:output>
+ <AJDF:output>if count($msg) gt 0</AJDF:output>
+       <div class="alert alert-error">
+             			 <button type="button" class="close" data-dismiss="alert">×</button> 
+                <AJDF:output>foreach name=err item=err from=$msg</AJDF:output>
+                <AJDF:output>$err</AJDF:output>
+                <br>
+                <AJDF:output>/foreach</AJDF:output>
+              </div>
+            <AJDF:output>/if</AJDF:output>
+
+   <form name="reg" method="post" id="edituser" action="?do=updatereg&action=update&userid=<AJDF:output>$value.userid</AJDF:output>">
+
+	<input type="hidden" name="userid" value="<AJDF:output>$value.userid</AJDF:output>" />
+
+  <div class="row-fluid">
+  <div class="span12">
+
+
+    <h2 class="box_head green_bg">EDIT USER</h2>
+    <div class="toggle_container">
+      <div class="clsblock">
+        <div class="clearfix">
+		<div class="row-fluid">
+			<div class="span6">
+				<label>Display Name <font color="red">*</font></label>
+					<input type="text" name="txtdisname" id="txtdisname" class="span8" value="<AJDF:output>$value.txtdisname</AJDF:output>"   /> 
+						
+				</font>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label>First Name <font color="red">*</font></label>
+					<input type="text" name="txtfname" id="txtfname" value="<AJDF:output>$value.txtfname</AJDF:output>"  class="span8" /> 
+						
+				</font>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label>Last Name <font color="red">*</font></label>
+					<input type="text" name="txtlname" id="txtlname" value="<AJDF:output> $value.txtlname </AJDF:output>"  class="span8" /> 				
+				</font>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label>Email Address <font color="red">*</font></label>
+					<input type="text" name="txtemail" id="txtemail" value="<AJDF:output> $value.txtemail </AJDF:output>"  class="span8" /> 				
+				</font>
+			</div>
+		</div>
+      		<div class="row-fluid">
+			<div class="span6">
+				<label>Address <font color="red">*</font></label>
+					<input type="text" name="txtaddr" id="txtaddr" value="<AJDF:output> $value.txtaddr </AJDF:output>"  class="span8" /> 				
+				</font>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label>City <font color="red">*</font></label>
+					<input type="text" name="txtcity" id="txtcity" value="<AJDF:output> $value.txtcity </AJDF:output>"  class="span8" />				
+				</font>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label>State/Province <font color="red">*</font></label>
+					<input type="text" name="txtState" id="txtState" value="<AJDF:output> $value.txtState </AJDF:output>"  class="span8" /> 				
+				</font>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label>Zip/Postal Code <font color="red">*</font></label>
+					<input type="text" name="txtzipcode" id="txtzipcode" value="<AJDF:output> $value.txtzipcode </AJDF:output>"  class="span8" /> 				
+				</font>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label>Country <font color="red">*</font></label>
+					<AJDF:output>$val.selCountry </AJDF:output>
+						 
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label>Group </label>
+					<AJDF:output>$group.selGroup </AJDF:output> 
+			</div>
+		</div>
+              </div>
+</div>
+</div>
+
+</div></div>
+
+        </form> 
+<AJDF:output>include file="footer.html"</AJDF:output>

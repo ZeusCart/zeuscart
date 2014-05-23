@@ -1,0 +1,47 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<AJDF:output>include file="left.html"</AJDF:output>
+<script type="text/javascript">
+var xmlHttp;
+
+function showattribvalue(attribid)
+{
+	//url ="?do=showsub&action=show&id=" + subcatid;
+	//ajax(url, 'productlist');
+	//alert(subcatid);
+	window.location = "?do=productfeatures&action=show&attribid="+attribid;
+}
+</script>
+<table width="97%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="left" class="content_title" colspan="3">Product Features Management</td>
+          </tr>
+		  <tr>
+            <td align="left">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="left"> 
+<AJDF:output>$productfeatures</AJDF:output>
+
+</td>
+          </tr>
+</table>
+<AJDF:output>include file="footer.html"</AJDF:output>

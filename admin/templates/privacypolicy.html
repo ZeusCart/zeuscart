@@ -1,0 +1,66 @@
+<AJDF:output>
+* GNU General Public License.
+
+* This file is part of ZeusCart V4
+
+* ZeusCart V4 is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 4 of the License, or
+* (at your option) any later version.
+* 
+* ZeusCart V4 is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Foobar. If not, see <http://www.gnu.org/licenses/>.
+*
+</AJDF:output>
+<AJDF:output>include file="header.html"</AJDF:output>
+<script type="text/javascript">
+ $(document).ready(function (){
+$('#privacybutton').click(function(){
+$("#privacyid").submit();
+});
+});
+</script>
+<div class="menu_new clsBtm_20">
+  <div class="row-fluid">
+    <div class="span9"><h2>Privacy Policy
+</h2>
+    </div>
+     <div class="span3" >    <ul class="bttn_right">
+            <li><a href="javascript:void(0);"  class="update_icon"  id="privacybutton"></a></li>
+          </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<AJDF:output>$updateprivacymsg</AJDF:output>
+
+
+<div class="row-fluid">
+	<div class="span12">
+
+
+		<h2 class="box_head green_bg">Content </h2>
+		<div class="toggle_container">
+			<div class="clsblock">
+				<div class="clearfix">
+					<form name="formcontents" id="privacyid" action="?do=adminprivacypolicy&action=updateprivacy"  method="post" enctype="multipart/form-data">
+						<textarea name="privacypolicy"  class="ckeditor" id="privacypolicy" cols="85" rows="20"><AJDF:output>$privacypolicy</AJDF:output></textarea><br/>
+					<!-- 	<input type="submit" name="submit" id="sub" value="Update Privacy Policy" class="clsBigBtn" /> -->
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+	</div></div>
+
+	<AJDF:output>include file="footer.html"</AJDF:output>
+
