@@ -130,8 +130,18 @@ class Display_DNewProducts
 					
 					<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
 				
-				$output.='<button class="info" type="submit" >'.Core_CLanguage::_(ADD_TO_CART).'</button>';
-			
+			  if($arr[$i]['has_variation']==1)
+				   {
+
+                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><input type="button" value="Add to cart" class="addcart" /></a></div>';
+                   }
+                   else
+                   {
+                   	    $output.='<div class="span6"><input type="submit" value="Add to cart" class="addcart" /></div>';
+
+                   } 
+
+
 				$output.='</div>
 				</div><input type="hidden" name="addtocart"></form></div>';
 
