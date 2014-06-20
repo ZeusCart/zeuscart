@@ -37,15 +37,40 @@ class Bin_UrlHelper extends Bin_Query
 	{	
 
 
-			if(isset($_SERVER['PATH_INFO']))
+			if(isset($_SERVER['PATH_INFO']) && $_GET['do']=='' )
 			{
 				$url=$_SERVER['PATH_INFO'];
+
 				$results = explode('/', trim($url,'/'));	
+
+				$sql_inject= end($results);
+				$sql_inject=explode('.',$sql_inject);
+				$sql_inject=$sql_inject[1];
+				
+				if($sql_inject!='html')
+				{
+
+					$_GET['do']='index';
+
+				}
+
 			}
 			else
 			{
+		
+
 				$url=$_GET['do'];
 				$results = explode('/', trim($url,'/'));
+				$sql_inject= end($results);
+				$sql_inject=explode('.',$sql_inject);
+				$sql_inject=$sql_inject[1];
+				
+				if($sql_inject!='html')
+				{
+
+					$_GET['do']='index';
+
+				}
 			}
 
 			 $given_main_cat=$results[0];
@@ -177,11 +202,12 @@ class Bin_UrlHelper extends Bin_Query
 					}
 
 
+
 				}
 
 
+			}
 
-			}		
 	}
 
 
