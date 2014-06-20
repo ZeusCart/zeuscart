@@ -509,7 +509,7 @@ class Core_Settings_CManageProducts
 	
 	function displayCategory($catid)
 	{
-		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0";
+		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0 and category_status!='2'";
 		
 		$query = new Bin_Query();
 		
@@ -641,7 +641,7 @@ class Core_Settings_CManageProducts
 			
 			$query->executeQuery($sqlid);
 			
-			$sql1 = "SELECT category_id,category_name FROM category_table where category_parent_id=0";
+			$sql1 = "SELECT category_id,category_name FROM category_table where category_parent_id=0 and category_status!='2'";
 		
 			$query1 = new Bin_Query();
 		
