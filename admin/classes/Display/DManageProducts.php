@@ -707,6 +707,7 @@ class Display_DManageProducts
 	function editMainImage($main)
 	{
 
+
 		if($main != 0)
 		{
 			$output='   <div class="row-fluid">
@@ -845,7 +846,7 @@ class Display_DManageProducts
 	    $displayCategory=explode(",", $catid);
 		if((count($result))>0)
 		{
-		   	 $output='<select name="selcatgory[]" id="selcatgory" style="width: 292px;height:150px" multiple><option value="Choose Category">Choose Category</option>';	
+		   	 $output='<select name="selcatgory[]" onclick="assignSubCat(this.value);" id="selcatgory" style="width: 292px;height:150px" multiple><option value="Choose Category">Choose Category</option>';	
 		
 			for($k=0;$k<count($result);$k++)
 			{
@@ -879,7 +880,7 @@ class Display_DManageProducts
 	function getSubFamilies($level, $id,$catid) {
 
 		$level++;
-		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id." and category_status!='2'";
 		$resultSubFamilies = mysql_query($sqlSubFamilies);
 		if (mysql_num_rows($resultSubFamilies) > 0) {
 		
