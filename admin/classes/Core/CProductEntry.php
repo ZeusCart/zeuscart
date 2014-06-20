@@ -1090,7 +1090,8 @@
 		}
 		$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
 
-		$sql="SELECT * FROM products_table WHERE alias='".$sluggable."'";
+		$sql="SELECT alias FROM products_table WHERE alias='".$sluggable."'
+		UNION  SELECT category_alias FROM category_table WHERE category_alias='".$sluggable."";
 		$obj=new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
