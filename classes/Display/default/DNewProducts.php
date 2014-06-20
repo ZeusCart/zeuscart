@@ -462,7 +462,7 @@ class Display_DNewProducts
 					$obj->executeQuery($sql);
 					$recordssoh=$obj->records;
 					
-						$output.='<button class="add_btn" type="submit" ><p style="margin-left:25%"></p></button>';
+						$output.='<button class="add_btn" type="submit" ><p style="margin-left:25%">'.Core_CLanguage::_(ADD_TO_CART).'</p></button>';
 					
 					$output.='</div>
 					</div>
