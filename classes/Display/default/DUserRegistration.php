@@ -60,16 +60,23 @@ class Display_DUserRegistration
 			{
 				
 
-				
-				if(trim($_GET['cat'])==$arr[$i]['category_name'])
+				$sql_sel="SELECT * FROM category_table WHERE category_id='".$_GET['cat']."'";
+				$obj_sel=new Bin_Query();
+				$obj_sel->executeQuery($sql_sel);
+				$subcat_path=$obj_sel->records[0]['subcat_path'];
+
+				$HiddenCategory = explode(',',$subcat_path);					
+
+				if(in_array(trim($arr[$i]['category_id']), $HiddenCategory)) 
 				{
-					$class='select';
+
+
+					$class='class=select';
 				}
 				else
 				{
 					$class='';	
 				}
-
 			$sluggable = $arr[$i]['category_alias'];
 
 				$output.='<li '.$class.'><a href="'.$_SESSION['base_url'].'/index.php/'.$sluggable.'.html" class="arrow">'.$arr[$i]['category_name'].'</a>
@@ -129,7 +136,8 @@ class Display_DUserRegistration
 	
 		$level++;
 		
-		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id." AND category_status =1"; 
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id." AND category_status =1 ORDER BY category_name ASC"; 
+		
 		$resultSubFamilies = mysql_query($sqlSubFamilies);
 		if (mysql_num_rows($resultSubFamilies) > 0 ) {
 			
@@ -175,7 +183,7 @@ class Display_DUserRegistration
 
 		for($m=0;$m<count($cat);$m++)
 		{
-			$sql = "SELECT * from category_table WHERE  category_id = ".$cat[$m]." AND category_status =1"; 
+			$sql = "SELECT * from category_table WHERE  category_id = ".$cat[$m]." AND category_status =1 ORDER BY category_name ASC"; 
 			$obj=new Bin_Query();
 			$obj->executeQuery($sql);
 			
@@ -200,46 +208,99 @@ class Display_DUserRegistration
 	function showHeaderMenuHidden($arr)
 	{
 
+
 		$cnt= count($arr);
 		if($cnt>0)
 		{
 			for($i=0;$i<$cnt;$i++)
 			{
-				$output.='<li class="menuselect"><a href="'.$_SESSION['base_url'].'/index.php?do=viewproducts&cat='.$arr[$i]['category_name'].'" class="arrow">'.$arr[$i]['category_name'].'</a></li>';
+				
 
-					$sqlsub="SELECT * FROM  category_table WHERE  category_parent_id='".$arr[$i]['category_id']."' AND sub_category_parent_id ='0' AND category_status =1";
-					$objsub=new Bin_Query();
-					$objsub->executeQuery($sqlsub);
-					$recordssub=$objsub->records;
-					for($j=0;$j<count($recordssub);$j++)
-					{
-						$output.='<li>
-						<a href="'.$_SESSION['base_url'].'/index.php?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'"><h4><img src="'.$_SESSION['base_url'].'/assets/img/s-arrow.png">&nbsp;'.$recordssub[$j]['category_name'].'</h4></a>
-						</li>';
-							
-							$query = new Bin_Query(); 
-							$sql = "SELECT * FROM `category_table` WHERE sub_category_parent_id =".$recordssub[$j]['category_id']." AND category_status =1 order by category_name limit 16";
-							$query->executeQuery($sql);
-							$count=count($query->records);
-							$records=$query->records;
-							if($count>0)
-							{
-								for($k=0;$k<$count;$k++)
-								{
-									$output.='<li><a href="'.$_SESSION['base_url'].'/index.php?do=viewproducts&cat='.$arr[$i]['category_name'].'&subcat='.$recordssub[$j]['category_name'].'&subundercat='.$records[$k]['category_name'].'">-&nbsp;'.$records[$k]['category_name'].'</a></li>';
+				$sql_sel="SELECT * FROM category_table WHERE category_id='".$_GET['cat']."'";
+				$obj_sel=new Bin_Query();
+				$obj_sel->executeQuery($sql_sel);
+				$subcat_path=$obj_sel->records[0]['subcat_path'];
+
+				$HiddenCategory = explode(',',$subcat_path);					
+
+				if(in_array(trim($arr[$i]['category_id']), $HiddenCategory)) 
+				{
+
+
+					$class='class=select';
+				}
+				else
+				{
+					$class='';	
+				}
+				$sluggable = $arr[$i]['category_alias'];
+
+				$output.='<li class="menuselect"><a href="'.$_SESSION['base_url'].'/index.php/'.$sluggable.'.html" class="arrow">'.$arr[$i]['category_name'].'</a></li>';
+				$output.=self::getHiddenSubFamilies(0,$arr[$i]['category_id'],0);
 	
-								}
-							}
-						
-					}
-	
-					
 			}
-	
+			
 		}
+
 		return $output;	
 	}
+	/**
+	 * Function generates an drop down list for the hidden sub category  
+	 * 
+	 * 
+	 * @return array
+	 */
+	function getHiddenSubFamilies($level,$id,$k)
+	{
 
+		$level++;
+		
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id." AND category_status =1 ORDER BY category_name ASC"; 
+		
+		$resultSubFamilies = mysql_query($sqlSubFamilies);
+		if (mysql_num_rows($resultSubFamilies) > 0 ) {
+			
+			while($rowSubFamilies = mysql_fetch_assoc($resultSubFamilies )) {
+				$k=$k+10;
+			  	$categoryname=self::getSubFamiliesPath($rowSubFamilies['subcat_path']);
+				if($rowSubFamilies['category_id'])
+
+
+					
+					if($level=='1')
+					{
+
+						$output.='<li><a href="'.$_SESSION['base_url'].'/index.php/'.$categoryname.'.html">- &nbsp;'.$rowSubFamilies['category_name'].'</a>';	
+						$output.=self::getHiddenSubFamilies($level, $rowSubFamilies['category_id'],$k);	
+						$output.='</li>';	
+					}
+					else
+					{
+
+						$output.='
+						<li ><a href="'.$_SESSION['base_url'].'/index.php/'.$categoryname.'.html">';
+
+						for($a=1;$a<$level+1;$a++)
+						{
+						 $commaspac.='- &nbsp;';
+							
+						}	
+
+
+						$output.=$commaspac.''.$rowSubFamilies['category_name'].'</a></li>';
+						
+						$output.=self::getHiddenSubFamilies($level, $rowSubFamilies['category_id'],$k);
+		
+						
+					}
+
+				}
+				
+				
+		}
+		
+		return $output;
+	}
  	/**
 	* This function is used to Display the Sub Header menu
 	* @param mixed $arr
