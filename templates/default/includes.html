@@ -93,7 +93,14 @@ $(document).ready(function() {
 
 function changeVariation(pid,vid)
 {
-	document.location.hash='?do=prodetail&action=showprod&prodid='+pid+'&varid='+vid;
+	 var str = vid;
+	 var res = str.split(",");
+	 var res=res[1];
+	 var varid=res[0];
+	document.getElementById('product_price').innerHTML=res;
+	document.getElementById('varid').value=varid;
+	//document.getElementById('prodid').value=pid;
+	//document.location.hash='?do=prodetail&action=showprod&prodid='+pid+'&varid='+vid;
 }
 </script>
 <script type="text/javascript">
@@ -166,6 +173,8 @@ function shuffle()
 <AJDF:output>if $smarty.session.reviewResult ne ''</AJDF:output>
 <script type="text/javascript">
 document.getElementById('details_id').style.display="block";
+document.getElementById('account_id').style.display="none";
+
 </script>
 <AJDF:output>/if</AJDF:output>
 
