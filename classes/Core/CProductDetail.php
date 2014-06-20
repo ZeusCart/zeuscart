@@ -151,7 +151,7 @@ class Core_CProductDetail
 		$reviewqry->executeQuery($sqlReview);
 		
 		//Get Images for different view
-		$sqlImages="select * from product_images_table where type='sub' and product_id=".(int)$_GET['prodid'].' limit 0,4';
+		$sqlImages="select * from product_images_table where  product_id=".(int)$_GET['prodid'].' order by 	product_images_id limit 0,4 ';
 		$imgqry = new Bin_Query();
 		$imgqry->executeQuery($sqlImages);
 		
