@@ -1129,8 +1129,6 @@ class Core_CQuery
 
 		$sql="Drop table if exists product_images_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE product_images_table(product_images_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,product_id  INT(20) NOT NULL,image_path  VARCHAR(200) NOT NULL,large_image_path VARCHAR(200) NOT NULL,thumb_image_path  VARCHAR(200) NOT NULL,type  VARCHAR(40) NOT NULL)";
-		$result=mysql_query($sql);
 		$sql="INSERT INTO `product_images_table` (`product_images_id`, `product_id`, `image_path`, `large_image_path`, `thumb_image_path`, `type`) VALUES
 (1, 1, 'images/products/boot06.jpg', 'images/products/large_image/boot06.jpg', 'images/products/thumb/boot06.jpg', 'main'),
 (2, 2, 'images/products/formals06.jpg', 'images/products/large_image/formals06.jpg', 'images/products/thumb/formals06.jpg', 'main'),
@@ -1167,1008 +1165,399 @@ class Core_CQuery
 (27, 18, 'images/products/digital-watches02.jpg', 'images/products/large_image/digital-watches02.jpg', 'images/products/thumb/digital-watches02.jpg', 'main'),
 (28, 19, 'images/products/chronograhs05.jpg', 'images/products/large_image/chronograhs05.jpg', 'images/products/thumb/chronograhs05.jpg', 'main'),
 (29, 20, 'images/products/laptop-bags04.jpg', 'images/products/large_image/laptop-bags04.jpg', 'images/products/thumb/laptop-bags04.jpg', 'main'),
-(30, 19, 'images/products/chronograhs01.jpg', 'images/products/large_image/chronograhs01.jpg', 'images/products/thumb/chronograhs01.jpg', 'sub'),
-(31, 1, 'images/products/boot02.jpg', 'images/products/large_image/boot02.jpg', 'images/products/thumb/boot02.jpg', 'sub'),
-(32, 1, 'images/products/boot01.jpg', 'images/products/large_image/boot01.jpg', 'images/products/thumb/boot01.jpg', 'sub'),
-(33, 21, 'images/products/backpacks03.jpg', 'images/products/large_image/backpacks03.jpg', 'images/products/thumb/backpacks03.jpg', 'main'),
-(34, 21, 'images/products/backpacks01.jpg', 'images/products/large_image/backpacks01.jpg', 'images/products/thumb/backpacks01.jpg', 'sub'),
-(35, 21, 'images/products/backpacks02.jpg', 'images/products/large_image/backpacks02.jpg', 'images/products/thumb/backpacks02.jpg', 'sub'),
-(36, 21, 'images/products/backpacks05.jpg', 'images/products/large_image/backpacks05.jpg', 'images/products/thumb/backpacks05.jpg', 'sub'),
-(37, 21, 'images/products/backpacks06.jpg', 'images/products/large_image/backpacks06.jpg', 'images/products/thumb/backpacks06.jpg', 'sub'),
-(38, 22, 'images/products/wallets01.jpg', 'images/products/large_image/wallets01.jpg', 'images/products/thumb/wallets01.jpg', 'main'),
-(39, 22, 'images/products/wallets02.jpg', 'images/products/large_image/wallets02.jpg', 'images/products/thumb/wallets02.jpg', 'sub'),
-(40, 22, 'images/products/wallets03.jpg', 'images/products/large_image/wallets03.jpg', 'images/products/thumb/wallets03.jpg', 'sub'),
-(41, 22, 'images/products/wallets04.jpg', 'images/products/large_image/wallets04.jpg', 'images/products/thumb/wallets04.jpg', 'sub'),
-(42, 22, 'images/products/wallets05.jpg', 'images/products/large_image/wallets05.jpg', 'images/products/thumb/wallets05.jpg', 'sub'),
-(43, 4, 'images/products/fila-sports-shoes.jpg', 'images/products/large_image/fila-sports-shoes.jpg', 'images/products/thumb/fila-sports-shoes.jpg', 'sub'),
-(44, 4, 'images/products/adidas.jpg', 'images/products/large_image/adidas.jpg', 'images/products/thumb/adidas.jpg', 'sub'),
-(45, 4, 'images/products/Adidas-AGORA-LEA-Men-Black.jpg', 'images/products/large_image/Adidas-AGORA-LEA-Men-Black.jpg', 'images/products/thumb/Adidas-AGORA-LEA-Men-Black.jpg', 'sub'),
-(78, 1, 'images/products/boot05.jpg', 'images/products/large_image/boot05.jpg', 'images/products/thumb/boot05.jpg', 'sub'),
-(46, 23, 'images/products/2013-10-18-064649hand2.jpg', 'images/products/large_image/2013-10-18-064649hand2.jpg', 'images/products/thumb/2013-10-18-064649hand2.jpg', 'main'),
-(47, 24, 'images/products/chip.jpg', 'images/products/large_image/chip.jpg', 'images/products/thumb/chip.jpg', 'main'),
-(48, 7, 'images/products/wallets05.jpg', 'images/products/large_image/wallets05.jpg', 'images/products/thumb/wallets05.jpg', 'sub'),
-(92, 7, 'images/products/wallets04.jpg', 'images/products/large_image/wallets04.jpg', 'images/products/thumb/wallets04.jpg', 'sub'),
-(49, 25, 'images/products/gift.jpg', 'images/products/large_image/gift.jpg', 'images/products/thumb/gift.jpg', 'main'),
-(50, 25, 'images/products/gift2.jpg', 'images/products/large_image/gift2.jpg', 'images/products/thumb/gift2.jpg', 'sub'),
-(51, 25, 'images/products/gift3.jpg', 'images/products/large_image/gift3.jpg', 'images/products/thumb/gift3.jpg', 'sub'),
-(52, 25, 'images/products/gift5.jpg', 'images/products/large_image/gift5.jpg', 'images/products/thumb/gift5.jpg', 'sub'),
-(53, 26, 'images/products/2013-10-18-072603(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'images/products/large_image/2013-10-18-072603(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'images/products/thumb/2013-10-18-072603(JPEG Image, 400Â Ã—Â 200 pixels).jpeg', 'main'),
-(54, 26, 'images/products/5.jpg', 'images/products/large_image/5.jpg', 'images/products/thumb/5.jpg', 'sub'),
-(55, 26, 'images/products/3.jpg', 'images/products/large_image/3.jpg', 'images/products/thumb/3.jpg', 'sub'),
-(56, 26, 'images/products/2.jpg', 'images/products/large_image/2.jpg', 'images/products/thumb/2.jpg', 'sub'),
-(57, 26, 'images/products/4.jpg', 'images/products/large_image/4.jpg', 'images/products/thumb/4.jpg', 'sub'),
-(58, 27, 'images/products/Dave Scarf.jpg', 'images/products/large_image/Dave Scarf.jpg', 'images/products/thumb/Dave Scarf.jpg', 'main'),
-(59, 28, 'images/products/BMW Motorsport Webbing Belt.jpg', 'images/products/large_image/BMW Motorsport Webbing Belt.jpg', 'images/products/thumb/BMW Motorsport Webbing Belt.jpg', 'main'),
-(60, 28, 'images/products/', 'images/products/large_image/', 'images/products/thumb/', 'sub'),
-(61, 29, 'images/products/2.jpg', 'images/products/large_image/2.jpg', 'images/products/thumb/2.jpg', 'main'),
-(62, 30, 'images/products/2012-11-23 11.41.50.jpg', 'images/products/large_image/2012-11-23 11.41.50.jpg', 'images/products/thumb/2012-11-23 11.41.50.jpg', 'main'),
-(63, 30, 'images/products/2012-11-23 11.41.53.jpg', 'images/products/large_image/2012-11-23 11.41.53.jpg', 'images/products/thumb/2012-11-23 11.41.53.jpg', 'sub'),
-(64, 31, 'images/products/2012-11-23 11.41.50.jpg', 'images/products/large_image/2012-11-23 11.41.50.jpg', 'images/products/thumb/2012-11-23 11.41.50.jpg', 'main'),
-(65, 32, 'images/products/2012-11-23 11.41.50.jpg', 'images/products/large_image/2012-11-23 11.41.50.jpg', 'images/products/thumb/2012-11-23 11.41.50.jpg', 'main'),
-(66, 32, 'images/products/2012-11-23 11.41.53.jpg', 'images/products/large_image/2012-11-23 11.41.53.jpg', 'images/products/thumb/2012-11-23 11.41.53.jpg', 'sub'),
-(67, 33, 'images/products/gift.jpg', 'images/products/large_image/gift.jpg', 'images/products/thumb/gift.jpg', 'main'),
-(68, 34, 'images/products/brownies.gif', 'images/products/large_image/brownies.gif', 'images/products/thumb/brownies.gif', 'main'),
-(70, 15, 'images/products/sports-shoes01.jpg', 'images/products/large_image/sports-shoes01.jpg', 'images/products/thumb/sports-shoes01.jpg', 'sub'),
-(71, 15, 'images/products/sports-shoes03.jpg', 'images/products/large_image/sports-shoes03.jpg', 'images/products/thumb/sports-shoes03.jpg', 'sub'),
-(72, 15, 'images/products/sports-shoes02.jpg', 'images/products/large_image/sports-shoes02.jpg', 'images/products/thumb/sports-shoes02.jpg', 'sub'),
-(73, 20, 'images/products/laptop-bags06.jpg', 'images/products/large_image/laptop-bags06.jpg', 'images/products/thumb/laptop-b<?PHP
-/**
-* Gsub'),
-(74, 23* GNU General Publi2013-10-18-064650hand3
-/**
-* GNU General Publilarge_NU Ge V4 is free software: you can redistribute it ac LiceV4 is free software: you can rpart of Z5usCart V4.
-
-* ZeusCart V4 is free software: 5ou can redistribute it and/or modify
-* it under the terms or
-* (at your option) anc License as published by
-* or
-* (atpart of Z6usCart V4.
-
-* ZeusCart V4 is free software: P
-/**
-* GNU General Publind/or modify
-* it under the termsP
-/**
-* GNU General Public LicePARTICULAR PURPOSE. See the
-* part of Z7usCart V4.
-
-* ZeusCart V4 is free software: 10
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. Sc License
-* along with Fooic License for more detailsc License
-part of Z9, 1* GNU General Publiboot0you can redistribute it and/or modifyCQuery
- * @category    	Core
- c LiceCQuery
- * @catpart of 81, 2* GNU General Publiformals02
-* MERCHANTABILITY or FITNESS FOR A     Copyright (c) 2008 - 2013, AJc Lice    Copyright (c)zeuscart.2om
- * @copyright 	        Copy1ight (c) 2008 - 2013, AJ Square, Inc.
- * @ve and create the sql table/
-class Core_C and creazeuscart.3om
- * @copyright 	        Copy or
-* (at your option) any later vers `aboutus_table`";
-		$result=mysq/
-class Core_C* but WITHOUT ANY84, art V4.
-
-* ZeusCart sneakersry
- * @category    	Core
- * @author   REMENT,
-		`content` text NOT NULL,c LiceREMENT,
-		`content		`id` in5(15) NOT NULL AUTO_INCREMENT,
-	right (c) 2008 - 2013, AJ Square, Inc($sql);
-		$sql="INSERT INTO `aboutLT CHARSET=utf8Query
-{
-
-	/**
-	 * 6(15) NOT NULL AUTO_INCREMENT,
-	 and create the sql tables
-	 *
-	 * 
-	uery($sql);
+(30, 19, 'images/products/chronograhs01.jpg', 'images/products/large_image/chronograhs01.jpg', 'images/products/thumb/chronograhs01.jpg', 'sub');";
+		$result=mysql_query($sql);
 
 
-		$sql="DROP TABLE ILT CHARSET=utf8CQuery()
-	{
 
-		$sq7, 5RCHANTABILITY or FITNe.
+		$sql="Drop table if exists product_inventory_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE product_inventory_table(inventory_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,product_id  INT(20) NOT NULL,rol  INT(15) NOT NULL,soh  INT(20) NOT NULL)";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `product_inventory_table` (`inventory_id`, `product_id`, `rol`, `soh`) VALUES
+		(1, 1, 10, 6),
+		(2, 2, 10, 99),
+		(3, 3, 0, 148),
+		(4, 4, 10, 98),
+		(5, 5, 10, 147),
+		(6, 6, 10, 99),
+		(7, 7, 0, 96),
+		(8, 8, 0, 100),
+		(9, 9, 0, 100),
+		(10, 10, 0, 100),
+		(11, 11, 0, 98),
+		(12, 12, 10, 97),
+		(13, 13, 10, 96),
+		(14, 14, 0, 146),
+		(15, 15, 10, 98),
+		(16, 16, 0, 96),
+		(17, 17, 0, 99),
+		(18, 18, 0, 91),
+		(19, 19, 0, 99),
+		(20, 20, 0, 95),
+		(21, 21, 0, 99),
+		(22, 22, 0, 99),
+		(23, 23, 0, 90),
+		(24, 24, 0, 99),
+		";
+		$result=mysql_query($sql);
 
-* Thisyou can redistribute it and/or modify(
-			`id`  INT(20) NOT NULL PRIMARY Kc License.
 
-* This AUTO_INCREMENT=1"8E `addressbook_table` (
-			`id`  I and create the sql tables
-	 *
-	 * 
-	archar(100) NOT NULL,
-			`last_name` c License.
 
-* ThisCQuery()
-	{
+		$sql="Drop table if exists product_reviews_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE product_reviews_table(review_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,product_id  INT(20) NOT NULL,user_id  INT(20) NOT NULL,review_caption  VARCHAR(300) NOT NULL,review_txt  TEXT(65535) NOT NULL ,review_date  date NOT NULL ,rating  INT(5) NOT NULL,review_status  INT(1) NOT NULL)";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `product_reviews_table` (`review_id`, `product_id`, `user_id`, `review_caption`, `review_txt`, `review_date`, `rating`, `review_status`) VALUES
+		(1, 12, 1, 'Fine', 'Fine', '2013-03-05', 3, 0)";
+		$result=mysql_query($sql);
 
-		$sq9E `addressbook_table` (
-			`id`  Iright (c) 2008 - 2013, AJ Square, Incrchar(500) NOT NULL,
-			`city` varchac License.
 
-* ThisQuery
-{
 
-	/**
-	 *90, 6 @package   		Core_Cackpack) NOT NULL,
-			`last_name` varchar(100)00) NOT NULL,
-			`zip` varchar(10) link   0) NOT NULL,
-			`zNOT NULL,1			`country` varchar(100) NOT NULL,
-			`zip` varchar(10) NOT NULL,
-			`phone_no` varchar(20) NOT NULL,
-			`fax` varchar(200) NOT NULL
-			)3, 7* GNU General Publiwallet NOT NULL,
-			`city` varchar(100) NOT N, `city`, `suburb`, `state`, `couc Lice, `city`, `suburbNOT NULL,4y`, `email`, `address`, `city` and create the sql tables
-	 *
-	 * 
-	aure.net', 'Lorem ipsum dolor', ' 'Demouser', '200) NOT NULL
-			)5, 8* GNU General Public-shirttus_table`";
-		$result=mysql_query($sqll="DROP TABLE IF EXISTS `admin_actc Licel="DROP TABLE IF ENOT NULL,6_query($sql);
+		$sql="Drop table if exists products_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `products_table` (
+		`product_id` int(25) NOT NULL AUTO_INCREMENT,
+		`category_id` varchar(100) CHARACTER SET utf8 NOT NULL,
+		`sku` varchar(100) NOT NULL,
+		`title` varchar(250) NOT NULL,
+		`alias` varchar(100) NOT NULL,
+		`description` text NOT NULL,
+		`brand` varchar(100) NOT NULL,
+		`model` varchar(50) NOT NULL,
+		`msrp` double NOT NULL,
+		`price` double NOT NULL,
+		`cse_enabled` int(1) NOT NULL,
+		`cse_key` varchar(100) DEFAULT NULL,
+		`weight` varchar(25) NOT NULL,
+		`dimension` varchar(100) NOT NULL,
+		`thumb_image` varchar(150) NOT NULL,
+		`image` varchar(150) NOT NULL,
+		`large_image_path` varchar(150) NOT NULL,
+		`shipping_cost` double NOT NULL,
+		`status` int(1) NOT NULL,
+		`tag` varchar(200) NOT NULL,
+		`meta_desc` varchar(255) NOT NULL,
+		`meta_keywords` text NOT NULL,
+		`intro_date` date NOT NULL,
+		`is_featured` int(1) NOT NULL,
+		`digital` int(10) NOT NULL,
+		`gift` int(20) NOT NULL,
+		`digital_product_path` varchar(200) NOT NULL,
+		`has_variation` tinyint(11) NOT NULL,
+		`product_status` int(1) NOT NULL COMMENT '1=>new products,2=>discount product,3=>deleted products',
+		`deleted_reason` varchar(240) NOT NULL,
+		PRIMARY KEY (`product_id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `products_table` (`product_id`, `category_id`, `sku`, `title`, `alias`, `description`, `brand`, `model`, `msrp`, `price`, `cse_enabled`, `cse_key`, `weight`, `dimension`, `thumb_image`, `image`, `large_image_path`, `shipping_cost`, `status`, `tag`, `meta_desc`, `meta_keywords`, `intro_date`, `is_featured`, `digital`, `gift`, `digital_product_path`, `has_variation`, `product_status`, `deleted_reason`) VALUES
+		(1, '22', '15asAS', 'Boots', 'boots', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.</p>', '', '', 200, 150, 0, '', '1', '', 'images/products/thumb/boot06.jpg', 'images/products/boot06.jpg', 'images/products/large_image/boot06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(2, '29', '15kj', 'Formal Shoes ', 'formal-shoes', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', 'Bata', '', 700, 500, 0, '', '1', '', 'images/products/thumb/formals06.jpg', 'images/products/formals06.jpg', 'images/products/large_image/formals06.jpg', 10, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(3, '30', 'as15', 'Sneakers', 'sneakers', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 500, 150, 0, '', '1', '', 'images/products/thumb/sneakers05.jpg', 'images/products/sneakers05.jpg', 'images/products/large_image/sneakers05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(4, '31', '15', 'Sports shoes', 'sports-shoes', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 100, 50, 0, '', '1', '', 'images/products/thumb/Puma-KURIS-Men-Black.jpg', 'images/products/Puma-KURIS-Men-Black.jpg', 'images/products/large_image/Puma-KURIS-Men-Black.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(5, '32', '15', 'Laptop bags', 'laptop-bags', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 150, 100, 0, '', '1', '', 'images/products/thumb/laptop-bags06.jpg', 'images/products/laptop-bags06.jpg', 'images/products/large_image/laptop-bags06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(6, '33', '5a', 'Back bags', 'back-bags', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 200, 150, 0, '', '1', '', 'images/products/thumb/backpacks06.jpg', 'images/products/backpacks06.jpg', 'images/products/large_image/backpacks06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(7, '34', '10a', 'Wallets', 'wallets', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/wallets06.jpg', 'images/products/wallets06.jpg', 'images/products/large_image/wallets06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(8, '23', '15', 'T-shirts', 't-shirts', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/t-shirts06.jpg', 'images/products/t-shirts06.jpg', 'images/products/large_image/t-shirts06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(9, '35', '152', 'Shirts', 'shirts', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 100, 50, 0, '', '1', '', 'images/products/thumb/shirts07.jpg', 'images/products/shirts07.jpg', 'images/products/large_image/shirts07.jpg', 0, 1, '', '', '', '2013-10-17', 0, 0, 0, '', 1, 1, ''),
+		(10, '24', '15a', 'DIgital watch', 'digital-watch', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/digital-watches03.jpg', 'images/products/digital-watches03.jpg', 'images/products/large_image/digital-watches03.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+		(11, '36', '15s', 'Analog watch', 'analog-watch', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', 'tata', '', 150, 100, 0, '', '1', '', 'images/products/thumb/analog-watches05.jpg', 'images/products/analog-watches05.jpg', 'images/products/large_image/analog-watches05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(12, '6', '15', 'Boots', 'boots', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.', 'Bata', '', 200, 150, 0, '', '1', '', 'images/products/thumb/boots02.jpg', 'images/products/boots02.jpg', 'images/products/large_image/boots02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(13, '7', '65', 'Formal Shoes', 'formal-shoes', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/formal-shoes06.jpg', 'images/products/formal-shoes06.jpg', 'images/products/large_image/formal-shoes06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+		(14, '8', '15', 'Sneakers', 'sneakers', '', '', '', 20, 15, 0, '', '', '', 'images/products/thumb/sneakers05.jpg', 'images/products/sneakers05.jpg', 'images/products/large_image/sneakers05.jpg', 0, 1, 'sneakers', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+		(15, '9', '15q', 'Sports shoes', 'sports-shoes', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/sports-shoes06.jpg', 'images/products/sports-shoes06.jpg', 'images/products/large_image/sports-shoes06.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 2, ''),
+		(16, '10', '15', 'T-shirts', 't-shirts', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/t-shirts02.jpg', 'images/products/t-shirts02.jpg', 'images/products/large_image/t-shirts02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(17, '11', '15a', 'Analog watch', 'analog-watch', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/analog-watches06.jpg', 'images/products/analog-watches06.jpg', 'images/products/large_image/analog-watches06.jpg', 0, 1, 'watches', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+		(18, '12', '15', 'DIgital watch', 'digital-watch', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/digital-watches02.jpg', 'images/products/digital-watches02.jpg', 'images/products/large_image/digital-watches02.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+		(19, '13', '15s', 'Chronograhs', 'chronograhs', '', '', '', 15, 10, 0, '', '', '', 'images/products/thumb/chronograhs05.jpg', 'images/products/chronograhs05.jpg', 'images/products/large_image/chronograhs05.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 2, ''),
+		(20, '14', '15', 'Laptop bags', 'laptop-bags', '<p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.', '', '', 200, 10, 0, '', '1', '', 'images/products/thumb/laptop-bags04.jpg', 'images/products/laptop-bags04.jpg', 'images/products/large_image/laptop-bags04.jpg', 0, 1, 'bags', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(21, '15', '15', 'Back bags', 'back-bags', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/backpacks03.jpg', 'images/products/backpacks03.jpg', 'images/products/large_image/backpacks03.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(22, '16', '15asd', 'Wallets', 'wallets', '', '', '', 15, 10, 0, '', '1', '', 'images/products/thumb/wallets01.jpg', 'images/products/wallets01.jpg', 'images/products/large_image/wallets01.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, ''),
+		(23, '27', '15', 'Hand bag', 'mobile', '<p>Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt. Class aptent taciti sociosqu ad litora torquent per conubia nostra</p>', '', '', 600, 500, 0, '', '1', '', 'images/products/thumb/2013-10-18-064649hand2.jpg', 'images/products/2013-10-18-064649hand2.jpg', 'images/products/large_image/2013-10-18-064649hand2.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 1, 1, ''),
+		(24, '37', '15a', 'Chip', 'chip', '', '', '', 1500, 1000, 0, '', '1', '', 'images/products/thumb/chip.jpg', 'images/products/chip.jpg', 'images/products/large_image/chip.jpg', 0, 1, '', '', '', '2013-10-17', 1, 0, 0, '', 0, 1, '');";
+		$result=mysql_query($sql);
+
+		
+		
+		$sql="Drop table if exists product_variation_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `product_variation_table` (
+			`variation_id` bigint(12) NOT NULL AUTO_INCREMENT,
+			`product_id` bigint(12) NOT NULL,
+			`sku` varchar(100) NOT NULL,
+			`variation_name` varchar(250) NOT NULL,
+			`description` text NOT NULL,
+			`msrp` double NOT NULL,
+			`price` double NOT NULL,
+			`weight` varchar(25) NOT NULL,
+			`dimension` varchar(100) NOT NULL,
+			`thumb_image` varchar(150) NOT NULL,
+			`image` varchar(150) NOT NULL,
+			`large_image` varchar(240) NOT NULL,
+			`shipping_cost` double NOT NULL,
+			`soh` bigint(12) NOT NULL,
+			`rol` bigint(10) NOT NULL,
+			`status` tinyint(1) NOT NULL,
+			PRIMARY KEY (`variation_id`)
+			)";
+		$result=mysql_query($sql);
+		
+		$sql="INSERT INTO `product_variation_table` (`variation_id`, `product_id`, `sku`, `variation_name`, `description`, `msrp`, `price`, `weight`, `dimension`, `thumb_image`, `image`, `large_image`, `shipping_cost`, `soh`, `rol`, `status`) VALUES
+		(1, 33, '15asd', 'nokia', '', 160, 150, '15', '15 x 15 x 17', 'images/products/thumb/2013-10-16-0407491.jpg', 'images/products/2013-10-16-0407491.jpg', 'images/products/large_image/2013-10-16-0407491.jpg', 100, 15, 15, 1),
+		(2, 1, '15asd', '6', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-035309boot06.jpg', 'images/products/2013-10-18-035309boot06.jpg', 'images/products/large_image/2013-10-18-035309boot06.jpg', 2, 15, 15, 1),
+		(3, 33, '152as', 'nokia2', '', 160, 152, '15', '15 x 16 x 17', 'images/products/thumb/2013-10-16-0407493.jpg', 'images/products/2013-10-16-0407493.jpg', 'images/products/large_image/2013-10-16-0407493.jpg', 100, 15, 15, 1),
+		(4, 1, '15', '7', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-035309boot06.jpg', 'images/products/2013-10-18-035309boot06.jpg', 'images/products/large_image/2013-10-18-035309boot06.jpg', 2, 15, 15, 1),
+		(5, 1, '15', '8', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054703boot06.jpg', 'images/products/2013-10-18-054703boot06.jpg', 'images/products/large_image/2013-10-18-054703boot06.jpg', 2, 15, 15, 1),
+		(6, 1, '15', '8.8', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054703boot06.jpg', 'images/products/2013-10-18-054703boot06.jpg', 'images/products/large_image/2013-10-18-054703boot06.jpg', 2, 15, 15, 1),
+		(7, 1, '15', '9', '', 200, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054704boot06.jpg', 'images/products/2013-10-18-054704boot06.jpg', 'images/products/large_image/2013-10-18-054704boot06.jpg', 2, 15, 15, 1),
+		(8, 2, '15asd', '6', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054923formals06.jpg', 'images/products/2013-10-18-054923formals06.jpg', 'images/products/large_image/2013-10-18-054923formals06.jpg', 2, 15, 15, 1),
+		(9, 2, '15asd', '7', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054923formals06.jpg', 'images/products/2013-10-18-054923formals06.jpg', 'images/products/large_image/2013-10-18-054923formals06.jpg', 2, 15, 15, 1),
+		(10, 2, '15asd', '8', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054923formals06.jpg', 'images/products/2013-10-18-054923formals06.jpg', 'images/products/large_image/2013-10-18-054923formals06.jpg', 2, 15, 15, 1),
+		(11, 2, '15asd', '9', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054923formals06.jpg', 'images/products/2013-10-18-054923formals06.jpg', 'images/products/large_image/2013-10-18-054923formals06.jpg', 2, 15, 15, 1),
+		(12, 2, '15asd', '10', '', 700, 500, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-054924formals06.jpg', 'images/products/2013-10-18-054924formals06.jpg', 'images/products/large_image/2013-10-18-054924formals06.jpg', 2, 15, 15, 1),
+		(13, 3, '15asd', '5', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055313sneakers05.jpg', 'images/products/2013-10-18-055313sneakers05.jpg', 'images/products/large_image/2013-10-18-055313sneakers05.jpg', 2, 15, 15, 1),
+		(14, 3, '15asd', '6', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055314sneakers05.jpg', 'images/products/2013-10-18-055314sneakers05.jpg', 'images/products/large_image/2013-10-18-055314sneakers05.jpg', 2, 15, 15, 1),
+		(15, 3, '15asd', '7', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055314sneakers05.jpg', 'images/products/2013-10-18-055314sneakers05.jpg', 'images/products/large_image/2013-10-18-055314sneakers05.jpg', 2, 15, 15, 1),
+		(16, 3, '15asd', '8', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055314sneakers05.jpg', 'images/products/2013-10-18-055314sneakers05.jpg', 'images/products/large_image/2013-10-18-055314sneakers05.jpg', 2, 15, 15, 1),
+		(17, 3, '15asd', '9', '', 500, 150, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055314sneakers05.jpg', 'images/products/2013-10-18-055314sneakers05.jpg', 'images/products/large_image/2013-10-18-055314sneakers05.jpg', 2, 15, 15, 1),
+		(18, 4, '15asd', '5', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(19, 4, '15asd', '6', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055601Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(20, 4, '15asd', '7', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(21, 4, '15asd', '8', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(22, 4, '15asd', '9', '', 100, 50, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 'images/products/large_image/2013-10-18-055602Puma-KURIS-Men-Black.jpg', 2, 15, 15, 1),
+		(23, 23, '15', '80', '', 600, 500, '15', '15 x 16 x 15', 'images/products/thumb/2013-10-18-064905hand2.jpg', 'images/products/2013-10-18-064905hand2.jpg', 'images/products/large_image/2013-10-18-064905hand2.jpg', 0, 16, 19, 1),
+		(24, 23, '15', '85', '', 600, 500, '15', '15 x 16 x 15', 'images/products/thumb/2013-10-18-064905hand2.jpg', 'images/products/2013-10-18-064905hand2.jpg', 'images/products/large_image/2013-10-18-064905hand2.jpg', 0, 16, 19, 1),
+		(25, 23, '15', '90', '', 600, 500, '15', '15 x 16 x 0', 'images/products/thumb/2013-10-18-064906hand2.jpg', 'images/products/2013-10-18-064906hand2.jpg', 'images/products/large_image/2013-10-18-064906hand2.jpg', 10, 16, 19, 1),
+		(26, 8, '15', 'Small', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-065557t-shirts06.jpg', 'images/products/2013-10-18-065557t-shirts06.jpg', 'images/products/large_image/2013-10-18-065557t-shirts06.jpg', 2, 15, 15, 1),
+		(27, 8, '15asd', 'Medium', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-065558t-shirts06.jpg', 'images/products/2013-10-18-065558t-shirts06.jpg', 'images/products/large_image/2013-10-18-065558t-shirts06.jpg', 2, 15, 15, 1),
+		(28, 8, '15asd', 'Large', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-065558t-shirts06.jpg', 'images/products/2013-10-18-065558t-shirts06.jpg', 'images/products/large_image/2013-10-18-065558t-shirts06.jpg', 2, 15, 15, 1),
+		(29, 8, '15', 'XL', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-065558t-shirts06.jpg', 'images/products/2013-10-18-065558t-shirts06.jpg', 'images/products/large_image/2013-10-18-065558t-shirts06.jpg', 2, 15, 15, 1),
+		(30, 9, '15', 'Small', '', 100, 50, '15', '', 'images/products/thumb/2013-10-18-065834shirts07.jpg', 'images/products/2013-10-18-065834shirts07.jpg', 'images/products/large_image/2013-10-18-065834shirts07.jpg', 0, 15, 15, 1),
+		(31, 9, '15', 'Medium', '', 100, 50, '', '', 'images/products/thumb/2013-10-18-065834shirts07.jpg', 'images/products/2013-10-18-065834shirts07.jpg', 'images/products/large_image/2013-10-18-065834shirts07.jpg', 0, 15, 15, 1),
+		(32, 9, '15', 'Large', '', 100, 50, '15', '', 'images/products/thumb/2013-10-18-065835shirts07.jpg', 'images/products/2013-10-18-065835shirts07.jpg', 'images/products/large_image/2013-10-18-065835shirts07.jpg', 0, 15, 15, 1),
+		(33, 9, '15', 'XL', '', 100, 50, '15', '', 'images/products/thumb/2013-10-18-065835shirts07.jpg', 'images/products/2013-10-18-065835shirts07.jpg', 'images/products/large_image/2013-10-18-065835shirts07.jpg', 0, 15, 15, 1),
+		(34, 12, '15asd', '6', '', 200, 150, '', '', 'images/products/thumb/2013-10-18-070323boots02.jpg', 'images/products/2013-10-18-070323boots02.jpg', 'images/products/large_image/2013-10-18-070323boots02.jpg', 0, 15, 15, 1),
+		(35, 12, '1545asd', '7', '', 200, 150, '', '', 'images/products/thumb/2013-10-18-070324boots02.jpg', 'images/products/2013-10-18-070324boots02.jpg', 'images/products/large_image/2013-10-18-070324boots02.jpg', 0, 15, 15, 1),
+		(36, 12, '1545', '8', '', 200, 150, '', '', 'images/products/thumb/2013-10-18-070324boots02.jpg', 'images/products/2013-10-18-070324boots02.jpg', 'images/products/large_image/2013-10-18-070324boots02.jpg', 0, 15, 15, 1),
+		(37, 12, '2564', '9', '', 200, 150, '', '', 'images/products/thumb/2013-10-18-070324boots02.jpg', 'images/products/2013-10-18-070324boots02.jpg', 'images/products/large_image/2013-10-18-070324boots02.jpg', 0, 15, 15, 1),
+		(38, 13, 'sd54', '5', '', 15, 10, '15', '15 x 15 x 15', 'images/products/thumb/2013-10-18-070828formal-shoes06.jpg', 'images/products/2013-10-18-070828formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070828formal-shoes06.jpg', 0, 15, 16, 1),
+		(39, 13, 'asd', '6', '', 15, 10, '', '15 x 15 x 15', 'images/products/thumb/2013-10-18-070828formal-shoes06.jpg', 'images/products/2013-10-18-070828formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070828formal-shoes06.jpg', 0, 15, 15, 1),
+		(40, 13, 'qwe', '7', '', 15, 10, '', '15 x 15 x 15', 'images/products/thumb/2013-10-18-070828formal-shoes06.jpg', 'images/products/2013-10-18-070828formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070828formal-shoes06.jpg', 0, 16, 15, 1),
+		(41, 13, 'qwe', '8', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-070829formal-shoes06.jpg', 'images/products/2013-10-18-070829formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070829formal-shoes06.jpg', 0, 15, 15, 1),
+		(42, 13, 'qw15', '9', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-070829formal-shoes06.jpg', 'images/products/2013-10-18-070829formal-shoes06.jpg', 'images/products/large_image/2013-10-18-070829formal-shoes06.jpg', 0, 15, 15, 1),
+		(43, 14, 'as', '4', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071028sneakers05.jpg', 'images/products/2013-10-18-071028sneakers05.jpg', 'images/products/large_image/2013-10-18-071028sneakers05.jpg', 0, 15, 16, 1),
+		(44, 14, 'aw', '5', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071029sneakers05.jpg', 'images/products/2013-10-18-071029sneakers05.jpg', 'images/products/large_image/2013-10-18-071029sneakers05.jpg', 0, 15, 16, 1),
+		(45, 14, 'wer', '6', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071029sneakers05.jpg', 'images/products/2013-10-18-071029sneakers05.jpg', 'images/products/large_image/2013-10-18-071029sneakers05.jpg', 0, 15, 16, 1),
+		(46, 14, ' wer', '7', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071030sneakers05.jpg', 'images/products/2013-10-18-071030sneakers05.jpg', 'images/products/large_image/2013-10-18-071030sneakers05.jpg', 0, 15, 16, 1),
+		(47, 14, 'we', '8', '', 20, 15, '', '', 'images/products/thumb/2013-10-18-071030sneakers05.jpg', 'images/products/2013-10-18-071030sneakers05.jpg', 'images/products/large_image/2013-10-18-071030sneakers05.jpg', 0, 15, 16, 1),
+		(48, 15, '15asdsd', '6', '', 15, 10, '15', '2 x 2 x 1', 'images/products/thumb/2013-10-18-074409sports-shoes07.jpg', 'images/products/2013-10-18-074409sports-shoes07.jpg', 'images/products/large_image/2013-10-18-074409sports-shoes07.jpg', 2, 15, 15, 1),
+		(49, 15, '15f', '7', '', 15, 10, '15', '2 x 2 x 1', 'images/products/thumb/2013-10-18-074409sports-shoes07.jpg', 'images/products/2013-10-18-074409sports-shoes07.jpg', 'images/products/large_image/2013-10-18-074409sports-shoes07.jpg', 2, 15, 15, 1),
+		(50, 15, '15s', '8', '', 15, 10, '15', '2 x 2 x 1', 'images/products/thumb/2013-10-18-074409sports-shoes07.jpg', 'images/products/2013-10-18-074409sports-shoes07.jpg', 'images/products/large_image/2013-10-18-074409sports-shoes07.jpg', 2, 15, 15, 1),
+		(51, 15, '15df', '9', '', 15, 10, '15', '2 x 2 x 1', 'images/products/thumb/2013-10-18-074410sports-shoes07.jpg', 'images/products/2013-10-18-074410sports-shoes07.jpg', 'images/products/large_image/2013-10-18-074410sports-shoes07.jpg', 2, 15, 15, 1),
+		(52, 16, '15asd', 'Small', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-074629t-shirts02.jpg', 'images/products/2013-10-18-074629t-shirts02.jpg', 'images/products/large_image/2013-10-18-074629t-shirts02.jpg', 0, 15, 15, 1),
+		(53, 16, '15as', 'Medium', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-074630t-shirts02.jpg', 'images/products/2013-10-18-074630t-shirts02.jpg', 'images/products/large_image/2013-10-18-074630t-shirts02.jpg', 0, 15, 16, 1),
+		(54, 16, '15w', 'Large', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-074630t-shirts02.jpg', 'images/products/2013-10-18-074630t-shirts02.jpg', 'images/products/large_image/2013-10-18-074630t-shirts02.jpg', 0, 15, 16, 1),
+		(55, 16, '15gdf', 'XL', '', 15, 10, '', '', 'images/products/thumb/2013-10-18-074631t-shirts02.jpg', 'images/products/2013-10-18-074631t-shirts02.jpg', 'images/products/large_image/2013-10-18-074631t-shirts02.jpg', 0, 15, 16, 1);";
+		$result=mysql_query($sql);		
+
 	
 
-		$sql="DROP T4BLE IF EXISTS `admin_activity_table`";
-		$resOT NULL,
-		`user_id` varc$sql="CREATE TAOT NULL,
-NOT NULL,7_query($sql);
-	
-
-		$sql="DROP Tright (c) 2008 - 2013, AJ Square, Incl_query($sql);
-		
-
-	
-		$sql="Drop $sql="CREATE TADemouser', 'Demous8_query($sql);
-	
-
-		$sql="DROP T and create the sql tables
-	 *
-	 * 
-	 `admin_settings_table` (
-			`set_$sql="CREATE TA200) NOT NULL
-			)9, 9) NOT NULL AUTO_INCRDROP Tf
-* MERCHANTABILITY or FITNESS FOR A char(200) NOT NULL,		
-			`site_lLT CHARhar(200) NOT NUpart of 100
-			`site_favicon` varchar(20 or
-* (at your option) any later vers
+		$sql="Drop table if exists search_tags_table";
 		$result=mysql_query($sql);
-		$sql="EATE TABLE `admin_activi101
-			`site_favicon` varchar(20	`content` text NOT NULL,
-		PRIMARY KErds` text NOT NULL,
-			`meta_de,
-			`admin_e AUTO_INCREMENT=1102
-			`site_favicon` varchar(20);
-
-
-		$sql="DROP TABLE IF EXISTS `add NULL AUTO_INCREMENT,
-			`customer_heEMENT=2 ;";
-		$r
-			PRIMAR3, 10* GNU General Publidigital-watche NOT NULL,
-		`user_id` varchar(10) NOT ;
-		$result=mysql_query($sql);
-		$sql="CRc Lice;
-		$result=mysql_query($
-			PRIMAR4 if exists admin_table";
-		$result=mysq or
-* (at your option) any later versassword  VARCHAR(200) NOT NULL)";
-		$resuMARY KEY AUTO_INCREMENmail` varchar(200) 5 if exists admin_table";
-		$result=mysq7200) NOT NULL)";
-		$result=mysql_query($sql);
-		
-
-		e_table(attrib_id  INT(15MARY KEY AUTO_INCREMENe_table(a
-			PRIMAR6, 1* @package   		Core_analogsult=mysql_query($sql);
-		$sql="CREATE TABLE aT INTO `attribute_table` (`attrib_id`, `c LiceT INTO `attribute_table`
-			PRIMAR7ry($sql);
-		$sql="INSERT INTO `attriburight (c) 2008 - 2013, AJ Square, Inc'),
-		(6, 'Size');";
-		$result=mysql_queng'),
-		(3, 'Dress CoDemouser', 'Demou108ry($sql);
-		$sql="INSERT INTO `attribu and create the sql tables
-	 *
-	 * 
-	attribute_value_table(attrib_value_id  Ing'),
-		(3, 'Dress Co
-
-		$sql="Drop tabf ex1
- * @copyright 	    CQueAR(200) NOT NULL)";
-		$result=mysql_queult=mysql_query($sql);
-		$sql="link   		h";
-		$result=mysql_q($sq0) NOT NULL)";
-		$result=my8ql_query($sql);
-		$sql="INSERT INTO `attricellent designing'),
-		(2b_value_id`,cellent did`, `attre ifart V4.
-
-* ZeusCart     Co-shoize');";
+		$sql="CREATE TABLE search_tags_table(id  INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,search_tag  VARCHAR(250) NOT NULL,search_count  INT(11) NOT NULL)";
 		$result=mysql_query($sql);
 
-
-)";
-		$result=mysql_query($sql);
-		
-		/
-class Core$result=mysql_quid`, `attrAR(2z'),
-		(6, 6, '10cm')";
-		$result and create the sql tables
-	 *
-	 * 
-	 * 
-	 rib_table(category_attrib_id  INble";
-		$result=mystrib_value  VARCHARery(z'),
-		(6, 6, '10cm')";
-		$results_table`";
-		$result=mysql_query($sql);
-		$sql_query($sql);
-		$sql="INSERT ble";
-		$result=mys `attrib_id`, `attrng')4;
-		$result=mysql_query($sql);
-
-
-		$sql="DROP TABLE IF EXISTS `addressbook_table`";
-		$result=mysql_query($sql);
-
-		$sql="CREATE TA11);
-	 29, 1),
-		(2, 29, 2),
-		(3, 	`content` text NOT NULL,
-		PRIMARY KEY (`id`)
-		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=112(100	`country` varchar(1 `admin_settings_table` (
-			`set_id` int(15) NOT NULL AUTO_INCREMENT,
-			`customer_header` varchar(240) NOT NUL12ib_vle if exists category_table";OT NULL,
-		`user_id` varchar(10) NOT NULL,
-		`url` varchar(400) NOT NULL,
-		`visited_on` datetime NOT N1225) NOT NULL AUTO_INCREMENT,
-			1ettings_table` (
-			`set_id` int(15) NOT NULLth` varchar(50) NOT NULL,
-$sql="CREATE Tth` varchaparent_id`e if, `email`, `address`T INTO `attribu or
-* (at your option) any later vers` int(1) NOT NULL,
-			`category_content_ng'),
-		(3, 'Dress Comail` varchar(200)2AR(2
-			`category_status` int(1) NOT NUyou can redistribute it and/or modifyT=utf8 AUTO_INCREMENT=29 ";
-		$result=myng'),
-		(3, 'Dress Col);
-
-
-
-		$sql="Dropery(
-			`category_status` int(1) NOT NU_table(attrib_value_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,attrib_id  INT(20) NOT NULL,attrib_value  VARCHA2ery(
-			`category_status` int(1) NOT NUte_table` (`attrib_id`, `attrib_name`) VALUES
-		(1, 'Design'),
-		(2, 'Stitching'),
-		(3, 'Dress Code'),
-		(4, 'Stamp2ng')uery($sql);
-	
-
-		$sq;
-		$result=mysqyou can redistribute it and/or modify, 'Shoes', 'shoes', 1, '1,2', 'uploadedimMARY KEY AUTO_INCREMENl);
-
-
-
-		$sql="Drop);
-	nunc ', 1, 0, 0),
-(2, 'Shoes', 'shoel_query($sql);
-		$sql="CREATE TABLE admin_table(admin_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,admin_name  VARC2*
- *nunc ', 1, 0, 0),
-(2, 'Shoes', 'shoe and create the sql tables
-	 *
-	 * 
-	sectetur adipiscing elit. Cras sit amet nMARY KEY AUTO_INCREMEN varchar(500) NOT 3(100nunc ', 1, 0, 0),
-(2, 'Shoes', 'shoe(200) NOT NULL)";
-		$result=mysql_query($sql);
-		
-
-		
-		$sql="Drop table if exists attribute_table";
-		$result=mysql_q3ib_v		`site_favicon` varchronograhoes', 1, '1,2', 'uploadedimages/caticoncons/2013-09-10-172159wallets03.jpg',c Licecons/2013-09-10-17215s', 1, '1, int'uploadedimages/caticons/2013-09f
-* MERCHANTABILITY or FITNESS FOR A ', 'boots', 2, '1,2,6', 'uploadedimaging elit. Cras sitT NULL,
-			`time_z3e if'uploadedimages/caticons/2013-09OT NULL,
-		`user_id` varchar(10) NOT as sit amet nisl nec nunc ', 1, 0, 2)ing elit. Cras sitde'),
-		(4, 'Stamp3eusC exists admin_table"rchar(500) NOT NULL,
-			`city` varchar(100) NOT NULL,
-			`suburb` varchar(100) NOT NULL,
-			`state` varchar(100) NOT NULL13 Fou.jpg', 'Lorem ipsum dolor sit amNT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-			`user_id` int(11) NOT NULL,
-			`contact_name` varchar(100) NOT13WARR.jpg', 'Lorem ipsum dolor sit am or
-* (at your option) any later versuploadedimages/caticons/2013-09-10-17c License.
-
-* Thisgs', 'bags', 1, '1,have 29, 1),
-		(2, 29, 2chipright (c) 2008 - 2013, AJ Square, Inc, 0, 2),
-(10, 'T-shirts', 'tsing elit0, 2),
-(10,oes', 'spo8amet nisl nec nunc ', 1, 0, or
-* (at your option) any later vers, 'Lorem ipsum dolor sit ametcons/2013-gs', 'bags', 1, '1,9amet nisl nec nunc ', 1, 0,2, '1,2,6', 'uploadedimages/caticons/20analogwatches', 4, '1,4,11'cons/2013-T NULL,
-			`time_z40amet nisl nec nunc ', 1, 0,-10-172159wallets03.jpg', 'Lorem ipsum  consectetur adipiscing elicons/2013- amet nisl nec nun4com
-`addressbook_table` 599987_101522507667704 'up897850228_n
-* MERCHANTABILITY or FITNESS FOR A 12', 'uploadedimages/caticons/2013-09-10-172714digital-watchec Lice12', 'uploadedimages/caticons/2013-09-10-1727maines', 'dThis	`country` varchar(1(JPEG IU Ge, 400Â Ã—Â 200 pixels).jpeMERCHANTABILITY or FITNESS FOR A uploadedimages/caticons/2013-09-10-172822chronograhs06.jpg', 'Lc Liceuploadedimages/caticons/2013-09-10-172822chronohs', ';
-;
-		",5,1$result=mysql_query($sql);
-
-
-, 'usql="Drop table if exists ral Pub_inventory_ptop-4', 'uploadedimages/caticons/2019-10-172CREATE TABLE', 'Lorem ipsum dolor si( ipsum dolid  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,, 'Lorem bags', 'backbags', ,rolags', 15-09-10-1729sohags', 'backbags', )t amet, consectetur adipiscing elit. CraINSERTgs',O `, 'Lorem ipsum dolor si` (`
-(15, 'Backb`,l nec nunc 'wallrolwallsoh`) VALUES
-		(ib_v if ex6),s/caThis ff ex99-09-103(15) (10048-09-104, AR(200)9, 'Lore5E `adR(10047-09-106			`c0Avalanche-H7y`, ` dol3-09-10ATE TA(10000-09-10,
-			`nc ', 1, 0, R(1000(17, 'Men', 'meons/1it ame, 'Lore0) N2013- doltetur a.5 GHz')10-173-09-10$sql=4ag.jpg'Lorem ipt, ct, consaticons/2isci6it amet nisl ES(1,sit ameanche-H),
-		 nunc 91 nunc '*
- *
-(17, ec nunc shoeshoe'men5-09-10-com
-ages/cashoes', This2ages/caticons/l="Dbag.jp9 1, 0, et net n'menshoes',  Fou Fou/2013--09-10-WARRlit. C10);4', 'uploadedimages/caticons/2013-09-10-172917laptop-bags06.jpg', 'Loremreviewslor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec n '17,19', 'up( '17,1ckbags', 'backbags', 14, '1,5,14,15', 'uploadedimages/caticons/2013-09-10-1729userticons/2013-09-10-17295sit amcaption  VARCHAR(30'menclothing', 17, txt  TEXT(6553s03.jpg', ' g', 17, date  Shirtted-Long-Slatingags', s03.jpg', 'L', 17, statusackpackdolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc '17,19', 'up16,  sit ametwallets', 5, '1,5,, 'Clot1,5,1, 17, '17,20'173352digittxt173352digitShir1,5,1um do173352digit adipiadedimages/catico013-, 'Fine
-* Gmet nislV4 is03-05'ndbag.amet, consectetur adipiscing elit3-09-10-172917laptop-bags06.jpg', 'Lore9', 'uploadedimages/caticons/2013-09-10-173249backpacks03.jpIF, 'LoEXISTSl nec nun'17,21', '
-		lets', 5, '1 int(2rafted-Long-5', 'uploadedimCrascategts', 'w varchar_zon) loadACTER SET utf809-10-1729Crasskushirs', 20, '17mages/caticontit1', irs', 20253704Crafted-Longalias013-09-10-173704Crafted-Longdescri-watch text04Crafted-Longbrantshirs', 20, '17mages/caticonmodelved-Shirt.pg', 'Lorem ipsummsrp` douop-bmages/caticonprice21,24', 'uploadedimagecse_entop- nisl nelit. Cras 173738digkeyshirs', 20, '17DEFAUL', 'Lorem iweightved-Shirt.jponsectetur adipiimenslit. 3-09-10-173704Crafted-Long- Lic modif1, 0, 2),
-(pg', 'Lorem ipsumaccess', 0, '25', 'uploadedimagesnd/or modif_paths', 0, '25', 'uploadedimagesshipping_cost21,24', 'uploadedimageur adipches03.jpg', 'Lorem itagved-Shirt.jimages/catico21, 'eta_iscived-Shirt.jpit amet nisl neceMobikeywords. Cras sit amet nislintro dolor.jpg', 'Lorem ,18,31s_featurwatches03.jpg', 'Lorem i;
-		$reimages/, 2),
-(24, 'Digigiftnisl neconsectetur adipi
-		$re_, 'LoremesAccessories'jpg', 'MobileMobilhas_variaelit. Cinyhes033.jpg', 'Lorem i, 'Loremloadedimages/caticons/2 COMdedi '1=>new/2013-09-,2=>discount', 'Lore,3=>deleted/2013-09-' adipisg wat_reas, 1, 0, 2),
-24, 2),
-(24, 'Dig4, '1,5,14,1(lets', 5, '1)
-		) ENGINE=MyISAM consectetloadSET=adedi5', 'uploadedi=1 lit. Cras sit amet nisl nec nunc . Cras sit amet nisl nec nun'17,21', 'uets', 5, '1,5,rts', 'ments 'upkuIF N-Sleev, m dolor, piscing elit., l nec n, ital wa NUL17,2alletcati"CREdigital-watms_page dol, scing el(
-		nunc ', 1XIST 'menaccess, s/catic, ', 'AccessoriesAcc 'upobile', 'mobi 'upr adipXISTat, coeMobile', ms_meta_mensports(50)', '', '',(50)op bags', ',
-		`,19,32, (33,'B` text NOT'17,19,33', '', ts','menwalletsallets', 5,NOT NULL,
-atch', 21, '17,dedimages/catic'22
-* G15asAS
-* GB_id`
-* Ge_id`
-* G<p>Lorem ipsum dolor sit amet, consectetur adipisc dolelit. CrasREMENT=1  nisl nec nunc sollicitudin bibendum. Pellentesque orci SET=utf8 AUTO_INCREMENT=1 ";
-		$result=mysql_query($sql);
-
-
-		$sql="Drop table if exists countrywisetax_settings_table";
-		$r.</p>
-* G0) NOT 2one`15'17,18NOT N10) NOT Nnc Dev Team
- * @link   		htP
-/**
-* GNU General Publide varchar(25) NOT NULL,based_* @author    		AJP
-/**
-* ased) NOT NULLNOT NV4 is fre7'NOT Non_amount ticons't of-10-17'29id`)
-	kjnisl    Co Sesul tatury_attrib_taLT CHARSET=utf8 AUTO_INCREMENT=1 ";
-		$result=mysql_query($sql);
-
-
-		$sql="Drop table if exists countrywisetax_settings_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE countrywisetax_settings_table (id int(11) NOT NULL auto_increment,tax_name varchaNGINEatatatus i7one`5one`amount varchar(200) NOT NULL,country_co    CopyP
-/**
-* GNU General Publiorra', 'AND', 20),('AE', 'UNITED l_query($sql);
-		$sqP
-/**
-* R(100 NULL,status int(11) NOT NULL,PRIMARY KEY  (id))";
-		$rart 30tatuas1, 1)'SEMENT,
--1725d Barbuda',f exists country_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE country_table(cou_code  VARCHAR(2) NOT NULL PRIMARY KEY,name  VARCHAR(80) NOT NULL,cou_name  VARCHAR(80) NOT NULL,iso3  VARCHAR(3) ,numcode  INT(6) )";
-		$result=mysql_query($sql);
-		$tatus i cound_on_amount varchar(200) NOT NULL,country_coREMENT,
-	 or
-* (at your option) an2),('AS', 'AMERICAN SAMOA', 'AmeriF EXISTS `addressbook or
-* (aGHANISTAN', 'Afghanistan', 'AFG', 4),('AG', 'ANTIGUA AND BA 29,3archaigua anports p table is533),op table if exists country_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE country_table(cou_code  VARCHAR(2) NOT NULL PRIMARY KEY,name  VARCHAR(80) NOT NULL,cou_name  VARCHAR(80) NOT NULL,iso3  VARCHAR(3) ,numcode  INT(6) )";
-		$result=mysql_query($sql);
-		$tatus izone`_on_amount varchar(200) NOT NULL,country_coPuma-KURIS-Men-Black
-/**
-* GNU General PubliBH', 'BAHRAIN', 'Bahrain', 'BHR', 48),('BI',nd/or modifyBH', 'BAHRAIN', 'Bahrain', GHANISTAN', 'Afghanistan', 'AFG', 4),('AG', 'ANTIGUA AND BA`add3_id`)
-	ua aL
-			`  Thiua a(
-			`id`  Azerbaijan', 'AZE', 31),('BA', 'BOSNIA AND HERZEGOVINA', 'Bosnia and Herzegovina', 'BIH', 70),('BB', 'BARBADOS', 'Barbados', 'BRB', 52),('BD', 'BANGLADESH', 'Bangladesh', 'BGD', 50),('BE', 'BELGIUM', 'Belgium', 'BEL', 56),('BF', 'BURKINA FASO', 'Burkina Faso', 'BFA', 854_on_zone`amount varchar(200) NOT NULL,country_conse.
-
-* This file is ', 'Lorem ipsum dolor sit amRATES', 'United Arab Emirates', 'ARE'nse.
-
-* This file isGHANISTAN', 'Afghanistan', 'AFG', 4),('AG', 'GHANISTAetur adip'33ua a5="INSBackN', 96),(` va'BOLIVIA', 'Bolivia', 'BOL', 68),('BR', 'BRAZIL', 'Brazil', 'BRA', 76),('BS', 'BAHAMAS', 'Bahamas', 'BHS', 44),('BT', 'BHUTAN', 'Bhutan', 'BTN', 64),('BV', 'BOUVET ISLAND', 'Bouvet Island', NULL, NULL),('BW', 'BOTSWANA', 'Botswana', 'BWA', 72),('BY', 'BELARUS', 'Belarus', 'B,based_on_amount varchar(200) NOT NULL,country_cod0) NOT NUrchar(25) NOT NULL,based_o'CAMEROON', 'Cameroon', 'CMR', 120NOT NULL,
-			`phone_no NULL, NULL),('CD', 'CONGO, THE DEMOCRATIC REPUBLIC OF THE', 'Congo, `e34a', '0="INSW `cityua a, `cityVIA', 'Bolivia', 'BOL', 68),('BR', 'BRAZIL', 'Brazil', 'BRA', 76),('BS', 'BAHAMAS', 'Bahamas', 'BHS', 44),('BT', 'BHUTAN', 'Bhutan', 'BTN', 64),('BV', 'BOUVET ISLAND', 'Bouvet Island', NULL, NULL),('BW', 'BOTSWANA', 'Botswana', 'BWA', 72),('BY', 'BELARUS', 'Belarus', 'BLR', 0, '17unt varchar(200) NOT NULL,country_co, `city`P
-/**
-* GNU General PubliDJ', 'DJIBOUTI', 'Djibouti', 'DJILorem ipsum dolor',  NULL, NULL),('CD', 'CONGO, THE DEMOCRATIC REPUBLIC OF THE', 'Congouery2 DemossalamT="DROP ua al="DROP , 'Serbia and Montenegro', NULL, NULL),('CU', 'CUBA', 'Cuba', 'CUB', 192),('CV', 'CAPE VERDE', 'Cape Verde', 'CPV', 132),('CX', 'CHRISTMAS ISLAND', 'Christmas Island', NULL, NULL),('CY', 'CYPRUS', 'Cyprus', 'CYP', 196),('CZ', 'CZECH REPUBLIC', 'Czech Republic', 'CZE', 203),('DE', 'GERMANY', 'Germany', 'DEU', 276),('l="DROP TP
-/**
-* GNU General Publica', 'ETH', 231),('FI', 'FINLAND',id` int(15) NOT NULL nt float NOT NULL,status int(11) NOT NULL,PRIMARY KEY  (id))";
-		$r		`s3salam15_id`)S14),('DZ'214),('DZ', 'ALGERIA', 'Algeria', 'DZA', 12),('EC', 'ECUADOR', 'Ecuador', 'ECU', 218),('EE', 'ESTONIA', 'Estonia', 'EST', 233),('EG', 'EGYPT', 'Egypt', 'EGY', 818),('EH', 'WESTERN SAHARA', 'Western Sahara', 'ESH', 732),('ER', 'ERITREA', 'Eritrea', 'ERI', 232),('ES', 'SPAIN', '),('BG', 'BULGARIA', 'Bulgaria', 'BGR', 100),('EMENT=2e_table(attrib_id  INT(15Georgia', 'GEO', 268),('GF', 'FROT NULL,
-			`site_se_table(GHANISTAN', 'Afghanistan', 'AFG'2),('BARY KEY  (id))";
-		$rf exi2('CS',craticDI		$re ult=mua a;
-		$result=m, 'Serbia and Montenegro', NULL, NULL),('CU', 'CUBA', 'Cuba', 'CUB', 192),('CV', 'CAPE VERDE', 'Cape Verde', 'CPV', 132),('CX', 'CHRISTMAS ISLAND', 'Christmas Island', NULL, NULL),('CY', 'CYPRUS', 'Cyprus', 'CYP', 196),('CZ', 'CZECH REPUBLIC', 'Czech Republic', 'CZE', 203),('DE', 'GERMrchar(200) NOT NULL,country_co, 'Shoes', 'shoes', 1, '1,2', 'uploadedim, 'Shoes', 'shoes', 1, '1,2', 'uploadedimages/caticons/2013-09-10-171134formaULL),('CD', 'CONGO, THE DEMOCRATIC REPUBLIC OF Tesul, 'GIB',NIST36'FLK',('DZ'A INTO, 'GreenlaT INTO `attr28),('AI', 'ANGUILLA', 'Anguilla', 'AIA', 660),('AL', 'ALBANIA', 'Albania', 'ALB', 8),('AM', 'ARMENIA', 'Armenia', 'ARM', 51),('AN', 'NETHERLANDS ANTILLES', 'Netherlands Antilles', 'ANT', 530),('AO', 'ANGOLA', 'Angola', 'AGO', 24),('AQ', 'ANTARCTICA', 'Antarcticatql="INSERTLR', 112),('BZ', 'BELIZE', 'Belize', 'BLZ', 84),(` int(1) NOT NULL,
-			`category_content_` int(1) NOT NULL,
-			`category_content_id` int(15) NOT NULL,
-			`count` inULL),('CD', 'CONGO, THE DEMOCRATIC REPUBLIC OF THE', 'Congo0) NOna', 'GNGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ";
-		$result=mysql_query($sql);
-
-
-		$sql="Drop table if exists countrywisetax_settings_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE countrywisetax_settings_table (id int(11) NOT NULL auto_increment,tax_name varcha
-		$sql="INSERT,based_on_amount varchar(200) NOT NULL,country_code vze');";
-		$result=mysql_queKenya', 'KEN', 404),('KG', 'KYRINSERT INTO `attriright (cGHANISTAN', 'Afghanistan', 'AFG', 4),('AG', 'ANTIGUA AND BA5) NO NUL'6ory',$sql);
 
 		
 
-		$sql="Drop table iSOUTH SANDWICH ISLANDS', 'South Georgia and the South Sanry_attrib_tabAND', 20),('AE', 'UNITED ARAB E659),('KP', 'KOREA, DEMOCRATIC P
 
-
-		$sql="Drop table if nt float NOT NULL,status int(11) NOT NULL,PRIMARY KEY  (, 'GUYANA',  29,8a', 'ABW', d Barbuda', 'ATG', 28),ds', 'COK', 1onsectNDS', 'South Georgia and the South San2),('AS', 'AMERICAN SAMOA', 'American Samoa', 'ASM', 16),('AT', 'AUSTRIA', 'Austria', 'AUT', 40),('AU', 'Kuwait', 'KWT', 414A, REPUBLIC OF', 'Korea, Republic of', 'K`add=mysql_qBW', 533),('AZ', 'AZERBAIJAN', 'AzerSOUTH SANDWICH ISLANDS', 'South Georgia and the South SanERBAIJAN', ''KP', 'KOREA, DEMOCRATIC Pnstein', 'LIE', 438),('LK', 'SRI LANKAOT NULL,
-			`stein', 'LIE', 438),, 408),('KR', 'KOREA, REPUBLIC OF', 'Korea, Republic of', 'K, th1', 'An Republic', 'DOM', 214),('DZ', 'SPAIN', 'Spain', 'ESP', 724),('ET', 'ETHIOPIA', 'Ethiopia', 'ETH10', 'uploadedimages/catic_query($sql);
-		
-
-	
-		$sql="Drop table if exists admin_settingambodia', 'KHM', 116),('KI', 'KIRIBATI', 'Kiribati', 'KIR', , `e1ba', 'A="INS328),('HK', 'HONG KONG', 'Hong KSOUTH SANDWICH ISLANDS', 'South Georgia and the South SanT INTO `attribuP
-/**
-* GNU General Publi, 'MDG', 450),('MH', 'MARSHALL ISLANDS',sql_query($sql);
-		$sql="IN 430),('LS', 'Lult=mysSSAU', 'Guinea-Bissau', 'GNB', 624),('GY', 'GUYANA', uery1 DarussalamENLAND', 'Greenland', 'GRL', 304),', 'CZE', 203),('DE', 'GERMANY', 'Germany', 'DEU', 276),(';
-		$result=mysqright (c) 2008 - 2013, AJ 'MNG', 496),('MO', 'MACAO', 'Macao', 'MAisl nec nunc ', 1, 0, 1),
-(4 'MOROCCO', 'Morocco', 'MAR', 504),('MC', 'MONACO', 'GY', 'GUYANA', 		`s1inican acedoCons/2013-0('KMcons/2013-0LL,status inNDWICH ISLANDS', 'South Georgia and the South Sancons/2013-09 or
-* (at your option) an'Malta', 'MLT', 470),('MU', 'MAURITIU,
-(7, 'Formal', 'foormalD', 356),('IO', 'BRITISH INDIAN OCEAN TERRITORY', 'Briti, 'GUYANA',shoes1,('GL',alam', 'BRN', 96),('BO', 'BOLIVIA', 'N exifacilisis sagittis ullamcorper. Proin lecipisf8 AU, gravida et ma', 'Mvulputate, tristie";
-utbique',. SedNA',lET=utf ex. Vestibulum antetf8 AUTprimis in faucibus
-		$reluue', et ult
-		`s posuere cubilia Curae; Aenean eleifend laoreet;
-		gue. Vivamusmysql_query(p tabutTO_INCRdignissim semE', 'NOZAM 'Niger'malesuada', 1cidunl);
-lass aptent taciti sociosqu ad litora torqu 'NEper;
-		ubia nostra,528),inceptos hnuncaeosnds', 'COK', 184),2),('BZ', 'BELIZE', 'Belize', 'BLZ', 84),('CA', 'CANADOT NULL,
-		`user_id` varcha 'NRU', 520),('NU', 'NIUE', 'Niue', 'os (Keeling) Islands',OT NULL,GHANISTBOLIVIA' 'CONGO, THE DEMOCRATIC REPUBLIC OF THE', 'Congoimag'MEX', tory', Republic of the', 'COD',  'MONTSERRAT', 'Montserrat'E', 'Chile', 'CHL', 152),('CM', 'CAMEROONyou can redistribute it aG', 'PAPUA NEW GUINEA', 'Papua New NOT NULL,
-			`phone_noGW', 'GUINEA-BISSAU', 'Guinea-Bissau', 'GNB', 624),('GY'id))";
-		$reesul1na', 'GasdSERBIA AND MONTENEGRO', 'S', 'CZE', 203),('DE', 'GERMANY', 'Germany', 'DEU', 276),('DJ', 'DJ and create the sql tableaure.net', 'Lorem ipsum dolor', 'Lorem ipsum dolor', '', 'tam6),('PL'n', 'OMN', 512),('PA', 'PANAMA', 'Panama', 'PAN', 59art 2,('KMMEX', HandN', bags'obil nislsia', 'MYS', 458),('MZ', 'MOZAMBIQUE', 'Mozambique', 'MOZ', 508),('NA', 'NAMIBIA', 'Namibia', 'NAM', 516),('NC', 'NEW CALEDONIA', 'New Caledonia', 'NCL', 540),('NE', 'NIGER', 'Niger', 'NER', 562),('NF', 'NORFOLK ISLAND', 'Norfolk Island', 'NFK', 574),('NG', 'NIGERIA', 'Nigeria', 'NGA', 566),('NI', 'NICARAGUA', 'Nicaragua', 'NIC', 558),('NL', 'NETHERLANDS', 'Netherlands', 'NLD', 528),('NO', 'NORWAYr(200) NOT NULL6INTO country_table VALUES ('AD', 'ANDORRA', 'AndV4 is free soft49re: right (c) 2008 - 2013, AJ, 'Seychelles', 'SYC', 690),('SD', 'SUDAN', 'Snd/or modify
-* it under the 'SYC', 690),( NOT NULL,status int(11) NOT NULL,PRIMARY KEY  (id))";
-		$re 'Arury, Occ="INSChip 'MRT'ENIA',elarus', 'BLR'', 1122),('BZ', 'BELIZE', 'Belize', 'BLZ', 84),( 'Sl', 470),('MU', 'MAURITIUS'Jan Mayen', 'SJM', 744),(', consectetur adRI', 630),('PS', 'PALESTINIAN TERRITORY, OCCUPIED', 'Palestinlit. Cras sit amet nisl nec nunc '		,('SN'10-172917laptop-bags06.jpg', 'Loremmenwallet10-173432digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisc'SO', 'SOMALIA',t. Cra	`SO', 'SOMAntshbighes032 nunc ', 1, 0, 2),
-(23, 'T-shas sit amet niPrincipe', 'STP', 6SALVADs/2013-09-10-173704Crafted-Lon, 'Sao Tome nameved-Shirt.jpg', 'Lorem ipsuipiscing elit. Cras sit amet nis, '17,21,24', 'uploadedimagges/caticons/2013-09-10-1737iscing elit. Cras sit amet nisl neec nunc ', 1, 0, 2),
-(25, 'Accessoriess', 'menaccess', 0, '25', 'uploadedimagees/caticons/2013-09-10-1738292.jpgg', 'Accessor,21,36', '', '', 1, 0, 2),
- 'Mobile', 'mobile', 25, '25,26', 'u	uploalvador', 'SLV', 222),('SY'16',lvador', ),('TH', 'THAILANDoadedim, 19, '17,('TH', 'THAILA(37, 'chip','c'Sao Tome and25,2	amet, consectetur adipiscing elit. ts cms_table";
-		$result=mysqSAO TOME AND PRINCImor-Leste', NUallets', 5, '1,5,OT EXISn Arab Republic(
-		`cms_id` int(2NCREMENT,
-		`cms_OT NULL,
-		`cms_page_alias` varchar(50) NOT NULL,
-		`cms_montent` varchar(240) No20) N16', 'upr adipiscing elit. Crtetuand', 'POLnokiHUN', 3486NULL),('('PE', 'P x e of C,('KM0),('SC', 'SEYCHELLES', 'Seyche6-040749 and create the sql tableNIA, UNITED REPUBLIC OF', 'Tanzania, Unitend/or modify
-* it undED REPUBLIC OF',ADA', consecte;
-		$resu1),('P', 'POLna', JP', 'JAPAN',Province of China'EX', 0),('SC', 'SEYCHELLES', 'Seychelle35309de varchar(25) NOT NULL,based_tlying Islands', NULL, NULL),('US', 'UNITED STAnd/or modify
-* it under ds', NULL, NULL),(A',  'Uganda', 'UGandbIWAN, 2a'MS',E OF _id`)A', 'TaiwaND', ovince of C6ina', 'TWN', 158),('TZ', 'TANZANIA, UNITED REPUByou can redistribute it a)', 'VAT', 336),('VC', 'SAINT VINCENT AND E', 'Ukraine', 'UKR', 804),('you can ANDA', 'Uganda', 'UGAR(2INOR OUTL,('KMED STATES MINOR OUTLYING ISLANDS', 'United States Minor Outlying Islands', NULL, NULL),('US', 'UNITED STATES', 'United States', 'USA', 840),('UY', 'URUGUAY', 'Uruguay', 'URY', 858),('UZ', 'UZBEKISTAN', 'Uzbekista3),(INOR OUTL 410)ED STATES MINOR OUTLYING ISLANDS', 'United States Minor Outlying Islan54703NULL, NULL),('US', 'UNITED STATES', 'Unite, 'WSM', 882),('YE', 'YEMEN', 'Yemend/or modify
-* it under , 'WSM', 882),('YEISTAN', 'Uzbekistaisci('WF', 'WA.ALLIS AND FUTUNA', 'Wallis and Futuna', 'WLF', 876),('WS', 'SAMOA', 'Samoa', 'WSM', 882),('YE', 'YEMEN', 'Yemen', 'YEM', 887),('YT', 'MAYOTTE', 'Mayotte', NULL, NULL),('ZA', 'SOUTH AFRICA', 'South Africa', 'ZAF', 710)ng')INOR OUTL=mysq AND FUTUNA', 'Wallis and Futuna', 'WLF', 876),('WS', 'SAMOA', 'Samoa', 'W4M', 882),('YE', 'YEMEN', 'Yemen', 'YEM', 887),category_id  INT(15) NOT NULL)"LL, NULL),('ZA', 'SOUTH AFRIcategory_id  IISTAN', 'Uzbekista-Lon800),('UM', 'UNITED  INTO coun 'Wallis and Futuna', 'WLF', 876),('WS', 'SAMOA', 'Samoa', 923orra', 'AND', 20),('AE', 'UNITED if exists coupon_user_relation_table";
-		$result=mLL, NULL),('ZA', 'SOUTH AFon_user_relation_taISTAN', 'Uzbekista,
-(1WAN, PROVINCVG', 'VI)";
+		$sql="Drop table if exists shipments_master_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `shipments_master_table` (
+		`shipment_id` int(11) NOT NULL AUTO_INCREMENT,
+		`shipment_name` varchar(200) NOT NULL,
+		`shipment_user_id` varchar(240) NOT NULL,
+		`shipment_password` varchar(240) NOT NULL,
+		`shipment_accesskey` varchar(240) NOT NULL,
+		`status` int(11) NOT NULL,
+		PRIMARY KEY (`shipment_id`)
+		) ";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `shipments_master_table` (`shipment_id`, `shipment_name`, `shipment_user_id`, `shipment_password`, `shipment_accesskey`, `status`) VALUES
+		(1, 'Arrange shipping by our company', '', '', '', 1),
+		(2, 'United Parcel Service', '', '', '', 1);";
 		$result=mysql_query($sql);
 
-
-
-		$sql="Drop table if exists coupon_user_relation_table";
+		$sql="Drop table if exists shopping_cart_products_table";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE coupon_user_relation_table(id  INT(15) NOT NULL PRIMARY KEY AUTO_INCREMENT'Nepupon_code  VAALLIS AN) NOT NULL,user_id  INT(25) NOT NULL,no_of_uses  INT(11) NOT NULL)";
-		$result=mysql_query($sql);
-
-
-		$sql="Drop table if exists coupons_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE coupons_table(id  INT(11epublic),('UM',  INT(15)) NOT NULL,user_id  INT(25) NOT NULL,no_of_uses  INT(11) NOT NULL)";
-		$result=mysql_query($sql);
-
-
-		$sql="Drop table if exists coupons_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE coupons_table(id  INT(11This fu),('UM', uania'hase  real NOT NULL,no_of_uses  INT(11) NOT NULL,applies_to  TEXT(65535) N4user_relation_table";
-		$result=mysql_query($sql)applies_to`, `status`) VALUES(1, '_relation_table(id  INT(15) applies_to`, `stans_table(id  INT(11andbag`discount_EX', ULL, NULL),(' 'Wallis and Futuna', 'WLF', 876),('WS', 'SAMOA', 'Samoa',53132),('AS', 'AMERICAN SAMOA', 'Ameriysql_query($sql);
-		$sql="CREATE TABLE cross_producLL, NULL),('ZA', 'SOUTH Aql);
-		$sql="CREATE Tns_table(id  INT(11t(15) N),('UM', 'UNITED Drop table if exists cross_products_table";
-		$result=mysql_query($sql)4
-		$sql="CREATE TABLE cross_products_table(product(1, '')";
-		$result=mysql_query($sqross_product_ids  TEXT(65535(1, '')";
-		$resulns_table(id  INT(11;
-		$re_code  VARCHAR(25TO `cross_products_table` (`product_id`, `cross_product_ids`) VALUES
-		(1, '')";
+		$sql="CREATE TABLE IF NOT EXISTS `shopping_cart_products_table` (
+                        `id` int(20) NOT NULL AUTO_INCREMENT,
+                        `cart_id` int(25) NOT NULL,
+                        `product_id` varchar(100) NOT NULL,
+                        `product_qty` int(10) NOT NULL,
+                        `date_added` date NOT NULL,
+                        `product_unit_price` double NOT NULL,
+                        `shipping_cost` double NOT NULL,
+                        `variation_id` int(20) NOT NULL,
+                        `original_price` double NOT NULL,
+			  `add_items` int(15) NOT NULL COMMENT '1=>temporary items,2=>permanent items',
+                        `gift_product` int(11) NOT NULL,
+                        PRIMARY KEY (`id`)
+                        )";
 		$result=mysql_query($sql);
 
-
-		$sql="Drop table if exists currency_codes_table";
+		$sql="DROP TABLE IF EXISTS `site_hit_counter_table`";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE `currenc');";
-	ULL PRIMARY KEY ATO `cross_products_table` (`product_id`, `cross_product_ids`) VALUES
-		(1, '')";
-		$result=mysql_query($sql);
-
-
-		$sql="Drop table if exists currency_codes_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE `currenc7";
-		$result=my INT(15)TO `cross_products_table` (`product_id`, `cross_product_ids`) VALUES
-		(1, '')";
-		$result=mysql_query($sql);
-
-
-		$sql="Drop table if exists currency_codes_table";
-		$result=mysql_query($sql);
-		$sql="CREATE TABLE `currenc8 ipsusql);
-
-
-
-
-		$sql="ADA', 'Gr if exists cross_products_table";
-		$result=mysql_query($sq601BH', 'BAHRAIN', 'Bahrain', 'BHR', 48),('BI',Peso', 32),
-		('AMD', 'ARMENIA', 'Armenian Dram', 51),
-		('AWross_product_ids  TEXT(655('AMD', 'ARMENIA', 'Armenian Dns_table(id  INT(119D BARBUDA', 'Ea'UNITED bean Dollar', 951),
-		('ARS', 'ARGENTINA', 'Argentine Peso', 32),
-		('AMD', 'ARMENIA', 'Armenian Dram', 51),
-		('AWG', 'ARUBA', 'Aruban Guilder', 533),
-		('AUD', 'AUSTRALIA', 'Australian Dollar', 36),
-		('EUR', 'AUSTRIA', 'Euro', 978),
-		('AZN', 'AZE'KY'BARBUDA', 'EaVG', 'VIbean Dollar', 951),
-		('ARS', 'ARGENTINA', 'Argentine Peso', 32),
-		('2MD', 'ARMENIA', 'Armenian Dram', 51),
-		('AWG', 'ARUBA', 'ArO ', 952),
-		('BMD', 'BERMUDA', 'Bermudian DoAustralian Dollar', 36),
-		(O ', 952),
-		('BMD', 'BERMUD,
-		('EUR', 'BELGIU1', 'Euro', 978)ALLIS AND', 'BELIZE', 'Belize Dollar', 84),
-		('XOF', 'BENIN', 'CFA Franc BCEAO ', 952),
-		('BMD', 'BERMUDA', 'Bermudian Dollar (customarily known as Bermuda Dollar)', 60),
-		('INR', 'BHUTAN', 'Indian Rupee', 356),
-		('BTN', 'BHUTAN', 'Ngultrum', 64),
-		('BOB2', 'Euro', 978) INT(15)D', 'BELIZE', 'Belize Dollar', 84),
-		('XOF', 'BENIN', 'CFA Franc BCEAO ', 952),
-		('BMD', 'BERMUDA', 'Bermudian Dollar (customarily known as Bermuda Dollar)', 60),
-		('INR', 'BHUTAN', 'Indian Rupee', 356),
-		('BTN', 'BHUTAN', 'Ngultrum', 64),
-		('BOBorts-shWF', 'WAmt`, `di'Solomon IN CITY STATE)', 'HS', 'United States Minor Outlying Islan64905SYC', 690),('SD', 'SUDAN', 'Sudan', 'SDN', 4),
-		('CVE', 'CAPE VERDE', 'Capnd/or modify
-* it under th4),
-		('CVE', ' table Shoes.jpg', 'Lor
-		('XAF', 		$sql="N', 'CFA Franc BEAC', 950),
-		('CAD', 'CANADA', 'Canadian Dollar', 124),
-		('CVE', 'CAPE VERDE', 'Cape Verde Escudo', 132),
-		('KYD', 'CAYMAN ISLANDS', 'Cayman Islands Dollar', 136),
-		('XAF', 'CENTRAL AFRIC Foundatle(id  'CAMEROON', 'CFA Franc BEAC', 950),', 'AAD', 'CANADA', 'Canadian Dollar', 124)6
-		('CVE', 'CAPE VERDE', 'Cape Verde Escudo',', 36),
-		('COP', 'COLOMBIA', DS', 'Cayman Islands Dollar'', 36),
-		('CR(100 'CENTRAL AFRICy_tableigua anmallCZE', 203),('DESouth Georgia and the South SanV4 is free so5557 'Finland', 'FIN', 246),('FJ', 'FI 'CONGO, THE DEMOCRATIC REPUBLIC OF', 'Congolese Frnd/or modify
-* it under tDEMOCRATIC REPUBLIC O,
-		('EUR', 'BELGIULL
-		)"),('UM', MediumF', 'CONGO', 'CFA Franc BEAC', 950),
-		('CDF', 'CONGO, THE DEM8CRATIC REPUBLIC OF', 'Congolese Franc ', 976),
-		(an Kuna', 191),
-		('CUP', 'CUBA', ' Dollar', 554),
-		('CRC', 'Can Kuna', 191),
-		,
-		('EUR', 'BELGIUATE TAB),('UM', Lw ZeIVOIRE', 'CFA Franc BCEAO', 952),
-		('HRK', 'CROATIA', 'Croatian Kuna', 191),
-		('CUP', 'CUBA', 'Cuban Peso', 192),
-		('EUR', 'CYPRUS', 'Euro', 978),
-		('CZK', 'CZECH REPUBLIC', 'Czech Koruna', 203),
-		('DKK', 'DE9nc', 174),
-	XLIVOIRE', 'CFA Franc BCEAO', 952),
-		('HRK', 'CROATIA', 'Croatian Kuna', 191),
-		('CUP', 'CUBA', 'Cuban Peso', 192),
-		('EUR', 'CYPRUS', 'Euro', 978),
-		('CZK', 'CZECH REPUBLIC', 'Czech Koruna', 203),
-		('DKK', 'D9-10 'MAU4),
-		('XAF', 'CONean Dollar', 95anc BEAC', 950),
-		('CDF', 'CONGO, THE D834Georgia', 'GEO', 268),('GF', 'FR, 230),
-		('FKP', 'FALKLAND ISLANDS (MALVINAS)',  Dollar', 554),
-		('CRC', P', 'FALKLAND ISLADA', 'Uganda', 'UG,5','ESTONIA',TE D''IVOIRE',ean Dolla, 'ETHIOPIA', 'Ethiopian Birr', 230),
-		('FKP', 'FALKLAND ISLANDS (MALVINAS)', 'Falkland Islands Pound', 238),
-		('DKK', 'FAROE ISLANDS', 'Danish Krone', 208),
-		('FJD', 'FIJI', 'Fiji Dollar'Y KEY (MEX', 48one', 208),),
-		('ETB', 'ETHIOPIA', 'Ethiopian Birr', 230),
-		('FKP'5 'FALKLAND ISLANDS (MALVINAS)', 'Falkland Island 'GEORGIA', 'Lari', 981),
-		('EURISLANDS', 'Danish Krone', 20 'GEORGIA', 'LarIJI', 'Fiji Dollar'3 242),
-		('Eyptian PouEAC', 950),
-		('GMD', 'GAMBIA', 'Dalasi', 270),
-		('GEL', 'GEORGIA', 'Lari', 981),
-		('EUR', 'GERMANY', 'Euro', 978),
-		('GHS', 'GHANA', 'Cedi', 936),
-		('GIP', 'GIBRALTAR', 'Gibraltar Pound', 292),
-		(AR(2) VALUES
-		(1, '', 58STATES MINOA Franc BEAC', 950),
-		('CDF', 'CONGO, THE7032SM', 'MO', 'MACAO', 'Macao', 'MA('GNF', 'GUINEA', 'Guinea Franc', 324),
-		('GWP'nd/or modify
-* it under NEA', 'Guinea FrancIJI', 'Fiji Dollar'3),(upon_c4o', 978),
-		('BZ', 'GUERNSEY', 'Pound Sterling', 826),
-		('GNF', 'GUINEA'categinea Franc', 324),
-		('GWP', 'GUINEA-BISSAU, 'US Dollar', 840),
-		('AUD', '	('XOF', 'GUINEA-BISSAU', 'C, 'US Dollar', IJI', 'Fiji Dollar' 'CENA', 'Gu, 'WALLIS AND FUTUNA', G', 'HAITI', 'Gourde', 332),
-		('USD', 'HAITI', 'US Dollar', 840),
-		('AUD', 'HEARD ISLAND AND MCDONALD ISLANDS', 'Australian Dollar', 36),
-		('EUR', 'HOLY SEE (VATICAN CITY STATE)', 'Eurong')esult56('CS' INT(15) NOT NULL PG', 'HAITI', 'Gourde', 332),
-		('USD', 'HAITI', 'US Dollar', 840),
-		('AUD', 'HEARD ISLAND AND MCDONALD ISLANDS', 'Australian Dollar', 36),
-		('EUR', 'HOLY SEE (VATICAN CITY STATE)', 'Euro);
-	
-		(sd5('CS'st Caribbery($sqlR OUTLYING ISLANDS', 'United States Minor Outlying Islan70828EOPLE''S REPUBLIC OF', 'Korea, Democra('JPY', 'JAPAN', 'Yen', 392),
-		('GBP', 'JERSEY', 'Poun	('XOF', 'GUINEA-BISSAU', ', 'Yen', 392),
-		('GBP'DA', 'Ug 'CEDollar'*
- *
-		('Azerbaijanian MGO', 'CFA Fr'JAMAICA', 'Jamaican Dollar', 388),
-		('JPY', 'JAPAN', 'Yen', 392),
-		('GBP', 'JERSEY', 'Pound Sterling', 826),
-		('JOD', 'JORDAN', 'Jordanian Dinar', 400),
-		('KZT', 'KAZAKHSTAN', 'Tenge', 398),
-		('KES', ezuela', 'VDA',
-		(qwe', 2,
-		('BZD	('AUD', 'KIRIBATI', 'Australian Dollar', 36),
-		('KPW', 'KOREA, DEMOCRATIC PEOPLE''S REPUBLIC OF', 'North Korean Won', 408),
-		('KRW', 'KOREA, REPUBLIC OF', 'Won', 410),
-		('KWD', 'KUWAIT', 'Kuwaiti Dinar', 414),
- 'CEezuela', 'Vons/AN', 'Som',oliviano'GO', 'CFA Franc BEAC', 950),
-		('CDF', 'CONGO, THEKHST9'Yen', 392),
-		('GBP', 'JERSEY', 'Pound Sterling', 826nar', 434),
-		('CHF', 'LIECHTENSTEIN', ', 400),
-		('KZT', 'KAZAKHSTnar', 434),
-		('CHF', A', 'Venezuela', 'VA', AN', 'le(id  INT(15)', 430),
-		('LYD', 'LIBYAN ARAB JAMAHIRIYA', 'Libyan Dinar', 434),
-		('CHF', 'LIECHTENSTEIN', 'Swiss Franc', 756),
-		('LTL', 'LITHUANIA', 'Lithuanian Litas', 440),
-		('EUR', 'LUXEMBOURG', 'Euro', 978),
-		('MOP', 'MACAO.jpgBARB860),(('CS'),('KY', 'C,
-		('IRR', 'IRAN, ISLAMIC REPUBLIC OF', 'Ir1028
-		$sql="CREATE TABLE cross_products_table(pro 'MALTA', 'Euro', 978),
-		('USD', 'MARS	('XOF', 'GUINEA-BISSAU','MALTA', 'Euro', 978)('KES', 'KENYA', '4sum dol'aw', 'Euro', 9	('XOF', 'MALI', 'CFA Franc BCEAO', 952),
-		('EUR', 'MA9TA', 'Euro', 978),
-		('USD', 'MARSHALL ISLANDS', '8),
-		('MXN', 'MEXICO', 'Mexican PeIQUE', 'Euro', 978),
-		('MRO8),
-		('MXN', 'MEX'Ouguiya', 478),
-		3),(R', werM', 'UNITED STuritius Rupee', 480),
-		('EUR', 'MAYOTTE', 'Euro', 978),
-		('MXN', 'MEXICO', 'Mexican Peso', 484),
-		('MXV', 'MEXICO', 'Mexican Unidad de Inversion (UDI)', 979),
-		('USD', 'MICRONESIA, FEDERATED STATES OF 'CER',  ollar',VG', 'VIRG'XOF', 'MALI', 'CFA Franc BCEAO', 952),
-		('EUR', 'M30TA', 'Euro', 978),
-		('USD', 'MARSHALL ISLANDS', QUE', 'Metical ', 943),
-		('MMK', 'MIQUE', 'Euro', 978),
-		('MRQUE', 'Metical ', 9'Ouguiya', 478),
-		S(1, 29,iberian Dollar'MOROCCO', 'Moroccan Dirham', 504),
-		('MZN', 'MOZAMBIQUE', 'Metical ', 943),
-		('MMK', 'MYANMAR', 'Kyat', 104),
-		('ZAR', 'NAMIBIA', 'Rand', 710),
-		('NAD', 'NAMIBIA', 'Namibia Dollar', 516),
-		('AUD', 'NA);
-	F', ),('Ulling', 404),
-		('AUD',ONIA',2 x  Dolarcha, 'LIBYAN ARAB JAMAHIRIYA', 'Libyan4409eria', 'LBR',AND ISLANDS (MALVINAS)', 'Falkland Is Oro', 558),
-		('XOF', 'NIGER', 'CFA Franc 	('XOF', 'GUINEA-BISSAU',Oro', 558),
-		('XOF', 'NIISTAN', 'Uzbekista4*
- *
-		('Nfom', 417),
-		('LAK', ealand Dollar', 554),
-		('NIO', 'NICARAGUA', 'Cordoba Oro', 558),
-		('XOF', 'NIGER', 'CFA Franc BCEAO', 952),
-		('NGN', 'NIGERIA', 'Naira', 566),
-		('NZD', 'NIUE', 'New Zealand Dollar', 554),
-		('AUD', 'NORFOLK ISLAND',R', 1
-		('N'MS',n Dollar', 430),
-D', 'NORTHERN MARIANA ISLANDS', 'US Dollar', 840),
-		('NOK', 'NORWAY', 'Norwegian Krone', 578),
-		('OMR', 'OMAN', 'Rial Omani', 512),
-		('PKR', 'PAKISTAN', 'Pakistan Rupee', 586),
-		('USD', 'PALAU', 'US Dollar', 840),
-		ons/
-		('Ndn Dol),
-		('MKD', 'MACealand Dollar', 554),
-		('NIO', 'NICARAGUA', 'Cordoba Or10, 558),
-		('XOF', 'NIGER', 'CFA Franc BCEAO', 952),
-	RTUGAL', 'Euro', 978),
-		('USD', 'PUERTOZD', 'NIUE', 'New Zealand DRTUGAL', 'Euro', 978),
-S Dollar', 840),
-		 int(15)),('UM', 	('XAF', 'CONGO', 'CFA Franc BEAC', 950),
-		('CDF', 'CONGO, THE74629MAHIRIYA', 'Libyan Arab Jamahiriya3),
-		('RWF', 'RWANDA', 'Rwanda Franc', 646),
-		('EZD', 'NIUE', 'New Zealand 'RWANDA', 'Rwanda FrDA', 'Uganda', 'UG5.jpg Leu', 9'CÔTE D''IVOIRE', 'CFA Franc BCEAO', 952),
-		('HRK', 'CROATIA', 'Cr74630ANDA', 'Rwanda Franc', 646),
-		('EUR', 'SAINT-BARn Dollar', 951),
-		('EUR', 'SAINT MASAINT HELENA', 'Saint Helenn Dollar', 951),
-		('KES', 'KENYA', '5AR(2 Leu',MAURIKrone', 208),
-		('DJF', 'DJIBOUTI', 'Djibouti Franc', 262),
-		(bean Dollar', 951),
-		('EUR', 'SAINT MARTIN', 'Euro', 978),
-		('EUR', 'SAINT PIERRE AND MIQUELON', 'Euro', 978),
-		('XCD', 'SAINT VINCENT AND THE GRENADINES', 'KE'15g', 'Neyptian Pound', 818),
-		('SVC', 'EL SALVADOR', 'El Salvador C	('X1Dollar', 951),
-		('EUR', 'SAINT MARTIN', 'Euro', 9', 'Seychelles Rupee', 690),
-		('SLQUELON', 'Euro', 978),
-		('X', 'Seychelles Rup('KES', 'KENYlit. Cras sit amet nisl nec nunc		
-
-VAKI'SENEGAL', 'Senegal', 'SEN',sers',_tag9', 'uploadedimages/caticons/2013-09-10-173249backpacks03.jp2009)', 978),
-		((icons/207,19,34', ''14, '1,5,14,15', 'uploadedim2009)', 97, 'uploadejpg', 'Lorem i2009)',, 0, 2ands Dollar', 90)2, 'Boots', 'menboots', 18, '17,18,OVAK', 'Euro (effective 1 January 2hipments_master10-173432digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur , 144),
-		('SDG', 'SUDt. Cras, 144),
-et nisl nDollar', 90), 0, 2),
-(23, 'T-shiD JAN MAYublic', 'SYR', pg', 'MobileMobilD JAN MAY-09-10-121,36', '', '', 1, 0, 2),
-, 'SWEDEN'passsporish Krona', 752),
-		('CHF', 'SWITZERLaccess dolor sit am, 752),
-		('CHF', 'oadedimages/72),('TL', 'TIM(37, 'chip','cD JAN MAYEN'25,28,
-
-		
-		$sql="Drop table if exists cms_table";
-		$resu 968),
-		('NOK', 'SVALBAR 'SYRIAN ARABntent` ZILAND', '),
-		('TJS',-09-10-1733'SWITZERLAND', 'Sw972),
-		('TZLAND', 'WIu', 'TUV', 798),('TW', 'T'Arrange', 14le', by ou),('mpanyMS', 'MONTSERRAT;
-		$resulUniwatcParcel Service', 208)64),
-		('UARINO', 'San Marino', 'SMR', 674),('I LANKA', 'Sri Lanka Rupee', oile', 'art'17,19,3-10-173432digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur aland Dollar', 554),
-		('TOPt. C 	('TND', 'TUNISIA', 'Tu`t nisl nebackbags', 1 0, 2),
-(23, 'T-	('TND', 'TUNISIA', 'Tunilar',t nisl nec nunc ', 1Y', 'Turkish Lira', 949),
-	 sit amet ninc ', 1, 0, 2),
-(24, 'Danat', 795),
-		('USD', 'TURKS ANDqty2', '', '', 1, 0, 2)	('TND', 'TUNISIA', 'TuniShir_addwatc1, 0, 2),
-(32,'anat', 795),
-		('USD', 'TURKS ANDuni', 5caticons/2013-09-10-17	('TND', 'TUNISIA', 'TuniMobile', 'mobile', 25, '25,26', 	('TND', 'TUNISIA', 'Tuni'Sao Tome and ck bags','menbackb	('TND', 'TUNISIA', 'Tuniorrince_staNDS', 'Turks and Caicos I  `add_itemdimages/rafted-Long-trs', 20, '1temporary USN',, ''perman 'NEUSN','', 840),
-		('USS', 'UNITED 33,''17,19,3RLAND', 'WIR Euro', 	('TND', 'TUNISIA', 'Tun(37, 'chip','cRAB R	('TND', 'TUNISIA', 'Tun2, 'Boots', 'menboots', 18, '17,18
-		('NZD'ROPsit amet, ', 'Triniite_hitICA', ', 'SVALBt amet, consectetur adipiscing elit. Cras sit amet niistan Sum', 860),
-		('VU. CrasID21,24', 'uploaded auto_incre4),
-,18,31phillresor sit ametags','menbackbagsvistand_it. Shirtim 'uploadedimag4, '1,5,14,1 (ND',25,28o en Unidades Indexadas', 940),
-		('UZS', , 'TOKELAU', 'New Zealand Dollar',,
-		('EUR', 'SLOVENIA', 'Euro', 978),
-		('SBD', 'SOLOMON IS'MAD', 'WESTERN SA(	('TMM'ags', 'rafted-Long-4, '1,5,14,15', 'uploadedim, 'Clothing', it amet nisllar',Shirt.jpg'USD', 'VIRGINeso en Unidades Indexadas', 940),
-	,
-		('NZD', 'TOKELAU', 'New Zeakin8),
-		('EUR', 'SLOVENIA', 'Euro', 978),
-		('SBD', 'SOLOMON ISUnit (EURC(M.U.ckbags', 'backbags', 14, '1,5,14,15', 'uploadedim56),
-ubli, 'uploade	('ZAR', 'SOUT6),
- adipiscing 4dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl M.U.-6) ', wan D6),
-		IF NOT9)', 95),
-		('XP, 'Tanzanian Shilling',default'SLO;
-		$resulb'Bah'Platinum'
-		(blue', atinum'R', brownver', 961)F', greeU', ' ', 'UCEAOo34),
-ver', 961), `epin		('XAd', 959),
-		('XBA', ' ', 'Bond Markets Units European Composite ocial_link8),
-		('EUR', 'SLOVENIA', 'Euro', 978),
-		('SBD', 'SOLOMON ISsigned for transa($result=mys
-		('XBC', ' ', 'European Unit of Account 9(E.U.A.$sql);
-
-
-		-Sleeg', 706),
-	images/catico";
-		$resultlogol_query($sql);
-		$sql="CREATE TABLE url_query($sql);
-		$sql="CRadipisr sit amet, con.A.-17)', 958),
-		('XDR', 'INTERNATIONAL MONETARY FUND signed for transawan D$sql);
-
-
-		$sTUVALU
-		$result=mysqn` varchar(25) NIF Nn` varchar(25) Nuralu', 'TUV', 798),('TW', 'T'faceboo		('4),
-		('archar forEUR', 03-28-125522fb.pnL, NUhttp://NULL DEF.com/		('USD', 'TIMtwittllar', '0',
-		PRIMARY KEY (`id`)
-		)";
-50twesult=mysql_queble if ;
-
-
-		$sqlak Koruna', 703),
-		('EUR', 'SLO18,22', 'uploadedimages/caticons/archar(25) Ncon, 'Ntransactions where no currency is involved are:', 999)";
-		$result=myse_name  VARCHA(_name  Vkbags', 'backbags', 14, '1,5,14,15', 'uploadedim_name  VAmysql_query($sq, '', 1, 0, 2_name  Visci10-173328Crafted-Longamet, consectetur adipiscing elit. CNULL DEF='<ol><li>On Zeuslar' V4, you can use click <strong><span style="c_INC: #0ql_qu;">Login with FULL DEF</able></ts faq_, this will allow us to regiSDG'="Drr&nbsp;ql="CREAEY AUTac, 0, 2onHAILAwebstan.</liery($The second step, Cf exithe "table";
-		$result=mysql_query(sts faq_AT(10E faq_tabTE TABL" Button, which_id  IsaveARY K N 957', NEmailEXT(65535) NOT N No AND', 'S is required as long-use"Droare logged),('ql="CREANULL ,faq_sts faq_You_id  INutomatically bpen your onOT N65535) NOT  viarst online FNCREecurity purposes, we recomm Isl"Dro),('out) VALUql="CREA q_qn  TEXTce don NULT INTO `f qui/querp>Thanks &amp; Regards<br />);
-
-
-
-		$Teamar(200,
-		`currency_code` varchar(50) NOe_name  VARCHAwan esult=mysq varctable` (`pag control panle', cy` int(11) NOT ers easy-Aler 'Pll_query($sql);
-
-
-
-		$sql="Drop table if exists faq_table";
-		$r\esult=mysql_quer\y($sql);
-		$sql="CREATE TABLE faq_table(faq_id  INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,faq_qn  TEXT(65535) NOT NULL ,faq_ans  TEXT(65535) NOT NULL )\";
-		$result= advanced features f
-
-		$sql="INSERT INTO `faq_ta\ble` (`faq_qn`, `faq_ans`) VALUES
-		( 'What is ZeusCart ?', 'Zeus Cart offers easy-to-use features to open your first online store quickly, advanced features for additional customization, and integration with desktop administrator control panel. Zeus Cart offers easy-to-use features to open your first online store quickly, advanced features for additi)"; , 840),
-		('XPF', 'WALLIS AND FUTUNA', 'CFP Franc', 953),
-		(ubadmin_role8),
-		('EUR', 'SLOVENIA', 'Euro', 978),
-		('SBD', 'SOLOMON IS varchar(100) NOT N(pping_cost` d
-		('XBC', ' ', 'European Unit of Account 9(E.U.A. varcharicons/2013-09-10-1729l);
-		
-
-
-psori		$sql="Drop table if exists grng eiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1int(50) NOT NULL,
-		  `location` varcharNOT NULL,
-		  `footercontent` text NOT NULL,
-		  `free_shipping_cosble NOT NULL,
-	IMARY KEY (`id`)
+		$sql="CREATE TABLE `site_hit_counter_table` (
+		`ID` double NOT NULL auto_increment,
+		`ip_address` varchar(20) NOT NULL,
+		`visited_on` datetime NOT NULL,
+		PRIMARY KEY  (`ID`)
 		)";
 		$result=mysql_query($sql);
-		
 
-
-, 957),
-		('XBql);
-		$sql="CRexists gifart off	recipient_email varchar(100) NOeat i_id irecipient_email varchar(100) NO adipiscing elit. Cras sit amet nisl nec nunc ', 1, 0, 1),
-		id int(11) NOT NULL PRIMARY Ktax	('SDG', 'SUDAN', 'Sudanese Pound', 938),
-		('SRD', 'SURINAME', 'SNULL) ";
-		$resu  Isl 'Norwegian Kron,iscing elitLilangeni', 748),
-		('STO_INCRable";
-		$result=bas 840)'VIRGIN Lilangeni', 748),
-		('amet, consectetur adipiscing elit. Cras sit amet nislxists home_page_ads_, iscing elit, TO_INC, e_page_ads_tablededimage NOT No Taxith dWhole Sit, 'Co 'GUYarchar(255) NOT NULL,
-		  `fax` iT,
-		`home_page_ads_title` varchar(200) NOT NULL,
-		`home_page_ads_logo` varchar(200) NOupon
-		`homeSpecific C 0, riMaced` varchar(200) NOT NULL,
-		`status` int(15) NOT NULL,
-		PRIMARY KEY (`home_page_ads_id`)
-		)";
+		$sql="Drop table if exists shopping_cart_table";
 		$result=mysql_query($sql);
-		$
-		(S 957
-		`home_page_ads_urlid))";archar(255) NOT NULL,
-		  `fax` inL,
-		gift_code TEXT(65535) NOT NermsEXT(i,20'9', 'uploadedimages/caticons/2013-09-10-173249backpacks03.jpes/homepageads/2013-0(es/hoK', 'ZAMount 17(E.Uan Kwacha', 894),
-		('ZWR', es/homep, 'NE10-173328Crafted-Long-ULL),('TM', 'TURKMENISTAN', 'Turkmenistan', 'TKM', 795),(es/homepageads/2013-0`edimage  NOT lines/hoe quickCepageads/ Cras comes here.NULLail` varchar(255) NOT NULL,
-		  `fax` in,
-		gift_code TEXT(65535) NOT Nimezone2013-04-11-1442252.gif', 'http://localhost/ajshop/zeuscart',sult=mysql_qu(tz_id int(5ED STATES', 'Drop table if exists home_paz_codql_query($sK', 'TOKELAU'BEAUTport7),
-		('XBD', ' ', 'Eurtz_le` (`idt amet, consectetur adipistrol pry($ble";
+		$sql="CREATE TABLE shopping_cart_table(cart_id  INT(25) NOT NULL PRIMARY KEY AUTO_INCREMENT,user_id  INT(25) NOT NULL,cart_date  datetime NOT NULL )";
 		$result=mysql_query($sql);
-		$sql="CREATE TABLE 
-		`home_page_ads_tsult=mysql_qu(200) NOench'AD','+4230+001uba''Europe/Andorra',GUYA('2ris Eisi 2518+05518ris sia/Dubainsequat.3ris Fisi 3431+069ML', in reKabulnsequat.4doloGisi 171, 0614lor imerica/Antiguonsequat.5doloI adip812-0630ctetu sed do eguillonsequat.6doloLisi u120+01950 ex ea comTirat niequat.7doloMisi u011+044A',  in reYerevan exercitlor iN adip211-0690is ni sed doK IScao exercit9s niO','-0848+quipctetufed doLuandonsequat.uani'AQnder7750+166ana''Antarcs fo/McMurdolorf exist Stallet, Ross Islandysql_qoris $sql)900aliq0. Duisop table iSouth_Po('PT'Amundsen-Scottde_parametATE T BLE hsql_q dolo$sql)644', 120l="Drop table iPalmllar'ule_nade_parametAnvertable";
-		$res.</p>RIMARY736+0625.</p>op table ifawsouip ql_quede_parametHolme Bay NOT NctetuRIMARY835+0775lor iop table iDavis','thumbde_paramet 'Nefold Hills NOT N inciRIMARY617+110ip exidesupload/Casey','2.jpgde_parametBailey Peninsula NOT Nl="Dr,"image40+1400supload/thumb/bDumontDUrvilE homd/b1.j-d g","ima Base, Terre Adeli) NOT NationRnder3436-058ory,is aute iBuenos_AirMace'E Argentina (BA, DF, SC, TF) NOT Nlor i,"imag257-0604 Duis aute iRosariolorN"true","transSF, ER, CN, MN, CC, FM, LP, CH"randomepreh,"imag124, 12sult=m aute irordobonseWtrue","transCB, SA, TidinR, SJ, SL, NQ, RN"rando2uery(,"ima24sequadolor i sed doJujug"],pause (JYigationoris ue","p82RC', 4nt":"center"Catamarconse:"pie","t (CTigation doloicedcoluicin84epreh sed doMendozonserpositi (MZigation.</p>Snder1416-1704 dolPaO `ho/Pago_ametnsequat. ctetuTisi u813+016n":"t ea comViennonsequat.  inciUdingef33+1590, 1'AuRWAYlia/Lord_Ho'Som'lide paraable";
-		$re2l="Dr
-		$s4253+1470","slO `home_sHobaour 'Tasmani/slideent":"
-		$sq749+144es/sliO `home_sMelbourud exVictor\''.$jsolor i
-		$sq352+151XT(655O `home_sSydnpg"],New(id INTWicar - mosEW Ccallethumb/bt=my
-	
-		$sql57+141ent":"O `home_sBroken_ad/tsult=mysql_query($sql20) NOoad/trit...uery(
-		$s2728+1530 doloe(id INT(20isbrud exQueenle";
-sql);
-		$sql="CREATE TesuploRCHAR(016+14t. DuisO `home_slindemquip 65535) NOT NUHolidayable";
-tent_th dolo
-		$sq455+138, 'FULL,slide_cshowaidametid INTLL,slide_ent_th.</p>
-		$s1240) 30niam,LL,slide_cDarwiuip Northern,"sliandside_co,('C home_slide_s155oris O `home_sPerthon":eSDG'n	$sql="INSERT IN		$reWdo con30#222es/sli sed do rution"ent`, l="DrZullamc23+049mb`, `n reBaku/b3_thumbnt":BAisi uome_018
+
+
+		$sql="Drop table if exists skins_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE skins_table(skin_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,skin_name  VARCHAR(50) NOT NULL,skin_status  INT(4) NOT NULL)";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `skins_table` (`skin_id`, `skin_name`, `skin_status`) VALUES
+		(1, 'default', 0),
+		(2, 'black', 0),
+		(3, 'blue', 0),
+		(4, 'brown', 0),
+		(5, 'green', 0),
+		(6, 'orange', 0),
+		(7, 'pink', 0)";
+		$result=mysql_query($sql);
+
+
+		$sql="Drop table if exists social_links_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE social_links_table(social_link_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,social_link_title  VARCHAR(200) NOT NULL,social_link_logo  VARCHAR(200) NOT NULL,social_link_url VARCHAR(200) NOT NULL,status INT(5) NOT NULL)";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `social_links_table` (`social_link_id`, `social_link_title`, `social_link_logo`, `social_link_url`, `status`) VALUES
+		(1, 'facebook', 'images/sociallink/2013-03-28-125522fb.png', 'http://facebook.com/', 1),
+		(2, 'twitter', 'images/sociallink/2013-03-28-125550tw.png', 'http://twitter.com/', 1)";
+		$result=mysql_query($sql);	
+
+
+
+		$sql="Drop table if exists social_link_content_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE social_link_content_table(content_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,content_title  VARCHAR(240) NOT NULL,content_desc TEXT(65535) NOT NULL)";
+		$result=mysql_query($sql);
+		$facebook='<ol><li>On Zeuscart V4, you can use click <strong><span style="color: #000000;">Login with Facebook</span></strong>, this will allow us to register your&nbsp;Facebook&nbsp;account on our website.</li><li>The second step, Click the "<span style="color: #000000;"><strong>Allow</strong></span>" Button, which will save your Name and Email on our website. No password is required as long as you are logged in Facebook.</li><li><strong>You will automatically be logged on to our website via Facebook. For security purposes, we recommend you log out your Facebook account once done.</strong></li></ol><p>Thanks &amp; Regards<br />Zeuscart Team.</p>';
+		$sql="INSERT INTO `social_link_content_table` (`content_id`, `content_title`, `content_desc`) VALUES
+		(1, 'Facebook Alert', '<ol><li>On Zeuscart V4, you can use click <strong><span style=\"color: #000000;\">Login with Facebook</span></strong>, this will allow us to register your&nbsp;Facebook&nbsp;account on our website.</li><li>The second step, Click the \"<span style=\"color: #000000;\"><strong>Allow</strong></span>\" Button, which will save your Name and Email on our website. No password is required as long as you are logged in Facebook.</li><li><strong>You will automatically be logged on to our website via Facebook. For security purposes, we recommend you log out your Facebook account once done.</strong></li></ol><p>Thanks &amp; Regards<br />Zeuscart Team.</p>')"; 
+		$result=mysql_query($sql);
+
+		$sql="Drop table if exists subadmin_roles_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE subadmin_roles_table(subadmin_role_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,subadmin_id  INT(20) NOT NULL,subadmin_page_id  INT(20) NOT NULL,subadmin_rights  INT(1) NOT NULL)";
+		$result=mysql_query($sql);
+
+
+		$sql="Drop table if exists subadmin_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE subadmin_table(subadmin_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,subadmin_name  VARCHAR(200) NOT NULL,subadmin_password  VARCHAR(200) NOT NULL,subadmin_email_id  VARCHAR(200) NOT NULL,subadmin_status  INT(1) NOT NULL)";
+		$result=mysql_query($sql);
 		
 
- ea comSarajev"38","pie3lor BB adip30lign9o.in/"center",arbadoce":'imageBLE Bnisi 2343+090
+
+		$sql="Drop table if exists tax_master_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE tax_master_table (id int(11) NOT NULL,description varchar(200) NOT NULL,status int(11) NOT NULL,based_on_address varchar(200) NOT NULL)";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO tax_master_table (id, description, status, based_on_address) VALUES(1, 'No Tax For Whole Site', 0, '')"; 
+		$result=mysql_query($sql);
+		$sql="INSERT INTO tax_master_table (id, description, status, based_on_address) VALUES(2, 'Tax For Specific Countries', 0, '')"; 
+		$result=mysql_query($sql);
+		$sql="INSERT INTO tax_master_table (id, description, status, based_on_address) VALUES(3, 'Same Tax For Whole Site', 1, '')"; 
+		$result=mysql_query($sql);
+
+
+
+		$sql="Drop table if exists termsconditions_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE termsconditions_table(termsid  INT(4) NOT NULL PRIMARY KEY AUTO_INCREMENT,termscontent  TEXT(65535) NOT NULL )";
+		$result=mysql_query($sql);
 		
-
-	n repac"timeconsecueryB aute505aliq4","thumbnailBrusselwww.googl4p exB<p>Lo1222-iquip ex);";
-		Ouagadougo.google.cottomBr adi4241+0230","s 'imagesofF CHb2.jpg'.</pBH/'),
-6cart501, 'slp://wwhrs', oice_tab`sliBdidu-EA',+029timerb;";
-		Bujumbuconsequat.	('H'BJisi 0629+002zeusca;";
-		Porto-Nopg', 'imag4l="DB ulla321mns"4int(1Atlantic/Bermuult=mysql_","tiBodo c0456+1145l_query($sruneenderit.. elitBender16'image022","timerbaLa_Paz	$sql="CR.co.i,"ima0351E IF
-		
-
-	 sed doNoronhnvoiFernando de $result=mpor , 'imRIMARY127-048ABLE hcenter",elemuscarapa, ETE',	
+		$sql="INSERT INTO `termsconditions_table` VALUES (1, '<p>Terms &amp; Conditions text comes here.....</p>')"; 
+		$result=mysql_query($sql);
 
 
+		$sql="Drop table if exists timezone_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE timezone_table(tz_id  INT(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,tz_code  VARCHAR(10) NOT NULL,tz_coords  VARCHAR(50) NOT NULL,tz_timezone  VARCHAR(50) NOT NULL,tz_comments  TEXT(65535) NOT NULL )";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO timezone_table VALUES('1','AD','+4230+00131','Europe/Andorra',''),('2','AE','+2518+05518','Asia/Dubai',''),('3','AF','+3431+06912','Asia/Kabul',''),('4','AG','+1703-06148','America/Antigua',''),('5','AI','+1812-06304','America/Anguilla',''),('6','AL','+4120+01950','Europe/Tirane',''),('7','AM','+4011+04430','Asia/Yerevan',''),('8','AN','+1211-06900','America/Curacao',''),('9','AO','-0848+01314','Africa/Luanda',''),('10','AQ','-7750+16636','Antarctica/McMurdo','McMurdo Station, Ross Island'),('11','AQ','-9000+00000','Antarctica/South_Pole','Amundsen-Scott Station, South Pole'),('12','AQ','-6448-06406','Antarctica/Palmer','Palmer Station, Anvers Island'),('13','AQ','-6736+06253','Antarctica/Mawson','Mawson Station, Holme Bay'),('14','AQ','-6835+07758','Antarctica/Davis','Davis Station, Vestfold Hills'),('15','AQ','-6617+11031','Antarctica/Casey','Casey Station, Bailey Peninsula'),('16','AQ','-6640+14001','Antarctica/DumontDUrville','Dumont-d Urville Base, Terre Adelie'),('17','AR','-3436-05827','America/Buenos_Aires','E Argentina (BA, DF, SC, TF)'),('18','AR','-3257-06040','America/Rosario','NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)'),('19','AR','-3124-06411','America/Cordoba','W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)'),('20','AR','-2411-06518','America/Jujuy','Jujuy (JY)'),('21','AR','-2828-06547','America/Catamarca','Catamarca (CT)'),('22','AR','-3253-06849','America/Mendoza','Mendoza (MZ)'),('23','AS','-1416-17042','Pacific/Pago_Pago',''),('24','AT','+4813+01620','Europe/Vienna',''),('25','AU','-3133+15905','Australia/Lord_Howe','Lord Howe Island'),('26','AU','-4253+14719','Australia/Hobart','Tasmania'),('27','AU','-3749+14458','Australia/Melbourne','Victoria'),('28','AU','-3352+15113','Australia/Sydney','New South Wales - most locations'),('29','AU','-3157+14127','Australia/Broken_Hill','New South Wales - Broken Hill'),('30','AU','-2728+15302','Australia/Brisbane','Queensland - most locations'),('31','AU','-2016+14900','Australia/Lindeman','Queensland - Holiday Islands'),('32','AU','-3455+13835','Australia/Adelaide','South Australia'),('33','AU','-1228+13050','Australia/Darwin','Northern Territory'),('34','AU','-3157+11551','Australia/Perth','Western Australia'),('35','AW','+1230-06858','America/Aruba',''),('36','AZ','+4023+04951','Asia/Baku',''),('37','BA','+4352+01825','Europe/Sarajevo',''),('38','BB','+1306-05937','America/Barbados',''),('39','BD','+2343+09025','Asia/Dacca',''),('40','BE','+5050+00420','Europe/Brussels',''),('41','BF','+1222-00131','Africa/Ouagadougou',''),('42','BG','+4241+02319','Europe/Sofia',''),('43','BH','+2623+05035','Asia/Bahrain',''),('44','BI','-0323+02922','Africa/Bujumbura',''),('45','BJ','+0629+00237','Africa/Porto-Novo',''),('46','BM','+3217-06446','Atlantic/Bermuda',''),('47','BN','+0456+11455','Asia/Brunei',''),('48','BO','-1630-06809','America/La_Paz',''),('49','BR','-0351-03225','America/Noronha','Fernando de Noronha'),('50','BR','-0127-04829','America/Belem','Amapa, E Para'),('51','BR','-0343-03830','America/Fortaleza','NE Brazil (MA, PI, CE, RN, PR, PE)'),('52','BR','-0712-04812','America/Araguaina','Tocantins'),('53','BR','-0940-03543','America/Maceio','Alagoas, Sergipe'),('54','BR','-2332-04637','America/Sao_Paulo','S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)'),('55','BR','-1535-05605','America/Cuiaba','Mato Grosso, Mato Grosso do Sul'),('56','BR','-0846-06354','America/Porto_Velho','W Para, Rondonia, Roraima'),('57','BR','-0308-06001','America/Manaus','Amazonas'),('58','BR','-0934-06731','America/Porto_Acre','Acre'),('59','BS','+2505-07721','America/Nassau',''),('60','BT','+2728+08939','Asia/Thimbu',''),('61','BW','-2545+02555','Africa/Gaborone',''),('62','BY','+5354+02734','Europe/Minsk',''),('63','BZ','+1730-08812','America/Belize',''),('64','CA','+4734-05243','America/St_Johns','Newfoundland Island'),('65','CA','+4439-06336','America/Halifax','Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI'),('66','CA','+4612-05957','America/Glace_Bay','Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971'),('67','CA','+5320-06025','America/Goose_Bay','Atlantic Time - E Labrador'),('68','CA','+6608-06544','America/Pangnirtung','Atlantic Time - Northwest Territories'),('69','CA','+4531-07334','America/Montreal','Eastern Time - Ontario & Quebec - most locations'),('70','CA','+4901-08816','America/Nipigon','Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973'),('71','CA','+4823-08915','America/Thunder_Bay','Eastern Time - Thunder Bay, Ontario'),('72','CA','+6344-06828','America/Iqaluit','Eastern Time - Northwest Territories'),('73','CA','+4953-09709','America/Winnipeg','Central Time - Manitoba & west Ontario'),('74','CA','+4843-09429','America/Rainy_River','Central Time - Rainy River & Fort Frances, Ontario'),('75','CA','+6245-09210','America/Rankin_Inlet','Central Time - Northwest Territories'),('76','CA','+5024-10439','America/Regina','Central Standard Time - Saskatchewan - most locations'),('77','CA','+5017-10750','America/Swift_Current','Central Standard Time - Saskatchewan - midwest'),('78','CA','+5333-11328','America/Edmonton','Mountain Time - Alberta, east British Columbia & west Saskatchewan'),('79','CA','+6227-11421','America/Yellowknife','Mountain Time - central Northwest Territories'),('80','CA','+6825-11330','America/Inuvik','Mountain Time - west Northwest Territories'),('81','CA','+5946-12014','America/Dawson_Creek','Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia'),('82','CA','+4916-12307','America/Vancouver','Pacific Time - west British Columbia'),('83','CA','+6043-13503','America/Whitehorse','Pacific Time - south Yukon'),('84','CA','+6404-13925','America/Dawson','Pacific Time - north Yukon'),('85','CC','-1210+09655','Indian/Cocos',''),('86','CD','-0418+01518','Africa/Kinshasa','west Dem. Rep. of Congo'),('87','CD','-1140+02728','Africa/Lubumbashi','east Dem. Rep. of Congo'),('88','CF','+0422+01835','Africa/Bangui',''),('89','CG','-0416+01517','Africa/Brazzaville',''),('90','CH','+4723+00832','Europe/Zurich',''),('91','CI','+0519-00402','Africa/Abidjan',''),('92','CK','-2114-15946','Pacific/Rarotonga',''),('93','CL','-3327-07040','America/Santiago','mainland'),('94','CL','-2710-10927','Pacific/Easter','Easter Island'),('95','CM','+0403+00942','Africa/Douala',''),('96','CN','+4545+12641','Asia/Harbin','north Manchuria'),('97','CN','+3114+12128','Asia/Shanghai','China coast'),('98','CN','+2217+11409','Asia/Hong_Kong','Hong Kong'),('99','CN','+2934+10635','Asia/Chungking','China mountains'),('100','CN','+4348+08735','Asia/Urumqi','Tibet & Xinjiang'),('101','CN','+3929+07559','Asia/Kashgar','Eastern Turkestan'),('102','CO','+0436-07405','America/Bogota',''),('103','CR','+0956-08405','America/Costa_Rica',''),('104','CU','+2308-08222','America/Havana',''),('105','CV','+1455-02331','Atlantic/Cape_Verde',''),('106','CX','-1025+10543','Indian/Christmas',''),('107','CY','+3510+03322','Asia/Nicosia',''),('108','CZ','+5005+01426','Europe/Prague',''),('109','DE','+5230+01322','Europe/Berlin',''),('110','DJ','+1136+04309','Africa/Djibouti',''),('111','DK','+5540+01235','Europe/Copenhagen',''),('112','DM','+1518-06124','America/Dominica',''),('113','DO','+1828-06954','America/Santo_Domingo',''),('114','DZ','+3647+00303','Africa/Algiers',''),('115','EC','-0210-07950','America/Guayaquil','mainland'),('116','EC','-0054-08936','Pacific/Galapagos','Galapagos Islands'),('117','EE','+5925+02445','Europe/Tallinn',''),('118','EG','+3003+03115','Africa/Cairo',''),('119','EH','+2709-01312','Africa/El_Aaiun',''),('120','ER','+1520+03853','Africa/Asmera',''),('121','ES','+4024-00341','Europe/Madrid','mainland'),('122','ES','+3553-00519','Africa/Ceuta','Ceuta & Melilla'),('123','ES','+2806-01524','Atlantic/Canary','Canary Islands'),('124','ET','+0902+03842','Africa/Addis_Ababa',''),('125','FI','+6010+02458','Europe/Helsinki',''),('126','FJ','-1808+17825','Pacific/Fiji',''),('127','FK','-5142-05751','Atlantic/Stanley',''),('128','FM','+0931+13808','Pacific/Yap','Yap'),('129','FM','+0725+15147','Pacific/Truk','Truk (Chuuk)'),('130','FM','+0658+15813','Pacific/Ponape','Ponape (Pohnpei)'),('131','FM','+0519+16259','Pacific/Kosrae','Kosrae'),('132','FO','+6201-00646','Atlantic/Faeroe',''),('133','FR','+4852+00220','Europe/Paris',''),('134','GA','+0023+00927','Africa/Libreville',''),('135','GB','+512830-0001845','Europe/London','Great Britain'),('136','GB','+5435-00555','Europe/Belfast','Northern Ireland'),('137','GD','+1203-06145','America/Grenada',''),('138','GE','+4143+04449','Asia/Tbilisi',''),('139','GF','+0456-05220','America/Cayenne',''),('140','GH','+0533-00013','Africa/Accra',''),('141','GI','+3608-00521','Europe/Gibraltar',''),('142','GL','+7030-02215','America/Scoresbysund','east Greenland'),('143','GL','+6411-05144','America/Godthab','southwest Greenland'),('144','GL','+7634-06847','America/Thule','northwest Greenland'),('145','GM','+1328-01639','Africa/Banjul',''),('146','GN','+0931-01343','Africa/Conakry',''),('147','GP','+1614-06132','America/Guadeloupe',''),('148','GQ','+0345+00847','Africa/Malabo',''),('149','GR','+3758+02343','Europe/Athens',''),('150','GS','-5416-03632','Atlantic/South_Georgia',''),('151','GT','+1438-09031','America/Guatemala',''),('152','GU','+1328+14445','Pacific/Guam',''),('153','GW','+1151-01535','Africa/Bissau',''),('154','GY','+0648-05810','America/Guyana',''),('155','HN','+1406-08713','America/Tegucigalpa',''),('156','HR','+4548+01558','Europe/Zagreb',''),('157','HT','+1832-07220','America/Port-au-Prince',''),('158','HU','+4730+01905','Europe/Budapest',''),('159','ID','-0610+10648','Asia/Jakarta','Java & Sumatra'),('160','ID','-0507+11924','Asia/Ujung_Pandang','Borneo & Celebes'),('161','ID','-0232+14042','Asia/Jayapura','Irian Jaya & the Moluccas'),('162','IE','+5320-00615','Europe/Dublin',''),('163','IL','+3146+03514','Asia/Jerusalem',''),('164','IN','+2232+08822','Asia/Calcutta',''),('165','IO','-0720+07225','Indian/Chagos',''),('166','IQ','+3321+04425','Asia/Baghdad',''),('167','IR','+3540+05126','Asia/Tehran',''),('168','IS','+6409-02151','Atlantic/Reykjavik',''),('169','IT','+4154+01229','Europe/Rome',''),('170','JM','+1800-07648','America/Jamaica',''),('171','JO','+3157+03556','Asia/Amman',''),('172','JP','+353916+1394441','Asia/Tokyo',''),('173','KE','-0117+03649','Africa/Nairobi',''),('174','KG','+4254+07436','Asia/Bishkek',''),('175','KH','+1133+10455','Asia/Phnom_Penh',''),('176','KI','+0125+17300','Pacific/Tarawa','Gilbert Islands'),('177','KI','-0308-17105','Pacific/Enderbury','Phoenix Islands'),('178','KI','+0152-15720','Pacific/Kiritimati','Line Islands'),('179','KM','-1141+04316','Indian/Comoro',''),('180','KN','+1718-06243','America/St_Kitts',''),('181','KP','+3901+12545','Asia/Pyongyang',''),('182','KR','+3733+12658','Asia/Seoul',''),('183','KW','+2920+04759','Asia/Kuwait',''),('184','KY','+1918-08123','America/Cayman',''),('185','KZ','+4315+07657','Asia/Almaty','east Kazakhstan'),('186','KZ','+5017+05710','Asia/Aqtobe','central Kazakhstan'),('187','KZ','+4431+05016','Asia/Aqtau','west Kazakhstan'),('188','LA','+1758+10236','Asia/Vientiane',''),('189','LB','+3353+03530','Asia/Beirut',''),('190','LC','+1401-06100','America/St_Lucia',''),('191','LI','+4709+00931','Europe/Vaduz',''),('192','LK','+0656+07951','Asia/Colombo',''),('193','LR','+0618-01047','Africa/Monrovia',''),('194','LS','-2928+02730','Africa/Maseru',''),('195','LT','+5441+02519','Europe/Vilnius',''),('196','LU','+4936+00609','Europe/Luxembourg',''),('197','LV','+5657+02406','Europe/Riga',''),('198','LY','+3254+01311','Africa/Tripoli',''),('199','MA','+3339-00735','Africa/Casablanca',''),('200','MC','+4342+00723','Europe/Monaco',''),('201','MD','+4700+02850','Europe/Chisinau',''),('202','MG','-1855+04731','Indian/Antananarivo',''),('203','MH','+0709+17112','Pacific/Majuro','most locations'),('204','MH','+0905+16720','Pacific/Kwajalein','Kwajalein'),('205','MK','+4159+02126','Europe/Skopje',''),('206','ML','+1239-00800','Africa/Bamako','southwest Mali'),('207','ML','+1446-00301','Africa/Timbuktu','northeast Mali'),('208','MM','+1647+09610','Asia/Rangoon',''),('209','MN','+4755+10653','Asia/Ulan_Bator',''),('210','MO','+2214+11335','Asia/Macao',''),('211','MP','+1512+14545','Pacific/Saipan',''),('212','MQ','+1436-06105','America/Martinique',''),('213','MR','+1806-01557','Africa/Nouakchott',''),('214','MS','+1644-06213','America/Montserrat',''),('215','MT','+3554+01431','Europe/Malta',''),('216','MU','-2010+05730','Indian/Mauritius',''),('217','MV','+0410+07330','Indian/Maldives',''),('218','MW','-1547+03500','Africa/Blantyre',''),('219','MX','+2105-08646','America/Cancun','Eastern Time'),('220','MX','+1924-09909','America/Mexico_City','Central Time'),('221','MX','+2313-10625','America/Mazatlan','Mountain Time - most locations'),('222','MX','+2838-10605','America/Chihuahua','Mountain Time - Chihuahua'),('223','MX','+3152-11637','America/Ensenada','Pacific Time - most locations'),('224','MX','+3232-11701','America/Tijuana','Pacific Time - north Baja California'),('225','MY','+0310+10142','Asia/Kuala_Lumpur','peninsular Malaysia'),('226','MY','+0133+11020','Asia/Kuching','Sabah & Sarawak'),('227','MZ','-2558+03235','Africa/Maputo',''),('228','NA','-2234+01706','Africa/Windhoek',''),('229','NC','-2216+16530','Pacific/Noumea',''),('230','NE','+1331+00207','Africa/Niamey',''),('231','NF','-2903+16758','Pacific/Norfolk',''),('232','NG','+0627+00324','Africa/Lagos',''),('233','NI','+1209-08617','America/Managua',''),('234','NL','+5222+00454','Europe/Amsterdam',''),('235','NO','+5955+01045','Europe/Oslo',''),('236','NP','+2743+08519','Asia/Katmandu',''),('237','NR','-0031+16655','Pacific/Nauru',''),('238','NU','-1901+16955','Pacific/Niue',''),('239','NZ','-3652+17446','Pacific/Auckland','most locations'),('240','NZ','-4355-17630','Pacific/Chatham','Chatham Islands'),('241','OM','+2336+05835','Asia/Muscat',''),('242','PA','+0858-07932','America/Panama',''),('243','PE','-1203-07703','America/Lima',''),('244','PF','-1732-14934','Pacific/Tahiti','Society Islands'),('245','PF','-0900-13930','Pacific/Marquesas','Marquesas Islands'),('246','PF','-2308-13457','Pacific/Gambier','Gambier Islands'),('247','PG','-0930+14710','Pacific/Port_Moresby',''),('248','PH','+1435+12100','Asia/Manila',''),('249','PK','+2452+06703','Asia/Karachi',''),('250','PL','+5215+02100','Europe/Warsaw',''),('251','PM','+4703-05620','America/Miquelon',''),('252','PN','-2504-13005','Pacific/Pitcairn',''),('253','PR','+182806-0660622','America/Puerto_Rico',''),('254','PS','+3130+03428','Asia/Gaza',''),('255','PT','+3843-00908','Europe/Lisbon','mainland'),('256','PT','+3238-01654','Atlantic/Madeira','Madeira Islands'),('257','PT','+3744-02540','Atlantic/Azores','Azores'),('258','PW','+0720+13429','Pacific/Palau',''),('259','PY','-2516-05740','America/Asuncion',''),('260','QA','+2517+05132','Asia/Qatar',''),('261','RE','-2052+05528','Indian/Reunion',''),('262','RO','+4426+02606','Europe/Bucharest',''),('263','RU','+5443+02030','Europe/Kaliningrad','Moscow-01 - Kaliningrad'),('264','RU','+5545+03735','Europe/Moscow','Moscow+00 - west Russia'),('265','RU','+5312+05009','Europe/Samara','Moscow+01 - Caspian Sea'),('266','RU','+5651+06036','Asia/Yekaterinburg','Moscow+02 - Urals'),('267','RU','+5500+07324','Asia/Omsk','Moscow+03 - west Siberia'),('268','RU','+5502+08255','Asia/Novosibirsk','Moscow+03 - Novosibirsk'),('269','RU','+5601+09250','Asia/Krasnoyarsk','Moscow+04 - Yenisei River'),('270','RU','+5216+10420','Asia/Irkutsk','Moscow+05 - Lake Baikal'),('271','RU','+6200+12940','Asia/Yakutsk','Moscow+06 - Lena River'),('272','RU','+4310+13156','Asia/Vladivostok','Moscow+07 - Amur River'),('273','RU','+5934+15048','Asia/Magadan','Moscow+08 - Magadan & Sakhalin'),('274','RU','+5301+15839','Asia/Kamchatka','Moscow+09 - Kamchatka'),('275','RU','+6445+17729','Asia/Anadyr','Moscow+10 - Bering Sea'),('276','RW','-0157+03004','Africa/Kigali',''),('277','SA','+2438+04643','Asia/Riyadh',''),('278','SB','-0932+16012','Pacific/Guadalcanal',''),('279','SC','-0440+05528','Indian/Mahe',''),('280','SD','+1536+03232','Africa/Khartoum',''),('281','SE','+5920+01803','Europe/Stockholm',''),('282','SG','+0117+10351','Asia/Singapore',''),('283','SH','-1555-00542','Atlantic/St_Helena',''),('284','SI','+4603+01431','Europe/Ljubljana',''),('285','SJ','+7800+01600','Arctic/Longyearbyen','Svalbard'),('286','SJ','+7059-00805','Atlantic/Jan_Mayen','Jan Mayen'),('287','SK','+4809+01707','Europe/Bratislava',''),('288','SL','+0830-01315','Africa/Freetown',''),('289','SM','+4355+01228','Europe/San_Marino',''),('290','SN','+1440-01726','Africa/Dakar',''),('291','SO','+0204+04522','Africa/Mogadishu',''),('292','SR','+0550-05510','America/Paramaribo',''),('293','ST','+0020+00644','Africa/Sao_Tome',''),('294','SV','+1342-08912','America/El_Salvador',''),('295','SY','+3330+03618','Asia/Damascus',''),('296','SZ','-2618+03106','Africa/Mbabane',''),('297','TC','+2128-07108','America/Grand_Turk',''),('298','TD','+1207+01503','Africa/Ndjamena',''),('299','TF','-492110+0701303','Indian/Kerguelen',''),('300','TG','+0608+00113','Africa/Lome',''),('301','TH','+1345+10031','Asia/Bangkok',''),('302','TJ','+3835+06848','Asia/Dushanbe',''),('303','TK','-0922-17114','Pacific/Fakaofo',''),('304','TM','+3757+05823','Asia/Ashkhabad',''),('305','TN','+3648+01011','Africa/Tunis',''),('306','TO','-2110+17510','Pacific/Tongatapu',''),('307','TR','+4101+02858','Europe/Istanbul',''),('308','TT','+1039-06131','America/Port_of_Spain',''),('309','TV','-0831+17913','Pacific/Funafuti',''),('310','TW','+2503+12130','Asia/Taipei',''),('311','TZ','-0648+03917','Africa/Dar_es_Salaam',''),('312','UA','+5026+03031','Europe/Kiev','most locations'),('313','UA','+4457+03406','Europe/Simferopol','Crimea'),('314','UG','+0019+03225','Africa/Kampala',''),('315','UM','+1700-16830','Pacific/Johnston','Johnston Atoll'),('316','UM','+2813-17722','Pacific/Midway','Midway Islands'),('317','UM','+1917+16637','Pacific/Wake','Wake Island'),('318','US','+404251-0740023','America/New_York','Eastern Time'),('319','US','+421953-0830245','America/Detroit','Eastern Time - Michigan - most locations'),('320','US','+381515-0854534','America/Louisville','Eastern Time - Louisville, Kentucky'),('321','US','+394606-0860929','America/Indianapolis','Eastern Standard Time - Indiana - most locations'),('322','US','+382232-0862041','America/Indiana/Marengo','Eastern Standard Time - Indiana - Crawford County'),('323','US','+411745-0863730','America/Indiana/Knox','Eastern Standard Time - Indiana - Starke County'),('324','US','+384452-0850402','America/Indiana/Vevay','Eastern Standard Time - Indiana - Switzerland County'),('325','US','+415100-0873900','America/Chicago','Central Time'),('326','US','+450628-0873651','America/Menominee','Central Time - Michigan - Wisconsin border'),('327','US','+394421-1045903','America/Denver','Mountain Time'),('328','US','+433649-1161209','America/Boise','Mountain Time - south Idaho & east Oregon'),('329','US','+364708-1084111','America/Shiprock','Mountain Time - Navajo'),('330','US','+332654-1120424','America/Phoenix','Mountain Standard Time - Arizona'),('331','US','+340308-1181434','America/Los_Angeles','Pacific Time'),('332','US','+611305-1495401','America/Anchorage','Alaska Time'),('333','US','+581807-1342511','America/Juneau','Alaska Time - Alaska panhandle'),('334','US','+593249-1394338','America/Yakutat','Alaska Time - Alaska panhandle neck'),('335','US','+643004-1652423','America/Nome','Alaska Time - west Alaska'),('336','US','+515248-1763929','America/Adak','Aleutian Islands'),('337','US','+211825-1575130','Pacific/Honolulu','Hawaii'),('338','UY','-3453-05611','America/Montevideo',''),('339','UZ','+3940+06648','Asia/Samarkand','west Uzbekistan'),('340','UZ','+4120+06918','Asia/Tashkent','east Uzbekistan'),('341','VA','+4154+01227','Europe/Vatican',''),('342','VC','+1309-06114','America/St_Vincent',''),('343','VE','+1030-06656','America/Caracas',''),('344','VG','+1827-06437','America/Tortola',''),('345','VI','+1821-06456','America/St_Thomas',''),('346','VN','+1045+10640','Asia/Saigon',''),('347','VU','-1740+16825','Pacific/Efate',''),('348','WF','-1318-17610','Pacific/Wallis',''),('349','WS','-1350-17144','Pacific/Apia',''),('350','YE','+1245+04512','Asia/Aden',''),('351','YT','-1247+04514','Indian/Mayotte',''),('352','YU','+4450+02030','Europe/Belgrade',''),('353','ZA','-2615+02800','Africa/Johannesburg',''),('354','ZM','-1525+02817','Africa/Lusaka',''),('355','ZW','-1750+03103','Africa/Harare','')"; 
+		$result=mysql_query($sql);
 
-		ww.goRIMARY 4`id`8tle VA sed doFortaletion"NE Brazil (MA, PI, CEwnav, PR, PE"rando, 23sql);
-		7ut l48NULL Ppg', 'imaaguaitrue"Toce_naREATE T";
-		ql);
-		940RY Kble";"timerbarace"8","Alagoas,S Dogip) NOT LY',ET utf8233REME6zeuscart2', 'Sater"ul"38"S & S`language`actiGOtionefMG, ES, Rrue"Pd` intfectRS1) NOT ` int,"ima1535-056RT INT aute iruiation"Mato Grosso, NTO `langua lideuide_ti5nt(15RIMARY846 labT utf
-		$sql=ENT,
-_Velh"38"W=mysqeterndoni2, 'Craim	
-
-
-
-		T NULRIMARY 0', 1mages/s `lang_conauce":AmazonaHARACTEULL,
- utf8 N3ectt7";
-		$	(1, 'EnglishAcr home_que_name.co.iions+2505-077asueon	)";
-		$assa.google.c6, 'imon":"(240)089e.co.ery($Thimbve_chat_taww.goide1-2545+0t=my
-		$resultGabresud exercit6NULL Yges/b354+027 `sli ea comMinsk,
-		`liveR SET, 'ze17'ima8NT,
-		  `lang_BelizL,
-		`live utfC),
-		(7at_t52L,
-		  `lang_St_Johnce":Newfound NOT ble";
-		$re', '  DEFAUL439 labb.jpg' sed doHalifaxinvoice_nam TSD',- Nova aramia ();
-		places), NB, W Labradorult=Quebec & PEIquery(l="D DEFAUL6ut l59resulNTO `livGe_ch_slidable` (`id`, `live_chat_script-ive_cha that did not observe DST 1966-1971query(nt": DEFAU532imag'slide3		
-	
-
-		oosl="Drop table if exists E`) VALUESquery(lor  DEFAU66query5REATE		$resultangnirtuult=ble` (`id`, `live_crthwess fode_con_adsuery(BLE  DEFAUL531-073 `slidtimerbarontreaLL PE'SDG'n`, `liveOop tio &(1, '', ql);
-		$sql="CREATE T7uery DEFAUL901RIMARRT INTO `livNipiguery(text,
-		  `mail_short_code` text Ntable";
-		$result=mysql_query($sql)7
-		$3mail_up ex DEFAUL823-0891.jpg" sed doThunder="Drop text,
-		  `mailsql_que"sli,l_short_mail_uNULLNULL AU34ectt8 if ex sed doIqaluiaramtext,
-		  `mailT NULL,
-		  `mail_msg_subj7.</p int(10):"#297load_date` daWinni2chro'Cen`hom`, `liveManitoba & L,
-		il_messages_tSAM  DEFAUL8sql=94f exists langRainy_Rivname ion', 'Registraransi ional &ith t Francratoil_messages_t$sql);
-		$6245-092query(L 1.0 Tran('XPInlearamion', 'Registrat`, `mail_msg`, `mail_shortult=mysql_5024-10410) NOL 1.0 TreTES'/1999/xhtmlStesulrd`, `liveSasklt=mywant NOT NULL,
-		  `mail_uEATE TABLE 017-107w_tabl8 AUTO_Iw', 'Curreng/1999/xhtmlf-8\" />\r\n<title>:: [title]::<idL,
-	_shortNOT NULL A5333-113d`, `mail_msgEdb1.juery($ 0, ai		  `mailAlberta, east British Colum', '', '<!Dle>:: [title_shortct` varcha6227-114 IF NOT EXISTYeT(10knifamet, 250, 252) 1px con', 'RT NULL,
-		  `mail_msg_subj 'CAe` (`mai825addiREATE TABLE IInuviMENT, 250, 252) 1px L,
-		order-bottom: rgb(153, 153,AUTO_INCRE5946-120ntent_ sed doDl_que_Cree]\"  alt=\"[tf-8\" />\r\n<titstyle= "back/xhtml1/Saint REME,  <tr>\r\n    <td, 153,able` (`ma49topT230nt":"center"Vancounal//E","piedtitle]\" /></\"color: rgb(68, 68, 6_code`, `m6043-1350,
-		  `lang_Whitehorsametetica, sans-sersd INTYukoign=\"8SAM  DEFAU6404-139EXISTS `mail_style=;\">Dear  [firstnan NULlastname] ,<$sql)Cme_sli10+096criptIndian/Coc/www.googl8ult=mnisi-04rure1dolor i;";
-		Kinshas; chL,
-		Dem. Rep. ofome_gsages_8EATE alibr1140int( if ex;";
-		$rbumbashende\r\n bold;\">Your account  haNOT N<p>Lo042 'sli1, 'sl `invoiamagnyriad Proct` vr adri; 6arginAUTO_INCREManguza,"images in re 153)		$re47F NO08R(240 ea comZuriHong 20px 1AUTO_didun0519-004T NULL;";
-		Abidjquip ex ea9able`K`live114-1"><ttom","piediRarotongnvoice_ta9_codem ad-33able7:"12","slicedrSe_na":"38"hs',e";
-		$re9SAM  ; bor27 fre09ent":","pieditext,
-, `mail_m=mysql_query9$sql) ulla040r\n 9ottom" cellpDoua aliqua. U9ult=modo c4_cha126www.gery($Harb
-		$s:15px;Manchuop table9EATE odo c3114cons if exn reShanghhendeChtrancoan=\"cen9NOT Nodo c22s/sli4load_dze:12ong_Koitle`: rg (85, f, ''ct` vd Pro'934+1 VALt-size:1Chungkiitle`a, sanm 250, 2humb/b1. Dui'', Cal3...<87padding:0;Urumqe=\"Tibet & Xinjiafont-si1ages/style=\9T NU75	$sqlor sit shgae=\"paddinn Turkestlign=\"1T NULCende+0ealig74sql);
-		$sql=Bogol="Imysql_qu_code,"im+0956codesql);
-		$sql="osta_Riges/b2.jpg1ore eC
-		$+2_quer82timerbTO `live_vatrue"}'; 	1RT INCVff',
-455-023";
-		$ice_nameCape_Very($sq, Calibult=mX regi025+10LL,
-		s-serif,ha', m', '"><p styEATE _stat35veti33timerbn reNicosinvoice_ta10NOT N, 'ze5005+014ule_n ea comPame`d exercit1load_Dages/bt ali1ibri; , 'zeuscerl
-		$sql="C1queryD(15) 11 NUL43load_d sans-sjiboute=\"backg1sult=Dback+55tere12paddi ea comCopenhagc',  font-siNULLD ullagin:cingpositior: rgb(omint-family:AriXT(65D_name1:"fals9LUES
-		(1, 'E4) 1o_\r\n :"38","pie1ntentD, 'ze3647+003g:0; f cellpalgirbudaly:Arialt:bolal, H0210-07eniam,S `mail_muayaquiLL Pd; padding:101ULL Cont-siz054=1";b.jpg","piediGalapag/www.\n</td></de_url VARCHA14, 22Eages/b92hat_4d` in quis noMARY , 152, 198)lor Er adi30, He3bri; f, ''MyrCairamily:Arialble i		$res709-quiptica, sans-El_Aaiu, 152, 198","thu    <15nim 38";
-		$ cellpasmeconsequat.1asueoE"CREA4ype\003www.gOT NULL adrid);\">[confirm_lin\"font"CREA35:"#2lspae=\"font-faeutr>\rial,  & Melna alrgin:0.</pn<p st28pg',15positir: rgb(85,narg"],"s49, n<tr><td stylepositEon":", 's5, 8etica, sans-Addis_AbSERT Irif, ''addiFdidun60veti2t=mysq ea comHelsinkri; font-sule_nF(15)-1808+17ide2',","piediFijstyle=\"colnt":Fbackg514ry($7mb`, `ice_namef-8\lpg"],rif, ''lor Fy:Aria931	)";); fo","piediYap','00; rgin:0t-fatyle=\"7mily51","ti","piediTruMENTAria (Chuuk"randomtle Vtyle=\"650) N8XT(65","piediaonapl;\">or: r (Pohnpeisans-serp extyle=\"519+162	$sql","piediKosraamet0;\">Ifns-serNULLF_name62 NOTsoftinvoice_nameFaero:0;\">PassNTO `F    <48, 's02","thumbnailParmb/b3e any q utfG),
-		ULL Helvent":";";
-		$ib52dig:5px 20px 1paddiGthumb5128'ima0018: rgb(224, 2LChinee>[trea ''Myrs', 'c <co fretitle]<4uery0scriptt-family:lfseri_title`, `sIreameter TEXTnt":Gnisi 12sicing XISTS `mail_mrenault=mysql_qes/b3G aute41	(3,44222","T NULNORFsri; font-se.co.Gn=\"lef sty5\n\r\nmertype":"yenLL,
-		`liv1', 'iG		$re053=\"f0XT(655paddingccpx; margin:www.gGdidun3TO_IN050; padea comGibraltd; co    :  NULLGm ad 70'ima22
-		$result=myScoresbysunhank\r\n Ganc'e";
-		$resble";[site_time-051EMENT,
-		  `mGodthab','me] [L,
-		ord', 'Forgot Pable>\site_e6at_ta8","timertype"ThuE hom:15pxXHTML 1.0 Transitionade>[tpasswo3"fal1610) NO"top\" stjmet, conse1l freGL,
-		`9300)13L,
-		 font-faonak, 1481999/xhr LasP     61ectt querir: rgb(85, delou rgb(1999/xhr\nCo$sql+03chat0www.w3.;";
-		Malabamily:AriaL,
-		G    <3758op tble"; ea commtheENT=1umb/b1.r_namions"5"top036R(240)n=\"centeTE TAGeorg(85, 85, 85ry($sGon":"1438-09desuplo: rgb(85, temif, ''Myria', 23'Glvetiml xsultd\">\table>\r\ua";
-	 1px sossworide1',1KEY _que 224, 224);i`live_chat_t1T utfG_stat06KEY 58xmlns=\"http:Guy Pro'', CalicriptHodo co4pg',87XT(655org/TR/xegucigalpr-bottom: r freH] </p>5...</5d;\">[title]ZagreW3C/ttom: rnt":Hdding:8LL,
-7ogin User nameENT,-au-Prrwayr\n  <tr vlor Hlveti47styleERT IN, 'zeuscudapgn=\\n  <tr vt-faIalibri610:0;  elit,n reJakartr>\rJavca, Sumatsql_que1able`color: 50t_th9positi sansjung_Pesulitle`Borne_codCelebsg_subj1ENT,
-color: 23253, etica,8); foyapble` (Irian Forg &ULL )Moluccle if e1e_chaIages/bIF NO06ri; foea comDubrial, Helveton,1=Im ad 3146+Y KE-serif, 'Jerusage";
-	"top\"  utfId Pro''32+088bri; colorCalcuttr>\r\n  <t($sqlIenderi7nim 7`id`)
- Helveticd></tr>le widt freI>:: [332 laboslide3', 'Baghdahankle widtnt":I\r\n<tnt-we5olor:   <codehrquip ex ea1 NOT I"CREA64s-se2le=\"ping=\"0\"Reykjago]\" b(214, e=\"con":"r1` in12 20px"left\"Romkground-couser`Jpasswo8012px, 68, 6true","pamat-family:Ari AUTOJ_namelide_035  altl;\">Amn TEXT Pro'',lid;J" con3539240)3944ont-size:1Tokyamily:Ariat_codK aut-011t-si6222",";";
-		Nmilybri; font-sPUBLIK	$sql="` in74b.jpg'kgrouishkckgrocolor: =\"bK		$re; \"+10e_path` varPhnom_Pen0\" borde1=\"CoK" cell1mily73. Dui-family:Aarawr>\rGiolid;n<tr><td style\r\n\al, Hql_que17ibri; n    <td _quebu, 148PhoenixCalibri; font-slor al, Helv52-157n":"tpadding:0i<tr>res metein` (`id`,; font-st-faK ullgist lab3ULL Cs-serif, moly:Arial, H, 153Kodo co7d] </SET=utf8 AUTO_INCKit,('Dsans-serp exK;\"><p901+1e_ch : <span yongyo'', Cans-serlid;K\r\n<taser 26es/sliArialeo.org/1999/xi; maKide1'29nim 47font-weightuwae`, ` Pro'',rgb(8_stat19d] <8''Myriser name   r: rgb(85, 8ly:ArK, 'zeu31"ima6ql);
-
-; collmatrop \r\n Kazakh52, 198)\"o'', pan stdy>\+057query(; colqtobkgro 10px; bca, sans-serif, 'ize:1, 'zeuem ip50ULL COfont-siive_cL,
-		ca, sans-serif, 'lor L),
-		1able102ont-size:1s":"tirud exercit1roundLthumb335<p s5ris nisi uBeiru\"><h1 sty15px Lal, 53, equat-famif8 AUTO_INCLuc(85, 85, 85r=\"0Ldidun470 NUL9ip ex ea comVadue NOT NUL1yle=\Lpx; f0656+px; nt-size:1Colomad>\r\n\r\nn:autL    <t6d] <10</title>\r\n<onrovfont-family: utfLions"29` in27tle VAe>\r\n</serlor:#e0eee-famiLon":"54Drop ont-faumbnails"lnil="Dr-family freLgb(2249 NUL06load_ite Logouxem;
-
-
-t-family:A"><p Lont-s56nt-s2UTO_INdding:10i55); margi1'MyriLd Pro' 85);13sult=m;";
-		Tripolri; font-sze:12M),
-		33l="I0vetica,font-famsablanges/b2.jpg2. DuiM padd434\n\r7'MyriaT NULL onac"38","piepages/Mnisi u7ery(28niam, quis nChisinive_chat_t2T NULMcolor1855r: rize:1s-serifidesn 204ipg', 'imag2r>\r\Me]</coetic178)\"> ","piediMajuly:Ar);
-		$sql="CREATE TAore eans-ser905+16r\n  </tr>\r\n wajale
-		$sx 0; paddi 224, \"><Mpx; f4159+02olor:  'imageskopjkground-c2yle=\Mm ad 12 rgb(8. Duis"top\" smak"38"/DTD XHTMLMaliyou havnt":site_em4e`) 03ages/s;\">Zeu AUTkt.goo:15px\r\n n</table>\rlor Mpasswo, san96ibri; fontRango<codeyou havyle=\', Cal7LL	)06";
-		$ sanslan_Batote mail:  xmlnsM_name22font13padding:0;Me dolor in r2sult=M" cont51ight);\"><","piediSaipquip ex ea2f, ''M>:: [1ealig6ibri; ;
 
 
 		
-		$rtin'NAM name    :a, sargb(85', Caliql);
-
-Pro'', ouakchot\"><h1 st2-coloM"CREA16_msg_word  LL,
-		  `maiserrar\n\r\nSitee anyon":"35-weig4ip ex ea comM\nSi\n\r\nSiteat [sARCHAR(2 mar/p>\r\s-serifMatop yriad Pro''24, 22Mont-s04dmin7\"><imOCTYPE htldivnce":\"-//W3br/>\	`liv15 san35p>\r\n\r\n\r\ce_nyquery\"-//W3yle=\font+21 TAB8el freeertype":"nc Calitext,
-		  `mee","tie> <bhtml ans--099load_date` daMexico_Cil, Heion', 'Regisee","tistnamhtml x3 is f6EXISTS `mail_Mazaice_\"  alt=\"[title]\");
-		$sql="CREATE TAtimertf-8\" 838r\n<]</code><br/>Chihuahmod t, 250, 252) 1px lspacing=\<tablea, sahtml 3</td>1	  PRIMARY KEYEnse]</codeetica, sans-sern\r\n<body>\r\n<table mail style23"pad7$sql);
-
-
-		
-	Tiju Pro'', 1); font-size:15px;Baja C_chaor,\''.$jsoic; fMding:13gb(68<code>, 85, 8ala_Lumpue=\"p"images/rtle]ayb(85dding:at [sding:1User 10n":"tr 85, 8chr NameSabah; fo'Myrikid; \">C//DT, 'z-25ble 3ght:bon<p styleput"38","piepp\" sN),
-	-223weig7TO_INC;";
-		Windhomargin:0; e=\"paNal, H22240)6round-","piediNoumeation Notitle VN aute13m ip0\r\n\rrd]</codiamvalign=\"t2ize:1N<p>L-2903e:11lor: r: rgb(68,rfol; padding:queriNr adi062sans-positi;";
-		$ng=\"0\" cel2NTO `Ndidunt2s-se864, 224
-
-
-		
-		$sqsmod tempor2able>Nm ad 52t\" 04T utf ea commmSDG'dn=\"left\"ght:boN_name59"><p Namyle=\"backOs_id`): rgb(2 freN" con27	(3,8ont-famr sit tmand000; paddier LaNRIMARY0ackg6a, sanr: rgb(68au"font-fami2es/b3Nome_sl85, 869bri; color: rgin New Passwe.co.Nvalig36me_s7		`inv","piediAucke";
-	; color: rgb(224, 224,', 'iitalic4355-176"color: rgb(6Chathn=\"lMyriad  style=\"padd2www.gO ulla23 NULBRALt        
-
-
-
-r\n\r\nSitottom"r\n\r\85CHEL9ext/html; chaPanamation Notible";Pns-se      77g:0; font-weiL')";; font-we utfPf, ''17alig49able>-serif, ''hi\n   Societ); font-size:12>\r\n\f, ''0900tyle"color: rgb(6MaNLD'sns-sestyle=\"br>\r\n<tr><td aor: rf, ''Mont-w34valigtable>\r\nmbile=\"-familyr>\r\n<tr><td astylecolor:93","ilibri;ibri; colort_M
-(2, '=\"color: o'', :0;\">43ri;  20px;\      ni aliqua. U2L,
-		Ppx; f24, 's6 Cart  r sit rac\r\n }'; 	
-	', Ca \r\n<te=\"1px; ma align=Wars'MAUeel freep exP ullamisici5p","th\n \r\n  'NAMl/code><br/>olid;Podo -25 styl0ght:bold; colPitcairody>\r\n</hight:  :  <c'', Ca6606-serif, ''MyrPuelishRinter\" valiT utfP<p sty1 ali34amily:AriaGation"      Sri; ction tW3C//09<br/>ite Logoisb<coded; padding:102  altLogo : 20px;16LUES
-	ice_nameMadeiconser\nEmair>\r\n<tr><td  styletion t7_msg25"12","ice_nameAz
-(2,/tab</codecode><o'', ide1'borde13TD XHT","piediaml#000; paddix 0; p_sta-25\" c57"12","slicedrAsunci/code><br/>able`Q),
-		25', Catext/htn reQaSite mail: 2ENT,
-Rns-se20, 's55p\" ss-serifReun/code><br/>\rlid;R_name4426+026 0; padding:Bu', 2x;\"><h1 st2on,1=Rlveti54	(3,20tle V align=Kaliningrolor:Moscow-01 -  PUBLIC \"-/ 'New  utfr Place_chat3vetica align=\"//DT//W3C//DT+00]\" /></Russolid; \"($sqlr Place31\r\n0b(49, 148, 2Sie",=\"0\"xhtml1XHTMCasprd</Sedtd\">\r frer Place65 ips0ont-size:1Yekaterinbnt-sizxhtml\">2 - Urathumb/b255, 2\" \"httery(7:normaln reOmMMENTxhtml\">3]\" /></Sibeop table  NOT tle>:: [tpx 1nSite color:ovosibir\n</head>\r\n\r\nlspacing=\"0ble wit-faquiv=\"C01+09ee to ries, rasnoya=\"0\" cellpad4 - Yeniseiorg/TR'.$json 153r Placestylemb.jpg'itle>Irkut\n</head>\r\n5 - Lak2.jpikaide_ti2 AUTOr Plac6200+129"12","" cona valign=\"top\" 6tyleenalid;\">\r\n  il]</gb(2240px 13"  alt</td><ladivostEFAUhead>\r\n7px smurlid;\">\r\n  Order Placegin:050 68, 68); Mysql/title>xhtml18trati><td >\r\nkhPUBLund-col//EN\" \"ht35, 85810) NOT NUKamchatk999/xhtml\">9HTML 0px;\"><nd-col\n<html xm64bri;77ABLE h; colnadye=\"gn=\"le1-traB=\"tgr\n<meta h=\"CoR	`liv0ont-si0ore etadding:0g</tabr/>\r\n\r\n\Spping 438+046L,
-		 e>[loiyad0\" borde2]</spSthumyria2+160yriad Pro'', rsetalcT INing:0; font-faSnt-siz4; mar\r\nSite mailMah New Passw, 153St     5 NULd al0; padding:harto''IV: rgb(22p exSkground--wei8r>\r\www.w3.otockhol0px;\">\r\nng:5S font-if, 1Y KEily:Arialingapoional.dtd\"i; maS		$r-15e:1205x; born=\"center_Heletrue"}'; 	
-:12pxS, Helv6, Hein', 'User RegLjublj Pro'', Cal2ly:ArS(15) 78ery(16. Duistablego :gyearby1, 15Svalbarsitionao'',   <td s05l] </pnt-siice_nameJan_M   :ze:15n i; fonveticat-wei queri8tica17r\n\r, 'zeuscaatislav\r\n <tr>\rr\n \m ad 0ode><id; ily:Arial,F', 'XFU',n <tr>\rign=\ ullam3); pa=\"bacwww.w3.orbri;rin"38","piep15px S3, 153,OT N17ule_na sans-sont- margin:0;  <ta_name]204r/>\EXISTS `invoMogadish5, 85, 85)yle=\S    <t550(655xmlns=\"http:mysqmariad>\r\n\r\2n:autSrgin:50th=\,
-		ily:Arial, (`lTpx; font-fa2ThankSont-si3<tr>8um dolopx; bordl_Salv` interif, ''M\n   d Pro'3<code6olor in repamascBLIC \"-//W CaliSvalign6rure3tyle=\n<p stylnt-sLL,
-		`liv2"><p T padd-fam	('MR, sans-serifGnec _11, r: rgb(85,lor Tt       7p></serif, ''MyrNdja', 5r: rgb(85,t-faTf, ''4921 1.0 01-serifs-serifKerguordeww.google. DuiT font-w08liqu>\r\nLogin PLpx; font-fa</htmlT:0;\">itle1'', "backgrounngko]\" ro'', Cng:5T(15) ";
-	+//wwlor in reprshane:12pro'', C.</pTbackg0922-wei-colo>Team</spakaofg', 'imageore eT) NOT 7nt-s58direct; colshkhabolor: rgb(3riad Ttyle=\6...</0t:bold;\">Zeuun\r\n\r\n</3yle=\Tender<td s17tr>\r\-family:A 255tap.google.cor\n\rT] </p>1\"pa2es/b3. align=I52, amet, conse3); foTdding:0l="IN)";
-		$\"left\" st_of_Sp;
-		$sql="C'MyriaTont--08ackg79, Calibri; coFunafibri; font-3queryTbri; c5riad2erif,   <codaip(200) NOT ht:bolTvalig8, 6+0394, 224, 224)Dar_es2px;an=\"left\"if, ''Utent-Typ pad:12px;PE html iev<p style=\"font-family3ord  "><p s44nt-six 0; padding:Simferopo"lefCri68, serif,l, HU font-019padd
+		$sql="Drop table if exists users_group_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `users_group_table` (
+		`group_id` int(11) NOT NULL AUTO_INCREMENT,
+		`group_name` varchar(60) DEFAULT NULL,
+		`group_discount` varchar(50) DEFAULT NULL,
+		PRIMARY KEY (`group_id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+		$result=mysql_query($sql);
 		
 
-	adding:ampif, ''Myriaserif,Upasswo7r\" 6CREATE","piediREMENgb(241etica, s Atolide_titficate=\"fo28 is 77timer\"top\" sidwDrop t-weigde_url VARCHAR4, 22e=\"fon9ding6	  PRI","piediWak New</td=mysql_query3w.w3.Uding:0;42KEY 74ULL L COMMENT '0ew_Yorgin:/xhtml\">\r\n<heatable n    <t21il_us83bold"color: rgb(etroe`, `mail_msg_subjecMichigle]::</title>\r\n</head>3>\r\nn    <38151ns=\545OT NULL,
-		  Louisite Titltext,
-		  `mailrif, ''Myr, Kentucktent`, set=uamily:A946 153)609f exists langs-seriaCartce":"or:rgb(f-8\" />\r\n<tit\">Orde85, 85);\"><p style=\"fo5);\"mily:Ar 20pargi20ont-siding:0;\">Orde stye-familspan style=\"font-family:Arial, HeCrawfr_tae_pag, 85); f ''Myding:0117<htm863/p>\r\nt-size:12px; foKno_tabspan style=\"font-family:Arial, HeStarke </span></p></ize:1mily:Ar445 Cal5ng=\"0\"t-size:12px; foVev($sql);
+
+		$sql="Drop table if exists uniquetax_settings_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE uniquetax_settings_table (tax_name varchar(200) NOT NULL,based_on_amount varchar(200) NOT NULL,tax_rate_percent float NOT NULL)";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `uniquetax_settings_table` (`tax_name`, `based_on_amount`, `tax_rate_percent`) VALUES
+		('General', 'subtotal_and_shipping', 0)";
+		$result=mysql_query($sql);
 
 
-		$nt-family:Arial, Helvetica,witzer NOT </span></p></style\n  </t51lvet873t. Duis aute irhic":"38"=\"text/html; cha3><img''Myria50685, 8736"0\" stimerbarpor\n e Newion', 'Registratgb(85, 85,W 1, nsywisord\">\r\n3  <trsize:12px421\" c59g:0; font-weiDeNULL\"0\" cellpaddinns-seri>\r\n    <t3'Myrpadded</p></td>\r\n  ial;\", 250, 252) 1px me] [lIdah_cod\r\n Oreser,s-serisans-serifa, snt-w084size:1 width=\"hipro
-		(/p></td>\r\n  </tNavajsages_\"><imro'', C32654-11204pan></p></td>52, 198ground-color: rgb(224, 224, Aritabl', Caliont-size:124font-w1814tica, sans-seris_Angelode><etica, sans-', Cali''Myriad P61show9);\54$sql);
+		$sql="Drop table if exists users_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE IF NOT EXISTS `users_table` (
+		`user_id` int(25) NOT NULL AUTO_INCREMENT,
+		`user_display_name` varchar(50) NOT NULL,
+		`user_fname` varchar(50) NOT NULL,
+		`user_lname` varchar(50) NOT NULL,
+		`user_email` varchar(50) NOT NULL,
+		`user_pwd` varchar(150) NOT NULL,
+		`user_group` int(11) NOT NULL,
+		`user_country` varchar(100) NOT NULL,
+		`user_status` int(2) NOT NULL,
+		`user_doj` date NOT NULL,
+		`billing_address_id` int(10) NOT NULL,
+		`shipping_address_id` int(10) NOT NULL,
+		`ipaddress` varchar(100) NOT NULL,
+		`social_link_id` varchar(100) NOT NULL,
+		`is_from_social_link` int(20) NOT NULL,
+		`confirmation_code` int(20) NOT NULL,	
+		PRIMARY KEY (`user_id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `users_table` (`user_id`, `user_display_name`, `user_fname`, `user_lname`, `user_email`, `user_pwd`, `user_group`, `user_country`, `user_status`, `user_doj`, `billing_address_id`, `shipping_address_id`, `ipaddress`, `social_link_id`, `is_from_social_link`) VALUES(1, 'demouser', 'demouser', 'demouser', 'demouser@ajsquare.net', 'e10adc3949ba59abbe56e057f20f883e', 1, 'IN', 1, '2013-09-12', 1, 1, '192.168.1.69', '', 0)";
+		$result=mysql_query($sql);
 
 
+
+		$sql="Drop table if exists wishlist_table";
+		$result=mysql_query($sql);
+		$sql="CREATE TABLE wishlist_table(wishlist_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,user_id  INT(20) NOT NULL,product_id  INT(20) NOT NULL,date_added  date NOT NULL ,comments  TEXT(65535) NOT NULL )";
+		$result=mysql_query($sql);
+		$sql="INSERT INTO `wishlist_table` (`wishlist_id`, `user_id`, `product_id`, `date_added`, `comments`) VALUES(1, 1, 1, '2013-02-23', '')";
+		$result=mysql_query($sql);
+
+	}
 		
-	Anchora', 'rchaska85, 85); fontd>\r\n  <581807"><p25ly:Arial, HelJuneive_cress : <spapx soss : panre: 0) NOT NOT NUont-fam9322, 13943es/b3-color:#e 20p marg ''Myriad Pro'', Calibri; fontble gn=\"cLast  ze:12px4ibri-16524adding:10px; fpx; fo ''Myriad Pro'L,
-		', Caltd>\r\n2px; margi5librt-we6e:12adding:0;\">da sanAleu>\r\de_url VARCHARer La''Myri21lided>\r5erif, ","piediHonolul.gooHawaitable>; coloUdress34:"#256ly:Arial, Hel`maievideg', 'imagee.co.Uvetica9tere6, 68, 68); org/1kr\n<p L,
-		Uzbeki52, 198)\3', 'i, 85);minim 69olor in reTax; mer=\"\r\n 0;\">Shipping Add2px;V),
-		(d style="><p style=Ves fo-family:Arcode>V paddi3s-se6iad Prf8 AUTO_INCVrwayer=\"x; fontddinV:15px;mail]66 \"><iertype":"re dt-family:Aal, HVr adip8able64zeuscart2', 'TNT,
-ail : <spanro'',Vdidunt 2equa4></td>\r\n  <St_Thoans-serif, 3ding:Vodo co0-size6g:10px 10pSauser,1=:5px 20nt":Vome_sl7g","solit:bold; colofas_urHelveticlor W22, 7231, ''Mns-serif, ''MIA Ant-family:AL,
-		Wions":35NOT nal//ERegards,<pinvoice_ta3e to Y:15px;2chat45m dolor siAdt-family:Ar"0\" Yon":-12 san4d-colokground-cyotibri; colorolid;Ygb(2244_thu<!DOCTYPE htmlBel \"-Calibri; coddinZground6us at/p>\r\n\r\n\rJohannesext/htmbri; col, HZx; fon5-colo84, 224, 224)Lusa"><h1bri; coriadZrg/TR/
-
-
-	if, n<meta httpHaraional.dgif', 'http://localhost/ajshop/zeuscar,
-		('NZD', 'TOKELAU', 'New Ze, 'Cs_group10-173432digital-watches03.jpg', 'Lorem ipsum dolor sit amet, consectetur color: #000; padd
-		('VN #000;EN', 'Norwegian Krone', 578),
-		('SZL',  #000;ublic', 'SYR',6, consectetur adipis #000;, 1, 0, atches', 'mendonsectetur adipi(37, 'chip','c; color: 25,28,37', '', '', 1, 0, 2);";
-		$result=mysql_query($sql)NULL,
-		message TEXT(65535) NOT NULL,
-		gift_code TEXT(65535) NOT uogin NULLsetm do9', 'uploadedimages/caticons/2013-09-10-173249backpacks03.jpcode>[logo]</code><br/>\ (NULL, 957 '', 1, 0, 2),
-(34,'Wae_page_adsan str\nOrder ID: <code>[ordNULLra Shper\">  floas sit ametamet, consectetur adipiscing elit. Cras sit amet nisl code>[logo]</code><br/>\wan e></br>\nt(20rid]</code><brLL,
-		de>[amount]</casy-to-use fe'Gener\"le72543toge_spx; nt` varcly reserved for testing purposes', 963),
-		('XXX', ' ', 'The codes acolor: padding:5px 20px;\"><p style=\"font-family:Arial, Helvetica, sans-serif, ''Myro'', Calibri, 'Swedissl nec nunc ', 1, 0, 2),
-(23, 'T-shi, 'Cldisplay:5px 0; paddingpg', 'Lorem ipsum, 'Clf: 97px;&quot;&gt;&lt;/td&gt;\r\n&lt;l: 97px;&quot;&gt;&lt;/td&gt;\r\n&lt;mail px;&quot;&gt;&lt;/td&gt;\r\n&lt;pwCAICOS ISLANgt;&lt;/td&gt;\r\n&lt; #000RLAND', 'WIR Euro', 94\n&lt;, 0, rolor sit amet, cng: 7px 5px; font-SWITZERLAND''SLV', 222),('Se=&quotoj, 1, 0, 2),
-(32,'LapbiARY g'VIRGIN or: rgb(221, 0, 0),
-(26, 'Mobile', nd-color: #e8e8e8&quot; colspan=&ipVIRGIN ISLANDS (Bt-size: 14px; colocurrency_tocken, 0, 2),
-(25, 'Accessories'pagerom_archar(25) TATES', 'US Dollar',3738onfirres onAUTY TATES', 'US Dollar'ign=(37, 'chip','c-09-10-125,28,37', '', '', 1, 0, 2);";
-		$result=mysql_query($sql2ling Address : <code>[billingaddress]</code><br/>\r\nS;\r\n&lt;tr&g3-09-10-1733=&quot;height: 97p height=/tr&gt height=t;/td& height=n&lt;/ height=styl height= #6699 height=weight:  height=NOT NULL,
-Arial,Helt(20ackground-color: #972),
-	;2&quot;&gt;Hi A(50)\n\r\n\r\` varchar(25) Nn autom     : [rol] \r\nsor(200) NOT NUdemo\n&lenlan&lt;/tr&gt;\r\n\r\n&lt;tr&gt;\r@ajsquare.nrg/1 'e10adc3949ba59abbe56e057f20f8831-144201ng:544201Y (`id9-ML',   (id))192.168.1.nter, 'MTQ2, 'Boots', 'menboots', 18, '17,18,22', 'uploadedimages/caticons/wishlis VARCHAR(100) NOT NULL,page_url  VARCHAR(200) NOT NULL,statu&lt;td style=&(&lt;td stkbags', 'backbags', 14, '1,5,14,15', 'uploadedim, 'Clothing', 'menclothingages/caticons/2013-09-10-1729da Shillint.jpg', 'Lorem ipincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud e`&lt;td style=&t;\rx; color: #ize: 13px8),('TO', 'TONGA', 'da Shillingcontrcididu&lt;/td&gt;\r  (id))Y (`id2-minicad></en Unidades Indexadas', 940),
-		}alig}
+}
 ?>
