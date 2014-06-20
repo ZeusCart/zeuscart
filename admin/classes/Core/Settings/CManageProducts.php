@@ -1801,7 +1801,8 @@ class Core_Settings_CManageProducts
 		}
 		$sluggable = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
 
-		$sql="SELECT * FROM products_table WHERE alias='".$sluggable."' product_id!='".$_GET['prodid']."'";
+		$sql="SELECT product_id,alias FROM products_table WHERE alias='".$sluggable."' product_id!='".$_GET['prodid']."'
+		UNION  SELECT category_alias FROM category_table WHERE category_alias='".$sluggable."";
 		$obj=new Bin_Query();
 		if($obj->executeQuery($sql))
 		{
