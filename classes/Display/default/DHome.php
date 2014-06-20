@@ -331,7 +331,7 @@ class Display_DHome
 		$output.='<title> '.ucfirst($arr[0]['title']).' </title>
 				<meta name="description" content="'. $arr[0]['meta_desc'] .'" />
 				<meta name="keywords" content="'.$arr[0]['meta_keywords'] .'" />
-				 <link rel="shortcut icon"  href="'.$records_settings[0]['site_favicon'].'" >';
+				 <link rel="shortcut icon"  href="'.$_SESSION['base_url'].'/'.$records_settings[0]['site_favicon'].'" >';
 		
 			return $output;	
 	}
@@ -363,7 +363,7 @@ class Display_DHome
 			$output.='<title>'.ucfirst($arr[0]['site_moto']).' </title>
 			<meta name="keywords" content="'.$meta_kerwords.'" />
 			<meta name="description" content="'.$meta_description.'" />
-			<link rel="shortcut icon"  href="'.$arr[0]['site_favicon'].'" >';
+			<link rel="shortcut icon"  href="'.$_SESSION['base_url'].'/'.$arr[0]['site_favicon'].'" >';
 
 		
 		return $output;	
@@ -384,7 +384,7 @@ class Display_DHome
 			<title>'.ucfirst($arr[0]['category_name']).' </title>
 			<meta name="keywords" content="" />
 			<meta name="description" content="'.$arr[0]['category_desc'].'" />
-			<link rel="shortcut icon"  href="'.$records_settings[0]['site_favicon'].'" >';
+			<link rel="shortcut icon"  href="'.$_SESSION['base_url'].'/'.$records_settings[0]['site_favicon'].'" >';
 
 		
 		return $output;	
