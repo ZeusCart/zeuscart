@@ -232,7 +232,7 @@ class Display_DShowMainCategory
 		$output ="";
 		$maincat='<select name="category" class="span4"><option value="0">No parent</option>';
 	
-		$sql = "SELECT * FROM category_table WHERE category_parent_id='0' AND category_id!='".$_GET['id']."'" ;
+		$sql = "SELECT * FROM category_table WHERE category_parent_id='0' AND category_id!='".$_GET['id']."' and category_status!='2'" ;
 		$cquery = new Bin_Query();
 		if($cquery->executeQuery($sql))
 		{
@@ -317,6 +317,8 @@ class Display_DShowMainCategory
 		
 		</div></div>
 
+		<input type="hidden"  name="caticon" value="../uploadedimages/caticons/'.$img[2].'">
+
 		<div class="row-fluid" style="display:block" id="attribContainer">
 		<div class="span12"><label>Category Special Attributes </label>	
 		'.$attribute.'
@@ -361,7 +363,7 @@ class Display_DShowMainCategory
 
 			if($catid!=0)
 			{
-			$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+			$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id." and category_status!='2'";
 			$resultSubFamilies = mysql_query($sqlSubFamilies);
 			if (mysql_num_rows($resultSubFamilies) > 0) {
 			
