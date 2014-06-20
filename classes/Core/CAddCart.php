@@ -523,6 +523,8 @@ class Core_CAddCart
 	function showCart()
 	{
 	
+
+
 		//include_once('classes/Display/DAddCart.php');
 
 		if($_SESSION['user_id']!='' ) 
@@ -545,8 +547,7 @@ class Core_CAddCart
 				$cnt=count($qty);
 				for($i=0;$i<=$cnt;$i++)
 				{
-					$qty[$i]['product_qty'];
-			
+								
 					if($qty[$i]['product_qty']==1)
 					{
 						$sql='SELECT pt.title, pt.model, pt.product_id, pt.brand, shopping_cart_products_table.shipping_cost AS shipingamount, pt.sku, pt.msrp, pt.msrp as msrp1,pt.image, pt.thumb_image, pinv.soh, shopping_cart_products_table. * , shopping_cart_table. *
@@ -621,7 +622,6 @@ class Core_CAddCart
 					}
 				}
 		
-				$i++;
 			}
 			else
 			{
