@@ -701,6 +701,79 @@ class Display_DNewProducts
 
 
 	}
+	
+	
+	
+	function getProductSefUrl($category_id,$alias)
+	{
+
+		$sql="SELECT * FROM  category_table  WHERE category_id='".$category_id."' AND category_status =1";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);	
+		$records=$obj->records[0];
+	  	$cat_subcat_path=trim($obj->records[0]['subcat_path']);
+		$category_alias=trim($obj->records[0]['category_alias']);
+		$category_name=trim($obj->records[0]['category_name']);
+
+
+		$subcat_path=explode(',',$cat_subcat_path);
+		$categorycount=count($subcat_path);
+
+
+	
+		if($categorycount>0)
+		{
+
+			for($j=0;$j<$categorycount;$j++)
+			{
+				
+				
+			 	$sql="SELECT * FROM  category_table  WHERE category_id='".$subcat_path[$j]."' AND category_status =1 ";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);	
+				$records=$obj->records[0];
+			 	$cat_subcat_path=trim($obj->records[0]['subcat_path']);
+				$category_alias=trim($obj->records[0]['category_alias']);
+				$category_name=trim($obj->records[0]['category_name']);
+
+				if($cat_subcat_path==$subcat_path[$j])
+				{
+					$subcategory=$category_alias;
+					 $comma_separated=$subcategory.'/'.$alias.'.html';
+				}
+				else
+				{
+				   $subcategory=Display_DNewProducts::getSubCatPath($subcat_path[$j]);
+
+				   $comma_separated=$subcategory.'/'.$alias.'.html';
+				}
+			}
+		}
+
+		return $comma_separated;
+
+	}
+
+	function getLowestvariationPrice($pid)
+	{
+
+	  $sql="SELECT MIN(msrp) AS msrp,variation_id,product_id FROM  product_variation_table WHERE product_id='".$pid."'";
+	   $obj=new Bin_Query();
+	   $obj->executeQuery($sql);
+	   $msrp=$obj->records[0]['msrp'];
+
+	   $sql_var="SELECT msrp,variation_id,product_id FROM  product_variation_table WHERE msrp='".$msrp."'";
+	   $obj_var=new Bin_Query();
+	   $obj_var->executeQuery($sql_var);
+	   $variation_id=$obj_var->records[0]['variation_id'];
+
+	   
+	   $output=array('0'=>$msrp,'1'=>$variation_id);
+
+	   return $output;
+
+
+	}
 
 }
 
