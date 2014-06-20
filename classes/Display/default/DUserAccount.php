@@ -366,7 +366,7 @@ class Display_DUserAccount
 				  {
 
 					if($arr[$i]['rating']>0)
-							$rating='<img src="'.$_SESSION['base_url'].'/assets/img/star'.$arr[$i]['rating'].'.jpg"/>';
+							$rating='<img src="'.$_SESSION['base_url'].'/assets/default/img/star'.$arr[$i]['rating'].'.jpg"/>';
 						else
 							$rating=Core_CLanguage::_('NO_RATING');
 
@@ -396,6 +396,24 @@ class Display_DUserAccount
 			$output.='</tbody>
 				</table>
 				</div>';
+
+				$output.='<div class="pagination">
+			<ul>';
+			if($prev!='')
+			{
+				$output .='<li> '.$prev.' </li>';
+			}
+			for($i=1;$i<=count($paging);$i++)
+			{
+				$output .='<li>'.$paging[$i].'</li>';
+			}
+			if($next!='')
+			{
+				$output .='<li>'.$next.'</li>';
+			}
+				
+			$output .='</ul>
+			</div>';
 			
 			return $output;
 	}
@@ -437,7 +455,7 @@ class Display_DUserAccount
 						$img="'".$_SESSION['base_url']."/index.phpimages/noimage.jpg";
 	
 					$output.='<tr>
-					<td><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'"><img src="assets/img/bullet.gif" alt="remove" width="14" height="14" style="border:none"/></td>
+					<td><a href="'.$_SESSION['base_url'].'/index.php?do=wishlist&action=deletewishlist&prodid='.$arr[$i]['product_id'].'"><img src="'.$_SESSION['base_url'].'/assets/default/img/bullet.gif" alt="remove" width="14" height="14" style="border:none"/></td>
 					<td><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">
 					<img src="'.$img.'" alt="" width="52" height="52" style="border:none" /></a></td><td><a href="?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br /><!--$-->
 						  '.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].number_format($arr[$i]['msrp'],2).'</a></td>
@@ -487,8 +505,8 @@ class Display_DUserAccount
 			  <td colspan="5" align="center" bgcolor="#FFFFFF" style="padding:15px 0px">
 			  <table width="100%" border="0" cellpadding="0" cellspacing="0">
 				  <tr>
-					<td width="52" align="left"><a href="http://'.$_SERVER['SERVER_NAME'].'/?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="http://'.$_SERVER['SERVER_NAME'].'/'.$arr[$i]['image'].'" alt="" width="52" height="52" style="border:none" /></a></td>
-					<td width="350" align="center" class="viewcartTXT1"><a href="http://'.$_SERVER['SERVER_NAME'].'/?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br />$
+					<td width="52" align="left"><a href="http://'.$_SERVER['SERVER_NAME'].'/themes/zeuscart-master_shoe_shop/?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'"><img src="http://'.$_SERVER['SERVER_NAME'].'/themes/zeuscart-master_shoe_shop/'.$arr[$i]['image'].'" alt="" width="52" height="52" style="border:none" /></a></td>
+					<td width="350" align="center" class="viewcartTXT1"><a href="http://'.$_SERVER['SERVER_NAME'].'/themes/zeuscart-master_shoe_shop/?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'<br />$
 					  '.number_format($arr[$i]['msrp'],2).'</a></td>
 					<td width="93" align="center" class="viewcart_price">'.$arr[$i]['adate'].'</td>
 					</tr>
@@ -636,6 +654,16 @@ class Display_DUserAccount
 			<th>'.$ship_duration.'</th>
 			</tr>';
 		}
+
+		if($arr[0]['closeDate']=='0/0/0000')
+		{
+
+			$closeDate='-';
+		}
+		else
+		{
+			$closeDate=$arr[0]['closeDate'];
+		}
 		$output=' <div class="title_fnt">
 		<h1>'.Core_CLanguage::_(ORDER_DETAILS).'</h1>
 		<span><a href="javascript:window.open (\'?do=orderdetail&action=print&id='.$arr[0]['orders_id'].'\',\'mywindow\',\'location=1,status=1,scrollbars=1,width=920,height=700\');void(0);"><button name="color" type="button" class="btn btn-danger" value="btn btn-danger">Print</button></a>
@@ -668,7 +696,7 @@ class Display_DUserAccount
 			</tr>
 			<tr>
 			<td>'.Core_CLanguage::_(CLOSE_DATE).'</td>
-			<th>'.$arr[0]['closeDate'].'</th>
+			<th>'.$closeDate.'</th>
 			</tr>
 			</table>
 				
@@ -1125,7 +1153,7 @@ class Display_DUserAccount
                                         <p><a href="mailto:'.$arr[$k]['email'].'">&nbsp;'.$arr[$k]['email'].'</a></p>
 					<p>'.$arr[$k]['city'].', '.$arr[$k]['state'].'</p>
 					<p>'.$arr[$k]['zip'].'</p>	
-					<p><a class="btn btn-success " href="'.$_SESSION['base_url'].'/index.php?do=addaddress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">'.Core_CLanguage::_('EDIT').'</a><a class="btn btn-danger " onclick="return confirm(\'Are you Sure to delete?\');" href="'.$_SESSION['base_url'].'/index.php?do=deladdress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">'.Core_CLanguage::_('DEL').'</a>';
+					<p><a class="btn btn-success " href="'.$_SESSION['base_url'].'/index.php?do=addaddress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">'.Core_CLanguage::_('EDIT').'</a>&nbsp;<a class="btn btn-danger " onclick="return confirm(\'Are you Sure to delete?\');" href="'.$_SESSION['base_url'].'/index.php?do=deladdress&id='.$arr[$k]['contact_name'].'&address_id='.$arr[$k]['id'].'">'.Core_CLanguage::_('DEL').'</a>';
 // 					if($recordsadd['billing_address_id']==$arr[$k]['id'])
 // 					{
 // 
@@ -1225,7 +1253,7 @@ class Display_DUserAccount
 		<input type="hidden" name="hidGroup" value="'.$group.'">
 		
 		<div class="control-group">
-		<label for="inputEmail" class="control-label">'.Core_CLanguage::_('GROUP_NAME').' <i class="red_fnt">*</i></label>
+		<label for="inputEmail" class="control-label">Display Name  <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input type="text" name="txtGName" id="txtGName" value="'.$gName.'"><br><font color="#FF0000"><AJDF:output>'.$output['msg']['txtGName'].'</AJDF:output></font>
 		</div>
@@ -1528,9 +1556,19 @@ class Display_DUserAccount
 			<th>'.$ship_duration.'</th>
 			</tr>';
 		}
+		if($arr[0]['closeDate']=='0/0/0000')
+		{
 
-		$output='<link href="'.$_SESSION['base_url'].'/assets/css/style.css" rel="stylesheet"> <link href="'.$_SESSION['base_url'].'/assets/css/table.css" rel="stylesheet" type="text/css" />';
-		$output.=' <div class="title_fnt">
+			$closeDate='-';
+		}
+		else
+		{
+			$closeDate=$arr[0]['closeDate'];
+		}
+		$output='<link href="'.$_SESSION['base_url'].'/assets/default/css/style.css" rel="stylesheet"> <link href="'.$_SESSION['base_url'].'/assets/default/css/table.css" rel="stylesheet" type="text/css" />';
+		
+
+$output.=' <div class="title_fnt">
 		<h1>'.Core_CLanguage::_(ORDER_DETAILS).'</h1>
 		
 		</div>
@@ -1559,7 +1597,7 @@ class Display_DUserAccount
 			</tr>
 			<tr>
 			<td>'.Core_CLanguage::_(CLOSE_DATE).'</td>
-			<th>'.$arr[0]['closeDate'].'</th>
+			<th>'.$closeDate.'</th>
 			</tr>
 			</table>
 				
@@ -1624,7 +1662,7 @@ class Display_DUserAccount
 			</div>
 				
 		
-			<h4>'.Core_CLanguage::_(ITEM_DETAILSITEM_DETAILS).'</h4>
+			<h4>Item Details</h4>
 			
 			<div class="clear"></div>
 			</div>
@@ -1642,9 +1680,21 @@ class Display_DUserAccount
 		
 			for($i=0;$i<count($arr);$i++)
 			{
+
+				  $variation='';
+				//select variation size
+				if(trim($arr[$i]['variation_id'])!='0' && $arr[$i]['variation_id']!='')
+				{
+					$sqlSize="SELECT * FROM  product_variation_table WHERE variation_id='".$arr[$i]['variation_id']."' AND product_id='".$arr[$i]['product_id']."'";
+					$objSize=new Bin_Query();
+					$objSize->executeQuery($sqlSize);
+					$size=$objSize->records[0]['variation_name'];
+					$variation='<span class="label">'.Core_CLanguage::_(SIZE).' - '.''.$size.'</span>';
+				}
+
 				$total=$arr[$i]['product_unit_price']*$arr[$i]['product_qty'] ;
 				$output.='<tr>
-					<td>'.$arr[$i]['title'].'</td>
+					<td>'.$arr[$i]['title'].'  <br/>'.$variation.'</td>
 					<td><span class="label label-info">'.$arr[$i]['currency_tocken'].'&nbsp;'.number_format($arr[$i]['product_unit_price']).'</span></td>
 					<td>'.$arr[$i]['product_qty'].'</td>
 					
