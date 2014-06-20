@@ -76,7 +76,7 @@
 	function getSubFamilies($level, $id) {
 
 		$level++;
-		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id."";
+		$sqlSubFamilies = "SELECT * from category_table WHERE  category_parent_id = ".$id." and category_status!='2'";
 		$resultSubFamilies = mysql_query($sqlSubFamilies);
 		if (mysql_num_rows($resultSubFamilies) > 0) {
 		
