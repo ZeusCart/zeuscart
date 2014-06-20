@@ -92,10 +92,12 @@ class Model_MUserRegistration
 		Core_CLanguage::setLanguage('REGISTER');
 
 
+		include("classes/Lib/HandleErrors.php");
 
 		$output['val']=Core_CUserRegistration::getCountry($Err->values);
 		$output['msg']=$Err->messages;
 	
+
 		Core_CCurrencySettings::getDefaultCurrency();
 		
 		$output['categories'] = Display_DUserRegistration::showMainCat();
@@ -223,8 +225,15 @@ class Model_MUserRegistration
 		$output['maincatimage']=$default->showMainCategory();
 		$output['allfeaturedproducts']=$default->featuredProducts();
 		$output['allfeaturedproductshidden']=$default->featuredProductsHidden();
-		$output['newarrivalproducts']=$default->newArrivalProducts();
+		$output['arrivalproducts']=$default->newArrivalProducts();
 		$output['showBestSellingProducts']=$default->showBestSellingProducts();
+
+		//$output['newarrivalproductshidden']=$default->newArrivalProductsHidden();
+
+
+
+
+
 		
 		$default=new Core_CNewProducts();
 		$output['newproducts']=$default->newProducts();
@@ -321,7 +330,10 @@ class Model_MUserRegistration
 		$output['headermenuhidden']= Core_CUserRegistration::showHeaderMenuHidden();
 
 
-		Bin_Template::createTemplate('index.html',$output);
+		//Bin_Template::createTemplate('index.html',$output);
+
+		header('Location:'.$_SESSION['base_url'].'/index.php?do=index');
+
 	}
 	/**
 	* This function is used to show login  page
@@ -334,10 +346,14 @@ class Model_MUserRegistration
 		//language	
 		Core_CLanguage::setLanguage('LOGIN');
 
+		include("classes/Lib/HandleErrors.php");
 
 		$output['val']=$Err->values;
 		$output['msg']=$Err->messages;
-		
+
+
+
+
 
 		Core_CCurrencySettings::getDefaultCurrency();
 		
@@ -540,7 +556,6 @@ class Model_MUserRegistration
 		$default=new Core_CLastViewedProducts();
 		$output['lastviewedproducts']=$default->lastViewedProducts();
 		$output['cartSnapShot'] = Core_CAddCart::cartSnapShot();
-		include('classes/Core/CHome.php');
 		$output['sitelogo']=Core_CHome::getLogo();
 		$output['pagetitle']=Core_CHome::pageTitle();
 		$output['skinname']=Core_CHome::skinName();
@@ -561,6 +576,7 @@ class Model_MUserRegistration
 		$default=new Core_CFeaturedItems();
 		$output['maincatimage']=$default->showMainCategory();
 		$output['newarrivalproducts']=$default->newArrivalProducts();
+		
 		if($_SESSION['compareProductId']=='')
 		{
 			
