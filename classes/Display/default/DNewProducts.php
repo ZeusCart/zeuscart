@@ -59,52 +59,22 @@ class Display_DNewProducts
 
 				}
 
-					//category name
+				//get prduct detals sef url
+				$comma_separated=Display_DNewProducts::getProductSefUrl($arr[$i]['category_id'],$arr[$i]['alias']);	
+				
 			
-				$sql="SELECT * FROM  category_table  WHERE category_id='".$arr[$i]['category_id']."' AND category_status =1 ";
-				$obj=new Bin_Query();
-				$obj->executeQuery($sql);	
-				$records=$obj->records[0];
-			  	$cat_subcat_path=trim($obj->records[0]['subcat_path']);
-				$category_alias=trim($obj->records[0]['category_alias']);
-				$category_name=trim($obj->records[0]['category_name']);
+				if($arr[$i]['has_variation']=='1')
+				{
+					$get_lowest_price=Display_DNewProducts::getLowestvariationPrice($arr[$i]['product_id']);
 
 
-				$subcat_path=explode(',',$cat_subcat_path);
-				$categorycount=count($subcat_path);
-
-
-			
-				if($categorycount>0)
+					$msrp=$get_lowest_price[0];
+				}	
+				else
 				{
 
-					for($j=0;$j<$categorycount;$j++)
-					{
-						
-						
-					 	$sql="SELECT * FROM  category_table  WHERE category_id='".$subcat_path[$j]."' AND category_status =1";
-						$obj=new Bin_Query();
-						$obj->executeQuery($sql);	
-						$records=$obj->records[0];
-					 	$cat_subcat_path=trim($obj->records[0]['subcat_path']);
-						$category_alias=trim($obj->records[0]['category_alias']);
-						$category_name=trim($obj->records[0]['category_name']);
-
-						if($cat_subcat_path==$subcat_path[$j])
-						{
-							$subcategory=$category_alias;
-							 $comma_separated=$subcategory.'/'.$arr[$i]['alias'].'.html';
-						}
-						else
-						{
-						   $subcategory=Display_DNewProducts::getSubCatPath($subcat_path[$j]);
-
-						   $comma_separated=$subcategory.'/'.$arr[$i]['alias'].'.html';
-						}
-					}
+					$msrp=$arr[$i]['msrp'];
 				}
-
-
 
 
 				if($arr[$i]['product_status']==1)
