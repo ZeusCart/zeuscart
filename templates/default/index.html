@@ -252,7 +252,7 @@ $.ajax({
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="#" class="brand">SHOP</a>
+                  <a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php" class="brand">SHOP</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <AJDF:output>$headermenuhidden</AJDF:output>
@@ -268,7 +268,7 @@ $.ajax({
 <div class="menu style-1">
 	<ul class="menu">
 
-		<li class="select"><a href="?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a></li>
+		    <li class="<AJDF:output>if $smarty.get.do eq ''</AJDF:output>select<AJDF:output>/if</AJDF:output> "><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a></li>
 
 		<AJDF:output>$headermenu</AJDF:output>
 
@@ -300,7 +300,7 @@ $.ajax({
   <!-- body start here-->
 
 <div class="container">
-    
+     <AJDF:output>if $allfeaturedproducts ne ''</AJDF:output>
 <span class="visible-desktop"><div class="title_fnt">
     	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FEATURED_PRODUCTS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="left_arrow"></a> <a href="javascript:void(0)"  class="right_arrow"></a>
         </div><div class="row-fluid">
@@ -308,7 +308,9 @@ $.ajax({
     	    <AJDF:output>$allfeaturedproducts</AJDF:output>
 
 </div>
-        </div></span>
+        </div></span><AJDF:output>/if </AJDF:output>
+
+         <AJDF:output>if $newarrivalproducts ne ''</AJDF:output>
 <span class="visible-desktop"><div class="title_fnt">
     	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('NEW_ARRIVALS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="newproductlarrow" id="newproductlarrow"></a> <a href="javascript:void(0)"  class="newproductrarrow" id="newproductrarrow"></a>
         </div><div class="row-fluid">
@@ -316,7 +318,8 @@ $.ajax({
     	    <AJDF:output>$newarrivalproducts</AJDF:output>
 
 </div>
-        </div></span>
+        </div></span><AJDF:output>/if </AJDF:output>
+
 <span class="hidden-desktop"><div class="title_fnt">
     	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FEATURED_PRODUCTS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="left_arrow"></a> <a href="javascript:void(0)"  class="right_arrow"></a>
         </div><div class="row-fluid">
@@ -325,11 +328,16 @@ $.ajax({
 
 </div>
         </div></span>
+
+
+        <AJDF:output>if $newproducts ne ''</AJDF:output>
     	<div class="title_fnt">
     	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PRODUCTS'); <AJDF:output>/php</AJDF:output></h1>
         </div>
 
         <AJDF:output>$newproducts</AJDF:output>
+<AJDF:output>/if </AJDF:output>
+
         <div id="welcome_div">
  			<div class="row-fluid">
             	<div class="span12">
