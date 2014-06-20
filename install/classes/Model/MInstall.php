@@ -296,7 +296,7 @@ class Model_MInstall
 				$selcurrencycode.='<option value="'.$arry['currency_code'].'"  '.(($arry['currency_code']=='USD') ? ' selected ="selected" ' : '' ).'>'.$arry['currency_code'].'</option>';
 			}
 			$selcurrencycode.='</select>';
-			
+		writeDbDetails	
 			$sql="SELECT cou_code,name FROM country_table ORDER BY name";
 			$result2=mysql_query($sql);
 			$selcountrycode='<select name="taxratecountry" id="taxratecountry" style="width:210px;" class="installtext">';
@@ -770,7 +770,7 @@ class Model_MInstall
 		$url=explode('install',$url);
 		$url=$url[0];
 		$url = rtrim($url,"/");
-
+$template='default';
 		$dbfile="../Bin/Configuration.php";
 		@chmod($dbfile,0777);
 		if(is_writable($dbfile))
