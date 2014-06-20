@@ -156,6 +156,9 @@ class Core_Settings_CManageProducts
 	function searchProductDetails()
 	{
 
+
+
+
 		$producttitle = $_POST['title'];
 		$brand = $_POST['brand'];
 		$sku =  $_POST['sku'];
@@ -238,23 +241,41 @@ class Core_Settings_CManageProducts
 			if($fdte!='' && $tdte!='')
 			{
 
-				$condition []= "date_format(pt.intro_date,'%m/%d/%Y') between '".$fdte."' and '".$tdte."'";
+				 $condition []= "pt.intro_date between '".$fdte."' and '".$tdte."'";
 			}
+			if($ptype!='' && $ptype!='-1')
+			{
+				if($ptype=='0')
+				{
+				  $condition []= "pt.digital='0' AND pt.gift='0'";
+
+				}	
+				if($ptype=='1')
+				{
+				  $condition []= "pt.digital='1' AND pt.gift='0'";
+
+				}	
+				if($ptype=='2')
+				{
+				  $condition []= "pt.digital='0' AND pt.gift='1'";
+
+				}	
+			}	
 				
 			if(count($condition)>1 )
 				
-				$sql.= ' where '. implode(' and ', $condition) .'and pt.product_id=invt.product_id';
+				$sql.= ' where '. implode(' and ', $condition) .'and pt.product_id=invt.product_id AND product_status!="3"';
 				
 			elseif(count($condition)>0 )
 			{
-				$sql.= ' where  '. implode('', $condition) .' and pt.product_id=invt.product_id'; 
+				 $sql.= ' where  '. implode('', $condition) .' and pt.product_id=invt.product_id AND product_status!="3"'; 
 			}
 			elseif(count($condition)==0 )
 			{
-				$sql.= ' where pt.product_id=invt.product_id';
+				$sql.= ' where pt.product_id=invt.product_id AND product_status!="3"';
 			}
 
-			
+
 		}
 		else
 		{
@@ -313,18 +334,36 @@ class Core_Settings_CManageProducts
 			{
 				$condition []= " intro_date between '".$fdte."' and '".$tdte."'";
 			}
+			if($ptype!='' && $ptype!='-1')
+			{
+				if($ptype=='0')
+				{
+				  $condition []= "pt.digital='0' AND pt.gift='0'";
+
+				}	
+				if($ptype=='1')
+				{
+				  $condition []= "pt.digital='1' AND pt.gift='0'";
+
+				}	
+				if($ptype=='2')
+				{
+				  $condition []= "pt.digital='0' AND pt.gift='1'";
+
+				}	
+			}	
 				
 			if(count($condition)>1 )
 				
-				 $sql.= ' where '. implode(' and ', $condition) .' and digital="1"';
+				 $sql.= ' where '. implode(' and ', $condition) .' and digital="1" AND product_status!="3"';
 				
 			elseif(count($condition)>0 )
 			{
-				 $sql.= ' where  '. implode('', $condition) .' and digital="1"';
+				 $sql.= ' where  '. implode('', $condition) .' and digital="1" AND product_status!="3"';
 			}
 			elseif(count($condition)==0 )
 			{
-				$sql.= ' where digital="1"';
+				$sql.= ' where digital="1" AND product_status!="3"';
 			}
 			
 
@@ -470,7 +509,7 @@ class Core_Settings_CManageProducts
 	
 	function displayCategory($catid)
 	{
-		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0";
+		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0 and category_status!='2'";
 		
 		$query = new Bin_Query();
 		
@@ -602,7 +641,7 @@ class Core_Settings_CManageProducts
 			
 			$query->executeQuery($sqlid);
 			
-			$sql1 = "SELECT category_id,category_name FROM category_table where category_parent_id=0";
+			$sql1 = "SELECT category_id,category_name FROM category_table where category_parent_id=0 and category_status!='2'";
 		
 			$query1 = new Bin_Query();
 		
