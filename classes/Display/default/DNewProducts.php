@@ -128,7 +128,7 @@ class Display_DNewProducts
 				</span><span class="hidden-phone">
 					<h2>'.$arr[$i]['title'].'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 					
-					<p><a href="'.$_SESSION['base_url'].'/index.php'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
+					<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
 				
 				$output.='<button class="info" type="submit" >'.Core_CLanguage::_(ADD_TO_CART).'</button>';
 			
@@ -348,8 +348,17 @@ class Display_DNewProducts
 						$obj->executeQuery($sql);
 						$recordssoh=$obj->records;
 						
-						$output.='<button class="add_btn" type="submit" ><p style="margin-left:25%">'.Core_CLanguage::_('ADD_TO_CART').'</p></button>';
-						
+						 if($records[$i]['has_variation']==1)
+						   {
+
+							$output.='<a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><button class="btn btn-danger"  type="button">'.Core_CLanguage::_(ADD_TO_CART).'</button></a>';
+				                   }
+				                   else
+				                   {
+							$output.='<button class="btn btn-danger"  type="submit">'.Core_CLanguage::_(ADD_TO_CART).'</button>';
+		
+				                   } 
+	
 						$output.='</div></div>
 						<div class="clear"></div>
 							
@@ -462,8 +471,17 @@ class Display_DNewProducts
 					$obj->executeQuery($sql);
 					$recordssoh=$obj->records;
 					
-						$output.='<button class="add_btn" type="submit" ><p style="margin-left:25%">'.Core_CLanguage::_(ADD_TO_CART).'</p></button>';
-					
+					 if($records[$i]['has_variation']==1)
+					{
+
+						$output.='<a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><button class="btn btn-danger" type="button" ><p style="margin-left:10%">'.Core_CLanguage::_(ADD_TO_CART).'</p></button></a>';
+				                   }
+				                   else
+				                   {
+								$output.='<button class="btn btn-danger" type="submit" ><p style="margin-left:30%">'.Core_CLanguage::_(ADD_TO_CART).'</p></button>';
+		
+				                   } 
+		                   
 					$output.='</div>
 					</div>
 					</form></li>';
@@ -491,8 +509,16 @@ class Display_DNewProducts
 					$obj->executeQuery($sql);
 					$recordssoh=$obj->records;
 					
-						$output.='<button class="add_btn" type="submit" ><p style="margin-left:25%">'.Core_CLanguage::_(ADD_TO_CART).'</p></button>';
-					
+					 if($records[$i]['has_variation']==1)
+						   {
+
+						$output.='<a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><button class="btn btn-danger" type="button" ><p style="margin-left:10%">'.Core_CLanguage::_(ADD_TO_CART).'</p></button></a>';
+		                   }
+		                   else
+		                   {
+						$output.='<button class="btn btn-danger" type="submit" ><p style="margin-left:30%">'.Core_CLanguage::_(ADD_TO_CART).'</p></button>';
+
+		                   } 
 					$output.='</div><input type="hidden" name="addtocart">
 					</div></form></div>';
 				}
