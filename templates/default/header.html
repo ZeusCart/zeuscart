@@ -274,8 +274,8 @@ Dear colleague this is demo site.so any order placed here is not pertinent.</div
 ================================================== -->
 <div class="menu style-1">
   <ul class="menu">
-
-    <li class="select"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a></li>  
+ <li class="<AJDF:output>if $smarty.get.do eq ''</AJDF:output>select<AJDF:output>/if</AJDF:output> "><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a></li>
+      
     <AJDF:output>$headermenu</AJDF:output>
   </ul>
 </div>
