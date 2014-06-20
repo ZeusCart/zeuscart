@@ -68,7 +68,7 @@ class Core_Category_CShowMainCategory
 			$this->data['paging'] = $tmp->output;
 			$this->data['prev'] =$tmp->prev;
 			$this->data['next'] = $tmp->next;
-			$sql1 = "SELECT * FROM category_table WHERE category_parent_id ='0'   LIMIT $start,$end"; 
+			$sql1 = "SELECT * FROM category_table WHERE category_parent_id ='0' AND category_status!='2'  LIMIT $start,$end"; 
 			$query1 = new Bin_Query();
 			if($query1->executeQuery($sql1))
 			{
@@ -176,6 +176,9 @@ class Core_Category_CShowMainCategory
 	function editMainCategory()
 	{
 
+
+		include("classes/Lib/ThumbImage.php");		
+
 		if($_POST['categoryname']!='')
 		{
 			if($_POST['category']=='0')
@@ -207,6 +210,25 @@ class Core_Category_CShowMainCategory
 				$status=$_POST['status'];
 	
 			}
+			$imagetypes=array ('image/jpeg' ,'image/pjpeg' , 'image/bmp' , 'image/gif' , 'image/png','image/x-png');
+
+			if ($_FILES['caticon']['size']>0)
+				{
+					if(in_array($_FILES['caticon']['type'],$imagetypes)) // check for image file types for the uploaded file
+					{
+						$fname=date("Y-m-d-His").$_FILES['caticon']['name']; // generate new file name
+						$caticonpath="uploadedimages/caticons/".$fname; // concat the new file with image folder and thumb image folder for database 
+						$imageDir=ROOT_FOLDER."uploadedimages/caticons"; // to upload the file
+						$uploadfile = ROOT_FOLDER . $caticonpath; // actual image upload path
+						if(move_uploaded_file($_FILES['caticon']['tmp_name'],$uploadfile))
+							new Lib_ThumbImage('thumb',$uploadfile,$imageDir,THUMB_WIDTH);
+					}
+			}
+			else
+			{
+
+				$caticonpath=$_POST['caticon'];
+			}		
 					
 			//convert all special charactor into hyphens and lower case
 
@@ -220,7 +242,7 @@ class Core_Category_CShowMainCategory
 			}
 			$category_alias = preg_replace("/[\/_|+ -]+/", '-', $sluggable);
 
-			$sql= "UPDATE category_table SET category_name = '".$_POST['categoryname']."',category_alias='".$category_alias."', category_desc ='".$_POST['categorydesc']. "', category_status='".$_POST['status']."',category_parent_id='".$categoryparent."',subcat_path='".$subcategorypath."',count='".$count."' WHERE category_id =".(int)$_GET['id'];  
+			$sql= "UPDATE category_table SET category_name = '".$_POST['categoryname']."',category_alias='".$category_alias."', category_desc ='".$_POST['categorydesc']. "', category_status='".$_POST['status']."',category_parent_id='".$categoryparent."',subcat_path='".$subcategorypath."',count='".$count."',category_image='".$caticonpath."' WHERE category_id =".(int)$_GET['id'];  
 			
 			$query = new Bin_Query();
 			if($query->updateQuery($sql))
@@ -333,7 +355,7 @@ class Core_Category_CShowMainCategory
 			$end =  $pagesize;
 		}
 		$total = 0;
-		$sql='SELECT category_id,category_name,category_desc,category_status,category_image FROM category_table ';
+		$sql='SELECT category_id,category_name,category_desc,category_status,category_image FROM category_table  AND category_status!="2"';
 		$condition=array();
 			
 		if($catname!='')
