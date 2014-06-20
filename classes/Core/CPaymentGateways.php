@@ -300,7 +300,7 @@ class Core_CPaymentGateways
 
 			if((((int)$customers_id!=0) || ($customers_id!='')) && ($_SESSION['checkout_amount']!=''))
 			{
-					$sql="insert into orders_table
+					 $sql="insert into orders_table
 					( customers_id, shipping_name, shipping_company, shipping_street_address, 
 					shipping_suburb, shipping_city, shipping_postcode, shipping_state, shipping_country, 
 					billing_name, billing_company, billing_street_address, billing_suburb, 
@@ -348,7 +348,7 @@ class Core_CPaymentGateways
 							
 							
 							
-						 	$sql2="select * from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']." and a.cart_id='".$cartid."' and add_items='".$add_items."'" ;  
+						 	$sql2="select * from shopping_cart_products_table a inner join shopping_cart_table b on a.cart_id=b.cart_id where b.user_id=".$_SESSION['user_id']." and a.cart_id='".$cartid."' and a.add_items='".$add_items."'" ;  
 							$obj2=new Bin_Query();
 							$obj2->executeQuery($sql2);
 							$res=$obj2->records;
@@ -393,7 +393,7 @@ class Core_CPaymentGateways
 										}
 										else
 										{
-											$sql="insert into order_products_table (order_id, product_id,product_qty, product_unit_price,shipping_cost,variation_id) values  ('".$maxid."','".$product_id."','".$product_qty."','".$product_unit_price."','".$shipping_cost."','".$row['variation_id']."')"."\n";
+											 $sql="insert into order_products_table (order_id, product_id,product_qty, product_unit_price,shipping_cost,variation_id) values  ('".$maxid."','".$product_id."','".$product_qty."','".$product_unit_price."','".$shipping_cost."','".$row['variation_id']."')"."\n";
 											$obj=new Bin_Query();
 											$obj->updateQuery($sql);
 										}
@@ -416,7 +416,6 @@ class Core_CPaymentGateways
 									
 	
 						}
-
 
 									
 					$sql2="delete from shopping_cart_products_table where cart_id = ".$cartid;
