@@ -480,6 +480,7 @@ $(document).ready(function (){
 });
 function productalias(val)
 {
+
 	document.getElementById('checkalias').innerHTML="";
 	if(val!='')
 	{
@@ -488,8 +489,7 @@ function productalias(val)
 			data: 'alias='+val,
 			type: 'GET',
 			success: function (resp) {
-
-				
+	
 				if(resp ==1)
 				{
 					document.getElementById('checkalias').innerHTML="<code >Product alias already exists</code>";
@@ -901,7 +901,7 @@ function removeVariation(rdiv)
     								<div id="dmsrp" style="left: 50px; top: 50px;font-weight:normal"></div>
     								</div></div>
 
-<div class="row-fluid"><div class="span12"><label>
+ <div class="row-fluid"><div class="span12"><label>
     								 Tier Price</label></div></div>
 
     									<div class="row-fluid">
@@ -926,7 +926,7 @@ function removeVariation(rdiv)
 </tbody>
 	</table></div></div>
 </div>
-</div>
+</div> 
 	<div class="row-fluid"><div class="span12"><label>Product Shipping Cost </label>
 	<INPUT NAME="shipcost" ID="shipcost"  type="text" VALUE="<AJDF:output>$val.shipcost</AJDF:output>"  />&nbsp;<b>[<AJDF:output>$currencycode</AJDF:output>]</b>
 		<div id="dshipping" style="left: 50px; top: 50px;"></div><DIV STYLE="color:#FF0000"><AJDF:output>$msg.shipcost</AJDF:output> </DIV>                  
