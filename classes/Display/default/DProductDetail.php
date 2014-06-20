@@ -96,7 +96,6 @@ class Display_DProductDetail
 	{
 
 
-
 		// category name selection
 		$sql="SELECT * FROM category_table WHERE category_id ='".$arr[0]['category_id']."' AND category_status =1";
 		$obj=new Bin_Query();
@@ -128,10 +127,12 @@ class Display_DProductDetail
 			<br/>
 			<div class="clearfix" >
 				<ul id="thumblist" class="clearfix" >
-				<li><a class="zoomThumbActive" href=\'javascript:void(0);\' rel="{gallery: \'gal1\', smallimage: \''.$arr[0]['image'].'\',largeimage: \''.$_SESSION['base_url'].'/'.$arr[0]['large_image_path'].'\'}"><img src=\''.$_SESSION['base_url'].'/'.$arr[0]['thumb_image'].'\'></a></li>';
+				';
 			
 				for($l=0;$l<count($imgArr);$l++)
 				{
+						
+
 				$output.=' <li><a href=\'javascript:void(0);\' rel="{gallery: \'gal1\', smallimage: \''.$_SESSION['base_url'].'/'.$imgArr[$l]['image_path'].'\',largeimage: \''.$_SESSION['base_url'].'/'.$imgArr[$l]['large_image_path'].'\'}" ><img src=\''.$_SESSION['base_url'].'/'.$imgArr[$l]['thumb_image_path'].'\'></a></li>';
 				}
 			
@@ -191,9 +192,23 @@ class Display_DProductDetail
 		
 				
 				$output.='</td>
+
+				<input type="hidden" name="varid" value="" id="varid">';
 				
-				<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['msrp'].'</h1></td>
-				</tr>';
+
+				if (count($var_arr)>0)
+				{
+					$output.='<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'<span id="product_price">'.$var_arr[0]['msrp'].'</span></h1></td>';
+				
+
+				}
+				else
+				{
+					$output.='<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].'<span id="product_price">'.$arr[0]['msrp'].'</span></h1></td>';
+
+
+				}
+				$output.='</tr>';
 
 // 				if($arr[0]['shipping_cost']!='0' && $arr[0]['digital']=='0' && $arr[0]['gift']=='0')
 // 				{
@@ -211,6 +226,7 @@ class Display_DProductDetail
 
 		//----------------variation----------------
 	
+
 			
 		if (count($var_arr)>0)
 		{
@@ -220,18 +236,18 @@ class Display_DProductDetail
 			$variation_id=(int)$_GET['varid'];
 			
 			
-			$output.='<select name="variations" onchange="changeVariation('.$arr[0]['product_id'].',this.value);">';
+			$output.='<select name="variations" onchange="changeVariation('.$arr[0]['product_id'].',this.value);" style="width:30%">';
 	
-			$output.='<option  value="'.$variations['variation_id'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' >Default</option>';
+			//$output.='<option  value="'.$variations['variation_id'].','.$variations['msrp'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' >Default</option>';
 
 			foreach($var_arr as $variations)
 			{
-				$output.='<option value="'.$variations['variation_id'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' >'.$variations['variation_name'].'</option>';
+				$output.='<option value="'.$variations['variation_id'].','.$variations['msrp'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' >'.$variations['variation_name'].'</option>';
 			}
 			$output.='</select></li>';
 			
 		}
-	//----------------variation----------------
+			//----------------variation----------------
 				$output.='<li>
 				<tr>				
 
@@ -245,11 +261,15 @@ class Display_DProductDetail
 			
 				$output.='</tr>
 				
-				</li>
-						<li><h2>'.Core_CLanguage::_('QUICK_OVERVIEW').':</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci
+				</li>';
+				
+				if(trim($arr[0]['description'])!='')
+				{
+					$output.='<li><h2>'.Core_CLanguage::_('QUICK_OVERVIEW').':</h2>'.trim($arr[0]['description']).'</li>';
 
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet nisl nec nunc sollicitudin bibendum. Pellentesque orci.</p></li>
-				<li>
+				}
+
+				$output.='<li>
 				<table width="100%" border="0">
 		<tr>';
 		if($arr[0]['gift']=='0' && $arr[0]['digital']=='0' )
@@ -282,7 +302,7 @@ class Display_DProductDetail
 		
 		 $mode='none';
 		if(count($tierArr)>0)
-		$mode='block';
+		$mode='none';
 
 		
 
@@ -318,10 +338,10 @@ class Display_DProductDetail
 			$img='';
 			for($j=0;$j<5;$j++)
 			if($j<round($reviewArr[$i]['rating']))
-				$img.='<img src="assets/'.$_SESSION['template'].'/img/star.png" alt="star" />';
+				$img.='<img src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star.png" alt="star" />';
 			else
-				$img.='<img src="assets/'.$_SESSION['template'].'/img/star-gray.png"  alt="star" />';
-                	$output.='<li><i class="icon-user"></i> Reviewed by :  '.$reviewArr[$i]['user_display_name'].'<span class="pull-right">'.$_SESSION['base_url'].'/'.$img.'</span>
+				$img.='<img src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png"  alt="star" />';
+                	$output.='<li><i class="icon-user"></i> Reviewed by :  '.$reviewArr[$i]['user_display_name'].'<span class="pull-right">'.$img.'</span>
                     <p>'.$reviewArr[$i]['review_caption'].'</p>
                     </li>';
              
@@ -352,7 +372,7 @@ class Display_DProductDetail
 		</div>
 		</div>
 		<div class="control-group">
-		<label class="control-label" for="inputPassword">'.Core_CLanguage::_('RATE_THIS_PRODUCT').'</label>
+		<label class="control-label" for="inputPassword">'.Core_CLanguage::_('RATE_THIS_PRODUCT').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<img name="img1" src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png" title="1 star out of 5" onmouseover="fun(1)" onmouseout="fun1(1)" onclick=fun2(1)>
 		<img name="img2" src="'.$_SESSION['base_url'].'/assets/'.$_SESSION['template'].'/img/star-gray.png" title="2 stars out of 5" onmouseover="fun(2)" onmouseout="fun1(2)" onclick=fun2(2)>
@@ -363,7 +383,7 @@ class Display_DProductDetail
 		</div>
 		</div>
 		<div class="control-group">
-		<label class="control-label" for="inputEmail">'.Core_CLanguage::_('ENTER_THE_CODE_IN_THE_BOX_BELOW').'</label>
+		<label class="control-label" for="inputEmail">'.Core_CLanguage::_('ENTER_THE_CODE_IN_THE_BOX_BELOW').' <i class="red_fnt">*</i></label>
 		<div class="controls">
 		<input type="text" id="txtcaptcha" name="txtcaptcha" >
 		</div>
@@ -382,6 +402,7 @@ class Display_DProductDetail
 		</form>
 		</div>';
 
+		
 		$output.='<div id="divTier" style="display:none"><table class="table table-striped">';
 
 			for($t=0;$t<count($tierArr);$t++)
@@ -564,9 +585,7 @@ class Display_DProductDetail
  	*/
 	function dispRelatedProduct($arr)
 	{
-// echo "<pre>";
-// print_r($arr);
-// exit;
+
 
 // 		if(count($arr > 0))
 // 		{
@@ -599,11 +618,30 @@ class Display_DProductDetail
 			
 			for($i=0;$i<count($arr);$i++)
 			{
+
+
+				//get prduct detals sef url
+				$comma_separated=Display_DNewProducts::getProductSefUrl($arr[$i]['category_id'],$arr[$i]['alias']);	
+				
+			
+				if($arr[$i]['has_variation']=='1')
+				{
+					$get_lowest_price=Display_DNewProducts::getLowestvariationPrice($arr[$i]['product_id']);
+
+
+					$msrp=$get_lowest_price[0];
+				}	
+				else
+				{
+
+					$msrp=$arr[$i]['msrp'];
+				}
+
 				$output.='<li><div id="eventlist"><table width="100%" border="0">
 				<tr>
 				<td align="left" valign="top"><div class="eventimg"><img src="'.$_SESSION['base_url'].'/'.$arr[$i]['thumb_image'].'" alt="01"></div></td>
-				<td align="left" valign="top"><h5><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a></h5><p></p>
-				<b>$ '.$arr[$i]['msrp'].' </br><a href="?do=addtocart&prodid='.$arr[$i]['product_id'].'" class="btn btn-danger btn-mini">Add to Cart</a> 
+				<td align="left" valign="top"><h5><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'">'.$arr[$i]['title'].'</a></h5><p></p>
+				<b>$ '.$msrp.' </br><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="btn btn-danger btn-mini">Add to Cart</a> 
 				</td>
 				</tr>
 				</table></div></li>';
@@ -830,9 +868,11 @@ class Display_DProductDetail
 	* @param string $rating
  	* @return string
 	*/
-	function showPopupProducts($arr,$rating)
+	function showPopupProducts($arr,$rating,$var_arr)
 	{
 		
+
+
 		 $output='
 			<button class="close" data-dismiss="modal" data-target="#myModal">×</button>
 			<div class="container">
@@ -872,14 +912,45 @@ class Display_DProductDetail
 		}
 
 		$output.='</td>
-		<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[0]['msrp'].'</h1></td>
+		<td align="left" valign="top"><h1>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].' <span id="product_price">'.$arr[0]['msrp'].'</span></h1></td>
 		</tr>
 		</table></li>
 		<li><h2>'.Core_CLanguage::_(QUICK_OVERVIEW).'</h2><p>This midi dress has been made from stretch jersey. The details include: a scoop neckline and sleeveless styling with an open back and latticed deatiling. The dress has been cut with a bodycon fit.</p></li>
+		
+
+
 		<li><form method="post"	action="'.$_SESSION['base_url'].'/index.php?do=addtocartfromproductdetail&prodid='.$arr[0]['product_id'].'" name="frmcart" target="_parent">
-		<table width="100%" border="0">
-		<tr>
-		<td align="left" valign="top"> '.Core_CLanguage::_(QUANTITY).' ';
+		<table width="100%" border="0">';
+
+		//----------------variation----------------
+	
+			$output.='<tr>';
+			
+		if (count($var_arr)>0)
+		{
+			
+			$output.='<td valign="top" align="left">Size : ';
+			
+			$variation_id=(int)$_GET['varid'];
+			
+			
+			$output.='<select name="variations" onchange="changeVariation('.$arr[0]['product_id'].',this.value);" style="width:50%">';
+	
+			//$output.='<option  value="'.$variations['variation_id'].','.$variations['msrp'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' >Default</option>';
+
+			foreach($var_arr as $variations)
+			{
+				$output.='<option value="'.$variations['variation_id'].','.$variations['msrp'].'" '.(($variation_id==$variations['variation_id']) ? 'selected="selected"' : '').' >'.$variations['variation_name'].'</option>';
+			}
+			$output.='</select></td>';
+			
+		}
+
+			$output.='<input type="hidden" name="varid" id="varid" value="">';
+	//----------------variation----------------
+
+	
+		$output.='<td align="left" valign="top"> '.Core_CLanguage::_(QUANTITY).' ';
 		$output.='<select name="qty[]" style="width:60px;">';
 		if($arr[0]['soh']==0)
 			$output.='<option value="0">0</option>';
@@ -888,6 +959,7 @@ class Display_DProductDetail
 			$output.='<option value="'.$s.'">'.$s.'</option>';
 		$output.='</select></td>';
 		
+
 		$output.='<td align="left" valign="top"><button type="submit" class="add_btn" title="'.Core_CLanguage::_('ADD_TO_CART').'"><p style="margin-left:38px;top:5px">'.Core_CLanguage::_('ADD_TO_CART').'</p></button></td>';
 		
 		$output.='</tr>
