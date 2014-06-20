@@ -391,7 +391,7 @@
 	
 	function displayCategory($selected='')
 	{
-		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0  order by category_name";
+		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0  and category_status!='2' order by category_name";
 		$query = new Bin_Query();
 		$query->executeQuery($sql);
 		return Display_DProductEntry::displayCategory($query->records,$selected);		
@@ -410,7 +410,7 @@
 		$id=(int)$_GET['id'];
 		if(is_int($id))
 		{
-			$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=".$id ." AND sub_category_parent_id =0";
+			$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=".$id ." AND sub_category_parent_id =0 and category_status!='2'";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
 			return Display_DProductEntry::displaySubCategory($query->records);
@@ -429,7 +429,7 @@
 		$id=(int)$_GET['id'];
 		if(is_int($id))
 		{
-			 $sql = "SELECT category_id,category_name FROM category_table where sub_category_parent_id=".$id ." ";
+			 $sql = "SELECT category_id,category_name FROM category_table where sub_category_parent_id=".$id ." and category_status!='2'";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
 			return Display_DProductEntry::displaySubUnderCategory($query->records);
