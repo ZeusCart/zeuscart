@@ -45,27 +45,33 @@ class Model_MProductDetail
 	*/
 	function Model_MProductDetail()
 	{
-		include_once('classes/Core/CLanguage.php');
+	        include_once('classes/Core/CLanguage.php');
 		include_once('classes/Core/CAddCart.php');	
 		include('classes/Core/CHome.php');	
 		include_once('classes/Core/CLastViewedProducts.php');
 		include('classes/Core/CKeywordSearch.php');	
-		include('classes/Core/CCWishList.php');
 		include('classes/Core/CUserRegistration.php');	
 		include_once('classes/Core/CCurrencySettings.php');
-		include('classes/Lib/TagClouds.php');
+		include_once('classes/Core/CFeaturedItems.php');
+		include('classes/Core/CWishList.php');	
+		include('classes/Core/CNewProducts.php');
 		include('classes/Core/CTagClouds.php');
-		include_once('classes/Core/CProductDetail.php');
+		include('classes/Core/CNews.php');
+		include('classes/Core/CProductDetail.php');
+		include('classes/Core/CUserDashboard.php');
 
 		//Display files
 		Core_CLanguage::setDisplay('DAddCart.php');		
 		Core_CLanguage::setDisplay('DHome.php');
 		Core_CLanguage::setDisplay('DLastViewedProducts.php');
 		Core_CLanguage::setDisplay('DKeywordSearch.php');
-		Core_CLanguage::setDisplay('DWishList.php');	
 		Core_CLanguage::setDisplay('DUserRegistration.php');
+		Core_CLanguage::setDisplay('DUserAccount.php');
+		Core_CLanguage::setDisplay('DFeaturedItems.php');
+		Core_CLanguage::setDisplay('DWishList.php');
+		Core_CLanguage::setDisplay('DNewProducts.php');
+		Core_CLanguage::setDisplay('DNews.php');
 		Core_CLanguage::setDisplay('DProductDetail.php');
-
 
 	}
 
