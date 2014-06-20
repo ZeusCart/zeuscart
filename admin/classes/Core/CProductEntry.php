@@ -198,8 +198,7 @@
 		$sql="insert into products_table(category_id, sku, title, description, brand, model, msrp,price,cse_enabled,cse_key, weight, dimension, thumb_image, image, shipping_cost, status, tag, meta_desc, meta_keywords, intro_date, is_featured,product_status,alias)values('".$category_id."','".$sku."','".$title."','".$description."','".$brand."','".$model."','".$msrp_org."','".$price."','".$cse_enabled."','".$csekeyid."','".$weight."','".$dimension."','".$thumb_image."','".$image."','".$shipping_cost."','".$status."','".$tag."','".$meta_desc."','".$meta_keywords."','".$intro_date."','".$is_feautured."','".$product_status."','".$sluggable."')";	
 				
 		$obj=new Bin_Query();
-		
-		
+			
 		
 		if($obj->updateQuery($sql))
 		{
@@ -306,6 +305,7 @@
 				}
 			}
 			
+
 			if(count($_FILES['ufile']['name']) > 0)
 			{
 				for($i=0;$i<count($_FILES['ufile']['name']);$i++)
@@ -343,19 +343,22 @@
 						$obj->updateQuery($update);
 					}
 					else
+					{
 						$imgType='sub';
+					}
+						
 						if($_FILES['ufile']['name'][$i]!='')
 						{
-						$spl="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','$imgType','$large_image')";
-						
+							$query_img="INSERT INTO product_images_table(product_id,image_path,thumb_image_path,type,large_image_path) VALUES('".$product_id."','$image','$thumb_image','$imgType','$large_image')";
+							
+							$obj_img=new Bin_Query();
 
-						$obj->updateQuery($spl);
+							$obj_img->updateQuery($query_img);
 						}
 
 
 				}
 			}
-
 
 				
 			$_SESSION['update_msg']='<div class="alert alert-success">
@@ -388,7 +391,7 @@
 	
 	function displayCategory($selected='')
 	{
-		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0  order by category_name";
+		$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=0  and category_status!='2' order by category_name";
 		$query = new Bin_Query();
 		$query->executeQuery($sql);
 		return Display_DProductEntry::displayCategory($query->records,$selected);		
@@ -407,7 +410,7 @@
 		$id=(int)$_GET['id'];
 		if(is_int($id))
 		{
-			$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=".$id ." AND sub_category_parent_id =0";
+			$sql = "SELECT category_id,category_name FROM category_table where category_parent_id=".$id ." AND sub_category_parent_id =0 and category_status!='2'";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
 			return Display_DProductEntry::displaySubCategory($query->records);
@@ -426,7 +429,7 @@
 		$id=(int)$_GET['id'];
 		if(is_int($id))
 		{
-			 $sql = "SELECT category_id,category_name FROM category_table where sub_category_parent_id=".$id ." ";
+			 $sql = "SELECT category_id,category_name FROM category_table where sub_category_parent_id=".$id ." and category_status!='2'";
 			$query = new Bin_Query();
 			$query->executeQuery($sql);
 			return Display_DProductEntry::displaySubUnderCategory($query->records);
