@@ -71,39 +71,39 @@
 
 
    <script>
-		
-	jQuery(function(){
-		
-		jQuery('#camera_wrap_1').camera({
-			height:  ' <AJDF:output>$slideshowparameter->slideshowheight</AJDF:output>',
-			alignment: '<AJDF:output>$slideshowparameter->imagealignment</AJDF:output>',
-			autoAdvance : <AJDF:output>$slideshowparameter->autoAdvance</AJDF:output>,
-			pagination: <AJDF:output>$slideshowparameter->pagination</AJDF:output>,
-			easing: '<AJDF:output>$slideshowparameter->easingeffect</AJDF:output>',
-			
-			navigation:<AJDF:output>$slideshowparameter->navigationbuttons</AJDF:output>,
-			navigationHover:<AJDF:output>$slideshowparameter->shownavigation</AJDF:output>,
-			
-			slicedCols:<AJDF:output>$slideshowparameter->slicedcolumns</AJDF:output>,
-			slicedRows:<AJDF:output>$slideshowparameter->slicedrows</AJDF:output>,
-			slidingtime:<AJDF:output>$slideshowparameter->slidingtime</AJDF:output>,
-			fx: '<AJDF:output>$slideshowparameter->transactioneffect</AJDF:output>',
-			transPeriod:<AJDF:output>$slideshowparameter->slidingeffecttime</AJDF:output>,
-			playPause:<AJDF:output>$slideshowparameter->pausebutton</AJDF:output>,
-			pauseOnClick:<AJDF:output>$slideshowparameter->pauseonclick</AJDF:output>,
-			loader:'<AJDF:output>$slideshowparameter->timertype</AJDF:output>',
-			loaderColor: '<AJDF:output>$slideshowparameter->timercolor</AJDF:output>', 
-			loaderBgColor: '<AJDF:output>$slideshowparameter->timerbgcolor</AJDF:output>', 
-			pieDiameter:<AJDF:output>$slideshowparameter->piediameter</AJDF:output>,
-			piePosition:'<AJDF:output>$slideshowparameter->pieposition</AJDF:output>',
-			barDirection:'<AJDF:output>$slideshowparameter->timerbardirections</AJDF:output>',
-			barPosition:'<AJDF:output>$slideshowparameter->timerbarposition</AJDF:output>',	
-			
-			thumbnails: <AJDF:output>$slideshowparameter->thumbnails</AJDF:output>
-		});
-	});
-		
-	</script>
+    
+  jQuery(function(){
+    
+    jQuery('#camera_wrap_1').camera({
+      height:  ' <AJDF:output>$slideshowparameter->slideshowheight</AJDF:output>',
+      alignment: '<AJDF:output>$slideshowparameter->imagealignment</AJDF:output>',
+      autoAdvance : <AJDF:output>$slideshowparameter->autoAdvance</AJDF:output>,
+      pagination: <AJDF:output>$slideshowparameter->pagination</AJDF:output>,
+      easing: '<AJDF:output>$slideshowparameter->easingeffect</AJDF:output>',
+      
+      navigation:<AJDF:output>$slideshowparameter->navigationbuttons</AJDF:output>,
+      navigationHover:<AJDF:output>$slideshowparameter->shownavigation</AJDF:output>,
+      
+      slicedCols:<AJDF:output>$slideshowparameter->slicedcolumns</AJDF:output>,
+      slicedRows:<AJDF:output>$slideshowparameter->slicedrows</AJDF:output>,
+      slidingtime:<AJDF:output>$slideshowparameter->slidingtime</AJDF:output>,
+      fx: '<AJDF:output>$slideshowparameter->transactioneffect</AJDF:output>',
+      transPeriod:<AJDF:output>$slideshowparameter->slidingeffecttime</AJDF:output>,
+      playPause:<AJDF:output>$slideshowparameter->pausebutton</AJDF:output>,
+      pauseOnClick:<AJDF:output>$slideshowparameter->pauseonclick</AJDF:output>,
+      loader:'<AJDF:output>$slideshowparameter->timertype</AJDF:output>',
+      loaderColor: '<AJDF:output>$slideshowparameter->timercolor</AJDF:output>', 
+      loaderBgColor: '<AJDF:output>$slideshowparameter->timerbgcolor</AJDF:output>', 
+      pieDiameter:<AJDF:output>$slideshowparameter->piediameter</AJDF:output>,
+      piePosition:'<AJDF:output>$slideshowparameter->pieposition</AJDF:output>',
+      barDirection:'<AJDF:output>$slideshowparameter->timerbardirections</AJDF:output>',
+      barPosition:'<AJDF:output>$slideshowparameter->timerbarposition</AJDF:output>', 
+      
+      thumbnails: <AJDF:output>$slideshowparameter->thumbnails</AJDF:output>
+    });
+  });
+    
+  </script>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -121,98 +121,98 @@ document.getElementById('searchtxt').value='';
 <script type="text/javascript">
 function searchSubmit()
 {
-	
-	var searchtext = document.getElementById('searchtxt').value;
-	if(searchtext=='')
-	{
-	document.getElementById('searchtxt').value='Search enter item name here ...';
-	}
+  
+  var searchtext = document.getElementById('searchtxt').value;
+  if(searchtext=='')
+  {
+  document.getElementById('searchtxt').value='Search enter item name here ...';
+  }
 
-	if(searchtext!='Search enter item name here ...' && searchtext!='')
-	{	
-	window.location = '<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&search='+searchtext;
-	}
-}	
+  if(searchtext!='Search enter item name here ...' && searchtext!='')
+  { 
+  window.location = '<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=search&search='+searchtext;
+  }
+} 
 </script>
 <script type="text/javascript">
 function selectCurrency(id)
 {
 
 $.ajax({
-		type: "GET",
-		url: "<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=changecurrency",
-		data: "id="+id,
-		success: function(result){
-		window.location.href=window.location.href;
-	}
-	});
+    type: "GET",
+    url: "<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=changecurrency",
+    data: "id="+id,
+    success: function(result){
+    window.location.href=window.location.href;
+  }
+  });
 }
 </script>
-	</head>
+  </head>
 
   <body >
   <header>
 <AJDF:output>$install_error</AJDF:output>
   <div id="header">
   <div id="top_menu">
-  		<div class="container">
-        	<div class="row-fluid">
-		 <span class="visible-desktop">
-            	<div class="span6">
-                	<ul class="topmenu">
-                    	<li style="padding-left:0;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
-                    	
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_WISHLIST'); <AJDF:output>/php</AJDF:output></a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_CART'); <AJDF:output>/php</AJDF:output></a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECKOUT'); <AJDF:output>/php</AJDF:output></a></li>
-                    	<li><AJDF:output>$loginStatus.logout</AJDF:output></li>
-		
+      <div class="container">
+          <div class="row-fluid">
+     <span class="visible-desktop">
+              <div class="span6">
+                  <ul class="topmenu">
+                      <li style="padding-left:0;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
+                      
+                      <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_WISHLIST'); <AJDF:output>/php</AJDF:output></a></li>
+                      <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_CART'); <AJDF:output>/php</AJDF:output></a></li>
+                      <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECKOUT'); <AJDF:output>/php</AJDF:output></a></li>
+                      <li><AJDF:output>$loginStatus.logout</AJDF:output></li>
+    
                     </ul>
                 </div>
-		
-		
-		<div class="span5">
-                	<ul class="topmenu">
-                    	
-			<li><a ><AJDF:output>$currentDate</AJDF:output></a></li>
-			<li><a ><AJDF:output>$loginStatus.username</AJDF:output></a></li>
+    
+    
+    <div class="span5">
+                  <ul class="topmenu">
+                      
+      <li><a ><AJDF:output>$currentDate</AJDF:output></a></li>
+      <li><a ><AJDF:output>$loginStatus.username</AJDF:output></a></li>
                     </ul>
                 </div>
                 <div class="span1"><AJDF:output>$currencysettings</AJDF:output></div>
 
 </span>
 <span class="hidden-desktop">
-			<div class="row-fluid">
-            	<div class="span12">
-                	<ul class="tabletmenu">
-                    	<li style="padding-left:10;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
-                    	
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_WISHLIST'); <AJDF:output>/php</AJDF:output></a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_CART'); <AJDF:output>/php</AJDF:output></a></li>
-                    	<li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECKOUT'); <AJDF:output>/php</AJDF:output></a></li>
-                    	<li><AJDF:output>$loginStatus.logout</AJDF:output></li>
-		
+      <div class="row-fluid">
+              <div class="span12">
+                  <ul class="tabletmenu">
+                      <li style="padding-left:10;"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=dashboard"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_ACCOUNT'); <AJDF:output>/php</AJDF:output></a></li>
+                      
+                      <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=wishlist"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_WISHLIST'); <AJDF:output>/php</AJDF:output></a></li>
+                      <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('MY_CART'); <AJDF:output>/php</AJDF:output></a></li>
+                      <li><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('CHECKOUT'); <AJDF:output>/php</AJDF:output></a></li>
+                      <li><AJDF:output>$loginStatus.logout</AJDF:output></li>
+    
                 
-                    	
-			<li><a ><AJDF:output>$currentDate</AJDF:output></a></li>
-			<li><a ><AJDF:output>$loginStatus.username</AJDF:output></a></li>
+                      
+      <li><a ><AJDF:output>$currentDate</AJDF:output></a></li>
+      <li><a ><AJDF:output>$loginStatus.username</AJDF:output></a></li>
                <li></li><AJDF:output>$currencysettings</AJDF:output></li></ul></div></div>
 
 </span>
             </div>
-	
+  
         </div>
   </div>
   <div class="container">
-  	<!--logo-->
+    <!--logo-->
     <div id="logo_div">
-    	<div class="row-fluid">
-		 <span class="hidden-tablet">
-        	<div class="span5"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
+      <div class="row-fluid">
+     <span class="hidden-tablet">
+          <div class="span5"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
 
          <div class="span4">
 
-	<div class="input-append" style=" margin-top: 30px;">
+  <div class="input-append" style=" margin-top: 30px;">
         <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH_ENTER_ITEM_NAME_HERE'); <AJDF:output>/php</AJDF:output> ... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i> <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH'); <AJDF:output>/php</AJDF:output></button>
         </div></div>
            
@@ -221,23 +221,23 @@ $.ajax({
             </div>
 </span>
 <span class="visible-tablet">
-			<div class="row-fluid">
-        	<div class="span4"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
-	<div class="span8">
-            	
+      <div class="row-fluid">
+          <div class="span4"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><img src="<AJDF:output>$sitelogo</AJDF:output>" alt="ZeusCart"></a></div>
+  <div class="span8">
+              
             </div>
-	</div>
-		<div class="row-fluid">
+  </div>
+    <div class="row-fluid">
          <div class="span6">
 
-	<div class="input-append">
+  <div class="input-append">
         <input style="width:170px; height:18px; overflow:hidden;"  name="search"  type="text" id="searchtxt" value="<AJDF:output>if $searchsession ne ''</AJDF:output><AJDF:output>$searchsession</AJDF:output> <AJDF:output>else</AJDF:output><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH_ENTER_ITEM_NAME_HERE'); <AJDF:output>/php</AJDF:output> ... <AJDF:output>/if</AJDF:output>" onclick="searchitem();">&nbsp;<button class="btn" type="button" onclick="searchSubmit();" value="Search"><i class="icon-zoom-in"></i>  <AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SEARCH'); <AJDF:output>/php</AJDF:output></button>
         </div></div>
            
             <div class="span6"><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=showcart"><div id="shopping_cart"><i><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('SHOPPING_CART'); <AJDF:output>/php</AJDF:output> - <AJDF:output>$cartcount </AJDF:output> &nbsp;<AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('ITEMS'); <AJDF:output>/php</AJDF:output></i></div></a>
             
             </div>
-	</div>
+  </div>
 </span>
         </div>
         </div>
@@ -261,19 +261,19 @@ $.ajax({
         </div>
       </div>
     </div>
-	</span>
+  </span>
     <span class="visible-desktop">
     <!-- Mega Menu / Start
 ================================================== -->
 <div class="menu style-1">
-	<ul class="menu">
+  <ul class="menu">
 
-		    <li class="<AJDF:output>if $smarty.get.do eq ''</AJDF:output>select<AJDF:output>/if</AJDF:output> "><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a></li>
+        <li class="<AJDF:output>if $smarty.get.do eq ''</AJDF:output>select<AJDF:output>/if</AJDF:output> "><a href="<AJDF:output>$smarty.session.base_url</AJDF:output>/index.php?do=index"><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('HOME'); <AJDF:output>/php</AJDF:output></a></li>
 
-		<AJDF:output>$headermenu</AJDF:output>
+    <AJDF:output>$headermenu</AJDF:output>
 
 
-	</ul>
+  </ul>
 </div>
 <AJDF:output>$loginStatus.CustomHeader</AJDF:output>
 <!-- Mega Menu / End
@@ -302,45 +302,45 @@ $.ajax({
 <div class="container">
      <AJDF:output>if $allfeaturedproducts ne ''</AJDF:output>
 <span class="visible-desktop"><div class="title_fnt">
-    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FEATURED_PRODUCTS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="left_arrow"></a> <a href="javascript:void(0)"  class="right_arrow"></a>
+      <h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FEATURED_PRODUCTS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="left_arrow"></a> <a href="javascript:void(0)"  class="right_arrow"></a>
         </div><div class="row-fluid">
-        	<div class="freshdesignweb">  
-    	    <AJDF:output>$allfeaturedproducts</AJDF:output>
+          <div class="freshdesignweb">  
+          <AJDF:output>$allfeaturedproducts</AJDF:output>
 
 </div>
         </div></span><AJDF:output>/if </AJDF:output>
 
-         <AJDF:output>if $newarrivalproducts ne ''</AJDF:output>
+         <AJDF:output>if $arrivalproducts ne ''</AJDF:output>
 <span class="visible-desktop"><div class="title_fnt">
-    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('NEW_ARRIVALS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="newproductlarrow" id="newproductlarrow"></a> <a href="javascript:void(0)"  class="newproductrarrow" id="newproductrarrow"></a>
+      <h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('NEW_ARRIVALS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="newproductlarrow" id="newproductlarrow"></a> <a href="javascript:void(0)"  class="newproductrarrow" id="newproductrarrow"></a>
         </div><div class="row-fluid">
-        	<div class="freshdesignweb">  
-    	    <AJDF:output>$newarrivalproducts</AJDF:output>
+          <div class="freshdesignweb">  
+          <AJDF:output>$arrivalproducts</AJDF:output>
 
 </div>
         </div></span><AJDF:output>/if </AJDF:output>
 
 <span class="hidden-desktop"><div class="title_fnt">
-    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FEATURED_PRODUCTS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="left_arrow"></a> <a href="javascript:void(0)"  class="right_arrow"></a>
+      <h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('FEATURED_PRODUCTS'); <AJDF:output>/php</AJDF:output></h1><a href="javascript:void(0)" class="left_arrow"></a> <a href="javascript:void(0)"  class="right_arrow"></a>
         </div><div class="row-fluid">
-        	<div class="freshdesignweb">  
-    	    <AJDF:output>$allfeaturedproductshidden</AJDF:output>
+          <div class="freshdesignweb">  
+          <AJDF:output>$allfeaturedproductshidden</AJDF:output>
 
 </div>
         </div></span>
 
 
         <AJDF:output>if $newproducts ne ''</AJDF:output>
-    	<div class="title_fnt">
-    	<h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PRODUCTS'); <AJDF:output>/php</AJDF:output></h1>
+      <div class="title_fnt">
+      <h1><AJDF:output>php</AJDF:output>  echo Core_CLanguage::_('PRODUCTS'); <AJDF:output>/php</AJDF:output></h1>
         </div>
 
         <AJDF:output>$newproducts</AJDF:output>
 <AJDF:output>/if </AJDF:output>
 
         <div id="welcome_div">
- 			<div class="row-fluid">
-            	<div class="span12">
+      <div class="row-fluid">
+              <div class="span12">
                 <AJDF:output>$homepagecontent</AJDF:output>
                    <div class="clear"></div>
                 </div>
@@ -348,13 +348,13 @@ $.ajax({
             </div> 
             <div class="row-fluid" id="ad_banner">
               <AJDF:output>if $homepageads[0].home_page_ads_logo ne ''</AJDF:output>
-    	<div class="span6"><a target="_blank" href="<AJDF:output>$homepageads[0].home_page_ads_url</AJDF:output>"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$homepageads[0].home_page_ads_logo</AJDF:output>" alt="<AJDF:output>$homepageads[0].home_page_ads_title</AJDF:output>"></a></div>
+      <div class="span6"><a target="_blank" href="<AJDF:output>$homepageads[0].home_page_ads_url</AJDF:output>"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$homepageads[0].home_page_ads_logo</AJDF:output>" alt="<AJDF:output>$homepageads[0].home_page_ads_title</AJDF:output>"></a></div>
       <AJDF:output>/if</AJDF:output>
       <AJDF:output>if $homepageads[1].home_page_ads_logo ne ''</AJDF:output>
-    	<div class="span6"><a target="_blank" href="<AJDF:output>$homepageads[1].home_page_ads_url</AJDF:output>"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$homepageads[1].home_page_ads_logo</AJDF:output>"  alt="<AJDF:output>$homepageads[1].home_page_ads_title</AJDF:output>"></a></div>
+      <div class="span6"><a target="_blank" href="<AJDF:output>$homepageads[1].home_page_ads_url</AJDF:output>"><img src="<AJDF:output>$smarty.session.base_url</AJDF:output>/<AJDF:output>$homepageads[1].home_page_ads_logo</AJDF:output>"  alt="<AJDF:output>$homepageads[1].home_page_ads_title</AJDF:output>"></a></div>
       <AJDF:output>/if</AJDF:output>
-    </div>	
-        </div>	
+    </div>  
+        </div>  
 
 
 
@@ -369,5 +369,4 @@ $.ajax({
     <!-- /container -->
    
 <AJDF:output>include file="footer.html"</AJDF:output>
-
 
