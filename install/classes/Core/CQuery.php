@@ -1554,7 +1554,7 @@ class Core_CQuery
 		$result=mysql_query($sql);
 		$sql="CREATE TABLE wishlist_table(wishlist_id  INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,user_id  INT(20) NOT NULL,product_id  INT(20) NOT NULL,date_added  date NOT NULL ,comments  TEXT(65535) NOT NULL )";
 		$result=mysql_query($sql);
-		$sql="INSERT INTO `wishlist_table` (`wishlist_id`, `user_id`, `product_id`, `date_added`, `comments`) VALUES(1, 1, 1, '2013-02-23', '')";
+		$sql="INSERT INTO `wishlist_table` (`wishlist_id`, `user_id`, `product_id`, `date_added`, `comments`) VALUES(1, 1, 1, '2014-06-26', '')";
 		$result=mysql_query($sql);
 
 	}
