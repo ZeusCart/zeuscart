@@ -210,48 +210,52 @@ class Display_DFeaturedItems
 
 				if($arr[$i]['product_status']==1)
 				{
-					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new">';
+					$imagetag='<img src="'.$_SESSION['base_url'].'/images/img/ribbion/new.png" alt="new">';
 				}
 				elseif($arr[$i]['product_status']==2)
 				{
-					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale">';
+					$imagetag='<img src="'.$_SESSION['base_url'].'/images/img/ribbion/sale.png" alt="sale">';
 				}
 				elseif($arr[$i]['product_status']==0)
 				{	
 					$imagetag='';
 				}
 
-				//category name
-				$sql="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['category_id']."'";
-				$obj=new Bin_Query();
-				$obj->executeQuery($sql);
-				$cat=$obj->records[0]['category_name'];
+					//get prduct detals sef url
+				$comma_separated=Display_DNewProducts::getProductSefUrl($arr[$i]['category_id'],$arr[$i]['alias']);	
+			
+			
+				if(trim($arr[$i]['has_variation'])=='1')
+					{
+						 $get_lowest_price=Display_DNewProducts::getLowestvariationPrice($arr[$i]['product_id']);
 
-				//sub category
-				$sqlsub="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_category_id']."'";
-				$objsub=new Bin_Query();
-				$objsub->executeQuery($sqlsub);
-				$subcat=$objsub->records[0]['category_name'];
 
-				//sub under  category
-				$sqlsubun="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_under_category_id']."'";
-				$objsubun=new Bin_Query();
-				$objsubun->executeQuery($sqlsubun);
-				$subuncat=$objsubun->records[0]['category_name'];
-				//soh 
-				$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
-				$obj=new Bin_Query();
-				$obj->executeQuery($sql);
-				$recordssoh=$obj->records;
+						$msrp=$get_lowest_price[0];
+					}	
+					else
+					{
 
+						$msrp=$arr[$i]['msrp'];
+					}
+
+			
+		
         			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
-				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=500" alt="'.$arr[$i]['title'].'">
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
 				<div class="mask">
-				<h2>'.$arr[$i]['title'].'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
-				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
+				<h2>'.substr(trim($arr[$i]['title']),'0','10').'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
 				
-				$output.='<button class="info" type="submit" >'.Core_CLanguage::_(ADD_TO_CART).'</button>';
-				
+			if($arr[$i]['has_variation']==1)
+				   {
+
+                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><p style="padding-left:55px"><input type="button" value="Add to cart" class="info" /></p></a></div>';
+                   }
+                   else
+                   {
+                   	    $output.='<div class="span6"><p style="padding-left:55px"><input type="submit" value="Add to cart" class="info" /></p></div>';
+
+                   } 	
 				$output.='</div>
 				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
 				
@@ -300,42 +304,48 @@ class Display_DFeaturedItems
 
 				if($arr[$i]['product_status']==1)
 				{
-					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new">';
+					$imagetag='<img src="'.$_SESSION['base_url'].'/images/ribbion/new.png" alt="new">';
 				}
 				
 
-				//category name
-				$sql="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['category_id']."'";
-				$obj=new Bin_Query();
-				$obj->executeQuery($sql);
-				$cat=$obj->records[0]['category_name'];
+				//get prduct detals sef url
+				$comma_separated=Display_DNewProducts::getProductSefUrl($arr[$i]['category_id'],$arr[$i]['alias']);	
+			
+		
+				if(trim($arr[$i]['has_variation'])=='1')
+					{
+						 $get_lowest_price=Display_DNewProducts::getLowestvariationPrice($arr[$i]['product_id']);
 
-				//sub category
-				$sqlsub="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_category_id']."'";
-				$objsub=new Bin_Query();
-				$objsub->executeQuery($sqlsub);
-				$subcat=$objsub->records[0]['category_name'];
 
-				//sub under  category
-				$sqlsubun="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_under_category_id']."'";
-				$objsubun=new Bin_Query();
-				$objsubun->executeQuery($sqlsubun);
-				$subuncat=$objsubun->records[0]['category_name'];
-				//soh 
-				$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
-				$obj=new Bin_Query();
-				$obj->executeQuery($sql);
-				$recordssoh=$obj->records;
+						$msrp=$get_lowest_price[0];
+					}	
+					else
+					{
+
+						$msrp=$arr[$i]['msrp'];
+					}
+
+
 
         			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
 				<span class="ribbion_div">'.$imagetag.'</span>
-				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=500" alt="'.$arr[$i]['title'].'">
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
 				<div class="mask">
-				<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
-				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
+				<h2>'.substr(trim($arr[$i]['title']),'0','10').'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
 				
-				$output.='<button class="info" type="submit" >'.Core_CLanguage::_(ADD_TO_CART).'</button>';
-				
+			
+                    if($arr[$i]['has_variation']==1)
+				   {
+
+                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><p style="padding-left:55px"><input type="button" value="Add to cart" class="info" /></p></a></div>';
+                   }
+                   else
+                   {
+                   	    $output.='<div class="span6"><p style="padding-left:55px"><input type="submit" value="Add to cart" class="info" /></p></div>';
+
+                   } 
+                   
 				$output.='</div>
 				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
 				
@@ -371,7 +381,7 @@ class Display_DFeaturedItems
 			for($i=0;$i<count($arr);$i++)
 			{
 				
-				if($i%4==0 && $i!=0 )
+				if($i%4==0 )
 				{
 
 					$output.=' </div> <div class="row-fluid">';
@@ -379,52 +389,52 @@ class Display_DFeaturedItems
 
 				if($arr[$i]['product_status']==1)
 				{
-					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/new.png" alt="new">';
+					$imagetag='<div class="ribbion_new_div"></div>';
 				}
 				elseif($arr[$i]['product_status']==2)
 				{
-					$imagetag='<img src="'.$_SESSION['base_url'].'/assets/img/ribbion/sale.png" alt="sale">';
+					$imagetag='<div class="ribbion_sale_div"></div>';
 				}
 				elseif($arr[$i]['product_status']==0)
 				{	
 					$imagetag='';
 				}
 
-				//category name
-				$sql="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['category_id']."'";
-				$obj=new Bin_Query();
-				$obj->executeQuery($sql);
-				$cat=$obj->records[0]['category_name'];
+				if(trim($arr[$i]['has_variation'])=='1')
+					{
+						 $get_lowest_price=Display_DNewProducts::getLowestvariationPrice($arr[$i]['product_id']);
 
-				//sub category
-				$sqlsub="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_category_id']."'";
-				$objsub=new Bin_Query();
-				$objsub->executeQuery($sqlsub);
-				$subcat=$objsub->records[0]['category_name'];
 
-				//sub under  category
-				$sqlsubun="SELECT * FROM  category_table WHERE  category_id='".$arr[$i]['sub_under_category_id']."'";
-				$objsubun=new Bin_Query();
-				$objsubun->executeQuery($sqlsubun);
-				$subuncat=$objsubun->records[0]['category_name'];
+						$msrp=$get_lowest_price[0];
+					}	
+					else
+					{
 
-				//soh 
-				$sql="SELECT * FROM product_inventory_table WHERE product_id='".$arr[$i]['product_id']."'";
-				$obj=new Bin_Query();
-				$obj->executeQuery($sql);
-				$recordssoh=$obj->records;
+						$msrp=$arr[$i]['msrp'];
+					}
 
+				//get prduct detals sef url
+				$comma_separated=Display_DNewProducts::getProductSefUrl($arr[$i]['category_id'],$arr[$i]['alias']);	
+		
+
+		
         			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
-				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=1000" alt="'.$arr[$i]['title'].'">
+				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
 				<div class="mask"><span class="visible-phone">
-					<h2><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+					<h2><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				</span>
-				<span class="hidden-phone"><h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
-				<p><a href="'.$_SESSION['base_url'].'/index.php?do=prodetail&action=showprod&prodid='.$arr[$i]['product_id'].'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
-				if($recordssoh[0]['soh']>0)
-				{
-				$output.='<button class="info" type="submit" >Add to Cart</button>';
-				}
+				<span class="hidden-phone"><h2>'.substr(trim($arr[$i]['title']),'0','10').' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
+			 if($arr[$i]['has_variation']==1)
+				   {
+
+                  		 $output.='<div class="cart-icn_div"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><input type="button" value="Add to cart" class="addcart" /></a></div>';
+                   }
+                   else
+                   {
+                   	    $output.='<div class="cart-icn_div"><input type="submit" value="Add to cart" class="btn" /></div>';
+
+                   } 
 				$output.='</div>
 				</div><input type="hidden" name="addtocart" value="'.$arr[$i]['product_id'].'"></form></div>';
 				
