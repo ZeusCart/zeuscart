@@ -39,6 +39,7 @@ class Bin_UrlHelper extends Bin_Query
 
 			if(isset($_SERVER['PATH_INFO']) && $_GET['do']=='' )
 			{
+
 				$url=$_SERVER['PATH_INFO'];
 
 				$results = explode('/', trim($url,'/'));	
@@ -56,8 +57,8 @@ class Bin_UrlHelper extends Bin_Query
 
 			}
 			else
-			{
-		
+			{	
+
 
 				$url=$_GET['do'];
 				$results = explode('/', trim($url,'/'));
@@ -99,7 +100,7 @@ class Bin_UrlHelper extends Bin_Query
 
 			$last=str_replace('-',' ',$last);
 			
- 		 	$sql="SELECT * from category_table WHERE category_alias='".$last."'"; 
+ 		 	$sql="SELECT * from category_table WHERE category_status='1' AND category_alias='".$last."'"; 
  			$cat=new Bin_Query();	
 			$cat->executeQuery($sql);
 			$records=$cat->records;
@@ -108,7 +109,7 @@ class Bin_UrlHelper extends Bin_Query
 			$main_category = explode(',', $subcat_path);
 			$main_category_id=$main_category[0];
 
-			$sql_main_category="SELECT * from category_table WHERE category_id='".$main_category_id."'"; 
+			$sql_main_category="SELECT * from category_table WHERE category_status='1' AND category_id='".$main_category_id."'"; 
  			$cat_main_category=new Bin_Query();	
 			$cat_main_category->executeQuery($sql_main_category);
 			$records_main_category=$cat_main_category->records;
@@ -116,34 +117,111 @@ class Bin_UrlHelper extends Bin_Query
 
 			if($catid!='' && $given_main_cat==$main_category_name)
 			{
-				if($results[0]=='grid')
+
+		
+
+			
+                    if($results[0]=='grid')
+					{
+							for($l=1;$l<count($results)-1;$l++)
+							{
+								$sqlsub=' SELECT * from category_table WHERE category_status="1"  AND  category_alias="'.$results[$l].'"';	
+								$objsub=new Bin_Query();
+			                    $objsub->executeQuery($sqlsub);
+			                    $sub_cat_id.=$objsub->records[0]['category_id'];
+								if(count($results)-2!=$l)
+								{
+									 $sub_cat_id.=',';
+								}
+							}
+
+					}
+					else if(count($results)!='1')
+					{
+						for($l=0;$l<count($results)-1;$l++)
+						{
+							$sqlsub=' SELECT * from category_table WHERE category_status="1"  AND  category_alias="'.$results[$l].'"';	
+							$objsub=new Bin_Query();
+		                    $objsub->executeQuery($sqlsub);
+		                    $sub_cat_id.=$objsub->records[0]['category_id'];
+							if(count($results)-2!=$l)
+							{
+								 $sub_cat_id.=',';
+							}
+						}
+
+					}
+					else
+					{
+						$sub_cat_id=$cat->records[0]['subcat_path']; 
+					}
+
+				
+			 	$sql_cat_check="SELECT * from category_table WHERE category_status='1' AND  subcat_path='".$sub_cat_id."'"; 
+	 			
+	 		    $obj_cat_check=new Bin_Query();	
+				$obj_cat_check->executeQuery($sql_cat_check);
+				if($records_main_category=$obj_cat_check->records)
 				{
-					$_GET['do']='girdviewproducts';
-					$_GET['cat']=$catid;
-				}
-				else
-				{						
-					$_GET['do']='viewproducts';
-					$_GET['cat']=$catid;
+					if($results[0]=='grid')
+					{
+						$_GET['do']='girdviewproducts';
+						$_GET['cat']=$catid;
+					}
+					else
+					{						
+						$_GET['do']='viewproducts';
+						$_GET['cat']=$catid;
+					}
 				}
 
 			}
 			elseif($catid =='' || $given_main_cat!=$main_category_name)
 			{
-				$last=str_replace(' ','-',$last);
 
-				$sqlpro="SELECT * FROM products_table WHERE alias='".$last."'"; 
-				$objpro=new Bin_Query();	
-				$objpro->executeQuery($sqlpro);
-				$productid=$objpro->records[0]['product_id'];
-				if($productid!='')
+
+				for($l=0;$l<count($results)-1;$l++)
 				{
-					$_GET['do']='prodetail';
-					$_GET['action']='showprod';
-					$_GET['prodid']=$productid; 
+					$sqlsub=' SELECT * from category_table WHERE category_status="1"  AND  category_alias="'.$results[$l].'"';	
+					$objsub=new Bin_Query();
+                    $objsub->executeQuery($sqlsub);
+                    $sub_cat_id.=$objsub->records[0]['category_id'];
+					if(count($results)-2!=$l)
+					{
+						 $sub_cat_id.=',';
+					}
+					
 				}
+
+	 		 	$sql_cat_check="SELECT * from category_table WHERE category_status='1' AND  subcat_path='".$sub_cat_id."'"; 
+	 			$obj_cat_check=new Bin_Query();	
+				if($obj_cat_check->executeQuery($sql_cat_check))
+				{
+					 $sql_cat_check="SELECT * from category_table WHERE category_status='1' ".$where.""; 
+
+		 			$obj_cat_check=new Bin_Query();	
+					$obj_cat_check->executeQuery($sql_cat_check);
+					if($records_main_category=$obj_cat_check->records)
+					{
+
+							$last=str_replace(' ','-',$last);
+
+							$sqlpro="SELECT * FROM products_table WHERE alias='".$last."'"; 
+							$objpro=new Bin_Query();	
+							$objpro->executeQuery($sqlpro);
+							$productid=$objpro->records[0]['product_id'];
+							if($productid!='')
+							{
+								$_GET['do']='prodetail';
+								$_GET['action']='showprod';
+								$_GET['prodid']=$productid; 
+							}
+
+					}		
+				}							
 				else
 				{
+
 					if($last=='contact')
 					{
 						$_GET['do']='contactus';	
@@ -208,8 +286,8 @@ class Bin_UrlHelper extends Bin_Query
 
 			}
 
+	
 	}
-
 
 }
 
