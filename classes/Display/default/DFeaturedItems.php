@@ -421,7 +421,7 @@ class Display_DFeaturedItems
         			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
 				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=800&w=800&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
 				<div class="mask"><span class="visible-phone">
-					<h2><a href="'.$_SESSION['base_url'].'/index.php'.$comma_separated.'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+					<h2><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				</span>
 				<span class="hidden-phone"><h2>'.substr(trim($arr[$i]['title']),'0','10').' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
