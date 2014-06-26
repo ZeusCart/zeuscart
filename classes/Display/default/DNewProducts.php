@@ -96,18 +96,18 @@ class Display_DNewProducts
 				<div class="mask"><span class="visible-phone">
 					<h2><a href="'.$_SESSION['base_url'].'/index.php'.$comma_separated.'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				</span><span class="hidden-phone">
-					<h2>'.$arr[$i]['title'].'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+					<h2>'.substr(trim($arr[$i]['title']),'0','10').'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 					
 					<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
 				
 			  if($arr[$i]['has_variation']==1)
 				   {
 
-                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><input type="button" value="Add to cart" class="addcart" /></a></div>';
+                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><p style="padding-left:55px"><input type="button" value="Add to cart" class="info" /></p></a></div>';
                    }
                    else
                    {
-                   	    $output.='<div class="span6"><input type="submit" value="Add to cart" class="addcart" /></div>';
+                   	    $output.='<div class="span6"><p style="padding-left:55px"><input type="submit" value="Add to cart" class="info" /></p></div>';
 
                    } 
 
