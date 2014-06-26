@@ -6,8 +6,7 @@
    <AJDF:output>$pagetitle</AJDF:output> 
 
     <!-- Le styles -->
-    <!-- Le styles -->
-    <AJDF:output>php</AJDF:output>
+      <AJDF:output>php</AJDF:output>
    echo  Core_CLanguage::setStyleSheets('style.css'); 
     <AJDF:output>/php</AJDF:output> 
 
@@ -20,9 +19,16 @@
    echo  Core_CLanguage::setStyleSheets('docs.css'); 
     <AJDF:output>/php</AJDF:output> 
 
-     <AJDF:output>php</AJDF:output>
+<AJDF:output>if $skinname eq 'default'</AJDF:output>
+  <AJDF:output>php</AJDF:output>
    echo  Core_CLanguage::setStyleSheets('menu.css'); 
     <AJDF:output>/php</AJDF:output> 
+<AJDF:output>else</AJDF:output>
+
+  <link href="<AJDF:output>$smarty.session.base_url</AJDF:output>/assets/default/themes/<AJDF:output>$skinname</AJDF:output>/css/menu.css" rel="stylesheet" type="text/css" />
+
+<AJDF:output>/if</AJDF:output>
+
 
     
      <AJDF:output>php</AJDF:output>
