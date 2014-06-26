@@ -243,17 +243,17 @@ class Display_DFeaturedItems
         			$output.='<div class="span3"><form name="product" method="post" action="'.$_SESSION['base_url'].'/index.php?do=addtocart&prodid='.$arr[$i]['product_id'].'" /><div class="view view-first">
 				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
 				<div class="mask">
-				<h2>'.$arr[$i]['title'].'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<h2>'.substr(trim($arr[$i]['title']),'0','10').'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
 				
 			if($arr[$i]['has_variation']==1)
 				   {
 
-                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><input type="button" value="Add to cart" class="addcart" /></a></div>';
+                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><p style="padding-left:55px"><input type="button" value="Add to cart" class="info" /></p></a></div>';
                    }
                    else
                    {
-                   	    $output.='<div class="span6"><input type="submit" value="Add to cart" class="addcart" /></div>';
+                   	    $output.='<div class="span6"><p style="padding-left:55px"><input type="submit" value="Add to cart" class="info" /></p></div>';
 
                    } 	
 				$output.='</div>
@@ -331,18 +331,18 @@ class Display_DFeaturedItems
 				<span class="ribbion_div">'.$imagetag.'</span>
 				<img src="'.$_SESSION['base_url'].'/timthumb/timthumb.php?src='.$_SESSION['base_url'].'/'.$arr[$i]['image'].'&h=250&w=250&zc=1&s=1&f=4,9&q=100" alt="'.$arr[$i]['title'].'">
 				<div class="mask">
-				<h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<h2>'.substr(trim($arr[$i]['title']),'0','10').'<br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p>';
 				
 			
                     if($arr[$i]['has_variation']==1)
 				   {
 
-                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><input type="button" value="Add to cart" class="addcart" /></a></div>';
+                  		 $output.='<div class="span6"><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'"><p style="padding-left:55px"><input type="button" value="Add to cart" class="info" /></p></a></div>';
                    }
                    else
                    {
-                   	    $output.='<div class="span6"><input type="submit" value="Add to cart" class="addcart" /></div>';
+                   	    $output.='<div class="span6"><p style="padding-left:55px"><input type="submit" value="Add to cart" class="info" /></p></div>';
 
                    } 
                    
@@ -423,7 +423,7 @@ class Display_DFeaturedItems
 				<div class="mask"><span class="visible-phone">
 					<h2><a href="'.$_SESSION['base_url'].'/index.php'.$comma_separated.'">'.$arr[$i]['title'].'</a> <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				</span>
-				<span class="hidden-phone"><h2>'.$arr[$i]['title'].' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
+				<span class="hidden-phone"><h2>'.substr(trim($arr[$i]['title']),'0','10').' <br/>'.$_SESSION['currencysetting']['selected_currency_settings']['currency_tocken'].''.$arr[$i]['msrp'].'</h2>
 				<p><a href="'.$_SESSION['base_url'].'/index.php/'.$comma_separated.'" class="list_icn"></a> <a  data-toggle="modal" href="#uploadReferenceDocuments" data-id="'.$arr[$i]['product_id'].'" class="search_icn"></a></p></span>';
 			 if($arr[$i]['has_variation']==1)
 				   {
