@@ -44,7 +44,33 @@ class Bin_Core_Assembler
 		else
 			$this->do = trim($_GET['do']);
 
-			
+
+                if (isset($_POST['prodid'])) {
+                    if (is_array($_POST['prodid'])) { 
+                        foreach ($_POST['prodid'] as $key => $value) {
+                            $_POST['prodid'][$key] = abs((int)$value);
+                        }
+                    } else {
+                        $_POST['prodid'] = abs((int)$_GET['prodid']);
+                    } 
+                }
+
+                
+                if (isset($_POST['qty'])) {
+                    if (is_array($_POST['qty'])) { 
+                        foreach ($_POST['qty'] as $key => $value) {
+                            $_POST['qty'][$key] = abs((int)$value);
+                        }
+                    } else {
+                        $_POST['qty'] = abs((int)$_GET['prodid']);
+                    } 
+                }
+ 
+                if (isset($_POST['variations'])) $_POST['variations'] = abs((int)$_POST['variations']);
+                if (isset($_GET['prodid']))      $_GET['prodid']      = abs((int)$_GET['prodid']);
+                if (isset($_POST['subId']))      $_POST['subId']      = abs((int)$_POST['subId']);
+                                
+		
 		if(array_key_exists($this->do,$domapping))
 		{
 			if(!(int)$domapping[$this->do]['loadlib'])
