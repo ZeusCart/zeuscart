@@ -480,7 +480,122 @@ class Display_DNewProducts
 		return $output;
 	}
 
+function getProductSefUrl($category_id,$alias)
+	{
 
+		$sql="SELECT * FROM  category_table  WHERE category_id='".$category_id."' AND category_status =1";
+		$obj=new Bin_Query();
+		$obj->executeQuery($sql);	
+		$records=$obj->records[0];
+	  	$cat_subcat_path=trim($obj->records[0]['subcat_path']);
+		$category_alias=trim($obj->records[0]['category_alias']);
+		$category_name=trim($obj->records[0]['category_name']);
+
+
+		$subcat_path=explode(',',$cat_subcat_path);
+		$categorycount=count($subcat_path);
+
+
+	
+		if($categorycount>0)
+		{
+
+			for($j=0;$j<$categorycount;$j++)
+			{
+				
+				
+			 	$sql="SELECT * FROM  category_table  WHERE category_id='".$subcat_path[$j]."' AND category_status =1 ";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);	
+				$records=$obj->records[0];
+			 	$cat_subcat_path=trim($obj->records[0]['subcat_path']);
+				$category_alias=trim($obj->records[0]['category_alias']);
+				$category_name=trim($obj->records[0]['category_name']);
+
+				if($cat_subcat_path==$subcat_path[$j])
+				{
+					$subcategory=$category_alias;
+					 $comma_separated=$subcategory.'/'.$alias.'.html';
+				}
+				else
+				{
+				   $subcategory=Display_DNewProducts::getSubCatPath($subcat_path[$j]);
+
+				   $comma_separated=$subcategory.'/'.$alias.'.html';
+				}
+			}
+		}
+
+		return $comma_separated;
+
+	}
+
+	function getLowestvariationPrice($pid)
+	{
+
+	  $sql="SELECT MIN(msrp) AS msrp,variation_id,product_id FROM  product_variation_table WHERE product_id='".$pid."'";
+	   $obj=new Bin_Query();
+	   $obj->executeQuery($sql);
+	   $msrp=$obj->records[0]['msrp'];
+
+	   $sql_var="SELECT msrp,variation_id,product_id FROM  product_variation_table WHERE msrp='".$msrp."'";
+	   $obj_var=new Bin_Query();
+	   $obj_var->executeQuery($sql_var);
+	   $variation_id=$obj_var->records[0]['variation_id'];
+
+	   
+	   $output=array('0'=>$msrp,'1'=>$variation_id);
+
+	   return $output;
+
+
+	}
+
+function getSubCatPath($cat_id)
+	{
+
+
+		$sqlParent="SELECT * FROM category_table WHERE category_id='".$cat_id."' AND category_status =1";	
+		$objParent=new Bin_Query();
+		$objParent->executeQuery($sqlParent);	
+		
+		$subcat_path=$objParent->records[0]['subcat_path']; 	
+		$subcat_path=explode(',',$subcat_path);
+		$categorycount=count($subcat_path);
+		
+		if($categorycount>0)
+		{
+
+			for($i=0;$i<$categorycount;$i++)
+			{				
+				
+			 	$sql="SELECT * FROM  category_table  WHERE category_id='".$subcat_path[$i]."' AND category_status =1";
+				$obj=new Bin_Query();
+				$obj->executeQuery($sql);	
+				$records=$obj->records[0];
+				$subcategory=trim($obj->records[0]['category_alias']);
+				$cat_subcat_path=trim($obj->records[0]['subcat_path']);
+				$category_alias=trim($obj->records[0]['category_alias']);
+
+				if($i!=($categorycount-1))
+				{
+					$link_category_alias.=$category_alias.'/';
+				}
+				else
+				{
+					$link_category_alias.=$category_alias;
+
+				}
+		
+			}
+
+		
+		}	
+
+		return $link_category_alias;
+
+
+	}
 
 }
 
