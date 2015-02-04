@@ -37,7 +37,6 @@ class Bin_Core_Assembler
 	public function __construct()
 	{
 
-
 		Bin_Core_Assembler::PowerSecurity();
 		include(ROOT_FOLDER.'Built/'.CURRENT_FOLDER."/Dll.php");	
 		if(isset($_GET['action']) && isset($_GET['action']{1}))
@@ -45,11 +44,9 @@ class Bin_Core_Assembler
 		else
 			$this->do = trim($_GET['do']);
 
-	
-
+			
 		if(array_key_exists($this->do,$domapping))
 		{
-
 			if(!(int)$domapping[$this->do]['loadlib'])
 			{
 				$this->loadModelFiles($domapping, $globalmapping);			
@@ -61,10 +58,8 @@ class Bin_Core_Assembler
 				$this->loadModelFiles($domapping, $globalmapping);			
 			}
 		}
-
 		else
 		{
-
 			if(!(int)$globalmapping['invalidrequest']['loadlib'])
 			{
 				$this->loadModelFiles($domapping, $globalmapping);			
@@ -83,8 +78,6 @@ class Bin_Core_Assembler
 	private function loadSystemFiles($system)
 	{
 		foreach($system as $key=>$item)	
-
-
 			include(ROOT_FOLDER.$item);	
 	}
 	
@@ -93,101 +86,111 @@ class Bin_Core_Assembler
 	private function loadLibrayFiles($library)
 	{
 		foreach($library as $key=>$item)	
-
-
 			include(ROOT_FOLDER.$item);	
 	}
 	
-	function loadModelFiles($domapping,$globalmapping)
+	private function loadModelFiles($domapping,$globalmapping)
 	{
-
 		if(array_key_exists($this->do,$domapping))
 		{
 			include_once('classes/Model/'.$domapping[$this->do]['model'].'.php');
 			$class = "Model_".$domapping[$this->do]['model'];			
 			$function = $domapping[$this->do]['function'];
 			$obj = new $class;
-			$obj->$function();	
-
-		}
-		elseif($_GET['do']!='' && $_GET['do']!='index')  // newlt includeed file for sef url
-		{
-				if(isset($_GET['action']) && isset($_GET['action']{1}))
-				$join_do = trim($_GET['do']).':'.trim($_GET['action']);
-				else
-				$join_do = trim($_GET['do']);
-
-			include_once('classes/Model/'.$domapping[$join_do ]['model'].'.php');
-			$class = "Model_".$domapping[$join_do]['model'];	
-		    $function = $domapping[$join_do ]['function'];
- 			$obj = new $class;
-	 		$obj->$function();
-
-
+			$obj->$function();			
 		}
 		else 
 		{
-
-
 			include_once('classes/Model/'.$globalmapping['invalidrequest']['model'].'.php');
 			$class = "Model_".$globalmapping['invalidrequest']['model'];					
 			$function = $globalmapping['invalidrequest']['function'];		
 			$obj = new $class;	
 			$obj->$function();
-
 		}
 	}	
 	
-	function PowerSecurity()
-	{
-		//	Power security in $_POST single value and array values
-		//	******************************************************
+	// function PowerSecurity()
+	// {
+	// 	//	Power security in $_POST single value and array values
+	// 	//	******************************************************
 		
-		foreach($_POST as $key=>$itemm)
-		{
+	// 	foreach($_POST as $key=>$itemm)
+	// 	{
 	
-			if($key != "google_script")
-			{
-				if(!is_array($itemm))
-				{
-					if(!strstr($itemm,"<script"))
-					{
-						$_POST[$key] = mysql_escape_string(stripslashes(substr($itemm,strpos($itemm,"</script>"),strlen($itemm))));
-					}
-					else
-					{
-						$_POST[$key] = "";
-					}
-				}
-				else
-				{
-					$_POST[$key] = Bin_Core_Assembler::recuresiveArray($itemm);
-				}
-			}
-		}	
+	// 		if($key != "google_script")
+	// 		{
+	// 			if(!is_array($itemm))
+	// 			{
+	// 				if(!strstr($itemm,"<script"))
+	// 				{
+	// 					$_POST[$key] = mysql_escape_string(stripslashes(substr($itemm,strpos($itemm,"</script>"),strlen($itemm))));
+	// 				}
+	// 				else
+	// 				{
+	// 					$_POST[$key] = "";
+	// 				}
+	// 			}
+	// 			else
+	// 			{
+	// 				$_POST[$key] = Bin_Core_Assembler::recuresiveArray($itemm);
+	// 			}
+	// 		}
+	// 	}	
 		
-		//	Power security in $_GET single value and array values
-		//	*****************************************************
-		foreach($_GET as $key=>$itemm)
-		{
-			if(!is_array($itemm))
-			{
-				if(!strstr($itemm,"<script"))
-				{
-					$_GET[$key] = mysql_escape_string(stripslashes(substr($itemm,strpos($itemm,"</script>"),strlen($itemm))));
-				}
-				else
-				{
-					$_GET[$key] = "";
-				}
+	// 	//	Power security in $_GET single value and array values
+	// 	//	*****************************************************
+	// 	foreach($_GET as $key=>$itemm)
+	// 	{
+	// 		if(!is_array($itemm))
+	// 		{
+	// 			if(!strstr($itemm,"<script"))
+	// 			{
+	// 				$_GET[$key] = mysql_escape_string(stripslashes(substr($itemm,strpos($itemm,"</script>"),strlen($itemm))));
+	// 			}
+	// 			else
+	// 			{
+	// 				$_GET[$key] = "";
+	// 			}
 				
-			}
-			else
+	// 		}
+	// 		else
+	// 		{
+	// 			$_GET[$key] = Bin_Core_Assembler::recuresiveArray($itemm);
+	// 		}
+	// 	}
+		
+	// }
+
+	public function PowerSecurity()
+	{		
+
+		if($_REQUEST['do']!='captcha'){
+
+		foreach ($_POST as $key => $value) {
+			if($key != "description")
 			{
-				$_GET[$key] = Bin_Core_Assembler::recuresiveArray($itemm);
+				$_POST[$key]=filter_var($value, FILTER_SANITIZE_STRING);
+
 			}
 		}
-		
+
+		foreach ($_GET as $key => $value) {
+			if($key != "description")
+			{
+				$_GET[$key]=filter_var($value, FILTER_SANITIZE_STRING);
+
+			}
+		}
+
+		foreach ($_REQUEST as $key => $value) {
+			if($key != "description")
+			{
+				$_REQUEST[$key]=filter_var($value, FILTER_SANITIZE_STRING);
+
+			}
+		}
+
+	}
 	}
 	
 	function recuresiveArray($itemm)
@@ -252,8 +255,6 @@ class Bin_Core_Assembler
 	function PHPrecuresiveArray($itemm)
 	{
  
-
-
 		foreach($itemm as $key=>$item)
 		{
 			if(!is_array($item))
