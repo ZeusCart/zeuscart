@@ -135,56 +135,88 @@ class Bin_Core_Assembler
 		}
 	}	
 	
-	function PowerSecurity()
-	{
-		//	Power security in $_POST single value and array values
-		//	******************************************************
+	// function PowerSecurity()
+	// {
+	// 	//	Power security in $_POST single value and array values
+	// 	//	******************************************************
 		
-		foreach($_POST as $key=>$itemm)
-		{
+	// 	foreach($_POST as $key=>$itemm)
+	// 	{
 	
-			if($key != "google_script")
-			{
-				if(!is_array($itemm))
-				{
-					if(!strstr($itemm,"<script"))
-					{
-						$_POST[$key] = mysql_escape_string(stripslashes(substr($itemm,strpos($itemm,"</script>"),strlen($itemm))));
-					}
-					else
-					{
-						$_POST[$key] = "";
-					}
-				}
-				else
-				{
-					$_POST[$key] = Bin_Core_Assembler::recuresiveArray($itemm);
-				}
-			}
-		}	
+	// 		if($key != "google_script")
+	// 		{
+	// 			if(!is_array($itemm))
+	// 			{
+	// 				if(!strstr($itemm,"<script"))
+	// 				{
+	// 					$_POST[$key] = mysql_escape_string(stripslashes(substr($itemm,strpos($itemm,"</script>"),strlen($itemm))));
+	// 				}
+	// 				else
+	// 				{
+	// 					$_POST[$key] = "";
+	// 				}
+	// 			}
+	// 			else
+	// 			{
+	// 				$_POST[$key] = Bin_Core_Assembler::recuresiveArray($itemm);
+	// 			}
+	// 		}
+	// 	}	
 		
-		//	Power security in $_GET single value and array values
-		//	*****************************************************
-		foreach($_GET as $key=>$itemm)
-		{
-			if(!is_array($itemm))
-			{
-				if(!strstr($itemm,"<script"))
-				{
-					$_GET[$key] = mysql_escape_string(stripslashes(substr($itemm,strpos($itemm,"</script>"),strlen($itemm))));
-				}
-				else
-				{
-					$_GET[$key] = "";
-				}
+	// 	//	Power security in $_GET single value and array values
+	// 	//	*****************************************************
+	// 	foreach($_GET as $key=>$itemm)
+	// 	{
+	// 		if(!is_array($itemm))
+	// 		{
+	// 			if(!strstr($itemm,"<script"))
+	// 			{
+	// 				$_GET[$key] = mysql_escape_string(stripslashes(substr($itemm,strpos($itemm,"</script>"),strlen($itemm))));
+	// 			}
+	// 			else
+	// 			{
+	// 				$_GET[$key] = "";
+	// 			}
 				
-			}
-			else
+	// 		}
+	// 		else
+	// 		{
+	// 			$_GET[$key] = Bin_Core_Assembler::recuresiveArray($itemm);
+	// 		}
+	// 	}
+		
+	// }
+
+	public function PowerSecurity()
+	{		
+
+		if($_REQUEST['do']!='captcha'){
+
+		foreach ($_POST as $key => $value) {
+			if($key != "description")
 			{
-				$_GET[$key] = Bin_Core_Assembler::recuresiveArray($itemm);
+				$_POST[$key]=filter_var($value, FILTER_SANITIZE_STRING);
+
 			}
 		}
-		
+
+		foreach ($_GET as $key => $value) {
+			if($key != "description")
+			{
+				$_GET[$key]=filter_var($value, FILTER_SANITIZE_STRING);
+
+			}
+		}
+
+		foreach ($_REQUEST as $key => $value) {
+			if($key != "description")
+			{
+				$_REQUEST[$key]=filter_var($value, FILTER_SANITIZE_STRING);
+
+			}
+		}
+
+	}
 	}
 	
 	function recuresiveArray($itemm)
