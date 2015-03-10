@@ -2332,14 +2332,19 @@ class Core_CAddCart
 	function insertBillingAddress()
 	{
 
+		$txtstreet=addslashes(stripslashes(trim($_POST['txtstreet'])));		
+		$txtstreet=str_replace(array("\r","\n",'\r','\n'),'', $txtstreet);
+
 		$obj=new Bin_Query();
-		$sql="INSERT INTO  addressbook_table(user_id,contact_name,first_name,company,address,city,suburb,state,country,zip,phone_no)VALUES('".$_SESSION['user_id']."','".$_POST['txtname']."','".$_POST['txtname']."','".$_POST['txtcompany']."','".$_POST['txtstreet']."','".$_POST['txtcity']."','".$_POST['txtsuburb']."','".$_POST['txtstate']."','".$_POST['selbillcountry']."','".$_POST['txtzipcode']."','".$_POST['txtphone']."')";
+		$sql="INSERT INTO  addressbook_table(user_id,contact_name,first_name,company,address,city,suburb,state,country,zip,phone_no)VALUES('".$_SESSION['user_id']."','".$_POST['txtname']."','".$_POST['txtname']."','".$_POST['txtcompany']."','".$txtstreet."','".$_POST['txtcity']."','".$_POST['txtsuburb']."','".$_POST['txtstate']."','".$_POST['selbillcountry']."','".$_POST['txtzipcode']."','".$_POST['txtphone']."')";
 		if($obj->updateQuery($sql))
 		{
+			$bill_add_id=$obj->insertid;
+
 			$obj1=new Bin_Query();
 			$sql1="UPDATE users_table SET billing_address_id='".mysql_insert_id()."' WHERE user_id='".$_SESSION['user_id']."'";
 			$obj1->updateQuery($sql1);
-			header('Location:?do=showcart&action=getshippingaddressdetails');
+			header('Location:?do=showcart&action=getshippingaddressdetails&bill_add_id='.$bill_add_id);
 			exit();
 		}
 
@@ -2355,14 +2360,20 @@ class Core_CAddCart
 	function insertShippingAddress()
 	{
 	
+		$txtstreet=addslashes(stripslashes(trim($_POST['txtstreet'])));		
+		$txtstreet=str_replace(array("\r","\n",'\r','\n'),'', $txtstreet);
+
 		$obj=new Bin_Query();
-		$sql="INSERT INTO  addressbook_table(user_id,contact_name,first_name,company,address,city,suburb,state,country,zip,phone_no)VALUES('".$_SESSION['user_id']."','".$_POST['txtname']."','".$_POST['txtname']."','".$_POST['txtcompany']."','".$_POST['txtstreet']."','".$_POST['txtcity']."','".$_POST['txtsuburb']."','".$_POST['txtstate']."','".$_POST['selshipcountry']."','".$_POST['txtzipcode']."','".$_POST['txtphone']."')";
+		$sql="INSERT INTO  addressbook_table(user_id,contact_name,first_name,company,address,city,suburb,state,country,zip,phone_no)VALUES('".$_SESSION['user_id']."','".$_POST['txtname']."','".$_POST['txtname']."','".$_POST['txtcompany']."','".$txtstreet."','".$_POST['txtcity']."','".$_POST['txtsuburb']."','".$_POST['txtstate']."','".$_POST['selshipcountry']."','".$_POST['txtzipcode']."','".$_POST['txtphone']."')";
 		if($obj->updateQuery($sql))
 		{
+
+			$ship_add_id=$obj->insertid;
+
 			$obj1=new Bin_Query();
 			$sql1="UPDATE users_table SET shipping_address_id='".mysql_insert_id()."' WHERE user_id='".$_SESSION['user_id']."'";
 			$obj1->updateQuery($sql1);
-			header("Location:?do=showcart&action=getshippingmethod");
+			header("Location:?do=showcart&action=getshippingmethod&ship_add_id=".$ship_add_id);
 			exit();
 		}
 
