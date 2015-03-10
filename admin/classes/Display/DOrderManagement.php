@@ -633,7 +633,7 @@ class Display_DOrderManagement
 					<label>Shipment Name </label></div>
 					<div class="span6">'.$shipment_name.'
 
-					</div><div class="span2"><a data-toggle="modal" class="edit_icon1" role="button" href="#myModal"></a></div></div>'.$ups_ship_duration.'
+					</div><div class="span2"><a data-toggle="modal" class="edit_icon1" role="button" href="#myModal1"></a></div></div>'.$ups_ship_duration.'
 					<div class="row-fluid">
 					<div class="span3">
 					<label>
@@ -956,7 +956,7 @@ class Display_DOrderManagement
 					$objSize=new Bin_Query();
 					$objSize->executeQuery($sqlSize);
 					$size=$objSize->records[0]['variation_name'];
-					$variation='<span class="label">Size - '.''.$size.'</span>';
+					$variation='<span class="label">'.$size.'</span>';
 				}
 
 
